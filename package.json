@@ -1,4 +1,5 @@
 {
+  "cacheDirectories": [".next/cache"],
   "name": "mobiru-ecom-web-mobile",
   "private": true,
   "scripts": {
