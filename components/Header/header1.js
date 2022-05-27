@@ -1,0 +1,35 @@
+import { Fragment, useState } from "react";
+import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
+import { useEffect } from "react";
+import SearchBar from "./SearchBar";
+
+function Header1() {
+  const { selectedSearchCity, user } = useAuthState();
+  const dispatch = useAuthDispatch();
+  console.log("user ", user, selectedSearchCity);
+
+  const [userName, setUserName] = useState("Guest");
+
+  useEffect(() => {
+    if (user != null) {
+      const searchLoc = user?.address?.filter((items) => {
+        return items.addressType === "SearchLocation";
+      });
+      setUserName(user.userdetails.userName === null ? "User" : user?.userdetails?.userName);
+      if (searchLoc && searchLoc.length > 0) {
+        dispatch("ADDCITY", searchLoc[0]?.city);
+      }
+      console.log("user ", user, selectedSearchCity);
+    } else {
+      setUserName("Guest");
+    }
+  }, [user]);
+
+  return (
+    <div className="flex justify-between items-center pt-1 py-2 px-4 text-sm font-medium bg-primary text-white">
+      <SearchBar />
+    </div>
+  );
+}
+
+export default Header1;

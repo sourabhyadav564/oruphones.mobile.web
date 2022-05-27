@@ -1,0 +1,107 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+*:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge add Firefox */
+body {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important; /* Firefox */
+}
+
+.cardShadow1 {
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+}
+.bannerShadow {
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+.menuShadow {
+  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.topShadow {
+  -webkit-box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.filterPopup::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.filterPopup {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+
+input:checked + div {
+  @apply border-primary;
+}
+input:checked + div svg {
+  @apply block;
+}
+
+.outline *:focus-within ~ label,
+.outline *:not(:placeholder-shown) ~ label {
+  @apply transform -translate-y-2.5 z-0 ml-4 px-1 py-0;
+}
+
+.outline input:focus-within ~ label,
+.outline input ~ label,
+.outline select:focus-within ~ label,
+.outline select:not(:placeholder-shown) ~ label,
+.outline textarea:focus-within ~ label,
+.outline textarea:not(:placeholder-shown) ~ label {
+  @apply transform -translate-y-2.5 z-0 ml-4 px-1 py-0;
+}
+
+.content {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  @apply pt-3 pb-4 px-6 rounded-lg bg-white;
+}
+.content h1 {
+  font-size: 21px;
+  margin: 1rem 0;
+  @apply text-green-600;
+}
+.content h2 {
+  font-size: 16px;
+  margin: 0.5rem 0;
+  @apply font-bold text-black-4e;
+}
+.content h3 {
+  font-size: 16px;
+  margin: 0.5rem 0;
+  @apply font-bold text-black-4e;
+}
+.content p {
+  @apply text-base font-normal pb-2 text-black-4e;
+}
+
+.swiper-pagination {
+  bottom: -0.8rem !important;
+  padding-bottom: 10px;
+}
+
+.swiper-wrapper {
+  padding-inline-start: 0;
+}
