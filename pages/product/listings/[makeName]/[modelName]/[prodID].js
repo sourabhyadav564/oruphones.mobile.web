@@ -308,14 +308,14 @@ function ProductDeatils({ data }) {
               </div>
             </div>
           </div>
+          {data?.externalSource && (
+            <div>
+              <span className="text-xs">Check price from other sellers</span>
+            </div>
+          )}
           {data?.externalSource &&
             data?.externalSource.map((items, index) => (
               <>
-                <div>
-                  <span className="text-xs">
-                    Check price from other sellers
-                  </span>
-                </div>
                 <div className="border rounded-md">
                   <div className="flex items-center" key={index}>
                     <div className="flex-1 flex flex-col justify-start px-4 py-1">
