@@ -308,12 +308,12 @@ function ProductDeatils({ data }) {
               </div>
             </div>
           </div>
-          {data?.externalSource.length && (
+          {data?.externalSource.length > 0 && (
             <div>
               <span className="text-xs">Check price from other sellers</span>
             </div>
           )}
-          {data?.externalSourc.length &&
+          {data?.externalSource.length > 0 &&
             data?.externalSource.map((items, index) => (
               <>
                 <div className="border rounded-md">
