@@ -86,6 +86,7 @@ function ProductDeatils({ data }) {
 
   const showSellerNumber = async (e) => {
     console.log(e, Cookies.get("info"));
+    handleButtonClick();
     if (!authenticated) {
       //router.push("/login");
       setOpenLoginPopup(true);
@@ -96,7 +97,6 @@ function ProductDeatils({ data }) {
         setShowNumber((prev) => !prev);
       } else {
         setOpenRequestVerificationPopup(true);
-        handleButtonClick();
       }
     }
   };
