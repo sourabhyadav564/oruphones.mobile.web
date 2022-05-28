@@ -3,11 +3,9 @@
   "name": "mobiru-ecom-web-mobile",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
-    "build": "next build",
-    "start": "next start -p $PORT",
-    "lint": "next lint",
-    "heroku-postbuild": "npm run build"
+    "dev": "next dev",
+    "build": "next build & next export",
+    "start": "next start"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.2",
