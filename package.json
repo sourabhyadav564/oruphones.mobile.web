@@ -3,9 +3,9 @@
   "name": "mobiru-ecom-web-mobile",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build & next export",
-    "start": "next start",
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p $PORT",
     "lint": "next lint"
   },
   "dependencies": {
