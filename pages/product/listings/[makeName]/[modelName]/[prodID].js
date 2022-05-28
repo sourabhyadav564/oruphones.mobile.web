@@ -54,7 +54,7 @@ function ProductDeatils({ data }) {
   const [openRequestVerificationPopup, setOpenRequestVerificationPopup] =
     useState(false);
   const [deviceListingInfo, setDeviceListingInfo] = useState(data);
-  const [contactSellerMobileNumber, setContactSellerMobileNumber] = useState();
+  const [contactSellerMobileNumber, setContactSellerMobileNumber] = useState("Loading...");
   const [showNumber, setShowNumber] = useState(false);
   const [showFullImage, setShowFullImage] = useState(false);
   const [defaultOpen, setDefaultOpen] = useState(false);
@@ -308,16 +308,16 @@ function ProductDeatils({ data }) {
               </div>
             </div>
           </div>
-          {data?.externalSource.length > 0 && (
+          {data?.externalSource?.length > 0 && (
             <div>
               <span className="text-xs">Check price from other sellers</span>
             </div>
           )}
-          {data?.externalSource.length > 0 &&
+          {data?.externalSource?.length > 0 &&
             data?.externalSource.map((items, index) => (
               <>
-                <div className="border rounded-md">
-                  <div className="flex items-center" key={index}>
+                <div className="border rounded-md flex items-center key={index}">
+                  {/* <div className="flex items-center" key={index}> */}
                     <div className="flex-1 flex flex-col justify-start px-4 py-1">
                       {/* <p className="text-gray-70 text-xs">Seller</p> */}
                       <div>
@@ -337,7 +337,7 @@ function ProductDeatils({ data }) {
                         {numberWithCommas(items?.externalSourcePrice)}
                       </p>
                     </div>
-                  </div>
+                  {/* </div> */}
                 </div>
               </>
             ))}
