@@ -89,6 +89,8 @@ const AddListingForm = ({ data }) => {
       make: make,
       marketingName: model,
       deviceCondition: condition,
+      warrantyPeriod: "more",
+      verified: "no"
     };
     if (make !== null && model !== null && storage !== null && condition !== null) {
       getExternalSellSourceData(payload).then((response) => {
