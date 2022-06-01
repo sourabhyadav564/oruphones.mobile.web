@@ -102,7 +102,7 @@ const AddListingForm = ({ data }) => {
     let reqParams = {
       make: make,
       marketingName: model,
-      devicestorage: storage,
+      devicestorage: storage?.split('/')[0],
       deviceCondition: condition,
       earPhones: headphone ? "Y" : "N",
       charger: charging ? "Y" : "N",
@@ -220,7 +220,7 @@ const AddListingForm = ({ data }) => {
         make,
         color,
         marketingName: model,
-        deviceStorage: storage,
+        deviceStorage: storage?.split("/")[0],
         deviceCondition: condition,
         listingPrice: inputSellPrice.trim(),
         listingLocation: selectedCity,
