@@ -107,7 +107,8 @@ const AddListingForm = ({ data }) => {
       earPhones: headphone ? "Y" : "N",
       charger: charging ? "Y" : "N",
       originalBox: originalbox ? "Y" : "N",
-      warrantyPeriod: "more"
+      warrantyPeriod: "more",
+      verified: "no"
     };
     console.log(reqParams);
     if (make && model && storage && condition && (charging || headphone || originalbox || true)) {
