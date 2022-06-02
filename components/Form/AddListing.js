@@ -85,12 +85,14 @@ const AddListingForm = ({ data }) => {
 
   useEffect(() => {
     let payload = {
-      deviceStorage: storage,
+      deviceStorage: storage?.split('/')[0],
       make: make,
       marketingName: model,
       deviceCondition: condition,
       warrantyPeriod: "more",
-      verified: "no"
+      hasCharger: headphone ? "Y" : "N",
+      hasEarphone: charging ? "Y" : "N",
+      hasOriginalBox: originalbox ? "Y" : "N",
     };
     if (make !== null && model !== null && storage !== null && condition !== null) {
       getExternalSellSourceData(payload).then((response) => {
@@ -98,7 +100,7 @@ const AddListingForm = ({ data }) => {
         setGetExternalSellerData(response?.dataObject);
       });
     }
-  }, [make, model, storage, condition]);
+  }, [make, model, storage, condition, headphone, charging, originalbox]);
 
   useEffect(() => {
     let reqParams = {
@@ -122,7 +124,7 @@ const AddListingForm = ({ data }) => {
         (err) => console.error(err)
       );
     }
-  }, [model, storage, condition, charging, headphone, originalbox]);
+  }, [make, model, storage, condition, charging, headphone, originalbox]);
 
   const handleSelectChange = (e, name) => {
     if (name === "make") {
