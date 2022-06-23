@@ -6,7 +6,13 @@ import originalBoxImg from "@/assets/box.svg";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
 import Input from "./Input";
-import { getRecommandedPrice, saveLisiting, uploadImage, getExternalSellSourceData, getGlobalCities } from "api-call";
+import {
+  getRecommandedPrice,
+  saveLisiting,
+  uploadImage,
+  getExternalSellSourceData,
+  getGlobalCities,
+} from "api-call";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import { numberWithCommas, numberFromString } from "@/utils/util";
 import ListingAdded from "../Popup/ListingAdded";
@@ -40,6 +46,7 @@ const AddListingForm = ({ data }) => {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openLoginPopup, setOpenLoginPopup] = useState(false);
   const [sellValueRequired, setSellValueRequired] = useState("");
+  const [nameValueRequired, setNameValueRequired] = useState("");
   const [listingAdded, setListingAdded] = useState(false);
 
   const { user, authenticated, loading, selectedSearchCity } = useAuthState();
@@ -51,7 +58,8 @@ const AddListingForm = ({ data }) => {
   const [locationRequired, setLocationRequired] = useState("");
   const [showTCPopUp, setShowTCPopup] = useState(false);
   const [globalCities, setGlobalCities] = useState();
-  const userSelectedLocation = selectedSearchCity === 'India' ? "" : selectedSearchCity;
+  const userSelectedLocation =
+    selectedSearchCity === "India" ? "" : selectedSearchCity;
   const [selectedCity, setSelectedCity] = useState(userSelectedLocation);
 
   console.log("selectedCity", selectedCity);
@@ -85,7 +93,7 @@ const AddListingForm = ({ data }) => {
 
   useEffect(() => {
     let payload = {
-      deviceStorage: storage?.split('/')[0],
+      deviceStorage: storage?.split("/")[0],
       make: make,
       marketingName: model,
       deviceCondition: condition,
@@ -94,7 +102,12 @@ const AddListingForm = ({ data }) => {
       hasEarphone: charging ? "Y" : "N",
       hasOriginalBox: originalbox ? "Y" : "N",
     };
-    if (make !== null && model !== null && storage !== null && condition !== null) {
+    if (
+      make !== null &&
+      model !== null &&
+      storage !== null &&
+      condition !== null
+    ) {
       getExternalSellSourceData(payload).then((response) => {
         console.log("getExternalSellSourceData ", response?.dataObject);
         setGetExternalSellerData(response?.dataObject);
@@ -106,16 +119,22 @@ const AddListingForm = ({ data }) => {
     let reqParams = {
       make: make,
       marketingName: model,
-      devicestorage: storage?.split('/')[0],
+      devicestorage: storage?.split("/")[0],
       deviceCondition: condition,
       earPhones: headphone ? "Y" : "N",
       charger: charging ? "Y" : "N",
       originalBox: originalbox ? "Y" : "N",
       warrantyPeriod: "more",
-      verified: "no"
+      verified: "no",
     };
     console.log(reqParams);
-    if (make && model && storage && condition && (charging || headphone || originalbox || true)) {
+    if (
+      make &&
+      model &&
+      storage &&
+      condition &&
+      (charging || headphone || originalbox || true)
+    ) {
       console.log("called");
       getRecommandedPrice(reqParams).then(
         ({ dataObject }) => {
@@ -187,6 +206,9 @@ const AddListingForm = ({ data }) => {
     var sellValueTag = document.querySelector("#sellValue");
     var sellValue = sellValueTag.value;
 
+    var inputNameTag = document.querySelector("#inputName");
+    var inputName = inputNameTag.value;
+
     if (
       selectedCity === undefined ||
       make === undefined ||
@@ -212,12 +234,20 @@ const AddListingForm = ({ data }) => {
         window.scroll(0, 0);
         setDeviceConditionRequired("border-red");
       }
-      if (selectedCity === "India" ||selectedCity === undefined || selectedCity === "") {
+      if (
+        selectedCity === "India" ||
+        selectedCity === undefined ||
+        selectedCity === ""
+      ) {
         window.scroll(0, 0);
         setLocationRequired("border-red");
       }
       if (!sellValue || sellValue < 1000) {
+        print("aman");
         setSellValueRequired("border-red");
+      }
+      if (!inputName || inputName === "") {
+        setNameValueRequired("border-red");
       }
     } else if (!loading && !authenticated) {
       setOpenLoginPopup(true);
@@ -226,7 +256,16 @@ const AddListingForm = ({ data }) => {
         make,
         color,
         marketingName: model,
-        deviceStorage: storage?.split("/")[0],
+        // deviceStorage: storage?.split("/")[0],
+        // deviceRam: storage?.split("/")[1].replace("RAM", ""),
+        deviceStorage: storage.toString().split("/")[0].toString().trim(),
+        deviceRam: storage
+          .toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim(),
         deviceCondition: condition,
         listingPrice: inputSellPrice.trim(),
         listingLocation: selectedCity,
@@ -236,8 +275,10 @@ const AddListingForm = ({ data }) => {
         earphone: headphone ? "Y" : "N",
         originalbox: originalbox ? "Y" : "N",
         userUniqueId: user?.userdetails?.userUniqueId,
-        images: images.filter((item) => item?.fullImage && item.fullImage !== null),
-        model: model
+        images: images.filter(
+          (item) => item?.fullImage && item.fullImage !== null
+        ),
+        model: model,
       };
       console.log("SAVE LISTING ", payload);
       saveLisiting(payload).then(
@@ -252,8 +293,13 @@ const AddListingForm = ({ data }) => {
 
   return (
     <Fragment>
-      {(makeRequired.length > 0 || marketingNameRequired.length > 0 || deviceConditionRequired.length > 0 || storageRequired.length > 0) && (
-        <h1 className="text-red pt-4">Please fill all the required fields properly</h1>
+      {(makeRequired.length > 0 ||
+        marketingNameRequired.length > 0 ||
+        deviceConditionRequired.length > 0 ||
+        storageRequired.length > 0) && (
+        <h1 className="text-red pt-4">
+          Please fill all the required fields properly
+        </h1>
       )}
       <form className="grid grid-cols-1 space-y-6 mt-8" onSubmit={handleSubmit}>
         <div>
@@ -273,7 +319,11 @@ const AddListingForm = ({ data }) => {
               })
             }
           />
-          {makeRequired && <p className="text-sm whitespace-nowrap cursor-pointer text-red">Please select this field</p>}
+          {makeRequired && (
+            <p className="text-sm whitespace-nowrap cursor-pointer text-red">
+              Please select this field
+            </p>
+          )}
         </div>
         <div>
           <MySelect
@@ -292,7 +342,11 @@ const AddListingForm = ({ data }) => {
               })
             }
           />
-          {marketingNameRequired && <p className="text-sm whitespace-nowrap cursor-pointer text-red">Please select this field</p>}
+          {marketingNameRequired && (
+            <p className="text-sm whitespace-nowrap cursor-pointer text-red">
+              Please select this field
+            </p>
+          )}
         </div>
         <div>
           <MySelect
@@ -312,7 +366,11 @@ const AddListingForm = ({ data }) => {
               })
             }
           />
-          {storageRequired && <p className="text-sm whitespace-nowrap cursor-pointer text-red">Please select this field</p>}
+          {storageRequired && (
+            <p className="text-sm whitespace-nowrap cursor-pointer text-red">
+              Please select this field
+            </p>
+          )}
         </div>
         <MySelect
           labelName="Color"
@@ -341,7 +399,11 @@ const AddListingForm = ({ data }) => {
               return { label: i, value: i };
             })}
           />
-          {deviceConditionRequired && <p className="text-sm whitespace-nowrap cursor-pointer text-red">Please select this field</p>}
+          {deviceConditionRequired && (
+            <p className="text-sm whitespace-nowrap cursor-pointer text-red">
+              Please select this field
+            </p>
+          )}
           <p
             className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
             onClick={() => setOpenConditionInfo(true)}
@@ -374,7 +436,11 @@ const AddListingForm = ({ data }) => {
             <span
               className="absolute -bottom-6 text-sm right-0 text-primary cursor-pointer"
               onClick={() =>
-                setImages((prev) => [...prev, { panel: images.length > 1 && images.length - 1 }, { panel: images.length > 1 && images.length }])
+                setImages((prev) => [
+                  ...prev,
+                  { panel: images.length > 1 && images.length - 1 },
+                  { panel: images.length > 1 && images.length },
+                ])
               }
             >
               + Add more
@@ -383,37 +449,68 @@ const AddListingForm = ({ data }) => {
         </div>
         <p className="text-gray-70 font-semibold capitalize">Add accessories</p>
         <div className="grid grid-cols-3 space-x-2">
-          <Checkbox src={chargingImg} text="Charger" onChange={() => setCharging((prev) => !prev)} checked={charging} />
-          <Checkbox src={headphoneImg} text="Earphones" onChange={() => setHeadphone((prev) => !prev)} checked={headphone} />
-          <Checkbox src={originalBoxImg} text="Original Box" onChange={() => setOriginalbox((prev) => !prev)} checked={originalbox} />
+          <Checkbox
+            src={chargingImg}
+            text="Charger"
+            onChange={() => setCharging((prev) => !prev)}
+            checked={charging}
+          />
+          <Checkbox
+            src={headphoneImg}
+            text="Earphones"
+            onChange={() => setHeadphone((prev) => !prev)}
+            checked={headphone}
+          />
+          <Checkbox
+            src={originalBoxImg}
+            text="Original Box"
+            onChange={() => setOriginalbox((prev) => !prev)}
+            checked={originalbox}
+          />
         </div>
-        <Input
-          defaultValue={user?.userdetails?.userName}
-          placeholder="Enter seller name ex: Ram, Mega Traders etc"
-          onChange={(e) => setInputUsername(e.target.value)}
-          type="text"
-          maxLength="30"
-        >
-          Name
-        </Input>
+        <div className="relative">
+          <Input
+            id="inputName"
+            defaultValue={user?.userdetails?.userName}
+            placeholder="Enter seller name ex: Ram, Mega Traders etc"
+            onChange={(e) => {
+              setInputUsername(e.target.value);
+              setNameValueRequired("");
+            }}
+            type="text"
+            maxLength="30"
+            errorClass={`border ${nameValueRequired}`}
+          >
+            Name
+          </Input>
+          {nameValueRequired && (
+            <span className="text-red text-sm absolute -bottom-6">
+              Please enter your name first
+            </span>
+          )}
+        </div>
         <div>
-        <MySelect
-          labelName="Location*"
-          placeholder={selectedCity}
-          className={locationRequired}
-          onFocus={(e) => {
-            setLocationRequired("");
-          }}
-          onChange={(e) => {
-            setSelectedCity(e.value);
-          }}
-          options={globalCities
-            ?.filter((item) => item.displayWithImage === "0")
-            .map((items) => {
-              return { label: items.city, value: items.city };
-            })}
-        />
-        {locationRequired && <p className="text-sm whitespace-nowrap cursor-pointer text-red">Please select this field</p>}
+          <MySelect
+            labelName="Location*"
+            placeholder={selectedCity}
+            className={`${locationRequired} mt-4`}
+            onFocus={(e) => {
+              setLocationRequired("");
+            }}
+            onChange={(e) => {
+              setSelectedCity(e.value);
+            }}
+            options={globalCities
+              ?.filter((item) => item.displayWithImage === "0")
+              .map((items) => {
+                return { label: items.city, value: items.city };
+              })}
+          />
+          {locationRequired && (
+            <p className="text-sm whitespace-nowrap cursor-pointer text-red">
+              Please select this field
+            </p>
+          )}
         </div>
         <div className="grid grid-cols-5 relative">
           <Input
@@ -431,7 +528,11 @@ const AddListingForm = ({ data }) => {
           >
             Enter your sell price
           </Input>
-          {sellValueRequired && <span className="text-red text-sm absolute -bottom-6">Enter price more than 1000</span>}
+          {sellValueRequired && (
+            <span className="text-red text-sm absolute -bottom-6">
+              Enter price more than 1000
+            </span>
+          )}
 
           <div className="text-sm bg-gray-c7 text-black-4e col-span-2 px-2 py-1 rounded-r -ml-1 relative">
             <span>Recommended Price</span>
@@ -439,7 +540,8 @@ const AddListingForm = ({ data }) => {
             {(recommandedPrice && recommandedPrice?.leastSellingprice && (
               <p className="font-bold">
                 <span className="mr-1">&#x20B9;</span>
-                {recommandedPrice?.leastSellingprice} -{" " + recommandedPrice?.maxsellingprice}
+                {recommandedPrice?.leastSellingprice} -
+                {" " + recommandedPrice?.maxsellingprice}
               </p>
             )) || <p>--</p>}
           </div>
@@ -453,32 +555,59 @@ const AddListingForm = ({ data }) => {
         {getExternalSellerData && getExternalSellerData.length > 0 && (
           <div className="border rounded-md mb-3 w-full">
             {getExternalSellerData.map((items, index) => (
-              <div className="px-4 py-2 flex justify-between items-center w-full" key={index}>
+              <div
+                className="px-4 py-2 flex justify-between items-center w-full"
+                key={index}
+              >
                 <p className="text-2xl flex items-center">
-                  {items?.externalSourcePrice && <span className="font-normal mr-0.5"> ₹ </span>}
+                  {items?.externalSourcePrice && (
+                    <span className="font-normal mr-0.5"> ₹ </span>
+                  )}
                   {numberWithCommas(items?.externalSourcePrice)}
                 </p>
                 <div>
-                  <img src={items?.externalSourceImage} style={{ width: 100, height: "auto" }} alt={items?.externalSourceName} />
+                  <img
+                    src={items?.externalSourceImage}
+                    style={{ width: 100, height: "auto" }}
+                    alt={items?.externalSourceName}
+                  />
                 </div>
               </div>
             ))}
           </div>
         )}
         <div className="flex justify-center items-center mt-2">
-          <CB checked={termsAndCondition} onChange={(e) => setTermsAndCondition(e.target.checked)}>
-            <label className="ml-2 underline cursor-pointer" onClick={() => setShowTCPopup(true)}>
+          <CB
+            checked={termsAndCondition}
+            onChange={(e) => setTermsAndCondition(e.target.checked)}
+          >
+            <label
+              className="ml-2 underline cursor-pointer"
+              onClick={() => setShowTCPopup(true)}
+            >
               Accept terms and conditions
             </label>
           </CB>
         </div>
-        <button className="bg-primary uppercase rounded py-3 text-white disabled:opacity-60" disabled={!termsAndCondition}>
+        <button
+          className="bg-primary uppercase rounded py-3 text-white disabled:opacity-60"
+          disabled={!termsAndCondition}
+        >
           submit
         </button>
       </form>
       <ListingAdded open={listingAdded} setOpen={setListingAdded} />
-      {openConditionInfo && <ConditionInfo open={openConditionInfo} setOpen={setOpenConditionInfo} />}
-      <LoginPopup open={openLoginPopup} setOpen={setOpenLoginPopup} fromAddListing />
+      {openConditionInfo && (
+        <ConditionInfo
+          open={openConditionInfo}
+          setOpen={setOpenConditionInfo}
+        />
+      )}
+      <LoginPopup
+        open={openLoginPopup}
+        setOpen={setOpenLoginPopup}
+        fromAddListing
+      />
       <TermsconditionPopup open={showTCPopUp} setOpen={setShowTCPopup} />
     </Fragment>
   );
@@ -487,11 +616,19 @@ const AddListingForm = ({ data }) => {
 export default AddListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
-  <div className={`border rounded py-4 relative ${checked && "bg-gray-ef"}`} onClick={onChange}>
+  <div
+    className={`border rounded py-4 relative ${checked && "bg-gray-ef"}`}
+    onClick={onChange}
+  >
     <div className="relative w-12 h-12 mx-auto">
       <Image src={src} layout="fill" />
     </div>
-    <input type="checkbox" className="absolute top-2 left-2 rounded" checked={checked} readOnly />
+    <input
+      type="checkbox"
+      className="absolute top-2 left-2 rounded"
+      checked={checked}
+      readOnly
+    />
     <span className="text-xs mt-2 text-center block text-black-4e">{text}</span>
   </div>
 );
