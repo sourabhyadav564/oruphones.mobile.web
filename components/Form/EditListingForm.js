@@ -24,7 +24,9 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [inputUsername, setInputUsername] = useState("");
   const [inputSellPrice, setInputSellPrice] = useState(data?.listingPrice);
   const [deviceColors, setDeviceColors] = useState();
+  const [deviceStorages, setDeviceStorages] = useState();
   const [devColor, setDevColor] = useState();
+  const [devStorage, setDevStorage] = useState();
   const [sellValueRequired, setSellValueRequired] = useState("");
 
   let initialState;
@@ -50,6 +52,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       let modelData = resultsSet?.filter((item) => item.make === data?.make);
       let models = modelData[0].models.filter((item) => item.marketingname === data?.marketingName);
       setDeviceColors(models[0].color);
+      setDeviceStorages(models[0].storage);
     }
   }, [data]);
 
@@ -164,9 +167,17 @@ const EditListingForm = ({ data, resultsSet }) => {
         <Input value={data?.marketingName} disabled>
           Model
         </Input>
-        <Input value={data?.deviceStorage} disabled>
+        {/* <Input value={data?.deviceStorage} disabled>
           Storage
-        </Input>
+        </Input> */}
+        <MySelect
+          labelName="Storage"
+          placeholder={data?.deviceStorage}
+          onChange={(e) => setDevStorage(e.value)}
+          options={deviceStorages?.map((item) => {
+            return { label: item, value: item };
+          })}
+        />
         <MySelect
           labelName="Color"
           placeholder={data?.color}

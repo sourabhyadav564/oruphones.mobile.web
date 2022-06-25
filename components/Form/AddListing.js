@@ -210,13 +210,14 @@ const AddListingForm = ({ data }) => {
     var inputName = inputNameTag.value;
 
     if (
-      selectedCity === undefined ||
+      (selectedCity === undefined || selectedCity === "" || selectedCity === "India") ||
       make === undefined ||
       model === undefined ||
       storage === undefined ||
       condition === undefined ||
       !sellValue ||
-      (sellValue && sellValue.trim() < 1000)
+      (sellValue && sellValue.trim() < 1000) ||
+      !inputName
     ) {
       if (make === undefined) {
         window.scroll(0, 0);
@@ -235,15 +236,14 @@ const AddListingForm = ({ data }) => {
         setDeviceConditionRequired("border-red");
       }
       if (
+        selectedCity === ""||
         selectedCity === "India" ||
-        selectedCity === undefined ||
-        selectedCity === ""
+        selectedCity === undefined
       ) {
-        window.scroll(0, 0);
+        window.scroll(0, 1000);
         setLocationRequired("border-red");
       }
       if (!sellValue || sellValue < 1000) {
-        print("aman");
         setSellValueRequired("border-red");
       }
       if (!inputName || inputName === "") {
@@ -481,7 +481,7 @@ const AddListingForm = ({ data }) => {
             maxLength="30"
             errorClass={`border ${nameValueRequired}`}
           >
-            Name
+            Name*
           </Input>
           {nameValueRequired && (
             <span className="text-red text-sm absolute -bottom-6">
@@ -526,7 +526,7 @@ const AddListingForm = ({ data }) => {
               setSellValueRequired("");
             }}
           >
-            Enter your sell price
+            Enter your sell price*
           </Input>
           {sellValueRequired && (
             <span className="text-red text-sm absolute -bottom-6">

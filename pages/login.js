@@ -25,6 +25,10 @@ function Login() {
   const { authenticated, loading } = useAuthState();
   const [showLoader, setShowLoader] = useState(false);
 
+  console.log("response", response);
+
+  console.log("error", error);
+
   useEffect(() => {
     if (!loading && authenticated) {
       router.push("/");
@@ -52,6 +56,8 @@ function Login() {
 
   const handleChange = (e) => {
     const { name, type } = e.target;
+    console.log("name", name);
+    console.log("type", type);
     const value = type === "checkbox" ? e.target.checked : e.target.value;
     if (name === "mobile") {
       setError({ is: false, message: "" });
@@ -97,6 +103,7 @@ function Login() {
                 type="number"
                 prefix="+91-"
                 value={formData?.mobile}
+                errorClass={error.is && "border border-red-500 border-[2px]"}
                 onChange={(e) => {
                   handleChange(e);
                 }}
@@ -104,7 +111,7 @@ function Login() {
                 Mobile No
               </Input>
               {error?.is && (
-                <span className="absolute p-1 text-xs bg-red-500 w-full rounded text-white mt-2">
+                <span className="absolute p-1 text-xs w-full rounded text-red-500">
                   {" "}
                   {error.message}{" "}
                 </span>

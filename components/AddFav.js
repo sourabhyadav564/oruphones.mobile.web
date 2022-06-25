@@ -6,6 +6,8 @@ import { Fragment } from "react";
 import { useAuthState } from "providers/AuthProvider";
 
 function AddFav({ data, setProducts, color, ...rest }) {
+
+  console.log("data from fav", data)
   const { authenticated, loading } = useAuthState();
   function handleFavoties() {
     setProducts((prevState) => {

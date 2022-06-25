@@ -85,6 +85,8 @@ function OTPVerification({ formData, dataObject, fromAddListing, setStep, setOpe
     setError(false);
   };
 
+  console.log("error from verification ", error);
+
   return (
     <form className="flex flex-col items-center w-full space-y-8" onSubmit={handleSubmit}>
       <FiChevronLeft onClick={() => setStep(1)} className="cursor-pointer fixed top-2 left-2" fontSize="22" />

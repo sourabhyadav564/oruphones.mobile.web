@@ -51,6 +51,7 @@ function LocationPopup({ open, setOpen }) {
       });
     }
     dispatch("ADDCITY", city);
+    localStorage.setItem("usedLocation", city);
     setOpen(false);
   }
 

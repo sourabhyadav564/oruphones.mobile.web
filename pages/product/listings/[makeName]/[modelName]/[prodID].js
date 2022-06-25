@@ -172,8 +172,8 @@ function ProductDeatils({ data }) {
     <Fragment>
       {/* <Header2 title="Product Info" /> */}
       <main className="py-3 relative ">
-        {(data?.isOtherVendor !== "Y" ||
-          otherVendorData[0].isOtherVendor !== "Y") && (
+        {(data?.isOtherVendor === "N" ||
+          otherVendorData[0]?.isOtherVendor === "N") && (
           <div className="flex justify-between items-center absolute top-0 left-0 right-0 z-10 bg-black bg-opacity-30 text-white px-4 py-2 ">
             <div className="flex space-x-4 items-center ">
               {(data?.verified && (

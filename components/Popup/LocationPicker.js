@@ -29,6 +29,14 @@ function LocationPicker({ openLocationPopup }) {
     city: "",
   });
 
+  console.log("location from picker", location);
+  console.log("user from picker", user);
+  console.log("authenticated from picker", authenticated);
+  // location.loaded && location.city && location.city.length > 0
+  console.log("1", location.loaded);
+  console.log("2", location.city);
+  console.log("3", location.city.length);
+
   const onSuccess = async (location) => {
     let lat = location.coords.latitude;
     let lng = location.coords.longitude;
@@ -119,6 +127,7 @@ function LocationPicker({ openLocationPopup }) {
           });
         });
       }
+      console.log("location.city", location.city);
       dispatch("ADDCITY", location.city);
       localStorage.setItem("usedLocation", location.city);
     }
