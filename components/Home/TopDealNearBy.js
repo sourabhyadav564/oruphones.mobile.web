@@ -4,10 +4,13 @@ import { bestDealNearByYou } from "api-call";
 import Cookies from "js-cookie";
 import Loader from "../Loader";
 import Spinner from "../Loader/Spinner";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import LocationPopup from "../Popup/LocationPopup";
 
 function TopDealNearBy({ selectedSearchCity, loading }) {
   const [bestDeals, setBestDeals] = useState();
   const [bestDealsLength, setBestDealsLength] = useState();
+  const [openLocationPopup, setOpenLocationPopup] = useState(false);
 
   useEffect(() => {
     if (!loading && selectedSearchCity != undefined) {
@@ -25,9 +28,19 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
 
   return (
     <section className="px-3 text-sm text-gray-70">
-      <h1 className="mt-3 mb-2  font-semibold text-base">
-        Best Deals Near You ({selectedSearchCity})
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className="mt-3 mb-2 font-semibold text-base">
+          Best Deals Near You
+        </h1>
+        <div className="flex items-center justify-center space-x-2"
+        onClick={() => setOpenLocationPopup(true)}
+        >
+          <span className="mt-3 mb-2 font-semibold text-base text-[#00a483]">
+            ({selectedSearchCity})
+          </span>
+          <FaMapMarkerAlt className="text-[#00a483] h-4 w-4 mt-1" />
+        </div>
+      </div>
       <div className="grid grid-cols-2 -mx-1.5 py-3">
         {(bestDeals?.length > 0 &&
           bestDeals.slice(0, 16).map((item) => (
@@ -46,6 +59,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
           </div>
         )}
       </div>
+      <LocationPopup open={openLocationPopup} setOpen={setOpenLocationPopup} />
     </section>
   );
 }

@@ -71,7 +71,7 @@ const TopCarousel = () => {
                   />
                 </div>
                 <div
-                  className="absolute left-0 right-0 bottom-2 flex justify-center"
+                  className="absolute left-0 right-0 bottom-3 flex justify-center"
                   style={{ fontSize: 10 }}
                 >
                   <Link href="/product/listings/bestdealnearyou">
