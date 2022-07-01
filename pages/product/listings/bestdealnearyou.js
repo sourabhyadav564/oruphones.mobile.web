@@ -71,6 +71,7 @@ function Bestdealnearyou() {
           listingLocation: selectedSearchCity,
           reqPage: "BBNM",
           color: [],
+          make: [],
           deviceCondition: [],
           deviceStorage: [],
           maxsellingPrice: 200000,
