@@ -103,6 +103,10 @@ function ProductDeatils({ data }) {
 
   console.log("data ---> from prod", data);
 
+  data = data?.filter((item) => {
+    return item.listingId != otherVendorData[0]?.listingId || data?.listingId
+  })
+
   useEffect(() => {
     setDeviceListingInfo(data);
     // if (!(data?.isOtherVendor === "Y") && Cookies.get("info") !== undefined) {
