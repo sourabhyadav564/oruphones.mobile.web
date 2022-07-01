@@ -76,7 +76,7 @@ function ProductDeatils({ data }) {
 
   const otherVendorData = [];
 
-  productData.filter((item) => {
+  productData?.filter((item) => {
     if (item.listingId === listingId) {
       otherVendorData.push(item);
     }
@@ -103,9 +103,9 @@ function ProductDeatils({ data }) {
 
   console.log("data ---> from prod", data);
 
-  data = data?.filter((item) => {
-    return item.listingId != otherVendorData[0]?.listingId || data?.listingId
-  })
+  // data = data?.filter((item) => {
+  //   return item.listingId != otherVendorData[0]?.listingId || data?.listingId
+  // })
 
   useEffect(() => {
     setDeviceListingInfo(data);
