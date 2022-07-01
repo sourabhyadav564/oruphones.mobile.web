@@ -18,9 +18,14 @@ import { useRecoilState } from "recoil";
 
 function ModelPage() {
   const router = useRouter();
-  const { makeName, modelName } = router.query;
+  let { makeName, modelName } = router.query;
   const { selectedSearchCity } = useAuthState();
-  console.log("Make --> ", makeName, " MarketName --> ", modelName + " selectedSearchCity " + selectedSearchCity);
+  console.log(
+    "Make --> ",
+    makeName,
+    " MarketName --> ",
+    modelName + " selectedSearchCity " + selectedSearchCity
+  );
 
   const [bestDeals, setBestDeals] = useState([]);
   const [applyFilter, setApplyFilter] = useState();
@@ -33,16 +38,26 @@ function ModelPage() {
 
   useEffect(() => {
     if (modelName) {
-      fetchByMarketingName(selectedSearchCity, modelName, Cookies.get("info") || "Guest").then(
+      fetchByMarketingName(
+        selectedSearchCity,
+        modelName,
+        Cookies.get("info") || "Guest"
+      ).then(
         (response) => {
           console.log("fetchByMarketingName -> ", response.dataObject);
           if (response.dataObject?.otherListings.length > -1) {
-            setOtherListings((response && response?.dataObject?.otherListings) || []);
-            setProductsData((response && response?.dataObject?.otherListings) || []);
+            setOtherListings(
+              (response && response?.dataObject?.otherListings) || []
+            );
+            setProductsData(
+              (response && response?.dataObject?.otherListings) || []
+            );
           }
           if (response.dataObject?.bestDeals.length > -1) {
             setBestDeals((response && response?.dataObject?.bestDeals) || []);
-            setProductsData((response && response?.dataObject?.bestDeals) || []);
+            setProductsData(
+              (response && response?.dataObject?.bestDeals) || []
+            );
           }
           setLoading(false);
         },
@@ -56,13 +71,32 @@ function ModelPage() {
 
   useEffect(() => {
     if (applyFilter) {
-      const { brand, condition, color, storage, warranty, verification, priceRange } = applyFilter;
+      const {
+        brand,
+        condition,
+        color,
+        storage,
+        warranty,
+        verification,
+        priceRange,
+      } = applyFilter;
       if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
+        if (makeName === "oneplus") {
+          makeName = "OnePlus";
+        } else {
+          makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
+        }
         let payLoad = {
           listingLocation: selectedSearchCity,
           make: brand?.length > 0 ? brand : [makeName],
           marketingName: [modelName],
           reqPage: "TSM",
+          color: [],
+          deviceCondition: [],
+          deviceStorage: [],
+          maxsellingPrice: 200000,
+          minsellingPrice: 0,
+          verified: "",
         };
         if (priceRange && priceRange.min && priceRange.max) {
           payLoad.minsellingPrice = priceRange.min;
@@ -84,7 +118,10 @@ function ModelPage() {
           payLoad.verified = verification.includes("all") ? null : "verified";
         }
         // setLoading(true);
-        searchFilter(payLoad, localStorage.getItem("userUniqueId") || "Guest").then((response) => {
+        searchFilter(
+          payLoad,
+          localStorage.getItem("userUniqueId") || "Guest"
+        ).then((response) => {
           console.log("searchFilter ", response?.dataObject);
           setOtherListings(response?.dataObject?.otherListings);
           setBestDeals([]);
@@ -97,11 +134,28 @@ function ModelPage() {
   const sortingProducts = getSortedProducts(applySortFilter, otherListings);
 
   return (
-    <Filter searchText={`"${modelName}"`} setSortApplyFilter={setSortApplyFilter} setApplyFilter={setApplyFilter} applyFilter={applyFilter}>
-      {(loading || bestDeals?.length > 0) && <h1 className="text-lg font-semibold text-gray-20 pl-4 py-2"> Best Deals </h1>}
-      {loading ? <Loader /> : <BestDealSection bestDealData={bestDeals} setProducts={setBestDeals} />}
+    <Filter
+      searchText={`"${modelName}"`}
+      setSortApplyFilter={setSortApplyFilter}
+      setApplyFilter={setApplyFilter}
+      applyFilter={applyFilter}
+    >
+      {(loading || bestDeals?.length > 0) && (
+        <h1 className="text-lg font-semibold text-gray-20 pl-4 py-2">
+          {" "}
+          Best Deals{" "}
+        </h1>
+      )}
+      {loading ? (
+        <Loader />
+      ) : (
+        <BestDealSection bestDealData={bestDeals} setProducts={setBestDeals} />
+      )}
       {(loading || sortingProducts?.length > 0) && (
-        <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3"> Other Listings ({sortingProducts?.length}) </h2>
+        <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
+          {" "}
+          Other Listings ({sortingProducts?.length}){" "}
+        </h2>
       )}
       {loading ? (
         <Loader />
@@ -109,18 +163,28 @@ function ModelPage() {
         <section className="grid grid-cols-2 py-3 -m-1.5">
           {sortingProducts &&
             sortingProducts?.map((item) => (
-              <div key={item.listingId} className="m-1.5"
-              onClick={() => {
-                // setListingId(item.listingId);
-                setProductsData(otherListings);
-              }}
+              <div
+                key={item.listingId}
+                className="m-1.5"
+                onClick={() => {
+                  // setListingId(item.listingId);
+                  setProductsData(otherListings);
+                }}
               >
-                <OtherListingCard data={item} prodLink setProducts={setOtherListings} />
+                <OtherListingCard
+                  data={item}
+                  prodLink
+                  setProducts={setOtherListings}
+                />
               </div>
             ))}
         </section>
       )}
-      {!loading && bestDeals && !(bestDeals.length > 0) && sortingProducts && !sortingProducts.length > 0 && <NoMatch />}
+      {!loading &&
+        bestDeals &&
+        !(bestDeals.length > 0) &&
+        sortingProducts &&
+        !sortingProducts.length > 0 && <NoMatch />}
     </Filter>
   );
 }
@@ -129,19 +193,31 @@ function getSortedProducts(applySort, otherListings) {
   var sortedProducts = otherListings ? [...otherListings] : [];
   if (applySort && applySort === "Price - Low to High") {
     sortedProducts.sort((a, b) => {
-      return numberFromString(a.listingPrice) - numberFromString(b.listingPrice);
+      return (
+        numberFromString(a.listingPrice) - numberFromString(b.listingPrice)
+      );
     });
   } else if (applySort && applySort === "Price - High to Low") {
     sortedProducts.sort((a, b) => {
-      return numberFromString(b.listingPrice) - numberFromString(a.listingPrice);
+      return (
+        numberFromString(b.listingPrice) - numberFromString(a.listingPrice)
+      );
     });
   } else if (applySort && applySort === "Newest First") {
     sortedProducts.sort((a, b) => {
-      return stringToDate(b.modifiedDate) - stringToDate(a.modifiedDate);
+      return (
+        a.updatedAt &&
+        b.updatedAt &&
+        stringToDate(b.updatedAt) - stringToDate(a.updatedAt)
+      );
     });
   } else if (applySort && applySort === "Oldest First") {
     sortedProducts.sort((a, b) => {
-      return stringToDate(a.modifiedDate) - stringToDate(b.modifiedDate);
+      return (
+        a.updatedAt &&
+        b.updatedAt &&
+        stringToDate(a.updatedAt) - stringToDate(b.updatedAt)
+      );
     });
   }
   console.log("--> sortedProducts ", sortedProducts);

@@ -108,7 +108,7 @@ export default FilterPopup;
 const Button = ({ children, active, ...rest }) => (
   <button
     className={`capitalize rounded-md text-xs max-w-max border px-3 py-1 flex-shrink-0 ${
-      active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"
+      active ? "bg-primary-light opacity-50 text-white border-primary" : "border-gray-c7"
     }`}
     {...rest}
   >

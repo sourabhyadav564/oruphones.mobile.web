@@ -44,7 +44,10 @@ function Bestdealnearyou() {
         console.log("bestDealNearYouAll ", bestDealNearYouAll);
         setProducts(response?.dataObject?.otherListings);
         setBestDeal(response?.dataObject?.bestDeals);
-        setProductsData([...response?.dataObject?.otherListings, ...response?.dataObject?.bestDeals]);
+        setProductsData([
+          ...response?.dataObject?.otherListings,
+          ...response?.dataObject?.bestDeals,
+        ]);
         // setProductsData(response?.dataObject?.bestDeals);
         setLoading(false);
       });
@@ -67,6 +70,12 @@ function Bestdealnearyou() {
         let payLoad = {
           listingLocation: selectedSearchCity,
           reqPage: "BBNM",
+          color: [],
+          deviceCondition: [],
+          deviceStorage: [],
+          maxsellingPrice: 200000,
+          minsellingPrice: 0,
+          verified: "",
         };
         if (brand?.length > 0) {
           payLoad.make = brand.includes("all") ? [] : brand;
@@ -173,11 +182,11 @@ function getSortedProducts(applySort, products) {
     });
   } else if (applySort && applySort === "Newest First") {
     sortedProducts.sort((a, b) => {
-      return stringToDate(b.modifiedDate) - stringToDate(a.modifiedDate);
+      return (a.updatedAt && b.updatedAt) && stringToDate(b.updatedAt) - stringToDate(a.updatedAt);
     });
   } else if (applySort && applySort === "Oldest First") {
     sortedProducts.sort((a, b) => {
-      return stringToDate(a.modifiedDate) - stringToDate(b.modifiedDate);
+      return (a.updatedAt && b.updatedAt) && stringToDate(a.updatedAt) - stringToDate(b.updatedAt);
     });
   }
   console.log("--> sortedProducts ", sortedProducts);

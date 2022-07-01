@@ -42,7 +42,7 @@ export default SortPopup;
 
 const Button = ({ children, active, ...rest }) => (
   <p
-    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"}`}
+    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${active ? "bg-primary-light opacity-50 text-white border-primary" : "border-gray-c7"}`}
     {...rest}
   >
     {children}
