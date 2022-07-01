@@ -127,7 +127,8 @@ function MakePage() {
         ).then((response) => {
           console.log("searchFilter ", response?.dataObject);
           setOtherListings(response?.dataObject?.otherListings);
-          setBestDeals([]);
+          // setBestDeals([]);
+          setBestDeals(response?.dataObject?.bestDeals);
         });
       }
     }

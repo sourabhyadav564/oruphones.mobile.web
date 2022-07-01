@@ -106,7 +106,8 @@ function Bestdealnearyou() {
         ).then((response) => {
           console.log("searchFilter ", response?.dataObject);
           setProducts(response?.dataObject?.otherListings);
-          setBestDeal([]);
+          // setBestDeal([]);
+          setBestDeal(response?.dataObject?.bestDeals);
           // setLoading(false);
         });
       }
