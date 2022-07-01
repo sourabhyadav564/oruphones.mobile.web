@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { numberWithCommas } from "@/utils/util";
-import Logo from "@/assets/mobiru_logo.svg";
+// import Logo from "@/assets/mobiru_logo.svg";
+import Logo from "@/assets/oru_phones_logo.png";
 // import verified from "@/assets/verified.svg";
 import AddFav from "../AddFav";
 import VerifiedIcon from "../VerifiedIcon";

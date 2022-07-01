@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsInfoCircle } from "react-icons/bs";
 import verifiedIcon from "@/assets/verified.svg";
-import Logo from "@/assets/mobiru_logo.svg";
+// import Logo from "@/assets/mobiru_logo.svg";
+import Logo from "@/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 
 import { numberWithCommas } from "@/utils/util";

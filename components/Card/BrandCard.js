@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "@/assets/mobiru_logo.svg";
+// import Logo from "@/assets/mobiru_logo.svg";
+import Logo from "@/assets/oru_phones_logo.png";
 
 function BrandCard({ data, className }) {
   if (data?.make.toLowerCase().includes("show")) {
