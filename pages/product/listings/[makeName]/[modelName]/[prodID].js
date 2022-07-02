@@ -54,7 +54,8 @@ function ProductDeatils({ data }) {
   const [openRequestVerificationPopup, setOpenRequestVerificationPopup] =
     useState(false);
   const [deviceListingInfo, setDeviceListingInfo] = useState(data);
-  const [contactSellerMobileNumber, setContactSellerMobileNumber] = useState("Loading...");
+  const [contactSellerMobileNumber, setContactSellerMobileNumber] =
+    useState("Loading...");
   const [showNumber, setShowNumber] = useState(false);
   const [showFullImage, setShowFullImage] = useState(false);
   const [defaultOpen, setDefaultOpen] = useState(false);
@@ -318,25 +319,25 @@ function ProductDeatils({ data }) {
               <>
                 <div className="border rounded-md flex items-center key={index}">
                   {/* <div className="flex items-center" key={index}> */}
-                    <div className="flex-1 flex flex-col justify-start px-4 py-1">
-                      {/* <p className="text-gray-70 text-xs">Seller</p> */}
-                      <div>
-                        <img
-                          src={items?.externalSourceImage}
-                          style={{ height: 20, width: "auto" }}
-                          alt={items?.externalSourceName}
-                        />
-                      </div>
+                  <div className="flex-1 flex flex-col justify-start px-4 py-1">
+                    {/* <p className="text-gray-70 text-xs">Seller</p> */}
+                    <div>
+                      <img
+                        src={items?.externalSourceImage}
+                        style={{ height: 20, width: "auto" }}
+                        alt={items?.externalSourceName}
+                      />
                     </div>
-                    <div className="flex px-4 py-1">
-                      {/* <p className="text-gray-70 text-xs">List Price</p> */}
-                      <p className="text-lg flex items-center text-black-4e">
-                        {items?.externalSourcePrice && (
-                          <span className="font-normal mr-0.5"> ₹ </span>
-                        )}{" "}
-                        {numberWithCommas(items?.externalSourcePrice)}
-                      </p>
-                    </div>
+                  </div>
+                  <div className="flex px-4 py-1">
+                    {/* <p className="text-gray-70 text-xs">List Price</p> */}
+                    <p className="text-lg flex items-center text-black-4e">
+                      {items?.externalSourcePrice && (
+                        <span className="font-normal mr-0.5"> ₹ </span>
+                      )}{" "}
+                      {numberWithCommas(items?.externalSourcePrice)}
+                    </p>
+                  </div>
                   {/* </div> */}
                 </div>
               </>
@@ -347,10 +348,29 @@ function ProductDeatils({ data }) {
             <div className="grid grid-cols-2 space-y-2">
               <IconLabelValue
                 label="Storage"
-                value={data?.deviceStorage || otherVendorData[0]?.deviceStorage}
+                value={
+                  data?.deviceStorage ||
+                  otherVendorData[0]?.deviceStorage ||
+                  "--"
+                }
               />
               <span></span>
-              <IconLabelValue label="Color" value={data?.color || "--"} />
+              <IconLabelValue
+                label="Color"
+                value={data?.color || otherVendorData[0]?.color || "--"}
+              />
+              <IconLabelValue
+                label="RAM"
+                value={data?.ram || otherVendorData[0]?.ram || "--"}
+              />
+              <IconLabelValue
+                label="Warranty"
+                value={data?.warranty || otherVendorData[0]?.warranty || "--"}
+              />
+              <IconLabelValue
+                label="Condition"
+                value={data?.condition || otherVendorData[0]?.deviceCondition || "--"}
+              />
             </div>
           )}
           {(data?.isOtherVendor === "N" ||
