@@ -2,21 +2,127 @@ import Footer from "@/components/Footer";
 import Input from "@/components/Form/Input";
 import TextArea from "@/components/Form/TextArea";
 import Header2 from "@/components/Header/header2";
-import { Fragment } from "react";
+import { contactUs } from "api-call";
+import { Fragment, useState } from "react";
+import { toast } from "react-toastify";
 
 function ContactUS() {
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [mobile, setMobile] = useState();
+  const [message, setMessage] = useState();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    let payload = {
+      name,
+      email,
+      mobile,
+      message,
+    };
+    if (
+      name != "" &&
+      name != undefined &&
+      email != "" &&
+      email != undefined &&
+      message != "" &&
+      message != undefined &&
+      mobile != "" &&
+      mobile != undefined
+    ) {
+      contactUs(payload).then((response) => {
+        toast.info(response?.reason, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        window.location.reload();
+      });
+    } else {
+      console.log("error");
+      if (name == undefined) {
+        setName("");
+      }
+      if (email == undefined) {
+        setEmail("");
+      }
+      if (message == undefined) {
+        setMessage("");
+      }
+      if (mobile == undefined) {
+        setMobile("");
+      }
+    }
+  }
   return (
     <Fragment>
       <Header2 title={"Contact us"} />
       <main className="p-4">
-        <section className="my-6">
-          <Input className={"mb-6"}> Name </Input>
-          <Input className={"mb-6"}> Email ID </Input>
-          <Input className={"mb-6"}> Mobile No </Input>
-          <TextArea type="text" name="message">
-            Message
-          </TextArea>
-          <button className="block bg-primary my-6 w-52 px-4 py-2 rounded text-white mx-auto"> Submit </button>
+        <section className="my-6 space-y-3">
+          <div className="flex flex-col">
+            <Input
+              className={"mb-6"}
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+            >
+              {" "}
+              Name{" "}
+            </Input>
+            {name == "" && (
+              <p className="text-sm whitespace-nowrap cursor-pointer text-red -mt-3">
+                Please select this field
+              </p>
+            )}
+          </div>
+          <div>
+            <Input
+              className={"mb-6"}
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            >
+              {" "}
+              Email ID{" "}
+            </Input>
+            {email == "" && (
+              <p className="text-sm whitespace-nowrap cursor-pointer text-red -mt-3">
+                Please select this field
+              </p>
+            )}
+          </div>
+          <div>
+            <Input
+              className={"mb-6"}
+              type="number"
+              onChange={(e) => setMobile(e.target.value)}
+            >
+              {" "}
+              Mobile No{" "}
+            </Input>
+            {mobile == "" && (
+              <p className="text-sm whitespace-nowrap cursor-pointer text-red -mt-3">
+                Please select this field
+              </p>
+            )}
+          </div>
+          <div>
+            <TextArea
+              type="text"
+              name="message"
+              onChange={(e) => setMessage(e.target.value)}
+            >
+              Message
+            </TextArea>
+            {message == "" && (
+              <p className="text-sm whitespace-nowrap cursor-pointer text-red mt-2">
+                Please select this field
+              </p>
+            )}
+          </div>
+          <button
+            className="block bg-primary my-6 w-52 px-4 py-2 rounded text-white mx-auto"
+            onClick={handleSubmit}
+          >
+            {" "}
+            Submit{" "}
+          </button>
         </section>
         <h2 className="text-black font-bold my-2">Connect with us</h2>
         <section>
