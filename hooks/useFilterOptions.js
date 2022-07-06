@@ -79,7 +79,7 @@ const useFilterOptions = () => {
                 ...item,
                 options: [
                   { value: "all", label: "All", checked: false },
-                  ...res?.dataObject?.Condition.map((items) => {
+                  ...res?.dataObject?.Conditions.map((items) => {
                     return { value: items, label: items, checked: false };
                   }),
                 ],
