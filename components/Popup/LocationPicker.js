@@ -150,7 +150,7 @@ function LocationPicker({ openLocationPopup }) {
           </div>
           <div className="text-center space-y-4 px-4">
             <h1 className="text-xl">Where do you want to buy/sell products?</h1>
-            <p className="text-sm">to enjoy all that Mobiru has to offer you, we need to know where to look for them</p>
+            <p className="text-sm">to enjoy all that ORUPhones has to offer you, we need to know where to look for them</p>
           </div>
           <div className="text-center space-y-5 w-full px-4">
             <button className="uppercase font-semibold bg-primary text-white p-2 w-full rounded" onClick={handleNearme}>

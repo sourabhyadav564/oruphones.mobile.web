@@ -33,7 +33,7 @@ const Footer = () => {
         </div>
         <div className="flex flex-col">
           <h1 className=" font-bold">Links</h1>
-          <a href="#" className="hover:pl-2 delay-75 mt-4 max-w-max">
+          <a href="/blog" className="hover:pl-2 delay-75 mt-4 max-w-max">
             Blog
           </a>
           <Link href="/about-us">
@@ -55,7 +55,7 @@ const Footer = () => {
           </div>
           <div className="flex items-center justify-between pt-4 ">
             <a
-              href="https://www.facebook.com/mobiruindia"
+              href="https://www.facebook.com/oruphones"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -63,7 +63,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://twitter.com/mobiruindia"
+              href="https://twitter.com/oruphones"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -71,7 +71,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://www.instagram.com/mobiruindia/"
+              href="https://www.instagram.com/oruphones/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -87,7 +87,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://www.linkedin.com/company/mobiruindia"
+              href="https://www.linkedin.com/company/oruphones"
               target="_blank"
               rel="noopener noreferrer"
             >

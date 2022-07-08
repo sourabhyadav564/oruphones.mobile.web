@@ -57,7 +57,7 @@ const NotificationsItem = ({ text, timestamp,onClick, isUnRead }) => (
   <div className={`flex border-b-2 border-white py-3 px-4 ${
     isUnRead == 0 ? "bg-gray-100" : ""}`} onClick={onClick}>
     <div className="w-12 h-12 rounded-2xl flex-shrink-0 mr-4 flex justify-center items-center" style={{ background: "#EFEFEF" }}>
-      <Image src={mob} width={30} height={30} alt="Mobiru" />
+      <Image src={mob} width={30} height={30} alt="ORUPhones" />
     </div>
     <div>
       <p className={`text-sm text-m-grey-1 ${isUnRead == 0 ? "font-bold" : ""}`}> {text} </p>

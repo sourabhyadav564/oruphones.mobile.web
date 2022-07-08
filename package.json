@@ -2,7 +2,7 @@
   "cacheDirectories": [
     ".next/cache"
   ],
-  "name": "mobiru-ecom-web-mobile",
+  "name": "oru-phones-web-mobile",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
