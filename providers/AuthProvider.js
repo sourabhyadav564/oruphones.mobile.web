@@ -41,7 +41,7 @@ const reducer = (state, { type, payload }) => {
         data["selectedSearchCity"] = searchLoc[0]?.city;
       }
       if (data?.user?.userdetails?.userUniqueId) {
-        Cookies.set("info", data?.user?.userdetails?.userUniqueId);
+        Cookies.set("userUniqueId", data?.user?.userdetails?.userUniqueId);
       }
       console.log("payload -----------> ", payload);
       sessionStorage.setItem("getUserDetails", JSON.stringify(payload));
@@ -50,7 +50,7 @@ const reducer = (state, { type, payload }) => {
       // localStorage.removeItem("token");
       Cookies.remove("mobileNumber");
       Cookies.remove("countryCode");
-      Cookies.remove("info");
+      Cookies.remove("userUniqueId");
       sessionStorage.removeItem("getUserDetails");
       return {
         user: null,

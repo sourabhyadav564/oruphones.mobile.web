@@ -9,7 +9,7 @@ import Loader from "@/components/Loader";
 function RequestVerificationSuccessPopup({ open, setOpen, data }) {
   useEffect(() => {
     if (open) {
-      sendverification(data.listingId, Cookies.get("info") || "Guest").then(
+      sendverification(data.listingId, Cookies.get("userUniqueId") || "Guest").then(
         (response) => {
           console.log("sendverification ", response);
           setResData(response);

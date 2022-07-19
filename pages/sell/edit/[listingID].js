@@ -25,9 +25,16 @@ function editListing({ data, resultsSet }) {
 }
 export async function getServerSideProps({ req, res, query }) {
   const { cookies } = req;
+  const { userUniqueId, sessionId } = req.cookies;
   try {
-    const data = await getListingDetails(query.listingID, cookies.info);
-    const result = await getMakeModelLists();
+    const data = await getListingDetails(query.listingID, cookies.userUniqueId, cookies.sessionId);
+    const result = await getMakeModelLists(
+      userUniqueId || "Guest",
+      sessionId || ""
+    );
+
+    console.log("data", data);
+    console.log("result", result);
     return {
       props: { data: data.dataObject, resultsSet: result?.dataObject },
     };

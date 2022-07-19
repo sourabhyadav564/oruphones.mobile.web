@@ -40,7 +40,7 @@ function LocationPopup({ open, setOpen }) {
         country: cityInfo[0].country,
         state: cityInfo[0].state,
         locationId: searchLocationID,
-        userUniqueId: Cookies.get("info"),
+        userUniqueId: Cookies.get("userUniqueId"),
       };
       updateAddress(payLoad).then((res) => {
         // console.log("updateAddress RES -> ", res);

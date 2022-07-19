@@ -5,24 +5,24 @@ import { fetchSimilarProducts } from "api-call";
 import Cookies from "js-cookie";
 import Loader from "@/components/Loader";
 
-import {
-  otherVendorDataState,
-  // otherVandorListingIdState,
-} from "../atoms/globalState";
-import { useRecoilState } from "recoil";
+// import {
+//   otherVendorDataState,
+//   // otherVandorListingIdState,
+// } from "../atoms/globalState";
+// import { useRecoilState } from "recoil";
 
-function SimilarProduct({ data, otherVendorData }) {
+function SimilarProduct({ data }) {
   const { selectedSearchCity } = useAuthState();
   let [similar_listings, setSimilar_listings] = useState();
 
-  console.log("data from similar products --> N", data);
-  console.log("data from similar products -- > Y", otherVendorData);
+  // console.log("data from similar products --> N", data);
+  // console.log("data from similar products -- > Y", otherVendorData);
 
   useEffect(() => {
     let payLoad = {
       listingLocation: selectedSearchCity,
-      make: [data.make || otherVendorData[0]?.make],
-      marketingName: [data.marketingName || otherVendorData[0]?.marketingName],
+      make: [data.make],
+      marketingName: [data.marketingName],
       reqPage: "TSM",
       color: [],
       deviceCondition: [],
@@ -31,7 +31,7 @@ function SimilarProduct({ data, otherVendorData }) {
       minsellingPrice: 0,
       verified: "",
     };
-    fetchSimilarProducts(payLoad, Cookies.get("info") || "Guest").then(
+    fetchSimilarProducts(payLoad, Cookies.get("userUniqueId") || "Guest").then(
       (response) => {
         console.log(
           "response from similar",
@@ -48,11 +48,11 @@ function SimilarProduct({ data, otherVendorData }) {
     );
   }, [data?.make, data?.marketingName]);
 
-  const [product, setProductsData] = useRecoilState(otherVendorDataState);
-  // console.log("product from similar page state variable----->", product);
+  // const [product, setProductsData] = useRecoilState(otherVendorDataState);
+  // // console.log("product from similar page state variable----->", product);
 
   similar_listings = similar_listings?.filter((item) => {
-    return item.listingId != otherVendorData[0]?.listingId || data?.listingId
+    return item.listingId != data?.listingId;
   });
 
   console.log("similar_listings from similar products -->", similar_listings);
@@ -66,10 +66,10 @@ function SimilarProduct({ data, otherVendorData }) {
             <div
               className="m-1.5"
               key={item.listingId}
-              onClick={() => {
-                // setListingId(item.listingId);
-                setProductsData(similar_listings || []);
-              }}
+              // onClick={() => {
+              //   // setListingId(item.listingId);
+              //   setProductsData(similar_listings || []);
+              // }}
             >
               <OtherListingCard
                 data={item}

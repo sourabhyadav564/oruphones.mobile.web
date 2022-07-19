@@ -16,7 +16,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
     if (!loading && selectedSearchCity != undefined) {
       bestDealNearByYou(
         selectedSearchCity,
-        Cookies.get("info") || "Guest"
+        Cookies.get("userUniqueId") || "Guest"
       ).then((response) => {
         setBestDealsLength(response?.dataObject?.bestDeals.length);
         setBestDeals(response?.dataObject?.bestDeals);

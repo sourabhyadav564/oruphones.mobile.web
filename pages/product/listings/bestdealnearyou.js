@@ -9,11 +9,11 @@ import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader";
 import NoMatch from "@/components/NoMatch";
 
-import {
-  otherVendorDataState,
-  // otherVandorListingIdState,
-} from "../../../atoms/globalState";
-import { useRecoilState } from "recoil";
+// import {
+//   otherVendorDataState,
+//   // otherVandorListingIdState,
+// } from "../../../atoms/globalState";
+// import { useRecoilState } from "recoil";
 
 const settings = {
   slidesToShow: 1,
@@ -32,22 +32,22 @@ function Bestdealnearyou() {
   const { selectedSearchCity } = useAuthState();
   const [applySortFilter, setSortApplyFilter] = useState();
 
-  const [product, setProductsData] = useRecoilState(otherVendorDataState);
-  console.log("product from make best deal near you page----->", product);
+  // const [product, setProductsData] = useRecoilState(otherVendorDataState);
+  // console.log("product from make best deal near you page----->", product);
 
   useEffect(() => {
     if (selectedSearchCity) {
       bestDealNearYouAll(
         selectedSearchCity,
-        Cookies.get("info") || "Guest"
+        Cookies.get("userUniqueId") || "Guest"
       ).then((response) => {
         console.log("bestDealNearYouAll ", bestDealNearYouAll);
         setProducts(response?.dataObject?.otherListings);
         setBestDeal(response?.dataObject?.bestDeals);
-        setProductsData([
-          ...response?.dataObject?.otherListings,
-          ...response?.dataObject?.bestDeals,
-        ]);
+        // setProductsData([
+        //   ...response?.dataObject?.otherListings,
+        //   ...response?.dataObject?.bestDeals,
+        // ]);
         // setProductsData(response?.dataObject?.bestDeals);
         setLoading(false);
       });

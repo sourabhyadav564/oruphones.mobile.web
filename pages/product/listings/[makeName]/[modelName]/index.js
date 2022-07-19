@@ -10,11 +10,11 @@ import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader";
 import NoMatch from "@/components/NoMatch";
 
-import {
-  otherVendorDataState,
-  // otherVandorListingIdState,
-} from "../../../../../atoms/globalState";
-import { useRecoilState } from "recoil";
+// import {
+//   otherVendorDataState,
+//   // otherVandorListingIdState,
+// } from "../../../../../atoms/globalState";
+// import { useRecoilState } from "recoil";
 
 function ModelPage() {
   const router = useRouter();
@@ -33,15 +33,15 @@ function ModelPage() {
   const [applySortFilter, setSortApplyFilter] = useState();
   const [loading, setLoading] = useState(true);
 
-  const [product, setProductsData] = useRecoilState(otherVendorDataState);
-  console.log("product from make page----->", product);
+  // const [product, setProductsData] = useRecoilState(otherVendorDataState);
+  // console.log("product from make page----->", product);
 
   useEffect(() => {
     if (modelName) {
       fetchByMarketingName(
         selectedSearchCity,
         modelName,
-        Cookies.get("info") || "Guest"
+        Cookies.get("userUniqueId") || "Guest"
       ).then(
         (response) => {
           console.log("fetchByMarketingName -> ", response.dataObject);
@@ -49,15 +49,15 @@ function ModelPage() {
             setOtherListings(
               (response && response?.dataObject?.otherListings) || []
             );
-            setProductsData(
-              (response && response?.dataObject?.otherListings) || []
-            );
+            // setProductsData(
+            //   (response && response?.dataObject?.otherListings) || []
+            // );
           }
           if (response.dataObject?.bestDeals.length > -1) {
             setBestDeals((response && response?.dataObject?.bestDeals) || []);
-            setProductsData(
-              (response && response?.dataObject?.bestDeals) || []
-            );
+            // setProductsData(
+            //   (response && response?.dataObject?.bestDeals) || []
+            // );
           }
           setLoading(false);
         },
@@ -169,7 +169,7 @@ function ModelPage() {
                 className="m-1.5"
                 onClick={() => {
                   // setListingId(item.listingId);
-                  setProductsData(otherListings);
+                  // setProductsData(otherListings);
                 }}
               >
                 <OtherListingCard

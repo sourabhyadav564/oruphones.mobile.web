@@ -12,7 +12,7 @@ function PauseListing({ open, setOpen, listingId }) {
     e.preventDefault();
     let payLoad = {
       listingId,
-      userUniqueId: Cookies.get("info"),
+      userUniqueId: Cookies.get("userUniqueId"),
     };
     pauseListing(payLoad).then(
       (res) => {

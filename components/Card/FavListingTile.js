@@ -13,7 +13,7 @@ function FavListingTile({ data, setProducts }) {
 
   const handleFavoties = async () => {
     setProducts((prevState) => {
-      removeFavotie(data.listingId, Cookies.get("info") || "Guest").then(
+      removeFavotie(data.listingId, Cookies.get("userUniqueId") || "Guest").then(
         (response) => {
           console.log("removeFav RES", response);
         }

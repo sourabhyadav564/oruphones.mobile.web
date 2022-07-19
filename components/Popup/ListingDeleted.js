@@ -11,7 +11,7 @@ function ListingDeleted({ open, setOpen, data, setListings }) {
   function handleDelete() {
     let payload = {
       listingId: data?.listingId,
-      userUniqueId: Cookies.get("info"),
+      userUniqueId: Cookies.get("userUniqueId"),
     };
 
     deleteListing(payload).then((response) => {

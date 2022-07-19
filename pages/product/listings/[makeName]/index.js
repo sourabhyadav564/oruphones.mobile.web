@@ -10,11 +10,11 @@ import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader";
 import NoMatch from "@/components/NoMatch";
 
-import {
-  otherVendorDataState,
-  // otherVandorListingIdState,
-} from "../../../../atoms/globalState";
-import { useRecoilState } from "recoil";
+// import {
+//   otherVendorDataState,
+//   // otherVandorListingIdState,
+// } from "../../../../atoms/globalState";
+// import { useRecoilState } from "recoil";
 
 function MakePage() {
   const { selectedSearchCity, loading } = useAuthState();
@@ -27,8 +27,8 @@ function MakePage() {
   const [applySortFilter, setSortApplyFilter] = useState();
   const [isLoading, setLoading] = useState(true);
 
-  const [product, setProductsData] = useRecoilState(otherVendorDataState);
-  console.log("product from make page----->", product);
+  // const [product, setProductsData] = useRecoilState(otherVendorDataState);
+  // console.log("product from make page----->", product);
   // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
   // console.log("listingId from make page----->", listingId);
 
@@ -38,7 +38,7 @@ function MakePage() {
       fetchByMakeList(
         selectedSearchCity,
         makeName,
-        Cookies.get("info") || "Guest"
+        Cookies.get("userUniqueId") || "Guest"
       ).then(
         (response) => {
           console.log(
@@ -51,15 +51,15 @@ function MakePage() {
             setOtherListings(
               (response && response?.dataObject?.otherListings) || []
             );
-            setProductsData(
-              (response && response?.dataObject?.otherListings) || []
-            );
+            // setProductsData(
+            //   (response && response?.dataObject?.otherListings) || []
+            // );
           }
           if (response.dataObject?.bestDeals.length > -1) {
             setBestDeals((response && response?.dataObject?.bestDeals) || []);
-            setProductsData(
-              (response && response?.dataObject?.bestDeals) || []
-            );
+            // setProductsData(
+            //   (response && response?.dataObject?.bestDeals) || []
+            // );
           }
           setLoading(false);
         },
@@ -176,10 +176,10 @@ function MakePage() {
               <div
                 key={item.listingId}
                 className="m-1.5"
-                onClick={() => {
-                  // setListingId(item.listingId);
-                  setProductsData(otherListings);
-                }}
+                // onClick={() => {
+                //   // setListingId(item.listingId);
+                //   setProductsData(otherListings);
+                // }}
               >
                 <OtherListingCard
                   data={item}

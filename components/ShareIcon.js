@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 export default function ShareIcon({ data, color, ...rest }) {
   function shareListingInfo(data) {
-    prepareShareLink(data.listingId, Cookies.get("info") || "Guest").then((response) => {
+    prepareShareLink(data.listingId, Cookies.get("userUniqueId") || "Guest").then((response) => {
       sharePopupInfo(response?.dataObject.url, response?.dataObject.content);
     });
   }

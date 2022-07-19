@@ -20,7 +20,7 @@ function Favorites() {
 
   useEffect(() => {
     if (authenticated) {
-      fetchMyFavorites(Cookies.get("info")).then((response) => {
+      fetchMyFavorites(Cookies.get("userUniqueId")).then((response) => {
         setMyFavList(response?.dataObject);
       });
     }

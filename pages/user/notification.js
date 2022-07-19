@@ -26,7 +26,7 @@ function Notification({notificationsListObject}) {
   function makeNotificationAsRead(data){
     console.log("makeNotificationAsRead data.isUnRead -> ",data.isUnRead)
     if(data.isUnRead === 0){
-      markAsRead(data.notificationId, Cookies.get("info")).then((response)=>
+      markAsRead(data.notificationId, Cookies.get("userUniqueId")).then((response)=>
       console.log("makeNotificationAsRead -> ", response)
     )
     }
@@ -70,8 +70,8 @@ const NotificationsItem = ({ text, timestamp,onClick, isUnRead }) => (
 
 
 export const getServerSideProps = async ({ req }) => {
-  const { info } = req.cookies;
-  const notificationsList = await getAllNotificationByUserd(info);
+  const { userUniqueId, sessionId } = req.cookies;
+  const notificationsList = await getAllNotificationByUserd(userUniqueId, sessionId);
   return {
     props: {
       notificationsListObject: notificationsList?.dataObject || [],

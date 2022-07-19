@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { Fragment } from "react";
 
-function SellerDetails({ data, otherVendorData }) {
+function SellerDetails({ data }) {
   return (
     <Fragment>
       <h2 className="text-gray-20 font-semibold my-3">Seller Details</h2>
@@ -24,9 +24,9 @@ function SellerDetails({ data, otherVendorData }) {
             </g>
           </svg>
         </span>
-        {(data?.isOtherVendor === "Y" || otherVendorData[0]?.isOtherVendor === "Y") && (
+        {(data?.isOtherVendor === "Y" ) && (
           <div className="ml-3">
-            <Image alt="" src={data?.vendorLogo || otherVendorData[0]?.vendorLogo || "/" } width={130} height={50} objectFit="contain" />
+            <Image alt="" src={data?.vendorLogo || "/" } width={130} height={50} objectFit="contain" />
           </div>
         )}
 

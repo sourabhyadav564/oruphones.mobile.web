@@ -23,14 +23,14 @@ function Profile() {
 
     let data = new FormData();
     data.append("image", e.target.files[0]);
-    uploadUserProfilePic(data, Cookies.get("info")).then((response) => {
+    uploadUserProfilePic(data, Cookies.get("userUniqueId")).then((response) => {
       console.log("UPLOAD IMAGE RES ", response?.dataObject);
       if (response?.status === "SUCCESS") {
         let payload = {
           profilePicPath: response?.dataObject?.imagePath,
           profileThumbnailPath: response?.dataObject?.thumbnailImagePath,
           mobileNumber: Cookies.get("mobileNumber"),
-          userUniqueId: Cookies.get("info"),
+          userUniqueId: Cookies.get("userUniqueId"),
         };
 
         console.log("updateUserDetails payload -> ", payload);
@@ -60,7 +60,7 @@ function Profile() {
       email: email || user?.userdetails.email,
       mobileNumber: user?.userdetails?.mobileNumber,
       userName: userName || user.userdetails.userName,
-      userUniqueId: Cookies.get("info"),
+      userUniqueId: Cookies.get("userUniqueId"),
     };
 
     console.log("updateUserDetails payload -> ", payload);

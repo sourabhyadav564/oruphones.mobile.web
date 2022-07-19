@@ -41,7 +41,7 @@ function ListingDeatils({ data, id }) {
     e.preventDefault();
     let payLoad = {
       listingId: id,
-      userUniqueId: Cookies.get("info"),
+      userUniqueId: Cookies.get("userUniqueId"),
     };
     activateListing(payLoad).then(
       () => {
@@ -158,7 +158,7 @@ export default ListingDeatils;
 
 export async function getServerSideProps({ req, res, query }) {
   const { cookies } = req;
-  if (cookies.info === null || cookies.info === undefined) {
+  if (cookies.userUniqueId === null || cookies.userUniqueId === undefined) {
     return {
       redirect: {
         destination: "/login",
@@ -166,7 +166,7 @@ export async function getServerSideProps({ req, res, query }) {
       },
     };
   }
-  return await getListingDetails(query.id, cookies.info).then(
+  return await getListingDetails(query.id, cookies.userUniqueId, cookies.sessionId).then(
     (res) => {
       return {
         props: { data: res?.dataObject, id: query.id },

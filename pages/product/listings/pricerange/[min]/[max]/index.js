@@ -65,7 +65,7 @@ function PriceRangePage() {
   useEffect(() => {
     if (min && max) {
       console.log("shopByPriceRange", min, max === "above" ? "200000" : max, selectedSearchCity);
-      shopByPriceRange(max === "above" ? "200000" : max, selectedSearchCity, min, Cookies.get("info") || "Guest").then(
+      shopByPriceRange(max === "above" ? "200000" : max, selectedSearchCity, min, Cookies.get("userUniqueId") || "Guest").then(
         (response) => {
           console.log("MW shopByPriceRange -> ", response.dataObject);
           setShopByPriceBestDeal(response?.dataObject?.bestDeals);

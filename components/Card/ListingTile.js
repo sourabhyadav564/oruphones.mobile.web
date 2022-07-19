@@ -32,7 +32,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
     e.preventDefault();
     let payLoad = {
       listingId: data?.listingId,
-      userUniqueId: Cookies.get("info"),
+      userUniqueId: Cookies.get("userUniqueId"),
     };
     activateListing(payLoad).then(
       () => {

@@ -25,8 +25,12 @@ function Brands({ brandsList }) {
 
 export default Brands;
 
-export const getServerSideProps = async () => {
-  const brandsList = await fetchBrands();
+export const getServerSideProps = async ({ req, res, query }) => {
+  const { userUniqueId, sessionId } = req.cookies;
+  console.log("userUniqueId", userUniqueId);
+  console.log("sessionId", sessionId);
+  const brandsList = await fetchBrands(userUniqueId || "Guest",
+  sessionId || "");
   return {
     props: {
       brandsList: brandsList?.dataObject || [],

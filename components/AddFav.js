@@ -23,7 +23,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
     });
     let payLoad = {
       listingId: data.listingId,
-      userUniqueId: Cookies.get("info") || "Guest",
+      userUniqueId: Cookies.get("userUniqueId") || "Guest",
     };
     const addFavorite = () => {
       console.log("Add Favotites payload ", payLoad);
@@ -32,7 +32,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
       });
     };
     const removeFavorite = () => {
-      removeFavotie(data.listingId, Cookies.get("info") || "Guest").then((response) => {
+      removeFavotie(data.listingId, Cookies.get("userUniqueId") || "Guest").then((response) => {
         console.log("removeFav RES", response);
       });
     };

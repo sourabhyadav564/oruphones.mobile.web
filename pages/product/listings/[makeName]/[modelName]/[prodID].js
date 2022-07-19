@@ -22,15 +22,16 @@ import { useAuthState } from "providers/AuthProvider";
 import { useRef } from "react";
 import SellerDetails from "@/components/ProdInfo/SellerDetails";
 import LoginPopup from "@/components/Popup/LoginPopup";
-import Logo from "@/assets/mobiru_logo.svg";
+// import Logo from "@/assets/mobiru_logo.svg";
+import Logo from "@/assets/oru_phones_logo.png";
 import { BsStar } from "react-icons/bs";
 import { BsStarFill } from "react-icons/bs";
 
-import {
-  otherVandorDataSelector,
-  // otherVandorListingIdSelector,
-} from "../../../../../atoms/globalState";
-import { useRecoilValue } from "recoil";
+// import {
+//   otherVandorDataSelector,
+//   // otherVandorListingIdSelector,
+// } from "../../../../../atoms/globalState";
+// import { useRecoilValue } from "recoil";
 
 const RequestVerificationPopup = dynamic(() =>
   import("@/components/Popup/RequestVerificationPopup")
@@ -63,8 +64,8 @@ function ProductDeatils({ data }) {
   const myRef = useRef(null);
   const [openLoginPopup, setOpenLoginPopup] = useState(false);
 
-  const productData = useRecoilValue(otherVandorDataSelector);
-  console.log("productData ---->", productData);
+  // const productData = useRecoilValue(otherVandorDataSelector);
+  // console.log("productData ---->", productData);
 
   console.log("deviceListingInfo", deviceListingInfo);
 
@@ -72,21 +73,21 @@ function ProductDeatils({ data }) {
   // console.log("listingId ---->", listingId);
 
   const router = useRouter();
-  const listingId = router.query.prodID;
-  console.log("listingId ---->", listingId);
+  // const listingId = router.query.prodID;
+  // console.log("listingId ---->", listingId);
 
-  const otherVendorData = [];
+  // const otherVendorData = [];
 
-  productData?.filter((item) => {
-    if (item.listingId === listingId) {
-      otherVendorData.push(item);
-    }
-  });
+  // productData?.filter((item) => {
+  //   if (item.listingId === listingId) {
+  //     otherVendorData.push(item);
+  //   }
+  // });
 
-  console.log("otherVendorData ---->", otherVendorData);
+  // console.log("otherVendorData ---->", otherVendorData);
 
   const showSellerNumber = async (e) => {
-    console.log(e, Cookies.get("info"));
+    console.log(e, Cookies.get("userUniqueId"));
     handleButtonClick();
     if (!authenticated) {
       //router.push("/login");
@@ -102,12 +103,10 @@ function ProductDeatils({ data }) {
     }
   };
 
-  console.log("data ---> from prod", data);
-
   useEffect(() => {
     setDeviceListingInfo(data);
-    // if (!(data?.isOtherVendor === "Y") && Cookies.get("info") !== undefined) {
-    //   fetchSellerMobileNumber(data.listingId, Cookies.get("info")).then(
+    // if (!(data?.isOtherVendor === "Y") && Cookies.get("userUniqueId") !== undefined) {
+    //   fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
     //     (response) => {
     //       setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
     //       console.log(
@@ -123,8 +122,8 @@ function ProductDeatils({ data }) {
   }, [data]);
 
   const handleButtonClick = async () => {
-    if (!(data?.isOtherVendor === "Y") && Cookies.get("info") !== undefined) {
-      fetchSellerMobileNumber(data.listingId, Cookies.get("info")).then(
+    if (!(data?.isOtherVendor === "Y") && Cookies.get("userUniqueId") !== undefined) {
+      fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
         (response) => {
           setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
           console.log(
@@ -149,8 +148,7 @@ function ProductDeatils({ data }) {
     }
   }
 
-  const conditionText =
-    data?.deviceCondition || otherVendorData[0]?.deviceCondition;
+  const conditionText = data?.deviceCondition;
   let filled = 0;
   if (conditionText === "Like New") {
     filled = 5;
@@ -173,8 +171,7 @@ function ProductDeatils({ data }) {
     <Fragment>
       {/* <Header2 title="Product Info" /> */}
       <main className="py-3 relative ">
-        {(data?.isOtherVendor === "N" ||
-          otherVendorData[0]?.isOtherVendor === "N") && (
+        {data?.isOtherVendor === "N" && (
           <div className="flex justify-between items-center absolute top-0 left-0 right-0 z-10 bg-black bg-opacity-30 text-white px-4 py-2 ">
             <div className="flex space-x-4 items-center ">
               {(data?.verified && (
@@ -236,11 +233,16 @@ function ProductDeatils({ data }) {
                   fullImage: data?.imagePath,
                 },
               ]) ||
-              (data?.defaultImage && [
+              (data?.defaultImage?.fullImage && [
                 { fullImage: data?.defaultImage?.fullImage },
               ]) ||
-              (otherVendorData[0] && [
-                { fullImage: otherVendorData[0]?.vendorLogo },
+              (data?.vendorLogo && [
+                {
+                  // fullImage: data?.vendorLogo,
+                  // thumbImage: data?.vendorLogo,
+                  fullImage: Logo,
+                  thumbImage: Logo,
+                },
               ])
             }
           />
@@ -248,32 +250,26 @@ function ProductDeatils({ data }) {
         <div className="my-4 px-4">
           <div className="flex flex-col items-start">
             <h1 className="text-gray-20 font-bold text-lg">
-              {data?.marketingName || otherVendorData[0]?.marketingName}​
+              {data?.marketingName}​
             </h1>
             <div className="text-gray-20 flex items-center my-1">
               <p className="text-gray-20 font-bold text-sm">
                 Varient:{" "}
                 <span className="text-gray-20 font-bold text-sm">
-                  {data?.deviceStorage || otherVendorData[0]?.deviceStorage}​
+                  {data?.deviceStorage}​
                 </span>
               </p>
             </div>
-            <div className="text-gray-20 w-full flex items-center justify-between my-1">
-              <p className="text-gray-20 font-semibold text-xs">
-                Listed on:{" "}
-                <span>
-                  {data?.listingDate || otherVendorData[0]?.listingDate || "--"}
-                </span>
-              </p>
-              <p className="text-gray-20 font-semibold text-xs">
-                Location:{" "}
-                <span>
-                  {data?.listingLocation ||
-                    otherVendorData[0]?.listingLocation ||
-                    "--"}
-                </span>
-              </p>
-            </div>
+            {data?.isOtherVendor === "N" && (
+              <div className="text-gray-20 w-full flex items-center justify-between my-1">
+                <p className="text-gray-20 font-semibold text-xs">
+                  Listed on: <span>{data?.listingDate || "--"}</span>
+                </p>
+                <p className="text-gray-20 font-semibold text-xs">
+                  Location: <span>{data?.listingLocation || "--"}</span>
+                </p>
+              </div>
+            )}
           </div>
           <div className="flex items-center border rounded-md my-3">
             <div className="bg-gray-ef flex-1 px-4 py-2 ">
@@ -283,10 +279,10 @@ function ProductDeatils({ data }) {
                 className="font-bold flex items-center text-black-4e"
                 style={{ fontSize: 28 }}
               >
-                {(data?.listingPrice || otherVendorData?.length) && (
+                {data?.listingPrice && (
                   <FaRupeeSign className="text-xl font-normal mr-0.5" />
                 )}{" "}
-                {data?.listingPrice || otherVendorData[0]?.listingPrice}
+                {data?.listingPrice}
               </p>
             </div>
             <div className="bg-white flex-1 px-4 py-2">
@@ -299,7 +295,7 @@ function ProductDeatils({ data }) {
                 <BsInfoCircle className="ml-2 text-sm cursor-pointer" />
               </span>
               <p className="text-sm font-bold text-gray-70 flex items-center">
-                {data?.deviceCondition || otherVendorData[0]?.deviceCondition}
+                {data?.deviceCondition}
               </p>
               <div className="flex space-x-2 my-[3px]">
                 {}
@@ -343,38 +339,23 @@ function ProductDeatils({ data }) {
               </>
             ))}
           <h2 className="text-gray-20 font-semibold my-3">Device Info</h2>
-          {(data?.isOtherVendor === "Y" ||
-            otherVendorData[0]?.isOtherVendor === "Y") && (
+          {data?.isOtherVendor === "Y" && (
             <div className="grid grid-cols-2 space-y-2">
               <IconLabelValue
                 label="Storage"
-                value={
-                  data?.deviceStorage ||
-                  otherVendorData[0]?.deviceStorage ||
-                  "--"
-                }
+                value={data?.deviceStorage || "--"}
               />
               <span></span>
-              <IconLabelValue
-                label="Color"
-                value={data?.color || otherVendorData[0]?.color || "--"}
-              />
-              <IconLabelValue
-                label="RAM"
-                value={data?.ram || otherVendorData[0]?.ram || "--"}
-              />
-              <IconLabelValue
-                label="Warranty"
-                value={data?.warranty || otherVendorData[0]?.warranty || "--"}
-              />
+              <IconLabelValue label="Color" value={data?.color || "--"} />
+              <IconLabelValue label="RAM" value={data?.ram || "--"} />
+              <IconLabelValue label="Warranty" value={data?.warranty || "--"} />
               <IconLabelValue
                 label="Condition"
-                value={data?.condition || otherVendorData[0]?.deviceCondition || "--"}
+                value={data?.condition || data?.deviceCondition || "--"}
               />
             </div>
           )}
-          {(data?.isOtherVendor === "N" ||
-            otherVendorData[0]?.isOtherVendor === "N") && (
+          {data?.isOtherVendor === "N" && (
             <div className="grid grid-cols-2 space-y-2">
               <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
               <IconLabelValue label="storage" value={data?.deviceStorage} />
@@ -398,7 +379,7 @@ function ProductDeatils({ data }) {
               <IconLabelValue label="Listed On" value={data?.listingDate} />
             </div>
           )}
-          <SellerDetails data={data} otherVendorData={otherVendorData} />
+          <SellerDetails data={data} />
         </div>
         <div className="mt-4 w-full" ref={myRef}>
           <ViewReport
@@ -409,13 +390,8 @@ function ProductDeatils({ data }) {
           />
         </div>
         <div className="px-4 py-2 fixed bottom-0 w-full bg-white z-50">
-          {data?.isOtherVendor === "Y" ||
-          otherVendorData[0]?.isOtherVendor === "Y" ? (
-            <PrimayButton
-              onClick={() =>
-                openWebSite(data?.vendorLink || otherVendorData[0]?.vendorLink)
-              }
-            >
+          {data?.isOtherVendor === "Y" ? (
+            <PrimayButton onClick={() => openWebSite(data?.vendorLink)}>
               {" "}
               View Website{" "}
             </PrimayButton>
@@ -426,7 +402,7 @@ function ProductDeatils({ data }) {
           )}
         </div>
       </main>
-      <SimilarProduct data={data} otherVendorData={otherVendorData} />
+      <SimilarProduct data={data} />
       <Footer />
       {openRequestVerificationSuccessPopup && (
         <RequestVerificationSuccessPopup
@@ -452,10 +428,14 @@ function ProductDeatils({ data }) {
         close={() => setShowFullImage(false)}
         images={
           (data?.images?.length && data?.images) ||
-          (data?.imagePath && [{ fullImage: data?.imagePath }]) ||
-          (data?.defaultImage && [data?.defaultImage]) ||
-          (otherVendorData[0] && [
-            { fullImage: otherVendorData[0]?.vendorLogo },
+          (data?.imagePath?.length && [{ fullImage: data?.imagePath }]) ||
+          (data?.defaultImage?.fullImage?.length && [data?.defaultImage]) ||
+          (data?.vendorLogo?.length && [
+            {
+              // fullImage: data?.vendorLogo,
+              // thumbImage: data?.vendorLogo,
+              fullImage: Logo?.src,
+            },
           ])
         }
       />
@@ -483,11 +463,16 @@ function ProductDeatils({ data }) {
 export default ProductDeatils;
 
 export const getServerSideProps = async ({ req, res, query }) => {
-  const { info } = req.cookies;
+  const { userUniqueId, sessionId } = req.cookies;
+  // console.log("userUniqueId", userUniqueId);
+  // console.log("sessionId", sessionId);
+  // console.log("productID", query.productID);
+  // console.log("isOtherVendor", query.isOtherVendor);
   const detailWithUserInfo1 = await detailWithUserInfo(
     query.isOtherVendor,
     query.prodID,
-    info || "Guest"
+    userUniqueId || "Guest",
+    sessionId || ""
   );
   return {
     props: {

@@ -115,7 +115,7 @@ function LocationPicker({ openLocationPopup }) {
           country: "India",
           state: "",
           locationId: searchID,
-          userUniqueId: Cookies.get("info"),
+          userUniqueId: Cookies.get("userUniqueId"),
         };
         console.log("updateAddress -> payLoad", payLoad);
         updateAddress(payLoad).then((res) => {
