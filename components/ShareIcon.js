@@ -34,6 +34,7 @@ export default function ShareIcon({ data, color, ...rest }) {
         e.preventDefault();
         shareListingInfo(data);
       }}
+      className="hover:cursor-pointer"
     >
       <path
         id="share"

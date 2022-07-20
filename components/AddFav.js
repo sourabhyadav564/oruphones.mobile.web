@@ -51,6 +51,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
   if (!authenticated) {
     return (
       <Fragment>
+        <h1>hero</h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -61,6 +62,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
             e.preventDefault();
             redirectToLogin();
           }}
+          className="hover:cursor-pointer"
         >
           <path
             id="hearts"
@@ -84,6 +86,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
           e.preventDefault();
           handleFavoties(data);
         }}
+        className="hover:cursor-pointer"
       >
         <path
           id="hearts"
