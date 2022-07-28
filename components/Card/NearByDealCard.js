@@ -35,7 +35,9 @@ function NearByDealCard({ data, setProducts, prodLink }) {
                   <VerifiedIcon width={45} height={22} />
                 )}
               </span>
-              <AddFav data={data} setProducts={setProducts} />
+              {data?.isOtherVendor === "N" && (
+                <AddFav data={data} setProducts={setProducts} />
+              )}
             </div>
             <div className="flex justify-center p-2">
               <Image

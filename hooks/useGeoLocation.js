@@ -19,10 +19,8 @@ const useGeoLocation = () => {
   const onSuccess = async (location) => {
     let lat = location.coords.latitude;
     let lng = location.coords.longitude;
-    console.log(lat, lng);
     try {
       const res = await axios.get(`${MAP_MY_IND_URL}?lat=${lat}&lng=${lng}&region=IND`);
-      console.log(res.data);
       setLocation({
         loaded: true,
         city: "",

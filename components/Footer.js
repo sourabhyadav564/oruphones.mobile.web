@@ -55,7 +55,7 @@ const Footer = () => {
           </div>
           <div className="flex items-center justify-between pt-4 ">
             <a
-              href="https://www.facebook.com/oruphones"
+              // href="https://www.facebook.com/oruphones"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -63,7 +63,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://twitter.com/oruphones"
+              // href="https://twitter.com/oruphones"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -71,7 +71,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://www.instagram.com/oruphones/"
+              // href="https://www.instagram.com/oruphones/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -79,7 +79,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://www.pinterest.com/refurbishedphonedeals/"
+              // href="https://www.pinterest.com/refurbishedphonedeals/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -87,7 +87,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://www.linkedin.com/company/oruphones"
+              // href="https://www.linkedin.com/company/oruphones"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -95,7 +95,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://www.youtube.com/channel/UCf05rmUN5_t2KzgmjQtvXKg/"
+              // href="https://www.youtube.com/channel/UCf05rmUN5_t2KzgmjQtvXKg/"
               target="_blank"
               rel="noopener noreferrer"
             >

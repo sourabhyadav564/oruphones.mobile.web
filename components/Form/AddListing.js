@@ -62,8 +62,6 @@ const AddListingForm = ({ data }) => {
     selectedSearchCity === "India" ? "" : selectedSearchCity;
   const [selectedCity, setSelectedCity] = useState(userSelectedLocation);
 
-  console.log("selectedCity", selectedCity);
-
   const dispatch = useAuthDispatch();
 
   useEffect(() => {
@@ -76,12 +74,17 @@ const AddListingForm = ({ data }) => {
   }, [make]);
 
   useEffect(() => {
-    getGlobalCities().then(
-      (response) => {
-        setGlobalCities(response.dataObject);
-      },
-      (err) => console.error(err)
-    );
+    if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
+      setGlobalCities(JSON.parse(localStorage.getItem("cities")));
+    } else {
+      getGlobalCities().then(
+        (response) => {
+          setGlobalCities(response.dataObject);
+          localStorage.setItem("cities", JSON.stringify(response.dataObject));
+        },
+        (err) => console.error(err)
+      );
+    }
   }, []);
 
   useEffect(() => {
@@ -109,7 +112,6 @@ const AddListingForm = ({ data }) => {
       condition !== null
     ) {
       getExternalSellSourceData(payload).then((response) => {
-        console.log("getExternalSellSourceData ", response?.dataObject);
         setGetExternalSellerData(response?.dataObject);
       });
     }
@@ -127,7 +129,6 @@ const AddListingForm = ({ data }) => {
       warrantyPeriod: "more",
       verified: "no",
     };
-    console.log(reqParams);
     if (
       make &&
       model &&
@@ -135,7 +136,6 @@ const AddListingForm = ({ data }) => {
       condition &&
       (charging || headphone || originalbox || true)
     ) {
-      console.log("called");
       getRecommandedPrice(reqParams).then(
         ({ dataObject }) => {
           setRecommandedPrice(dataObject);
@@ -180,7 +180,6 @@ const AddListingForm = ({ data }) => {
         ({ status, dataObject }) => {
           if (status === "SUCCESS") {
             let tempImages = [...images];
-            console.log(dataObject);
             tempImages[index] = {
               ...tempImages[index],
               thumbImage: dataObject?.thumbnailImagePath,
@@ -210,7 +209,9 @@ const AddListingForm = ({ data }) => {
     var inputName = inputNameTag.value;
 
     if (
-      (selectedCity === undefined || selectedCity === "" || selectedCity === "India") ||
+      selectedCity === undefined ||
+      selectedCity === "" ||
+      selectedCity === "India" ||
       make === undefined ||
       model === undefined ||
       storage === undefined ||
@@ -236,7 +237,7 @@ const AddListingForm = ({ data }) => {
         setDeviceConditionRequired("border-red");
       }
       if (
-        selectedCity === ""||
+        selectedCity === "" ||
         selectedCity === "India" ||
         selectedCity === undefined
       ) {
@@ -280,7 +281,6 @@ const AddListingForm = ({ data }) => {
         ),
         model: model,
       };
-      console.log("SAVE LISTING ", payload);
       saveLisiting(payload).then(
         () => {
           setListingAdded(true);

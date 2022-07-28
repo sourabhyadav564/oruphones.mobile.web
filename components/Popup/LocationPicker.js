@@ -30,18 +30,10 @@ function LocationPicker({ openLocationPopup }) {
     city: "",
   });
 
-  console.log("location from picker", location);
-  console.log("user from picker", user);
-  console.log("authenticated from picker", authenticated);
-  // location.loaded && location.city && location.city.length > 0
-  console.log("1", location.loaded);
-  console.log("2", location.city);
-  console.log("3", location.city.length);
 
   const onSuccess = async (location) => {
     let lat = location.coords.latitude;
     let lng = location.coords.longitude;
-    // console.log(lat, lng);
     Geocode.setApiKey("AIzaSyAh6-hbxmUdNaznjA9c05kXi65Vw3xBl3w");
 
     Geocode.setLanguage("en");
@@ -92,7 +84,6 @@ function LocationPicker({ openLocationPopup }) {
 
   useEffect(() => {
     const initialState = localStorage.getItem("usedLocation");
-    // console.log("initialState : ", initialState);
     if (!initialState || initialState == null) {
       setOpen(true);
     } else {
@@ -117,18 +108,14 @@ function LocationPicker({ openLocationPopup }) {
           locationId: searchID,
           userUniqueId: Cookies.get("userUniqueId"),
         };
-        console.log("updateAddress -> payLoad", payLoad);
-        updateAddress(payLoad).then((res) => {
-          console.log("updateAddress RES -> ", res);
-          const mobileNumber = Cookies.get("mobileNumber");
-          const countryCode = Cookies.get("countryCode");
-          getUserDetails(countryCode, mobileNumber).then((resp) => {
-            console.log("userProfile -> ", resp.dataObject);
-            dispatch("LOGIN", resp.dataObject);
-          });
-        });
+        // updateAddress(payLoad).then((res) => {
+        //   const mobileNumber = Cookies.get("mobileNumber");
+        //   const countryCode = Cookies.get("countryCode");
+        //   getUserDetails(countryCode, mobileNumber).then((resp) => {
+        //     dispatch("LOGIN", resp.dataObject);
+        //   });
+        // });
       }
-      console.log("location.city", location.city);
       dispatch("ADDCITY", location.city);
       localStorage.setItem("usedLocation", location.city);
     }

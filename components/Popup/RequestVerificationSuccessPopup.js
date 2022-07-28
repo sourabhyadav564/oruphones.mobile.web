@@ -4,14 +4,13 @@ import { useEffect, useState } from "react";
 import { BsCheck2Circle } from "react-icons/bs";
 import Modal2 from "./Modal2";
 import { FiAlertOctagon } from "react-icons/fi";
-import Loader from "@/components/Loader";
+import Loader from "@/components/Loader/Loader";
 
 function RequestVerificationSuccessPopup({ open, setOpen, data }) {
   useEffect(() => {
     if (open) {
       sendverification(data.listingId, Cookies.get("userUniqueId") || "Guest").then(
         (response) => {
-          console.log("sendverification ", response);
           setResData(response);
         }
       );
@@ -19,7 +18,6 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
   }, [data]);
 
   const [resData, setResData] = useState({});
-  console.log("resData", resData);
 
   return (
     <Modal2 open={open} setOpen={setOpen}>
@@ -43,7 +41,7 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
               <br />{" "}
               {resData?.statusCode === 200
                 ? "This listing will also be added to My Favorites"
-                : "You will receive a notification once Seller completes verification."}
+                : "You will receive a notification once Seller completes verification. A new verification request can only be sent after 7 days of the previous request."}
             </p>
           </>
         ) : (

@@ -8,7 +8,6 @@ import router from "next/router";
 import VerifyFlowPopup from "@/components/Popup/VerifyFlowPopup";
 
 function Notification({notificationsListObject}) {
-  console.log(notificationsListObject);
   const [notifications, setNotifications] = useState(notificationsListObject?.notifications);
   const [openVerifyFlow, setOpenVerifyFlow] = useState(false);
 
@@ -24,7 +23,6 @@ function Notification({notificationsListObject}) {
   }
 
   function makeNotificationAsRead(data){
-    console.log("makeNotificationAsRead data.isUnRead -> ",data.isUnRead)
     if(data.isUnRead === 0){
       markAsRead(data.notificationId, Cookies.get("userUniqueId")).then((response)=>
       console.log("makeNotificationAsRead -> ", response)

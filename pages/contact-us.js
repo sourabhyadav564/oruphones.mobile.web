@@ -126,10 +126,10 @@ function ContactUS() {
         </section>
         <h2 className="text-black font-bold my-2">Connect with us</h2>
         <section>
-          <div>
+          {/* <div>
             <span className="text-black font-semibold">Give us a call</span>
             <p className="text-black-20 mb-4"> +91 999 123 1234 </p>
-          </div>
+          </div> */}
           <div>
             <span className="text-black font-semibold">Send us an email</span>
             <p className="text-black-20 mb-4">contact@oruphones.com</p>

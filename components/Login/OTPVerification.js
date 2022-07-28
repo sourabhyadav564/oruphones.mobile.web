@@ -39,7 +39,6 @@ function OTPVerification({ formData, dataObject, fromAddListing, setStep, setOpe
         if (status === "SUCCESS") {
           createUser(formData?.countryCode, formData?.mobile).then(
             (response) => {
-              console.log("createUser --> ", response);
               if (response.status === "SUCCESS") {
                 addUserSearchandProfileLocations(response.dataObject.userUniqueId);
               }
@@ -71,12 +70,9 @@ function OTPVerification({ formData, dataObject, fromAddListing, setStep, setOpe
       userUniqueId: data,
     };
 
-    console.log("locationPayload  ", locationPayload);
     const addUserSearchLocationResponse = await addUserSearchLocation(locationPayload);
     const addUserProfileLocationResponse = await addUserProfileLocation(locationPayload);
 
-    console.log("addUserSearchLocationResponse   ", addUserSearchLocationResponse);
-    console.log("addUserProfileLocationResponse   ", addUserProfileLocationResponse);
   };
 
   const handleChange = (e) => {
@@ -85,7 +81,6 @@ function OTPVerification({ formData, dataObject, fromAddListing, setStep, setOpe
     setError(false);
   };
 
-  console.log("error from verification ", error);
 
   return (
     <form className="flex flex-col items-center w-full space-y-8" onSubmit={handleSubmit}>

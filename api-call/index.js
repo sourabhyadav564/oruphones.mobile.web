@@ -53,7 +53,7 @@ export async function getAboutUsContent() {
 }
 
 export function getSessionId() {
-  headers = {...headers, eventName: "NA"}
+  headers = { ...headers, eventName: "NA" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
@@ -67,7 +67,7 @@ export function getSessionId() {
 }
 
 export function getSearchResults(q) {
-  headers = {...headers, eventName: "SEARCH_TEXT_SUGGESTIONS"}
+  headers = { ...headers, eventName: "SEARCH_TEXT_SUGGESTIONS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/cscglobal/search";
   return Axios.post(
@@ -86,7 +86,7 @@ export function getSearchResults(q) {
 }
 
 export async function generateOTP(countryCode, mobileNumber) {
-  headers = {...headers, eventName: "SIGNIN_REQUEST"}
+  headers = { ...headers, eventName: "SIGNIN_REQUEST" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/generate?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
 
@@ -96,7 +96,7 @@ export async function generateOTP(countryCode, mobileNumber) {
 }
 
 export async function resendOTP(countryCode, mobileNumber) {
-  headers = {...headers, eventName: "RESEND_OTP"}
+  headers = { ...headers, eventName: "RESEND_OTP" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/resend?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
 
@@ -106,7 +106,7 @@ export async function resendOTP(countryCode, mobileNumber) {
 }
 
 export async function validateUser(countryCode, mobileNumber, OTP) {
-  headers = {...headers, eventName: "VERIFY_OTP"}
+  headers = { ...headers, eventName: "VERIFY_OTP" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/validate?countryCode=${countryCode}&mobileNumber=${mobileNumber}&otp=${OTP}`;
 
@@ -117,9 +117,8 @@ export async function validateUser(countryCode, mobileNumber, OTP) {
 
 //mobiruqa.zenro.co.jp:8080 ?countryCode=%2B91&mobileNumber=8968028089
 export async function createUser(countryCode, mobileNumber) {
-  headers = {...headers, eventName: "SIGNUP_REQUEST"}
+  headers = { ...headers, eventName: "SIGNUP_REQUEST" };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  console.log("countryCode, mobileNumber ", countryCode, mobileNumber);
   const url = `${URI}/api/v1/login/user/create`;
 
   return await Axios.post(
@@ -132,7 +131,7 @@ export async function createUser(countryCode, mobileNumber) {
 }
 
 export async function getUserDetails(countryCode, mobileNumber) {
-  headers = {...headers, eventName: "FETCH_USER_DETAILS"}
+  headers = { ...headers, eventName: "FETCH_USER_DETAILS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/details?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -141,7 +140,12 @@ export async function getUserDetails(countryCode, mobileNumber) {
 }
 
 export async function getMakeModelLists(userUniqueId, sessionId) {
-  headers = {...headers, eventName: "GET_MAKE_MODEL_LIST", userUniqueId: userUniqueId, sessionId:sessionId};
+  headers = {
+    ...headers,
+    eventName: "GET_MAKE_MODEL_LIST",
+    userUniqueId: userUniqueId,
+    sessionId: sessionId,
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   // const DEFAULT_HEADER = {
   //   headers: {
@@ -157,7 +161,6 @@ export async function getMakeModelLists(userUniqueId, sessionId) {
   //         : "",
   //   },
   // };
-  console.log("DEFAULT_HEADER", DEFAULT_HEADER);
   const url = `${URI}/api/v1/master/makemodellist`;
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -176,7 +179,7 @@ export async function uploadImage(data, params) {
 }
 
 export async function getRecommandedPrice(data) {
-  headers = {...headers, eventName: "FETCH_RECOMMENDED_PRICE"}
+  headers = { ...headers, eventName: "FETCH_RECOMMENDED_PRICE" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/global/recomanded/price`;
 
@@ -186,7 +189,7 @@ export async function getRecommandedPrice(data) {
 }
 
 export async function saveLisiting(payload) {
-  headers = {...headers, eventName: "ADDLISTING_ADD_SUCCESS"}
+  headers = { ...headers, eventName: "ADDLISTING_ADD_SUCCESS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/save`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then((response) => {
@@ -195,7 +198,7 @@ export async function saveLisiting(payload) {
 }
 
 export async function updateLisiting(payload) {
-  headers = {...headers, eventName: "EDITLISTING_EDIT_SUCCESS"}
+  headers = { ...headers, eventName: "EDITLISTING_EDIT_SUCCESS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/update`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then((response) => {
@@ -204,7 +207,7 @@ export async function updateLisiting(payload) {
 }
 
 export async function deleteListing(params) {
-  headers = {...headers, eventName: "MYLISTINGS_DELETE_SELECTED"}
+  headers = { ...headers, eventName: "MYLISTINGS_DELETE_SELECTED" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/delete`;
   return await Axios.post(url, params, DEFAULT_HEADER).then(
@@ -218,7 +221,7 @@ export async function deleteListing(params) {
 }
 
 export async function activateListing(params) {
-  headers = {...headers, eventName: "MYLISTINGS_ACTIVATENOW_SELECTED"}
+  headers = { ...headers, eventName: "MYLISTINGS_ACTIVATENOW_SELECTED" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/activate`;
   return await Axios.post(url, JSON.stringify(params), DEFAULT_HEADER).then(
@@ -232,7 +235,7 @@ export async function activateListing(params) {
 }
 
 export async function pauseListing(params) {
-  headers = {...headers, eventName: "MYLISTINGS_PAUSE_SELECTED"}
+  headers = { ...headers, eventName: "MYLISTINGS_PAUSE_SELECTED" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/pause`;
   return await Axios.post(url, params, DEFAULT_HEADER).then(
@@ -246,7 +249,7 @@ export async function pauseListing(params) {
 }
 
 export async function getUserListings(userUniqueId) {
-  headers = {...headers, eventName: "MYLISTINGS_VIEW_LISTING"}
+  headers = { ...headers, eventName: "MYLISTINGS_VIEW_LISTING" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listings?userUniqueId=${userUniqueId}`;
 
@@ -256,7 +259,12 @@ export async function getUserListings(userUniqueId) {
 }
 
 export async function getListingDetails(listingid, userUniqueId, sessionId) {
-  headers = {...headers, eventName: "FETCH_LISTING_DETAILS", userUniqueId: userUniqueId, sessionId:sessionId};
+  headers = {
+    ...headers,
+    eventName: "FETCH_LISTING_DETAILS",
+    userUniqueId: userUniqueId,
+    sessionId: sessionId,
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   // const DEFAULT_HEADER = {
   //   headers: {
@@ -285,7 +293,7 @@ export async function getListingDetails(listingid, userUniqueId, sessionId) {
 }
 
 export async function fetchBrands() {
-  headers = {...headers, eventName: `GET_ALL_BRANDS`};
+  headers = { ...headers, eventName: `GET_ALL_BRANDS` };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/master/brands`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -294,7 +302,7 @@ export async function fetchBrands() {
 }
 
 export async function fetchTopsellingmodels() {
-  headers = {...headers, eventName: `GET_TOP_SELLING_MODELS`};
+  headers = { ...headers, eventName: `GET_TOP_SELLING_MODELS` };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/home/topselling/models`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -302,8 +310,13 @@ export async function fetchTopsellingmodels() {
   });
 }
 
-export async function fetchByMakeList(location, makeName, userUniqueId) {
-  headers = {...headers, eventName: `BRAND_SELECTED ${makeName}`};
+export async function fetchByMakeList(
+  location,
+  makeName,
+  userUniqueId,
+  pageNumber
+) {
+  headers = { ...headers, eventName: `BRAND_SELECTED ${makeName}` };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/home/listingsbymake?listingLocation=` +
@@ -311,7 +324,9 @@ export async function fetchByMakeList(location, makeName, userUniqueId) {
     `&make=` +
     makeName +
     `&userUniqueId=` +
-    userUniqueId;
+    userUniqueId +
+    `&pageNumber=` +
+    pageNumber;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
@@ -320,9 +335,13 @@ export async function fetchByMakeList(location, makeName, userUniqueId) {
 export async function fetchByMarketingName(
   location,
   marketingName,
-  userUniqueId
+  userUniqueId,
+  pageNumber
 ) {
-  headers = {...headers, eventName: `HOME_TOP_SELLING_MODEL_SELECTED ${marketingName}`};
+  headers = {
+    ...headers,
+    eventName: `HOME_TOP_SELLING_MODEL_SELECTED ${marketingName}`,
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/home/listbymarketingname?location=` +
@@ -330,7 +349,9 @@ export async function fetchByMarketingName(
     `&marketingName=` +
     marketingName +
     `&userUniqueId=` +
-    userUniqueId;
+    userUniqueId +
+    "&pageNumber=" +
+    pageNumber;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
@@ -363,7 +384,12 @@ export async function detailWithUserInfo(
   //         : "",
   //   },
   // };
-  headers = {...headers, eventName: "PRODUCT_DETAIL_WITH_SELLER_DETAIL", userUniqueId: userUniqueId, sessionId:sessionId};
+  headers = {
+    ...headers,
+    eventName: "PRODUCT_DETAIL_WITH_SELLER_DETAIL",
+    userUniqueId: userUniqueId,
+    sessionId: sessionId,
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.post(url, {}, DEFAULT_HEADER).then((response) => {
     return response.data;
@@ -371,7 +397,7 @@ export async function detailWithUserInfo(
 }
 
 export async function fetchSellerMobileNumber(listingid, userUniqueId) {
-  headers = {...headers, eventName: "GET_SELLER_CONTACT"}
+  headers = { ...headers, eventName: "GET_SELLER_CONTACT" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/device/listing/user/mobilenumber?listingId=` +
@@ -384,7 +410,7 @@ export async function fetchSellerMobileNumber(listingid, userUniqueId) {
 }
 
 export async function getGlobalCities() {
-  headers = {...headers, eventName: "FETCH_CITIES"}
+  headers = { ...headers, eventName: "FETCH_CITIES" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/global/cities`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -393,7 +419,7 @@ export async function getGlobalCities() {
 }
 
 export async function shopByPrice() {
-  headers = {...headers, eventName: "GET_SHOP_BY_PRICE"}
+  headers = { ...headers, eventName: "GET_SHOP_BY_PRICE" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/global/shopbyprice`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -421,14 +447,16 @@ export async function shopByPriceRange(
   });
 }
 
-export async function bestDealNearByYou(location, userUniqueId) {
+export async function bestDealNearByYou(location, userUniqueId, pageNumber) {
   const url =
     `${URI}/api/v1/home/listings/best/nearme?location=` +
     location +
     `&userUniqueId=` +
-    userUniqueId;
-    headers = {...headers, eventName: "GET_BEST_DEALS"}
-    const DEFAULT_HEADER = { headers: { ...headers } };
+    userUniqueId +
+    `&pageNumber=` +
+    pageNumber;
+  headers = { ...headers, eventName: "GET_BEST_DEALS" };
+  const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
@@ -440,7 +468,7 @@ export async function bestDealNearByYou(location, userUniqueId) {
 }
 
 export async function addUserSearchLocation(payload) {
-  headers = {...headers, eventName: "LOCATION_CHANGED_SUCCESS"}
+  headers = { ...headers, eventName: "LOCATION_CHANGED_SUCCESS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/addSearchLocation`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
@@ -454,7 +482,7 @@ export async function addUserSearchLocation(payload) {
 }
 
 export async function addUserProfileLocation(payload) {
-  headers = {...headers, eventName: "PROFILE_LOCATION_ADDED"}
+  headers = { ...headers, eventName: "PROFILE_LOCATION_ADDED" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/addProfileLocation`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
@@ -468,7 +496,7 @@ export async function addUserProfileLocation(payload) {
 }
 
 export async function updateAddress(payload) {
-  headers = {...headers, eventName: "UPDATE_ADDRESS_SUCCESS"}
+  headers = { ...headers, eventName: "UPDATE_ADDRESS_SUCCESS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/update`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
@@ -482,7 +510,7 @@ export async function updateAddress(payload) {
 }
 
 export async function addFavotie(payload) {
-  headers = {...headers, eventName: "FAVORITE_ADD_SUCCESS"}
+  headers = { ...headers, eventName: "FAVORITE_ADD_SUCCESS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/favorite/add`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
@@ -496,8 +524,7 @@ export async function addFavotie(payload) {
 }
 
 export async function removeFavotie(listingId, userUniqueId) {
-
-  headers = {...headers, eventName: "FAVORITE_REMOVE_SUCCESS"}
+  headers = { ...headers, eventName: "FAVORITE_REMOVE_SUCCESS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/favorite/deactivate?listingId=` +
@@ -514,14 +541,16 @@ export async function removeFavotie(listingId, userUniqueId) {
   );
 }
 
-export async function bestDealNearYouAll(location, userUniqueId) {
-  headers = {...headers, eventName: "HOME_BESTDEAL_VIEW_ALL"}
+export async function bestDealNearYouAll(location, userUniqueId, pageNumber) {
+  headers = { ...headers, eventName: "HOME_BESTDEAL_VIEW_ALL" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/device/listings/best/nearall?userLocation=` +
     location +
     `&userUniqueId=` +
-    userUniqueId;
+    userUniqueId +
+    `&pageNumber=` +
+    pageNumber;
   return await Axios.get(url, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
@@ -533,7 +562,7 @@ export async function bestDealNearYouAll(location, userUniqueId) {
 }
 
 export async function updateUserProfileDetails(payload) {
-  headers = {...headers, eventName: "UPDATE_USER_DETAILS"}
+  headers = { ...headers, eventName: "UPDATE_USER_DETAILS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/update`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
@@ -547,9 +576,8 @@ export async function updateUserProfileDetails(payload) {
 }
 
 export async function fetchMyFavorites(userUniqueId) {
-  headers = {...headers, eventName: "FETCH_FAVORITE_LIST"}
+  headers = { ...headers, eventName: "FETCH_FAVORITE_LIST" };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  console.log("default header", DEFAULT_HEADER);
   const url = `${URI}/api/v1/favorite/fetch?userUniqueId=` + userUniqueId;
   return await Axios.post(url, {}, DEFAULT_HEADER).then(
     (response) => {
@@ -561,10 +589,13 @@ export async function fetchMyFavorites(userUniqueId) {
   );
 }
 
-export async function fetchSimilarProducts(payLoad, userUniqueId) {
-  headers = {...headers, eventName: "FETCH_SIMILAR_PRODUCTS"}
+export async function fetchSimilarProducts(payLoad, userUniqueId, pageNumber) {
+  headers = { ...headers, eventName: "FETCH_SIMILAR_PRODUCTS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  const url = `${URI}/api/v1/home/listings/search?userUniqueId=` + userUniqueId;
+  const url =
+    `${URI}/api/v1/home/listings/search?userUniqueId=` +
+    `&pageNumber=` +
+    pageNumber;
   return await Axios.post(url, payLoad, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
@@ -576,7 +607,7 @@ export async function fetchSimilarProducts(payLoad, userUniqueId) {
 }
 
 export async function sendverification(listingid, userUniqueId) {
-  headers = {...headers, eventName: "REQUEST_VERIFICATION"}
+  headers = { ...headers, eventName: "REQUEST_VERIFICATION" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/device/listing/sendverification?listingId=` +
@@ -594,7 +625,7 @@ export async function sendverification(listingid, userUniqueId) {
 }
 
 export function getShowSerchFilters() {
-  headers = {...headers, eventName: "FETCH_SEARCH_FILTERS"}
+  headers = { ...headers, eventName: "FETCH_SEARCH_FILTERS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/master/showserchFilters`;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
@@ -607,11 +638,13 @@ export function getShowSerchFilters() {
   );
 }
 
-export async function searchFilter(payLoad, userUniqueId) {
-  headers = {...headers, eventName: "FETCH_SEARCH_LISTINGS"}
+export async function searchFilter(payLoad, userUniqueId, pageNumber) {
+  headers = { ...headers, eventName: "FETCH_SEARCH_LISTINGS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
-    `${URI}/api/v1/home/listings/search?userUniqueId=` + userUniqueId;
+    `${URI}/api/v1/home/listings/search?userUniqueId=` + userUniqueId +
+    `&pageNumber=` +
+    pageNumber;
   return await Axios.post(API_ENDPOINT, payLoad, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
@@ -623,7 +656,7 @@ export async function searchFilter(payLoad, userUniqueId) {
 }
 
 export function getTinyUrl() {
-  headers = {...headers, eventName: "GET_TINY_URL"}
+  headers = { ...headers, eventName: "GET_TINY_URL" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/tinyurl`;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
@@ -637,7 +670,7 @@ export function getTinyUrl() {
 }
 
 export async function getExternalSellSourceData(payLoad) {
-  headers = {...headers, eventName: "GET_EXTERNAL_SELL_SOURCE"}
+  headers = { ...headers, eventName: "GET_EXTERNAL_SELL_SOURCE" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/device/price/externalsellsource`;
   return await Axios.post(API_ENDPOINT, payLoad, DEFAULT_HEADER).then(
@@ -663,7 +696,7 @@ export function fetchWebLinkByShareId(shareId) {
 }
 
 export function infoTemplates() {
-  headers = {...headers, eventName: "FETCH_INFO_LINKS"}
+  headers = { ...headers, eventName: "FETCH_INFO_LINKS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/getinfotemplates`;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
@@ -695,7 +728,7 @@ export async function uploadUserProfilePic(userProfilePicData, userUniqueId) {
 }
 
 export function prepareShareLink(listingId, userUniqueId) {
-  headers = {...headers, eventName: "PRODUCTINFO_SHARE_SELECTED"}
+  headers = { ...headers, eventName: "PRODUCTINFO_SHARE_SELECTED" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
     `${URI}/api/v1/global/share/link?listingId=` +
@@ -713,7 +746,12 @@ export function prepareShareLink(listingId, userUniqueId) {
 }
 
 export function getAllNotificationByUserd(userUniqueId, sessionId) {
-  headers = {...headers, eventName: "FETCH_NOTIFICATIONS", userUniqueId: userUniqueId, sessionId:sessionId};
+  headers = {
+    ...headers,
+    eventName: "FETCH_NOTIFICATIONS",
+    userUniqueId: userUniqueId,
+    sessionId: sessionId,
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   // const DEFAULT_HEADER = {
   //   headers: {
@@ -729,7 +767,6 @@ export function getAllNotificationByUserd(userUniqueId, sessionId) {
   //         : "",
   //   },
   // };
-  console.log("Default Header", DEFAULT_HEADER);
   const API_ENDPOINT = `${URI}/api/v1/notification/byUserId/` + userUniqueId;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
@@ -742,7 +779,7 @@ export function getAllNotificationByUserd(userUniqueId, sessionId) {
 }
 
 export function markAsRead(notificationId, userUniqueId) {
-  headers = {...headers, eventName: "NOTIFICATION_SELECTED"}
+  headers = { ...headers, eventName: "NOTIFICATION_SELECTED" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
     `${URI}/api/v1/notification/read/` + notificationId + userUniqueId;
@@ -757,7 +794,7 @@ export function markAsRead(notificationId, userUniqueId) {
 }
 
 export function contactUs(payLoad) {
-  headers = {...headers, eventName: "CONTACT_US"}
+  headers = { ...headers, eventName: "CONTACT_US" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/contactus`;
   return Axios.post(API_ENDPOINT, payLoad, DEFAULT_HEADER).then(
@@ -770,8 +807,22 @@ export function contactUs(payLoad) {
   );
 }
 
+export function fetchTopArticles() {
+  headers = { ...headers, eventName: "FETCH_TOP_ARTICLES" };
+  const DEFAULT_HEADER = { headers: { ...headers } };
+  const API_ENDPOINT = `${URI}/api/v1/wordpress/blogs/info`;
+  return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
+    (response) => {
+      return response.data;
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+
 export function logEventInfo(eventName) {
-  headers = {...headers, eventName: eventName}
+  headers = { ...headers, eventName: eventName };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/cscglobal/logeventinfo`;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(

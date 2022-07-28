@@ -41,7 +41,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                 {data &&
                   data.functionalTestResults &&
                   data.functionalTestResults.map((items, index) => {
-                    return <TestAndStatus key={index} testName={items.commandName} testStatus={items.testStatus} />;
+                    return <TestAndStatus key={index} testName={items.displayName} testStatus={items.testStatus} />;
                   })}
               </div>
             </Disclosure.Panel>

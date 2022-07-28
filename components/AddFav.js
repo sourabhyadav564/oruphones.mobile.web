@@ -7,7 +7,6 @@ import { useAuthState } from "providers/AuthProvider";
 
 function AddFav({ data, setProducts, color, ...rest }) {
 
-  console.log("data from fav", data)
   const { authenticated, loading } = useAuthState();
   function handleFavoties() {
     setProducts((prevState) => {
@@ -26,7 +25,6 @@ function AddFav({ data, setProducts, color, ...rest }) {
       userUniqueId: Cookies.get("userUniqueId") || "Guest",
     };
     const addFavorite = () => {
-      console.log("Add Favotites payload ", payLoad);
       addFavotie(payLoad).then((response) => {
         console.log("addFav RES", response);
       });
@@ -51,7 +49,6 @@ function AddFav({ data, setProducts, color, ...rest }) {
   if (!authenticated) {
     return (
       <Fragment>
-        <h1>hero</h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

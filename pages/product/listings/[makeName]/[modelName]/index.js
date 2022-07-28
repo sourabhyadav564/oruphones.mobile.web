@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuthState } from "providers/AuthProvider";
 import { numberFromString, stringToDate } from "@/utils/util";
-import Loader from "@/components/Loader";
+import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 
 // import {
@@ -20,31 +20,27 @@ function ModelPage() {
   const router = useRouter();
   let { makeName, modelName } = router.query;
   const { selectedSearchCity } = useAuthState();
-  console.log(
-    "Make --> ",
-    makeName,
-    " MarketName --> ",
-    modelName + " selectedSearchCity " + selectedSearchCity
-  );
 
   const [bestDeals, setBestDeals] = useState([]);
   const [applyFilter, setApplyFilter] = useState();
   const [otherListings, setOtherListings] = useState([]);
   const [applySortFilter, setSortApplyFilter] = useState();
   const [loading, setLoading] = useState(true);
+  let [pageNumber, setPageNumber] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
-  // console.log("product from make page----->", product);
 
-  useEffect(() => {
+  const loadData = () => {
     if (modelName) {
       fetchByMarketingName(
         selectedSearchCity,
         modelName,
-        Cookies.get("userUniqueId") || "Guest"
+        Cookies.get("userUniqueId") || "Guest",
+        pageNumber
       ).then(
         (response) => {
-          console.log("fetchByMarketingName -> ", response.dataObject);
           if (response.dataObject?.otherListings.length > -1) {
             setOtherListings(
               (response && response?.dataObject?.otherListings) || []
@@ -59,7 +55,14 @@ function ModelPage() {
             //   (response && response?.dataObject?.bestDeals) || []
             // );
           }
+
+          if (response?.dataObject?.totalProducts > -1) {
+            setTotalProducts(
+              (response && response?.dataObject?.totalProducts) || 0
+            );
+          }
           setLoading(false);
+          setPageNumber(pageNumber + 1);
         },
         (err) => {
           console.error(err);
@@ -67,6 +70,66 @@ function ModelPage() {
         }
       );
     }
+  };
+
+  const loadMoreData = () => {
+    setIsLoadingMore(true);
+    if (modelName) {
+      fetchByMarketingName(
+        selectedSearchCity,
+        modelName,
+        Cookies.get("userUniqueId") || "Guest",
+        pageNumber
+      ).then(
+        (response) => {
+          if (response.dataObject?.otherListings.length > -1) {
+            setOtherListings((products) => [
+              ...products,
+              ...response?.dataObject?.otherListings,
+            ]);
+            // setProductsData(
+            //   (response && response?.dataObject?.otherListings) || []
+            // );
+          }
+          // if (response.dataObject?.bestDeals.length > -1) {
+          //   setBestDeals((response && response?.dataObject?.bestDeals) || []);
+          //   // setProductsData(
+          //   //   (response && response?.dataObject?.bestDeals) || []
+          //   // );
+          // }
+
+          // if (response?.dataObject?.totalProducts > -1) {
+          //   setTotalProducts((response && response?.dataObject?.totalProducts) || 0);
+          // }
+          setLoading(false);
+          setPageNumber(pageNumber + 1);
+          setIsLoadingMore(false);
+        },
+        (err) => {
+          console.error(err);
+          setLoading(false);
+        }
+      );
+    }
+  };
+
+  const handelScroll = (e) => {
+    // console.log("top", e.target.documentElement.scrollTop);
+    // console.log("win", window.innerHeight);
+    // console.log("height", e.target.documentElement.scrollHeight);
+
+    if (
+      totalProducts >= 20 &&
+      window.innerHeight + e.target.documentElement.scrollTop + 1 >
+        e.target.documentElement.scrollHeight
+    ) {
+      loadMoreData();
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+    window.addEventListener("scroll", handelScroll);
   }, [modelName, selectedSearchCity]);
 
   useEffect(() => {
@@ -120,9 +183,9 @@ function ModelPage() {
         // setLoading(true);
         searchFilter(
           payLoad,
-          localStorage.getItem("userUniqueId") || "Guest"
+          localStorage.getItem("userUniqueId") || "Guest",
+          pageNumber
         ).then((response) => {
-          console.log("searchFilter ", response?.dataObject);
           setOtherListings(response?.dataObject?.otherListings);
           // setBestDeals([]);
           setBestDeals(response?.dataObject?.bestDeals);
@@ -155,7 +218,7 @@ function ModelPage() {
       {(loading || sortingProducts?.length > 0) && (
         <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
           {" "}
-          Other Listings ({sortingProducts?.length}){" "}
+          Other Listings ({totalProducts}){" "}
         </h2>
       )}
       {loading ? (
@@ -180,6 +243,11 @@ function ModelPage() {
               </div>
             ))}
         </section>
+      )}
+      {isLoadingMore && (
+        <div className="flex items-center justify-center my-5 text-lg font-semibold animate-pulse">
+          <span>Fetching more products...</span>
+        </div>
       )}
       {!loading &&
         bestDeals &&
@@ -221,7 +289,6 @@ function getSortedProducts(applySort, otherListings) {
       );
     });
   }
-  console.log("--> sortedProducts ", sortedProducts);
   return sortedProducts;
 }
 

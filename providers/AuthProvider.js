@@ -43,7 +43,6 @@ const reducer = (state, { type, payload }) => {
       if (data?.user?.userdetails?.userUniqueId) {
         Cookies.set("userUniqueId", data?.user?.userdetails?.userUniqueId);
       }
-      console.log("payload -----------> ", payload);
       sessionStorage.setItem("getUserDetails", JSON.stringify(payload));
       return data;
     case "LOGOUT":
@@ -104,7 +103,6 @@ export const AuthProvider = ({ children }) => {
           if (mobileNumber === null || mobileNumber === undefined) {
             return;
           }
-          console.log("AUTH PROVIDER -> ", countryCode, mobileNumber);
           const res = await getUserDetails(countryCode, mobileNumber);
           dispatch("LOGIN", res.dataObject);
         } else {

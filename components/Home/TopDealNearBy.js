@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import NearByDealCard from "../Card/NearByDealCard";
 import { bestDealNearByYou } from "api-call";
 import Cookies from "js-cookie";
-import Loader from "../Loader";
+import Loader from "../Loader/Loader";
 import Spinner from "../Loader/Spinner";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import LocationPopup from "../Popup/LocationPopup";
@@ -11,12 +11,13 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
   const [bestDeals, setBestDeals] = useState();
   const [bestDealsLength, setBestDealsLength] = useState();
   const [openLocationPopup, setOpenLocationPopup] = useState(false);
+  const [pageNumber, setPageNumber] = useState(0);
 
   useEffect(() => {
     if (!loading && selectedSearchCity != undefined) {
       bestDealNearByYou(
         selectedSearchCity,
-        Cookies.get("userUniqueId") || "Guest"
+        Cookies.get("userUniqueId") || "Guest", pageNumber
       ).then((response) => {
         setBestDealsLength(response?.dataObject?.bestDeals.length);
         setBestDeals(response?.dataObject?.bestDeals);
@@ -24,7 +25,6 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
     }
   }, [loading, selectedSearchCity]);
 
-  console.log("TopDealNearBy -> ", bestDeals);
 
   return (
     <section className="px-3 text-sm text-gray-70">
@@ -48,10 +48,12 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
               <NearByDealCard data={item} prodLink setProducts={setBestDeals} />
             </div>
           ))) || (
-          <div className="text-center">
-            Sorry, there are no best deals near you
+            <div className="space-y-3 col-span-2">
+            <Spinner />
+            <div className="text-center">
+              Please wait, while we are fetching data for you...{" "}
+            </div>
           </div>
-          // <Loader />
         )}
         {bestDealsLength > 0 && (
           <div className="h-full m-1.5">

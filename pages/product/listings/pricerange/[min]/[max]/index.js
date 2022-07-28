@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
 import { numberFromString, stringToDate } from "@/utils/util";
-import Loader from "@/components/Loader";
+import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 
 function PriceRangePage() {
@@ -49,9 +49,7 @@ function PriceRangePage() {
           payLoad.verified = verification.includes("all") ? null : "verified";
         }
         // setLoading(true);
-        console.log("SBP ", payLoad);
         searchFilter(payLoad, localStorage.getItem("userUniqueId") || "Guest").then((response) => {
-          console.log("searchFilter ", response?.dataObject);
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
           setShopByPriceBestDeal([]);
           // setLoading(false);
@@ -64,10 +62,8 @@ function PriceRangePage() {
 
   useEffect(() => {
     if (min && max) {
-      console.log("shopByPriceRange", min, max === "above" ? "200000" : max, selectedSearchCity);
       shopByPriceRange(max === "above" ? "200000" : max, selectedSearchCity, min, Cookies.get("userUniqueId") || "Guest").then(
         (response) => {
-          console.log("MW shopByPriceRange -> ", response.dataObject);
           setShopByPriceBestDeal(response?.dataObject?.bestDeals);
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
           setLoading(false);
@@ -126,7 +122,6 @@ function getSortedProducts(applySort, shopByPriceOtherListings) {
       return stringToDate(a.modifiedDate) - stringToDate(b.modifiedDate);
     });
   }
-  console.log("--> sortedProducts ", sortedProducts);
   return sortedProducts;
 }
 

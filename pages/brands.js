@@ -1,12 +1,31 @@
 import Header2 from "@/components/Header/header2";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import BrandCard from "@/components/Card/BrandCard";
 import { fetchBrands } from "api-call";
 import Footer from "@/components/Footer";
 
 function Brands({ brandsList }) {
-  brandsList = brandsList?.sort((list1, list2) => list2.isPopular - list1.isPopular);
-  brandsList = brandsList?.sort((list1, list2) => parseInt(list1.displayOrder) - parseInt(list2.displayOrder));
+  const [brands, setBrands] = useState([]);
+
+  useEffect(() => {
+    if (brandsList.length === 0) {
+      setBrands(JSON.parse(localStorage.getItem("brands")));
+    } else {
+      localStorage.setItem("brands", JSON.stringify(brandsList));
+      Cookies.set("brands", true);
+      setBrands(brandsList);
+    }
+  }, []);
+
+  // brandsList = brandsList?.sort((list1, list2) => list2.isPopular - list1.isPopular);
+  // brandsList = brandsList?.sort((list1, list2) => parseInt(list1.displayOrder) - parseInt(list2.displayOrder));
+
+  brandsList = brands.sort((list1, list2) => list2.isPopular - list1.isPopular);
+  brandsList = brands.sort(
+    (list1, list2) =>
+      parseInt(list1.displayOrder) - parseInt(list2.displayOrder)
+  );
+  
   return (
     <Fragment>
       {/* <Header2 title="Brands" /> */}
@@ -26,14 +45,22 @@ function Brands({ brandsList }) {
 export default Brands;
 
 export const getServerSideProps = async ({ req, res, query }) => {
-  const { userUniqueId, sessionId } = req.cookies;
-  console.log("userUniqueId", userUniqueId);
-  console.log("sessionId", sessionId);
-  const brandsList = await fetchBrands(userUniqueId || "Guest",
-  sessionId || "");
+  const { brands } = req.cookies;
+
+  let brandsList;
+  if (brands) {
+    brandsList = [];
+  } else {
+    const data = await fetchBrands();
+    brandsList = data?.dataObject;
+  }
+
+  // const brandsList = await fetchBrands(userUniqueId || "Guest",
+  // sessionId || "");
   return {
     props: {
-      brandsList: brandsList?.dataObject || [],
+      // brandsList: brandsList?.dataObject || [],
+      brandsList: brandsList || [],
     },
   };
 };

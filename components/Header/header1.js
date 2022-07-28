@@ -6,7 +6,6 @@ import SearchBar from "./SearchBar";
 function Header1() {
   const { selectedSearchCity, user } = useAuthState();
   const dispatch = useAuthDispatch();
-  console.log("user ", user, selectedSearchCity);
 
   const [userName, setUserName] = useState("Guest");
 
@@ -19,7 +18,6 @@ function Header1() {
       if (searchLoc && searchLoc.length > 0) {
         dispatch("ADDCITY", searchLoc[0]?.city);
       }
-      console.log("user ", user, selectedSearchCity);
     } else {
       setUserName("Guest");
     }

@@ -3,7 +3,6 @@ import { SwiperSlide } from "swiper/react";
 import CarouselWithPagination from "./Carousel/CarouselWithPagination";
 
 function ImageSlider({ images, onClick }) {
-  console.log("images from slider", images);
   return (
     <CarouselWithPagination onClick={() => (onClick ? onClick() : "")}>
       {images &&

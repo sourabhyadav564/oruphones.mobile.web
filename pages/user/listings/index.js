@@ -20,7 +20,6 @@ function Index({ userInfo }) {
     if (userInfo === null) return;
     try {
       let tempUserInfo = JSON.parse(userInfo);
-      console.log("Auto auth", tempUserInfo);
       const {
         userdetails: { mobileNumber, countryCode = "91" },
       } = tempUserInfo;
@@ -77,7 +76,6 @@ function Index({ userInfo }) {
 export default Index;
 
 export const getServerSideProps = async ({ query }) => {
-  // console.log(query)
   try {
     return {
       props: {

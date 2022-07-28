@@ -47,12 +47,14 @@ const EditListingForm = ({ data, resultsSet }) => {
   const { user } = useAuthState();
   const dispatch = useAuthDispatch();
 
+  console.log("resultsSet --->", resultsSet);
+
   useEffect(() => {
     if (data != undefined && data != null) {
       let modelData = resultsSet?.filter((item) => item.make === data?.make);
-      let models = modelData[0].models.filter((item) => item.marketingname === data?.marketingName);
-      setDeviceColors(models[0].color);
-      setDeviceStorages(models[0].storage);
+      let models = modelData[0]?.models.filter((item) => item.marketingname === data?.marketingName);
+      setDeviceColors(models[0]?.color);
+      setDeviceStorages(models[0]?.storage);
     }
   }, [data]);
 
@@ -66,7 +68,6 @@ const EditListingForm = ({ data, resultsSet }) => {
       charger: charging ? "Y" : "N",
       originalBox: originalbox ? "Y" : "N",
     };
-    console.log(reqParams);
     if (condition && (charging || headphone || originalbox || true)) {
       getRecommandedPrice(reqParams).then(
         ({ dataObject }) => {
@@ -100,7 +101,6 @@ const EditListingForm = ({ data, resultsSet }) => {
         ({ status, dataObject }) => {
           if (status === "SUCCESS") {
             let tempImages = [...images];
-            console.log(dataObject);
             tempImages[index] = {
               ...tempImages[index],
               thumbImage: dataObject?.thumbnailImagePath,
@@ -147,12 +147,10 @@ const EditListingForm = ({ data, resultsSet }) => {
       recommendedPriceRange: recommandedPrice?.leastSellingprice + "-" + recommandedPrice?.maxsellingprice,
       images: images.filter((item) => item?.fullImage && item.fullImage !== null),
     };
-    console.log("EDIT PAGE PAYLOAD ", payload);
     updateLisiting(payload).then(
       () => {
         setListingAdded(true);
         dispatch("REFRESH");
-        console.log("called");
       },
       (err) => console.error(err)
     );

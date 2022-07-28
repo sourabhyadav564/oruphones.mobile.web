@@ -24,7 +24,6 @@ function Profile() {
     let data = new FormData();
     data.append("image", e.target.files[0]);
     uploadUserProfilePic(data, Cookies.get("userUniqueId")).then((response) => {
-      console.log("UPLOAD IMAGE RES ", response?.dataObject);
       if (response?.status === "SUCCESS") {
         let payload = {
           profilePicPath: response?.dataObject?.imagePath,
@@ -33,9 +32,7 @@ function Profile() {
           userUniqueId: Cookies.get("userUniqueId"),
         };
 
-        console.log("updateUserDetails payload -> ", payload);
         updateUserProfileDetails(payload).then((res) => {
-          console.log("updateUserDetails -> ", res);
           if (res?.status === "SUCCESS") {
             user.userdetails = {
               ...user.userdetails,
@@ -63,9 +60,7 @@ function Profile() {
       userUniqueId: Cookies.get("userUniqueId"),
     };
 
-    console.log("updateUserDetails payload -> ", payload);
     updateUserProfileDetails(payload).then((res) => {
-      console.log("updateUserProfileDetails RES -> ", res);
       const mobileNumber = Cookies.get("mobileNumber");
       const countryCode = Cookies.get("countryCode");
       getUserDetails(countryCode, mobileNumber).then((resp) => {

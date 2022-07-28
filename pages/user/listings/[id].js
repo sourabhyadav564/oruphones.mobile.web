@@ -30,7 +30,6 @@ function ListingDeatils({ data, id }) {
   const [openDeleteListing, setOpenDeleteListing] = useState(false);
   const [openVerifyListing, setOpenVerifyListing] = useState(false);
   const [openActivateListing, setOpenActivateListing] = useState(false);
-  console.log(data);
 
   const handleDelete = (e) => {
     e.preventDefault();

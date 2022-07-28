@@ -65,16 +65,12 @@ function ProductDeatils({ data }) {
   const [openLoginPopup, setOpenLoginPopup] = useState(false);
 
   // const productData = useRecoilValue(otherVandorDataSelector);
-  // console.log("productData ---->", productData);
 
-  console.log("deviceListingInfo", deviceListingInfo);
 
   // const listingId = useRecoilValue(otherVandorListingIdSelector);
-  // console.log("listingId ---->", listingId);
 
   const router = useRouter();
   // const listingId = router.query.prodID;
-  // console.log("listingId ---->", listingId);
 
   // const otherVendorData = [];
 
@@ -84,10 +80,8 @@ function ProductDeatils({ data }) {
   //   }
   // });
 
-  // console.log("otherVendorData ---->", otherVendorData);
 
   const showSellerNumber = async (e) => {
-    console.log(e, Cookies.get("userUniqueId"));
     handleButtonClick();
     if (!authenticated) {
       //router.push("/login");
@@ -109,10 +103,6 @@ function ProductDeatils({ data }) {
     //   fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
     //     (response) => {
     //       setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
-    //       console.log(
-    //         "contactSellerMobileNumber",
-    //         response?.dataObject?.mobileNumber
-    //       );
     //     }
     //   );
     // }
@@ -126,10 +116,6 @@ function ProductDeatils({ data }) {
       fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
         (response) => {
           setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
-          console.log(
-            "contactSellerMobileNumber",
-            response?.dataObject?.mobileNumber
-          );
         }
       );
     }
@@ -464,10 +450,6 @@ export default ProductDeatils;
 
 export const getServerSideProps = async ({ req, res, query }) => {
   const { userUniqueId, sessionId } = req.cookies;
-  // console.log("userUniqueId", userUniqueId);
-  // console.log("sessionId", sessionId);
-  // console.log("productID", query.productID);
-  // console.log("isOtherVendor", query.isOtherVendor);
   const detailWithUserInfo1 = await detailWithUserInfo(
     query.isOtherVendor,
     query.prodID,

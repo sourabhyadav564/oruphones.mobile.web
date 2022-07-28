@@ -13,7 +13,6 @@ import { SwiperSlide } from "swiper/react";
 // );
 
 function FullImageView({ open, close, images }) {
-  console.log("images from full view --->", images);
   if (!open) {
     return null;
   }

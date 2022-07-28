@@ -9,7 +9,6 @@ import VerifiedIcon from "../VerifiedIcon";
 
 function OtherListingCard({ data, setProducts, prodLink }) {
 
-  console.log("data from other listings -->", data);
   if (data?.make?.toLowerCase().includes("all")) {
     return (
       <Link href={`#all-models`}>

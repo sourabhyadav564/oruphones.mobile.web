@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { fetchMyFavorites } from "api-call";
 import { useAuthState } from "providers/AuthProvider";
 import { useRouter } from "next/router";
+import Spinner from "@/components/Loader/Spinner";
 
 function Favorites() {
   const [myFavList, setMyFavList] = useState();
@@ -40,7 +41,13 @@ function Favorites() {
         {myFavList && myFavList.length > 0 ? (
           myFavList?.map((item, index) => <FavListingTile data={{ ...item, favourite: true }} key={index} setProducts={setMyFavList} />)
         ) : (
-          <div className="text-center h-60 flex items-center justify-center">Not Found Favourites</div>
+          // <div className="text-center h-60 flex items-center justify-center">Not Found Favourites</div>
+          <div className="space-y-3">
+            <Spinner />
+            <div className="text-center">
+              Please wait, while we are fetching data for you...{" "}
+            </div>
+          </div>
         )}
       </main>
       <Footer />

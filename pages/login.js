@@ -25,10 +25,6 @@ function Login() {
   const { authenticated, loading } = useAuthState();
   const [showLoader, setShowLoader] = useState(false);
 
-  console.log("response", response);
-
-  console.log("error", error);
-
   useEffect(() => {
     if (!loading && authenticated) {
       router.push("/");
@@ -56,8 +52,6 @@ function Login() {
 
   const handleChange = (e) => {
     const { name, type } = e.target;
-    console.log("name", name);
-    console.log("type", type);
     const value = type === "checkbox" ? e.target.checked : e.target.value;
     if (name === "mobile") {
       setError({ is: false, message: "" });

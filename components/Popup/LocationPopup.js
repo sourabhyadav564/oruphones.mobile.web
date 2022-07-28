@@ -13,27 +13,35 @@ function LocationPopup({ open, setOpen }) {
   const [searchLocationID, setSearchLocationID] = useState();
   const { user } = useAuthState();
   const dispatch = useAuthDispatch();
+  
 
   useEffect(() => {
-    const callApi = () => {
-      if (!open) return null;
-      getGlobalCities().then(
-        (response) => {
-          setGlobalCities(response.dataObject);
-        },
-        (err) => console.error(err)
-      );
-    };
-    callApi();
+    if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
+      setGlobalCities(JSON.parse(localStorage.getItem("cities")));
+    } else {
+      const callApi = () => {
+        if (!open) return null;
+        getGlobalCities().then(
+          (response) => {
+            setGlobalCities(response.dataObject);
+            localStorage.setItem(
+              "cities",
+              JSON.stringify(response.dataObject)
+            );
+          },
+          (err) => console.error(err)
+        );
+      };
+
+      callApi();
+    }
   }, [open]);
 
   function handleCityChange(city) {
-    // console.log("selectedCity ", city);
     selectedCity.current = city;
     if (user != null) {
       let cityInfo = [];
       cityInfo = globalCities.filter((item) => item.city === city);
-      // console.log("submitSelectedCity cityInfo", cityInfo);
 
       let payLoad = {
         city: city,
@@ -42,13 +50,11 @@ function LocationPopup({ open, setOpen }) {
         locationId: searchLocationID,
         userUniqueId: Cookies.get("userUniqueId"),
       };
-      updateAddress(payLoad).then((res) => {
-        // console.log("updateAddress RES -> ", res);
-        getUserDetails(Cookies.get("countryCode"), Cookies.get("mobileNumber")).then((resp) => {
-          // console.log("userProfile -> ", resp.dataObject);
-          dispatch("LOGIN", resp.dataObject);
-        });
-      });
+      // updateAddress(payLoad).then((res) => {
+      //   getUserDetails(Cookies.get("countryCode"), Cookies.get("mobileNumber")).then((resp) => {
+      //     dispatch("LOGIN", resp.dataObject);
+      //   });
+      // });
     }
     dispatch("ADDCITY", city);
     localStorage.setItem("usedLocation", city);
@@ -57,14 +63,12 @@ function LocationPopup({ open, setOpen }) {
 
   useEffect(() => {
     let searchID = searchLocationID;
-    // console.log("MW USER ", user);
     let searchLocId = user?.address?.filter((items) => {
       return items.addressType === "SearchLocation";
     });
     if (searchLocId) {
       searchID = searchLocId[0]?.locationId;
     }
-    // console.log("setSearchLocationID ", searchID);
     setSearchLocationID(searchID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.address]);
@@ -89,21 +93,34 @@ function LocationPopup({ open, setOpen }) {
                 })}
             />
             <span className="block text-base w-full text-center">or</span>
-            <div className="grid grid-cols-3 text-center -mx-1" style={{ minHeight: "40vh" }}>
+            <div
+              className="grid grid-cols-3 text-center -mx-1"
+              style={{ minHeight: "40vh" }}
+            >
               {globalCities &&
                 globalCities
                   .filter((item) => item.displayWithImage === "1")
-                  .slice(0, 9)
+                  // .slice(0, 9)
                   .map((items) => (
                     <div
-                      className={`border rounded px-0 py-2 m-1 ${selectedCity.current === items.city && "border-primary"}`}
+                      className={`border rounded px-0 py-2 m-1 ${
+                        selectedCity.current === items.city && "border-primary"
+                      }`}
                       key={items.city}
                       onClick={() => handleCityChange(items.city)}
                     >
                       <div className="relative w-14 h-14 mx-auto">
-                        <Image src={items.imgpath} alt={items.city} width={"100%"} height={"100%"} objectFit="contain" />
+                        <Image
+                          src={items.imgpath}
+                          alt={items.city}
+                          width={"100%"}
+                          height={"100%"}
+                          objectFit="contain"
+                        />
                       </div>
-                      <span className="block capitalize text-m-grey-1 mt-2 text-xs px-2 w-full truncate">{items.city}</span>
+                      <span className="block capitalize text-m-grey-1 mt-2 text-xs px-2 w-full truncate">
+                        {items.city}
+                      </span>
                     </div>
                   ))}
             </div>
@@ -118,7 +135,9 @@ export default LocationPopup;
 
 const Button = ({ children, active, ...rest }) => (
   <p
-    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"}`}
+    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${
+      active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"
+    }`}
     {...rest}
   >
     {children}

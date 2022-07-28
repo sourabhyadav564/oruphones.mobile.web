@@ -1,6 +1,6 @@
 import SellingMobileCard from "@/components/Card/SellingMobileCard";
 import Filter from "@/components/FilterAndSort/Filter";
-import Loader from "@/components/Loader";
+import Loader from "@/components/Loader/Loader";
 import { fetchTopsellingmodels } from "api-call";
 import { useState, useEffect, Fragment } from "react";
 

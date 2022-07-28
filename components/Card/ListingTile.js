@@ -81,7 +81,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 />
               </div>
               <div className="w-full pt-1">
-                <div className="text-sm font-bold flex justify-between items-start">
+                <div className="text-sm font-bold flex justify-between items-center space-x-2">
                   <p className="flex-1">{data.marketingName}</p>
                   <ShareIcon data={data} width={16} height={16} className={"mr-2 mt-1"} />
                   <div

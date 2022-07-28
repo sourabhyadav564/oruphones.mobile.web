@@ -54,7 +54,6 @@ function FilterPopup({ openFilter, setOpenFilter, filterOptions, setApplyFilter 
 
   const submit = (e) => {
     e.preventDefault();
-    console.log(selectedValues);
     setApplyFilter(selectedValues);
     setOpenFilter(false);
   };

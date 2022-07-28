@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import BestDealSection from "@/components/BestDealSection";
 import OtherListingCard from "@/components/Card/OtherListingCard";
 import { numberFromString, stringToDate } from "@/utils/util";
-import Loader from "@/components/Loader";
+import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 
 // import {
@@ -31,27 +31,76 @@ function Bestdealnearyou() {
   const [isLoading, setLoading] = useState(true);
   const { selectedSearchCity } = useAuthState();
   const [applySortFilter, setSortApplyFilter] = useState();
+  let [pageNumber, setPageNumber] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
-  // console.log("product from make best deal near you page----->", product);
 
-  useEffect(() => {
+  const loadData = () => {
     if (selectedSearchCity) {
       bestDealNearYouAll(
         selectedSearchCity,
-        Cookies.get("userUniqueId") || "Guest"
+        Cookies.get("userUniqueId") || "Guest",
+        pageNumber
       ).then((response) => {
-        console.log("bestDealNearYouAll ", bestDealNearYouAll);
         setProducts(response?.dataObject?.otherListings);
         setBestDeal(response?.dataObject?.bestDeals);
+        setTotalProducts(response?.dataObject?.totalProducts);
         // setProductsData([
         //   ...response?.dataObject?.otherListings,
         //   ...response?.dataObject?.bestDeals,
         // ]);
         // setProductsData(response?.dataObject?.bestDeals);
         setLoading(false);
+        setPageNumber(pageNumber + 1);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  const loadMoreData = () => {
+    setIsLoadingMore(true);
+    if (selectedSearchCity) {
+      bestDealNearYouAll(
+        selectedSearchCity,
+        Cookies.get("userUniqueId") || "Guest",
+        pageNumber
+      ).then((response) => {
+        setProducts((products) => [
+          ...products,
+          ...response?.dataObject?.otherListings,
+        ]);
+        // setBestDeal(response?.dataObject?.bestDeals);
+        // setProductsData([
+        //   ...response?.dataObject?.otherListings,
+        //   ...response?.dataObject?.bestDeals,
+        // ]);
+        // setProductsData(response?.dataObject?.bestDeals);
+        setLoading(false);
+        setPageNumber(pageNumber + 1);
+        setIsLoadingMore(false);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  const handelScroll = (e) => {
+    // console.log("top", e.target.documentElement.scrollTop);
+    // console.log("win", window.innerHeight);
+    // console.log("height", e.target.documentElement.scrollHeight);
+
+    if (
+      window.innerHeight + e.target.documentElement.scrollTop + 1 >
+      e.target.documentElement.scrollHeight 
+    ) {
+      loadMoreData();
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+    window.addEventListener("scroll", handelScroll);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSearchCity]);
 
@@ -100,12 +149,11 @@ function Bestdealnearyou() {
         if (verification?.length > 0) {
           payLoad.verified = verification.includes("all") ? null : "verified";
         }
-        console.log("BDNY PAYLAOD ", payLoad);
         searchFilter(
           payLoad,
-          localStorage.getItem("userUniqueId") || "Guest"
+          localStorage.getItem("userUniqueId") || "Guest",
+          pageNumber
         ).then((response) => {
-          console.log("searchFilter ", response?.dataObject);
           setProducts(response?.dataObject?.otherListings);
           // setBestDeal([]);
           setBestDeal(response?.dataObject?.bestDeals);
@@ -140,7 +188,7 @@ function Bestdealnearyou() {
       {(isLoading || sortingProducts?.length > 0) && (
         <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
           {" "}
-          Other Listings ({sortingProducts?.length}){" "}
+          Other Listings ({totalProducts}){" "}
         </h2>
       )}
       {isLoading ? (
@@ -159,6 +207,11 @@ function Bestdealnearyou() {
             ))}
         </section>
       )}
+       {isLoadingMore && (
+          <div className="flex items-center justify-center my-5 text-lg font-semibold animate-pulse">
+            <span>Fetching more products...</span>
+          </div>
+        )}
       {!isLoading &&
         bestDeal &&
         !(bestDeal.length > 0) &&
@@ -184,14 +237,21 @@ function getSortedProducts(applySort, products) {
     });
   } else if (applySort && applySort === "Newest First") {
     sortedProducts.sort((a, b) => {
-      return (a.updatedAt && b.updatedAt) && stringToDate(b.updatedAt) - stringToDate(a.updatedAt);
+      return (
+        a.updatedAt &&
+        b.updatedAt &&
+        stringToDate(b.updatedAt) - stringToDate(a.updatedAt)
+      );
     });
   } else if (applySort && applySort === "Oldest First") {
     sortedProducts.sort((a, b) => {
-      return (a.updatedAt && b.updatedAt) && stringToDate(a.updatedAt) - stringToDate(b.updatedAt);
+      return (
+        a.updatedAt &&
+        b.updatedAt &&
+        stringToDate(a.updatedAt) - stringToDate(b.updatedAt)
+      );
     });
   }
-  console.log("--> sortedProducts ", sortedProducts);
   return sortedProducts;
 }
 
