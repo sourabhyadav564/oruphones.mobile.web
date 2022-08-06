@@ -71,10 +71,12 @@ export default function Home({
         Cookies.get("userUniqueId") || "Guest",
         Cookies.get("sessionId") || ""
       );
-      let makeModelLists = data?.dataObject;
-      localStorage.setItem("make_models", JSON.stringify(makeModelLists));
-      Cookies.set("make_models", true);
-      //   // setBrands(brandsList);
+      if (data) {
+        let makeModelLists = data?.dataObject;
+        localStorage.setItem("make_models", JSON.stringify(makeModelLists));
+        Cookies.set("make_models", true);
+        //   // setBrands(brandsList);
+      }
     }
   }, []);
 
