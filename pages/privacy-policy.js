@@ -6,13 +6,14 @@ import fetchStaticHTML from "api-call/fetchStaticHtml";
 import Header2 from "@/components/Header/header2";
 import { Fragment, useEffect, useState } from "react";
 import Footer from "@/components/Footer";
+import Head from "next/head";
+import { metaTags } from "@/utils/constant";
 
 // function PrivacyPolicy({ htmlText, error }) {
 //   if (error) {
 //     return <Error statusCode={404} />;
 //   }
 function PrivacyPolicy() {
-
   const [htmlText1, setHtmlText1] = useState("");
 
   useEffect(() => {
@@ -44,11 +45,22 @@ function PrivacyPolicy() {
   }
 
   return (
-    <Fragment>
-      <Header2 title={"Privacy Policy"} />
-      <main className="my-8">{parse(htmlText1)}</main>
-      <Footer />
-    </Fragment>
+    <>
+      <Head>
+        <title>{metaTags.PRIVACY.title}</title>
+        <meta name="description" content={metaTags.PRIVACY.description} />
+        <meta property="og:title" content={metaTags.PRIVACY.title} />
+        <meta
+          property="og:description"
+          content={metaTags.PRIVACY.description}
+        />
+      </Head>
+      <Fragment>
+        <Header2 title={"Privacy Policy"} />
+        <main className="my-8">{parse(htmlText1)}</main>
+        <Footer />
+      </Fragment>
+    </>
   );
 }
 

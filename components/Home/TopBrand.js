@@ -9,7 +9,7 @@ function TopBrand({ brandsList }) {
 
   return (
     <section className="text-gray-70">
-      <h1 className="mt-3 mb-2 px-3 font-semibold text-based"> Top Brands </h1>
+      <h1 className="mt-3 mb-2 px-3 font-semibold text-based"> Buy Top Brands </h1>
       <BasicCarousel slidesPerView={4.1} spaceBetween={8} style={{ padding: "8px 12px" }}>
         {homePagebrandsList &&
           homePagebrandsList.map((item) => (

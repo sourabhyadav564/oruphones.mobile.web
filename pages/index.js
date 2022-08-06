@@ -12,13 +12,16 @@ import {
   getMakeModelLists,
   getSessionId,
   shopByPrice,
-  fetchTopArticles
+  fetchTopArticles,
 } from "api-call";
 import HomeContent from "@/components/Home/HomeContent";
 import TopArticles from "@/components/Home/TopArticles";
 import Footer from "@/components/Footer";
 import { useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
+import Head from "next/head";
+import { metaTags } from "@/utils/constant";
+import ShowBy from "@/components/Home/ShopBy";
 
 export default function Home({
   brandsList,
@@ -77,25 +80,34 @@ export default function Home({
 
   const { selectedSearchCity, loading } = useAuthState();
   return (
-    <Fragment>
-      <Header1 />
-      <main>
-        <TopCarousel />
-        {/* <TopBrand brandsList={brandsList} />
+    <>
+      <Head>
+        <title>{metaTags.HOME.title}</title>
+        <meta name="description" content={metaTags.HOME.description} />
+        <meta property="og:title" content={metaTags.HOME.title} />
+        <meta property="og:description" content={metaTags.HOME.description} />
+      </Head>
+      <Fragment>
+        <Header1 />
+        <main>
+          <TopCarousel />
+          {/* <TopBrand brandsList={brandsList} />
         <TopSellingMobiles topSellingModels={topSellingModels} /> */}
-        <TopBrand brandsList={brands} />
-        <TopSellingMobiles topSellingModels={topsellingmodels} />
-        <TopDealNearBy
-          selectedSearchCity={selectedSearchCity}
-          loading={loading}
-        />
-        {/* <ShopByPrice fetchShopByPrice={fetchShopByPrice} /> */}
-        <TopArticles articles={topArticles} />
-        <HomeContent />
-      </main>
-      <Footer />
-      <BottomNav />
-    </Fragment>
+          <TopBrand brandsList={brands} />
+          {/* <TopSellingMobiles topSellingModels={topsellingmodels} /> */}
+          <ShowBy />
+          <TopDealNearBy
+            selectedSearchCity={selectedSearchCity}
+            loading={loading}
+          />
+          {/* <ShopByPrice fetchShopByPrice={fetchShopByPrice} /> */}
+          <TopArticles articles={topArticles} />
+          <HomeContent />
+        </main>
+        <Footer />
+        <BottomNav />
+      </Fragment>
+    </>
   );
 }
 

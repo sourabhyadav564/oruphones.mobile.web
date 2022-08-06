@@ -8,13 +8,14 @@ import Error from "next/error";
 import fetchStaticHTML from "api-call/fetchStaticHtml";
 import faqImg from "@/assets/FAQs.png";
 import Image from "next/image";
+import Head from "next/head";
+import { metaTags } from "@/utils/constant";
 
 // function Faq({ htmlText, error }) {
 //   if (error) {
 //     return <Error statusCode={404} />;
 //   }
 function Faq() {
-
   const [htmlText1, setHtmlText1] = useState("");
 
   useEffect(() => {
@@ -46,15 +47,25 @@ function Faq() {
   }
 
   return (
-    <Fragment>
-      <Header2 title={"FAQ"} />
-      
-      <main className="px-4 my-4 font-open-sans">
-      <div className="flex justify-center my-6">
-          <Image src={faqImg} width={230} height={163} objectFit="contain" />
-        </div>{parse(htmlText1)}</main>
-      <Footer />
-    </Fragment>
+    <>
+      <Head>
+        <title>{metaTags.FAQ.title}</title>
+        <meta name="description" content={metaTags.FAQ.description} />
+        <meta property="og:title" content={metaTags.FAQ.title} />
+        <meta property="og:description" content={metaTags.FAQ.description} />
+      </Head>
+      <Fragment>
+        <Header2 title={"FAQ"} />
+
+        <main className="px-4 my-4 font-open-sans">
+          <div className="flex justify-center my-6">
+            <Image src={faqImg} width={230} height={163} objectFit="contain" />
+          </div>
+          {parse(htmlText1)}
+        </main>
+        <Footer />
+      </Fragment>
+    </>
   );
 }
 
@@ -100,4 +111,3 @@ export default Faq;
 //     // revalidate: 60*60*24, // In seconds
 //   };
 // }
-

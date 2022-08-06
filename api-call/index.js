@@ -2,34 +2,8 @@ import Axios from "axios";
 import getServerURL from "@/utils/getServerURL";
 import Cookies from "js-cookie";
 
-// let sessionId = "";
-// if (typeof window !== "undefined") {
-//   localStorage.getItem("sessionId");
-// } else if (Cookies.get("sessionId") != "undefined") {
-//   sessionId = Cookies.get("sessionId");
-// } else {
-//   sessionId = "";
-// }
-
 const URI = getServerURL();
-// const DEFAULT_HEADER = { headers: { "Content-Type": "application/json" } };
-// const DEFAULT_HEADER = {
-//   headers: {
-//     "Content-Type": "application/json",
-//     srcFrom: "Mobile Web",
-//     eventName: "NA",
-//     userUniqueId: Cookies.get("userUniqueId")
-//       ? Cookies.get("userUniqueId")
-//       : "Guest",
-//     sessionId:
-//       typeof window !== "undefined"
-//         ? localStorage.getItem("sessionId")
-//         : Cookies.get("sessionId") || "",
-//     devicePlatform: "Mobile Web",
-//     location:
-//       typeof window !== "undefined" ? localStorage.getItem("usedLocation") : "",
-//   },
-// };
+
 let headers = {
   "Content-Type": "application/json",
   srcFrom: "Mobile Web",
@@ -46,6 +20,44 @@ let headers = {
     typeof window !== "undefined" ? localStorage.getItem("usedLocation") : "",
 };
 const MULTIPART_HEADER = { headers: { "Content-Type": "multipart/form-data" } };
+
+Axios.interceptors.request.use(
+  async (request) => {
+    // console.log("request", request);
+    return request;
+  },
+  (err) => {
+    // console.log("err", err);
+    return Promise.reject(err);
+  }
+);
+
+Axios.interceptors.response.use(
+  async (response) => {
+    // console.log("response", response);
+    // console.log("response", response?.data?.status);
+    if (response?.data?.status === "SESSION_INVALID") {
+      headers = { ...headers, eventName: "NA" };
+      const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
+      const result = await Axios.get(API_ENDPOINT, { headers: { ...headers } });
+      // console.log("response from session id", result);
+      // console.log(
+      //   "response from session id",
+      //   result?.data?.dataObject?.sessionId
+      // );
+      if (typeof window !== "undefined") {
+        localStorage.setItem("sessionId", result?.data?.dataObject?.sessionId);
+      }
+      Cookies.set("sessionId", result?.data?.dataObject?.sessionId);
+      // console.log("response.config", response.config);
+    }
+    return response;
+  },
+  async (error) => {
+    // console.log("error", error);
+    return Promise.reject(error);
+  }
+);
 
 export async function getAboutUsContent() {
   const url = `${URI}/api/v1/web/aboutus.html`;
@@ -147,20 +159,6 @@ export async function getMakeModelLists(userUniqueId, sessionId) {
     sessionId: sessionId,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  // const DEFAULT_HEADER = {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     srcFrom: "Mobile Web",
-  //     eventName: "NA",
-  //     userUniqueId: userUniqueId,
-  //     sessionId: sessionId,
-  //     devicePlatform: "Mobile Web",
-  //     location:
-  //       typeof window !== "undefined"
-  //         ? localStorage.getItem("usedLocation")
-  //         : "",
-  //   },
-  // };
   const url = `${URI}/api/v1/master/makemodellist`;
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -169,13 +167,20 @@ export async function getMakeModelLists(userUniqueId, sessionId) {
 }
 
 export async function uploadImage(data, params) {
-  const url = `${URI}/api/v1/device/uploadimage`;
+  const url = `${URI}/api/v1/device/uploadimage?deviceFace=${params.deviceFace}&deviceStorage=${params.deviceStorage}&make=${params.make}&model=${params.model}&userUniqueId=${params.userUniqueId}`;
 
-  return await Axios.post(url, data, { params }, MULTIPART_HEADER).then(
-    (response) => {
-      return response.data;
-    }
-  );
+  console.log("params", params);
+
+  headers = {
+    ...headers,
+    eventName: "ADDLISTING_UPLOAD_PHOTOS_SUCCESS",
+    "Content-Type": "multipart/form-data",
+  };
+  const MULTIPART_HEADER = { headers: { ...headers } };
+
+  return await Axios.post(url, data, MULTIPART_HEADER).then((response) => {
+    return response.data;
+  });
 }
 
 export async function getRecommandedPrice(data) {
@@ -266,20 +271,6 @@ export async function getListingDetails(listingid, userUniqueId, sessionId) {
     sessionId: sessionId,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  // const DEFAULT_HEADER = {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     srcFrom: "Mobile Web",
-  //     eventName: "NA",
-  //     userUniqueId: userUniqueId,
-  //     sessionId: sessionId,
-  //     devicePlatform: "Mobile Web",
-  //     location:
-  //       typeof window !== "undefined"
-  //         ? localStorage.getItem("usedLocation")
-  //         : "",
-  //   },
-  // };
   const url = `${URI}/api/v1/device/listing/detail?listingid=${listingid}&userUniqueId=${userUniqueId}`;
 
   return await Axios.get(url, DEFAULT_HEADER).then(
@@ -370,20 +361,6 @@ export async function detailWithUserInfo(
     listingid +
     `&userUniqueId=` +
     userUniqueId;
-  // const DEFAULT_HEADER = {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     srcFrom: "Mobile Web",
-  //     eventName: "NA",
-  //     userUniqueId: userUniqueId,
-  //     sessionId: sessionId,
-  //     devicePlatform: "Mobile Web",
-  //     location:
-  //       typeof window !== "undefined"
-  //         ? localStorage.getItem("usedLocation")
-  //         : "",
-  //   },
-  // };
   headers = {
     ...headers,
     eventName: "PRODUCT_DETAIL_WITH_SELLER_DETAIL",
@@ -431,7 +408,8 @@ export async function shopByPriceRange(
   maxPrice,
   location,
   minPrice,
-  listingid
+  listingid,
+  pageNumber
 ) {
   const url =
     `${URI}/api/v1/home/shopbyprice/listmodel?end=` +
@@ -441,7 +419,11 @@ export async function shopByPriceRange(
     `&start=` +
     minPrice +
     `&userUniqueId=` +
-    listingid;
+    listingid +
+    `&pageNumber=` +
+    pageNumber;
+  headers = { ...headers, eventName: "GET_BEST_DEALS" };
+  const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
@@ -642,7 +624,8 @@ export async function searchFilter(payLoad, userUniqueId, pageNumber) {
   headers = { ...headers, eventName: "FETCH_SEARCH_LISTINGS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
-    `${URI}/api/v1/home/listings/search?userUniqueId=` + userUniqueId +
+    `${URI}/api/v1/home/listings/search?userUniqueId=` +
+    userUniqueId +
     `&pageNumber=` +
     pageNumber;
   return await Axios.post(API_ENDPOINT, payLoad, DEFAULT_HEADER).then(
@@ -753,20 +736,6 @@ export function getAllNotificationByUserd(userUniqueId, sessionId) {
     sessionId: sessionId,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  // const DEFAULT_HEADER = {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     srcFrom: "Mobile Web",
-  //     eventName: "NA",
-  //     userUniqueId: userUniqueId,
-  //     sessionId: sessionId,
-  //     devicePlatform: "Mobile Web",
-  //     location:
-  //       typeof window !== "undefined"
-  //         ? localStorage.getItem("usedLocation")
-  //         : "",
-  //   },
-  // };
   const API_ENDPOINT = `${URI}/api/v1/notification/byUserId/` + userUniqueId;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
@@ -819,6 +788,38 @@ export function fetchTopArticles() {
       console.log(err);
     }
   );
+}
+
+export function shopByCategory(location, category, userUniqueId, pageNumber) {
+  const API_ENDPOINT =
+    URI +
+    `/api/v1/home/listings/category?location=` +
+    location +
+    `&category=` +
+    category +
+    `&pageNumber=` +
+    pageNumber +
+    `&userUniqueId=` +
+    userUniqueId;
+  headers = { ...headers, eventName: "FETCH_TOP_ARTICLES" };
+  const DEFAULT_HEADER = { headers: { ...headers } };
+  return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
+    (response) => {
+      return response.data;
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+
+export async function marketingNameByModel(payload) {
+  headers = { ...headers, eventName: "ADDLISTING_ADD_SUCCESS" };
+  const DEFAULT_HEADER = { headers: { ...headers } };
+  const url = `${URI}/api/v1/master/marketingNameByModel`;
+  return await Axios.post(url, payload, DEFAULT_HEADER).then((response) => {
+    return response.data;
+  });
 }
 
 export function logEventInfo(eventName) {

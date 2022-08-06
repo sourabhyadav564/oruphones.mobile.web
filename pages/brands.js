@@ -3,6 +3,8 @@ import { Fragment, useEffect, useState } from "react";
 import BrandCard from "@/components/Card/BrandCard";
 import { fetchBrands } from "api-call";
 import Footer from "@/components/Footer";
+import Head from "next/head";
+import { metaTags } from "@/utils/constant";
 
 function Brands({ brandsList }) {
   const [brands, setBrands] = useState([]);
@@ -25,20 +27,34 @@ function Brands({ brandsList }) {
     (list1, list2) =>
       parseInt(list1.displayOrder) - parseInt(list2.displayOrder)
   );
-  
+
   return (
-    <Fragment>
-      {/* <Header2 title="Brands" /> */}
-      <main className="text-sm grid grid-cols-3 sm:grid-cols-5">
-        {brandsList &&
-          brandsList.map((item, index) => (
-            <div key={index} className="bg-green-700 border-2 border-gray-100">
-              <BrandCard data={item} className="rounded-none border-0 bg-white" />
-            </div>
-          ))}
-      </main>
-      <Footer />
-    </Fragment>
+    <>
+      <Head>
+        <title>{metaTags.BRANDS.title}</title>
+        <meta name="description" content={metaTags.BRANDS.description} />
+        <meta property="og:title" content={metaTags.BRANDS.title} />
+        <meta property="og:description" content={metaTags.BRANDS.description} />
+      </Head>
+      <Fragment>
+        {/* <Header2 title="Brands" /> */}
+        <main className="text-sm grid grid-cols-3 sm:grid-cols-5">
+          {brandsList &&
+            brandsList.map((item, index) => (
+              <div
+                key={index}
+                className="bg-green-700 border-2 border-gray-100"
+              >
+                <BrandCard
+                  data={item}
+                  className="rounded-none border-0 bg-white"
+                />
+              </div>
+            ))}
+        </main>
+        <Footer />
+      </Fragment>
+    </>
   );
 }
 

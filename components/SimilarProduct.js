@@ -7,7 +7,6 @@ import Loader from "@/components/Loader/Loader";
 
 // import {
 //   otherVendorDataState,
-//   // otherVandorListingIdState,
 // } from "../atoms/globalState";
 // import { useRecoilState } from "recoil";
 
@@ -17,8 +16,9 @@ function SimilarProduct({ data }) {
   const [pageNumber, setPageNumber] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
 
-  const loadData = () => {
+  const loadData = (intialPage) => {
     let payLoad = {
       listingLocation: selectedSearchCity,
       make: [data.make],
@@ -31,20 +31,23 @@ function SimilarProduct({ data }) {
       minsellingPrice: 0,
       verified: "",
     };
-    fetchSimilarProducts(payLoad, Cookies.get("userUniqueId") || "Guest", pageNumber).then(
-      (response) => {
-        setSimilar_listings(
-          response?.dataObject?.otherListings.filter((items) => {
-            return items.listingId !== data.listingId;
-          })
-        );
-        setTotalProducts(response?.dataObject?.totalProducts);
-        setPageNumber(pageNumber + 1);
-      }
-    );
-  }
+    fetchSimilarProducts(
+      payLoad,
+      Cookies.get("userUniqueId") || "Guest",
+      intialPage
+    ).then((response) => {
+      setSimilar_listings(
+        response?.dataObject?.otherListings.filter((items) => {
+          return items.listingId !== data.listingId;
+        })
+      );
+      setTotalProducts(response?.dataObject?.totalProducts);
+    });
+  };
 
   const loadMoreData = () => {
+    let newPages = pageNumber + 1;
+    setPageNumber(newPages);
     setIsLoadingMore(true);
     let payLoad = {
       listingLocation: selectedSearchCity,
@@ -58,37 +61,34 @@ function SimilarProduct({ data }) {
       minsellingPrice: 0,
       verified: "",
     };
-    fetchSimilarProducts(payLoad, Cookies.get("userUniqueId") || "Guest", pageNumber).then(
-      (response) => {
-        setSimilar_listings(
-          response?.dataObject?.otherListings.filter((items) => {
-            return items.listingId !== data.listingId;
-          })
-        );
-        setTotalProducts(response?.dataObject?.totalProducts);
-        setPageNumber(pageNumber + 1);
-        setIsLoadingMore(false);
+    fetchSimilarProducts(
+      payLoad,
+      Cookies.get("userUniqueId") || "Guest",
+      newPages
+    ).then((response) => {
+      // setSimilar_listings(
+      //   response?.dataObject?.otherListings.filter((items) => {
+      //     return items.listingId !== data.listingId;
+      //   })
+      // );
+
+      let data = response?.dataObject?.otherListings.filter((items) => {
+        return items.listingId !== data.listingId;
+      });
+
+      setSimilar_listings((products) => [...products, ...data]);
+
+      if (response?.dataObject?.otherListings.length == 0) {
+        setIsFinished(true);
       }
-    );
-  }
-
-  const handelScroll = (e) => {
-    // console.log("top", e.target.documentElement.scrollTop);
-    // console.log("win", window.innerHeight);
-    // console.log("height", e.target.documentElement.scrollHeight);
-
-    if (
-      totalProducts >= 20 && window.innerHeight + e.target.documentElement.scrollTop + 1 >
-      e.target.documentElement.scrollHeight
-    ) {
-      loadMoreData();
-    }
+      setIsLoadingMore(false);
+    });
   };
 
-
   useEffect(() => {
-    loadData();
-    window.addEventListener("scroll", handelScroll);
+    let intialPage = 0;
+    setPageNumber(intialPage);
+    loadData(intialPage);
   }, [data?.make, data?.marketingName]);
 
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
@@ -97,10 +97,12 @@ function SimilarProduct({ data }) {
     return item.listingId != data?.listingId;
   });
 
-
   return (
     <section className="px-4">
-      <h1 className="font-semibold text-base"> Similar Products ({similar_listings?.length}) </h1>
+      <h1 className="font-semibold text-base">
+        {" "}
+        Similar Products ({similar_listings?.length || 0}){" "}
+      </h1>
       <div className="grid grid-cols-2 -m-1.5 py-4">
         {similar_listings && similar_listings.length > 0 ? (
           similar_listings.map((item) => (
@@ -127,11 +129,24 @@ function SimilarProduct({ data }) {
             There are no similar products
           </div>
         )}
-         {isLoadingMore && (
+        {/* {isLoadingMore && (
           <div className="flex items-center justify-center my-5 text-lg font-semibold animate-pulse">
             <span>Fetching more products...</span>
           </div>
-        )}
+        )} */}
+        {similar_listings && similar_listings.length > 0 &&
+            isFinished == false && (
+              <span
+                className={`${
+                  isLoadingMore ? "w-[250px]" : "w-[150px]"
+                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my  -5`}
+                onClick={loadMoreData}
+              >
+                <p className="block text-m-green font-semibold">
+                  {isLoadingMore ? "Fetching more products..." : "Load More"}
+                </p>
+              </span>
+            )}
       </div>
     </section>
   );

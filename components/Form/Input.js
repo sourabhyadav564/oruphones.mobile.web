@@ -14,7 +14,7 @@ function Input({ name, className, inputClass, prefix, children, errorClass, ...r
 
       <label
         htmlFor={name}
-        className="absolute top-0 font-normal left-0 text-sm bg-white p-1 z-1 duration-300 origin-0"
+        className="absolute top-0 font-normal left-0 text-sm p-1 z-1 duration-300 origin-0"
         style={{ color: "rgba(0, 0, 0, 0.6)" }}
       >
         {children}

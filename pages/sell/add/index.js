@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import BuySellGuide from "@/components/BuySellGuide";
 import Loader from "@/components/Loader/Loader";
 import Cookies from "js-cookie";
+import NewAddListingForm from "@/components/Form/NewAddListingForm";
 
 const index = ({ data }) => {
 // const index = () => {
@@ -40,22 +41,26 @@ const index = ({ data }) => {
   return (
     <Fragment>
       <Header2 title={"Sell Your Phone"} />
-      <main className="container my-4">
-        <div className="flex justify-center">
+      <main className="">
+
+        {/* <div className="flex justify-center">
           <Image
             src={sellDeviceBanner}
             alt={"Sell device banner"}
             width={720}
             height={296}
           />
-        </div>
+        </div> */}
+
         {/* {makeModelLists?.length ? (
           <AddListingForm data={makeModelLists} />
         ) : (
           <Loader />
         )} */}
+
         {makeAndModels?.length ? (
-          <AddListingForm data={makeAndModels} />
+          // <AddListingForm data={makeAndModels} />
+          <NewAddListingForm data={makeAndModels} />
         ) : (
           <Loader />
         )}

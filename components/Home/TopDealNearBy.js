@@ -11,20 +11,59 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
   const [bestDeals, setBestDeals] = useState();
   const [bestDealsLength, setBestDealsLength] = useState();
   const [openLocationPopup, setOpenLocationPopup] = useState(false);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [isLoading, setLoading] = useState(true);
+  let [pageNumber, setPageNumber] = useState(0);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
 
-  useEffect(() => {
+  const loadData = (initialPage) => {
     if (!loading && selectedSearchCity != undefined) {
       bestDealNearByYou(
         selectedSearchCity,
-        Cookies.get("userUniqueId") || "Guest", pageNumber
+        Cookies.get("userUniqueId") || "Guest",
+        initialPage
       ).then((response) => {
-        setBestDealsLength(response?.dataObject?.bestDeals.length);
-        setBestDeals(response?.dataObject?.bestDeals);
+        // setBestDealsLength(response?.dataObject?.bestDeals.length);
+        setBestDeals([
+          ...response?.dataObject?.bestDeals,
+          ...response?.dataObject?.otherListings,
+        ]);
+        setLoading(false);
       });
     }
-  }, [loading, selectedSearchCity]);
+  };
 
+  const loadMoreData = () => {
+    let newPages = pageNumber + 1;
+    setPageNumber(newPages);
+    setIsLoadingMore(true);
+    if (!loading && selectedSearchCity != undefined) {
+      bestDealNearByYou(
+        selectedSearchCity,
+        Cookies.get("userUniqueId") || "Guest",
+        newPages
+      ).then((response) => {
+        // setBestDealsLength(response?.dataObject?.bestDeals.length);
+        setBestDeals((products) => [
+          // ...response?.dataObject?.bestDeals,
+          ...products,
+          ...response?.dataObject?.otherListings,
+        ]);
+
+        if (response?.dataObject?.otherListings.length == 0) {
+          setIsFinished(true);
+        }
+        setLoading(false);
+        setIsLoadingMore(false);
+      });
+    }
+  };
+
+  useEffect(() => {
+    let intialPage = 0;
+    setPageNumber(intialPage);
+    loadData(intialPage);
+  }, [loading, selectedSearchCity]);
 
   return (
     <section className="px-3 text-sm text-gray-70">
@@ -32,8 +71,9 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
         <h1 className="mt-3 mb-2 font-semibold text-base">
           Best Deals Near You
         </h1>
-        <div className="flex items-center justify-center space-x-2"
-        onClick={() => setOpenLocationPopup(true)}
+        <div
+          className="flex items-center justify-center space-x-2"
+          onClick={() => setOpenLocationPopup(true)}
         >
           <span className="mt-3 mb-2 font-semibold text-base text-[#00a483]">
             ({selectedSearchCity})
@@ -43,12 +83,13 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
       </div>
       <div className="grid grid-cols-2 -mx-1.5 py-3">
         {(bestDeals?.length > 0 &&
-          bestDeals.slice(0, 16).map((item) => (
+          // bestDeals.slice(0, 16)
+          bestDeals?.map((item) => (
             <div className="m-1.5" key={item.listingId}>
               <NearByDealCard data={item} prodLink setProducts={setBestDeals} />
             </div>
           ))) || (
-            <div className="space-y-3 col-span-2">
+          <div className="space-y-3 col-span-2">
             <Spinner />
             <div className="text-center">
               Please wait, while we are fetching data for you...{" "}
@@ -61,6 +102,18 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
           </div>
         )}
       </div>
+      {!isLoading && isFinished === false && (
+        <span
+          className={`${
+            isLoadingMore ? "w-[250px]" : "w-[150px]"
+          } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer`}
+          onClick={loadMoreData}
+        >
+          <p className="block text-m-green font-semibold">
+            {isLoadingMore ? "Fetching more products..." : "Load More"}
+          </p>
+        </span>
+      )}
       <LocationPopup open={openLocationPopup} setOpen={setOpenLocationPopup} />
     </section>
   );

@@ -6,13 +6,14 @@ import { infoTemplates } from "api-call";
 import { parse as nodeParser } from "node-html-parser";
 import Error from "next/error";
 import fetchStaticHTML from "api-call/fetchStaticHtml";
+import Head from "next/head";
+import { metaTags } from "@/utils/constant";
 
 // function Termscondition({ htmlText, error }) {
 //   if (error) {
 //     return <Error statusCode={404} />;
 //   }
 function Termscondition() {
-
   const [htmlText1, setHtmlText1] = useState("");
 
   useEffect(() => {
@@ -44,13 +45,25 @@ function Termscondition() {
   }
 
   return (
-    <Fragment>
-      <Header2 title={"Terms of service"} />
-      <main className="px-4 my-2 font-open-sans">
-        {parse(htmlText1)}
-      </main>
-      <Footer />
-    </Fragment>
+    <>
+      <Head>
+        <title>{metaTags.TERMS_CONDITIONS.title}</title>
+        <meta
+          name="description"
+          content={metaTags.TERMS_CONDITIONS.description}
+        />
+        <meta property="og:title" content={metaTags.TERMS_CONDITIONS.title} />
+        <meta
+          property="og:description"
+          content={metaTags.TERMS_CONDITIONS.description}
+        />
+      </Head>
+      <Fragment>
+        <Header2 title={"Terms of service"} />
+        <main className="px-4 my-2 font-open-sans">{parse(htmlText1)}</main>
+        <Footer />
+      </Fragment>
+    </>
   );
 }
 

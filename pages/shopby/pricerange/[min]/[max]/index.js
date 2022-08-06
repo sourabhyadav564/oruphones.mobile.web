@@ -1,99 +1,80 @@
-import Filter from "@/components/FilterAndSort/Filter";
-import React, { useState, useEffect, useContext } from "react";
-import { useAuthState } from "providers/AuthProvider";
-import { bestDealNearYouAll, searchFilter } from "api-call";
-import Cookies from "js-cookie";
 import BestDealSection from "@/components/BestDealSection";
 import OtherListingCard from "@/components/Card/OtherListingCard";
+import { useRouter } from "next/router";
+import { shopByPriceRange, searchFilter } from "api-call";
+import Filter from "@/components/FilterAndSort/Filter";
+import { useState, useEffect } from "react";
+import { useAuthState } from "providers/AuthProvider";
+import Cookies from "js-cookie";
 import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 
-// import {
-//   otherVendorDataState,
-// } from "../../../atoms/globalState";
-// import { useRecoilState } from "recoil";
-
-const settings = {
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  dots: true,
-  arrows: true,
-  infinite: false,
-  swipeToSlide: true,
-};
-
-function Bestdealnearyou() {
-  const [products, setProducts] = useState([]);
-  const [bestDeal, setBestDeal] = useState([]);
-  const [applyFilter, setApplyFilter] = useState();
-  const [isLoading, setLoading] = useState(true);
+function PriceRangePage() {
+  const router = useRouter();
+  const { min, max } = router.query;
   const { selectedSearchCity } = useAuthState();
+  const [shopByPriceBestDeal, setShopByPriceBestDeal] = useState();
+  const [shopByPriceOtherListings, setShopByPriceOtherListings] = useState([]);
+  const [applyFilter, setApplyFilter] = useState();
   const [applySortFilter, setSortApplyFilter] = useState();
+  const [isLoading, setLoading] = useState(true);
+
   let [pageNumber, setPageNumber] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
 
-  // const [product, setProductsData] = useRecoilState(otherVendorDataState);
-
   const loadData = (intialPage) => {
-    if (selectedSearchCity) {
-      bestDealNearYouAll(
+    if (min && max) {
+      shopByPriceRange(
+        // max === "above" ? "200000" : max,
+        max,
         selectedSearchCity,
+        min,
         Cookies.get("userUniqueId") || "Guest",
         intialPage
-      ).then((response) => {
-        setProducts(response?.dataObject?.otherListings);
-        setBestDeal(response?.dataObject?.bestDeals);
-        setTotalProducts(response?.dataObject?.totalProducts);
-        // setProductsData([
-        //   ...response?.dataObject?.otherListings,
-        //   ...response?.dataObject?.bestDeals,
-        // ]);
-        // setProductsData(response?.dataObject?.bestDeals);
-        setLoading(false);
-      });
+      ).then(
+        (response) => {
+          setShopByPriceBestDeal(response?.dataObject?.bestDeals);
+          setShopByPriceOtherListings(response?.dataObject?.otherListings);
+          setLoading(false);
+        },
+        (err) => console.error(err)
+      );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
   const loadMoreData = () => {
     let newPages = pageNumber + 1;
     setPageNumber(newPages);
     setIsLoadingMore(true);
-    if (selectedSearchCity) {
-      bestDealNearYouAll(
+    if (min && max) {
+      shopByPriceRange(
+        // max === "above" ? "200000" : max,
+        max,
         selectedSearchCity,
+        min,
         Cookies.get("userUniqueId") || "Guest",
         newPages
-      ).then((response) => {
-        setProducts((products) => [
-          ...products,
-          ...response?.dataObject?.otherListings,
-        ]);
-        // setBestDeal(response?.dataObject?.bestDeals);
-        // setProductsData([
-        //   ...response?.dataObject?.otherListings,
-        //   ...response?.dataObject?.bestDeals,
-        // ]);
-        // setProductsData(response?.dataObject?.bestDeals);
+      ).then(
+        (response) => {
+          setShopByPriceOtherListings((products) => [
+            ...products,
+            ...response?.dataObject?.otherListings,
+          ]);
 
-        if (response?.dataObject?.otherListings.length == 0) {
-          setIsFinished(true);
-        }
-        setLoading(false);
-        setIsLoadingMore(false);
-      });
+          if (response?.dataObject?.otherListings.length == 0) {
+            setIsFinished(true);
+          }
+          // setShopByPriceOtherListings(response?.dataObject?.otherListings);
+          setLoading(false);
+          setIsLoadingMore(false);
+        },
+        (err) => console.error(err)
+      );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
-
-  useEffect(() => {
-    let intialPage = 0;
-    setPageNumber(intialPage);
-    loadData(intialPage);
-  }, [selectedSearchCity]);
 
   useEffect(() => {
     if (applyFilter) {
@@ -109,21 +90,18 @@ function Bestdealnearyou() {
       if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
         let payLoad = {
           listingLocation: selectedSearchCity,
-          reqPage: "BBNM",
-          color: [],
+          // maxsellingPrice: max === "above" ? "200000" : max,
+          maxsellingPrice: max,
+          minsellingPrice: min,
+          reqPage: "SBYP",
           make: [],
+          color: [],
           deviceCondition: [],
           deviceStorage: [],
-          maxsellingPrice: 200000,
-          minsellingPrice: 0,
           verified: "",
         };
         if (brand?.length > 0) {
           payLoad.make = brand.includes("all") ? [] : brand;
-        }
-        if (priceRange && priceRange.min && priceRange.max) {
-          payLoad.minsellingPrice = priceRange.min;
-          payLoad.maxsellingPrice = priceRange.max;
         }
         if (condition?.length > 0) {
           payLoad.deviceCondition = condition.includes("all") ? [] : condition;
@@ -140,30 +118,38 @@ function Bestdealnearyou() {
         if (verification?.length > 0) {
           payLoad.verified = verification.includes("all") ? null : "verified";
         }
+        // setLoading(true);
         searchFilter(
           payLoad,
-          localStorage.getItem("userUniqueId") || "Guest",
-          pageNumber
+          localStorage.getItem("userUniqueId") || "Guest"
         ).then((response) => {
-          setProducts(response?.dataObject?.otherListings);
-          // setBestDeal([]);
-          setBestDeal(response?.dataObject?.bestDeals);
+          setShopByPriceOtherListings(response?.dataObject?.otherListings);
+          setShopByPriceBestDeal([]);
           // setLoading(false);
         });
       }
     }
   }, [applyFilter]);
 
-  const sortingProducts = getSortedProducts(applySortFilter, products);
+  const sortingProducts = getSortedProducts(
+    applySortFilter,
+    shopByPriceOtherListings
+  );
+
+  useEffect(() => {
+    let intialPage = 0;
+    setPageNumber(intialPage);
+    loadData(intialPage);
+  }, [min, max, selectedSearchCity]);
 
   return (
     <Filter
-      searchText={`"Listings near me"`}
+      searchText={`Price Range: ₹${min}${" - "}₹${max}`}
       setSortApplyFilter={setSortApplyFilter}
       setApplyFilter={setApplyFilter}
       applyFilter={applyFilter}
     >
-      {(isLoading || bestDeal?.length > 0) && (
+      {(isLoading || shopByPriceBestDeal?.length > 0) && (
         <h1 className="text-lg font-semibold text-gray-20 py-2.5">
           {" "}
           Best Deals{" "}
@@ -172,14 +158,14 @@ function Bestdealnearyou() {
       {isLoading ? (
         <Loader />
       ) : (
-        bestDeal?.length > 0 && (
-          <BestDealSection bestDealData={bestDeal} setProducts={setBestDeal} />
+        shopByPriceBestDeal?.length > 0 && (
+          <BestDealSection bestDealData={shopByPriceBestDeal} />
         )
       )}
       {(isLoading || sortingProducts?.length > 0) && (
         <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
           {" "}
-          Other Listings ({totalProducts}){" "}
+          Other Listings ({sortingProducts?.length}){" "}
         </h2>
       )}
       {isLoading ? (
@@ -187,22 +173,20 @@ function Bestdealnearyou() {
       ) : (
         <section className="grid grid-cols-2 py-3 -m-1.5">
           {sortingProducts &&
-            sortingProducts?.map((item) => (
+            sortingProducts.length > 0 &&
+            sortingProducts.map((item) => (
               <div key={item.listingId} className="m-1.5">
-                <OtherListingCard
-                  data={item}
-                  prodLink
-                  setProducts={setProducts}
-                />
+                <OtherListingCard data={item} prodLink />
               </div>
             ))}
         </section>
       )}
-      {!isLoading &&
-        bestDeal &&
-        !(bestDeal.length > 0) &&
-        sortingProducts &&
-        !sortingProducts.length > 0 && <NoMatch />}
+      {shopByPriceBestDeal &&
+      shopByPriceBestDeal.length > 0 &&
+      sortingProducts &&
+      sortingProducts.length > 0 ? null : (
+        <NoMatch />
+      )}
 
       {!isLoading &&
         sortingProducts &&
@@ -223,8 +207,10 @@ function Bestdealnearyou() {
   );
 }
 
-function getSortedProducts(applySort, products) {
-  var sortedProducts = products ? [...products] : [];
+function getSortedProducts(applySort, shopByPriceOtherListings) {
+  var sortedProducts = shopByPriceOtherListings
+    ? [...shopByPriceOtherListings]
+    : [];
   if (applySort && applySort === "Price - Low to High") {
     sortedProducts.sort((a, b) => {
       return (
@@ -239,22 +225,14 @@ function getSortedProducts(applySort, products) {
     });
   } else if (applySort && applySort === "Newest First") {
     sortedProducts.sort((a, b) => {
-      return (
-        a.updatedAt &&
-        b.updatedAt &&
-        stringToDate(b.updatedAt) - stringToDate(a.updatedAt)
-      );
+      return stringToDate(b.modifiedDate) - stringToDate(a.modifiedDate);
     });
   } else if (applySort && applySort === "Oldest First") {
     sortedProducts.sort((a, b) => {
-      return (
-        a.updatedAt &&
-        b.updatedAt &&
-        stringToDate(a.updatedAt) - stringToDate(b.updatedAt)
-      );
+      return stringToDate(a.modifiedDate) - stringToDate(b.modifiedDate);
     });
   }
   return sortedProducts;
 }
 
-export default Bestdealnearyou;
+export default PriceRangePage;

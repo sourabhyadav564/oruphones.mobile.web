@@ -12,7 +12,6 @@ import NoMatch from "@/components/NoMatch";
 
 // import {
 //   otherVendorDataState,
-//   // otherVandorListingIdState,
 // } from "../../../../../atoms/globalState";
 // import { useRecoilState } from "recoil";
 
@@ -29,16 +28,17 @@ function ModelPage() {
   let [pageNumber, setPageNumber] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
 
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
 
-  const loadData = () => {
+  const loadData = (intialPage) => {
     if (modelName) {
       fetchByMarketingName(
         selectedSearchCity,
         modelName,
         Cookies.get("userUniqueId") || "Guest",
-        pageNumber
+        intialPage
       ).then(
         (response) => {
           if (response.dataObject?.otherListings.length > -1) {
@@ -62,7 +62,6 @@ function ModelPage() {
             );
           }
           setLoading(false);
-          setPageNumber(pageNumber + 1);
         },
         (err) => {
           console.error(err);
@@ -73,13 +72,15 @@ function ModelPage() {
   };
 
   const loadMoreData = () => {
+    let newPages = pageNumber + 1;
+    setPageNumber(newPages);
     setIsLoadingMore(true);
     if (modelName) {
       fetchByMarketingName(
         selectedSearchCity,
         modelName,
         Cookies.get("userUniqueId") || "Guest",
-        pageNumber
+        newPages
       ).then(
         (response) => {
           if (response.dataObject?.otherListings.length > -1) {
@@ -98,11 +99,14 @@ function ModelPage() {
           //   // );
           // }
 
+          if (response?.dataObject?.otherListings.length == 0) {
+            setIsFinished(true);
+          }
+
           // if (response?.dataObject?.totalProducts > -1) {
           //   setTotalProducts((response && response?.dataObject?.totalProducts) || 0);
           // }
           setLoading(false);
-          setPageNumber(pageNumber + 1);
           setIsLoadingMore(false);
         },
         (err) => {
@@ -113,23 +117,10 @@ function ModelPage() {
     }
   };
 
-  const handelScroll = (e) => {
-    // console.log("top", e.target.documentElement.scrollTop);
-    // console.log("win", window.innerHeight);
-    // console.log("height", e.target.documentElement.scrollHeight);
-
-    if (
-      totalProducts >= 20 &&
-      window.innerHeight + e.target.documentElement.scrollTop + 1 >
-        e.target.documentElement.scrollHeight
-    ) {
-      loadMoreData();
-    }
-  };
-
   useEffect(() => {
-    loadData();
-    window.addEventListener("scroll", handelScroll);
+    let intialPage = 0;
+    setPageNumber(intialPage);
+    loadData(intialPage);
   }, [modelName, selectedSearchCity]);
 
   useEffect(() => {
@@ -244,16 +235,27 @@ function ModelPage() {
             ))}
         </section>
       )}
-      {isLoadingMore && (
-        <div className="flex items-center justify-center my-5 text-lg font-semibold animate-pulse">
-          <span>Fetching more products...</span>
-        </div>
-      )}
       {!loading &&
         bestDeals &&
         !(bestDeals.length > 0) &&
         sortingProducts &&
         !sortingProducts.length > 0 && <NoMatch />}
+
+      {!loading &&
+        sortingProducts &&
+        sortingProducts.length > 0 &&
+        isFinished == false && (
+          <span
+            className={`${
+              isLoadingMore ? "w-[250px]" : "w-[150px]"
+            } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+            onClick={loadMoreData}
+          >
+            <p className="block text-m-green font-semibold">
+              {isLoadingMore ? "Fetching more products..." : "Load More"}
+            </p>
+          </span>
+        )}
     </Filter>
   );
 }

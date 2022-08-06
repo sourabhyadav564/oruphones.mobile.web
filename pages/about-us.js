@@ -6,6 +6,8 @@ import { infoTemplates } from "api-call";
 import { parse as nodeParser } from "node-html-parser";
 import Error from "next/error";
 import fetchStaticHTML from "api-call/fetchStaticHtml";
+import Head from "next/head";
+import { metaTags } from "@/utils/constant";
 
 // function Aboutus({ htmlText, error }) {
 //   if (error) {
@@ -44,11 +46,22 @@ function Aboutus() {
   }
 
   return (
+    <>
+    <Head>
+        <title>{metaTags.ABOUT_US.title}</title>
+        <meta name="description" content={metaTags.ABOUT_US.description} />
+        <meta property="og:title" content={metaTags.ABOUT_US.title} />
+        <meta
+          property="og:description"
+          content={metaTags.ABOUT_US.description}
+        />
+      </Head>
     <Fragment>
       <Header2 title={"About Us"} />
       <main className="px-4 my-4 font-open-sans">{parse(htmlText1)}</main>
       <Footer />
     </Fragment>
+    </>
   );
 }
 

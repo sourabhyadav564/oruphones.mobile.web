@@ -1,7 +1,7 @@
 import BestDealSection from "@/components/BestDealSection";
 import OtherListingCard from "@/components/Card/OtherListingCard";
 import { useRouter } from "next/router";
-import { fetchByMakeList, searchFilter } from "api-call";
+import { fetchByMakeList, searchFilter, shopByCategory } from "api-call";
 import Filter from "@/components/FilterAndSort/Filter";
 import { useState, useEffect } from "react";
 import { useAuthState } from "providers/AuthProvider";
@@ -18,10 +18,10 @@ import Head from "next/head";
 // } from "../../../../atoms/globalState";
 // import { useRecoilState } from "recoil";
 
-function MakePage() {
+function CategoryPage() {
   const { selectedSearchCity, loading } = useAuthState();
   const router = useRouter();
-  let { makeName } = router.query;
+  let { categoryType } = router.query;
 
   const [bestDeals, setBestDeals] = useState([]);
   const [applyFilter, setApplyFilter] = useState();
@@ -42,10 +42,10 @@ function MakePage() {
   console.log("isLoading", isLoading);
 
   const loadData = (intialPage) => {
-    if (makeName) {
-      fetchByMakeList(
+    if (categoryType) {
+      shopByCategory(
         selectedSearchCity,
-        makeName,
+        categoryType,
         Cookies.get("userUniqueId") || "Guest",
         intialPage
       ).then(
@@ -85,10 +85,10 @@ function MakePage() {
     let newPages = pageNumber + 1;
     setPageNumber(newPages);
     setIsLoadingMore(true);
-    if (makeName) {
-      fetchByMakeList(
+    if (categoryType) {
+      shopByCategory(
         selectedSearchCity,
-        makeName,
+        categoryType,
         Cookies.get("userUniqueId") || "Guest",
         newPages
       ).then(
@@ -109,15 +109,15 @@ function MakePage() {
           //   // );
           // }
 
-          if (response?.dataObject?.otherListings.length == 0) {
-            setIsFinished(true);
-          }
-
           // if (response?.dataObject?.totalProducts > -1) {
           //   setTotalProducts(
           //     (response && response?.dataObject?.totalProducts) || 0
           //   );
           // }
+
+          if (response?.dataObject?.otherListings.length == 0) {
+            setIsFinished(true);
+          }
 
           setLoading(false);
           setIsLoadingMore(false);
@@ -134,7 +134,7 @@ function MakePage() {
     let intialPage = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [makeName, selectedSearchCity]);
+  }, [categoryType, selectedSearchCity]);
 
   useEffect(() => {
     if (applyFilter) {
@@ -148,14 +148,10 @@ function MakePage() {
         priceRange,
       } = applyFilter;
       if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
-        if (makeName === "oneplus") {
-          makeName = "OnePlus";
-        } else {
-          makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
-        }
         let payLoad = {
           listingLocation: selectedSearchCity,
-          make: brand?.length > 0 ? brand : [makeName],
+          make: [],
+          marketingName: [],
           reqPage: "BRAND",
           color: [],
           deviceCondition: [],
@@ -201,7 +197,7 @@ function MakePage() {
   const sortingProducts = getSortedProducts(applySortFilter, otherListings);
 
   useEffect(() => {
-    switch (makeName) {
+    switch (categoryType) {
       case "apple":
         setTitle(metaTags.APPLE.title);
         setDescription(metaTags.APPLE.description);
@@ -259,7 +255,7 @@ function MakePage() {
         setDescription(metaTags.BRANDS.description);
         break;
     }
-  }, [makeName]);
+  }, [categoryType]);
 
   return (
     <>
@@ -270,7 +266,7 @@ function MakePage() {
         <meta property="og:description" content={description} />
       </Head>
       <Filter
-        searchText={makeName}
+        // searchText={makeName}
         setSortApplyFilter={setSortApplyFilter}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
@@ -381,4 +377,4 @@ function getSortedProducts(applySort, otherListings) {
   return sortedProducts;
 }
 
-export default MakePage;
+export default CategoryPage;
