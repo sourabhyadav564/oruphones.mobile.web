@@ -8,7 +8,13 @@ import calendar2 from "@/assets/calendar-2.png";
 import calendar3 from "@/assets/calendar-3.png";
 import { BsInfoCircle } from "react-icons/bs";
 
-function IconLabelValue({ label, value, showInfoPopup, textAsLink, showRequestVerificarionSuccessPopup }) {
+function IconLabelValue({
+  label,
+  value,
+  showInfoPopup,
+  textAsLink,
+  showRequestVerificarionSuccessPopup,
+}) {
   if (label) {
     return (
       <div className="flex items-start space-x-3 justify-center min-h-14">
@@ -23,6 +29,8 @@ function IconLabelValue({ label, value, showInfoPopup, textAsLink, showRequestVe
             <Image src={box} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("WARRANTY") ? (
             <Image src={calendar2} width="30" height="30" objectFit="contain" />
+          ) : label.toUpperCase().includes("CONDITION") ? (
+            <Image src={calendar2} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("VERIFIED") ? (
             <Image src={calendar1} width="30" height="40" objectFit="contain" />
           ) : label.toUpperCase().includes("LISTED") ? (
@@ -32,13 +40,32 @@ function IconLabelValue({ label, value, showInfoPopup, textAsLink, showRequestVe
           )}
         </div>
         <div className="flex-1 flex flex-col justify-center">
-          {showInfoPopup ? (<span className="text-xs text-black-7e capitalize flex items-center">{label} <BsInfoCircle className="ml-1 cursor-pointer" onClick={showInfoPopup} /></span>):(<span className="text-xs text-black-7e capitalize">{label}</span>)}
           {showInfoPopup ? (
-            <p className={textAsLink ?"text-xs whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800":"text-sm font-bold flex items-center text-gray-70 capitalize"} onClick={showRequestVerificarionSuccessPopup}>
+            <span className="text-xs text-black-7e capitalize flex items-center">
+              {label}{" "}
+              <BsInfoCircle
+                className="ml-1 cursor-pointer"
+                onClick={showInfoPopup}
+              />
+            </span>
+          ) : (
+            <span className="text-xs text-black-7e capitalize">{label}</span>
+          )}
+          {showInfoPopup ? (
+            <p
+              className={
+                textAsLink
+                  ? "text-xs whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
+                  : "text-sm font-bold flex items-center text-gray-70 capitalize"
+              }
+              onClick={showRequestVerificarionSuccessPopup}
+            >
               {value}
             </p>
           ) : (
-            <p className="text-sm font-bold flex items-center text-gray-70 capitalize">{value}</p>
+            <p className="text-sm font-bold flex items-center text-gray-70 capitalize">
+              {value}
+            </p>
           )}
         </div>
       </div>

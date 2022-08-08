@@ -67,7 +67,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
 
   return (
     <section className="px-3 text-sm text-gray-70">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-start space-x-2">
         <h1 className="mt-3 mb-2 font-semibold text-base">
           Best Deals Near You
         </h1>
@@ -75,10 +75,10 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
           className="flex items-center justify-center space-x-2"
           onClick={() => setOpenLocationPopup(true)}
         >
-          <span className="mt-3 mb-2 font-semibold text-base text-[#00a483]">
+          <span className="mt-3 mb-2 font-bold text-base text-[#00a483] underline">
             ({selectedSearchCity})
           </span>
-          <FaMapMarkerAlt className="text-[#00a483] h-4 w-4 mt-1" />
+          {/* <FaMapMarkerAlt className="text-[#00a483] h-4 w-4 mt-1" /> */}
         </div>
       </div>
       <div className="grid grid-cols-2 -mx-1.5 py-3">

@@ -35,8 +35,10 @@ import { IoIosArrowBack } from "react-icons/io";
 import {
   addListingBrandSelector,
   addListingModelSelector,
+  addListingBrandState,
+  addListingModelState,
 } from "../../atoms/globalState";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { deviceConditionQuestion } from "@/utils/constant";
 import ConditionOptionLarge from "../Condition/ConditionOptionLarge";
 import DeviceConditionCard from "../Condition/DeviceConditionCard";
@@ -52,6 +54,8 @@ const NewAddListingForm = ({ data }) => {
     { value: "more", label: "More Than 11 Months Ago" },
   ];
 
+  const [defaultBrand, setDefaultBrand] = useRecoilState(addListingBrandState);
+  const [defaultModel, setDefaultModel] = useRecoilState(addListingModelState);
   const selectedBrand = useRecoilValue(addListingBrandSelector);
   const selectedModel = useRecoilValue(addListingModelSelector);
   const [make, setMake] = useState(selectedBrand);
@@ -105,12 +109,21 @@ const NewAddListingForm = ({ data }) => {
   const [modelInfo, setModelInfo] = useState();
   const [page, setPage] = useState(0);
 
+  console.log("selectedCit1", selectedCity != undefined);
+  console.log("selectedCit2", selectedCity != "");
+  console.log("selectedCit3", selectedCity != "India");
+
   useEffect(() => {
     if (make) {
-      setModel();
+      setDefaultModel("");
+      setModel("");
       setColor();
       setStorage();
       setStorageColorOption();
+
+      setCondition();
+      setConditionResults({});
+      setQuestionIndex(0);
     }
   }, [make]);
 
@@ -132,6 +145,10 @@ const NewAddListingForm = ({ data }) => {
     if (model) {
       setColor();
       setStorage();
+
+      setCondition();
+      setConditionResults({});
+      setQuestionIndex(0);
     }
   }, [model]);
 
@@ -442,6 +459,7 @@ const NewAddListingForm = ({ data }) => {
           Please fill all the required fields properly
         </h1>
       )} */}
+
       <form
         className="grid grid-cols-1 space-y-4 container my-4"
         onSubmit={handleSubmit}
@@ -492,7 +510,7 @@ const NewAddListingForm = ({ data }) => {
                   placeholder="Please select model"
                   type="text"
                 >
-                  Make
+                  Model
                 </Input>
               </div>
             )}
@@ -534,6 +552,7 @@ const NewAddListingForm = ({ data }) => {
                             : "bg-white"
                         } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                         onClick={() => setColor(item)}
+                        key={index}
                       >
                         <span>{item}</span>
                       </div>
@@ -900,7 +919,7 @@ const NewAddListingForm = ({ data }) => {
                 </p>
               )}
             </div>
-            <span className="pb-20" />
+            <span className="pb-40" />
           </>
         )}
 
@@ -958,7 +977,7 @@ const NewAddListingForm = ({ data }) => {
                 Enter your sell price*
               </Input>
               {sellValueRequired && (
-                <span className="text-red text-sm absolute -bottom-6">
+                <span className="text-red text-sm absolute -bottom-6 ">
                   Enter price more than 1000
                 </span>
               )}
@@ -976,7 +995,10 @@ const NewAddListingForm = ({ data }) => {
               </div>
             </div>
             {getExternalSellerData && getExternalSellerData.length > 0 && (
-              <p className="font-semibold mt-1 pt-3" style={{ color: "#707070" }}>
+              <p
+                className="font-semibold mt-1 pt-3"
+                style={{ color: "#707070" }}
+              >
                 Check prices from other buyers:
               </p>
             )}
@@ -1004,7 +1026,7 @@ const NewAddListingForm = ({ data }) => {
                 ))}
               </div>
             )}
-            <div className="flex justify-center items-center mt-2">
+            <div className="flex justify-center items-center mt-2 pt-5">
               <CB
                 checked={termsAndCondition}
                 onChange={(e) => setTermsAndCondition(e.target.checked)}
@@ -1064,16 +1086,16 @@ const NewAddListingForm = ({ data }) => {
             } else if (page == 2) {
               handleForward();
             } else if (page == 4) {
-              if (
-                !(
-                  (selectedCity === "" ||
-                    selectedCity === "India" ||
-                    selectedCity === undefined) &&
-                  (inputUsername || user?.userdetails?.userName)
-                )
-              ) {
+              // if (
+              //   (!selectedCity === undefined ||
+              //     !selectedCity === "" ||
+              //     !selectedCity === "India") 
+              //     &&
+              //   (inputName || !inputName === "")
+              // ) {
+              //   console.log("okay");
                 setPage(page + 1);
-              }
+              // }
             }
           }}
         >

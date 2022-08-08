@@ -73,7 +73,7 @@ function SimilarProduct({ data }) {
       // );
 
       let data = response?.dataObject?.otherListings.filter((items) => {
-        return items.listingId !== data.listingId;
+        return items?.listingId !== data?.listingId;
       });
 
       setSimilar_listings((products) => [...products, ...data]);
@@ -134,12 +134,13 @@ function SimilarProduct({ data }) {
             <span>Fetching more products...</span>
           </div>
         )} */}
+      </div>
         {similar_listings && similar_listings.length > 0 &&
             isFinished == false && (
               <span
                 className={`${
                   isLoadingMore ? "w-[250px]" : "w-[150px]"
-                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my  -5`}
+                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
                 onClick={loadMoreData}
               >
                 <p className="block text-m-green font-semibold">
@@ -147,7 +148,6 @@ function SimilarProduct({ data }) {
                 </p>
               </span>
             )}
-      </div>
     </section>
   );
 }

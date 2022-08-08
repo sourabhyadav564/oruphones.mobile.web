@@ -14,7 +14,6 @@ function BrandPopup({ open, setOpen }) {
   const [brands, setBrands] = useState([]);
   const [brandState, setBrandState] = useRecoilState(addListingBrandState);
 
-  console.log("brandState", brandState);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("brands"))?.length > 0) {

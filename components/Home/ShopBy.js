@@ -17,19 +17,19 @@ const data = [
   },
   {
     id: 3,
-    text: "Verified Mobiles",
+    text: "Verified Mobiles Only",
     imagePath: verified,
     urlPath: "Verified",
   },
   {
     id: 2,
-    text: "Like New Mobiles",
+    text: "Like New Condition",
     imagePath: likeNew,
     urlPath: "Like New",
   },
   {
     id: 4,
-    text: "Warranty Mobiles",
+    text: "Warranty with Warranty",
     imagePath: warranty,
     urlPath: "Warranty",
   },

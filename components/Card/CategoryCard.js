@@ -45,7 +45,7 @@ const CategoryCards = ({ data, priceRange }) => {
   if (priceRange) {
     return (
       <div>
-        <div className="h-full w-[230px] justify-center items-center p-2 cardShadow1 rounded-lg bg-m-white grid grid-cols-2 gap-5">
+        <div className="h-[180px] w-[250px] md:w-full justify-center items-center p-4 cardShadow1 rounded-lg bg-m-white grid grid-cols-2 gap-5">
           {priceRangeData.map((item, index) => (
             <Link
               href={`/shopby/pricerange/${item.min}/${item.max}`}
@@ -72,16 +72,16 @@ const CategoryCards = ({ data, priceRange }) => {
         }}
       >
         <a
-          className={`h-full flex flex-col justify-center items-center p-2 cardShadow1 rounded-lg text-center`}
+          className={`h-[180px] w-full flex flex-col justify-center items-center p-2 cardShadow1 rounded-lg text-center`}
         >
           <Image
             src={data?.imagePath}
             alt={data?.make}
-            height={120}
-            width={120}
+            height={60}
+            width={60}
             objectFit="contain"
           />
-          <span>{data.text}</span>
+          <span className="font-semibold text-black">{data.text}</span>
         </a>
       </Link>
     )

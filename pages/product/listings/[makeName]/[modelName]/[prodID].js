@@ -66,7 +66,6 @@ function ProductDeatils({ data }) {
 
   // const productData = useRecoilValue(otherVandorDataSelector);
 
-
   // const listingId = useRecoilValue(otherVandorListingIdSelector);
 
   const router = useRouter();
@@ -79,7 +78,6 @@ function ProductDeatils({ data }) {
   //     otherVendorData.push(item);
   //   }
   // });
-
 
   const showSellerNumber = async (e) => {
     handleButtonClick();
@@ -112,7 +110,10 @@ function ProductDeatils({ data }) {
   }, [data]);
 
   const handleButtonClick = async () => {
-    if (!(data?.isOtherVendor === "Y") && Cookies.get("userUniqueId") !== undefined) {
+    if (
+      !(data?.isOtherVendor === "Y") &&
+      Cookies.get("userUniqueId") !== undefined
+    ) {
       fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
         (response) => {
           setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
@@ -296,34 +297,34 @@ function ProductDeatils({ data }) {
               <span className="text-xs">Check price from other sellers</span>
             </div>
           )}
-          {data?.externalSource?.length > 0 &&
-            data?.externalSource.map((items, index) => (
-              <>
-                <div className="border rounded-md flex items-center key={index}">
-                  {/* <div className="flex items-center" key={index}> */}
-                  <div className="flex-1 flex flex-col justify-start px-4 py-1">
-                    {/* <p className="text-gray-70 text-xs">Seller</p> */}
-                    <div>
-                      <img
-                        src={items?.externalSourceImage}
-                        style={{ height: 20, width: "auto" }}
-                        alt={items?.externalSourceName}
-                      />
+          <div className="border rounded-md">
+            {data?.externalSource?.length > 0 &&
+              data?.externalSource.map((items, index) => (
+                <>
+                  <div className="rounded-md flex items-center" key={index}>
+                    <div className="flex-1 flex flex-col justify-start px-4 pt-3">
+                      <div>
+                        <Image
+                          src={items?.externalSourceImage}
+                          alt={items?.externalSourceName}
+                          height={35}
+                          width={70}
+                          objectFit="fill"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex px-4">
+                      <p className="text-lg flex items-center text-black-4e">
+                        {items?.externalSourcePrice && (
+                          <span className="font-normal mr-0.5"> ₹ </span>
+                        )}{" "}
+                        {numberWithCommas(items?.externalSourcePrice)}
+                      </p>
                     </div>
                   </div>
-                  <div className="flex px-4 py-1">
-                    {/* <p className="text-gray-70 text-xs">List Price</p> */}
-                    <p className="text-lg flex items-center text-black-4e">
-                      {items?.externalSourcePrice && (
-                        <span className="font-normal mr-0.5"> ₹ </span>
-                      )}{" "}
-                      {numberWithCommas(items?.externalSourcePrice)}
-                    </p>
-                  </div>
-                  {/* </div> */}
-                </div>
-              </>
-            ))}
+                </>
+              ))}
+          </div>
           <h2 className="text-gray-20 font-semibold my-3">Device Info</h2>
           {data?.isOtherVendor === "Y" && (
             <div className="grid grid-cols-2 space-y-2">
@@ -334,7 +335,18 @@ function ProductDeatils({ data }) {
               <span></span>
               <IconLabelValue label="Color" value={data?.color || "--"} />
               <IconLabelValue label="RAM" value={data?.ram || "--"} />
-              <IconLabelValue label="Warranty" value={data?.warranty || "--"} />
+              {data?.isOtherVendor === "Y" && (
+                <>
+                  <IconLabelValue
+                    label="Brand Warranty"
+                    value={"Not Applicable"}
+                  />
+                  <IconLabelValue
+                    label="Seller Warranty"
+                    value={data?.warranty || "--"}
+                  />
+                </>
+              )}
               <IconLabelValue
                 label="Condition"
                 value={data?.condition || data?.deviceCondition || "--"}
@@ -357,10 +369,22 @@ function ProductDeatils({ data }) {
                 textAsLink={data?.verifiedDate != null ? false : true}
               />
               <IconLabelValue label="color" value={data?.color || ""} />
-              <IconLabelValue label="warranty" value={data?.warranty || "--"} />
+              {data?.isOtherVendor === "N" && (
+                <>
+                  <IconLabelValue
+                    label="Brand Warranty"
+                    value={data?.warranty || "--"}
+                  />
+                  <IconLabelValue
+                    label="Seller Warranty"
+                    value={"Not Applicable"}
+                  />
+                </>
+              )}
+
               <IconLabelValue
                 label="Accessories"
-                value={getAccessoriesText(data)}
+                value={getAccessoriesText(data) || "--"}
               />
               <IconLabelValue label="Listed On" value={data?.listingDate} />
             </div>
@@ -379,7 +403,7 @@ function ProductDeatils({ data }) {
           {data?.isOtherVendor === "Y" ? (
             <PrimayButton onClick={() => openWebSite(data?.vendorLink)}>
               {" "}
-              View Website{" "}
+              Go To Store{" "}
             </PrimayButton>
           ) : (
             <PrimayButton onClick={() => showSellerNumber(data?.listingId)}>

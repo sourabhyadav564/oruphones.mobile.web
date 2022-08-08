@@ -14,8 +14,6 @@ function ModelPopup({ open, setOpen, mktNameOpt }) {
     setModels(mktNameOpt);
   }, [mktNameOpt]);
 
-  console.log("modelState", modelState);
-
   const getResults = (query) => {
     let data = mktNameOpt.filter((item) => {
       return item.marketingname.toLowerCase().includes(query.toLowerCase());
