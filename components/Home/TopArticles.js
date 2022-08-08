@@ -24,7 +24,7 @@ export default function TopArticles({ articles }) {
             />
           </SwiperSlide>
         ))} */}
-        {articles.map((item, index) => (
+        {articles?.map((item, index) => (
           <SwiperSlide key={index}>
             <ArticleCard
               title={item.post_title}

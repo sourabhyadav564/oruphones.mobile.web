@@ -4,11 +4,24 @@ import { BiSearch } from "react-icons/bi";
 
 import { addListingModelState } from "../../atoms/globalState";
 import { useRecoilState } from "recoil";
+import React, { useEffect } from "react";
 
 function ModelPopup({ open, setOpen, mktNameOpt }) {
   const [modelState, setModelState] = useRecoilState(addListingModelState);
+  const [models, setModels] = React.useState([]);
+
+  useEffect(() => {
+    setModels(mktNameOpt);
+  }, [mktNameOpt]);
 
   console.log("modelState", modelState);
+
+  const getResults = (query) => {
+    let data = mktNameOpt.filter((item) => {
+      return item.marketingname.toLowerCase().includes(query.toLowerCase());
+    });
+    setModels(data);
+  };
 
   return (
     <Modal1 open={open} setOpen={setOpen}>
@@ -26,11 +39,14 @@ function ModelPopup({ open, setOpen, mktNameOpt }) {
               type="text"
               placeholder="Search model here..."
               className="flex-1 text-sm"
+              onChange={(e) => {
+                getResults(e.target.value);
+              }}
             />
           </div>
           <main className="text-sm -mx-2">
-            {mktNameOpt &&
-              mktNameOpt.map((item, index) => (
+            {models &&
+              models.map((item, index) => (
                 <div
                   key={index}
                   className="p-4 hover:bg-gray-200 active:bg-gray-300 duration-300"

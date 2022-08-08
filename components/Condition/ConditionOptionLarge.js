@@ -10,7 +10,7 @@ const ConditionOptionLarge = ({
   return (
     <div
       className={`${
-        conditionResults?.[questionIndex] == title && "bg-gray-200"
+        conditionResults?.[questionIndex] == title && "bg-gray-300 border-[1.5px] border-black"
       } my-4 hover:cursor-pointer p-3 rounded-md border-2 border-gray-200 active:opacity-50 duration-300 hover:bg-gray-200`}
     >
       <div className="flex items-center space-x-3">

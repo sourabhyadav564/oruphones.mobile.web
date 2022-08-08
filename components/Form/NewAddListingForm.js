@@ -1,8 +1,12 @@
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
-import chargingImg from "@/assets/charging-station.svg";
-import headphoneImg from "@/assets/headphones-line.svg";
-import originalBoxImg from "@/assets/box.svg";
+// import chargingImg from "@/assets/charging-station.svg";
+// import headphoneImg from "@/assets/headphones-line.svg";
+// import originalBoxImg from "@/assets/box.svg";
+import chargingImg from "@/assets/charging-station.png";
+import headphoneImg from "@/assets/headphones-line.png";
+import originalBoxImg from "@/assets/box.png";
+
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
 import Input from "./Input";
@@ -406,11 +410,14 @@ const NewAddListingForm = ({ data }) => {
     } else {
       setCondition("Good");
     }
-    setShow(true);
   };
 
   const handleBack = () => {
-    setQuestionIndex(questionIndex > 0 ? questionIndex - 1 : 0);
+    if (questionIndex == 0) {
+      setPage(page - 1);
+    } else {
+      setQuestionIndex(questionIndex > 0 ? questionIndex - 1 : 0);
+    }
   };
 
   const handleForward = () => {
@@ -427,16 +434,16 @@ const NewAddListingForm = ({ data }) => {
 
   return (
     <Fragment>
-      {(makeRequired.length > 0 ||
+      {/* {(makeRequired.length > 0 ||
         marketingNameRequired.length > 0 ||
         deviceConditionRequired.length > 0 ||
         storageRequired.length > 0) && (
         <h1 className="text-red pt-4">
           Please fill all the required fields properly
         </h1>
-      )}
+      )} */}
       <form
-        className="grid grid-cols-1 space-y-4 mt-8 container my-4"
+        className="grid grid-cols-1 space-y-4 container my-4"
         onSubmit={handleSubmit}
       >
         {page === 0 && (
@@ -447,7 +454,7 @@ const NewAddListingForm = ({ data }) => {
               }}
               className="space-y-2"
             >
-              <p className="font-semibold text-sm">
+              {/* <p className="font-semibold text-sm">
                 Brand <span className="text-red-400">*</span>
               </p>
               <input
@@ -455,14 +462,22 @@ const NewAddListingForm = ({ data }) => {
                 placeholder="Please select brand"
                 className="border-2 border-gray-200 p-2 w-full rounded-md duration-200"
                 value={make}
-              />
+              /> */}
+              <Input
+                value={make}
+                disabled
+                placeholder="Please select brand"
+                type="text"
+              >
+                Make
+              </Input>
             </div>
             {mktNameOpt && mktNameOpt.length > 0 && (
               <div
                 onClick={() => setOpenModelPopup(true)}
                 className="space-y-2"
               >
-                <p className="font-semibold text-sm">
+                {/* <p className="font-semibold text-sm">
                   Model <span className="text-red-400">*</span>
                 </p>
                 <input
@@ -470,7 +485,15 @@ const NewAddListingForm = ({ data }) => {
                   placeholder="Please select model"
                   className="border-2 border-gray-200 p-2 w-full rounded-md duration-200"
                   value={model}
-                />
+                /> */}
+                <Input
+                  value={model}
+                  disabled
+                  placeholder="Please select model"
+                  type="text"
+                >
+                  Make
+                </Input>
               </div>
             )}
             {storageColorOption && storageColorOption?.storage && (
@@ -484,7 +507,9 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption.storage.map((item, index) => (
                       <div
                         className={`${
-                          storage == item ? "bg-gray-200" : "bg-white"
+                          storage == item
+                            ? "bg-gray-300 border-[1.5px] border-black"
+                            : "bg-white"
                         } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                         onClick={() => setStorage(item)}
                         key={index}
@@ -504,7 +529,9 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption.color.map((item, index) => (
                       <div
                         className={`${
-                          color == item ? "bg-gray-200" : "bg-white"
+                          color == item
+                            ? "bg-gray-300 border-[1.5px] border-black"
+                            : "bg-white"
                         } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                         onClick={() => setColor(item)}
                       >
@@ -520,6 +547,7 @@ const NewAddListingForm = ({ data }) => {
                 {modelInfo?.price}
               </p>
             )}
+            <span className="pb-20" />
           </>
         )}
 
@@ -531,8 +559,8 @@ const NewAddListingForm = ({ data }) => {
                   src={modelInfo?.imagePath || Logo}
                   className=""
                   alt="model"
-                  height="130"
-                  width="100"
+                  height="100"
+                  width="70"
                 />
                 <div className="flex flex-col mt-3">
                   <p className="font-bold">{modelInfo?.marketingName}</p>
@@ -562,13 +590,13 @@ const NewAddListingForm = ({ data }) => {
               <div className="grid grid-cols-2 gap-4 mt-5">
                 <Checkbox
                   src={chargingImg}
-                  text="Charger"
+                  text="Original Charger"
                   onChange={() => setCharging((prev) => !prev)}
                   checked={charging}
                 />
                 <Checkbox
                   src={headphoneImg}
-                  text="Earphones"
+                  text="Original Earphones"
                   onChange={() => setHeadphone((prev) => !prev)}
                   checked={headphone}
                 />
@@ -595,7 +623,9 @@ const NewAddListingForm = ({ data }) => {
                       <div
                         key={index}
                         className={`${
-                          warranty == item?.value ? "bg-gray-200" : "bg-white"
+                          warranty == item?.value
+                            ? "bg-gray-300 border-[1.5px] border-black"
+                            : "bg-white"
                         } py-3 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
                         onClick={() => setWarranty(item.value)}
                       >
@@ -606,6 +636,7 @@ const NewAddListingForm = ({ data }) => {
                 </>
               )}
             </div>
+            <span className="pb-20" />
           </>
         )}
 
@@ -617,8 +648,8 @@ const NewAddListingForm = ({ data }) => {
                   src={modelInfo?.imagePath || Logo}
                   className=""
                   alt="model"
-                  height="130"
-                  width="100"
+                  height="100"
+                  width="70"
                 />
                 <div className="flex flex-col mt-3">
                   <p className="font-bold">{modelInfo?.marketingName}</p>
@@ -641,50 +672,35 @@ const NewAddListingForm = ({ data }) => {
                 </div>
               </div>
             )}
-            {!show ? (
-              <>
-                <div>
-                  <h3 className="">
-                    {deviceConditionQuestion[questionIndex]?.title}
-                  </h3>
-                  {deviceConditionQuestion[questionIndex]?.options?.map(
-                    (item, index) => (
-                      <div
-                        onClick={() => {
-                          setConditionResults((prev) => {
-                            return {
-                              ...prev,
-                              [questionIndex]: item?.title,
-                            };
-                          });
-                        }}
-                        key={index}
-                      >
-                        <ConditionOptionLarge
-                          title={item?.title}
-                          options={item?.options}
-                          conditionResults={conditionResults}
-                          questionIndex={questionIndex}
-                        />
-                      </div>
-                    )
-                  )}
-                </div>
-              </>
-            ) : (
-              <>
-                <DeviceConditionCard
-                  condition={condition}
-                  answer={conditionResults}
-                />
-                <p
-                  className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
-                  onClick={() => setOpenConditionInfo(true)}
-                >
-                  What&apos;s this?
-                </p>
-              </>
-            )}
+
+            <div>
+              <h3 className="text-center font-semibold text-xl">
+                {deviceConditionQuestion[questionIndex]?.title}
+              </h3>
+              {deviceConditionQuestion[questionIndex]?.options?.map(
+                (item, index) => (
+                  <div
+                    onClick={() => {
+                      setConditionResults((prev) => {
+                        return {
+                          ...prev,
+                          [questionIndex]: item?.title,
+                        };
+                      });
+                    }}
+                    key={index}
+                  >
+                    <ConditionOptionLarge
+                      title={item?.title}
+                      options={item?.options}
+                      conditionResults={conditionResults}
+                      questionIndex={questionIndex}
+                    />
+                  </div>
+                )
+              )}
+            </div>
+            <span className="pb-20" />
           </>
         )}
 
@@ -696,10 +712,10 @@ const NewAddListingForm = ({ data }) => {
                   src={modelInfo?.imagePath || Logo}
                   className=""
                   alt="model"
-                  height="130"
-                  width="100"
+                  height="100"
+                  width="70"
                 />
-                <div className="flex flex-col mt-3">
+                <div className="flex flex-col">
                   <p className="font-bold">{modelInfo?.marketingName}</p>
                   <p>
                     <span className="font-bold">Storage:</span>{" "}
@@ -725,20 +741,25 @@ const NewAddListingForm = ({ data }) => {
                 </div>
               </div>
             )}
-            {show && (
-              <>
-                <DeviceConditionCard
+            <>
+              {/* <DeviceConditionCard
                   condition={condition}
                   answer={conditionResults}
-                />
-                <p
-                  className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
-                  onClick={() => setOpenConditionInfo(true)}
-                >
-                  What&apos;s this?
+                /> */}
+              <div className="flex flex-col bg-white p-5 rounded-md drop-shadow-2xl">
+                <span className="font-semibold">Your Device is in</span>
+                <p className="font-bold text-xl">
+                  {condition}
+                  <span> Condition</span>
                 </p>
-              </>
-            )}
+              </div>
+              <p
+                className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
+                onClick={() => setOpenConditionInfo(true)}
+              >
+                What&apos;s this?
+              </p>
+            </>
             <p className="text-gray-70 font-semibold">Upload Photos</p>
             <div className="grid grid-cols-2 relative">
               {images.map((item, index) => (
@@ -775,6 +796,7 @@ const NewAddListingForm = ({ data }) => {
                 </span>
               )}
             </div>
+            <span className="pb-20" />
           </>
         )}
 
@@ -786,8 +808,8 @@ const NewAddListingForm = ({ data }) => {
                   src={modelInfo?.imagePath || Logo}
                   className=""
                   alt="model"
-                  height="130"
-                  width="100"
+                  height="100"
+                  width="70"
                 />
                 <div className="flex flex-col mt-3">
                   <p className="font-bold">{modelInfo?.marketingName}</p>
@@ -815,20 +837,25 @@ const NewAddListingForm = ({ data }) => {
                 </div>
               </div>
             )}
-            {show && (
-              <>
-                <DeviceConditionCard
+            <>
+              {/* <DeviceConditionCard
                   condition={condition}
                   answer={conditionResults}
-                />
-                <p
-                  className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
-                  onClick={() => setOpenConditionInfo(true)}
-                >
-                  What&apos;s this?
+                /> */}
+              <div className="flex flex-col bg-white p-5 rounded-md drop-shadow-2xl">
+                <span className="font-semibold">Your Device is in</span>
+                <p className="font-bold text-xl">
+                  {condition}
+                  <span> Condition</span>
                 </p>
-              </>
-            )}
+              </div>
+              <p
+                className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
+                onClick={() => setOpenConditionInfo(true)}
+              >
+                What&apos;s this?
+              </p>
+            </>
             <div className="relative">
               <Input
                 id="inputName"
@@ -873,6 +900,7 @@ const NewAddListingForm = ({ data }) => {
                 </p>
               )}
             </div>
+            <span className="pb-20" />
           </>
         )}
 
@@ -884,8 +912,8 @@ const NewAddListingForm = ({ data }) => {
                   src={modelInfo?.imagePath || Logo}
                   className=""
                   alt="model"
-                  height="130"
-                  width="100"
+                  height="100"
+                  width="70"
                 />
                 <div className="flex flex-col mt-3">
                   <p className="font-bold">{modelInfo?.marketingName}</p>
@@ -913,7 +941,7 @@ const NewAddListingForm = ({ data }) => {
                 </div>
               </div>
             )}
-            <div className="grid grid-cols-5 relative">
+            <div className="grid grid-cols-5 relative pt-5">
               <Input
                 id="sellValue"
                 prefix={"₹"}
@@ -948,7 +976,7 @@ const NewAddListingForm = ({ data }) => {
               </div>
             </div>
             {getExternalSellerData && getExternalSellerData.length > 0 && (
-              <p className="font-semibold mt-1" style={{ color: "#707070" }}>
+              <p className="font-semibold mt-1 pt-3" style={{ color: "#707070" }}>
                 Check prices from other buyers:
               </p>
             )}
@@ -995,6 +1023,7 @@ const NewAddListingForm = ({ data }) => {
             >
               submit
             </button>
+            <span className="pb-20" />
           </>
         )}
       </form>
@@ -1004,7 +1033,9 @@ const NewAddListingForm = ({ data }) => {
           className={`bg-white px-5 py-2 text-center text-black font-semibold rounded-md
         border-2 border-gray-200 duration-300 flex items-center justify-center space-x-5`}
           onClick={() => {
-            if (page != 0) {
+            if (page == 2) {
+              handleBack();
+            } else if (page != 0) {
               setPage(page - 1);
             }
           }}
@@ -1078,7 +1109,7 @@ export default NewAddListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border rounded py-4 relative ${checked && "bg-gray-ef"}`}
+    className={`border rounded py-4 relative ${checked && "bg-gray-300"}`}
     onClick={onChange}
   >
     <div className="relative w-12 h-12 mx-auto">
