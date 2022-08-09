@@ -5,7 +5,10 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import MySelect from "../Form/Select";
 import Modal2 from "./Modal2";
 
-const optionsList = [{ value: "Sold my mobile", label: "Sold my mobile" }];
+const optionsList = [
+  { value: "Sold my mobile", label: "Sold my mobile" },
+  { value: "Other", label: "Other" },
+];
 
 function ListingDeleted({ open, setOpen, data, setListings }) {
   function handleDelete() {
@@ -39,10 +42,16 @@ function ListingDeleted({ open, setOpen, data, setListings }) {
         </div>
         <div className="my-4">
           <div className="flex space-x-6 justify-center text-white items-center text-sm">
-            <span className="font-medium text-primary rounded uppercase cursor-pointer" onClick={() => setOpen(false)}>
+            <span
+              className="font-medium text-primary rounded uppercase cursor-pointer"
+              onClick={() => setOpen(false)}
+            >
               Cancel
             </span>
-            <span className="font-medium px-4 py-2 bg-primary rounded uppercase cursor-pointer" onClick={handleDelete}>
+            <span
+              className="font-medium px-4 py-2 bg-primary rounded uppercase cursor-pointer"
+              onClick={handleDelete}
+            >
               Ok
             </span>
           </div>

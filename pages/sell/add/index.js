@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 import NewAddListingForm from "@/components/Form/NewAddListingForm";
 
 const index = ({ data }) => {
-// const index = () => {
+  // const index = () => {
   // const [makeModelLists, setMakeModelLists] = useState([]);
 
   // useEffect(async () => {
@@ -42,7 +42,6 @@ const index = ({ data }) => {
     <Fragment>
       <Header2 title={"Sell Your Phone"} />
       <main className="">
-
         {/* <div className="flex justify-center">
           <Image
             src={sellDeviceBanner}
@@ -75,9 +74,9 @@ export const getServerSideProps = async ({ req, res, query }) => {
   const { userUniqueId, sessionId, make_models } = req.cookies;
 
   try {
-    let data;
     // const result = await getMakeModelLists();
     // const data = result?.dataObject;
+    let data;
     if (make_models) {
       data = [];
     } else {

@@ -38,7 +38,9 @@ const EditListingForm = ({ data, resultsSet }) => {
   } else if (data?.images && data.images.length === 5) {
     initialState = [...data?.images, { panel: 6 }];
   } else {
-    initialState = [...(data?.images || [{ panel: "front" }, { panel: "back" }])];
+    initialState = [
+      ...(data?.images || [{ panel: "front" }, { panel: "back" }]),
+    ];
   }
 
   const [images, setImages] = useState(initialState);
@@ -52,7 +54,9 @@ const EditListingForm = ({ data, resultsSet }) => {
   useEffect(() => {
     if (data != undefined && data != null) {
       let modelData = resultsSet?.filter((item) => item.make === data?.make);
-      let models = modelData[0]?.models.filter((item) => item.marketingname === data?.marketingName);
+      let models = modelData[0]?.models.filter(
+        (item) => item.marketingname === data?.marketingName
+      );
       setDeviceColors(models[0]?.color);
       setDeviceStorages(models[0]?.storage);
     }
@@ -144,8 +148,13 @@ const EditListingForm = ({ data, resultsSet }) => {
       userUniqueId: user?.userdetails?.userUniqueId,
       verified: data.verified,
       listedBy: inputUsername || data?.listedBy,
-      recommendedPriceRange: recommandedPrice?.leastSellingprice + "-" + recommandedPrice?.maxsellingprice,
-      images: images.filter((item) => item?.fullImage && item.fullImage !== null),
+      recommendedPriceRange:
+        recommandedPrice?.leastSellingprice +
+        "-" +
+        recommandedPrice?.maxsellingprice,
+      images: images.filter(
+        (item) => item?.fullImage && item.fullImage !== null
+      ),
     };
     updateLisiting(payload).then(
       () => {
@@ -165,17 +174,20 @@ const EditListingForm = ({ data, resultsSet }) => {
         <Input value={data?.marketingName} disabled>
           Model
         </Input>
-        {/* <Input value={data?.deviceStorage} disabled>
-          Storage
-        </Input> */}
-        <MySelect
-          labelName="Storage"
-          placeholder={data?.deviceStorage}
-          onChange={(e) => setDevStorage(e.value)}
-          options={deviceStorages?.map((item) => {
-            return { label: item, value: item };
-          })}
-        />
+        {data?.verified ? (
+          <Input value={data?.deviceStorage} disabled>
+            Storage
+          </Input>
+        ) : (
+          <MySelect
+            labelName="Storage"
+            placeholder={data?.deviceStorage}
+            onChange={(e) => setDevStorage(e.value)}
+            options={deviceStorages?.map((item) => {
+              return { label: item, value: item };
+            })}
+          />
+        )}
         <MySelect
           labelName="Color"
           placeholder={data?.color}
@@ -219,7 +231,11 @@ const EditListingForm = ({ data, resultsSet }) => {
             <span
               className="absolute -bottom-6 text-sm right-0 text-primary cursor-pointer"
               onClick={() =>
-                setImages((prev) => [...prev, { panel: images.length > 1 && images.length - 1 }, { panel: images.length > 1 && images.length }])
+                setImages((prev) => [
+                  ...prev,
+                  { panel: images.length > 1 && images.length - 1 },
+                  { panel: images.length > 1 && images.length },
+                ])
               }
             >
               + Add more
@@ -228,11 +244,30 @@ const EditListingForm = ({ data, resultsSet }) => {
         </div>
         <p className="text-gray-70 font-semibold capitalize">Add accessories</p>
         <div className="grid grid-cols-3 space-x-2">
-          <Checkbox src={chargingImg} text="Charger" onChange={() => setCharging((prev) => !prev)} checked={charging} />
-          <Checkbox src={headphoneImg} text="Earphones" onChange={() => setHeadphone((prev) => !prev)} checked={headphone} />
-          <Checkbox src={originalBoxImg} text="Original Box" onChange={() => setOriginalbox((prev) => !prev)} checked={originalbox} />
+          <Checkbox
+            src={chargingImg}
+            text="Charger"
+            onChange={() => setCharging((prev) => !prev)}
+            checked={charging}
+          />
+          <Checkbox
+            src={headphoneImg}
+            text="Earphones"
+            onChange={() => setHeadphone((prev) => !prev)}
+            checked={headphone}
+          />
+          <Checkbox
+            src={originalBoxImg}
+            text="Original Box"
+            onChange={() => setOriginalbox((prev) => !prev)}
+            checked={originalbox}
+          />
         </div>
-        <Input placeholder={"Enter your name"} defaultValue={data?.listedBy || ""} onChange={(e) => setInputUsername(e.target.value)}>
+        <Input
+          placeholder={"Enter your name"}
+          defaultValue={data?.listedBy || ""}
+          onChange={(e) => setInputUsername(e.target.value)}
+        >
           Name
         </Input>
         <div className="grid grid-cols-5 relative">
@@ -251,18 +286,27 @@ const EditListingForm = ({ data, resultsSet }) => {
           >
             Enter your sell price
           </Input>
-          {sellValueRequired && <span className="text-red text-sm absolute -bottom-6">Enter price more than 1000</span>}
+          {sellValueRequired && (
+            <span className="text-red text-sm absolute -bottom-6">
+              Enter price more than 1000
+            </span>
+          )}
           <div className="text-sm bg-gray-c7 text-black-4e col-span-2 px-2 py-1 rounded-r -ml-1 z-10">
             <span>Recommended Price</span>
             <br />
             {recommandedPrice && (
               <p>
-                <span className="mr-1">&#x20B9;</span> {recommandedPrice?.leastSellingprice} - {recommandedPrice?.maxsellingprice}
+                <span className="mr-1">&#x20B9;</span>{" "}
+                {recommandedPrice?.leastSellingprice} -{" "}
+                {recommandedPrice?.maxsellingprice}
               </p>
             )}
           </div>
         </div>
-        <button className="bg-primary uppercase rounded py-3 text-white"> submit </button>
+        <button className="bg-primary uppercase rounded py-3 text-white">
+          {" "}
+          submit{" "}
+        </button>
       </form>
       <ListingAdded open={listingAdded} setOpen={setListingAdded} />
     </Fragment>
@@ -272,11 +316,22 @@ const EditListingForm = ({ data, resultsSet }) => {
 export default EditListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
-  <div className={`border rounded py-4 relative ${checked && "bg-gray-ef"}`} onClick={onChange}>
+  <div
+    className={`border rounded py-4 relative ${checked && "bg-gray-ef"}`}
+    onClick={onChange}
+  >
     <div className="relative w-12 h-12 mx-auto">
       <Image src={src} layout="fill" />
     </div>
-    <input type="checkbox" className="absolute top-2 left-2 rounded" checked={checked} readOnly />
-    <span className="text-xs mt-2 text-center block text-black-4e"> {text} </span>
+    <input
+      type="checkbox"
+      className="absolute top-2 left-2 rounded"
+      checked={checked}
+      readOnly
+    />
+    <span className="text-xs mt-2 text-center block text-black-4e">
+      {" "}
+      {text}{" "}
+    </span>
   </div>
 );

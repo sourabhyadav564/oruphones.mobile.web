@@ -26,6 +26,7 @@ import LoginPopup from "@/components/Popup/LoginPopup";
 import Logo from "@/assets/oru_phones_logo.png";
 import { BsStar } from "react-icons/bs";
 import { BsStarFill } from "react-icons/bs";
+import whatsapp from "@/assets/whatsapp.png";
 
 // import {
 //   otherVandorDataSelector,
@@ -154,6 +155,7 @@ function ProductDeatils({ data }) {
       return <BsStar className="text-black-7e" />;
     }
   };
+
   return (
     <Fragment>
       {/* <Header2 title="Product Info" /> */}
@@ -334,7 +336,7 @@ function ProductDeatils({ data }) {
               />
               <span></span>
               <IconLabelValue label="Color" value={data?.color || "--"} />
-              <IconLabelValue label="RAM" value={data?.ram || "--"} />
+              <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
               {data?.isOtherVendor === "Y" && (
                 <>
                   <IconLabelValue
@@ -406,9 +408,24 @@ function ProductDeatils({ data }) {
               Go To Store{" "}
             </PrimayButton>
           ) : (
-            <PrimayButton onClick={() => showSellerNumber(data?.listingId)}>
-              {showNumber ? contactSellerMobileNumber : "Contact Seller"}
-            </PrimayButton>
+            <div className="flex items-center justify-center space-x-3">
+              <PrimayButton onClick={() => showSellerNumber(data?.listingId)}>
+                {showNumber ? contactSellerMobileNumber : "Contact Seller"}
+              </PrimayButton>
+              {showNumber && (
+                <div
+                  className="border-2 px-3 pt-[8px] pb-[2px] rounded-md"
+                  onClick={() =>
+                    window.open(
+                      `https://wa.me/${contactSellerMobileNumber}?text=Hey There, Check this product on ORU Phones. https://betav1.oruphones.com${router?.asPath}`,
+                      "_blank"
+                    )
+                  }
+                >
+                  <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
+                </div>
+              )}
+            </div>
           )}
         </div>
       </main>

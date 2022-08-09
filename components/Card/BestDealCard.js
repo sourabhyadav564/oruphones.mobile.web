@@ -53,12 +53,12 @@ function BestDealCard({ openConditionInfo, openVerificationInfo, data, setProduc
         )}
       </div>
       <div className="col-span-2 relative pt-5">
-        {data?.isOtherVendor === "Y" && (
+        {/* {data?.isOtherVendor === "Y" && (
           <div className="absolute h-8 -top-1 right-0 left-0 flex justify-center pb-1">
             {" "}
             <Image src={data?.vendorLogo} width="100" height="30" objectFit="contain" />{" "}
           </div>
-        )}
+        )} */}
 
         {data?.verified && (
           <div className="absolute h-8 -top-2 right-0 left-0 flex px-4 pb-1">

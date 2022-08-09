@@ -72,7 +72,7 @@ const CategoryCards = ({ data, priceRange }) => {
         }}
       >
         <a
-          className={`h-[180px] w-full flex flex-col justify-center items-center p-2 cardShadow1 rounded-lg text-center`}
+          className={`h-[200px] w-full flex flex-col justify-center items-center p-2 cardShadow1 rounded-lg text-center`}
         >
           <Image
             src={data?.imagePath}

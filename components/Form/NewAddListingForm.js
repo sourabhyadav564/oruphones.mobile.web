@@ -109,10 +109,6 @@ const NewAddListingForm = ({ data }) => {
   const [modelInfo, setModelInfo] = useState();
   const [page, setPage] = useState(0);
 
-  console.log("selectedCit1", selectedCity != undefined);
-  console.log("selectedCit2", selectedCity != "");
-  console.log("selectedCit3", selectedCity != "India");
-
   useEffect(() => {
     if (make) {
       setDefaultModel("");
@@ -315,8 +311,7 @@ const NewAddListingForm = ({ data }) => {
     var sellValue = sellValueTag.value;
 
     var inputNameTag = document.querySelector("#inputName");
-    // var inputName = inputNameTag.value;
-    var inputName = inputUsername || user?.userdetails?.userName;
+    var inputName = inputNameTag.value;
 
     if (
       selectedCity === undefined ||
@@ -887,6 +882,7 @@ const NewAddListingForm = ({ data }) => {
                 type="text"
                 maxLength="30"
                 errorClass={`border ${nameValueRequired}`}
+                disabled={user?.userdetails?.userName ? true : false}
               >
                 Name*
               </Input>
@@ -1086,16 +1082,15 @@ const NewAddListingForm = ({ data }) => {
             } else if (page == 2) {
               handleForward();
             } else if (page == 4) {
-              // if (
-              //   (!selectedCity === undefined ||
-              //     !selectedCity === "" ||
-              //     !selectedCity === "India") 
-              //     &&
-              //   (inputName || !inputName === "")
-              // ) {
-              //   console.log("okay");
+              if (
+                (!(selectedCity == undefined) &&
+                  !(selectedCity == "") &&
+                  !(selectedCity == "India")) &&
+                (inputName || !(inputName == ""))
+              ) {
+                console.log("okay");
                 setPage(page + 1);
-              // }
+              }
             }
           }}
         >
