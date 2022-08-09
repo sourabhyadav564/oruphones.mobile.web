@@ -29,7 +29,7 @@ const data = [
   },
   {
     id: 4,
-    text: "Warranty with Warranty",
+    text: "Phones with Warranty",
     imagePath: warranty,
     urlPath: "Warranty",
   },
@@ -46,19 +46,23 @@ function ShowBy() {
     //   </Carousel>
     // </section>
     <section className="text-gray-70">
-    <h1 className="mt-3 mb-2 px-3 font-semibold text-based"> Shop By </h1>
-    <BasicCarousel slidesPerView={2.3} spaceBetween={8} style={{ padding: "8px 12px" }}>
-      {data &&
-        data.map((item) => (
-          <SwiperSlide key={item.make}>
-            <CategoryCards data={item} />
-          </SwiperSlide>
-        ))}
-      <SwiperSlide style={{ height: "auto" }}>
-      <CategoryCards priceRange />
-      </SwiperSlide>
-    </BasicCarousel>
-  </section>
+      <h1 className="mt-3 mb-2 px-3 font-semibold text-based"> Shop By </h1>
+      <BasicCarousel
+        slidesPerView={3.6}
+        spaceBetween={8}
+        style={{ padding: "8px 12px" }}
+      >
+        {data &&
+          data.map((item) => (
+            <SwiperSlide key={item.make}>
+              <CategoryCards data={item} />
+            </SwiperSlide>
+          ))}
+        <SwiperSlide style={{ height: "auto" }}>
+          <CategoryCards priceRange />
+        </SwiperSlide>
+      </BasicCarousel>
+    </section>
   );
 }
 

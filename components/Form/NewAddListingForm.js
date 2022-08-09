@@ -311,7 +311,8 @@ const NewAddListingForm = ({ data }) => {
     var sellValue = sellValueTag.value;
 
     var inputNameTag = document.querySelector("#inputName");
-    var inputName = inputNameTag.value;
+    // var inputName = inputNameTag.value;
+    var inputName = inputUsername || user?.userdetails?.userName;
 
     if (
       selectedCity === undefined ||
@@ -1083,9 +1084,9 @@ const NewAddListingForm = ({ data }) => {
               handleForward();
             } else if (page == 4) {
               if (
-                (!(selectedCity == undefined) &&
-                  !(selectedCity == "") &&
-                  !(selectedCity == "India")) &&
+                !(selectedCity == undefined) &&
+                !(selectedCity == "") &&
+                !(selectedCity == "India") &&
                 (inputName || !(inputName == ""))
               ) {
                 console.log("okay");

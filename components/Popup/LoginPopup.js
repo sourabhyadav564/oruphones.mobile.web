@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
-import Logo from "@/assets/mobiru_logo.svg";
+// import Logo from "@/assets/mobiru_logo.svg";
+import Logo from "@/assets/logo_square.svg";
 import OTPVerification from "@/components/Login/OTPVerification";
 import Input from "@/components/Form/Input";
 import { generateOTP } from "api-call";

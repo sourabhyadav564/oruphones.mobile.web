@@ -1,6 +1,7 @@
 import axios from "axios";
 import Image from "next/image";
-import Logo from "@/assets/mobiru_logo.svg";
+// import Logo from "@/assets/mobiru_logo.svg";
+import Logo from "@/assets/logo_square.svg";
 // import Logo from "@/assets/oru_phones_logo.png";
 import MapIcon from "@/assets/map-icon.svg";
 import { Dialog, Transition } from "@headlessui/react";
@@ -130,7 +131,7 @@ function LocationPicker({ openLocationPopup }) {
       <Dialog as="section" className="fixed inset-0 z-50 bg-white container text-black py-4" initialFocus={cancelButtonRef} onClose={setOpen}>
         <div className="flex flex-col justify-center items-center space-y-8 pt-8 max-w-sm">
           <div className="w-full flex justify-center">
-            <Image src={Logo} alt={"Logo"} width={49} height={30} />
+            <Image src={Logo} alt={"Logo"} width={79} height={30} />
           </div>
           <div className="w-full flex justify-center ">
             <Image src={MapIcon} alt={"MAP"} width={219} height={116} />
