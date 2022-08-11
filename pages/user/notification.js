@@ -1,7 +1,8 @@
 import Header2 from "@/components/Header/header2";
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
-import mob from "@/assets/mobiru_logo.svg";
+// import mob from "@/assets/mobiru_logo.svg";
+import mob from "@/assets/logo_square.svg";
 import { getAllNotificationByUserd, markAsRead } from "api-call";
 import Cookies from "js-cookie";
 import router from "next/router";

@@ -35,7 +35,7 @@ const data = [
   },
 ];
 
-function ShowBy() {
+function ShopBy() {
   return (
     // <section className="container top_brand pt-4">
     //   <Title text="Shop By" />
@@ -66,4 +66,4 @@ function ShowBy() {
   );
 }
 
-export default ShowBy;
+export default ShopBy;

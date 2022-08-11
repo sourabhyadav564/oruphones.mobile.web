@@ -150,18 +150,20 @@ const NewAddListingForm = ({ data }) => {
 
   useEffect(() => {
     let payload = {
-      deviceStorage: storage?.split("/")[0],
+      deviceStorage: storage
+        ?.toString().includes('/') ? storage?.split("/")[0] : storage,
       deviceRam: storage
-        ?.toString()
-        .split("/")[1]
-        .toString()
-        .replace(/GB/g, " GB")
-        .replace(/RAM/, "")
-        .trim(),
+        ?.toString().includes('/') ? storage
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim() : "",
       make: make,
       marketingName: model,
       deviceCondition: condition,
-      warrantyPeriod: "more",
+      warrantyPeriod: warranty,
       hasCharger: headphone ? "Y" : "N",
       hasEarphone: charging ? "Y" : "N",
       hasOriginalBox: originalbox ? "Y" : "N",
@@ -186,19 +188,21 @@ const NewAddListingForm = ({ data }) => {
     let reqParams = {
       make: make,
       marketingName: model,
-      devicestorage: storage?.split("/")[0],
+      devicestorage: storage
+        ?.toString().includes('/') ? storage?.split("/")[0] : storage,
       deviceRam: storage
-        ?.toString()
-        .split("/")[1]
-        .toString()
-        .replace(/GB/g, " GB")
-        .replace(/RAM/, "")
-        .trim(),
+        ?.toString().includes('/') ? storage
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim() : "",
       deviceCondition: condition,
       earPhones: headphone ? "Y" : "N",
       charger: charging ? "Y" : "N",
       originalBox: originalbox ? "Y" : "N",
-      warrantyPeriod: "more",
+      warrantyPeriod: warranty,
       verified: "no",
     };
     if (
@@ -283,18 +287,21 @@ const NewAddListingForm = ({ data }) => {
 
   useEffect(() => {
     if (storage) {
+      setModelInfo();
       let payload = {
-        deviceStorage: storage?.split("/")[0],
-        deviceRam: storage
-          ?.toString()
-          .split("/")[1]
-          .toString()
-          .replace(/GB/g, " GB")
-          .replace(/RAM/, "")
-          .trim(),
+        deviceStorage: storage
+          ?.toString().includes('/') ? storage?.split("/")[0] : storage,
         make: make,
         marketingName: model,
-        ram: "",
+        model: '',
+        ram: storage
+          ?.toString().includes('/') ? storage
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim() : '',
       };
       marketingNameByModel(payload).then(
         ({ dataObject }) => {
@@ -465,6 +472,7 @@ const NewAddListingForm = ({ data }) => {
             <div
               onClick={() => {
                 setOpenBrandPopup(true);
+                setModelInfo();
               }}
               className="space-y-2"
             >
@@ -477,18 +485,21 @@ const NewAddListingForm = ({ data }) => {
                 className="border-2 border-gray-200 p-2 w-full rounded-md duration-200"
                 value={make}
               /> */}
+              <p className="font-semibold text-sm">
+                Make <span className="text-red-400">*</span>
+              </p>
               <Input
                 value={make}
                 disabled
                 placeholder="Please select brand"
                 type="text"
               >
-                Make
+                {/* Make */}
               </Input>
             </div>
             {mktNameOpt && mktNameOpt.length > 0 && (
               <div
-                onClick={() => setOpenModelPopup(true)}
+                onClick={() => { setOpenModelPopup(true); setModelInfo(); }}
                 className="space-y-2"
               >
                 {/* <p className="font-semibold text-sm">
@@ -500,13 +511,16 @@ const NewAddListingForm = ({ data }) => {
                   className="border-2 border-gray-200 p-2 w-full rounded-md duration-200"
                   value={model}
                 /> */}
+                <p className="font-semibold text-sm">
+                  Model <span className="text-red-400">*</span>
+                </p>
                 <Input
                   value={model}
                   disabled
                   placeholder="Please select model"
                   type="text"
                 >
-                  Model
+                  {/* Model */}
                 </Input>
               </div>
             )}
@@ -520,11 +534,10 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption?.storage &&
                     storageColorOption.storage.map((item, index) => (
                       <div
-                        className={`${
-                          storage == item
-                            ? "bg-gray-300 border-[1.5px] border-black"
-                            : "bg-white"
-                        } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                        className={`${storage == item
+                          ? "bg-gray-300 border-[1.5px] border-black"
+                          : "bg-white"
+                          } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                         onClick={() => setStorage(item)}
                         key={index}
                       >
@@ -542,11 +555,10 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption?.color &&
                     storageColorOption.color.map((item, index) => (
                       <div
-                        className={`${
-                          color == item
-                            ? "bg-gray-300 border-[1.5px] border-black"
-                            : "bg-white"
-                        } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                        className={`${color == item
+                          ? "bg-gray-300 border-[1.5px] border-black"
+                          : "bg-white"
+                          } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                         onClick={() => setColor(item)}
                         key={index}
                       >
@@ -624,7 +636,7 @@ const NewAddListingForm = ({ data }) => {
                 <Checkbox
                   src={originalBoxImg}
                   text="Original Bill"
-                  onChange={() => setShowWarranty((prev) => !prev)}
+                  onChange={() => { setShowWarranty((prev) => !prev); setWarranty('more'); }}
                   checked={showWarranty}
                 />
               </div>
@@ -637,11 +649,10 @@ const NewAddListingForm = ({ data }) => {
                     {deviceWarrantyCheck?.map((item, index) => (
                       <div
                         key={index}
-                        className={`${
-                          warranty == item?.value
-                            ? "bg-gray-300 border-[1.5px] border-black"
-                            : "bg-white"
-                        } py-3 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
+                        className={`${warranty == item?.value
+                          ? "bg-gray-300 border-[1.5px] border-black"
+                          : "bg-white"
+                          } py-3 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
                         onClick={() => setWarranty(item.value)}
                       >
                         <span>{item.label}</span>
@@ -767,6 +778,20 @@ const NewAddListingForm = ({ data }) => {
                   {condition}
                   <span> Condition</span>
                 </p>
+                <div className="row flex justify-between">
+                  {/* create a flow graph for current condition*/}
+                  {/* <div className="flex flex-col w-7 h-7 bg-black rounded-full">
+                  </div>
+                  <div className="flex flex-col w-7 h-7 bg-black rounded-full">
+                  </div>
+                  <div className="flex flex-col w-7 h-7 bg-black rounded-full">
+                  </div>
+                  <div className="flex flex-col w-7 h-7 bg-black rounded-full">
+                  </div>
+                  <div className="flex flex-col w-7 h-7 bg-black rounded-full">
+                  </div> */}
+
+                </div>
               </div>
               <p
                 className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
@@ -885,7 +910,7 @@ const NewAddListingForm = ({ data }) => {
                 errorClass={`border ${nameValueRequired}`}
                 disabled={user?.userdetails?.userName ? true : false}
               >
-                Name*
+                {/* Name* */}
               </Input>
               {nameValueRequired && (
                 <span className="text-red text-sm absolute -bottom-6">
@@ -905,7 +930,7 @@ const NewAddListingForm = ({ data }) => {
                   setSelectedCity(e.value);
                 }}
                 options={globalCities
-                  ?.filter((item) => item.displayWithImage === "0")
+                  ?.filter((item) => item.displayWithImage != "-1")
                   .map((items) => {
                     return { label: items.city, value: items.city };
                   })}
@@ -957,7 +982,10 @@ const NewAddListingForm = ({ data }) => {
                 </div>
               </div>
             )}
-            <div className="grid grid-cols-5 relative pt-5">
+            <p className="font-bold text-sm  pt-5">
+              Enter your sell price <span className="text-red-400">*</span>
+            </p>
+            <div className="grid grid-cols-5 relative">
               <Input
                 id="sellValue"
                 prefix={"₹"}
@@ -971,7 +999,7 @@ const NewAddListingForm = ({ data }) => {
                   setSellValueRequired("");
                 }}
               >
-                Enter your sell price*
+                {/* Enter your sell price* */}
               </Input>
               {sellValueRequired && (
                 <span className="text-red text-sm absolute -bottom-6 ">
@@ -1063,9 +1091,8 @@ const NewAddListingForm = ({ data }) => {
           <span>Back</span>
         </div>
         <div
-          className={`bg-primary px-5 py-2 text-center text-white font-semibold rounded-md border-2 border-primary duration-300 flex items-center justify-center space-x-5 ${
-            page === 5 ? "hidden" : ""
-          }`}
+          className={`bg-primary px-5 py-2 text-center text-white font-semibold rounded-md border-2 border-primary duration-300 flex items-center justify-center space-x-5 ${page === 5 ? "hidden" : ""
+            }`}
           onClick={() => {
             if (page == 0) {
               if (
@@ -1127,10 +1154,10 @@ export default NewAddListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border rounded py-4 relative ${checked && "bg-gray-300"}`}
+    className={`border rounded py-4 relative h-20 ${checked && "bg-gray-300"}`}
     onClick={onChange}
   >
-    <div className="relative w-12 h-12 mx-auto">
+    <div className="relative w-8 h-8 mx-auto">
       <Image src={src} layout="fill" />
     </div>
     <input

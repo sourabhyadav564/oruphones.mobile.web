@@ -13,26 +13,23 @@ function LocationPopup({ open, setOpen }) {
   const [searchLocationID, setSearchLocationID] = useState();
   const { user } = useAuthState();
   const dispatch = useAuthDispatch();
-  
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
+      console.log("cities from local");
     } else {
+      console.log("cities from api");
       const callApi = () => {
         if (!open) return null;
         getGlobalCities().then(
           (response) => {
             setGlobalCities(response.dataObject);
-            localStorage.setItem(
-              "cities",
-              JSON.stringify(response.dataObject)
-            );
+            localStorage.setItem("cities", JSON.stringify(response.dataObject));
           },
           (err) => console.error(err)
         );
       };
-
       callApi();
     }
   }, [open]);

@@ -21,7 +21,7 @@ import { useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
 import Head from "next/head";
 import { metaTags } from "@/utils/constant";
-import ShowBy from "@/components/Home/ShopBy";
+import ShopBy from "@/components/Home/ShopBy";
 
 export default function Home({
   brandsList,
@@ -97,7 +97,7 @@ export default function Home({
         <TopSellingMobiles topSellingModels={topSellingModels} /> */}
           <TopBrand brandsList={brands} />
           {/* <TopSellingMobiles topSellingModels={topsellingmodels} /> */}
-          <ShowBy />
+          <ShopBy />
           <TopDealNearBy
             selectedSearchCity={selectedSearchCity}
             loading={loading}

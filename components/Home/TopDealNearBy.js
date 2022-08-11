@@ -75,7 +75,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
           className="flex items-center justify-center space-x-2"
           onClick={() => setOpenLocationPopup(true)}
         >
-          <span className="mt-3 mb-2 font-bold text-base text-[#00a483] underline">
+          <span className="mt-3 mb-2 font-bold text-base text-blue-500 underline">
             ({selectedSearchCity})
           </span>
           {/* <FaMapMarkerAlt className="text-[#00a483] h-4 w-4 mt-1" /> */}

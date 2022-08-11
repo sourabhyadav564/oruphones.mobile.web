@@ -33,7 +33,11 @@ const Footer = () => {
         </div>
         <div className="flex flex-col">
           <h1 className=" font-bold">Links</h1>
-          <a href="/blog" className="hover:pl-2 delay-75 mt-4 max-w-max">
+          <a
+            href="https://www.oruphones.com/blog"
+            className="hover:pl-2 delay-75 mt-4 max-w-max"
+            target="_blank"
+          >
             Blog
           </a>
           <Link href="/about-us">
