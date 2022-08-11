@@ -778,20 +778,6 @@ const NewAddListingForm = ({ data }) => {
                   {condition}
                   <span> Condition</span>
                 </p>
-                <div className="row flex justify-between">
-                  {/* create a flow graph for current condition*/}
-                  {/* <div className="flex flex-col w-7 h-7 bg-black rounded-full">
-                  </div>
-                  <div className="flex flex-col w-7 h-7 bg-black rounded-full">
-                  </div>
-                  <div className="flex flex-col w-7 h-7 bg-black rounded-full">
-                  </div>
-                  <div className="flex flex-col w-7 h-7 bg-black rounded-full">
-                  </div>
-                  <div className="flex flex-col w-7 h-7 bg-black rounded-full">
-                  </div> */}
-
-                </div>
               </div>
               <p
                 className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
