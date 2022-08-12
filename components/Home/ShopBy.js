@@ -53,8 +53,8 @@ function ShopBy() {
         style={{ padding: "8px 12px" }}
       >
         {data &&
-          data.map((item) => (
-            <SwiperSlide key={item.make}>
+          data.map((item, index) => (
+            <SwiperSlide key={index}>
               <CategoryCards data={item} />
             </SwiperSlide>
           ))}

@@ -23,7 +23,7 @@ function ModelPopup({ open, setOpen, mktNameOpt }) {
 
   return (
     <Modal1 open={open} setOpen={setOpen}>
-      <div className="bg-white">
+      <div className="bg-white h-screen">
         <div className="text-left sm:mt-0 sm:ml-4 sm:text-left text-black-4e mx-2">
           <Dialog.Title
             as="h1"

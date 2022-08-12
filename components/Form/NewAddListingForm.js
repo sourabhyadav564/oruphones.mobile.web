@@ -43,6 +43,8 @@ import { deviceConditionQuestion } from "@/utils/constant";
 import ConditionOptionLarge from "../Condition/ConditionOptionLarge";
 import DeviceConditionCard from "../Condition/DeviceConditionCard";
 import Logo from "@/assets/oru_phones_logo.png";
+import imageCompression from "browser-image-compression";
+import { toast } from "react-toastify";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -98,7 +100,8 @@ const NewAddListingForm = ({ data }) => {
 
   const [conditionResults, setConditionResults] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [show, setShow] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [imageIndex, setImageIndex] = useState();
 
   const [warranty, setWarranty] = useState("more");
   const [showWarranty, setShowWarranty] = useState(false);
@@ -150,16 +153,18 @@ const NewAddListingForm = ({ data }) => {
 
   useEffect(() => {
     let payload = {
-      deviceStorage: storage
-        ?.toString().includes('/') ? storage?.split("/")[0] : storage,
-      deviceRam: storage
-        ?.toString().includes('/') ? storage
-          ?.toString()
-          .split("/")[1]
-          .toString()
-          .replace(/GB/g, " GB")
-          .replace(/RAM/, "")
-          .trim() : "",
+      deviceStorage: storage?.toString().includes("/")
+        ? storage?.split("/")[0]
+        : storage,
+      deviceRam: storage?.toString().includes("/")
+        ? storage
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
+        : "",
       make: make,
       marketingName: model,
       deviceCondition: condition,
@@ -188,16 +193,18 @@ const NewAddListingForm = ({ data }) => {
     let reqParams = {
       make: make,
       marketingName: model,
-      devicestorage: storage
-        ?.toString().includes('/') ? storage?.split("/")[0] : storage,
-      deviceRam: storage
-        ?.toString().includes('/') ? storage
-          ?.toString()
-          .split("/")[1]
-          .toString()
-          .replace(/GB/g, " GB")
-          .replace(/RAM/, "")
-          .trim() : "",
+      devicestorage: storage?.toString().includes("/")
+        ? storage?.split("/")[0]
+        : storage,
+      deviceRam: storage?.toString().includes("/")
+        ? storage
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
+        : "",
       deviceCondition: condition,
       earPhones: headphone ? "Y" : "N",
       charger: charging ? "Y" : "N",
@@ -241,17 +248,27 @@ const NewAddListingForm = ({ data }) => {
     }
   };
 
-  const handleImageChange = (e, index) => {
+  const handleImageChange = async (e, index) => {
+    setIsUploading(true);
     const { name, files } = e.target;
     if (files && files.length) {
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(files[0], options);
+
       let formData = new FormData();
-      formData.append("image", files[0]);
+      formData.append("image", compressedFile);
       uploadImage(formData, {
         deviceFace: name,
-        deviceStorage: storage,
+        deviceStorage: storage?.toString().includes("/")
+          ? storage?.split("/")[0]
+          : storage,
         make,
         model,
-        userUniqueId: user?.userdetails?.userUniqueId,
+        userUniqueId: user?.userdetails?.userUniqueId || "Guest",
       }).then(
         ({ status, dataObject }) => {
           if (status === "SUCCESS") {
@@ -262,6 +279,7 @@ const NewAddListingForm = ({ data }) => {
               fullImage: dataObject?.imagePath,
             };
             setImages(tempImages);
+            setIsUploading(false);
           }
         },
         (err) => console.error(err)
@@ -289,19 +307,21 @@ const NewAddListingForm = ({ data }) => {
     if (storage) {
       setModelInfo();
       let payload = {
-        deviceStorage: storage
-          ?.toString().includes('/') ? storage?.split("/")[0] : storage,
+        deviceStorage: storage?.toString().includes("/")
+          ? storage?.split("/")[0]
+          : storage,
         make: make,
         marketingName: model,
-        model: '',
-        ram: storage
-          ?.toString().includes('/') ? storage
-            ?.toString()
-            .split("/")[1]
-            .toString()
-            .replace(/GB/g, " GB")
-            .replace(/RAM/, "")
-            .trim() : '',
+        model: "",
+        ram: storage?.toString().includes("/")
+          ? storage
+              ?.toString()
+              .split("/")[1]
+              .toString()
+              .replace(/GB/g, " GB")
+              .replace(/RAM/, "")
+              .trim()
+          : "",
       };
       marketingNameByModel(payload).then(
         ({ dataObject }) => {
@@ -441,12 +461,21 @@ const NewAddListingForm = ({ data }) => {
   };
 
   const handleForward = () => {
-    questionIndex in conditionResults &&
-      setQuestionIndex(
-        questionIndex < deviceConditionQuestion.length - 1
-          ? questionIndex + 1
-          : deviceConditionQuestion.length - 1
-      );
+    questionIndex in conditionResults
+      ? setQuestionIndex(
+          questionIndex < deviceConditionQuestion.length - 1
+            ? questionIndex + 1
+            : deviceConditionQuestion.length - 1
+        )
+      : toast.warning("Please select condition", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
     questionIndex == deviceConditionQuestion.length - 1 &&
       calculateDeviceCondition();
     questionIndex == deviceConditionQuestion.length - 1 && setPage(page + 1);
@@ -499,7 +528,10 @@ const NewAddListingForm = ({ data }) => {
             </div>
             {mktNameOpt && mktNameOpt.length > 0 && (
               <div
-                onClick={() => { setOpenModelPopup(true); setModelInfo(); }}
+                onClick={() => {
+                  setOpenModelPopup(true);
+                  setModelInfo();
+                }}
                 className="space-y-2"
               >
                 {/* <p className="font-semibold text-sm">
@@ -534,10 +566,11 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption?.storage &&
                     storageColorOption.storage.map((item, index) => (
                       <div
-                        className={`${storage == item
-                          ? "bg-gray-300 border-[1.5px] border-black"
-                          : "bg-white"
-                          } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                        className={`${
+                          storage == item
+                            ? "bg-gray-300 border-[1.5px] border-black"
+                            : "bg-white"
+                        } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                         onClick={() => setStorage(item)}
                         key={index}
                       >
@@ -555,10 +588,11 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption?.color &&
                     storageColorOption.color.map((item, index) => (
                       <div
-                        className={`${color == item
-                          ? "bg-gray-300 border-[1.5px] border-black"
-                          : "bg-white"
-                          } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                        className={`${
+                          color == item
+                            ? "bg-gray-300 border-[1.5px] border-black"
+                            : "bg-white"
+                        } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                         onClick={() => setColor(item)}
                         key={index}
                       >
@@ -636,7 +670,10 @@ const NewAddListingForm = ({ data }) => {
                 <Checkbox
                   src={originalBoxImg}
                   text="Original Bill"
-                  onChange={() => { setShowWarranty((prev) => !prev); setWarranty('more'); }}
+                  onChange={() => {
+                    setShowWarranty((prev) => !prev);
+                    setWarranty("more");
+                  }}
                   checked={showWarranty}
                 />
               </div>
@@ -649,10 +686,11 @@ const NewAddListingForm = ({ data }) => {
                     {deviceWarrantyCheck?.map((item, index) => (
                       <div
                         key={index}
-                        className={`${warranty == item?.value
-                          ? "bg-gray-300 border-[1.5px] border-black"
-                          : "bg-white"
-                          } py-3 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
+                        className={`${
+                          warranty == item?.value
+                            ? "bg-gray-300 border-[1.5px] border-black"
+                            : "bg-white"
+                        } py-3 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
                         onClick={() => setWarranty(item.value)}
                       >
                         <span>{item.label}</span>
@@ -801,9 +839,15 @@ const NewAddListingForm = ({ data }) => {
                     type="file"
                     preview={item?.fullImage}
                     name={item?.panel}
-                    onChange={(e) => handleImageChange(e, index)}
+                    onChange={(e) => {
+                      handleImageChange(e, index);
+                      setImageIndex(index);
+                    }}
                     clearImage={(e) => clearImage(e, index)}
                     accept="image/*"
+                    clickIndex={imageIndex}
+                    loading={isUploading}
+                    index={index}
                   />
                 </div>
               ))}
@@ -1077,8 +1121,9 @@ const NewAddListingForm = ({ data }) => {
           <span>Back</span>
         </div>
         <div
-          className={`bg-primary px-5 py-2 text-center text-white font-semibold rounded-md border-2 border-primary duration-300 flex items-center justify-center space-x-5 ${page === 5 ? "hidden" : ""
-            }`}
+          className={`bg-primary px-5 py-2 text-center text-white font-semibold rounded-md border-2 border-primary duration-300 flex items-center justify-center space-x-5 ${
+            page === 5 ? "hidden" : ""
+          }`}
           onClick={() => {
             if (page == 0) {
               if (
@@ -1090,6 +1135,25 @@ const NewAddListingForm = ({ data }) => {
                 storage != undefined
               ) {
                 setPage(page + 1);
+              } else {
+                toast.warning(
+                  `${
+                    make == ""
+                      ? "Please select a make"
+                      : model == ""
+                      ? "Please select a model"
+                      : "Please select a storage variant"
+                  }`,
+                  {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  }
+                );
               }
             } else if (page == 1 || page == 3) {
               setPage(page + 1);
@@ -1100,10 +1164,30 @@ const NewAddListingForm = ({ data }) => {
                 !(selectedCity == undefined) &&
                 !(selectedCity == "") &&
                 !(selectedCity == "India") &&
-                (inputName || !(inputName == ""))
+                !(inputName?.value == "")
               ) {
-                console.log("okay");
                 setPage(page + 1);
+              } else {
+                toast.warning(
+                  `${
+                    selectedCity == "India"
+                      ? "Please select a different city"
+                      : selectedCity == "" || selectedCity == undefined
+                      ? "Please select a city"
+                      : inputName?.value == ""
+                      ? "Please enter your name"
+                      : "Please select a city"
+                  }`,
+                  {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  }
+                );
               }
             }
           }}

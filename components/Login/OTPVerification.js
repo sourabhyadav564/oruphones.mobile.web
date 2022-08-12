@@ -37,6 +37,7 @@ function OTPVerification({ formData, dataObject, fromAddListing, setStep, setOpe
     validateUser(formData?.countryCode, formData?.mobile, otpInput).then(
       ({ status }) => {
         if (status === "SUCCESS") {
+          console.log("formData", formData);
           createUser(formData?.countryCode, formData?.mobile).then(
             (response) => {
               if (response.status === "SUCCESS") {

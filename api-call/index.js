@@ -132,7 +132,6 @@ export async function createUser(countryCode, mobileNumber) {
   headers = { ...headers, eventName: "SIGNUP_REQUEST" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/create`;
-
   return await Axios.post(
     url,
     { countryCode, mobileNumber },
@@ -168,8 +167,6 @@ export async function getMakeModelLists(userUniqueId, sessionId) {
 
 export async function uploadImage(data, params) {
   const url = `${URI}/api/v1/device/uploadimage?deviceFace=${params.deviceFace}&deviceStorage=${params.deviceStorage}&make=${params.make}&model=${params.model}&userUniqueId=${params.userUniqueId}`;
-
-  console.log("params", params);
 
   headers = {
     ...headers,
