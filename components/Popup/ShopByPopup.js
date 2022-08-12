@@ -45,7 +45,7 @@ function ShopByPopup({ open, setOpen }) {
 
   return (
     <Modal2 open={open} setOpen={setOpen}>
-      <div className="h-full px-5 py-2 cardShadow1 rounded-lg bg-m-white grid grid-cols-2 gap-5">
+      <div className="bg-white h-full px-5 py-2 cardShadow1 rounded-lg bg-m-white grid grid-cols-2 gap-5">
         {priceRangeData.map((item, index) => (
           <Link href={`/shopby/pricerange/${item.min}/${item.max}`} key={index}>
             <p className="bg-gray-200 flex flex-col items-center justify center px-5 py-2 rounded-md hover:cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-300">

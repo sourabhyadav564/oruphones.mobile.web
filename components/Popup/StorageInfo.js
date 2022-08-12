@@ -4,7 +4,7 @@ import Modal from "./Modal1";
 import parse from "html-react-parser";
 import { parse as nodeParser } from "node-html-parser";
 
-function ConditionInfo({ open, setOpen }) {
+function StorageInfo({ open, setOpen, brand }) {
   const [htmlText1, setHtmlText1] = useState("");
 
   useEffect(() => {
@@ -23,8 +23,8 @@ function ConditionInfo({ open, setOpen }) {
     var htmlText;
     try {
       // const { serverUrl, templateUrls } = staticDataPath;
-      // const res = await fetchStaticHTML("/condition.html");
-      const res = await fetchStaticHTML("/new_condition.html");
+      // const res = await fetchStaticHTML("/verification.html");
+      const res = await fetchStaticHTML(`${brand.toLowerCase() === "apple" ? "/apple_storage_check.html" : "/android_storage_check.html"}`);
       // const res = await fetchStaticHTML(serverUrl + templateUrls.VERIFICATION);
       const html = res.data;
       const doc = nodeParser(html);
@@ -44,7 +44,11 @@ function ConditionInfo({ open, setOpen }) {
             {/* <Dialog.Title as="h3" className="text-lg leading-6 font-semibold text-gray-900">
               Benefits Of Verification
             </Dialog.Title> */}
-            <div className="mt-2 text-sm text-gray-500">{parse(htmlText1)}</div>
+            <div className="mt-2">
+              <p className="text-sm text-gray-500">{
+                parse(htmlText1)
+            }</p>
+            </div>
           </div>
         </div>
       </div>
@@ -53,4 +57,4 @@ function ConditionInfo({ open, setOpen }) {
   );
 }
 
-export default ConditionInfo;
+export default StorageInfo;

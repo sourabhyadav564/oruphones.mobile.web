@@ -23,7 +23,8 @@ function VerificationInfo({ open, setOpen }) {
     var htmlText;
     try {
       // const { serverUrl, templateUrls } = staticDataPath;
-      const res = await fetchStaticHTML("/verification.html");
+      // const res = await fetchStaticHTML("/verification.html");
+      const res = await fetchStaticHTML("/new_verification.html");
       // const res = await fetchStaticHTML(serverUrl + templateUrls.VERIFICATION);
       const html = res.data;
       const doc = nodeParser(html);

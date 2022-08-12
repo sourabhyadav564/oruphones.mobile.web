@@ -34,7 +34,8 @@ function Faq() {
     var htmlText;
     try {
       // const { serverUrl, templateUrls } = staticDataPath;
-      const res = await fetchStaticHTML("/faq.html");
+      // const res = await fetchStaticHTML("/faq.html");
+      const res = await fetchStaticHTML("/new_faq.html");
       // const res = await fetchStaticHTML(serverUrl + templateUrls.VERIFICATION);
       const html = res.data;
       const doc = nodeParser(html);

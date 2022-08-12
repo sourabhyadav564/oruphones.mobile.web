@@ -45,6 +45,7 @@ import DeviceConditionCard from "../Condition/DeviceConditionCard";
 import Logo from "@/assets/oru_phones_logo.png";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";
+import StorageInfo from "../Popup/StorageInfo";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -78,6 +79,7 @@ const NewAddListingForm = ({ data }) => {
   const [storageColorOption, setStorageColorOption] = useState();
   const [getExternalSellerData, setGetExternalSellerData] = useState([]);
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
+  const [openStorageInfo, setOpenStorageInfo] = useState(false);
   const [openLoginPopup, setOpenLoginPopup] = useState(false);
   const [sellValueRequired, setSellValueRequired] = useState("");
   const [nameValueRequired, setNameValueRequired] = useState("");
@@ -578,6 +580,12 @@ const NewAddListingForm = ({ data }) => {
                       </div>
                     ))}
                 </div>
+                <p
+                  className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
+                  onClick={() => setOpenStorageInfo(true)}
+                >
+                  How to check?
+                </p>
               </div>
             )}
             {storageColorOption && storageColorOption?.color && (
@@ -1202,6 +1210,13 @@ const NewAddListingForm = ({ data }) => {
         <ConditionInfo
           open={openConditionInfo}
           setOpen={setOpenConditionInfo}
+        />
+      )}
+      {openStorageInfo && (
+        <StorageInfo
+          open={openStorageInfo}
+          setOpen={setOpenStorageInfo}
+          brand={make}
         />
       )}
       <LoginPopup

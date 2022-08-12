@@ -32,7 +32,8 @@ function Termscondition() {
     var htmlText;
     try {
       // const { serverUrl, templateUrls } = staticDataPath;
-      const res = await fetchStaticHTML("/terms_conditions.html");
+      // const res = await fetchStaticHTML("/terms_conditions.html");
+      const res = await fetchStaticHTML("/new_terms_conditions.html");
       // const res = await fetchStaticHTML(serverUrl + templateUrls.VERIFICATION);
       const html = res.data;
       const doc = nodeParser(html);

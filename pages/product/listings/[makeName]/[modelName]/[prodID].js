@@ -27,6 +27,7 @@ import Logo from "@/assets/oru_phones_logo.png";
 import { BsStar } from "react-icons/bs";
 import { BsStarFill } from "react-icons/bs";
 import whatsapp from "@/assets/whatsapp.png";
+import WarrantyInfo from "@/components/Popup/WarrantyInfo";
 
 // import {
 //   otherVandorDataSelector,
@@ -49,6 +50,7 @@ const RequestVerificationSuccessPopup = dynamic(() =>
 function ProductDeatils({ data }) {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
+  const [openWarrantyInfo, setOpenWarrantyInfo] = useState(false);
   const [
     openRequestVerificationSuccessPopup,
     setOpenRequestVerificationSuccessPopup,
@@ -376,10 +378,12 @@ function ProductDeatils({ data }) {
                   <IconLabelValue
                     label="Brand Warranty"
                     value={data?.warranty || "--"}
+                    showInfoPopup={() => setOpenWarrantyInfo(true)}
                   />
                   <IconLabelValue
                     label="Seller Warranty"
                     value={"Not Applicable"}
+                    showInfoPopup={() => setOpenWarrantyInfo(true)}
                   />
                 </>
               )}
@@ -477,6 +481,9 @@ function ProductDeatils({ data }) {
           open={openVerificationInfo}
           setOpen={setOpenVerificationInfo}
         />
+      )}
+      {openWarrantyInfo && (
+        <WarrantyInfo open={openWarrantyInfo} setOpen={setOpenWarrantyInfo} />
       )}
       <LoginPopup
         open={openLoginPopup}
