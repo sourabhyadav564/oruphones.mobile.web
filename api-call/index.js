@@ -132,9 +132,14 @@ export async function createUser(countryCode, mobileNumber) {
   headers = { ...headers, eventName: "SIGNUP_REQUEST" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/create`;
+  const payload = {
+    countryCode: countryCode,
+    mobileNumber: mobileNumber,
+  };
   return await Axios.post(
     url,
-    { countryCode, mobileNumber },
+    // { countryCode, mobileNumber },
+    payload,
     DEFAULT_HEADER
   ).then((response) => {
     return response.data;
