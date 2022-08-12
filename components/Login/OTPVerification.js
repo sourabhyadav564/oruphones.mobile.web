@@ -52,7 +52,9 @@ function OTPVerification({
       ({ status }) => {
         if (status === "SUCCESS") {
           console.log("formData", formData);
-          createUser(formData?.countryCode, formData?.mobile).then(
+          const countryCode = formData?.countryCode;
+          const mobile = formData?.mobile;
+          createUser(countryCode, mobile).then(
             (response) => {
               if (response.status === "SUCCESS") {
                 addUserSearchandProfileLocations(
@@ -73,6 +75,7 @@ function OTPVerification({
           );
         } else {
           setError(true);
+          setLoading(false);
         }
       },
       (err) => console.error(err)
