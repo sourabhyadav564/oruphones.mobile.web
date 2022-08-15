@@ -6,17 +6,25 @@ import bellDot from "@/assets/bell-dot.svg";
 import dropdown from "@/assets/drop-down.svg";
 import location from "@/assets/map-marker.svg";
 import LocationPopup from "../Popup/LocationPopup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthState } from "providers/AuthProvider";
 import Sidebar from "../Popup/Sidebar";
 import { useRouter } from "next/router";
 import LocationPicker from "../Popup/LocationPicker";
+import LoadingStatePopup from "../Popup/LoadingStatePopup";
 
 function GlobalHeader() {
   const [openLocationPopup, setOpenLocationPopup] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const { selectedSearchCity, authenticated } = useAuthState();
   const router = useRouter();
+
+  const [loadingState, setLoadingState] = useState(false);
+  console.log("loading", loadingState);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, [router.pathname]);
 
   return (
     <header className=" bg-primary text-white px-4 py-3 flex justify-between items-center sticky top-0 z-50">
@@ -30,7 +38,10 @@ function GlobalHeader() {
           priority
         />
         <Link href="/">
-          <a className="flex items-center">
+          <a
+            className="flex items-center"
+            onClick={() => setLoadingState(true)}
+          >
             <Image
               src={logo}
               width={73}
@@ -57,7 +68,10 @@ function GlobalHeader() {
           </div>
           {router.pathname === "/" && authenticated && (
             <Link href="/user/notification">
-              <a className="flex-shrink-0 ml-7 flex items-center">
+              <a
+                className="flex-shrink-0 ml-7 flex items-center"
+                onClick={() => setLoadingState(true)}
+              >
                 <Image
                   src={bellDot}
                   width={18}
@@ -73,6 +87,7 @@ function GlobalHeader() {
       <LocationPopup open={openLocationPopup} setOpen={setOpenLocationPopup} />
       <Sidebar open={openSidebar} setOpen={setOpenSidebar} />
       <LocationPicker openLocationPopup={() => setOpenLocationPopup(true)} />
+      <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
     </header>
   );
 }

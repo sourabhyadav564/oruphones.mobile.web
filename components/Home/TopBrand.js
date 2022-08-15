@@ -1,8 +1,20 @@
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { SwiperSlide } from "swiper/react";
 import BrandCard from "../Card/BrandCard";
 import BasicCarousel from "../Carousel/BasicCarousel";
+import LoadingStatePopup from "../Popup/LoadingStatePopup";
 
 function TopBrand({ brandsList }) {
+  const router = useRouter();
+
+  const [loadingState, setLoadingState] = useState(false);
+  console.log("loading", loadingState);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, [router.pathname]);
+
   brandsList = brandsList?.sort(
     (list1, list2) => list2.isPopular - list1.isPopular
   );
@@ -25,14 +37,18 @@ function TopBrand({ brandsList }) {
       >
         {homePagebrandsList &&
           homePagebrandsList.map((item) => (
-            <SwiperSlide key={item.make}>
+            <SwiperSlide key={item.make} onClick={() => setLoadingState(true)}>
               <BrandCard data={item} />
             </SwiperSlide>
           ))}
-        <SwiperSlide style={{ height: "auto" }}>
+        <SwiperSlide
+          style={{ height: "auto" }}
+          onClick={() => setLoadingState(true)}
+        >
           <BrandCard data={{ make: "Show all" }} />
         </SwiperSlide>
       </BasicCarousel>
+      <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
     </section>
   );
 }

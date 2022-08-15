@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CategoryCards from "../Card/CategoryCard";
 import bestSelling from "../../assets/cards/bestselling.png";
 import likeNew from "../../assets/cards/like_new.png";
@@ -7,6 +7,8 @@ import warranty from "../../assets/cards/warranty.png";
 import { SwiperSlide } from "swiper/react";
 import BrandCard from "../Card/BrandCard";
 import BasicCarousel from "../Carousel/BasicCarousel";
+import LoadingStatePopup from "../Popup/LoadingStatePopup";
+import { useRouter } from "next/router";
 
 const data = [
   {
@@ -36,6 +38,7 @@ const data = [
 ];
 
 function ShopBy() {
+
   return (
     // <section className="container top_brand pt-4">
     //   <Title text="Shop By" />
@@ -54,11 +57,13 @@ function ShopBy() {
       >
         {data &&
           data.map((item, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} >
               <CategoryCards data={item} />
             </SwiperSlide>
           ))}
-        <SwiperSlide style={{ height: "auto" }}>
+        <SwiperSlide
+          style={{ height: "auto" }}
+        >
           <CategoryCards priceRange />
         </SwiperSlide>
       </BasicCarousel>

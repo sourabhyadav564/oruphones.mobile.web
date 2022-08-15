@@ -22,6 +22,7 @@ import Cookies from "js-cookie";
 import Head from "next/head";
 import { metaTags } from "@/utils/constant";
 import ShopBy from "@/components/Home/ShopBy";
+import { useRouter } from "next/router";
 
 export default function Home({
   brandsList,
@@ -30,6 +31,16 @@ export default function Home({
   sessionId,
   fetchTopArticles,
 }) {
+
+  const router = useRouter();
+
+  const [loadingState, setLoadingState] = useState(false);
+  console.log("loading", loadingState);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, [router.pathname]);
+
   const [brands, setBrands] = useState([]);
   const [topsellingmodels, setTopsellingmodels] = useState([]);
   const [topArticles, setTopArticles] = useState([]);

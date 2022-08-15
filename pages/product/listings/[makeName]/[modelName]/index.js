@@ -32,6 +32,13 @@ function ModelPage() {
 
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
 
+  const [loadingState, setLoadingState] = useState(false);
+  console.log("loading", loadingState);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, [router.pathname]);
+
   const loadData = (intialPage) => {
     if (modelName) {
       fetchByMarketingName(
@@ -224,6 +231,7 @@ function ModelPage() {
                 onClick={() => {
                   // setListingId(item.listingId);
                   // setProductsData(otherListings);
+                  setLoadingState(true);
                 }}
               >
                 <OtherListingCard

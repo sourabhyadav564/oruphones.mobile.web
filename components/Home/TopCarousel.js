@@ -4,6 +4,9 @@ import CarouselWithPagination from "@/components/Carousel/CarouselWithPagination
 import buyStep from "@/assets/how_to_buy.png";
 import sellStep from "@/assets/how_to_sell.png";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import LoadingStatePopup from "../Popup/LoadingStatePopup";
 
 const slides = [
   // { name: "GIF", src: bannerssss},
@@ -13,6 +16,14 @@ const slides = [
 ];
 
 const TopCarousel = () => {
+  const router = useRouter();
+
+  const [loadingState, setLoadingState] = useState(false);
+  console.log("loading", loadingState);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, [router.pathname]);
   return (
     // <section>
     //   <CarouselWithPagination slidesPerView={1.1}>
@@ -80,7 +91,10 @@ const TopCarousel = () => {
                     </a>
                   </Link>
                   <Link href="/sell/add">
-                    <a className="rounded-xl bg-white px-3 py-2 ml-8 font-bold text-[11px]">
+                    <a
+                      className="rounded-xl bg-white px-3 py-2 ml-8 font-bold text-[11px]"
+                      onClick={() => setLoadingState(true)}
+                    >
                       Sell Phone
                     </a>
                   </Link>
@@ -90,6 +104,7 @@ const TopCarousel = () => {
           </SwiperSlide>
         ))}
       </CarouselWithPagination>
+      <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
     </section>
   );
 };

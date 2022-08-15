@@ -2,8 +2,20 @@ import { FiAlertOctagon } from "react-icons/fi";
 import Modal2 from "./Modal2";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import LoadingStatePopup from "./LoadingStatePopup";
 
 function ShopByPopup({ open, setOpen }) {
+  const router = useRouter();
+
+  const [loadingState, setLoadingState] = useState(false);
+  console.log("loading", loadingState);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, [router.pathname]);
+
   const priceRangeData = [
     {
       id: 1,
@@ -44,17 +56,27 @@ function ShopByPopup({ open, setOpen }) {
   ];
 
   return (
-    <Modal2 open={open} setOpen={setOpen}>
-      <div className="bg-white h-full px-5 py-2 cardShadow1 rounded-lg bg-m-white grid grid-cols-2 gap-5">
-        {priceRangeData.map((item, index) => (
-          <Link href={`/shopby/pricerange/${item.min}/${item.max}`} key={index}>
-            <p className="bg-gray-200 flex flex-col items-center justify center px-5 py-2 rounded-md hover:cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-300">
-              {item.bracket} <span className="font-semibold">{item.text}</span>
-            </p>
-          </Link>
-        ))}
-      </div>
-    </Modal2>
+    <>
+      <Modal2 open={open} setOpen={setOpen}>
+        <div className="bg-white h-full px-5 py-2 cardShadow1 rounded-lg bg-m-white grid grid-cols-2 gap-5">
+          {priceRangeData.map((item, index) => (
+            <Link
+              href={`/shopby/pricerange/${item.min}/${item.max}`}
+              key={index}
+            >
+              <p
+                className="bg-gray-200 flex flex-col items-center justify center px-5 py-2 rounded-md hover:cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-300"
+                onClick={() => setLoadingState(true)}
+              >
+                {item.bracket}{" "}
+                <span className="font-semibold">{item.text}</span>
+              </p>
+            </Link>
+          ))}
+        </div>
+      </Modal2>
+      <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
+    </>
   );
 }
 

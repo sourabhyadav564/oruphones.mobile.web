@@ -6,8 +6,12 @@ import Loader from "../Loader/Loader";
 import Spinner from "../Loader/Spinner";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import LocationPopup from "../Popup/LocationPopup";
+import { useRouter } from "next/router";
+import LoadingStatePopup from "../Popup/LoadingStatePopup";
 
 function TopDealNearBy({ selectedSearchCity, loading }) {
+  const router = useRouter();
+
   const [bestDeals, setBestDeals] = useState();
   const [bestDealsLength, setBestDealsLength] = useState();
   const [openLocationPopup, setOpenLocationPopup] = useState(false);
@@ -15,6 +19,13 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
   let [pageNumber, setPageNumber] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
+
+  const [loadingState, setLoadingState] = useState(false);
+  console.log("loading", loadingState);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, [router.pathname]);
 
   const loadData = (initialPage) => {
     if (!loading && selectedSearchCity != undefined) {
@@ -85,7 +96,11 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
         {(bestDeals?.length > 0 &&
           // bestDeals.slice(0, 16)
           bestDeals?.map((item) => (
-            <div className="m-1.5" key={item.listingId}>
+            <div
+              className="m-1.5"
+              key={item.listingId}
+              onClick={() => setLoadingState(true)}
+            >
               <NearByDealCard data={item} prodLink setProducts={setBestDeals} />
             </div>
           ))) || (
@@ -115,6 +130,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
         </span>
       )}
       <LocationPopup open={openLocationPopup} setOpen={setOpenLocationPopup} />
+      <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
     </section>
   );
 }

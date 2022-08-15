@@ -46,6 +46,8 @@ import Logo from "@/assets/oru_phones_logo.png";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";
 import StorageInfo from "../Popup/StorageInfo";
+import Loader from "../Loader/Loader";
+import Spinner from "../Loader/Spinner";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -107,6 +109,7 @@ const NewAddListingForm = ({ data }) => {
 
   const [warranty, setWarranty] = useState("more");
   const [showWarranty, setShowWarranty] = useState(false);
+  const [isGettingPrice, setIsGettingPrice] = useState(false);
 
   const [openBrandPopup, setOpenBrandPopup] = useState(false);
   const [openModelPopup, setOpenModelPopup] = useState(false);
@@ -307,7 +310,8 @@ const NewAddListingForm = ({ data }) => {
 
   useEffect(() => {
     if (storage) {
-      setModelInfo();
+      // setModelInfo();
+      setIsGettingPrice(true);
       let payload = {
         deviceStorage: storage?.toString().includes("/")
           ? storage?.split("/")[0]
@@ -328,6 +332,7 @@ const NewAddListingForm = ({ data }) => {
       marketingNameByModel(payload).then(
         ({ dataObject }) => {
           setModelInfo(dataObject);
+          setIsGettingPrice(false);
         },
         (err) => console.error(err)
       );
@@ -610,11 +615,16 @@ const NewAddListingForm = ({ data }) => {
                 </div>
               </div>
             )}
-            {modelInfo && (
+            {modelInfo && !isGettingPrice && (
               <p className="bg-gray-300 p-3 rounded-md">
                 <span className="font-bold">Get up to:</span> Rs.
                 {modelInfo?.price}
               </p>
+            )}
+            {isGettingPrice && (
+              <div className="py-5">
+              <Spinner />
+              </div>
             )}
             <span className="pb-20" />
           </>
