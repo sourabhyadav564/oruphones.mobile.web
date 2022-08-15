@@ -36,6 +36,7 @@ function OTPVerification({
   }, [counter]);
 
   const reSendOtp = (e) => {
+    setLoading(false);
     e.preventDefault();
     resendOTP(formData?.countryCode, formData?.mobile).then(
       (res) => setCounter(30),
@@ -169,7 +170,7 @@ function OTPVerification({
         </span>
       )}
       <button className="bg-primary uppercase rounded py-3 text-white w-full">
-        {loading ? "Verifing..." : "Verify"}
+        {loading ? "Verifying..." : "Verify"}
       </button>
     </form>
   );

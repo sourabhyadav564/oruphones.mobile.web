@@ -50,8 +50,13 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
             <Image src={Logo} alt={"Logo"} width={80} height={40} />
           </div>
           {step === 1 ? (
-            <form className="flex flex-col items-center w-full space-y-8" onSubmit={sendOtp}>
-              <h1 className="text-primary-dark text-2xl font-extrabold py-2">Sign In</h1>
+            <form
+              className="flex flex-col items-center w-full space-y-8"
+              onSubmit={sendOtp}
+            >
+              <h1 className="text-primary-dark text-2xl font-extrabold py-2">
+                Sign In
+              </h1>
               <div className="w-full my-8 relative">
                 <Input
                   className="bg-white"
@@ -65,7 +70,12 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
                 >
                   Mobile No
                 </Input>
-                {error?.is && <span className="absolute p-1 text-xs bg-red-500 w-full rounded text-white mt-2"> {error.message} </span>}
+                {error?.is && (
+                  <span className="absolute p-1 text-xs bg-red-500 w-full rounded text-white mt-2">
+                    {" "}
+                    {error.message}{" "}
+                  </span>
+                )}
               </div>
               <Checkbox
                 type="checkbox"
@@ -74,16 +84,28 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
                 onChange={handleChange}
                 className="rounded border text-transparent form-checkbox border-primary focus:ring-transparent"
               >
-                <label className="ml-2 underline cursor-pointer text-black-4e" onClick={() => setShowTCPopup(true)}>
+                <label
+                  className="ml-2 underline cursor-pointer text-black-4e"
+                  onClick={() => setShowTCPopup(true)}
+                >
                   Accept terms and conditions
                 </label>
               </Checkbox>
-              <button className="bg-primary uppercase rounded py-3 text-white w-full disabled:opacity-60" disabled={!formData?.termsAndCondition}>
+              <button
+                className="bg-primary uppercase rounded py-3 text-white w-full disabled:opacity-60"
+                disabled={!formData?.termsAndCondition}
+              >
                 next
               </button>
             </form>
           ) : (
-            <OTPVerification formData={formData} dataObject={response?.dataObject} fromAddListing={fromAddListing} setOpen={setOpen} />
+            <OTPVerification
+              formData={formData}
+              dataObject={response?.dataObject}
+              fromAddListing={fromAddListing}
+              setStep={setStep}
+              setOpen={setOpen}
+            />
           )}
         </section>
         <TermsconditionPopup open={showTCPopUp} setOpen={setShowTCPopup} />

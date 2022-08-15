@@ -65,7 +65,7 @@ export async function getAboutUsContent() {
 }
 
 export function getSessionId() {
-  headers = { ...headers, eventName: "NA" };
+  headers = { ...headers, eventName: "SESSION_CREATED" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
@@ -816,7 +816,7 @@ export function shopByCategory(location, category, userUniqueId, pageNumber) {
 }
 
 export async function marketingNameByModel(payload) {
-  headers = { ...headers, eventName: "ADDLISTING_ADD_SUCCESS" };
+  headers = { ...headers, eventName: "FETCH_UPTO_PRICE" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/master/marketingNameByModel`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then((response) => {

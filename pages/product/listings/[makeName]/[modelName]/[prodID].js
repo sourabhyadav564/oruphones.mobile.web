@@ -344,10 +344,12 @@ function ProductDeatils({ data }) {
                   <IconLabelValue
                     label="Brand Warranty"
                     value={"Not Applicable"}
+                    showInfoPopup={() => setOpenWarrantyInfo(true)}
                   />
                   <IconLabelValue
                     label="Seller Warranty"
                     value={data?.warranty || "--"}
+                    showInfoPopup={() => setOpenWarrantyInfo(true)}
                   />
                 </>
               )}

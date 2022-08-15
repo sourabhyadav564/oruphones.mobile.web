@@ -7,7 +7,12 @@ import { BsInfoCircle } from "react-icons/bs";
 import ConditionInfo from "./ConditionInfo";
 import VerificationInfo from "./VerificationInfo";
 
-function FilterPopup({ openFilter, setOpenFilter, filterOptions, setApplyFilter }) {
+function FilterPopup({
+  openFilter,
+  setOpenFilter,
+  filterOptions,
+  setApplyFilter,
+}) {
   const [selectedValues, setSelectedValues] = useState({
     condition: ["all"],
     color: ["all"],
@@ -22,9 +27,19 @@ function FilterPopup({ openFilter, setOpenFilter, filterOptions, setApplyFilter 
 
   const openPopup = (id) => {
     if (id === "condition") {
-      return <BsInfoCircle className="text-sm cursor-pointer ml-1" onClick={() => setOpenConditionPopup(true)} />;
+      return (
+        <BsInfoCircle
+          className="text-sm cursor-pointer ml-1"
+          onClick={() => setOpenConditionPopup(true)}
+        />
+      );
     } else if (id === "verification") {
-      return <BsInfoCircle className="text-sm cursor-pointer ml-1" onClick={() => setOpenVerificationPopup(true)} />;
+      return (
+        <BsInfoCircle
+          className="text-sm cursor-pointer ml-1"
+          onClick={() => setOpenVerificationPopup(true)}
+        />
+      );
     }
   };
 
@@ -63,7 +78,7 @@ function FilterPopup({ openFilter, setOpenFilter, filterOptions, setApplyFilter 
     });
     setApplyFilter(selectedValues);
     setOpenFilter(false);
-  }
+  };
 
   const submit = (e) => {
     e.preventDefault();
@@ -76,15 +91,27 @@ function FilterPopup({ openFilter, setOpenFilter, filterOptions, setApplyFilter 
       <div className="bg-white p-6 pb-4 sm:p-6 sm:pb-4">
         <div className="sm:mt-0 sm:ml-4 sm:text-left text-black-4e">
           <Dialog.Title className={"flex justify-between"}>
-            <span as="h1" className="text-lg leading-6 font-semibold ">Filters</span>  
-            <span className="text-sm text-red-500 font-normal underline" onClick={() => clearFilter()}>Clear Filter</span>
+            <span as="h1" className="text-lg leading-6 font-semibold ">
+              Filters
+            </span>
+            <span
+              className="text-sm text-red-500 font-normal underline"
+              onClick={() => clearFilter()}
+            >
+              Clear Filter
+            </span>
           </Dialog.Title>
 
           <div className="mt-3 w-full">
             {filterOptions &&
               filterOptions.map((section) =>
                 section.id === "price" ? (
-                  <PriceFilter key={section?.id} setSelectedValues={setSelectedValues} router={router} seletedValues={selectedValues}></PriceFilter>
+                  <PriceFilter
+                    key={section?.id}
+                    setSelectedValues={setSelectedValues}
+                    router={router}
+                    seletedValues={selectedValues}
+                  ></PriceFilter>
                 ) : (
                   <Fragment key={section?.id}>
                     <p className="text-base flex items-center">
@@ -94,7 +121,13 @@ function FilterPopup({ openFilter, setOpenFilter, filterOptions, setApplyFilter 
                       {section?.options.map((option) => (
                         <Button
                           key={option.value}
-                          active={(selectedValues[section.id] && selectedValues[section.id].includes(option.value)) || option?.active}
+                          active={
+                            (selectedValues[section.id] &&
+                              selectedValues[section.id].includes(
+                                option.value
+                              )) ||
+                            option?.active
+                          }
                           disabled={option?.disabled}
                           onClick={() => handleChange(section.id, option.value)}
                         >
@@ -107,11 +140,20 @@ function FilterPopup({ openFilter, setOpenFilter, filterOptions, setApplyFilter 
               )}
           </div>
         </div>
-        <button className="uppercase bg-primary text-white w-full rounded text-sm py-2 my-2" onClick={submit}>
+        <button
+          className="uppercase bg-primary text-white w-full rounded text-sm py-2 my-2"
+          onClick={submit}
+        >
           Apply
         </button>
-        <ConditionInfo open={openConditionPopup} setOpen={setOpenConditionPopup}></ConditionInfo>
-        <VerificationInfo open={openVerificationPopup} setOpen={setOpenVerificationPopup}></VerificationInfo>
+        <ConditionInfo
+          open={openConditionPopup}
+          setOpen={setOpenConditionPopup}
+        ></ConditionInfo>
+        <VerificationInfo
+          open={openVerificationPopup}
+          setOpen={setOpenVerificationPopup}
+        ></VerificationInfo>
       </div>
     </Modal1>
   );
@@ -121,8 +163,11 @@ export default FilterPopup;
 
 const Button = ({ children, active, ...rest }) => (
   <button
-    className={`capitalize rounded-md text-xs max-w-max border px-3 py-1 flex-shrink-0 ${active ? "bg-primary-light opacity-50 text-white border-primary" : "border-gray-c7"
-      }`}
+    className={`capitalize rounded-md text-xs max-w-max border px-3 py-1 flex-shrink-0 ${
+      active
+        ? "bg-primary-light opacity-50 text-white border-primary"
+        : "border-gray-c7"
+    }`}
     {...rest}
   >
     {children}

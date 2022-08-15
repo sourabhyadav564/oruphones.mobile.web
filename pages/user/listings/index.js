@@ -59,12 +59,23 @@ function Index({ userInfo }) {
       <Header2 title="My Listings" />
       <main className="px-4 py-4 flex flex-col space-y-6 min-h-screen">
         {listingsLoading ? (
-          <div className="flex justify-center items-center h-52">Loading...</div>
+          <div className="flex justify-center items-center h-52">
+            Loading...
+          </div>
+        ) : listings && listings.length > 0 ? (
+          listings.map((list) => (
+            <ListingTile
+              key={list.listingId}
+              data={list}
+              openMenu={openMenu}
+              setOpenMenu={setOpenMenu}
+              setListings={setListings}
+            />
+          ))
         ) : (
-          (listings &&
-            listings.map((list) => (
-              <ListingTile key={list.listingId} data={list} openMenu={openMenu} setOpenMenu={setOpenMenu} setListings={setListings} />
-            ))) || <div className="flex justify-center items-center h-52">&quot;No listing found&quot;</div>
+          <div className="flex justify-center items-center h-52">
+            &quot;No listing found&quot;
+          </div>
         )}
       </main>
       <Footer />

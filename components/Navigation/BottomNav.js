@@ -1,3 +1,4 @@
+import { logEventInfo } from "api-call";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -7,6 +8,10 @@ function BottomNav() {
   const isActive = (path) => {
     return router && router.pathname === path;
   };
+
+  const logEvent = async () => {
+    await logEventInfo("HOME_SELLNOW_SELECTED")
+  }
 
   return (
     <div className="pt-24 bg-primary-dark">
@@ -48,8 +53,11 @@ function BottomNav() {
               <span className="mt-1">My Listings</span>
             </a>
           </Link>
-          <Link href="/sell/add">
-            <div className="flex flex-col items-center">
+          <Link href="/sell/add"
+          >
+            <div className="flex flex-col items-center"
+                      onClick={logEvent}
+            >
               <a className="relative text-white inline-flex justify-center mb-1.5 ">
                 <div className="absolute bottom-0 p-4 rounded-full bg-primary" style={{ boxShadow: "0 -5px 20px rgba(16, 203, 165, 0.3)" }}>
                   <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

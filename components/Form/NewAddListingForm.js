@@ -430,23 +430,23 @@ const NewAddListingForm = ({ data }) => {
     if (conditionResults[0].toString() == "No") {
       setCondition("Needs Repair");
     } else if (
-      conditionResults[1].toString().includes("Has significant scratches") ||
-      conditionResults[2].toString().includes("Has significant scratches")
+      conditionResults[1]?.toString().includes("Has significant scratches") ||
+      conditionResults[2]?.toString().includes("Has significant scratches")
     ) {
       setCondition("Fair");
     } else if (
-      conditionResults[1].toString().includes("Up to 5") ||
-      conditionResults[2].toString().includes("Up to 5")
+      conditionResults[1]?.toString().includes("Up to 5") ||
+      conditionResults[2]?.toString().includes("Up to 5")
     ) {
       setCondition("Good");
     } else if (
-      conditionResults[1].toString().includes("Up to 2") ||
-      conditionResults[2].toString().includes("Up to 2")
+      conditionResults[1]?.toString().includes("Up to 2") ||
+      conditionResults[2]?.toString().includes("Up to 2")
     ) {
       setCondition("Excellent");
     } else if (
-      conditionResults[1].toString().includes("No scratch") ||
-      conditionResults[2].toString().includes("No scratch")
+      conditionResults[1]?.toString().includes("No scratch") ||
+      conditionResults[2]?.toString().includes("No scratch")
     ) {
       setCondition("Like New");
     } else {

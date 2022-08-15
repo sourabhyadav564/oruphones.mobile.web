@@ -30,7 +30,12 @@ function Favorites() {
   if (loading || !authenticated) {
     return (
       <div className="min-h-screen flex justify-center items-center">
-        <p>Loading...</p>
+        <div className="space-y-3">
+          <Spinner />
+          <div className="text-center">
+            Please wait, while we are fetching data for you...{" "}
+          </div>
+        </div>
       </div>
     );
   }
@@ -39,18 +44,26 @@ function Favorites() {
       <Header2 title="My Favorites" />
       <main className="px-4 py-4 flex flex-col space-y-6">
         {myFavList && myFavList.length > 0 ? (
-          myFavList?.map((item, index) => <FavListingTile data={{ ...item, favourite: true }} key={index} setProducts={setMyFavList} />)
+          myFavList?.map((item, index) => (
+            <FavListingTile
+              data={{ ...item, favourite: true }}
+              key={index}
+              setProducts={setMyFavList}
+            />
+          ))
         ) : (
-          // <div className="text-center h-60 flex items-center justify-center">Not Found Favourites</div>
-          <div className="space-y-3">
-            <Spinner />
-            <div className="text-center">
-              Please wait, while we are fetching data for you...{" "}
-            </div>
+          <div className="text-center h-60 flex items-center justify-center">
+            Not Found Favourites
           </div>
+          // <div className="space-y-3">
+          //   <Spinner />
+          //   <div className="text-center">
+          //     Please wait, while we are fetching data for you...{" "}
+          //   </div>
+          // </div>
         )}
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </Fragment>
   );
 }
