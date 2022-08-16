@@ -825,6 +825,15 @@ export async function marketingNameByModel(payload) {
   });
 }
 
+export async function deleteUserAccount(payload) {
+  headers = { ...headers, eventName: "DELETE_USER" };
+  const DEFAULT_HEADER = { headers: { ...headers } };
+  const url = `${URI}/api/v1/login/user/delete`;
+  return await Axios.post(url, payload, DEFAULT_HEADER).then((response) => {
+    return response.data;
+  });
+}
+
 export function logEventInfo(eventName) {
   headers = { ...headers, eventName: eventName };
   const DEFAULT_HEADER = { headers: { ...headers } };

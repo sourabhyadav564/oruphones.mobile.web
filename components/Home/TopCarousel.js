@@ -3,6 +3,7 @@ import { SwiperSlide } from "swiper/react";
 import CarouselWithPagination from "@/components/Carousel/CarouselWithPagination";
 import buyStep from "@/assets/how_to_buy.png";
 import sellStep from "@/assets/how_to_sell.png";
+import articleImage from "@/assets/banner_article_image.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ const slides = [
   { name: "GIF", src: "/GIF_Banner.gif" },
   { name: "how_to_sell", link: "#how_to_sell", src: sellStep },
   { name: "how_to_buy", link: "#how_to_buy", src: buyStep },
+  { name: "article_image", link: "#article_image", src: articleImage },
 ];
 
 const TopCarousel = () => {
@@ -63,12 +65,18 @@ const TopCarousel = () => {
             {item.link ? (
               <Link href={item.link}>
                 <a className="flex justify-center">
-                  <Image
-                    src={item.src}
-                    alt={item.name}
-                    width={617}
-                    height={309}
-                  />
+                  {item.name != "article_image" ? (
+                    <Image
+                      src={item.src}
+                      alt={item.name}
+                      width={617}
+                      height={309}
+                    />
+                  ) : (
+                    <div style={{ padding: "2vh 1.5vh 1vh 1.5vh" }}>
+                    <img src={articleImage.src} alt={item.name} className="rounded-xl" />
+                  </div>
+                  )}
                 </a>
               </Link>
             ) : (

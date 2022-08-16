@@ -24,7 +24,7 @@ function Header1() {
   }, [user]);
 
   return (
-    <div className="flex justify-between items-center pt-1 py-2 px-4 text-sm font-medium bg-primary text-white">
+    <div className="flex justify-between items-center pt-0 py-2 px-2 text-sm font-medium bg-primary text-white sticky top-12 z-50">
       <SearchBar />
     </div>
   );

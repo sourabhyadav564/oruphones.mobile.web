@@ -84,8 +84,9 @@ function LocationPopup({ open, setOpen }) {
                 handleCityChange(e.value);
               }}
               options={globalCities
-                ?.filter((item) => item.displayWithImage === "0")
-                .map((items) => {
+                ?.sort((a, b) => a.city.localeCompare(b.city))
+                // ?.filter((item) => item.displayWithImage === "-1")
+                ?.map((items) => {
                   return { label: items.city, value: items.city };
                 })}
             />

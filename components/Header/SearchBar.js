@@ -69,7 +69,7 @@ function SearchBar({ className }) {
           onChange={handleChange}
           value={input}
           className={`w-full bg-white text-gray-800 focus:outline-none rounded ${
-            className || "py-2.5 pl-10 pr-4 "
+            className || "py-1.5 pl-10 pr-4 "
           } ${searchResults && "rounded-b-none"}`}
           style={{ boxShadow: "0px 2px 3px #0000000A" }}
         />

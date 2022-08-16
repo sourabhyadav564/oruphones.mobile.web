@@ -276,11 +276,13 @@ function ProductDeatils({ data }) {
                 {data?.listingPrice}
               </p>
             </div>
-            <div className="bg-white flex-1 px-4 py-2">
+            <div className="bg-white flex-1 px-4 py-2"
+            onClick={() => setOpenConditionInfo(true)}
+            >
               {/* <p className="text-gray-70 text-xs">List Price</p> */}
               <span
                 className="text-xs text-black-7e flex items-center"
-                onClick={() => setOpenConditionInfo(true)}
+                // onClick={() => setOpenConditionInfo(true)}
               >
                 Condition{" "}
                 <BsInfoCircle className="ml-2 text-sm cursor-pointer" />

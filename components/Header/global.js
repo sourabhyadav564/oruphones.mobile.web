@@ -26,7 +26,7 @@ function GlobalHeader() {
   }, [router.pathname]);
 
   return (
-    <header className=" bg-primary text-white px-4 py-3 flex justify-between items-center sticky top-0 z-50">
+    <header className=" bg-primary text-white px-4 py-2 flex justify-between items-center sticky top-0 z-50">
       <div className="w-44 flex space-x-6 items-center">
         <Image
           onClick={() => setOpenSidebar(true)}
@@ -58,12 +58,12 @@ function GlobalHeader() {
         router.pathname === "/product/listings/bestdealnearyou") && (
         <div className="flex items-center cursor-pointer flex-shrink-0">
           <div
-            className="flex justify-between items-center w-[110px] cursor-pointer space-x-2"
+            className="flex justify-end items-center w-[110px] cursor-pointer space-x-4"
             onClick={() => setOpenLocationPopup(true)}
           >
-            <img src={location.src} width={12} height={15} />
             <span className="truncate">{selectedSearchCity}</span>
-            <img src={dropdown.src} width={12} height={12} />
+            <img src={location.src} width={12} height={15} />
+            {/* <img src={dropdown.src} width={12} height={12} /> */}
           </div>
           {router.pathname === "/" && authenticated && (
             <Link href="/user/notification">

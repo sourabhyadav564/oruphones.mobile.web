@@ -96,7 +96,7 @@ function BottomNav() {
                 >
                   <div
                     className="absolute bottom-0 p-4 rounded-full bg-primary"
-                    style={{ boxShadow: "0 -5px 20px rgba(16, 203, 165, 0.3)" }}
+                    // style={{ boxShadow: "0 -5px 20px rgba(16, 203, 165, 0.3)" }}
                   >
                     <svg
                       width="24"

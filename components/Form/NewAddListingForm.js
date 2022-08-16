@@ -978,7 +978,8 @@ const NewAddListingForm = ({ data }) => {
                   setSelectedCity(e.value);
                 }}
                 options={globalCities
-                  ?.filter((item) => item.displayWithImage != "0")
+                  ?.sort((a, b) => a.city.localeCompare(b.city))
+                  // ?.filter((item) => item.displayWithImage != "1")
                   .map((items) => {
                     return { label: items.city, value: items.city };
                   })}
@@ -1051,7 +1052,7 @@ const NewAddListingForm = ({ data }) => {
               </Input>
               {sellValueRequired && (
                 <span className="text-red text-sm absolute -bottom-6 ">
-                  Enter price more than 1000
+                  Enter price more than ₹1000
                 </span>
               )}
 
