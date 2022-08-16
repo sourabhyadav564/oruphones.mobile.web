@@ -33,7 +33,6 @@ function ModelPage() {
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
 
   const [loadingState, setLoadingState] = useState(false);
-  console.log("loading", loadingState);
 
   useEffect(() => {
     setLoadingState(false);
@@ -176,12 +175,13 @@ function ModelPage() {
           payLoad.warenty = warranty.includes("all") ? [] : warranty;
         }
         if (verification?.length > 0) {
-          payLoad.verified = verification.includes("all") ? null : "verified";
+          payLoad.verified = verification.includes("all") ? "" : "verified";
         }
         // setLoading(true);
         searchFilter(
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
+          localStorage.getItem("sessionId") || "",
           pageNumber
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);

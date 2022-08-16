@@ -19,7 +19,6 @@ const TopCarousel = () => {
   const router = useRouter();
 
   const [loadingState, setLoadingState] = useState(false);
-  console.log("loading", loadingState);
 
   useEffect(() => {
     setLoadingState(false);

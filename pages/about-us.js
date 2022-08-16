@@ -33,7 +33,8 @@ function Aboutus() {
     var htmlText;
     try {
       // const { serverUrl, templateUrls } = staticDataPath;
-      const res = await fetchStaticHTML("/about-us.html");
+      // const res = await fetchStaticHTML("/about_us.html");
+      const res = await fetchStaticHTML("/new_about_us.html");
       // const res = await fetchStaticHTML(serverUrl + templateUrls.VERIFICATION);
       const html = res.data;
       const doc = nodeParser(html);

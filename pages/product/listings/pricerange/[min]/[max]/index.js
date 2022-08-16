@@ -46,10 +46,10 @@ function PriceRangePage() {
           payLoad.warenty = warranty.includes("all") ? [] : warranty;
         }
         if (verification?.length > 0) {
-          payLoad.verified = verification.includes("all") ? null : "verified";
+          payLoad.verified = verification.includes("all") ? "" : "verified";
         }
         // setLoading(true);
-        searchFilter(payLoad, localStorage.getItem("userUniqueId") || "Guest").then((response) => {
+        searchFilter(payLoad, localStorage.getItem("userUniqueId") || "Guest", localStorage.getItem("sessionId") || "", pageNumber).then((response) => {
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
           setShopByPriceBestDeal([]);
           // setLoading(false);

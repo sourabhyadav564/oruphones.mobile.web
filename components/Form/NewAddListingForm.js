@@ -978,7 +978,7 @@ const NewAddListingForm = ({ data }) => {
                   setSelectedCity(e.value);
                 }}
                 options={globalCities
-                  ?.filter((item) => item.displayWithImage != "-1")
+                  ?.filter((item) => item.displayWithImage != "0")
                   .map((items) => {
                     return { label: items.city, value: items.city };
                   })}

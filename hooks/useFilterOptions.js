@@ -23,6 +23,11 @@ const initialState = [
     options: [],
   },
   {
+    id: "ram",
+    name: "Ram(GB)",
+    options: [],
+  },
+  {
     id: "warranty",
     name: "Warranty",
     options: [],
@@ -74,6 +79,16 @@ const useFilterOptions = () => {
                   }),
                 ],
               };
+            } else if (item.id === "ram") {
+              return {
+                ...item,
+                options: [
+                  { value: "all", label: "All", checked: false },
+                  ...res?.dataObject?.Ram.map((items) => {
+                    return { value: items, label: items, checked: false };
+                  }),
+                ],
+              };
             } else if (item.id === "condition") {
               return {
                 ...item,
@@ -94,8 +109,7 @@ const useFilterOptions = () => {
                   }),
                 ],
               };
-            } 
-            else if (item.id === "warranty") {
+            } else if (item.id === "warranty") {
               return {
                 ...item,
                 options: [
@@ -105,8 +119,15 @@ const useFilterOptions = () => {
                   }),
                 ],
               };
-            } 
-            else {
+            } else if (item.id === "verification") {
+              return {
+                ...item,
+                options: [
+                  { value: "all", label: "All", checked: false },
+                  { value: "verified", label: "Verified", checked: false },
+                ],
+              };
+            } else {
               return item;
             }
           });

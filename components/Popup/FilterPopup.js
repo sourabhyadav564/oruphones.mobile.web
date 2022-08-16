@@ -17,8 +17,9 @@ function FilterPopup({
     condition: ["all"],
     color: ["all"],
     storage: ["all"],
+    ram: ["all"],
     warranty: ["all"],
-    verification: ["all"],
+    verification: "",
   });
   const [openConditionPopup, setOpenConditionPopup] = useState(false);
   const [openVerificationPopup, setOpenVerificationPopup] = useState(false);
@@ -69,14 +70,21 @@ function FilterPopup({
 
   const clearFilter = () => {
     setSelectedValues({
-      brand: ["all"],
       condition: ["all"],
       color: ["all"],
       storage: ["all"],
+      ram: ["all"],
       warranty: ["all"],
-      verification: ["all"],
+      verification: "",
     });
-    setApplyFilter(selectedValues);
+    setApplyFilter({
+      condition: ["all"],
+      color: ["all"],
+      storage: ["all"],
+      ram: ["all"],
+      warranty: ["all"],
+      verification: "",
+    });
     setOpenFilter(false);
   };
 
@@ -95,7 +103,7 @@ function FilterPopup({
               Filters
             </span>
             <span
-              className="text-sm text-red-500 font-normal underline"
+              className="text-sm text-red-500 text-semibold font-normal underline"
               onClick={() => clearFilter()}
             >
               Clear Filter

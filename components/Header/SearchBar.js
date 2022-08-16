@@ -4,6 +4,8 @@ import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { BiSearch } from "react-icons/bi";
+import Loader from "../Loader/Loader";
+import Spinner from "../Loader/Spinner";
 
 function SearchBar({ className }) {
   const [searchResults, setSearchResults] = useState();
@@ -12,7 +14,7 @@ function SearchBar({ className }) {
 
   useEffect(() => {
     let timeOut = setTimeout(() => {
-      if (input.trim().length >= 2) {
+      if (input.trim().length > 2) {
         getSearchResults(input).then(
           (res) => {
             if (res && res.status === "SUCCESS") {
@@ -46,8 +48,16 @@ function SearchBar({ className }) {
   const handleChange = (e) => {
     setInput(e.target.value);
 
-    if (e.target.value.trim().length < 3 && searchResults && searchResults.results) {
+    if (
+      e.target.value.trim().length < 3 &&
+      searchResults &&
+      searchResults.results
+    ) {
       setSearchResults();
+    }
+
+    if (input.trim().length < 2) {
+      setSearchResults("loading");
     }
   };
 
@@ -58,9 +68,9 @@ function SearchBar({ className }) {
           placeholder="Search with make and model"
           onChange={handleChange}
           value={input}
-          className={`w-full bg-white text-gray-800 focus:outline-none rounded ${className || "py-2.5 pl-10 pr-4 "} ${
-            searchResults && "rounded-b-none"
-          }`}
+          className={`w-full bg-white text-gray-800 focus:outline-none rounded ${
+            className || "py-2.5 pl-10 pr-4 "
+          } ${searchResults && "rounded-b-none"}`}
           style={{ boxShadow: "0px 2px 3px #0000000A" }}
         />
         {searchResults && (
@@ -71,7 +81,11 @@ function SearchBar({ className }) {
               maxHeight: 315,
             }}
           >
-            {searchResults.brandList && searchResults.brandList.length > 0 && <p className="px-4 py-3 block border-b text-primary">Brand</p>}
+            {searchResults.brandList && searchResults.brandList.length > 0 && (
+              <p className="px-4 py-3 block border-b text-primary text-xs">
+                Brand
+              </p>
+            )}
             {searchResults.brandList &&
               searchResults.brandList.length > 0 &&
               searchResults.brandList.map((item) => (
@@ -85,7 +99,11 @@ function SearchBar({ className }) {
                   makeLink
                 />
               ))}
-            {searchResults.results && searchResults.results.length > 0 && <p className="px-4 py-3 block border-b text-primary">Mobile Model</p>}
+            {searchResults.results && searchResults.results.length > 0 && (
+              <p className="px-4 py-3 block border-b text-primary text-xs">
+                Mobile Model
+              </p>
+            )}
 
             {searchResults.results &&
               searchResults.results.length > 0 &&
@@ -96,13 +114,36 @@ function SearchBar({ className }) {
                     setSearchResults();
                   }}
                   key={item}
-                  make={searchResults && searchResults.marketingNameAndMakeMap && searchResults.marketingNameAndMakeMap[item]}
+                  make={
+                    searchResults &&
+                    searchResults.marketingNameAndMakeMap &&
+                    searchResults.marketingNameAndMakeMap[item]
+                  }
                   marketingName={item}
                 />
               ))}
+            {searchResults === "loading" && (
+              <ListItem
+                clicked={() => {
+                  setInput("");
+                  setSearchResults();
+                }}
+              >
+                <Spinner />
+                <p className="text-center my-4 text-xs text-gray-500">
+                  {input.trim().length > 2
+                    ? "Please wait, while we are fetching data for you..."
+                    : "enter minimum 3 characters"}
+                </p>
+              </ListItem>
+            )}
+
             {searchResults &&
-              (!searchResults.results || (searchResults.results && searchResults.results.length < 1)) &&
-              (!searchResults.brandList || (searchResults.brandList && searchResults.brandList.length < 1)) && (
+              (!searchResults.results ||
+                (searchResults.results && searchResults.results.length < 1)) &&
+              (!searchResults.brandList ||
+                (searchResults.brandList &&
+                  searchResults.brandList.length < 1)) && (
                 <ListItem
                   clicked={() => {
                     setInput("");
@@ -129,14 +170,26 @@ export default SearchBar;
 const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
   if (children) {
     return (
-      <p className="px-6 py-3 block border-b last:border-0 capitalize" onClick={clicked}>
+      <p
+        className="px-6 py-3 block border-b last:border-0 capitalize"
+        onClick={clicked}
+      >
         {children}
       </p>
     );
   }
   return (
-    <Link href={makeLink ? `/product/listings/${make}/` : `/product/listings/${make}/${marketingName}`}>
-      <a className="px-6 py-3 block border-b last:border-0 capitalize" onClick={clicked}>
+    <Link
+      href={
+        makeLink
+          ? `/product/listings/${make}/`
+          : `/product/listings/${make}/${marketingName}`
+      }
+    >
+      <a
+        className="px-6 py-3 block border-b last:border-0 capitalize"
+        onClick={clicked}
+      >
         {marketingName || make}
       </a>
     </Link>

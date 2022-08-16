@@ -178,12 +178,13 @@ function CategoryPage() {
           payLoad.warenty = warranty.includes("all") ? [] : warranty;
         }
         if (verification?.length > 0) {
-          payLoad.verified = verification.includes("all") ? null : "verified";
+          payLoad.verified = verification.includes("all") ? "" : "verified";
         }
 
         searchFilter(
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
+          localStorage.getItem("sessionId") || "",
           pageNumber
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);

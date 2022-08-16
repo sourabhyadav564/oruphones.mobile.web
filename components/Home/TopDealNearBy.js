@@ -21,7 +21,6 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
   const [isFinished, setIsFinished] = useState(false);
 
   const [loadingState, setLoadingState] = useState(false);
-  console.log("loading", loadingState);
 
   useEffect(() => {
     setLoadingState(false);

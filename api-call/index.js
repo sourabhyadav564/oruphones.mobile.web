@@ -307,9 +307,10 @@ export async function fetchByMakeList(
   location,
   makeName,
   userUniqueId,
+  sessionId,
   pageNumber
 ) {
-  headers = { ...headers, eventName: `BRAND_SELECTED ${makeName}` };
+  headers = { ...headers, eventName: `BRAND_SELECTED ${makeName}`, userUniqueId: userUniqueId, sessionId: sessionId };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/home/listingsbymake?listingLocation=` +
@@ -574,7 +575,7 @@ export async function fetchMyFavorites(userUniqueId) {
 }
 
 export async function fetchSimilarProducts(payLoad, userUniqueId, pageNumber) {
-  headers = { ...headers, eventName: "FETCH_SIMILAR_PRODUCTS" };
+  headers = { ...headers, eventName: "FETCH_SIMILAR_PRODUCTS", userUniqueId: userUniqueId};
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/home/listings/search?userUniqueId=` +
@@ -622,8 +623,8 @@ export function getShowSerchFilters() {
   );
 }
 
-export async function searchFilter(payLoad, userUniqueId, pageNumber) {
-  headers = { ...headers, eventName: "FETCH_SEARCH_LISTINGS" };
+export async function searchFilter(payLoad, userUniqueId, sessionId, pageNumber) {
+  headers = { ...headers, eventName: "FETCH_SEARCH_LISTINGS", sessionId: sessionId};
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
     `${URI}/api/v1/home/listings/search?userUniqueId=` +

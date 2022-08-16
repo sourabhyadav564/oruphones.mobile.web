@@ -76,7 +76,7 @@ async function callFetchStaticHTML() {
   try {
     const { serverUrl, templateUrls } = staticDataPath;
     // const res = await fetchStaticHTML(serverUrl + templateUrls.TERMS_CONDITIONS);
-    const res = await fetchStaticHTML("/terms_conditions.html");
+    const res = await fetchStaticHTML("/new_terms_conditions.html");
     const html = res.data;
     const doc = nodeParser(html);
     const body = doc.querySelector("body");
