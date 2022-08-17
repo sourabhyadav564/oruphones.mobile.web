@@ -41,8 +41,8 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
 
   return (
     <Fragment>
-      <div className="flex p-2 pb-4 justify-between items-center bg-primary text-white relative">
-        <div className="w-full pl-2 pr-6 ">
+      <div className="flex p-0 pb-2 justify-between items-center bg-primary text-white sticky top-12 z-50">
+        <div className="w-full pl-2 pr-5">
           {/* <Link href="/search">
             <a>
               <input

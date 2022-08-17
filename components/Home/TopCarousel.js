@@ -14,7 +14,11 @@ const slides = [
   { name: "GIF", src: "/GIF_Banner.gif" },
   { name: "how_to_sell", link: "#how_to_sell", src: sellStep },
   { name: "how_to_buy", link: "#how_to_buy", src: buyStep },
-  { name: "article_image", link: "#article_image", src: articleImage },
+  {
+    name: "article_image",
+    link: "https://www.oruphones.com/blog",
+    src: articleImage,
+  },
 ];
 
 const TopCarousel = () => {
@@ -73,9 +77,15 @@ const TopCarousel = () => {
                       height={309}
                     />
                   ) : (
-                    <div style={{ padding: "2vh 1.5vh 1vh 1.5vh" }}>
-                    <img src={articleImage.src} alt={item.name} className="rounded-xl" />
-                  </div>
+                    <Link href={item.link}>
+                      <div style={{ padding: "2vh 1.5vh 1vh 1.5vh" }}>
+                        <img
+                          src={articleImage.src}
+                          alt={item.name}
+                          className="rounded-xl"
+                        />
+                      </div>
+                    </Link>
                   )}
                 </a>
               </Link>

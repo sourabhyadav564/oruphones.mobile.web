@@ -91,6 +91,7 @@ function MakePage() {
         selectedSearchCity,
         makeName,
         Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId") || "",
         newPages
       ).then(
         (response) => {
