@@ -49,10 +49,10 @@ const TopCarousel = () => {
     //               </video>
     //             </div>
     //             <div className="absolute left-0 right-0 bottom-4 flex justify-center" style={{ fontSize: 12 }}>
-    //               <Link href="/product/listings/bestdealnearyou">
+    //               <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
     //                 <a className="rounded bg-white px-3 py-1 mr-8 font-bold">Buy Phone</a>
     //               </Link>
-    //               <Link href="/sell/add">
+    //               <Link href="/sell-old-refurbished-used-mobiles/add">
     //                 <a className="rounded bg-white px-3 py-1 ml-8 font-bold">Sell Phone</a>
     //               </Link>
     //             </div>
@@ -102,12 +102,12 @@ const TopCarousel = () => {
                   className="absolute left-0 right-0 bottom-3 flex justify-center"
                   style={{ fontSize: 10 }}
                 >
-                  <Link href="/product/listings/bestdealnearyou">
+                  <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
                     <a className="rounded-xl bg-white px-3 py-2 mr-8 font-bold text-[11px]">
                       Buy Phone
                     </a>
                   </Link>
-                  <Link href="/sell/add">
+                  <Link href="/sell-old-refurbished-used-mobiles/add">
                     <a
                       className="rounded-xl bg-white px-3 py-2 ml-8 font-bold text-[11px]"
                       onClick={() => setLoadingState(true)}

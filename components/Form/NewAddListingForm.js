@@ -467,6 +467,9 @@ const NewAddListingForm = ({ data }) => {
     }
   };
 
+  console.log("questionIndex", questionIndex);
+  console.log("deviceCondition", deviceConditionQuestion.length - 1);
+
   const handleForward = () => {
     questionIndex in conditionResults
       ? setQuestionIndex(
@@ -623,7 +626,7 @@ const NewAddListingForm = ({ data }) => {
             )}
             {isGettingPrice && (
               <div className="py-5">
-              <Spinner />
+                <Spinner />
               </div>
             )}
             <span className="pb-20" />

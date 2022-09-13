@@ -60,7 +60,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
   }
 
   function uploadPhotos() {
-    router.push(`/sell/edit/${data?.listingId}`);
+    router.push(`/sell-old-refurbished-used-mobiles/edit/${data?.listingId}`);
   }
 
   return (
@@ -105,7 +105,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                             Pause
                           </span>
                         )}
-                        <Link href={`/sell/edit/${data?.listingId}`}>
+                        <Link href={`/sell-old-refurbished-used-mobiles/edit/${data?.listingId}`}>
                           <span className="hover:bg-gray-100 text-black-4e py-1 px-4 w-full block whitespace-no-wrap">Edit</span>
                         </Link>
                         <span

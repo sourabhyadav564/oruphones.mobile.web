@@ -39,7 +39,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
     <>
       <Link
         href={{
-          pathname: `/product/listings/${data.make}/${data?.marketingName}/${
+          pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${
             prodLink ? data?.listingId : ""
           }`,
           query: prodLink && { isOtherVendor: data?.isOtherVendor },
@@ -91,7 +91,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               </p>
               <div className="justify-self-end flex justify-between pt-1 text-xs capitalize">
                 <span className="truncate mr-1">{data?.listingLocation}</span>
-                <span>{data?.modifiedDate}</span>
+                <span>{data?.listingDate}</span>
               </div>
             </div>
           </div>

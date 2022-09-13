@@ -88,7 +88,7 @@ function BottomNav() {
                 <span className="mt-1">My Listings</span>
               </a>
             </Link>
-            <Link href="/sell/add">
+            <Link href="/sell-old-refurbished-used-mobiles/add">
               <div className="flex flex-col items-center" onClick={logEvent}>
                 <a
                   className="relative text-white inline-flex justify-center mb-1.5 "

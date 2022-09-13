@@ -182,8 +182,8 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
     <Link
       href={
         makeLink
-          ? `/product/listings/${make}/`
-          : `/product/listings/${make}/${marketingName}`
+          ? `/product/buy-old-refurbished-used-mobiles/${make}/`
+          : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`
       }
     >
       <a

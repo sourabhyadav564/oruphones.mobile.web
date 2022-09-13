@@ -83,7 +83,7 @@ const ListItem = ({ make, marketingName, children }) => {
     return <p className="px-6 py-3 block border-b last:border-0">{children}</p>;
   }
   return (
-    <Link href={`/product/listings/${make}/${marketingName}`}>
+    <Link href={`/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`}>
       <a className="px-6 py-3 block border-b last:border-0">{marketingName}</a>
     </Link>
   );

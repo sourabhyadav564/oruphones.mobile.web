@@ -15,7 +15,7 @@ function SellingMobileCard({ data }) {
   }
 
   return (
-    <Link href={`/product/listings/${data.make}/${data.marketingName}`}>
+    <Link href={`/product/buy-old-refurbished-used-mobiles/${data.make}/${data.marketingName}`}>
       <a>
         <div className="grid grid-cols-1 rounded-lg py-2 px-3 bg-m-white cardShadow1">
           <div className="grid grid-cols-1">

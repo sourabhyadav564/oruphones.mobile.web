@@ -27,7 +27,7 @@ function BrandCard({ data, className, popup }) {
     <>
       {!popup ? (
         <Link
-          href={{ pathname: `/product/listings/${data?.make?.toLowerCase()}` }}
+          href={{ pathname: `/product/buy-old-refurbished-used-mobiles/${data?.make?.toLowerCase()}` }}
         >
           <a
             className={`h-full  flex justify-center p-2 ${
@@ -44,7 +44,7 @@ function BrandCard({ data, className, popup }) {
           </a>
         </Link>
       ) : (
-        // <Link href={{ pathname: `/product/listings/${data?.make?.toLowerCase()}` }}>
+        // <Link href={{ pathname: `/product/buy-old-refurbished-used-mobiles/${data?.make?.toLowerCase()}` }}>
         <a
           className={`h-full  flex justify-center p-2 ${
             className || "cardShadow1 rounded-lg"

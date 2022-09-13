@@ -52,10 +52,10 @@ function GlobalHeader() {
         </Link>
       </div>
       {(router.pathname === "/" ||
-        router.pathname === "/product/listings/[makeName]" ||
-        router.pathname === "/product/listings/[makeName]/[modelName]" ||
-        router.pathname === "/product/listings/pricerange/[min]/[max]" ||
-        router.pathname === "/product/listings/bestdealnearyou") && (
+        router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]" ||
+        router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]/[modelName]" ||
+        router.pathname === "/product/buy-old-refurbished-used-mobiles/pricerange/[min]/[max]" ||
+        router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou") && (
         <div className="flex items-center cursor-pointer flex-shrink-0">
           <div
             className="flex justify-end items-center w-[110px] cursor-pointer space-x-4"

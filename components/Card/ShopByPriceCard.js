@@ -4,7 +4,7 @@ import { numberWithCommas } from "@/utils/util";
 
 function ShopByPriceCard({ data }) {
   return (
-    <Link href={`/product/listings/pricerange/${data?.minPrice}/${data?.maxPrice}`}>
+    <Link href={`/product/buy-old-refurbished-used-mobiles/pricerange/${data?.minPrice}/${data?.maxPrice}`}>
       <a>
         <div className="grid grid-cols-1 rounded-md py-2 px-3 bg-white cardShadow1">
           <div className="grid grid-cols-1">

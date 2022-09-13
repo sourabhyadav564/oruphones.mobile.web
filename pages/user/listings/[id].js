@@ -59,7 +59,7 @@ function ListingDeatils({ data, id }) {
   return (
     <Fragment>
       <Header2 title="Listing Info">
-        <Link href={`/sell/edit/${id}`}>
+        <Link href={`/sell-old-refurbished-used-mobiles/edit/${id}`}>
           <a>
             <Image src={edit} width={26} height={21} />
           </a>

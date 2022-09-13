@@ -15,7 +15,10 @@ function LocationPopup({ open, setOpen }) {
   const dispatch = useAuthDispatch();
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
+    if (
+      localStorage.getItem("cities") != undefined &&
+      JSON.parse(localStorage.getItem("cities"))?.length > 0
+    ) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
       console.log("cities from local");
     } else {

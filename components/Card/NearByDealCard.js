@@ -9,7 +9,7 @@ import VerifiedIcon from "../VerifiedIcon";
 function NearByDealCard({ data, setProducts, prodLink }) {
   if (data?.make?.toLowerCase().includes("all")) {
     return (
-      <Link href={`/product/listings/bestdealnearyou`}>
+      <Link href={`/product/buy-old-refurbished-used-mobiles/bestdealnearyou`}>
         <a className="w-full h-full rounded-md p-4 bg-white flex justify-center items-center cardShadow1">
           <p className="block text-primary">{"Show All"}</p>
         </a>
@@ -20,7 +20,7 @@ function NearByDealCard({ data, setProducts, prodLink }) {
   return (
     <Link
       href={{
-        pathname: `/product/listings/${data.make}/${data?.marketingName}/${
+        pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${
           prodLink ? data?.listingId : ""
         }`,
         query: { isOtherVendor: data?.isOtherVendor },
