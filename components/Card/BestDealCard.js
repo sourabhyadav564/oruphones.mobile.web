@@ -11,6 +11,7 @@ import { numberWithCommas } from "@/utils/util";
 import { BiChevronRight } from "react-icons/bi";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
+import sold_out from "@/assets/soldout.png";
 
 function BestDealCard({
   openConditionInfo,
@@ -50,7 +51,7 @@ function BestDealCard({
           <p className="mb-2.5">
             <span className="text-xs block">Storage</span>
             <span className="font-bold block">
-              {data?.deviceStorage || <span>&nbsp;&nbsp;</span>}​
+              {data?.deviceStorage || <span>&nbsp;&nbsp;</span>}
             </span>
           </p>
           <p className="mb-2.5">
@@ -105,6 +106,22 @@ function BestDealCard({
               </p>
             </div>
           )}
+
+          {data?.status === "Sold_Out" && (
+            <div className="absolute h-8 -top-2 right-0 left-0 flex px-4 pb-1">
+              <p className="flex items-center">
+                <Image src={sold_out} width={60} height={30} />
+                {/* <BsInfoCircle
+                  className="ml-2 text-xs mt-0.5 cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openVerificationInfo();
+                  }}
+                /> */}
+              </p>
+            </div>
+          )}
+
           <Image
             alt={data?.marketingName}
             src={data?.imagePath || "/"}
@@ -126,7 +143,7 @@ function BestDealCard({
                 className="font-bold text-black-4e flex items-center py-1"
                 style={{ fontSize: 28 }}
               >
-                {"₹" + numberWithCommas(data?.listingPrice)}​
+                {"₹" + numberWithCommas(data?.listingPrice)}
               </span>
             </p>
             <Link

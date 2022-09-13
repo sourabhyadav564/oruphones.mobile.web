@@ -5,6 +5,7 @@ import { numberWithCommas } from "@/utils/util";
 import Logo from "@/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 import VerifiedIcon from "../VerifiedIcon";
+import sold_out from "@/assets/soldout.png";
 
 function NearByDealCard({ data, setProducts, prodLink }) {
   if (data?.make?.toLowerCase().includes("all")) {
@@ -20,9 +21,8 @@ function NearByDealCard({ data, setProducts, prodLink }) {
   return (
     <Link
       href={{
-        pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${
-          prodLink ? data?.listingId : ""
-        }`,
+        pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${prodLink ? data?.listingId : ""
+          }`,
         query: { isOtherVendor: data?.isOtherVendor },
       }}
     >
@@ -31,9 +31,14 @@ function NearByDealCard({ data, setProducts, prodLink }) {
           <div className="grid grid-cols-1 relative">
             <div className="absolute right-0 flex justify-between items-center w-full z-20">
               <span>
-                {!(data?.isOtherVendor === "Y") && data?.verified && (
+                {(!(data?.isOtherVendor === "Y") && data?.verified) ? (
                   <VerifiedIcon width={45} height={22} />
-                )}
+                ) : data?.status === "Sold_Out" && <Image
+                  src={sold_out}
+                  width={"50"}
+                  height={"50"}
+                  objectFit="contain"
+                />}
               </span>
               {data?.isOtherVendor === "N" && (
                 <AddFav data={data} setProducts={setProducts} />

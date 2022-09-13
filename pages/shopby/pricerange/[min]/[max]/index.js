@@ -97,6 +97,7 @@ function PriceRangePage() {
           make: [],
           color: [],
           deviceCondition: [],
+          deviceRam: [],
           deviceStorage: [],
           verified: "",
         };
@@ -184,9 +185,9 @@ function PriceRangePage() {
         </section>
       )}
       {shopByPriceBestDeal &&
-      shopByPriceBestDeal.length > 0 &&
-      sortingProducts &&
-      sortingProducts.length > 0 ? null : (
+        shopByPriceBestDeal.length > 0 &&
+        sortingProducts &&
+        sortingProducts.length > 0 ? null : (
         <NoMatch />
       )}
 
@@ -195,9 +196,8 @@ function PriceRangePage() {
         sortingProducts.length > 0 &&
         isFinished == false && (
           <span
-            className={`${
-              isLoadingMore ? "w-[250px]" : "w-[150px]"
-            } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+            className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
+              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
             onClick={loadMoreData}
           >
             <p className="block text-m-green font-semibold">

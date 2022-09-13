@@ -6,6 +6,7 @@ import { Fragment, useEffect, useState } from "react";
 import chargingImg from "@/assets/charging-station.png";
 import headphoneImg from "@/assets/headphones-line.png";
 import originalBoxImg from "@/assets/box.png";
+import originalBillImg from "@/assets/original-bill.png";
 
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
@@ -163,12 +164,12 @@ const NewAddListingForm = ({ data }) => {
         : storage,
       deviceRam: storage?.toString().includes("/")
         ? storage
-            ?.toString()
-            .split("/")[1]
-            .toString()
-            .replace(/GB/g, " GB")
-            .replace(/RAM/, "")
-            .trim()
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim()
         : "",
       make: make,
       marketingName: model,
@@ -203,12 +204,12 @@ const NewAddListingForm = ({ data }) => {
         : storage,
       deviceRam: storage?.toString().includes("/")
         ? storage
-            ?.toString()
-            .split("/")[1]
-            .toString()
-            .replace(/GB/g, " GB")
-            .replace(/RAM/, "")
-            .trim()
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim()
         : "",
       deviceCondition: condition,
       earPhones: headphone ? "Y" : "N",
@@ -321,12 +322,12 @@ const NewAddListingForm = ({ data }) => {
         model: "",
         ram: storage?.toString().includes("/")
           ? storage
-              ?.toString()
-              .split("/")[1]
-              .toString()
-              .replace(/GB/g, " GB")
-              .replace(/RAM/, "")
-              .trim()
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
           : "",
       };
       marketingNameByModel(payload).then(
@@ -435,23 +436,23 @@ const NewAddListingForm = ({ data }) => {
     if (conditionResults[0].toString() == "No") {
       setCondition("Needs Repair");
     } else if (
-      conditionResults[1]?.toString().includes("Has significant scratches") ||
-      conditionResults[2]?.toString().includes("Has significant scratches")
+      conditionResults[1].toString().includes("Has significant scratches") ||
+      conditionResults[2].toString().includes("Has significant scratches")
     ) {
       setCondition("Fair");
     } else if (
-      conditionResults[1]?.toString().includes("Up to 5") ||
-      conditionResults[2]?.toString().includes("Up to 5")
+      conditionResults[1].toString().includes("Up to 5") ||
+      conditionResults[2].toString().includes("Up to 5")
     ) {
       setCondition("Good");
     } else if (
-      conditionResults[1]?.toString().includes("Up to 2") ||
-      conditionResults[2]?.toString().includes("Up to 2")
+      conditionResults[1].toString().includes("Up to 2") ||
+      conditionResults[2].toString().includes("Up to 2")
     ) {
       setCondition("Excellent");
     } else if (
-      conditionResults[1]?.toString().includes("No scratch") ||
-      conditionResults[2]?.toString().includes("No scratch")
+      conditionResults[1].toString().includes("No scratch") ||
+      conditionResults[2].toString().includes("No scratch")
     ) {
       setCondition("Like New");
     } else {
@@ -473,19 +474,19 @@ const NewAddListingForm = ({ data }) => {
   const handleForward = () => {
     questionIndex in conditionResults
       ? setQuestionIndex(
-          questionIndex < deviceConditionQuestion.length - 1
-            ? questionIndex + 1
-            : deviceConditionQuestion.length - 1
-        )
+        questionIndex < deviceConditionQuestion.length - 1
+          ? questionIndex + 1
+          : deviceConditionQuestion.length - 1
+      )
       : toast.warning("Please select condition", {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     questionIndex == deviceConditionQuestion.length - 1 &&
       calculateDeviceCondition();
     questionIndex == deviceConditionQuestion.length - 1 && setPage(page + 1);
@@ -576,11 +577,10 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption?.storage &&
                     storageColorOption.storage.map((item, index) => (
                       <div
-                        className={`${
-                          storage == item
-                            ? "bg-gray-300 border-[1.5px] border-black"
-                            : "bg-white"
-                        } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                        className={`${storage == item
+                          ? "bg-gray-300 border-[1.5px] border-black"
+                          : "bg-white"
+                          } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                         onClick={() => setStorage(item)}
                         key={index}
                       >
@@ -604,11 +604,10 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption?.color &&
                     storageColorOption.color.map((item, index) => (
                       <div
-                        className={`${
-                          color == item
-                            ? "bg-gray-300 border-[1.5px] border-black"
-                            : "bg-white"
-                        } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                        className={`${color == item
+                          ? "bg-gray-300 border-[1.5px] border-black"
+                          : "bg-white"
+                          } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                         onClick={() => setColor(item)}
                         key={index}
                       >
@@ -689,7 +688,7 @@ const NewAddListingForm = ({ data }) => {
                   checked={originalbox}
                 />
                 <Checkbox
-                  src={originalBoxImg}
+                  src={originalBillImg}
                   text="Original Bill"
                   onChange={() => {
                     setShowWarranty((prev) => !prev);
@@ -707,11 +706,10 @@ const NewAddListingForm = ({ data }) => {
                     {deviceWarrantyCheck?.map((item, index) => (
                       <div
                         key={index}
-                        className={`${
-                          warranty == item?.value
-                            ? "bg-gray-300 border-[1.5px] border-black"
-                            : "bg-white"
-                        } py-3 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
+                        className={`${warranty == item?.value
+                          ? "bg-gray-300 border-[1.5px] border-black"
+                          : "bg-white"
+                          } py-3 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
                         onClick={() => setWarranty(item.value)}
                       >
                         <span>{item.label}</span>
@@ -1143,9 +1141,8 @@ const NewAddListingForm = ({ data }) => {
           <span>Back</span>
         </div>
         <div
-          className={`bg-primary px-5 py-2 text-center text-white font-semibold rounded-md border-2 border-primary duration-300 flex items-center justify-center space-x-5 ${
-            page === 5 ? "hidden" : ""
-          }`}
+          className={`bg-primary px-5 py-2 text-center text-white font-semibold rounded-md border-2 border-primary duration-300 flex items-center justify-center space-x-5 ${page === 5 ? "hidden" : ""
+            }`}
           onClick={() => {
             if (page == 0) {
               if (
@@ -1159,10 +1156,9 @@ const NewAddListingForm = ({ data }) => {
                 setPage(page + 1);
               } else {
                 toast.warning(
-                  `${
-                    make == ""
-                      ? "Please select a make"
-                      : model == ""
+                  `${make == ""
+                    ? "Please select a make"
+                    : model == ""
                       ? "Please select a model"
                       : "Please select a storage variant"
                   }`,
@@ -1191,14 +1187,13 @@ const NewAddListingForm = ({ data }) => {
                 setPage(page + 1);
               } else {
                 toast.warning(
-                  `${
-                    selectedCity == "India"
-                      ? "Please select a different city"
-                      : selectedCity == "" || selectedCity == undefined
+                  `${selectedCity == "India"
+                    ? "Please select a different city"
+                    : selectedCity == "" || selectedCity == undefined
                       ? "Please select a city"
                       : inputName?.value == ""
-                      ? "Please enter your name"
-                      : "Please select a city"
+                        ? "Please enter your name"
+                        : "Please select a city"
                   }`,
                   {
                     position: toast.POSITION.TOP_RIGHT,

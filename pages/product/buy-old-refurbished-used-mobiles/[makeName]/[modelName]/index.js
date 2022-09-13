@@ -153,6 +153,7 @@ function ModelPage() {
           reqPage: "TSM",
           color: [],
           deviceCondition: [],
+          deviceRam: [],
           deviceStorage: [],
           maxsellingPrice: 200000,
           minsellingPrice: 0,
