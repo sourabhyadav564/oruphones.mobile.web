@@ -140,7 +140,7 @@ function ProductDeatils({ data }) {
 
   const conditionText = data?.deviceCondition;
   let filled = 0;
-  if (conditionText === "Like New") {
+  if (conditionText === "Like New" || conditionText === "Open Box" || conditionText === "New - Seal Pack") {
     filled = 5;
   } else if (conditionText === "Excellent") {
     filled = 4;

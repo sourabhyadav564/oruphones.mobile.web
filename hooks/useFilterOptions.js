@@ -12,11 +12,11 @@ const initialState = [
     name: "Condition",
     options: [],
   },
-  {
-    id: "color",
-    name: "Color",
-    options: [],
-  },
+  // {
+  //   id: "color",
+  //   name: "Color",
+  //   options: [],
+  // },
   {
     id: "storage",
     name: "Storage(GB)",
@@ -99,17 +99,19 @@ const useFilterOptions = () => {
                   }),
                 ],
               };
-            } else if (item.id === "color") {
-              return {
-                ...item,
-                options: [
-                  { value: "all", label: "All", checked: false },
-                  ...res?.dataObject?.Color.map((items) => {
-                    return { value: items, label: items, checked: false };
-                  }),
-                ],
-              };
-            } else if (item.id === "warranty") {
+            } 
+            // else if (item.id === "color") {
+            //   return {
+            //     ...item,
+            //     options: [
+            //       { value: "all", label: "All", checked: false },
+            //       ...res?.dataObject?.Color.map((items) => {
+            //         return { value: items, label: items, checked: false };
+            //       }),
+            //     ],
+            //   };
+            // } 
+            else if (item.id === "warranty") {
               return {
                 ...item,
                 options: [

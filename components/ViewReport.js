@@ -4,11 +4,19 @@ import Image from "next/image";
 import passIcon from "@/assets/check2-circle.svg";
 import failedIcon from "@/assets/testFail.png";
 import pass from "@/assets/pass1.png";
+import { useEffect, useState } from "react";
+import { deviceConditionQuestion } from "@/utils/constant";
+import ConditionOptionLarge from "./Condition/ConditionOptionLarge";
 
 function ViewReport({ data, defaultOpen, setDefaultOpen }) {
-  if (!data?.verified) {
+  if (!data?.verified || !data?.cosmetic) {
     return null;
   }
+
+  const [questionIndex, setQuestionIndex] = useState(0);
+
+  console.log("data", data?.cosmetic);
+
   return (
     <div className="w-full mx-auto bg-white p-4 mb-4 border-t border-b">
       <Disclosure defaultOpen={defaultOpen || false}>
@@ -23,27 +31,72 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                   }
                 }}
               >
-                <h2 className="text-gray-20 font-semibold">Device Verification Report</h2>
-                <FiChevronDown className={`${open ? "transform rotate-180" : ""} w-5 h-5 text-gray-70`} />
+                <h2 className="text-gray-20 font-semibold">Device Report</h2>
+                <FiChevronDown
+                  className={`${
+                    open ? "transform rotate-180" : ""
+                  } w-5 h-5 text-gray-70`}
+                />
               </div>
             </Disclosure.Button>
-            <Disclosure.Panel className="px-1 mt-2 text-sm text-gray-70 divide-y">
-              <div className="pb-3">
-                {data &&
-                  data.questionnaireResults &&
-                  data.questionnaireResults.map((items, index) => {
-                    return (
-                      <Results key={index} index={index + 1} question={items.question} result={items.result} childQuestions={items.childQuestions} />
-                    );
-                  })}
+            <Disclosure.Panel className="px-1 mt-3 text-sm text-gray-70 divide-y">
+              <div className="">
+                {data && data?.cosmetic && (
+                  <h2 className="text-gray-20 font-semibold mb-3">
+                  Device Cosmetic Report
+                </h2>
+                  )}
+                {data && data?.cosmetic && (
+                  <div>
+                    {deviceConditionQuestion.map((item, index) => (
+                      <div>
+                        <span className="text-lg font-semibold text-black">{item?.title}</span>
+                        <ConditionOptionLarge
+                          title={data?.cosmetic[index]}
+                          options={item?.options[0]?.options}
+                          conditionResults={data?.cosmetic}
+                          questionIndex={index}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-              <div className="pt-3">
-                {data &&
-                  data.functionalTestResults &&
-                  data.functionalTestResults.map((items, index) => {
-                    return <TestAndStatus key={index} testName={items.displayName} testStatus={items.testStatus} />;
-                  })}
-              </div>
+              {data?.verified && (
+                <>
+                  <div className="pb-3">
+                    {data &&
+                      data.questionnaireResults &&
+                      data.questionnaireResults.map((items, index) => {
+                        return (
+                          <Results
+                            key={index}
+                            index={index + 1}
+                            question={items.question}
+                            result={items.result}
+                            childQuestions={items.childQuestions}
+                          />
+                        );
+                      })}
+                  </div>
+                  <div className="pt-3">
+                    <h2 className="text-gray-20 font-semibold mb-3">
+                      Device Verification Report
+                    </h2>
+                    {data &&
+                      data.functionalTestResults &&
+                      data.functionalTestResults.map((items, index) => {
+                        return (
+                          <TestAndStatus
+                            key={index}
+                            testName={items.displayName}
+                            testStatus={items.testStatus}
+                          />
+                        );
+                      })}
+                  </div>
+                </>
+              )}
             </Disclosure.Panel>
           </>
         )}
@@ -59,7 +112,12 @@ const TestAndStatus = ({ testName, testStatus }) => (
     <p> {testName} </p>
     <p className="flex items-center justify-between w-16">
       <span> {testStatus} </span>
-      <Image width={25} height={23} objectFit="contain" src={testStatus === "PASS" ? passIcon : failedIcon} />
+      <Image
+        width={25}
+        height={23}
+        objectFit="contain"
+        src={testStatus === "PASS" ? passIcon : failedIcon}
+      />
     </p>
   </div>
 );
