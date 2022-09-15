@@ -308,7 +308,7 @@ export async function fetchByMakeList(
   makeName,
   userUniqueId,
   sessionId,
-  pageNumber
+  pageNumber,
 ) {
   headers = { ...headers, eventName: `BRAND_SELECTED ${makeName}`, userUniqueId: userUniqueId, sessionId: sessionId };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -320,7 +320,7 @@ export async function fetchByMakeList(
     `&userUniqueId=` +
     userUniqueId +
     `&pageNumber=` +
-    pageNumber;
+    pageNumber + `&sortBy=`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });

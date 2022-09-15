@@ -6,13 +6,19 @@ import QRCode from "react-qr-code";
 import Modal1 from "./Modal1";
 
 function VerifyFlowPopup({ open, setOpen }) {
-  const [qrValue, setQrValue] = useState();
+  const [qrValue1, setQrValue1] = useState(
+    "https://apps.apple.com/in/app/oruphones/id1629378420"
+  );
 
-  useEffect(() => {
-    getTinyUrl().then((response) => {
-      setQrValue(response?.dataObject?.tinyurl);
-    });
-  }, []);
+  const [qrValue2, setQrValue2] = useState(
+    "https://play.google.com/store/apps/details?id=com.oruphones.oru"
+  );
+
+  // useEffect(() => {
+  //   getTinyUrl().then((response) => {
+  //     setQrValue(response?.dataObject?.tinyurl);
+  //   });
+  // }, []);
 
   return (
     <Modal1 open={open} setOpen={setOpen}>
@@ -47,14 +53,29 @@ function VerifyFlowPopup({ open, setOpen }) {
                 phone to a new phone.
               </li>
             </ul>
-            <div className="flex space-x-4 pt-4 justify-between px-4">
-              <QRCode value={qrValue || ""} size={120} level={"H"} />
-              <div className="flex flex-col justify-center pl-8">
-                <a href={qrValue}>
+            <div className="flex space-x-6 pt-5 justify-center items-center px-7">
+              <div className="flex flex-col justify-center items-center space-y-3">
+                {/* <a href={qrValue1}>
+                  <p className="w-32 h-10 bg-appStore bg-no-repeat bg-contain" />
+                  </a>
+                  <a href={qrValue2}>
+                  <p className="w-32 mt-4 h-10 bg-playStore bg-no-repeat bg-contain" />
+                </a> */}
+                <QRCode value={qrValue1 || ""} size={120} level={"H"} />
+                <a href={qrValue1}>
                   <p className="w-32 h-10 bg-appStore bg-no-repeat bg-contain" />
                 </a>
-                <a href={qrValue}>
+              </div>
+              <div className="flex flex-col justify-center items-center space-y-3">
+                {/* <a href={qrValue1}>
+                  <p className="w-32 h-10 bg-appStore bg-no-repeat bg-contain" />
+                  </a>
+                  <a href={qrValue2}>
                   <p className="w-32 mt-4 h-10 bg-playStore bg-no-repeat bg-contain" />
+                </a> */}
+                <QRCode value={qrValue2 || ""} size={120} level={"H"} />
+                <a href={qrValue2}>
+                  <p className="w-32 h-10 bg-playStore bg-no-repeat bg-contain" />
                 </a>
               </div>
             </div>

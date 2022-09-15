@@ -13,6 +13,9 @@ function Favorites() {
   const { authenticated, loading } = useAuthState();
   const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState(true);
+  console.log("loading", loading);
+
   useEffect(() => {
     if (!loading && !authenticated) {
       router.push("/login");
@@ -23,6 +26,7 @@ function Favorites() {
     if (authenticated) {
       fetchMyFavorites(Cookies.get("userUniqueId")).then((response) => {
         setMyFavList(response?.dataObject);
+        setIsLoading(false);
       });
     }
   }, [authenticated]);
@@ -43,7 +47,7 @@ function Favorites() {
     <Fragment>
       <Header2 title="My Favorites" />
       <main className="px-4 py-4 flex flex-col space-y-6">
-        {myFavList && myFavList.length > 0 ? (
+        {myFavList && myFavList.length > 0 && (
           myFavList?.map((item, index) => (
             <FavListingTile
               data={{ ...item, favourite: true }}
@@ -51,16 +55,21 @@ function Favorites() {
               setProducts={setMyFavList}
             />
           ))
-        ) : (
+        )}
+
+        {(!myFavList || myFavList.length == 0) && !isLoading && (
           <div className="text-center h-60 flex items-center justify-center">
             Not Found Favourites
           </div>
-          // <div className="space-y-3">
-          //   <Spinner />
-          //   <div className="text-center">
-          //     Please wait, while we are fetching data for you...{" "}
-          //   </div>
-          // </div>
+        )}
+
+        {isLoading && !myFavList?.length > 0 && (
+          <div className="space-y-3">
+            <Spinner />
+            <div className="text-center">
+              Please wait, while we are fetching data for you...{" "}
+            </div>
+          </div>
         )}
       </main>
       {/* <Footer /> */}
