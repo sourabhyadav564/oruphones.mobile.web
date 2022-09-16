@@ -48,6 +48,7 @@ function ModelPage() {
         applySortFilter
       ).then(
         (response) => {
+          console.log("response", response);
           if (response.dataObject?.otherListings.length > -1) {
             setOtherListings(
               (response && response?.dataObject?.otherListings) || []
@@ -65,7 +66,7 @@ function ModelPage() {
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length) || 0
             );
           }
           setLoading(false);
@@ -113,7 +114,7 @@ function ModelPage() {
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length) || 0
             );
           }
           setLoading(false);
@@ -192,7 +193,7 @@ function ModelPage() {
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);
           // setBestDeals([]);
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
           setBestDeals(response?.dataObject?.bestDeals);
           // setLoading(false);
         });
@@ -259,9 +260,8 @@ function ModelPage() {
       {!loading &&
         isFinished == false && otherListings.length != totalProducts && (
           <span
-            className={`${
-              isLoadingMore ? "w-[250px]" : "w-[150px]"
-            } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+            className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
+              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
             onClick={loadMoreData}
           >
             <p className="block text-m-green font-semibold">

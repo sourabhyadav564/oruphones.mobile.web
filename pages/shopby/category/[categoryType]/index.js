@@ -67,7 +67,7 @@ function CategoryPage() {
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length) || 0
             );
           }
 
@@ -111,7 +111,7 @@ function CategoryPage() {
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length) || 0
             );
           }
 
@@ -191,7 +191,7 @@ function CategoryPage() {
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);
           // setBestDeals([]);
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
           setBestDeals(response?.dataObject?.bestDeals);
         });
       }
@@ -308,10 +308,10 @@ function CategoryPage() {
                 <div
                   key={item.listingId}
                   className="m-1.5"
-                  // onClick={() => {
-                  //   // setListingId(item.listingId);
-                  //   setProductsData(otherListings);
-                  // }}
+                // onClick={() => {
+                //   // setListingId(item.listingId);
+                //   setProductsData(otherListings);
+                // }}
                 >
                   <OtherListingCard
                     data={item}
@@ -330,9 +330,8 @@ function CategoryPage() {
         {!isLoading &&
           isFinished === false && otherListings.length != totalProducts && (
             <span
-              className={`${
-                isLoadingMore ? "w-[250px]" : "w-[150px]"
-              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
+                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
               <p className="block text-m-green font-semibold">

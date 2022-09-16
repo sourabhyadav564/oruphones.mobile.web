@@ -14,7 +14,7 @@ function PriceRangePage() {
   const router = useRouter();
   const { min, max } = router.query;
   const { selectedSearchCity } = useAuthState();
-  const [shopByPriceBestDeal, setShopByPriceBestDeal] = useState();
+  const [shopByPriceBestDeal, setShopByPriceBestDeal] = useState([]);
   const [shopByPriceOtherListings, setShopByPriceOtherListings] = useState([]);
   const [applyFilter, setApplyFilter] = useState();
   const [applySortFilter, setSortApplyFilter] = useState();
@@ -38,7 +38,7 @@ function PriceRangePage() {
         (response) => {
           setShopByPriceBestDeal(response?.dataObject?.bestDeals);
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
           setLoading(false);
         },
         (err) => console.error(err)
@@ -71,7 +71,7 @@ function PriceRangePage() {
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length) || 0
             );
           }
           // setShopByPriceOtherListings(response?.dataObject?.otherListings);
@@ -102,6 +102,7 @@ function PriceRangePage() {
           minsellingPrice: min,
           reqPage: "SBYP",
           make: [],
+          marketingName: [],
           color: [],
           deviceCondition: [],
           deviceRam: [],
@@ -135,8 +136,8 @@ function PriceRangePage() {
           pageNumber
         ).then((response) => {
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
-          setShopByPriceBestDeal([]);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
+          setShopByPriceBestDeal(response?.dataObject?.bestDeals);
           // setLoading(false);
         });
       }
@@ -177,7 +178,7 @@ function PriceRangePage() {
       {(isLoading || sortingProducts?.length > 0) && (
         <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
           {" "}
-          Other Listings ({sortingProducts?.length}){" "}
+          Other Listings ({totalProducts}){" "}
         </h2>
       )}
       {isLoading ? (
@@ -201,9 +202,7 @@ function PriceRangePage() {
       )}
 
       {!isLoading &&
-        sortingProducts &&
-        sortingProducts.length > 0 &&
-        isFinished == false && (
+        isFinished == false && shopByPriceOtherListings.length != totalProducts && (
           <span
             className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
               } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}

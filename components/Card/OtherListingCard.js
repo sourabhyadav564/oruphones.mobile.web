@@ -56,7 +56,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               ) : data?.status === "Sold_Out" ? <Image
                 src={sold_out}
                 width={"50"}
-                height={"50"}
+                height={"20"}
                 objectFit="contain"
               /> : <svg height={20} />}
               <span>

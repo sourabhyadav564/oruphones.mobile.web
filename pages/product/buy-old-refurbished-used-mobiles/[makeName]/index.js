@@ -68,7 +68,7 @@ function MakePage() {
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length) || 0
             );
           }
 
@@ -117,7 +117,7 @@ function MakePage() {
           }
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length) || 0
             );
           }
 
@@ -197,7 +197,7 @@ function MakePage() {
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);
           // setBestDeals([]);
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
           setBestDeals(response?.dataObject?.bestDeals);
         });
       }

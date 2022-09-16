@@ -47,7 +47,7 @@ function Bestdealnearyou() {
       ).then((response) => {
         setProducts(response?.dataObject?.otherListings);
         setBestDeal(response?.dataObject?.bestDeals);
-        setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
+        setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
         // setProductsData([
         //   ...response?.dataObject?.otherListings,
         //   ...response?.dataObject?.bestDeals,
@@ -86,7 +86,7 @@ function Bestdealnearyou() {
         }
 
         if (response?.dataObject?.totalProducts > -1) {
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
         }
         setLoading(false);
         setIsLoadingMore(false);
@@ -156,7 +156,7 @@ function Bestdealnearyou() {
         ).then((response) => {
           setProducts(response?.dataObject?.otherListings);
           // setBestDeal([]);
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
           setBestDeal(response?.dataObject?.bestDeals);
           // setLoading(false);
         });
@@ -217,9 +217,8 @@ function Bestdealnearyou() {
       {!isLoading &&
         isFinished == false && products.length != totalProducts && (
           <span
-            className={`${
-              isLoadingMore ? "w-[250px]" : "w-[150px]"
-            } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+            className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
+              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
             onClick={loadMoreData}
           >
             <p className="block text-m-green font-semibold">

@@ -9,11 +9,11 @@ import LoadingStatePopup from "./LoadingStatePopup";
 function ShopByPopup({ open, setOpen }) {
   const router = useRouter();
 
-  const [loadingState, setLoadingState] = useState(false);
+  // const [loadingState, setLoadingState] = useState(false);
 
-  useEffect(() => {
-    setLoadingState(false);
-  }, [router.pathname]);
+  // useEffect(() => {
+  //   setLoadingState(false);
+  // }, [router.pathname]);
 
   const priceRangeData = [
     {
@@ -65,7 +65,7 @@ function ShopByPopup({ open, setOpen }) {
             >
               <p
                 className="bg-gray-200 flex flex-col items-center justify center px-5 py-2 rounded-md hover:cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-300"
-                onClick={() => setLoadingState(true)}
+              // onClick={() => setLoadingState(true)}
               >
                 {item.bracket}{" "}
                 <span className="font-semibold">{item.text}</span>
@@ -74,7 +74,7 @@ function ShopByPopup({ open, setOpen }) {
           ))}
         </div>
       </Modal2>
-      <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
+      {/* <LoadingStatePopup open={loadingState} setOpen={setLoadingState} /> */}
     </>
   );
 }
