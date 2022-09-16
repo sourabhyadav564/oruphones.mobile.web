@@ -44,7 +44,8 @@ function ModelPage() {
         selectedSearchCity,
         modelName,
         Cookies.get("userUniqueId") || "Guest",
-        intialPage
+        intialPage,
+        applySortFilter
       ).then(
         (response) => {
           if (response.dataObject?.otherListings.length > -1) {
@@ -64,7 +65,7 @@ function ModelPage() {
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts) || 0
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
             );
           }
           setLoading(false);
@@ -86,7 +87,8 @@ function ModelPage() {
         selectedSearchCity,
         modelName,
         Cookies.get("userUniqueId") || "Guest",
-        newPages
+        newPages,
+        applySortFilter
       ).then(
         (response) => {
           if (response.dataObject?.otherListings.length > -1) {
@@ -109,9 +111,11 @@ function ModelPage() {
             setIsFinished(true);
           }
 
-          // if (response?.dataObject?.totalProducts > -1) {
-          //   setTotalProducts((response && response?.dataObject?.totalProducts) || 0);
-          // }
+          if (response?.dataObject?.totalProducts > -1) {
+            setTotalProducts(
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+            );
+          }
           setLoading(false);
           setIsLoadingMore(false);
         },
@@ -127,7 +131,7 @@ function ModelPage() {
     let intialPage = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [modelName, selectedSearchCity]);
+  }, [modelName, selectedSearchCity, applySortFilter]);
 
   useEffect(() => {
     if (applyFilter) {
@@ -158,6 +162,7 @@ function ModelPage() {
           maxsellingPrice: 200000,
           minsellingPrice: 0,
           verified: "",
+          warenty: [],
         };
         if (priceRange && priceRange.min && priceRange.max) {
           payLoad.minsellingPrice = priceRange.min;
@@ -187,6 +192,7 @@ function ModelPage() {
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);
           // setBestDeals([]);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
           setBestDeals(response?.dataObject?.bestDeals);
           // setLoading(false);
         });
@@ -251,9 +257,7 @@ function ModelPage() {
         !sortingProducts.length > 0 && <NoMatch />}
 
       {!loading &&
-        sortingProducts &&
-        sortingProducts.length > 0 &&
-        isFinished == false && (
+        isFinished == false && otherListings.length != totalProducts && (
           <span
             className={`${
               isLoadingMore ? "w-[250px]" : "w-[150px]"

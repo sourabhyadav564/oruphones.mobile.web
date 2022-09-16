@@ -4,7 +4,7 @@ import Modal1 from "./Modal1";
 
 function SortPopup({ openSort, setOpenSort, setSortApplyFilter }) {
 
-  const [range, setRange] = useState("Newest First");
+  const [range, setRange] = useState("Featured");
 
   function handleChange(data){
     console.log(data);
@@ -30,6 +30,7 @@ function SortPopup({ openSort, setOpenSort, setSortApplyFilter }) {
             <Button active={range === "Price - High to Low"} onClick={()=>handleChange("Price - High to Low")}> Price - High to Low </Button>
             <Button active={range === "Newest First"} onClick={()=>handleChange("Newest First")}> Newest First </Button>
             <Button active={range === "Oldest First"} onClick={()=>handleChange("Oldest First")}> Oldest First </Button>
+            <Button active={range === "Featured"} onClick={()=>handleChange("Featured")}> Featured </Button>
           </div>
         </div>
         <button className="uppercase bg-primary text-white w-full rounded text-sm py-2 my-2" onClick={submit}> Apply </button>

@@ -39,7 +39,6 @@ function MakePage() {
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
   // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
 
-  console.log("isLoading", isLoading);
 
   const loadData = (intialPage) => {
     if (makeName) {
@@ -48,7 +47,8 @@ function MakePage() {
         makeName,
         Cookies.get("userUniqueId") || "Guest",
         Cookies.get("sessionId") || "",
-        intialPage
+        intialPage,
+        applySortFilter
       ).then(
         (response) => {
           if (response.dataObject?.otherListings.length > -1) {
@@ -68,7 +68,7 @@ function MakePage() {
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts) || 0
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
             );
           }
 
@@ -92,7 +92,8 @@ function MakePage() {
         makeName,
         Cookies.get("userUniqueId") || "Guest",
         Cookies.get("sessionId") || "",
-        newPages
+        newPages,
+        applySortFilter
       ).then(
         (response) => {
           if (response.dataObject?.otherListings.length > -1) {
@@ -114,12 +115,11 @@ function MakePage() {
           if (response?.dataObject?.otherListings.length == 0) {
             setIsFinished(true);
           }
-
-          // if (response?.dataObject?.totalProducts > -1) {
-          //   setTotalProducts(
-          //     (response && response?.dataObject?.totalProducts) || 0
-          //   );
-          // }
+          if (response?.dataObject?.totalProducts > -1) {
+            setTotalProducts(
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+            );
+          }
 
           setLoading(false);
           setIsLoadingMore(false);
@@ -136,7 +136,7 @@ function MakePage() {
     let intialPage = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [makeName, selectedSearchCity]);
+  }, [makeName, selectedSearchCity, applySortFilter]);
 
   useEffect(() => {
     if (applyFilter) {
@@ -166,6 +166,7 @@ function MakePage() {
           maxsellingPrice: 200000,
           minsellingPrice: 0,
           verified: "",
+          warenty: [],
         };
 
         if (priceRange && priceRange.min && priceRange.max) {
@@ -196,6 +197,7 @@ function MakePage() {
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);
           // setBestDeals([]);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
           setBestDeals(response?.dataObject?.bestDeals);
         });
       }
@@ -331,10 +333,9 @@ function MakePage() {
           !(bestDeals.length > 0) &&
           sortingProducts &&
           !sortingProducts.length > 0 && <NoMatch />}
+
         {!isLoading &&
-          sortingProducts &&
-          sortingProducts.length > 0 &&
-          isFinished === false && (
+          isFinished === false && otherListings.length != totalProducts && (
             <span
               className={`${
                 isLoadingMore ? "w-[250px]" : "w-[150px]"

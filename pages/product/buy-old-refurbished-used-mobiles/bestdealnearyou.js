@@ -42,11 +42,12 @@ function Bestdealnearyou() {
       bestDealNearYouAll(
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
-        intialPage
+        intialPage,
+        applySortFilter
       ).then((response) => {
         setProducts(response?.dataObject?.otherListings);
         setBestDeal(response?.dataObject?.bestDeals);
-        setTotalProducts(response?.dataObject?.totalProducts);
+        setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
         // setProductsData([
         //   ...response?.dataObject?.otherListings,
         //   ...response?.dataObject?.bestDeals,
@@ -66,7 +67,8 @@ function Bestdealnearyou() {
       bestDealNearYouAll(
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
-        newPages
+        newPages,
+        applySortFilter
       ).then((response) => {
         setProducts((products) => [
           ...products,
@@ -82,6 +84,10 @@ function Bestdealnearyou() {
         if (response?.dataObject?.otherListings.length == 0) {
           setIsFinished(true);
         }
+
+        if (response?.dataObject?.totalProducts > -1) {
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
+        }
         setLoading(false);
         setIsLoadingMore(false);
       });
@@ -93,7 +99,7 @@ function Bestdealnearyou() {
     let intialPage = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [selectedSearchCity]);
+  }, [selectedSearchCity, applySortFilter]);
 
   useEffect(() => {
     if (applyFilter) {
@@ -118,6 +124,7 @@ function Bestdealnearyou() {
           maxsellingPrice: 200000,
           minsellingPrice: 0,
           verified: "",
+          warenty: [],
         };
         if (brand?.length > 0) {
           payLoad.make = brand.includes("all") ? [] : brand;
@@ -149,6 +156,7 @@ function Bestdealnearyou() {
         ).then((response) => {
           setProducts(response?.dataObject?.otherListings);
           // setBestDeal([]);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
           setBestDeal(response?.dataObject?.bestDeals);
           // setLoading(false);
         });
@@ -207,9 +215,7 @@ function Bestdealnearyou() {
         !sortingProducts.length > 0 && <NoMatch />}
 
       {!isLoading &&
-        sortingProducts &&
-        sortingProducts.length > 0 &&
-        isFinished == false && (
+        isFinished == false && products.length != totalProducts && (
           <span
             className={`${
               isLoadingMore ? "w-[250px]" : "w-[150px]"

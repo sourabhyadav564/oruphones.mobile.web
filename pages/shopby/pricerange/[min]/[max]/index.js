@@ -38,6 +38,7 @@ function PriceRangePage() {
         (response) => {
           setShopByPriceBestDeal(response?.dataObject?.bestDeals);
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
           setLoading(false);
         },
         (err) => console.error(err)
@@ -66,6 +67,12 @@ function PriceRangePage() {
 
           if (response?.dataObject?.otherListings.length == 0) {
             setIsFinished(true);
+          }
+
+          if (response?.dataObject?.totalProducts > -1) {
+            setTotalProducts(
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+            );
           }
           // setShopByPriceOtherListings(response?.dataObject?.otherListings);
           setLoading(false);
@@ -100,6 +107,7 @@ function PriceRangePage() {
           deviceRam: [],
           deviceStorage: [],
           verified: "",
+          warenty: [],
         };
         if (brand?.length > 0) {
           payLoad.make = brand.includes("all") ? [] : brand;
@@ -127,6 +135,7 @@ function PriceRangePage() {
           pageNumber
         ).then((response) => {
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
           setShopByPriceBestDeal([]);
           // setLoading(false);
         });

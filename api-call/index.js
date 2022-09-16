@@ -310,6 +310,7 @@ export async function fetchByMakeList(
   userUniqueId,
   sessionId,
   pageNumber,
+  sortBy,
 ) {
   headers = { ...headers, eventName: `BRAND_SELECTED ${makeName}`, userUniqueId: userUniqueId, sessionId: sessionId };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -321,7 +322,7 @@ export async function fetchByMakeList(
     `&userUniqueId=` +
     userUniqueId +
     `&pageNumber=` +
-    pageNumber + `&sortBy=NewestFirst`;
+    pageNumber + `&sortBy=` + sortBy;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
@@ -331,7 +332,8 @@ export async function fetchByMarketingName(
   location,
   marketingName,
   userUniqueId,
-  pageNumber
+  pageNumber,
+  sortBy,
 ) {
   headers = {
     ...headers,
@@ -346,7 +348,7 @@ export async function fetchByMarketingName(
     `&userUniqueId=` +
     userUniqueId +
     "&pageNumber=" +
-    pageNumber + `&sortBy=NewestFirst`;
+    pageNumber + `&sortBy=` + sortBy;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
@@ -440,7 +442,7 @@ export async function bestDealNearByYou(location, userUniqueId, pageNumber) {
     `&userUniqueId=` +
     userUniqueId +
     `&pageNumber=` +
-    pageNumber + `&sortBy=NewestFirst`;
+    pageNumber + `&sortBy=`;
   headers = { ...headers, eventName: "GET_BEST_DEALS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then(
@@ -527,7 +529,7 @@ export async function removeFavotie(listingId, userUniqueId) {
   );
 }
 
-export async function bestDealNearYouAll(location, userUniqueId, pageNumber) {
+export async function bestDealNearYouAll(location, userUniqueId, pageNumber, sortBy) {
   headers = { ...headers, eventName: "HOME_BESTDEAL_VIEW_ALL" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -536,7 +538,7 @@ export async function bestDealNearYouAll(location, userUniqueId, pageNumber) {
     `&userUniqueId=` +
     userUniqueId +
     `&pageNumber=` +
-    pageNumber + `&sortBy=NewestFirst`;
+    pageNumber + `&sortBy=` + sortBy;
   return await Axios.get(url, DEFAULT_HEADER).then(
     (response) => {
       return response.data;

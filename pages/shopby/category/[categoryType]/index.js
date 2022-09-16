@@ -67,7 +67,7 @@ function CategoryPage() {
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts) || 0
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
             );
           }
 
@@ -109,11 +109,11 @@ function CategoryPage() {
           //   // );
           // }
 
-          // if (response?.dataObject?.totalProducts > -1) {
-          //   setTotalProducts(
-          //     (response && response?.dataObject?.totalProducts) || 0
-          //   );
-          // }
+          if (response?.dataObject?.totalProducts > -1) {
+            setTotalProducts(
+              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals) || 0
+            );
+          }
 
           if (response?.dataObject?.otherListings.length == 0) {
             setIsFinished(true);
@@ -160,6 +160,7 @@ function CategoryPage() {
           maxsellingPrice: 200000,
           minsellingPrice: 0,
           verified: "",
+          warenty: [],
         };
 
         if (priceRange && priceRange.min && priceRange.max) {
@@ -190,6 +191,7 @@ function CategoryPage() {
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);
           // setBestDeals([]);
+          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals);
           setBestDeals(response?.dataObject?.bestDeals);
         });
       }
@@ -326,9 +328,7 @@ function CategoryPage() {
           sortingProducts &&
           !sortingProducts.length > 0 && <NoMatch />}
         {!isLoading &&
-          sortingProducts &&
-          sortingProducts.length > 0 &&
-          isFinished === false && (
+          isFinished === false && otherListings.length != totalProducts && (
             <span
               className={`${
                 isLoadingMore ? "w-[250px]" : "w-[150px]"
