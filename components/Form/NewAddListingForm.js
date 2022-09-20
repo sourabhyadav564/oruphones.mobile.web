@@ -24,7 +24,7 @@ import { numberWithCommas, numberFromString } from "@/utils/util";
 import ListingAdded from "../Popup/ListingAdded";
 import CB from "../Form/Checkbox";
 import ConditionInfo from "../Popup/ConditionInfo";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import LoginPopup from "../Popup/LoginPopup";
 import Link from "next/link";
 import TermsconditionPopup from "../Popup/TermsconditionPopup";
@@ -59,6 +59,8 @@ const NewAddListingForm = ({ data }) => {
     { value: "seven", label: "7-11 Months Ago" },
     { value: "more", label: "More Than 11 Months Ago" },
   ];
+
+  const router = useRouter();
 
   const [defaultBrand, setDefaultBrand] = useRecoilState(addListingBrandState);
   const [defaultModel, setDefaultModel] = useRecoilState(addListingModelState);
@@ -491,6 +493,13 @@ const NewAddListingForm = ({ data }) => {
       calculateDeviceCondition();
     questionIndex == deviceConditionQuestion.length - 1 && setPage(page + 1);
   };
+
+  useEffect(() => {
+    setModel("");
+    setMake("");
+    setDefaultModel("");
+    setDefaultBrand("");
+  }, [router.pathname]);
 
   return (
     <Fragment>

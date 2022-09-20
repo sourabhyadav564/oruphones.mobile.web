@@ -9,7 +9,7 @@ import { deviceConditionQuestion } from "@/utils/constant";
 import ConditionOptionLarge from "./Condition/ConditionOptionLarge";
 
 function ViewReport({ data, defaultOpen, setDefaultOpen }) {
-  if (!data?.verified || !data?.cosmetic) {
+  if (!data?.verified && !data?.cosmetic) {
     return null;
   }
 
@@ -33,9 +33,8 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
               >
                 <h2 className="text-gray-20 font-semibold">Device Report</h2>
                 <FiChevronDown
-                  className={`${
-                    open ? "transform rotate-180" : ""
-                  } w-5 h-5 text-gray-70`}
+                  className={`${open ? "transform rotate-180" : ""
+                    } w-5 h-5 text-gray-70`}
                 />
               </div>
             </Disclosure.Button>
@@ -43,9 +42,9 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
               <div className="">
                 {data && data?.cosmetic && (
                   <h2 className="text-gray-20 font-semibold mb-3">
-                  Device Cosmetic Report
-                </h2>
-                  )}
+                    Device Cosmetic Report
+                  </h2>
+                )}
                 {data && data?.cosmetic && (
                   <div>
                     {deviceConditionQuestion.map((item, index) => (

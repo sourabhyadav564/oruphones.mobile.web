@@ -32,10 +32,9 @@ function BottomNav() {
             <Link href="/">
               <a
                 aria-current="page"
-                className={`flex flex-col items-center   ${
-                  isActive("/") ? "text-primary" : ""
-                } `}
-                onClick={() => setLoadingState(true)}
+                className={`flex flex-col items-center   ${isActive("/") ? "text-primary" : ""
+                  } `}
+              // onClick={() => setLoadingState(true)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -55,9 +54,8 @@ function BottomNav() {
                       data-name="home"
                       d="M18,8.341l-10.5,8.4V28.5H15v-6h6v6h7.5V17.463a1.5,1.5,0,0,0-.563-1.171ZM18,4.5l11.811,9.45A4.5,4.5,0,0,1,31.5,17.462V28.5a3,3,0,0,1-3,3H7.5a3,3,0,0,1-3-3V16.741A3,3,0,0,1,5.625,14.4Z"
                       transform="translate(23.5 777.5)"
-                      fill={`${
-                        isActive("/") ? "#91d7c9" : "rgba(172, 172, 172)"
-                      } `}
+                      fill={`${isActive("/") ? "#91d7c9" : "rgba(172, 172, 172)"
+                        } `}
                     />
                   </g>
                 </svg>
@@ -66,10 +64,9 @@ function BottomNav() {
             </Link>
             <Link href="/user/listings">
               <a
-                className={`flex flex-col items-center ${
-                  isActive("/user/listings") ? "text-primary" : ""
-                } `}
-                onClick={() => setLoadingState(true)}
+                className={`flex flex-col items-center ${isActive("/user/listings") ? "text-primary" : ""
+                  } `}
+              // onClick={() => setLoadingState(true)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +93,7 @@ function BottomNav() {
                 >
                   <div
                     className="absolute bottom-0 p-4 rounded-full bg-primary"
-                    // style={{ boxShadow: "0 -5px 20px rgba(16, 203, 165, 0.3)" }}
+                  // style={{ boxShadow: "0 -5px 20px rgba(16, 203, 165, 0.3)" }}
                   >
                     <svg
                       width="24"
@@ -117,10 +114,9 @@ function BottomNav() {
             </Link>
             <Link href="/services">
               <a
-                className={`flex flex-col items-center ${
-                  isActive("/services") ? "text-primary" : " "
-                }`}
-                onClick={() => setLoadingState(true)}
+                className={`flex flex-col items-center ${isActive("/services") ? "text-primary" : " "
+                  }`}
+              // onClick={() => setLoadingState(true)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -141,10 +137,9 @@ function BottomNav() {
             <Link href="/user/profile"
             >
               <a
-                className={`flex flex-col items-center ${
-                  isActive("/user/profile") ? "text-primary" : " "
-                }`}
-                onClick={() => setLoadingState(true)}
+                className={`flex flex-col items-center ${isActive("/user/profile") ? "text-primary" : " "
+                  }`}
+              // onClick={() => setLoadingState(true)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
