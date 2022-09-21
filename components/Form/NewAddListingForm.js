@@ -342,6 +342,8 @@ const NewAddListingForm = ({ data }) => {
     }
   }, [storage]);
 
+  // console.log("deviceCosmeticQuestion", conditionResults);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     var sellValueTag = document.querySelector("#sellValue");
@@ -423,6 +425,7 @@ const NewAddListingForm = ({ data }) => {
           (item) => item?.fullImage && item.fullImage !== null
         ),
         model: model,
+        cosmetic: conditionResults,
       };
       saveLisiting(payload).then(
         () => {

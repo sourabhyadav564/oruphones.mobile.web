@@ -57,6 +57,18 @@ function NearByDealCard({ data, setProducts, prodLink }) {
               <h1 className="flex-1 truncate w-full capitalize font-semibold">
                 {data?.marketingName}
               </h1>
+              <div
+                className="flex flex-wrap justify-between my-1"
+                style={{ fontSize: 10 }}
+              >
+                {data?.deviceStorage && (
+                  <p className="mr-1">{data?.deviceStorage}</p>
+                )}
+                <p>
+                  <span>Condition : </span>
+                  <span>{data?.deviceCondition || "--"}</span>
+                </p>
+              </div>
               <p className="font-bold flex items-center text-black-4e">
                 {data?.listingPrice && <span className="mr-1">&#x20B9;</span>}
                 {numberWithCommas(data?.listingPrice || "")}

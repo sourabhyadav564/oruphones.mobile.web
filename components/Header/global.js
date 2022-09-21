@@ -39,7 +39,7 @@ function GlobalHeader() {
         <Link href="/">
           <a
             className="flex items-center"
-            onClick={() => setLoadingState(true)}
+            // onClick={() => setLoadingState(true)}
           >
             <Image
               src={logo}
@@ -56,33 +56,33 @@ function GlobalHeader() {
         router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]/[modelName]" ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/pricerange/[min]/[max]" ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou") && (
-        <div className="flex items-center cursor-pointer flex-shrink-0">
-          <div
-            className="flex justify-end items-center w-[110px] cursor-pointer space-x-4"
-            onClick={() => setOpenLocationPopup(true)}
-          >
-            <span className="truncate">{selectedSearchCity}</span>
-            <img src={location.src} width={12} height={15} />
-            {/* <img src={dropdown.src} width={12} height={12} /> */}
+          <div className="flex items-center cursor-pointer flex-shrink-0">
+            <div
+              className="flex justify-end items-center w-[110px] cursor-pointer space-x-4"
+              onClick={() => setOpenLocationPopup(true)}
+            >
+              <span className="truncate">{selectedSearchCity}</span>
+              <img src={location.src} width={12} height={15} />
+              {/* <img src={dropdown.src} width={12} height={12} /> */}
+            </div>
+            {router.pathname === "/" && authenticated && (
+              <Link href="/user/notification">
+                <a
+                  className="flex-shrink-0 ml-7 flex items-center"
+                  onClick={() => setLoadingState(true)}
+                >
+                  <Image
+                    src={bellDot}
+                    width={18}
+                    height={18}
+                    priority
+                    objectFit="contain"
+                  />
+                </a>
+              </Link>
+            )}
           </div>
-          {router.pathname === "/" && authenticated && (
-            <Link href="/user/notification">
-              <a
-                className="flex-shrink-0 ml-7 flex items-center"
-                onClick={() => setLoadingState(true)}
-              >
-                <Image
-                  src={bellDot}
-                  width={18}
-                  height={18}
-                  priority
-                  objectFit="contain"
-                />
-              </a>
-            </Link>
-          )}
-        </div>
-      )}
+        )}
       <LocationPopup open={openLocationPopup} setOpen={setOpenLocationPopup} />
       <Sidebar open={openSidebar} setOpen={setOpenSidebar} />
       <LocationPicker openLocationPopup={() => setOpenLocationPopup(true)} />
