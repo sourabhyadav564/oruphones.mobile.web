@@ -19,7 +19,7 @@ function SortPopup({ openSort, setOpenSort, setSortApplyFilter }) {
 
   return (
     <Modal1 open={openSort} setOpen={setOpenSort}>
-      <div className="bg-white p-6 pb-4 sm:p-6 sm:pb-4">
+      <div className="bg-white p-6 pb-14 sm:p-6 sm:pb-4">
         <div className="text-left sm:mt-0 sm:ml-4 sm:text-left text-black-4e">
           <Dialog.Title as="h1" className="text-lg leading-6 font-semibold ">
             Sort by
