@@ -52,28 +52,36 @@ function OTPVerification({
     validateUser(formData?.countryCode, formData?.mobile, otpInput).then(
       ({ status }) => {
         if (status === "SUCCESS") {
-          console.log("formData", formData);
           const countryCode = formData?.countryCode;
           const mobile = formData?.mobile;
-          createUser(countryCode, mobile).then(
-            (response) => {
-              if (response.status === "SUCCESS") {
-                addUserSearchandProfileLocations(
-                  response.dataObject.userUniqueId
-                );
-              }
-              Cookies.set("mobileNumber", formData?.mobile);
-              Cookies.set("countryCode", formData?.countryCode);
-              setLoading(false);
-              dispatch("REFRESH");
-              if (!fromAddListing) {
-                router.push("/");
-              } else {
-                setOpen(false);
-              }
-            },
-            (err) => console.error(err)
-          );
+          // createUser(countryCode, mobile).then(
+          //   (response) => {
+          //     if (response.status === "SUCCESS") {
+          //       addUserSearchandProfileLocations(
+          //         response.dataObject.userUniqueId
+          //       );
+          //     }
+          //     Cookies.set("mobileNumber", formData?.mobile);
+          //     Cookies.set("countryCode", formData?.countryCode);
+          //     setLoading(false);
+          //     dispatch("REFRESH");
+          //     if (!fromAddListing) {
+          //       router.push("/");
+          //     } else {
+          //       setOpen(false);
+          //     }
+          //   },
+          //   (err) => console.error(err)
+          // );
+          Cookies.set("mobileNumber", formData?.mobile);
+          Cookies.set("countryCode", formData?.countryCode);
+          setLoading(false);
+          dispatch("REFRESH");
+          if (!fromAddListing) {
+            router.push("/");
+          } else {
+            setOpen(false);
+          }
         } else {
           setError(true);
           setLoading(false);
