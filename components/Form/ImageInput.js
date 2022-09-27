@@ -12,9 +12,6 @@ function ImageInput({
   clearImage,
   ...rest
 }) {
-  console.log("index", index);
-  console.log("clickIndex", clickIndex);
-  console.log("preview", preview);
   return (
     <Fragment>
       {preview ? (

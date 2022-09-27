@@ -473,9 +473,6 @@ const NewAddListingForm = ({ data }) => {
     }
   };
 
-  console.log("questionIndex", questionIndex);
-  console.log("deviceCondition", deviceConditionQuestion.length - 1);
-
   const handleForward = () => {
     questionIndex in conditionResults
       ? setQuestionIndex(

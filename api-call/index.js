@@ -174,12 +174,12 @@ export async function getMakeModelLists(userUniqueId, sessionId) {
 export async function uploadImage(data, params) {
   const url = `${URI}/api/v1/device/uploadimage?deviceFace=${params.deviceFace}&deviceStorage=${params.deviceStorage}&make=${params.make}&model=${params.model}&userUniqueId=${params.userUniqueId}`;
 
-  headers = {
+  var header = {
     ...headers,
     eventName: "ADDLISTING_UPLOAD_PHOTOS_SUCCESS",
     "Content-Type": "multipart/form-data",
   };
-  const MULTIPART_HEADER = { headers: { ...headers } };
+  const MULTIPART_HEADER = { headers: { ...header } };
 
   return await Axios.post(url, data, MULTIPART_HEADER).then((response) => {
     return response.data;
