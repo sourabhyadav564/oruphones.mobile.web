@@ -312,7 +312,7 @@ const NewAddListingForm = ({ data }) => {
   }, [selectedBrand, selectedModel]);
 
   useEffect(() => {
-    if (storage) {
+    if (make && model && storage) {
       // setModelInfo();
       setIsGettingPrice(true);
       let payload = {

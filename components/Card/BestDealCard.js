@@ -92,7 +92,7 @@ function BestDealCard({
           </div>
         )} */}
 
-          {data?.verified && (
+          {(data?.verified && !(data?.status === "Sold_Out")) && (
             <div className="absolute h-8 -top-2 right-0 left-0 flex px-4 pb-1">
               <p className="flex items-center">
                 <Image src={verifiedIcon} width={60} height={30} />

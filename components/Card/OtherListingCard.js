@@ -51,14 +51,14 @@ function OtherListingCard({ data, setProducts, prodLink }) {
         >
           <div className="grid grid-cols-1">
             <div className="absolute px-2 flex z-30 items-center top-0 left-0 right-0 pt-1 justify-between w-full">
-              {(!(data?.isOtherVendor === "Y") && data?.verified) ? (
-                <VerifiedIcon width={45} height={22} />
-              ) : data?.status === "Sold_Out" ? <Image
+              {data?.status === "Sold_Out" ? <Image
                 src={sold_out}
                 width={"50"}
                 height={"20"}
                 objectFit="contain"
-              /> : <svg height={20} />}
+              /> : (!(data?.isOtherVendor === "Y") && data?.verified) ? (
+                <VerifiedIcon width={45} height={22} />
+              ) : <svg height={20} />}
               <span>
                 {!(data?.isOtherVendor === "Y") && (
                   <AddFav data={data} setProducts={setProducts} />
