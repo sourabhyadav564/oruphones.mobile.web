@@ -31,14 +31,14 @@ function NearByDealCard({ data, setProducts, prodLink }) {
           <div className="grid grid-cols-1 relative">
             <div className="absolute right-0 flex justify-between items-center w-full z-20">
               <span>
-              {data?.status === "Sold_Out" ? <Image
-                src={sold_out}
-                width={"50"}
-                height={"20"}
-                objectFit="contain"
-              /> : (!(data?.isOtherVendor === "Y") && data?.verified) ? (
-                <VerifiedIcon width={45} height={22} />
-              ) : <svg height={20} />}
+                {data?.status === "Sold_Out" ? <Image
+                  src={sold_out}
+                  width={"50"}
+                  height={"20"}
+                  objectFit="contain"
+                /> : (!(data?.isOtherVendor === "Y") && data?.verified) ? (
+                  <VerifiedIcon width={45} height={22} />
+                ) : <svg height={20} width={20} />}
               </span>
               {data?.isOtherVendor === "N" && (
                 <AddFav data={data} setProducts={setProducts} />

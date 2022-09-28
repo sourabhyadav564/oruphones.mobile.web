@@ -33,12 +33,13 @@ function PriceRangePage() {
         selectedSearchCity,
         min,
         Cookies.get("userUniqueId") || "Guest",
-        intialPage
+        intialPage,
+        applySortFilter
       ).then(
         (response) => {
           setShopByPriceBestDeal(response?.dataObject?.bestDeals);
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
+          setTotalProducts(response?.dataObject?.totalProducts);
           setLoading(false);
         },
         (err) => console.error(err)
@@ -57,7 +58,8 @@ function PriceRangePage() {
         selectedSearchCity,
         min,
         Cookies.get("userUniqueId") || "Guest",
-        newPages
+        newPages,
+        applySortFilter
       ).then(
         (response) => {
           setShopByPriceOtherListings((products) => [
@@ -71,7 +73,7 @@ function PriceRangePage() {
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
-              (response && response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length) || 0
+              (response && response?.dataObject?.totalProducts) || 0
             );
           }
           // setShopByPriceOtherListings(response?.dataObject?.otherListings);
@@ -136,7 +138,7 @@ function PriceRangePage() {
           pageNumber
         ).then((response) => {
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
+          setTotalProducts(response?.dataObject?.totalProducts);
           setShopByPriceBestDeal(response?.dataObject?.bestDeals);
           // setLoading(false);
         });

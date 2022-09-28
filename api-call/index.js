@@ -415,7 +415,8 @@ export async function shopByPriceRange(
   location,
   minPrice,
   listingid,
-  pageNumber
+  pageNumber,
+  sortBy,
 ) {
   const url =
     `${URI}/api/v1/home/shopbyprice/listmodel?end=` +
@@ -427,7 +428,7 @@ export async function shopByPriceRange(
     `&userUniqueId=` +
     listingid +
     `&pageNumber=` +
-    pageNumber;
+    pageNumber + `&sortBy=` + sortBy;
   headers = { ...headers, eventName: "GET_BEST_DEALS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -435,14 +436,14 @@ export async function shopByPriceRange(
   });
 }
 
-export async function bestDealNearByYou(location, userUniqueId, pageNumber) {
+export async function bestDealNearByYou(location, userUniqueId, pageNumber, sortBy) {
   const url =
     `${URI}/api/v1/home/listings/best/nearme?location=` +
     location +
     `&userUniqueId=` +
     userUniqueId +
     `&pageNumber=` +
-    pageNumber + `&sortBy=`;
+    pageNumber + `&sortBy=` + sortBy;
   headers = { ...headers, eventName: "GET_BEST_DEALS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then(
@@ -796,7 +797,7 @@ export function fetchTopArticles() {
   );
 }
 
-export function shopByCategory(location, category, userUniqueId, pageNumber) {
+export function shopByCategory(location, category, userUniqueId, pageNumber, sortBy) {
   const API_ENDPOINT =
     URI +
     `/api/v1/home/listings/category?location=` +
@@ -806,7 +807,7 @@ export function shopByCategory(location, category, userUniqueId, pageNumber) {
     `&pageNumber=` +
     pageNumber +
     `&userUniqueId=` +
-    userUniqueId;
+    userUniqueId + `&sortBy=` + sortBy;
   headers = { ...headers, eventName: "FETCH_TOP_ARTICLES" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(

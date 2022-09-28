@@ -47,7 +47,7 @@ function Bestdealnearyou() {
       ).then((response) => {
         setProducts(response?.dataObject?.otherListings);
         setBestDeal(response?.dataObject?.bestDeals);
-        setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
+        setTotalProducts(response?.dataObject?.totalProducts);
         // setProductsData([
         //   ...response?.dataObject?.otherListings,
         //   ...response?.dataObject?.bestDeals,
@@ -86,7 +86,7 @@ function Bestdealnearyou() {
         }
 
         if (response?.dataObject?.totalProducts > -1) {
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
+          setTotalProducts(response?.dataObject?.totalProducts);
         }
         setLoading(false);
         setIsLoadingMore(false);
@@ -156,7 +156,7 @@ function Bestdealnearyou() {
         ).then((response) => {
           setProducts(response?.dataObject?.otherListings);
           // setBestDeal([]);
-          setTotalProducts(response?.dataObject?.totalProducts - response?.dataObject?.bestDeals.length);
+          setTotalProducts(response?.dataObject?.totalProducts);
           setBestDeal(response?.dataObject?.bestDeals);
           // setLoading(false);
         });

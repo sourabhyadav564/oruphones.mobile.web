@@ -8,6 +8,8 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import LocationPopup from "../Popup/LocationPopup";
 import { useRouter } from "next/router";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
+import SortPopup from "../Popup/SortPopup";
+import { BiSortAlt2 } from "react-icons/bi";
 
 function TopDealNearBy({ selectedSearchCity, loading }) {
   const router = useRouter();
@@ -21,6 +23,8 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
   const [isFinished, setIsFinished] = useState(false);
 
   const [loadingState, setLoadingState] = useState(false);
+  const [openSort, setOpenSort] = useState(false);
+  const [applySortFilter, setSortApplyFilter] = useState();
 
   useEffect(() => {
     setLoadingState(false);
@@ -31,7 +35,8 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
       bestDealNearByYou(
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
-        initialPage
+        initialPage,
+        applySortFilter,
       ).then((response) => {
         // setBestDealsLength(response?.dataObject?.bestDeals.length);
         setBestDeals([
@@ -51,7 +56,8 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
       bestDealNearByYou(
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
-        newPages
+        newPages,
+        applySortFilter
       ).then((response) => {
         // setBestDealsLength(response?.dataObject?.bestDeals.length);
         setBestDeals((products) => [
@@ -73,22 +79,31 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
     let intialPage = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [loading, selectedSearchCity]);
+  }, [loading, selectedSearchCity, applySortFilter]);
 
   return (
     <section className="px-3 text-sm text-gray-70">
-      <div className="flex items-center justify-start space-x-2">
+      <div className="flex items-center justify-start space-x-2 ">
         <h1 className="mt-3 mb-2 font-semibold text-base">
           Best Deals Near You
         </h1>
-        <div
-          className="flex items-center justify-center space-x-2"
-          onClick={() => setOpenLocationPopup(true)}
-        >
-          <span className="mt-3 mb-2 font-bold text-base text-blue-500 underline">
-            {selectedSearchCity}
+        <div className="flex flex-1 items-center justify-between">
+          <div
+            className="flex items-center justify-center space-x-2"
+            onClick={() => setOpenLocationPopup(true)}
+          >
+            <span className="mt-3 mb-2 font-bold text-base text-blue-500 underline truncate w-20">
+              {selectedSearchCity}
+            </span>
+            {/* <FaMapMarkerAlt className="text-[#00a483] h-4 w-4 mt-1" /> */}
+          </div>
+          <span className="">
+            {(
+              <span className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
+                Sort <BiSortAlt2 className="ml-1" />
+              </span>
+            )}
           </span>
-          {/* <FaMapMarkerAlt className="text-[#00a483] h-4 w-4 mt-1" /> */}
         </div>
       </div>
       <div className="grid grid-cols-2 -mx-1.5 py-3">
@@ -103,13 +118,13 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
               <NearByDealCard data={item} prodLink setProducts={setBestDeals} />
             </div>
           ))) || (
-          <div className="space-y-3 col-span-2">
-            <Spinner />
-            <div className="text-center">
-              Please wait, while we are fetching data for you...{" "}
+            <div className="space-y-3 col-span-2">
+              <Spinner />
+              <div className="text-center">
+                Please wait, while we are fetching data for you...{" "}
+              </div>
             </div>
-          </div>
-        )}
+          )}
         {bestDealsLength > 0 && (
           <div className="h-full m-1.5">
             <NearByDealCard data={{ make: "Show all" }} />
@@ -118,9 +133,8 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
       </div>
       {!isLoading && isFinished === false && (
         <span
-          className={`${
-            isLoadingMore ? "w-[250px]" : "w-[150px]"
-          } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer`}
+          className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
+            } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer`}
           onClick={loadMoreData}
         >
           <p className="block text-m-green font-semibold">
@@ -130,6 +144,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
       )}
       <LocationPopup open={openLocationPopup} setOpen={setOpenLocationPopup} />
       <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
+      <SortPopup setSortApplyFilter={setSortApplyFilter} openSort={openSort} setOpenSort={setOpenSort} />
     </section>
   );
 }
