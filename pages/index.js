@@ -65,13 +65,13 @@ export default function Home({
       setTopsellingmodels(topSellingModels);
     }
 
-    if (fetchTopArticles.length === 0) {
-      setTopArticles(JSON.parse(localStorage.getItem("top_articles")));
-    } else {
-      localStorage.setItem("top_articles", JSON.stringify(fetchTopArticles));
-      Cookies.set("top_articles", true);
-      setTopArticles(fetchTopArticles);
-    }
+    // if (fetchTopArticles.length === 0) {
+    //   setTopArticles(JSON.parse(localStorage.getItem("top_articles")));
+    // } else {
+    //   localStorage.setItem("top_articles", JSON.stringify(fetchTopArticles));
+    //   Cookies.set("top_articles", true);
+    //   setTopArticles(fetchTopArticles);
+    // }
 
     if (make_models) {
       // setBrands(JSON.parse(localStorage.getItem("make_models")));
@@ -113,7 +113,7 @@ export default function Home({
             loading={loading}
           />
           {/* <ShopByPrice fetchShopByPrice={fetchShopByPrice} /> */}
-          <TopArticles articles={topArticles} />
+          {/* <TopArticles articles={topArticles} /> */}
           <HomeContent />
         </main>
         <Footer />
@@ -165,13 +165,13 @@ export const getServerSideProps = async ({ req, res, query }) => {
     topsellingmodels = data?.dataObject;
   }
 
-  let topArticles;
-  if (top_articles) {
-    topArticles = [];
-  } else {
-    const data = await fetchTopArticles();
-    topArticles = data?.dataObject;
-  }
+  // let topArticles;
+  // if (top_articles) {
+  //   topArticles = [];
+  // } else {
+  //   const data = await fetchTopArticles();
+  //   topArticles = data?.dataObject;
+  // }
 
   // return {
   //   props: {
@@ -188,7 +188,7 @@ export const getServerSideProps = async ({ req, res, query }) => {
       topSellingModels: topsellingmodels || [],
       // fetchShopByPrice: fetchShopByPrice?.dataObject || [],
       sessionId: sessionID,
-      fetchTopArticles: topArticles || [],
+      // fetchTopArticles: topArticles || [],
     },
   };
 };
