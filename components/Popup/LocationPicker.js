@@ -128,23 +128,23 @@ function LocationPicker({ openLocationPopup }) {
 
   return (
     <Transition.Root show={open}>
-      <Dialog as="section" className="fixed inset-0 z-50 bg-white container text-black py-4" initialFocus={cancelButtonRef} onClose={setOpen}>
-        <div className="flex flex-col justify-center items-center space-y-8 pt-8 max-w-sm">
-          <div className="w-full flex justify-center">
+      <Dialog as="section" className="fixed top-40 z-50 bg-white container text-black py-4 " initialFocus={cancelButtonRef} onClose={setOpen}>
+        <div className="flex flex-col bg-white shadow-2xl justify-center items-center space-y-8 py-8 max-w-sm rounded-2xl">
+          {/* <div className="w-40 flex justify-center">
             <Image src={Logo} alt={"Logo"} width={79} height={30} />
-          </div>
-          <div className="w-full flex justify-center ">
+          </div> */}
+          {/* <div className="w-full flex justify-center ">
             <Image src={MapIcon} alt={"MAP"} width={219} height={116} />
-          </div>
+          </div> */}
           <div className="text-center space-y-4 px-4">
             <h1 className="text-xl">Where do you want to buy/sell products?</h1>
-            <p className="text-sm">to enjoy all that ORUPhones has to offer you, we need to know where to look for them</p>
+            <p className="text-sm">to enjoy all that ORUphones has to offer you, we need to know where to look for them</p>
           </div>
-          <div className="text-center space-y-5 w-full px-4">
+          <div className="text-center space-y-5 w-full px-8">
             <button className="uppercase font-semibold bg-primary text-white p-2 w-full rounded" onClick={handleNearme}>
               Near me
             </button>
-            <button
+            {/* <button
               className="underline text-primary"
               onClick={() => {
                 setOpen(false);
@@ -152,6 +152,12 @@ function LocationPicker({ openLocationPopup }) {
               }}
             >
               Other address
+            </button> */}
+            <button className="underline text-primary"
+              onClick={() => {
+                setOpen(false)
+              }}>
+              Close
             </button>
           </div>
         </div>

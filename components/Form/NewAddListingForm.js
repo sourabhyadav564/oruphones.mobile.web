@@ -7,7 +7,7 @@ import chargingImg from "@/assets/charging-station.png";
 import headphoneImg from "@/assets/headphones-line.png";
 import originalBoxImg from "@/assets/box.png";
 import originalBillImg from "@/assets/original-bill.png";
-
+import { BiCurrentLocation } from "react-icons/bi";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
 import Input from "./Input";
@@ -49,6 +49,9 @@ import { toast } from "react-toastify";
 import StorageInfo from "../Popup/StorageInfo";
 import Loader from "../Loader/Loader";
 import Spinner from "../Loader/Spinner";
+import Geocode from "react-geocode";
+import Cookies from "js-cookie";
+import { getCityFromResponse } from "@/utils/util";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -343,6 +346,109 @@ const NewAddListingForm = ({ data }) => {
   }, [storage]);
 
   // console.log("deviceCosmeticQuestion", conditionResults);
+
+  const [location, setLocation] = useState({
+    loaded: false,
+    city: "",
+  });
+
+  const handleNearme = async (e) => {
+    e.preventDefault();
+    if (!("geolocation" in navigator)) {
+      onError({
+        code: 0,
+        message: "Geolocation not supported",
+      });
+    }
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+  };
+
+  const onSuccess = async (location) => {
+    let lat = location.coords.latitude;
+    let lng = location.coords.longitude;
+    Geocode.setApiKey("AIzaSyAh6-hbxmUdNaznjA9c05kXi65Vw3xBl3w");
+
+    Geocode.setLanguage("en");
+    // Geocode.setRegion("es");
+    // Geocode.setLocationType("ROOFTOP");
+    Geocode.enableDebug();
+    // Get address from latitude & longitude.
+    Geocode.fromLatLng(lat, lng).then(
+      (response) => {
+        let address = response?.plus_code?.compound_code;
+        address = getCityFromResponse(address);
+        setLocation({
+          loaded: true,
+          city: address,
+        });
+        setSelectedCity(address);
+        // setOpen(false);
+      },
+      (error) => {
+        console.error(error);
+        setLocation({
+          loaded: true,
+          city: "India",
+        });
+        setSelectedCity("India");
+        // setOpen(false);
+      }
+    );
+  };
+
+  const onError = (error) => {
+    // alert(error.message);
+    setLocation({
+      loaded: true,
+      city: "India",
+    });
+    setOpen(false);
+  };
+
+  const options = {
+    enableHighAccuracy: false,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+
+  // useEffect(() => {
+  //   const initialState = localStorage.getItem("usedLocation");
+  //   if (!initialState || initialState == null) {
+  //     setOpen(true);
+  //   } else {
+  //     dispatch("ADDCITY", initialState);
+  //   }
+  // }, [])
+
+  useEffect(() => {
+    if (location.loaded && location.city && location.city.length > 0) {
+      if (authenticated && user) {
+        let searchID = 0;
+        let searchLocId = user?.address?.filter((items) => {
+          return items.addressType === "SearchLocation";
+        });
+        if (searchLocId) {
+          searchID = searchLocId[0]?.locationId;
+        }
+        let payLoad = {
+          city: location.city,
+          country: "India",
+          state: "",
+          locationId: searchID,
+          userUniqueId: Cookies.get("userUniqueId"),
+        };
+        // updateAddress(payLoad).then((res) => {
+        //   const mobileNumber = Cookies.get("mobileNumber");
+        //   const countryCode = Cookies.get("countryCode");
+        //   getUserDetails(countryCode, mobileNumber).then((resp) => {
+        //     dispatch("LOGIN", resp.dataObject);
+        //   });
+        // });
+      }
+      dispatch("ADDCITY", location.city);
+      localStorage.setItem("usedLocation", location.city);
+    }
+  }, [location]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -977,23 +1083,29 @@ const NewAddListingForm = ({ data }) => {
               )}
             </div>
             <div>
-              <MySelect
-                labelName="Location*"
-                placeholder={selectedCity}
-                className={`${locationRequired} mt-4`}
-                onFocus={(e) => {
-                  setLocationRequired("");
-                }}
-                onChange={(e) => {
-                  setSelectedCity(e.value);
-                }}
-                options={globalCities
-                  ?.sort((a, b) => a.city.localeCompare(b.city))
-                  // ?.filter((item) => item.displayWithImage != "1")
-                  .map((items) => {
-                    return { label: items.city, value: items.city };
-                  })}
-              />
+              <div className="flex flex-row w-full justify-center items-center mt-4">
+                <MySelect
+                  labelName="Location*"
+                  placeholder={selectedCity}
+                  className={`${locationRequired}`}
+                  onFocus={(e) => {
+                    setLocationRequired("");
+                  }}
+                  onChange={(e) => {
+                    setSelectedCity(e.value);
+                  }}
+                  options={globalCities
+                    ?.sort((a, b) => a.city.localeCompare(b.city))
+                    // ?.filter((item) => item.displayWithImage != "1")
+                    .map((items) => {
+                      return { label: items.city, value: items.city };
+                    })}
+                />
+                <div className="h-14 w-16 bg-gray-200 rounded-r-lg inline-flex justify-center items-center hover:cursor-pointer"
+                  onClick={handleNearme}>
+                  <BiCurrentLocation size={24} />
+                </div>
+              </div>
               {locationRequired && (
                 <p className="text-sm whitespace-nowrap cursor-pointer text-red">
                   Please select this field

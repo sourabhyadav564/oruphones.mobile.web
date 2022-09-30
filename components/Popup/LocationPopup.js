@@ -6,13 +6,23 @@ import Modal1 from "./Modal1";
 import { getGlobalCities, updateAddress, getUserDetails } from "api-call";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
+import { BiCurrentLocation } from "react-icons/bi";
+import LocationPicker from "../Popup/LocationPicker";
+import Geocode from "react-geocode";
+import { getCityFromResponse } from "@/utils/util";
 
 function LocationPopup({ open, setOpen }) {
+  const [openLocationPopup, setOpenLocationPopup] = useState(false);
   const [globalCities, setGlobalCities] = useState();
   const selectedCity = useRef();
   const [searchLocationID, setSearchLocationID] = useState();
-  const { user } = useAuthState();
+  const { user, authenticated } = useAuthState();
   const dispatch = useAuthDispatch();
+
+  const [location, setLocation] = useState({
+    loaded: false,
+    city: "",
+  });
 
   useEffect(() => {
     if (
@@ -61,6 +71,102 @@ function LocationPopup({ open, setOpen }) {
     setOpen(false);
   }
 
+  const handleNearme = async (e) => {
+    e.preventDefault();
+    if (!("geolocation" in navigator)) {
+      onError({
+        code: 0,
+        message: "Geolocation not supported",
+      });
+    }
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+  };
+
+  const onSuccess = async (location) => {
+    let lat = location.coords.latitude;
+    let lng = location.coords.longitude;
+    Geocode.setApiKey("AIzaSyAh6-hbxmUdNaznjA9c05kXi65Vw3xBl3w");
+
+    Geocode.setLanguage("en");
+    // Geocode.setRegion("es");
+    // Geocode.setLocationType("ROOFTOP");
+    Geocode.enableDebug();
+    // Get address from latitude & longitude.
+    Geocode.fromLatLng(lat, lng).then(
+      (response) => {
+        let address = response?.plus_code?.compound_code;
+        address = getCityFromResponse(address);
+        setLocation({
+          loaded: true,
+          city: address,
+        });
+        setOpen(false);
+      },
+      (error) => {
+        console.error(error);
+        setLocation({
+          loaded: true,
+          city: "India",
+        });
+        setOpen(false);
+      }
+    );
+  };
+
+  const onError = (error) => {
+    // alert(error.message);
+    setLocation({
+      loaded: true,
+      city: "India",
+    });
+    setOpen(false);
+  };
+
+  const options = {
+    enableHighAccuracy: false,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+
+  // useEffect(() => {
+  //   const initialState = localStorage.getItem("usedLocation");
+  //   if (!initialState || initialState == null) {
+  //     setOpen(true);
+  //   } else {
+  //     dispatch("ADDCITY", initialState);
+  //   }
+  // }, [])
+
+  useEffect(() => {
+    if (location.loaded && location.city && location.city.length > 0) {
+      if (authenticated && user) {
+        let searchID = 0;
+        let searchLocId = user?.address?.filter((items) => {
+          return items.addressType === "SearchLocation";
+        });
+        if (searchLocId) {
+          searchID = searchLocId[0]?.locationId;
+        }
+        let payLoad = {
+          city: location.city,
+          country: "India",
+          state: "",
+          locationId: searchID,
+          userUniqueId: Cookies.get("userUniqueId"),
+        };
+        // updateAddress(payLoad).then((res) => {
+        //   const mobileNumber = Cookies.get("mobileNumber");
+        //   const countryCode = Cookies.get("countryCode");
+        //   getUserDetails(countryCode, mobileNumber).then((resp) => {
+        //     dispatch("LOGIN", resp.dataObject);
+        //   });
+        // });
+      }
+      dispatch("ADDCITY", location.city);
+      localStorage.setItem("usedLocation", location.city);
+    }
+  }, [location]);
+
   useEffect(() => {
     let searchID = searchLocationID;
     let searchLocId = user?.address?.filter((items) => {
@@ -93,6 +199,11 @@ function LocationPopup({ open, setOpen }) {
                   return { label: items.city, value: items.city };
                 })}
             />
+            <div onClick={handleNearme}>
+              <p className="text-m text-gray-4e flex font-bold justify-center pt-2">
+                <BiCurrentLocation className="h-5 w-5" />Use Current Location
+              </p>
+            </div>
             <span className="block text-base w-full text-center">or</span>
             <div
               className="grid grid-cols-3 text-center -mx-1"
@@ -104,9 +215,8 @@ function LocationPopup({ open, setOpen }) {
                   // .slice(0, 9)
                   .map((items) => (
                     <div
-                      className={`border rounded px-0 py-2 m-1 ${
-                        selectedCity.current === items.city && "border-primary"
-                      }`}
+                      className={`border rounded px-0 py-2 m-1 ${selectedCity.current === items.city && "border-primary"
+                        }`}
                       key={items.city}
                       onClick={() => handleCityChange(items.city)}
                     >
@@ -128,7 +238,8 @@ function LocationPopup({ open, setOpen }) {
           </form>
         </div>
       </div>
-    </Modal1>
+      <LocationPicker openLocationPopup={() => setOpenLocationPopup(true)} />
+    </Modal1 >
   );
 }
 
@@ -136,9 +247,8 @@ export default LocationPopup;
 
 const Button = ({ children, active, ...rest }) => (
   <p
-    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${
-      active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"
-    }`}
+    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"
+      }`}
     {...rest}
   >
     {children}
