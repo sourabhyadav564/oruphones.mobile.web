@@ -103,17 +103,17 @@ const TopCarousel = () => {
                   />
                 </div>
                 <div
-                  className="absolute left-0 right-0 bottom-3 flex justify-center"
+                  className="absolute left-0 right-0 bottom-4 flex justify-center"
                   style={{ fontSize: 10 }}
                 >
                   <Link href="/sell-old-refurbished-used-mobiles/add">
-                    <a className="rounded-md bg-yellow-300 px-3 py-2 mr-8 font-bold text-[11px]">
-                      Sell Now +
+                    <a className="rounded-lg bg-yellow-300 px-5 py-2.5 mr-8 font-bold text-[12px]">
+                      Sell Phone
                     </a>
                   </Link>
                   <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
                     <a
-                      className="rounded-md bg-gray-200 px-3 py-2 ml-8 font-bold text-[11px]"
+                      className="rounded-lg bg-gray-200 px-5 py-2.5 ml-8 font-bold text-[12px]"
                       onClick={() => setLoadingState(true)}
                     >
                       Buy Phone
