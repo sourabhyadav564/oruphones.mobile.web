@@ -92,13 +92,13 @@ function BottomNav() {
                   onClick={() => setLoadingState(true)}
                 >
                   <div
-                    className="absolute bottom-0 p-4 rounded-full bg-primary"
+                    className="absolute bottom-0 p-4 rounded-full bg-[#f9c414]"
                   // style={{ boxShadow: "0 -5px 20px rgba(16, 203, 165, 0.3)" }}
                   >
                     <svg
                       width="24"
                       height="24"
-                      fill="currentColor"
+                      fill="primary"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -109,7 +109,7 @@ function BottomNav() {
                     </svg>
                   </div>
                 </a>
-                <span className="mt-1">Sell Now</span>
+                <span className="mt-1">Sell Now </span>
               </div>
             </Link>
             <Link href="/services">

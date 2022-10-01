@@ -1087,6 +1087,7 @@ const NewAddListingForm = ({ data }) => {
                 <MySelect
                   labelName="Location*"
                   placeholder={selectedCity}
+                  value={selectedCity}
                   className={`${locationRequired}`}
                   onFocus={(e) => {
                     setLocationRequired("");

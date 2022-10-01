@@ -200,7 +200,7 @@ function CategoryPage() {
     }
   }, [applyFilter]);
 
-  const sortingProducts = getSortedProducts(applySortFilter, otherListings);
+  // const sortingProducts = getSortedProducts(applySortFilter, otherListings);
 
   useEffect(() => {
     switch (categoryType) {
@@ -295,7 +295,7 @@ function CategoryPage() {
           )
         )}
 
-        {(isLoading || (sortingProducts && sortingProducts.length > 0)) && (
+        {(isLoading || (otherListings && otherListings.length > 0)) && (
           <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
             Other Listings ({totalProducts})
           </h2>
@@ -305,8 +305,8 @@ function CategoryPage() {
           <Loader />
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
-            {sortingProducts &&
-              sortingProducts?.map((item) => (
+            {otherListings &&
+              otherListings?.map((item) => (
                 <div
                   key={item.listingId}
                   className="m-1.5"
