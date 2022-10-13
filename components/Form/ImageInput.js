@@ -16,9 +16,8 @@ function ImageInput({
     <Fragment>
       {preview ? (
         <label
-          className="p-4 w-full h-28 rounded appearance-none flex items-center justify-center relative"
+          className=" w-full h-28  rounded appearance-none flex items-center justify-center relative"
           style={{
-            border: "1px solid rgba(0, 0, 0, 0.12)",
             color: "rgba(0, 0, 0, 0.6)",
           }}
         >
@@ -26,20 +25,19 @@ function ImageInput({
             <img src={preview} style={{ width: "auto", height: "100%" }} />
           </div>
           <GrClose
-            className="absolute top-2 right-2 text-sm cursor-pointer"
+            className="absolute -top-2 right-2 text-sm cursor-pointer"
             onClick={clearImage}
           />
         </label>
       ) : (
         <label
           htmlFor={name}
-          className="p-4 w-full  h-16 rounded appearance-none flex items-center justify-center"
+          className=" w-full h-16 appearance-none flex my-5 -mt-2 items-center justify-center"
           style={{
-            border: "1px solid rgba(0, 0, 0, 0.12)",
             color: "rgba(0, 0, 0, 0.6)",
           }}
         >
-          {clickIndex === index ? <Loader /> : <span> + </span>}
+          {clickIndex === index ? <Loader /> : <span className="text-[40px] opacity-50 font-Light"> + </span>}
           <input name={name} className={`hidden`} id={name} {...rest} />
         </label>
       )}

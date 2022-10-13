@@ -100,12 +100,13 @@ export default function Home({
         <meta property="og:description" content={metaTags.HOME.description} />
       </Head>
       <Fragment>
-        <Header1 />
+        <Header1 />     {/* this is search bar element */}
         <main>
+          <TopBrand brandsList={brands} />
           <TopCarousel />
           {/* <TopBrand brandsList={brandsList} />
         <TopSellingMobiles topSellingModels={topSellingModels} /> */}
-          <TopBrand brandsList={brands} />
+         
           {/* <TopSellingMobiles topSellingModels={topsellingmodels} /> */}
           <ShopBy />
           <TopDealNearBy
@@ -117,7 +118,7 @@ export default function Home({
           <HomeContent />
         </main>
         <Footer />
-        <BottomNav />
+        <BottomNav /> 
       </Fragment>
     </>
   );

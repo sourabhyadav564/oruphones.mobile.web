@@ -15,7 +15,14 @@ function SellingMobileCard({ data }) {
   }
 
   return (
-    <Link href={`/product/buy-old-refurbished-used-mobiles/${data.make}/${data.marketingName}`}>
+    <div
+      // href={`/product/buy-old-refurbished-used-mobiles/${data.make}/${data.marketingName}`}
+      onClick={() => window.open(
+        `/product/buy-old-refurbished-used-mobiles/${data.make}/${data.marketingName}?isOtherVendor=${data?.isOtherVendor}`,
+        "_blank"
+      )
+      }
+    >
       <a>
         <div className="grid grid-cols-1 rounded-lg py-2 px-3 bg-m-white cardShadow1">
           <div className="grid grid-cols-1">
@@ -35,7 +42,7 @@ function SellingMobileCard({ data }) {
           </div>
         </div>
       </a>
-    </Link>
+    </div>
   );
 }
 

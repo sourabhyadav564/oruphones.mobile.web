@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
+import BottomNav from "@/components/Navigation/BottomNav";
 
 function PriceRangePage() {
   const router = useRouter();
@@ -74,32 +75,35 @@ function PriceRangePage() {
   }, [min, max, selectedSearchCity]);
 
   return (
-    <Filter
-      searchText={`Price Range: ₹${min}${" - "}₹${max}`}
-      setSortApplyFilter={setSortApplyFilter}
-      setApplyFilter={setApplyFilter}
-      applyFilter={applyFilter}
-    >
-      {(isLoading || shopByPriceBestDeal?.length > 0) && <h1 className="text-lg font-semibold text-gray-20 py-2.5"> Best Deals </h1>}
-      {isLoading ? <Loader /> : shopByPriceBestDeal?.length > 0 && <BestDealSection bestDealData={shopByPriceBestDeal} />}
-      {(isLoading || sortingProducts?.length > 0) && (
-        <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3"> Other Listings ({sortingProducts?.length}) </h2>
-      )}
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <section className="grid grid-cols-2 py-3 -m-1.5">
-          {sortingProducts &&
-            sortingProducts.length > 0 &&
-            sortingProducts.map((item) => (
-              <div key={item.listingId} className="m-1.5">
-                <OtherListingCard data={item} prodLink />
-              </div>
-            ))}
-        </section>
-      )}
-      {shopByPriceBestDeal && shopByPriceBestDeal.length > 0 && sortingProducts && sortingProducts.length > 0 ? null : <NoMatch />}
-    </Filter>
+    <>
+      <Filter
+        searchText={`Price Range: ₹${min}${" - "}₹${max}`}
+        setSortApplyFilter={setSortApplyFilter}
+        setApplyFilter={setApplyFilter}
+        applyFilter={applyFilter}
+      >
+        {(isLoading || shopByPriceBestDeal?.length > 0) && <h1 className="text-lg font-semibold text-gray-20 py-2.5"> Best Deals </h1>}
+        {isLoading ? <Loader /> : shopByPriceBestDeal?.length > 0 && <BestDealSection bestDealData={shopByPriceBestDeal} />}
+        {(isLoading || sortingProducts?.length > 0) && (
+          <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3"> Other Listings ({sortingProducts?.length}) </h2>
+        )}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <section className="grid grid-cols-2 py-3 -m-1.5">
+            {sortingProducts &&
+              sortingProducts.length > 0 &&
+              sortingProducts.map((item) => (
+                <div key={item.listingId} className="m-1.5">
+                  <OtherListingCard data={item} prodLink />
+                </div>
+              ))}
+          </section>
+        )}
+        {shopByPriceBestDeal && shopByPriceBestDeal.length > 0 && sortingProducts && sortingProducts.length > 0 ? null : <NoMatch />}
+      </Filter>
+      <BottomNav />
+    </>
   );
 }
 

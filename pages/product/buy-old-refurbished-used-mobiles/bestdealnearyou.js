@@ -167,7 +167,7 @@ function Bestdealnearyou() {
   const sortingProducts = getSortedProducts(applySortFilter, products);
 
   return (
-    <Filter
+    <><Filter
       searchText={`"Listings near me"`}
       setSortApplyFilter={setSortApplyFilter}
       setApplyFilter={setApplyFilter}
@@ -227,6 +227,8 @@ function Bestdealnearyou() {
           </span>
         )}
     </Filter>
+      <BottomNav />
+    </>
   );
 }
 

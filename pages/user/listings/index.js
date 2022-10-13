@@ -1,6 +1,7 @@
 import ListingTile from "@/components/Card/ListingTile";
 import Footer from "@/components/Footer";
 import Header2 from "@/components/Header/header2";
+import Header3 from "@/components/Header/header3";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { getUserListings } from "api-call";
 import Cookies from "js-cookie";
@@ -48,7 +49,7 @@ function Index({ userInfo }) {
 
   if (loading || !authenticated) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen flex justify-center ">
         <p>Loading...</p>
       </div>
     );
@@ -56,8 +57,8 @@ function Index({ userInfo }) {
 
   return (
     <Fragment>
-      <Header2 title="My Listings" />
-      <main className="px-4 py-4 flex flex-col space-y-6 min-h-screen">
+      <Header3 title1={"MyListing"} title2={"My Favorites"} />
+      <main className="md:mb-28 px-4 py-4 flex flex-col space-y-6 min-h-screen">
         {listingsLoading ? (
           <div className="flex justify-center items-center h-52">
             Loading...
@@ -78,7 +79,7 @@ function Index({ userInfo }) {
           </div>
         )}
       </main>
-      <Footer />
+      {/* <Footer /> */}
       <BottomNav />
     </Fragment>
   );

@@ -103,9 +103,10 @@ function SimilarProduct({ data }) {
 
   return (
     <section className="px-4">
-      <h1 className="font-semibold text-base">
+      <h1 className="font-Light text-[14px] text-black border-b-2 pb-2">
         {" "}
-        Similar Products ({similar_listings?.length || 0}){" "}
+        {/* Similar Products ({similar_listings?.length || 0}){" "} */}
+        Similar Products
       </h1>
       <div className="grid grid-cols-2 -m-1.5 py-4">
         {similar_listings && similar_listings.length > 0 ? (

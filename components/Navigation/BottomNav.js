@@ -28,11 +28,11 @@ function BottomNav() {
           className="fixed z-50 bottom-0 bg-transparent w-full topShadow text-gray"
           style={{ fontSize: 10 }}
         >
-          <div className="container flex justify-between items-end bg-white pb-3 pt-4 uppercase">
+          <div className="container flex justify-between items-end bg-primary-dark pb-3 pt-4 uppercase rounded-t-xl">
             <Link href="/">
               <a
                 aria-current="page"
-                className={`flex flex-col items-center   ${isActive("/") ? "text-primary" : ""
+                className={`flex flex-col items-center   ${isActive("/") ? "text-white" : ""
                   } `}
               // onClick={() => setLoadingState(true)}
               >
@@ -47,14 +47,14 @@ function BottomNav() {
                       id="home"
                       d="M18,4.5l11.811,9.45A4.5,4.5,0,0,1,31.5,17.462V28.5a3,3,0,0,1-3,3H7.5a3,3,0,0,1-3-3V16.741A3,3,0,0,1,5.625,14.4Z"
                       transform="translate(23.5 777.5)"
-                      fill={`${isActive("/") ? "currentColor" : "white"} `}
+                      fill={`${isActive("/") ? "transparent" : "transparent"} `}
                     />
                     <path
                       id="home-2"
                       data-name="home"
                       d="M18,8.341l-10.5,8.4V28.5H15v-6h6v6h7.5V17.463a1.5,1.5,0,0,0-.563-1.171ZM18,4.5l11.811,9.45A4.5,4.5,0,0,1,31.5,17.462V28.5a3,3,0,0,1-3,3H7.5a3,3,0,0,1-3-3V16.741A3,3,0,0,1,5.625,14.4Z"
                       transform="translate(23.5 777.5)"
-                      fill={`${isActive("/") ? "#91d7c9" : "rgba(172, 172, 172)"
+                      fill={`${isActive("/") ? "#ffffff" : "rgba(172, 172, 172)"
                         } `}
                     />
                   </g>
@@ -64,7 +64,7 @@ function BottomNav() {
             </Link>
             <Link href="/user/listings">
               <a
-                className={`flex flex-col items-center ${isActive("/user/listings") ? "text-primary" : ""
+                className={`flex flex-col items-center ${isActive("/user/listings") ? "text-white" : ""
                   } `}
               // onClick={() => setLoadingState(true)}
               >
@@ -92,7 +92,7 @@ function BottomNav() {
                   onClick={() => setLoadingState(true)}
                 >
                   <div
-                    className="absolute bottom-0 p-4 rounded-full bg-[#f9c414]"
+                    className="absolute bottom-0 p-4 rounded-full bg-[#f9c414] border-4 border-white"
                   // style={{ boxShadow: "0 -5px 20px rgba(16, 203, 165, 0.3)" }}
                   >
                     <svg
@@ -114,7 +114,7 @@ function BottomNav() {
             </Link>
             <Link href="/services">
               <a
-                className={`flex flex-col items-center ${isActive("/services") ? "text-primary" : " "
+                className={`flex flex-col items-center ${isActive("/services") ? "text-white" : " "
                   }`}
               // onClick={() => setLoadingState(true)}
               >
@@ -137,7 +137,7 @@ function BottomNav() {
             <Link href="/user/profile"
             >
               <a
-                className={`flex flex-col items-center ${isActive("/user/profile") ? "text-primary" : " "
+                className={`flex flex-col items-center ${isActive("/user/profile") ? "text-white" : " "
                   }`}
               // onClick={() => setLoadingState(true)}
               >

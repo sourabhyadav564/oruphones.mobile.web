@@ -3,6 +3,8 @@ import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import { useEffect } from "react";
 import SearchBar from "./SearchBar";
 
+
+
 function Header1() {
   const { selectedSearchCity, user } = useAuthState();
   const dispatch = useAuthDispatch();
@@ -24,7 +26,7 @@ function Header1() {
   }, [user]);
 
   return (
-    <div className="flex justify-between items-center pt-0 py-2 px-2 text-sm font-medium bg-primary text-white sticky top-12 z-50">
+    <div className="flex justify-between items-center pt-0 py-2 px-2 text-sm font-medium bg-primary text-white sticky top-12 z-50 rounded-b-xl">
       <SearchBar />
     </div>
   );

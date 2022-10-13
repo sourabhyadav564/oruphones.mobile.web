@@ -1,10 +1,10 @@
 function Checkbox({ children, ...rest }) {
   return (
     <div className="flex items-center mb-2">
-      <input type="checkbox" {...rest} className="opacity-0 absolute h-4 w-4" />
-      <div className="cursor-pointer border-2 border-black-7e rounded w-4 h-4 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-primary">
+      <input type="checkbox" {...rest} className="opacity-0 absolute h-2 w-2" />
+      <div className="cursor-pointer border border-[#2C2F45] rounded w-3.5 h-3.5 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-primary">
         <svg
-          className="fill-current hidden w-2 h-2 text-primary pointer-events-none"
+          className="fill-current hidden w-2 h-2 text-[#2C2F45] pointer-events-none"
           version="1.1"
           viewBox="0 0 17 12"
           xmlns="http://www.w3.org/2000/svg"

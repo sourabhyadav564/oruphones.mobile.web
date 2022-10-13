@@ -67,62 +67,53 @@ const TopCarousel = () => {
     <section>
       <CarouselWithPagination slidesPerView={1}>
         {slides.map((item) => (
-          <SwiperSlide key={item.name}>
-            {item.link ? (
-              <Link href={item.link}>
-                <a className="flex justify-center">
-                  {item.name != "article_image" ? (
-                    <div style={{ padding: "2vh 1.5vh 1vh 1.5vh" }}>
-                      <Image
-                        src={item.src}
-                        alt={item.name}
-                        className="rounded-xl"
-                      // width={617}
-                      // height={309}
-                      /></div>
-                  ) : (
-                    <Link href={item.link}>
-                      <div style={{ padding: "2vh 1.5vh 1vh 1.5vh" }}>
-                        <img
-                          src={articleImage.src}
-                          alt={item.name}
-                          className="rounded-xl"
-                        />
-                      </div>
-                    </Link>
-                  )}
-                </a>
-              </Link>
-            ) : (
-              <div className="flex justify-center relative">
-                <div style={{ padding: "2vh 1.5vh 1vh 1.5vh" }}>
-                  <Image
-                    src={item.src}
-                    alt={item.name}
-                    className="bannerShadow rounded-lg"
-                  />
+          <div key={item.name}>
+            {item.link ?
+              (
+                <div></div>
+              ) :
+              (
+                <div className="flex justify-center relative">
+                  <div style={{ padding: "1.5vh 1vh ", margin: "2px 0px 40px 0px" }}>
+                    <Image
+                      src={item.src}
+                      alt={item.name}
+                      className="bannerShadow rounded-lg "
+                    />
+                  </div>
+                  <div
+                    className="w-full absolute left-0 right-0 md:bottom-16 bottom-0  px-5 flex m-auto justify-center grid grid-cols-2 gap-2 "
+                    style={{ fontSize: 10 }}
+                  >
+                    <div className="w-full flex rounded-md m-auto justify-center" style={{ backgroundColor: "#141929" }}>
+                      <Link href="/sell-old-refurbished-used-mobiles/add">
+                        <div className="p-4 grid grid-rows-2 h-28">
+                          <p className="w-full text-white text-[14px] font-Semibold leading-tight">Sell your phone in few steps</p>
+                          <a className="grid  rounded-md border border-none text-center font-Semibold text-[14px] py-2 self-center" style={{ backgroundColor: "#F9C414" }}>
+                            <span> Sell Now + </span>
+                          </a>
+                        </div>
+                      </Link>
+                    </div>
+
+                    <div className="w-full flex rounded-md shadow-sm shadow-gray-300 my-0.5" style={{ backgroundColor: '#FFFFFF' }}>
+                      <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
+                        <div className="p-4 grid grid-rows-2 h-28 m-auto justify-center">
+                          <p className="w-full text-black text-[14px] font-Medium leading-tight">Buy your dream phone in few steps </p>
+                          <a
+                            className="grid rounded-md text-center font-Semibold text-[14px] py-2 self-center "
+                            onClick={() => setLoadingState(true)}
+                          >
+                            <span className="grid  rounded-md  font-Regular border text-center font-Semibold text-[14px] py-2  self-center" style={{ borderColor: "#11121B" }}> Buy now &gt; </span>
+                          </a>
+                        </div>
+                      </Link>
+
+                    </div>
+                  </div>
                 </div>
-                <div
-                  className="absolute left-0 right-0 bottom-4 flex justify-center"
-                  style={{ fontSize: 10 }}
-                >
-                  <Link href="/sell-old-refurbished-used-mobiles/add">
-                    <a className="rounded-lg bg-yellow-300 px-5 py-2.5 mr-8 font-bold text-[12px]">
-                      Sell Phone
-                    </a>
-                  </Link>
-                  <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
-                    <a
-                      className="rounded-lg bg-gray-200 px-5 py-2.5 ml-8 font-bold text-[12px]"
-                      onClick={() => setLoadingState(true)}
-                    >
-                      Buy Phone
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            )}
-          </SwiperSlide>
+              )}
+          </div>
         ))}
       </CarouselWithPagination>
       <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />

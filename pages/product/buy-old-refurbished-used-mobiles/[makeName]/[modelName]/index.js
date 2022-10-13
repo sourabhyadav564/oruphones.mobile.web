@@ -9,6 +9,7 @@ import { useAuthState } from "providers/AuthProvider";
 import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
+import BottomNav from "@/components/Navigation/BottomNav";
 
 // import {
 //   otherVendorDataState,
@@ -204,72 +205,75 @@ function ModelPage() {
   const sortingProducts = getSortedProducts(applySortFilter, otherListings);
 
   return (
-    <Filter
-      searchText={`"${modelName}"`}
-      setSortApplyFilter={setSortApplyFilter}
-      setApplyFilter={setApplyFilter}
-      applyFilter={applyFilter}
-    >
-      {(loading || bestDeals?.length > 0) && (
-        <h1 className="text-lg font-semibold text-gray-20 pl-4 py-2">
-          {" "}
-          Best Deals{" "}
-        </h1>
-      )}
-      {loading ? (
-        <Loader />
-      ) : (
-        <BestDealSection bestDealData={bestDeals} setProducts={setBestDeals} />
-      )}
-      {(loading || sortingProducts?.length > 0) && (
-        <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
-          {" "}
-          Other Listings ({totalProducts}){" "}
-        </h2>
-      )}
-      {loading ? (
-        <Loader />
-      ) : (
-        <section className="grid grid-cols-2 py-3 -m-1.5">
-          {sortingProducts &&
-            sortingProducts?.map((item) => (
-              <div
-                key={item.listingId}
-                className="m-1.5"
-                onClick={() => {
-                  // setListingId(item.listingId);
-                  // setProductsData(otherListings);
-                  setLoadingState(true);
-                }}
-              >
-                <OtherListingCard
-                  data={item}
-                  prodLink
-                  setProducts={setOtherListings}
-                />
-              </div>
-            ))}
-        </section>
-      )}
-      {!loading &&
-        bestDeals &&
-        !(bestDeals.length > 0) &&
-        sortingProducts &&
-        !sortingProducts.length > 0 && <NoMatch />}
-
-      {!loading &&
-        isFinished == false && otherListings.length != totalProducts && (
-          <span
-            className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
-            onClick={loadMoreData}
-          >
-            <p className="block text-m-green font-semibold">
-              {isLoadingMore ? "Fetching more products..." : "Load More"}
-            </p>
-          </span>
+    <>
+      <Filter
+        searchText={`"${modelName}"`}
+        setSortApplyFilter={setSortApplyFilter}
+        setApplyFilter={setApplyFilter}
+        applyFilter={applyFilter}
+      >
+        {(loading || bestDeals?.length > 0) && (
+          <h1 className="text-lg font-semibold text-gray-20 pl-4 py-2">
+            {" "}
+            Best Deals{" "}
+          </h1>
         )}
-    </Filter>
+        {loading ? (
+          <Loader />
+        ) : (
+          <BestDealSection bestDealData={bestDeals} setProducts={setBestDeals} />
+        )}
+        {(loading || sortingProducts?.length > 0) && (
+          <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
+            {" "}
+            Other Listings ({totalProducts}){" "}
+          </h2>
+        )}
+        {loading ? (
+          <Loader />
+        ) : (
+          <section className="grid grid-cols-2 py-3 -m-1.5">
+            {sortingProducts &&
+              sortingProducts?.map((item) => (
+                <div
+                  key={item.listingId}
+                  className="m-1.5"
+                  onClick={() => {
+                    // setListingId(item.listingId);
+                    // setProductsData(otherListings);
+                    setLoadingState(true);
+                  }}
+                >
+                  <OtherListingCard
+                    data={item}
+                    prodLink
+                    setProducts={setOtherListings}
+                  />
+                </div>
+              ))}
+          </section>
+        )}
+        {!loading &&
+          bestDeals &&
+          !(bestDeals.length > 0) &&
+          sortingProducts &&
+          !sortingProducts.length > 0 && <NoMatch />}
+
+        {!loading &&
+          isFinished == false && otherListings.length != totalProducts && (
+            <span
+              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
+                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              onClick={loadMoreData}
+            >
+              <p className="block text-m-green font-semibold">
+                {isLoadingMore ? "Fetching more products..." : "Load More"}
+              </p>
+            </span>
+          )}
+      </Filter>
+      <BottomNav />
+    </>
   );
 }
 

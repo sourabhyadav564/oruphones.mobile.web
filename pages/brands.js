@@ -22,11 +22,12 @@ function Brands({ brandsList }) {
   // brandsList = brandsList?.sort((list1, list2) => list2.isPopular - list1.isPopular);
   // brandsList = brandsList?.sort((list1, list2) => parseInt(list1.displayOrder) - parseInt(list2.displayOrder));
 
-  brandsList = brands.sort((list1, list2) => list2.isPopular - list1.isPopular);
-  brandsList = brands.sort(
-    (list1, list2) =>
-      parseInt(list1.displayOrder) - parseInt(list2.displayOrder)
-  );
+  // brandsList = brands.sort((list1, list2) => list2.isPopular - list1.isPopular);
+  // brandsList = brands.sort(
+  //   (list1, list2) =>
+  //     parseInt(list1.displayOrder) - parseInt(list2.displayOrder)
+  // );
+
 
   return (
     <>

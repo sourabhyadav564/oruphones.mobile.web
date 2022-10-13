@@ -12,25 +12,27 @@ const ConditionOptionLarge = ({
     <div
       className={`${
         conditionResults?.[questionIndex] == title &&
-        "bg-gray-300 border-[1.5px] border-black"
-      } my-4 hover:cursor-pointer p-3 rounded-md border-2 border-gray-200 active:opacity-50 duration-300 hover:bg-gray-200`}
+        "bg-[#EFEFEF] border-[1.5px] font-SF-Pro"
+      } my-4 hover:cursor-pointer p-3 rounded-md  active:opacity-50 duration-300 bg-[#EFEFEF] font-SF-Pro`}
     >
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center space-x-3 pb-1">
         <VscPass
           className={`${
             conditionResults?.[questionIndex] == title
-              ? "text-black"
-              : "text-gray-400"
-          } text-xl`}
+              ? "text-black "
+              : "text-gray-400 "
+          } text-[1dp] self-center `}
         />
-        <h1 className="font-semibold">{title}</h1>
+        <h1 className="font-Semibold text-[#2C2F45] text-[14px] self-center">{title}</h1>
       </div>
       {options &&
         options.length > 0 &&
         conditionResults?.[questionIndex] == title &&
         options.map((option, index) => (
-          <div className="flex items-center space-x-3 p-1 ml-5" key={index}>
-            <GoPrimitiveDot className="text-[10px]" />
+          <div className=" text-[11px] flex items-center font-Light text-[#2C2F45] space-x-3 p-1 ml-5" key={index}>
+            <div className="border border-black p-0.5 rounded-full">
+            <GoPrimitiveDot className="text-[5px] " />
+            </div>
             <h1>{option}</h1>
           </div>
         ))}

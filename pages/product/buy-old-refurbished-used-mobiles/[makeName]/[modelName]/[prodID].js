@@ -28,6 +28,10 @@ import { BsStar } from "react-icons/bs";
 import { BsStarFill } from "react-icons/bs";
 import whatsapp from "@/assets/whatsapp.png";
 import WarrantyInfo from "@/components/Popup/WarrantyInfo";
+import VerificationIcon from "@/components/verificationIcon";
+import { AiFillExclamationCircle } from "react-icons/ai";
+
+
 
 // import {
 //   otherVandorDataSelector,
@@ -43,6 +47,7 @@ const VerificationInfo = dynamic(() =>
   import("@/components/Popup/VerificationInfo")
 );
 const ViewReport = dynamic(() => import("@/components/ViewReport"));
+const ViewReport1 = dynamic(() => import("@/components/ViewReport1"));
 const RequestVerificationSuccessPopup = dynamic(() =>
   import("@/components/Popup/RequestVerificationSuccessPopup")
 );
@@ -160,12 +165,14 @@ function ProductDeatils({ data }) {
 
   return (
     <Fragment>
-      {/* <Header2 title="Product Info" /> */}
+      <Header2 title={data?.marketingName} />
+
       <main className="py-3 relative ">
+
         {data?.isOtherVendor === "N" && (
-          <div className="flex justify-between items-center absolute top-0 left-0 right-0 z-10 bg-black bg-opacity-30 text-white px-4 py-2 ">
+          <div className="flex justify-between items-center absolute top-0 left-0 right-0 z-10  text-white px-4 py-2 ">
             <div className="flex space-x-4 items-center ">
-              {(data?.verified && (
+              {/* {(data?.verified && (
                 <Fragment>
                   <VerifiedIcon width={75} height={32} />
                   <span
@@ -195,21 +202,21 @@ function ProductDeatils({ data }) {
                     />
                   </p>
                 </Fragment>
-              )}
+              )} */}
             </div>
-            <div className="flex space-x-4 items-center ">
+            <div className="flex space-x-4 items-center self-center">
               <AddFav
                 data={deviceListingInfo}
                 setProducts={setDeviceListingInfo}
                 height={22}
                 width={22}
-                color="white"
+                color="#707070"
               />
               <ShareIcon
                 data={deviceListingInfo}
                 height={22}
                 width={22}
-                color="white"
+                color="black"
               />
             </div>
           </div>
@@ -238,20 +245,63 @@ function ProductDeatils({ data }) {
             }
           />
         </div>
-        <div className="my-4 px-4">
-          <div className="flex flex-col items-start">
-            <h1 className="text-gray-20 font-bold text-lg">
-              {data?.marketingName}​
-            </h1>
-            <div className="text-gray-20 flex items-center my-1">
-              <p className="text-gray-20 font-bold text-sm">
-                Varient:{" "}
-                <span className="text-gray-20 font-bold text-sm">
-                  {data?.deviceStorage}​
-                </span>
+        <div className="my-4 px-4 ">
+          <div className="flex">
+            <div className="flex-1 py-1 ">
+              {/* <p className="text-gray-70 text-xs">List Price</p> */}
+              {/* <p className="text-gray-70 text-xs">Price</p> */}
+              <p
+                className="font-bold flex items-center"
+                style={{ fontSize: 29, color: "#000944" }}
+              >
+                {data?.listingPrice && (
+                  <FaRupeeSign className="text-xl font-normal mr-0.5" />
+                )}{" "}
+                {data?.listingPrice}
               </p>
             </div>
-            {data?.isOtherVendor === "N" && (
+
+
+            <div className="m-auto justify-center">
+              {(data?.verified && (
+                <Fragment>
+                  {/* <VerifiedIcon width={75} height={32} /> */}
+                  <span
+                    className="bg-white py-1 px-2 rounded text-black-21 text-[14px] font-Light underline "
+                    onClick={executeScroll}
+                  >
+                    Device Report &gt;
+                  </span>
+                </Fragment>
+              )) || (
+                  <Fragment>
+                    {/* <UnVerifiedIcon width={75} height={32} /> */}
+                    {/* <p className="flex items-center">
+                    <span
+                      className="underline text-xs"
+                      onClick={() =>
+                        !authenticated
+                          ? setOpenLoginPopup(true)
+                          : setOpenRequestVerificationSuccessPopup(true)
+                      }
+                    >
+                      Request Verification
+                    </span>
+                    <BsInfoCircle
+                      className="ml-1.5"
+                      onClick={() => setOpenVerificationInfo(true)}
+                    />
+                  </p> */}
+                  </Fragment>
+                )}
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <h1 className="text-black font-Regular text-[22px]">
+              {data?.marketingName}
+            </h1>
+
+            {/* {data?.isOtherVendor === "N" && (
               <div className="text-gray-20 w-full flex items-center justify-between my-1">
                 <p className="text-gray-20 font-semibold text-xs">
                   Listed on: <span>{data?.listingDate || "--"}</span>
@@ -260,54 +310,123 @@ function ProductDeatils({ data }) {
                   Location: <span>{data?.listingLocation || "--"}</span>
                 </p>
               </div>
-            )}
+            )} */}
           </div>
-          <div className="flex items-center border rounded-md my-3">
-            <div className="bg-gray-ef flex-1 px-4 py-2 ">
-              {/* <p className="text-gray-70 text-xs">List Price</p> */}
-              <p className="text-gray-70 text-xs">Price</p>
-              <p
-                className="font-bold flex items-center text-black-4e"
-                style={{ fontSize: 28 }}
-              >
-                {data?.listingPrice && (
-                  <FaRupeeSign className="text-xl font-normal mr-0.5" />
-                )}{" "}
-                {data?.listingPrice}
+          <div className="w-full grid grid-cols-2 items-center my-4 gap-2">
+            <div className="w-full flex items-center m-auto rounded-md justify-center" style={{ backgroundColor: "#F3F3F3" }}>
+              <p className="py-3  text-black font-Light text-[10px]">
+                Varient:{" "}
+                <span className="text-black font-Regular text-[12px]">
+                  {data?.deviceStorage}
+                </span>
               </p>
             </div>
-            <div className="bg-white flex-1 px-4 py-2"
-            onClick={() => setOpenConditionInfo(true)}
+            <div className="w-full grid grid-cols-2 flex-1 rounded-md px-4 py-1" style={{ backgroundColor: "#F3F3F3" }}
+              onClick={() => setOpenConditionInfo(true)}
             >
               {/* <p className="text-gray-70 text-xs">List Price</p> */}
-              <span
-                className="text-xs text-black-7e flex items-center"
+              <div>
+                <span
+                  className="text-[10px] font-Light text-black flex items-center"
                 // onClick={() => setOpenConditionInfo(true)}
-              >
-                Condition{" "}
-                <BsInfoCircle className="ml-2 text-sm cursor-pointer" />
-              </span>
-              <p className="text-sm font-bold text-gray-70 flex items-center">
-                {data?.deviceCondition}
-              </p>
-              <div className="flex space-x-2 my-[3px]">
-                {}
+                >
+                  Condition{" "}
+                </span>
+                <p className="text-[12px] font-Regular text-black flex items-center">
+                  {data?.deviceCondition}
+                </p>
+              </div>
+              <div className="flex text-[10px] space-x-1 m-auto justify-center ">
+                { }
                 {Array(5)
                   .fill()
                   .map((_, index) => iconToShow(index))}
               </div>
+
             </div>
           </div>
+          <div className="py-2 pb-4">
+            {(data?.verified && (
+              <Fragment>
+                {/* <VerifiedIcon width={75} height={32} /> */}
+                <div className="flex m-auto justify-center text-white px-2 py-2 rounded-md" style={{ background: "#4CAF50" }}>
+                  <div className="flex flex-1 space-x-1 ">
+                    <VerificationIcon className="self-center" />
+                    <p className="font-Light Italic text-[9px] self-center">Verified</p>
+                  </div>
+                  <div className="m-auto justify-center ">
+                    <p className="text-[12px] font-Light">This phone is verified by ORUphones</p>
+                  </div>
+                </div>
+                {/* <span
+                    className="bg-white py-1 px-2 rounded text-black-21 text-xs font-semibold"
+                    onClick={executeScroll}
+                  >
+                    Device Report
+                  </span> */}
+              </Fragment>
+            )) || (
+                <Fragment>
+                  {/* <UnVerifiedIcon width={75} height={32} /> */}
+                  <div className="w-full  py-2 space-x-2 text-center" >
+                    <div className="flex py-2 px-3 rounded-md space-x-2 col-span-3" style={{ backgroundColor: "#F9C414" }}>
+                      <div className="flex space-x-1 flex-1">
+                        {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
+                        <div className="flex space-x-2">
+                          <AiFillExclamationCircle size={20} fill="white" className="self-center text-black" />
+                          {/* <UnVerifiedIcon /> */}
+
+                          <span className="text-[9px] font-Light self-center text-[#000944] italic uppercase">unverified</span>
+                        </div>
+                        {/* <span className="text-xs italic self-center uppercase"> unverified</span> */}
+                      </div>
+                      <p className="flex items-center">
+                        <span
+                          className="underline font-Light text-[12px]"
+                          onClick={() =>
+                            !authenticated
+                              ? setOpenLoginPopup(true)
+                              : setOpenRequestVerificationSuccessPopup(true)
+                          }
+                        >
+                          Click here to Request Verification
+                        </span>
+                        <BsInfoCircle
+                          className="ml-1"
+                          onClick={() => setOpenVerificationInfo(true)}
+                        />
+                      </p>
+                    </div>
+                  </div>
+                  {/* <p className="flex items-center">
+                    <span
+                      className="underline text-xs"
+                      onClick={() =>
+                        !authenticated
+                          ? setOpenLoginPopup(true)
+                          : setOpenRequestVerificationSuccessPopup(true)
+                      }
+                    >
+                      Request Verification
+                    </span>
+                    <BsInfoCircle
+                      className="ml-1.5"
+                      onClick={() => setOpenVerificationInfo(true)}
+                    />
+                  </p> */}
+                </Fragment>
+              )}
+          </div>
           {data?.externalSource?.length > 0 && (
-            <div>
-              <span className="text-xs">Check price from other sellers</span>
+            <div className="border-b-2 pb-2">
+              <span className="text-[14px]  font-Light">Compare from other sellers</span>
             </div>
           )}
-          <div className="border rounded-md">
+          <div className=" rounded-md">
             {data?.externalSource?.length > 0 &&
               data?.externalSource.map((items, index) => (
                 <>
-                  <div className="rounded-md flex items-center" key={index}>
+                  <div className="rounded-md flex items-center space-y-2 my-4 " key={index} style={{ backgroundColor: "#F9F9F9" }}>
                     <div className="flex-1 flex flex-col justify-start px-4 pt-3">
                       <div>
                         <Image
@@ -315,12 +434,12 @@ function ProductDeatils({ data }) {
                           alt={items?.externalSourceName}
                           height={35}
                           width={70}
-                          objectFit="fill"
+                          objectFit="contain"
                         />
                       </div>
                     </div>
                     <div className="flex px-4">
-                      <p className="text-lg flex items-center text-black-4e">
+                      <p className="text-[15px] flex items-center font-Semibold " style={{ color: "#B4B4B4" }}>
                         {items?.externalSourcePrice && (
                           <span className="font-normal mr-0.5"> ₹ </span>
                         )}{" "}
@@ -331,7 +450,55 @@ function ProductDeatils({ data }) {
                 </>
               ))}
           </div>
-          <h2 className="text-gray-20 font-semibold my-3">Device Info</h2>
+          <h2 className="text-black text-[14px] border-b-2 pb-1 font-Light my-3">Device Info</h2>
+
+          <div className="fixed bottom-0 z-50 left-0 px-2  py-2 w-full ">
+            {data?.isOtherVendor === "Y" ? (
+              <PrimayButton onClick={() => openWebSite(data?.vendorLink)} className="shadow-2xl border border-gray-700">
+                {" "}
+                Go To Store{" "}
+              </PrimayButton>
+            ) : (
+              <div className="fixed bottom-0 left-0 w-full flex items-center justify-center space-x-2  px-2 z-50">
+                <PrimayButton onClick={() => showSellerNumber(data?.listingId)}>
+                  {showNumber ? contactSellerMobileNumber : "Contact Seller"}
+                </PrimayButton>
+                {showNumber && (
+                  <div
+                    className="  px-3 pt-[2px] pb-[2px] rounded-md bg-white"
+                    onClick={() =>
+                      window.open(
+                        `https://wa.me/${contactSellerMobileNumber}?text=Hey There, Check this product on ORU Phones. https://betav1.oruphones.com${router?.asPath}`,
+                        "_blank"
+                      )
+                    }
+                  >
+                    <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
+                  </div>
+                )}
+                {
+                  !showNumber && (
+                    (
+                      <div
+                        className=" px-3 pt-[8px] pb-[2px] rounded-md bg-white border"
+                        onClick={() =>
+                          window.open(
+                            `https://wa.me/${contactSellerMobileNumber}?text=Hey There, Check this product on ORU Phones. https://betav1.oruphones.com${router?.asPath}`,
+                            "_blank"
+                          )
+                        }
+                      >
+                        <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
+                      </div>
+                    )
+                  )
+                }
+              </div>
+            )}
+          </div>
+
+
+
           {data?.isOtherVendor === "Y" && (
             <div className="grid grid-cols-2 space-y-2">
               <IconLabelValue
@@ -399,43 +566,31 @@ function ProductDeatils({ data }) {
               <IconLabelValue label="Listed On" value={data?.listingDate} />
             </div>
           )}
-          <SellerDetails data={data} />
+
+          <div>
+            <p className="font-Light text-[12px] py-2 pt-4 border-b-2" style={{ color: "#878787" }}>*this phone might be old or refurbished</p>
+          </div>
         </div>
-        <div className="mt-4 w-full" ref={myRef}>
+        <div className="my-4 mx-5" ref={myRef}>
           <ViewReport
             data={data}
             defaultOpen={defaultOpen}
             setDefaultOpen={setDefaultOpen}
             key={defaultOpen}
           />
+          <ViewReport1
+            data={data}
+            defaultOpen={defaultOpen}
+            setDefaultOpen={setDefaultOpen}
+            key={defaultOpen}
+          />
         </div>
-        <div className="px-4 py-2 fixed bottom-0 w-full bg-white z-50">
-          {data?.isOtherVendor === "Y" ? (
-            <PrimayButton onClick={() => openWebSite(data?.vendorLink)}>
-              {" "}
-              Go To Store{" "}
-            </PrimayButton>
-          ) : (
-            <div className="flex items-center justify-center space-x-3">
-              <PrimayButton onClick={() => showSellerNumber(data?.listingId)}>
-                {showNumber ? contactSellerMobileNumber : "Contact Seller"}
-              </PrimayButton>
-              {showNumber && (
-                <div
-                  className="border-2 px-3 pt-[8px] pb-[2px] rounded-md"
-                  onClick={() =>
-                    window.open(
-                      `https://wa.me/${contactSellerMobileNumber}?text=Hey There, Check this product on ORU Phones. https://betav1.oruphones.com${router?.asPath}`,
-                      "_blank"
-                    )
-                  }
-                >
-                  <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
-                </div>
-              )}
-            </div>
-          )}
+
+        <div className="px-5 my-5">
+          <SellerDetails data={data} />
         </div>
+
+
       </main>
       <SimilarProduct data={data} />
       <Footer />
@@ -517,9 +672,8 @@ export const getServerSideProps = async ({ req, res, query }) => {
 
 const PrimayButton = ({ className, children, ...rest }) => (
   <button
-    className={`p-2 my-3 bg-primary text-base text-white font-semibold w-full rounded uppercase ${
-      className || ""
-    }`}
+    className={`p-2 my-3 bg-primary text-base text-white font-semibold w-full rounded uppercase ${className || ""
+      }`}
     {...rest}
   >
     {children}

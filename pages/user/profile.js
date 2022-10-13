@@ -7,6 +7,10 @@ import Header2 from "@/components/Header/header2";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import Footer from "@/components/Footer";
+import {RiDeleteBinLine} from "react-icons/ri";
+import {AiOutlineLogout} from "react-icons/ai";
+import editImage from "@/assets/icons/edit-image.png";
+
 import {
   updateUserProfileDetails,
   getUserDetails,
@@ -81,7 +85,7 @@ function Profile() {
   const deleteUserAccountInfo = () => {
     let payload = {
       userUniqueId: Cookies.get("userUniqueId"),
-    };
+    }; 
     deleteUserAccount(payload).then((res) => {
       dispatch("LOGOUT");
       toast.success("User Account Deleted Successfully", {
@@ -105,81 +109,102 @@ function Profile() {
   }
   return (
     <Fragment>
-      <Header2 className="bg-primary text-white" title="My Profile">
-        {/* <svg xmlns="http://www.w3.org/2000/svg" width="19.6" height="21" viewBox="0 0 19.6 21" onClick={saveUserInfo}>
-          <g id="save" transform="translate(-2.25 -1.125)">
-            <path
-              d="M21.542,5.777,17.2,1.432a1.043,1.043,0,0,0-.742-.307H3.3a1.051,1.051,0,0,0-1.05,1.05v18.9a1.051,1.051,0,0,0,1.05,1.05H20.8a1.051,1.051,0,0,0,1.05-1.05V6.52a1.043,1.043,0,0,0-.307-.742ZM14.85,2.525v4.2H8.55v-4.2Zm5.6,18.2H3.65V2.525h3.5v5.6h9.1v-5.6h.06l4.14,4.14Z"
-              transform="translate(0 0)"
-              fill="#fff"
-            />
-            <path
-              d="M15.275,15.75A4.025,4.025,0,1,0,19.3,19.775,4.025,4.025,0,0,0,15.275,15.75Zm0,6.65A2.625,2.625,0,1,1,17.9,19.775,2.625,2.625,0,0,1,15.275,22.4Z"
-              transform="translate(-3.4 -5.525)"
-              fill="#fff"
-            />
-          </g>
-        </svg> */}
-        <VscPass className="text-2xl" onClick={saveUserInfo} />
-      </Header2>
-      <main>
-        <section className="bg-primary pt-4 pb-8 flex justify-center rounded-b-2xl">
+      <div className="pb-20">
+
+
+      <main className="relative ">
+        <section className=" bg-primary pb-8 mb-20 flex justify-center rounded-b-xl">
           <UserIcon img={imgPath} onChange={changeImage} />
+          <div className="ml-12 md:ml-0">
+          <div className="absolute  right-20 top-32  text-[20px] font-bold">
+          <div className="text-white">
+            {userName || user.userdetails.userName}
+            </div>
+         </div>
+         </div>
         </section>
-        <section className="px-4 flex flex-col my-8 space-y-6">
+        
+        
+        <section className="px-4 flex flex-col my-8 space-y-4">
+        <Link href="/user/favourites">
+            <a className="border-lg py-3 text-sm text-primary uppercase rounded text-center" style={{backgroundColor:"#F9C414"}}>
+              MY FAVORITES
+            </a>
+        </Link>
+        </section>
+        <section className="px-4 flex flex-col my-8 space-y-4">
+          <h1 className="font-Light text-[14px] border-b-2 pb-2">Basic Info</h1>
+          <div className="space-y-1 text-[12px] font-Regular">
+          <p className="bg-white px-0.5">Name <span className="text-red-500">*</span></p>
           <Input
             type="text"
-            inputClass="text-black-21"
+            inputClass="text-black-ef font-Regular" 
             maxLength="30"
             name="username"
+            required
             defaultValue={user?.userdetails?.userName}
             onChange={(e) => {
               setUserName(e.target.value);
             }}
-          >
-            Name
-          </Input>
+          />
+            </div>
 
+          <div className="space-y-1 text-[12px] font-Regular">
+          <p className="bg-white px-0.5">Mobile No.<span className="text-red-500">*</span></p>
           <Input
             disabled
-            inputClass="text-black-21"
-            defaultValue={`+91 ${user?.userdetails?.mobileNumber}`}
-          >
-            Mobile No
-          </Input>
+            inputClass="font-Regular text-black-ef"
+            defaultValue={`+91 | ${user?.userdetails?.mobileNumber}`}
+          />
+          </div>
+          <div className="space-y-1 text-[12px] font-Regular">
+          <p className="bg-white px-0.5">Email ID <span className="text-red-500">*</span></p>
           <Input
             type="text"
             name="email"
-            inputClass="text-black-21"
+            inputClass="font-Regular text-black-ef"
             defaultValue={user?.userdetails?.email}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-          >
-            Email ID
-          </Input>
-          <Link href="/user/favourites">
-            <a className="border border-primary py-3 text-sm text-primary uppercase rounded text-center">
-              MY FAVORITES
-            </a>
-          </Link>
-          <a href="/login">
+          />
+            
+          </div>
+         
+
+        <div className="w-full py-3 text-white font-medium text-[15px] rounded-md text-center m-auto justify-center" style={{backgroundColor:"#2C2F45"}} onClick={saveUserInfo}>
+        <p>Save Changes</p>
+        </div>
+
+           
+        
+         <div className="flex text-[9px]">
+        <p className="text-sm text-red-500 rounded text-center font-Regular underline flex flex-1">
+          <RiDeleteBinLine className="self-center"/>
+          Delete account
+        </p>
+         <a href="/login">
             <p
-              className="border border-primary py-3 text-sm text-primary uppercase rounded text-center"
+              className="text-sm text-primary rounded text-center font-Regular underline flex gap-1"
               onClick={() => {
                 dispatch("LOGOUT");
               }}
             >
-              LOGOUT
-            </p>
+              
+              Log Out
+              <AiOutlineLogout className="self-center"/>
+        </p>
           </a>
-          <p className="border border-red-500 py-3 text-sm text-red-500 uppercase rounded text-center">
-            DELETE ACCOUNT
-          </p>
+
+         
+         </div>
+          
+          
         </section>
       </main>
-      <Footer />
+      {/* <Footer /> */}
       <BottomNav />
+      </div>
     </Fragment>
   );
 }
@@ -187,7 +212,7 @@ function Profile() {
 export default Profile;
 
 const UserIcon = ({ onChange, img }) => (
-  <div className={`p-1  relative ${img ? "bg-white rounded-full" : ""} `}>
+  <div className={`relative top-20 -left-16  p-1 py-1  ${img ? " bg-white rounded-full" : ""} `}>
     <input
       type="file"
       className="hidden"
@@ -198,7 +223,7 @@ const UserIcon = ({ onChange, img }) => (
     {img ? (
       <div
         className="relative rounded-full flex justify-center items-center"
-        style={{ width: 122, height: 122 }}
+        style={{ width: 132, height: 132 }}
       >
         <Image
           src={img}
@@ -210,8 +235,8 @@ const UserIcon = ({ onChange, img }) => (
     ) : (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="122"
-        height="122"
+        width="132"
+        height="132"
         viewBox="0 0 122 122"
       >
         <g transform="translate(-135 -143)">
@@ -230,8 +255,8 @@ const UserIcon = ({ onChange, img }) => (
         </g>
       </svg>
     )}
-    <label htmlFor="photo" className="absolute right-0 top-0">
-      <svg
+    <label htmlFor="photo" className="absolute right-1 top-4 bg-white rounded-full">
+      {/* <svg
         xmlns="http://www.w3.org/2000/svg"
         width="34"
         height="34"
@@ -244,7 +269,13 @@ const UserIcon = ({ onChange, img }) => (
           transform="translate(9 11)"
           fill="#00a483"
         />
+      </svg> */}
+
+      {/* <img src={editImage} alt="profile-edit"/> */}
+      <svg id="Layer_3" height="30" viewBox="0 0 48 48" width="30"  xmlns="http://www.w3.org/2000/svg" data-name="Layer 3">
+        <path d="m13 34.75h7.05a.75.75 0 1 0 0-1.5h-7.05a1.2511 1.2511 0 0 1 -1.25-1.25v-3.4991l4.35-4.3409 3.87 3.87a.75.75 0 0 0 1.0606 0l7.2-7.2 1.4594 1.46a.75.75 0 0 0 1.0606-1.06l-1.99-1.99a.75.75 0 0 0 -1.0606 0l-7.2 7.2-3.87-3.87a.75.75 0 0 0 -1.06-.0005l-3.82 3.8125v-12.382a1.2511 1.2511 0 0 1 1.25-1.25h18a1.2511 1.2511 0 0 1 1.25 1.25v5.49a.75.75 0 0 0 1.5 0v-5.49a2.7528 2.7528 0 0 0 -2.75-2.75h-18a2.7528 2.7528 0 0 0 -2.75 2.75v18a2.7528 2.7528 0 0 0 2.75 2.75z"/><path d="m32.9888 22.1748-10.4468 10.3945a.7506.7506 0 0 0 -.2212.5137l-.0708 2.8984a.76.76 0 0 0 .7681.7686l2.9135-.0708a.7512.7512 0 0 0 .5108-.2183l10.4476-10.394a2.757 2.757 0 1 0 -3.9008-3.8921zm3.2465 1.8452a1.4035 1.4035 0 0 1 -.4038.983l-10.2348 10.1835-1.8277.0445.044-1.8106 10.2334-10.1821a1.3935 1.3935 0 0 1 1.0042-.42 1.204 1.204 0 0 1 1.1847 1.2017z"/><path d="m16.25 18a2.75 2.75 0 1 0 2.75-2.75 2.7528 2.7528 0 0 0 -2.75 2.75zm4 0a1.25 1.25 0 1 1 -1.25-1.25 1.2511 1.2511 0 0 1 1.25 1.25z"/>
       </svg>
     </label>
+    
   </div>
 );

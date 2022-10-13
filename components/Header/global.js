@@ -26,61 +26,66 @@ function GlobalHeader() {
   }, [router.pathname]);
 
   return (
-    <header className=" bg-primary text-white px-4 py-2 flex justify-between items-center sticky top-0 z-50">
-      <div className="w-44 flex space-x-6 items-center">
-        <Image
-          onClick={() => setOpenSidebar(true)}
-          src={menu}
-          width={26}
-          height={19}
-          className="cursor-pointer"
-          priority
-        />
-        <Link href="/">
-          <a
-            className="flex items-center"
-            // onClick={() => setLoadingState(true)}
-          >
-            <Image
-              src={logo}
-              width={73}
-              height={33}
-              priority
-              objectFit="contain"
-            />
-          </a>
-        </Link>
-      </div>
+    <header className=" bg-primary text-white  flex justify-between items-center sticky top-0 z-50">
       {(router.pathname === "/" ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]" ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]/[modelName]" ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/pricerange/[min]/[max]" ||
-        router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou") && (
-          <div className="flex items-center cursor-pointer flex-shrink-0">
-            <div
-              className="flex justify-end items-center w-[110px] cursor-pointer space-x-4"
-              onClick={() => setOpenLocationPopup(true)}
-            >
-              <span className="truncate">{selectedSearchCity}</span>
-              <img src={location.src} width={12} height={15} />
-              {/* <img src={dropdown.src} width={12} height={12} /> */}
-            </div>
-            {router.pathname === "/" && authenticated && (
-              <Link href="/user/notification">
+        router.pathname.includes("shopby") ||
+        router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou" ||
+        router.pathname === "/product/models") && (
+          <div className="flex flex-1 justify-between px-4 py-2 ">
+            <div className="w-44 space-x-6 flex items-center">
+              <Image
+                onClick={() => setOpenSidebar(true)}
+                src={menu}
+                width={26}
+                height={19}
+                className="cursor-pointer"
+                priority
+              />
+              <Link href="/">
                 <a
-                  className="flex-shrink-0 ml-7 flex items-center"
-                  onClick={() => setLoadingState(true)}
+                  className="flex items-center"
+                // onClick={() => setLoadingState(true)}
                 >
                   <Image
-                    src={bellDot}
-                    width={18}
-                    height={18}
+                    src={logo}
+                    width={73}
+                    height={33}
                     priority
                     objectFit="contain"
                   />
                 </a>
               </Link>
-            )}
+
+            </div>
+            <div className="flex items-center cursor-pointer flex-shrink-0">
+              <div
+                className="flex justify-end items-center w-[100px] cursor-pointer space-x-1"
+                onClick={() => setOpenLocationPopup(true)}
+              >
+                <span className="truncate underline font-extrathin text-[12px]" >{selectedSearchCity}</span>
+                <img src={location.src} width={12} height={12} />
+                {/* <img src={dropdown.src} width={12} height={12} /> */}
+              </div>
+              {router.pathname === "/" && authenticated && (
+                <Link href="/user/notification">
+                  <a
+                    className="flex-shrink-0 ml-4 flex items-center"
+                    onClick={() => setLoadingState(true)}
+                  >
+                    <Image
+                      src={bellDot}
+                      width={18}
+                      height={18}
+                      priority
+                      objectFit="contain"
+                    />
+                  </a>
+                </Link>
+              )}
+            </div>
           </div>
         )}
       <LocationPopup open={openLocationPopup} setOpen={setOpenLocationPopup} />

@@ -3,13 +3,17 @@ module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    fontFamily:{
+      'SF-Pro':['SF-Pro-Display-Regular']
+    },
     extend: {
       colors: {
-        primary: {
+        primary: { 
           light: "#2c2f44",
           darkest: "#2c2f44",
           dark: "#2c2f44",
           DEFAULT: "#2c2f44",
+          NavyBlue:"#2C2F45"
         },
         green: {
           light: "#2c2f44",
@@ -43,9 +47,9 @@ module.exports = {
         brandCard: "0 0 5px rgba(0, 0, 0, 0.08)",
         "003": "0 0 3px #C7C7C7",
       },
-      fontFamily: {
-        "open-sans": '"Open Sans", Helvetica, Arial, sans-serif',
-      },
+      // fontFamily: {
+      //   "open-sans": '"Open Sans", Helvetica, Arial, sans-serif',
+      // },
       container: {
         center: true,
         padding: "1rem",

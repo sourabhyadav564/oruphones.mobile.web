@@ -48,12 +48,13 @@ function ShopBy() {
     //     <CategoryCards priceRange />
     //   </Carousel>
     // </section>
-    <section className="text-gray-70">
-      <h1 className="mt-3 mb-2 px-3 font-semibold text-based"> Shop By </h1>
+    <section className=" text-gray-70">
+      <h1 className="mt-3 mb-2 px-3 pt-2.5 font-Regular text-based text-xs"> Shop by Categories </h1>
       <BasicCarousel
-        slidesPerView={3.6}
+        slidesPerView={4}
         spaceBetween={8}
-        style={{ padding: "8px 12px" }}
+        style={{ padding: "8px 8px" }}
+        
       >
         {data &&
           data.map((item, index) => (

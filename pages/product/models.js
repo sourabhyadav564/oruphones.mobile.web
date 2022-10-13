@@ -1,6 +1,7 @@
 import SellingMobileCard from "@/components/Card/SellingMobileCard";
 import Filter from "@/components/FilterAndSort/Filter";
 import Loader from "@/components/Loader/Loader";
+import BottomNav from "@/components/Navigation/BottomNav";
 import { fetchTopsellingmodels } from "api-call";
 import { useState, useEffect, Fragment } from "react";
 
@@ -27,21 +28,24 @@ function AllModel() {
   }
 
   return (
-    <Filter searchText={`"All Models"`}>
-      {(loading || topsellingmodels?.length > 0) && <h1 className="text-lg font-semibold text-black-4e py-2"> All models </h1>}
-      {loading ? (
-        <Loader />
-      ) : (
-        <section className="grid grid-cols-2 mb-4 -mx-1.5">
-          {getFilteredValues() &&
-            getFilteredValues().map((item) => (
-              <div className="m-1.5" key={item.marketingName}>
-                <SellingMobileCard data={item} />
-              </div>
-            ))}
-        </section>
-      )}
-    </Filter>
+    <>
+      <Filter searchText={`"All Models"`}>
+        {(loading || topsellingmodels?.length > 0) && <h1 className="text-lg font-semibold text-black-4e py-2"> All models </h1>}
+        {loading ? (
+          <Loader />
+        ) : (
+          <section className="grid grid-cols-2 mb-4 -mx-1.5">
+            {getFilteredValues() &&
+              getFilteredValues().map((item) => (
+                <div className="m-1.5" key={item.marketingName}>
+                  <SellingMobileCard data={item} />
+                </div>
+              ))}
+          </section>
+        )}
+      </Filter>
+      <BottomNav />
+    </>
   );
 }
 

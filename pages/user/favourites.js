@@ -1,6 +1,8 @@
 import { Fragment, useState, useEffect } from "react";
 import Header2 from "@/components/Header/header2";
+import Header3 from "@/components/Header/header3";
 import Footer from "@/components/Footer";
+import BottomNav from "@/components/Navigation/BottomNav";
 import FavListingTile from "@/components/Card/FavListingTile";
 import Cookies from "js-cookie";
 import { fetchMyFavorites } from "api-call";
@@ -45,8 +47,9 @@ function Favorites() {
   }
   return (
     <Fragment>
-      <Header2 title="My Favorites" />
-      <main className="px-4 py-4 flex flex-col space-y-6">
+      {/* <Header2 title="My Favorites" /> */}
+      <Header3 title1={"MyListing"} title2={"My Favorites"}/>
+      <main className="px-4 py-4 flex flex-col space-y-6 min-h-screen ">
         {myFavList && myFavList.length > 0 && (
           myFavList?.map((item, index) => (
             <FavListingTile
@@ -73,8 +76,10 @@ function Favorites() {
         )}
       </main>
       {/* <Footer /> */}
+      <BottomNav />
     </Fragment>
   );
 }
 
 export default Favorites;
+

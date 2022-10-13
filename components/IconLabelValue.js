@@ -49,21 +49,21 @@ function IconLabelValue({
               />
             </span>
           ) : (
-            <span className="text-xs text-black-7e capitalize">{label}</span>
+            <span className="text-[12px] font-Light text-black-7e capitalize">{label}</span>
           )}
           {showInfoPopup ? (
             <p
               className={
                 textAsLink
-                  ? "text-xs whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
-                  : "text-sm font-bold flex items-center text-gray-70 capitalize"
+                  ? "text-[13px] font-Medium whitespace-nowrap underline cursor-pointer text-[#373737] hover:text-blue-800"
+                  : "text-[13px] font-Medium flex items-center text-[#373737] capitalize"
               }
               onClick={showRequestVerificarionSuccessPopup}
             >
               {value}
             </p>
           ) : (
-            <p className="text-sm font-bold flex items-center text-gray-70 capitalize">
+            <p className="text-[13px] font-Medium flex items-center  capitalize text-[#373737]">
               {value}
             </p>
           )}

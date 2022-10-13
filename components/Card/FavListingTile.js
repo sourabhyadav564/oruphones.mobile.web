@@ -24,16 +24,22 @@ function FavListingTile({ data, setProducts }) {
 
   return (
     <Fragment>
-      <Link
-        href={{
-          pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
-          query: { isOtherVendor: "N" },
-        }}
+      <div
+        // href={{
+        //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
+        //   query: { isOtherVendor: "N" },
+        // }}
+        onClick={() => window.open(
+          `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
+          "_blank"
+        )
+        }
       >
         <a>
           <div className={`flex flex-col pt-2 cardShadow1 rounded-lg`}>
-            <div className="flex items-start">
-              <div className="px-2">
+            <div className="flex">
+              {/* image */}
+              <div className=" m-2 ">
                 {/* {data?.images && (
                   <Image
                     src={
@@ -67,20 +73,20 @@ function FavListingTile({ data, setProducts }) {
                       data?.defaultImage?.fullImage ||
                       "/fullImage"
                     }
-                    width={100}
-                    height={100}
+                    width={200}
+                    height={150}
                     objectFit="contain"
                   />
                 ) : (
                   <Image
                     src={data?.imagePath}
-                    width={100}
-                    height={100}
+                    width={200}
+                    height={150}
                     objectFit="contain"
                   />
                 )}
               </div>
-              <div className="w-full pt-1 pr-3">
+              <div className="w-full pt-1 pr-3 ">
                 <div className="text-sm font-bold flex justify-between items-start uppercase ">
                   <p className="flex-1">{data.marketingName}​</p>
                   <svg
@@ -102,42 +108,47 @@ function FavListingTile({ data, setProducts }) {
                     />
                   </svg>
                 </div>
-                <div className="grid grid-cols-3 space-x-2 text-gray-70 text-xs mt-3">
+                <div className="flex space-x-4 text-gray-70 text-xs mt-3">
                   <p className="flex flex-col items-start">
                     <span>Storage</span>
                     <span className="font-bold text-sm">
                       {data?.deviceStorage}
                     </span>
                   </p>
-                  <p className="flex flex-col items-start">
+                  {/* <p className="flex flex-col items-start">
                     <span>Color</span>
                     <span className="font-bold text-sm"> {data?.color} </span>
-                  </p>
+                  </p> */}
                   <p className="flex flex-col items-start">
                     <span>Condition</span>
                     <span className="font-bold text-sm">
-                      {data.deviceCondition}​
+                      {data.deviceCondition}
                     </span>
                   </p>
                 </div>
-              </div>
-            </div>
-            <div className="flex items-center pl-4 w-full">
-              {data?.verified ? (
+                <div className="grid grid-cols-2">
+                  <div></div>
+                  <div className="bg-black px-4 pt-2 mt-2 rounded-md ">
+                    <div className="text-gray-300 text-xs">List Price</div>
+                    <div className="text-sm font-bold text-gray-50 ">
+                      ₹ {numberWithCommas(data.listingPrice || "")}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center w-full px-4 py-2">
+                  {/* {data?.verified ? (
                 <VerifiedIcon width={60} height={30} />
               ) : (
                 <UnVerifiedIcon width={60} height={30} />
-              )}
-              <div className="bg-gray-ef text-gray-70 text-sm flex flex-col px-4 py-0.5 ml-auto rounded-tl-md rounded-br-md">
-                <span>List Price</span>
-                <span className="text-lg font-bold">
-                  ₹ {numberWithCommas(data.listingPrice || "")}​
-                </span>
+              )} */}
+
+                </div>
               </div>
             </div>
+
           </div>
         </a>
-      </Link>
+      </div>
     </Fragment>
   );
 }

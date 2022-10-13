@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Header2 from "@/components/Header/header2";
+import Header4 from "@/components/Header/header4";
 import { Fragment, useEffect, useState } from "react";
 import buyStep from "@/assets/how_to_buy.png";
 import sellDeviceBanner from "@/assets/how_to_sell.png";
@@ -41,8 +41,8 @@ const index = ({ data }) => {
 
   return (
     <Fragment>
-      <Header2 title={"Sell Your Phone"} />
-      <main className="">
+      {/* <Header4 title={"Sell Your Phone"} /> */}
+      <main className="font-SF-Pro">
         {/* <div className="flex justify-center">
           <Image
             src={sellDeviceBanner}

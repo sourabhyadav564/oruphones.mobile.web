@@ -20,19 +20,18 @@ const CategoryCards = ({ data, priceRange }) => {
   if (priceRange) {
     return (
       <>
-        <div>
+        <div className="w-full md:px-4">
           <div
-            className="h-[100px] w-full flex justify-center items-center px-2 py-2 cardShadow1 rounded-lg bg-m-white"
+            className="h-[80px] w-[auto]  flex  justify-center items-center px-2 py-2 cardShadow1 rounded-lg bg-m-white"
             onClick={() => setOpenPriceRange(!openPriceRange)}
           >
             <div className="flex flex-col items-center justify-center">
               <FaSearchDollar className="text-2xl text-black" />
-              <p className="font-semibold text-black text-xs mt-2 text-center">
-                Shop By <br />
-                <span>Price</span>
-              </p>
             </div>
           </div>
+          <p className="font-Regular text-xs mt-2 text-center" color="#707070">
+                Shop By <span>Price</span>
+          </p>
           <ShopByPopup open={openPriceRange} setOpen={setOpenPriceRange} />
         </div>
         <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
@@ -50,21 +49,24 @@ const CategoryCards = ({ data, priceRange }) => {
               : `/shopby/category/${data?.urlPath?.toLowerCase()}`,
         }}
       >
+
+        <div className="w-full text-center leading-tight md:px-4 ">
         <a
-          className={`h-[100px] w-full flex flex-col justify-center items-center p-2 cardShadow1 rounded-lg text-center`}
+          className={` h-[80px] flex  justify-center cardShadow1 rounded-md `}
           onClick={() => setLoadingState(true)}
         >
           <Image
             src={data?.imagePath}
             alt={data?.make}
-            height={30}
-            width={30}
+            height={40}
+            width={40}
             objectFit="contain"
           />
-          <span className="font-semibold text-black text-xs mt-2">
-            {data.text}
-          </span>
         </a>
+        <span className="font-Regular text-[12px] "  style={{color:"#707070"}}>
+            {data.text}
+        </span>
+        </div>
       </Link>
       <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
       </>

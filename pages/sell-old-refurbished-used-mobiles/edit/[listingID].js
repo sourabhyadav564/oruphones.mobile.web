@@ -31,14 +31,14 @@ function editListing({ data, resultsSet }) {
     <Fragment>
       <Header2 title={"Edit Listing"} />
       <main className="container my-4">
-        <div className="flex justify-center">
+        {/* <div className="flex justify-center">
           <Image
             src={sellDeviceBanner}
             alt={"Sell device banner"}
             width={720}
             height={296}
           />
-        </div>
+        </div> */}
         {/* <EditListingForm data={data} resultsSet={resultsSet} /> */}
         {makeAndModels?.length ? (
           <EditListingForm data={data} resultsSet={makeAndModels} />

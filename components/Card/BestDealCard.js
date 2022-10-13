@@ -146,12 +146,17 @@ function BestDealCard({
                 {"₹" + numberWithCommas(data?.listingPrice)}
               </span>
             </p>
-            <Link
-              href={{
-                pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
-                query: { isOtherVendor: data?.isOtherVendor },
-              }}
-              passHref
+            <div
+              // href={{
+              //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
+              //   query: { isOtherVendor: data?.isOtherVendor },
+              // }}
+              // passHref
+              onClick={() => window.open(
+                `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
+                "_blank"
+              )
+              }
             >
               <a
                 className="flex items-center px-4 py-2 font-semibold bg-primary text-white rounded-md"
@@ -160,7 +165,7 @@ function BestDealCard({
                 View Deal{" "}
                 <BiChevronRight style={{ marginLeft: 2, fontSize: 20 }} />
               </a>
-            </Link>
+            </div>
           </div>
         </div>
         <div className="absolute right-0 px-3 py-3">

@@ -2,6 +2,14 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+
+/* import font family */
+@font-face { 
+  font-family: 'SF-Pro-Display-Regular';
+  src: local('SF-Pro-Display-Regular'),url('../assets/fonts/SF-Pro-Display-Regular.ttf') format('truetype');
+}
+
+
 *:focus {
   outline: none !important;
   box-shadow: none;

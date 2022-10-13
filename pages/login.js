@@ -13,6 +13,7 @@ import TermsconditionPopup from "@/components/Popup/TermsconditionPopup";
 import CloseIcon from "@/assets/close-icon.svg";
 import Spinner from "@/components/Loader/Spinner";
 
+
 function Login() {
   const [step, setStep] = useState(1);
   const [openPoup, setOpenPopup] = useState(false);
@@ -63,8 +64,8 @@ function Login() {
   };
 
   return (
-    <main className="bg-loginBg bg-contain pt-16 min-h-screen relative">
-      <div className="absolute text-3xl z-50 p-2 top-3 right-3 cursor-pointer">
+    <main className="bg-loginBg bg-contain md:pb-10 pt-16 min-h-screen relative">
+      {/* <div className="absolute text-3xl z-50 p-2 top-3 right-3 cursor-pointer">
         {showLoader ? (
           <Spinner />
           ) : (
@@ -77,23 +78,25 @@ function Login() {
               }}
             />
         )}
-      </div>
+      </div> */}
       <section className="container px-8 flex flex-col items-center space-y-8 max-w-sm">
-        <div className="w-full flex justify-center ">
-          <Image src={Logo} alt={"Logo"} width={80} height={40} />
-        </div>
+          <div className="mt-14">
+            <Image src={Logo} alt={"Logo"} width={108} height={53}/>
+          </div>
         {step === 1 ? (
           <form
-            className="flex flex-col items-center w-full space-y-8"
+            className="flex flex-col items-center w-full "
             onSubmit={sendOtp}
             autoComplete="off"
           >
-            <h1 className="text-primary-dark text-2xl font-extrabold py-2">
+            {/* <h1 className="text-primary-dark text-2xl font-extrabold py-2">
               Sign In
-            </h1>
-            <div className="w-full my-8 relative">
-              <Input
-                className="bg-white"
+            </h1> */}
+            <div className="w-full my-8 relative ">
+              <h1 className="text-lg font-bold px-1">Welcome</h1>
+              <p className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to contribute </p>
+              <input
+                className="bg-white border border-2 p-3 w-full font-regular rounded-md"
                 name="mobile"
                 type="number"
                 prefix="+91-"
@@ -102,46 +105,56 @@ function Login() {
                 onChange={(e) => {
                   handleChange(e);
                 }}
-              >
-                Mobile No
-              </Input>
+                placeholder = {"Mobile Number"}
+                style={{fontSize:'13px'}}
+              />    
               {error?.is && (
+                <div>
                 <span className="absolute p-1 text-xs w-full rounded text-red-500">
                   {" "}
                   {error.message}{" "}
                 </span>
+                </div>
               )}
             </div>
-            <Checkbox
-              type="checkbox"
-              name="termsAndCondition"
-              checked={formData?.termsAndCondition}
-              onChange={handleChange}
-              className="rounded border text-transparent form-checkbox border-primary focus:ring-transparent"
-            >
+            <div className="w-full space-y-32">
+            <div className="w-full grid gap-2">
+              <button
+              className="bg-primary rounded py-3 text-white text-sm w-full disabled:opacity-60"
+              disabled={!formData?.termsAndCondition}
+              >
+                Sign In
+              </button>
+              <Checkbox
+                type="checkbox"
+                name="termsAndCondition"
+                checked={formData?.termsAndCondition}
+                onChange={handleChange}
+                className="rounded border text-transparent form-checkbox border-primary focus:ring-transparent"
+              >
               <label
                 onClick={() => setOpenPopup(true)}
-                className="ml-2 underline cursor-pointer text-black-4e"
+                className="underline cursor-pointer text-sm text-black-4e"
               >
                 Accept terms and conditions
               </label>
-            </Checkbox>
-            <button
-              className="bg-primary uppercase rounded py-3 text-white w-full disabled:opacity-60"
-              disabled={!formData?.termsAndCondition}
-            >
-              next
-            </button>
+              </Checkbox>
+            </div>
+            <div className="relative w-full justify-center text-center space-x-2">
             <span className="text-sm text-gray-70"> or </span>
+            <br/>
+            
             <Link href="/">
               <button
                 type="button"
-                className="text-sm text-primary disabled:opacity-60"
+                className="w-full rounded text-sm text-gray-400 text-primary font-medium border-2 border-gray-300 disabled:opacity-60 mt-2 p-2"
                 disabled={!formData?.termsAndCondition}
               >
                 Continue as Guest
               </button>
             </Link>
+            </div>
+            </div>
           </form>
         ) : (
           <OTPVerification

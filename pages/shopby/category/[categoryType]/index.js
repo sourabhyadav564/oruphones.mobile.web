@@ -11,6 +11,7 @@ import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
+import BottomNav from "@/components/Navigation/BottomNav";
 
 // import {
 //   otherVendorDataState,
@@ -342,6 +343,7 @@ function CategoryPage() {
             </span>
           )}
       </Filter>
+      <BottomNav />
     </>
   );
 }

@@ -2,8 +2,9 @@ import Axios from "axios";
 import getServerURL from "@/utils/getServerURL";
 import Cookies from "js-cookie";
 
-const URI = getServerURL();
+const URI = getServerURL();   
 
+// pending from 
 let headers = {
   "Content-Type": "application/json",
   srcFrom: "Mobile Web",
@@ -19,6 +20,7 @@ let headers = {
   location:
     typeof window !== "undefined" ? localStorage.getItem("usedLocation") : "",
 };
+
 const MULTIPART_HEADER = { headers: { "Content-Type": "multipart/form-data" } };
 
 Axios.interceptors.request.use(
@@ -60,13 +62,27 @@ Axios.interceptors.response.use(
   }
 );
 
-export async function getAboutUsContent() {
+//pending till
+
+
+
+
+export const getAboutUsContent = async ()=> {
   const url = `${URI}/api/v1/web/aboutus.html`;
-  return await Axios.get(url);
+  return await Axios.get(url).then(
+    (res)=>{
+      return res.data;
+    },
+    (err)=>{
+      console.log(err);
+    }
+  );
 }
 
+
+ 
 export function getSessionId() {
-  headers = { ...headers, eventName: "SESSION_CREATED" };
+  headers = { ...headers,  eventName: "SESSION_CREATED" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
@@ -78,6 +94,8 @@ export function getSessionId() {
     }
   );
 }
+
+
 
 export function getSearchResults(q) {
   headers = { ...headers, eventName: "SEARCH_TEXT_SUGGESTIONS" };
@@ -98,6 +116,8 @@ export function getSearchResults(q) {
   );
 }
 
+
+
 export async function generateOTP(countryCode, mobileNumber) {
   headers = { ...headers, eventName: "SIGNIN_REQUEST" };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -107,6 +127,9 @@ export async function generateOTP(countryCode, mobileNumber) {
     return response.data;
   });
 }
+
+
+
 
 export async function resendOTP(countryCode, mobileNumber) {
   headers = { ...headers, eventName: "RESEND_OTP" };
@@ -118,15 +141,18 @@ export async function resendOTP(countryCode, mobileNumber) {
   });
 }
 
+
+
 export async function validateUser(countryCode, mobileNumber, OTP) {
   headers = { ...headers, eventName: "VERIFY_OTP" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/validate?countryCode=${countryCode}&mobileNumber=${mobileNumber}&otp=${OTP}`;
-
   return await Axios.post(url, {}, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
 }
+
+
 
 //mobiruqa.zenro.co.jp:8080 ?countryCode=%2B91&mobileNumber=8968028089
 export async function createUser(countryCode, mobileNumber) {
@@ -147,6 +173,10 @@ export async function createUser(countryCode, mobileNumber) {
   });
 }
 
+
+
+
+
 export async function getUserDetails(countryCode, mobileNumber) {
   headers = { ...headers, eventName: "FETCH_USER_DETAILS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -155,6 +185,8 @@ export async function getUserDetails(countryCode, mobileNumber) {
     return response.data;
   });
 }
+
+
 
 export async function getMakeModelLists(userUniqueId, sessionId) {
   headers = {
@@ -171,9 +203,12 @@ export async function getMakeModelLists(userUniqueId, sessionId) {
   });
 }
 
+
+
+
+
 export async function uploadImage(data, params) {
   const url = `${URI}/api/v1/device/uploadimage?deviceFace=${params.deviceFace}&deviceStorage=${params.deviceStorage}&make=${params.make}&model=${params.model}&userUniqueId=${params.userUniqueId}`;
-
   var header = {
     ...headers,
     eventName: "ADDLISTING_UPLOAD_PHOTOS_SUCCESS",
@@ -184,7 +219,10 @@ export async function uploadImage(data, params) {
   return await Axios.post(url, data, MULTIPART_HEADER).then((response) => {
     return response.data;
   });
+
 }
+
+
 
 export async function getRecommandedPrice(data) {
   headers = { ...headers, eventName: "FETCH_RECOMMENDED_PRICE" };
@@ -196,6 +234,9 @@ export async function getRecommandedPrice(data) {
   });
 }
 
+
+
+
 export async function saveLisiting(payload) {
   headers = { ...headers, eventName: "ADDLISTING_ADD_SUCCESS" };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -204,6 +245,7 @@ export async function saveLisiting(payload) {
     return response.data;
   });
 }
+
 
 export async function updateLisiting(payload) {
   headers = { ...headers, eventName: "EDITLISTING_EDIT_SUCCESS" };

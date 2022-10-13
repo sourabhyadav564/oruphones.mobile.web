@@ -8,8 +8,8 @@ function Input({ name, className, inputClass, prefix, children, errorClass, ...r
           color: "rgba(0, 0, 0, 0.6)",
         }}
       >
-        <span className="block mr-0.5">{prefix}</span>
-        <input name={name} className={`py-4 block h-full w-full font-bold appearance-none ring-0 focus:ring-0 bg-transparent ${inputClass || ""}`} {...rest} />
+        <span className="block mr-0.5 text-gray-500">{prefix}</span>
+        <input name={name} className={`py-3 block h-full w-full text-[12px] appearance-none ring-0 focus:ring-0 bg-transparent  text-[#92949F] ${inputClass || ""}`} {...rest} />
       </div>
 
       <label

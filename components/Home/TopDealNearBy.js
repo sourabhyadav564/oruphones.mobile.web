@@ -82,7 +82,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
   }, [loading, selectedSearchCity, applySortFilter]);
 
   return (
-    <section className="px-3 text-sm text-gray-70">
+    <section className="px-3 text-sm text-gray-70 mt-4">
       <div className="flex items-center justify-start space-x-2 ">
         <h1 className="mt-3 mb-2 font-semibold text-base">
           Best Deals Near You
@@ -113,7 +113,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
             <div
               className="m-1.5"
               key={item.listingId}
-              onClick={() => setLoadingState(true)}
+            // onClick={() => setLoadingState(true)}
             >
               <NearByDealCard data={item} prodLink setProducts={setBestDeals} />
             </div>
@@ -134,11 +134,11 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
       {!isLoading && isFinished === false && (
         <span
           className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-            } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer`}
+            } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer mb-5`}
           onClick={loadMoreData}
         >
-          <p className="block text-m-green font-semibold">
-            {isLoadingMore ? "Fetching more products..." : "Load More"}
+          <p className="block text-m-green font-Semibold">
+            {isLoadingMore ? "Fetching more products..." : "Load More ..."}
           </p>
         </span>
       )}

@@ -11,6 +11,7 @@ import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
+import BottomNav from "@/components/Navigation/BottomNav";
 
 // import {
 //   otherVendorDataState,
@@ -314,10 +315,10 @@ function MakePage() {
                 <div
                   key={item.listingId}
                   className="m-1.5"
-                  // onClick={() => {
-                  //   // setListingId(item.listingId);
-                  //   setProductsData(otherListings);
-                  // }}
+                // onClick={() => {
+                //   // setListingId(item.listingId);
+                //   setProductsData(otherListings);
+                // }}
                 >
                   <OtherListingCard
                     data={item}
@@ -337,9 +338,8 @@ function MakePage() {
         {!isLoading &&
           isFinished === false && otherListings.length != totalProducts && (
             <span
-              className={`${
-                isLoadingMore ? "w-[250px]" : "w-[150px]"
-              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
+                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
               <p className="block text-m-green font-semibold">
@@ -348,6 +348,7 @@ function MakePage() {
             </span>
           )}
       </Filter>
+      <BottomNav />
     </>
   );
 }

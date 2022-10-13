@@ -39,11 +39,13 @@ function SearchBar({ className }) {
         setInput("");
       }
     };
+
     document.addEventListener("mousedown", checkIfClickedOutside);
     return () => {
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
   }, []);
+
 
   const handleChange = (e) => {
     setInput(e.target.value);
@@ -63,14 +65,13 @@ function SearchBar({ className }) {
 
   return (
     <Fragment>
-      <div className="flex-1 relative" ref={ref}>
+      <div className="flex-1 relative " ref={ref}>
         <input
-          placeholder="Search with make and model"
+          placeholder="Search on ORUPhones"
           onChange={handleChange}
           value={input}
-          className={`w-full bg-white text-gray-800 focus:outline-none rounded ${
-            className || "py-1.5 pl-10 pr-4 text-sm"
-          } ${searchResults && "rounded-b-none"}`}
+          className={`w-full bg-white text-gray-800 focus:outline-none rounded-md ${className || "py-2 pl-2 pr-4 text-xs"
+            } ${searchResults && "rounded-b-none"}`}
           style={{ boxShadow: "0px 2px 3px #0000000A" }}
         />
         {searchResults && (
@@ -156,7 +157,7 @@ function SearchBar({ className }) {
           </div>
         )}
         {!className && (
-          <div className="absolute left-2.5 top-0 bottom-0 flex items-center pr-2">
+          <div className="absolute right-2 top-0 bottom-0 flex items-center">
             <BiSearch className="text-primary " size={20} />
           </div>
         )}
@@ -179,12 +180,19 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
     );
   }
   return (
-    <Link
-      href={
+    <div
+      onClick={() => window.open(
         makeLink
           ? `/product/buy-old-refurbished-used-mobiles/${make}/`
-          : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`
+          : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`,
+        "_blank"
+      )
       }
+    // href={
+    //   makeLink
+    //     ? `/product/buy-old-refurbished-used-mobiles/${make}/`
+    //     : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`
+    // }
     >
       <a
         className="px-6 py-3 block border-b last:border-0 capitalize"
@@ -192,6 +200,6 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
       >
         {marketingName || make}
       </a>
-    </Link>
+    </div>
   );
 };

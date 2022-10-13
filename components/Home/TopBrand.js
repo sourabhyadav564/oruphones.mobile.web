@@ -24,25 +24,25 @@ function TopBrand({ brandsList }) {
   var homePagebrandsList = brandsList?.slice(0, 8);
 
   return (
-    <section className="text-gray-70">
-      <h1 className="mt-3 mb-2 px-3 font-semibold text-based">
+    <section>
+      <h1 className="my-2 px-3 text-gray-500 font-medium text-sm">
         {" "}
-        Buy Top Brands{" "}
+        Shop by Brands{" "}
       </h1>
       <BasicCarousel
-        slidesPerView={4.1}
+        slidesPerView={4.4}
         spaceBetween={8}
-        style={{ padding: "8px 12px" }}
+        style={{ padding: "8px"}}
       >
         {homePagebrandsList &&
           homePagebrandsList.map((item) => (
-            <SwiperSlide key={item.make} onClick={() => setLoadingState(true)}>
+            <SwiperSlide key={item.make} onClick={() => setLoadingState(true)} >
               <BrandCard data={item} />
             </SwiperSlide>
           ))}
         <SwiperSlide
-          style={{ height: "auto" }}
-          onClick={() => setLoadingState(true)}
+          style={{ height: "auto"}}
+          onClick={() => setLoadingState(true)} 
         >
           <BrandCard data={{ make: "Show all" }} />
         </SwiperSlide>

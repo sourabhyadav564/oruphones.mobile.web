@@ -83,8 +83,15 @@ const ListItem = ({ make, marketingName, children }) => {
     return <p className="px-6 py-3 block border-b last:border-0">{children}</p>;
   }
   return (
-    <Link href={`/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`}>
+    <div
+      // href={`/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`}
+      onClick={() => window.open(
+        `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`,
+        "_blank"
+      )
+      }
+    >
       <a className="px-6 py-3 block border-b last:border-0">{marketingName}</a>
-    </Link>
+    </div>
   );
 };

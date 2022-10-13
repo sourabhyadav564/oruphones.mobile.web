@@ -3,7 +3,9 @@ import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { AiOutlineLogout, AiOutlineInfoCircle, AiOutlineQuestionCircle, AiOutlineLogin } from "react-icons/ai";
-import userAvatar from "@/assets/user-avatar.png";
+// import userAvatar from "@/assets/user-avatar.png";
+import userAvatar from "@/assets/icons/avatar.png"
+import {BiUserCircle} from "react-icons/bi";
 import Link from "next/link";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import router from "next/router";
@@ -58,38 +60,48 @@ function Sidebar({ open, setOpen }) {
           leaveFrom="translate-x-0"
           leaveTo="-translate-x-10"
         >
-          <div className="flex flex-col w-full h-full max-h-screen bg-white text-left overflow-hidden shadow-xl transform transition-all">
-            <div className="p-4 bg-green-light text-white rounded-b-2xl">
-              <FiChevronLeft className="mr-2 cursor-pointer" fontSize="22" onClick={() => setOpen(false)} />
+          <div className="flex flex-col w-full h-full max-h-screen bg-white overflow-hidden shadow-xl transform transition-all">
+            <div className="p-4  bg-green-light text-white rounded-b-2xl">
+              <FiChevronLeft className="ml-auto text-lg item-center " onClick={() => setOpen(false)} />
               <div className="flex items-center px-4 py-2" onClick={handleClick}>
-                <div className={`w-14 h-14 rounded-full mr-3 relative flex-shrink-0 ${user?.userdetails?.profilePicPath ? "bg-white" : ""}`}>
-                  <Image src={user?.userdetails?.profilePicPath || userAvatar} objectFit="contain" className="rounded-full" layout="fill" />
+                <div className="border-2 border-white mr-3 rounded-full p-1">
+                <div className={`w-4 h-4 p-3 rounded-full  relative  ${user?.userdetails?.profilePicPath ? "bg-white" : ""}`}>
+                  <Image src={user?.userdetails?.profilePicPath || userAvatar} objectFit="contain" className="" layout="fill" />
                 </div>
+              </div>
                 <div className="flex flex-col">
-                  <h2 className="font-bold">{userName}</h2>
-                  {user?.userdetails?.createdDate && <p className="text-xs ">Joined On {user?.userdetails?.createdDate}</p>}
+                  <h2 className="font-Semibold text-[15px]">{userName}</h2>
+                  {user?.userdetails?.createdDate && <p className="text-[10px] font-Light text-gray-300">Joined On {user?.userdetails?.createdDate}</p>}
                 </div>
               </div>
             </div>
 
-            <ul className="mt-6 mb-4 text-black-4e flex flex-col flex-1">
+            <ul className="mt-6 mb-4 text-black-4e flex flex-col flex-1 pr-5 font-Regular text-[13px]">
               <ListItem
                 href={authenticated ? "/user/favourites" : "/login"}
                 onClick={() => {
                   setOpen(false);
                 }}
               >
-                <MdOutlineFavoriteBorder size={20} />
-                <p> My Favorites</p>
+                <div className="w-full flex gap-2 border-b pb-3">
+                <MdOutlineFavoriteBorder size={20} className="self-center"/>
+                <p className="self-center flex-1"> My Favorites</p>
+                <FiChevronLeft className="rotate-180 self-center"/>
+                <hr/>
+                </div> 
               </ListItem>
+
               <ListItem
                 href="/about-us"
                 onClick={() => {
                   setOpen(false);
                 }}
               >
-                <AiOutlineInfoCircle size={20} />
-                <p> About us</p>
+              <div className="w-full flex gap-2 border-b pb-3">
+                <AiOutlineInfoCircle size={20} className="self-center"/>
+                <p className="self-center flex-1"> About us</p>
+                <FiChevronLeft className="rotate-180 self-center"/>
+                </div>
               </ListItem>
               <ListItem
                 href="/faq"
@@ -97,24 +109,33 @@ function Sidebar({ open, setOpen }) {
                   setOpen(false);
                 }}
               >
-                <AiOutlineQuestionCircle size={20} />
-                <p> FAQ</p>
+              <div className="w-full flex gap-2 border-b pb-3">
+                <AiOutlineQuestionCircle size={20} className="self-center"/>
+                <p className="self-center flex-1"> FAQs</p>
+                <FiChevronLeft className="rotate-180 self-center"/>
+              </div>
               </ListItem>
-              {authenticated ? (
-                <ListItem
-                  href="/login"
-                  onClick={() => {
+             <div className="mt-auto border-t ml-2 ">
+                {authenticated ? (
+                  <ListItem
+                    href="/login"
+                    onClick={() => {
                     dispatch("LOGOUT");
                     setOpen(false);
                   }}
                 >
-                  <AiOutlineLogout size={20} /> <p>Logout</p>
+                <div className="flex gap-2 -pl-4 pt-2">
+                  <AiOutlineLogout size={20} className="self-center" /> <p>Logout</p>
+                </div>
                 </ListItem>
               ) : (
                 <ListItem href="/login">
+                  <div className="flex gap-2 -pl-4 pt-2">
                   <AiOutlineLogin size={20} /> <p>Sign In</p>
+                  </div>
                 </ListItem>
               )}
+              </div> 
             </ul>
           </div>
         </Transition.Child>
@@ -126,9 +147,9 @@ function Sidebar({ open, setOpen }) {
 export default Sidebar;
 
 const ListItem = ({ children, href, onClick }) => (
-  <li className="last:mt-auto" onClick={onClick}>
+  <li className="last:mt-auto " onClick={onClick}>
     <Link href={href}>
-      <a className="pl-6 mb-2 py-2 hover:bg-gray-ef border-l-2 border-transparent hover:border-primary flex items-center space-x-2">{children}</a>
+      <a className="pl-4 mb-2 py-2 hover:bg-gray-ef border-l-2 border-transparent hover:border-primary flex items-center space-x-2 ">{children}</a>
     </Link>
   </li>
 );

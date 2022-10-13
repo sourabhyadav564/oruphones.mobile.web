@@ -38,7 +38,7 @@ function Modal1({ open, setOpen, children }) {
                 <IoCloseCircleOutline onClick={() => setOpen(false)} />
               </div>
               <div
-                style={{ maxHeight: "80vh" }}
+                style={{ maxHeight: "280vh" }}
                 className="inline-block align-bottom bg-white rounded-t-2xl overflow-hidden overflow-y-auto cardShadow1 transform transition-all w-screen max-w-md"
               >
                 {children}

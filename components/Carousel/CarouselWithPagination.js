@@ -10,7 +10,7 @@ function CarouselWithPagination({ children, ...rest }) {
       id="main"
       tag="div"
       wrapperTag="ul"
-      pagination={{ clickable: true }}
+      // pagination={{ clickable: true }}
       // onInit={(swiper) => console.log("Swiper initialized!", swiper)}
       // onSlideChange={(swiper) => {
       //   console.log("Slide index changed to: ", swiper.activeIndex);

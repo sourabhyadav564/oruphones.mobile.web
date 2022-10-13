@@ -9,8 +9,8 @@ function BrandCard({ data, className, popup }) {
       <>
         {!popup ? (
           <Link href={`/brands`}>
-            <a className="rounded-lg cardShadow1 h-full flex justify-center items-center p-2 text-xs">
-              <p className="block text-primary">Show All</p>
+            <a className="rounded-lg cardShadow1 h-full flex justify-center items-center p-2 text-xs  ">
+              <p className="block text-primary ">Show All</p>
             </a>
           </Link>
         ) : (
@@ -30,15 +30,15 @@ function BrandCard({ data, className, popup }) {
           href={{ pathname: `/product/buy-old-refurbished-used-mobiles/${data?.make?.toLowerCase()}` }}
         >
           <a
-            className={`h-full  flex justify-center p-2 ${
-              className || "cardShadow1 rounded-lg"
+            className={`flex justify-center p-4  ${
+              className || "cardShadow1 rounded-md"
             }`}
           >
             <Image
               src={data?.imagePath || Logo}
               alt={data?.make}
-              height={150}
-              width={150}
+              height={50}
+              width={50}
               objectFit="contain"
             />
           </a>
@@ -47,14 +47,14 @@ function BrandCard({ data, className, popup }) {
         // <Link href={{ pathname: `/product/buy-old-refurbished-used-mobiles/${data?.make?.toLowerCase()}` }}>
         <a
           className={`h-full  flex justify-center p-2 ${
-            className || "cardShadow1 rounded-lg"
+            className || "cardShadow1 rounded-md"
           }`}
         >
           <Image
             src={data?.imagePath || Logo}
             alt={data?.make}
-            height={150}
-            width={150}
+            height={50}
+            width={50}
             objectFit="contain"
           />
         </a>
