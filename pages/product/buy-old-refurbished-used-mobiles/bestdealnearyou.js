@@ -165,11 +165,11 @@ function Bestdealnearyou() {
     }
   }, [applyFilter]);
 
-  const sortingProducts = getSortedProducts(applySortFilter, products);
+  // const sortingProducts = getSortedProducts(applySortFilter, products);
 
   return (
     <><Filter
-      searchText={`Old Listings`}
+      searchText={`All Listings`}
       setSortApplyFilter={setSortApplyFilter}
       setApplyFilter={setApplyFilter}
       applyFilter={applyFilter}
@@ -190,7 +190,7 @@ function Bestdealnearyou() {
           <BestDealSection bestDealData={bestDeal} setProducts={setBestDeal} />
         )
       )}
-      {(isLoading || sortingProducts?.length > 0) && (
+      {(isLoading) && (
         <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
           {" "}
           Other Listings ({totalProducts}){" "}
@@ -200,8 +200,8 @@ function Bestdealnearyou() {
         <Loader />
       ) : (
         <section className="grid grid-cols-2 py-3 -m-1.5">
-          {sortingProducts &&
-            sortingProducts?.map((item) => (
+          {products &&
+            products?.map((item) => (
               <div key={item.listingId} className="m-1.5">
                 <OtherListingCard
                   data={item}
@@ -215,8 +215,8 @@ function Bestdealnearyou() {
       {!isLoading &&
         bestDeal &&
         !(bestDeal.length > 0) &&
-        sortingProducts &&
-        !sortingProducts.length > 0 && <NoMatch />}
+        products &&
+        !products.length > 0 && <NoMatch />}
 
       {!isLoading &&
         isFinished == false && products.length != totalProducts && (

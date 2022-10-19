@@ -4,13 +4,13 @@ import Modal2 from "./Modal2";
 function PricePopup({ open, setOpen, price, leastPrice, maxPrice, setSubmitting }) {
 
     const handleSubmit = () => {
-        setSubmitting(true);
         setOpen(false);
+        setSubmitting(true);
     }
 
     const handleChange = () => {
-        setSubmitting(false);
         setOpen(false);
+        setSubmitting(false);
     }
 
     const priceDiff = price < leastPrice ? "Low" : price > maxPrice && "High";

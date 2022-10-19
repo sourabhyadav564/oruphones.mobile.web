@@ -604,7 +604,7 @@ function ProductDeatils({ data }) {
             setDefaultOpen={setDefaultOpen}
             key={defaultOpen}
           />
-          {!data?.verified && <div className="border-t pt-2">
+          {data?.isOtherVendor === "N" && !data?.verified && <div className="border-t pt-2">
             <div className="pt-2">
               <div className="font-Medium text-[13px] pb-2">This is unverified device!</div>
               <span className="font-Medium text-[13px] pb-2">Please </span>

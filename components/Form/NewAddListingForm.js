@@ -62,6 +62,7 @@ import VerifyListingPopup from "../Popup/VerifyListingPopup";
 import PricePopup from "../Popup/PricePopup";
 import { BsArrowLeft } from "react-icons/bs";
 import { Heading, SellPhoneHeading1, ProductPriceHeading, AgeHeading } from "../elements/Heading/heading";
+import { IoCloseCircle } from "react-icons/io5";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -1075,7 +1076,7 @@ const NewAddListingForm = ({ data }) => {
                 <span className="font-Roboto-Medium self-center text-[10px]">Your Device is in</span>
                 <p className="font-Roboto-Bold self-center text-[12px]">
                   {condition}
-                  <span>Condition</span>
+                  <span> Condition</span>
 
                 </p>
               </div>
@@ -1187,11 +1188,12 @@ const NewAddListingForm = ({ data }) => {
                   condition={condition}
                   answer={conditionResults}
                 /> */}
-              <div className="flex bg-[#F3F3F3] p-2  rounded-md space-x-1">
-                <span className="font-Medium self-center text-[10px]">Your Device is in</span>
-                <p className="font-bold self-center text-[12px]">
+              <div className="flex bg-[#F3F3F3] p-2  rounded-md space-x-2">
+                <span className="font-Roboto-Medium self-center text-[10px]">Your Device is in</span>
+                <p className="font-Roboto-Bold self-center text-[12px]">
                   {condition}
                   <span> Condition</span>
+
                 </p>
               </div>
               {/* <p
@@ -1431,6 +1433,7 @@ const NewAddListingForm = ({ data }) => {
             >
               TAKE ME TO VERIFICATION
             </button>
+            <div className="h-10" />
           </>
         )}
       </form>

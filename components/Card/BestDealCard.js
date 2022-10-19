@@ -7,7 +7,7 @@ import verifiedIcon from "@/assets/verified.svg";
 import Logo from "@/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 
-import {CardHeading,CardHeading1,CardHeading2,CardHeading3,CardHeading4} from "@/components/elements/CardHeading/cardheading";
+import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 import VerifiedIcon from "@/components/VerifiedIcon";
 import { numberWithCommas } from "@/utils/util";
 import { BiChevronRight } from "react-icons/bi";
@@ -29,113 +29,118 @@ function BestDealCard({
   useEffect(() => {
     setLoadingState(false);
   }, [router.pathname]);
- 
+
   return (
     <>
       <div className="grid font-SF-Pro grid-cols-2 mb-6 rounded-lg border cardShadow1 p-4  max-w-sm relative bg-white">
         <div className="cols-span-2">
-        <div className="grid grid-cols-2 gap-2">
-          <p className="mb-2 leading-none space-y-0.5">
-            {/* <span className=" block">Condition</span> */}
-            <CardHeading1 title="Condition"/>
-            <span className="flex items-center">
-              <CardHeading2 title={data?.deviceCondition || <span>&nbsp;&nbsp;</span>} />
-              <BsInfoCircle
-                className="ml-0.5 text-xs cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openConditionInfo();
-                }}
-              />
-            </span>
-          </p>
-          <p className="mb-2 leading-none space-y-0.5">
-            {/* <span className="text-[10px] text-[#878787] font-light block">Listed on</span> */}
-            <CardHeading1 title="Listed on"/>
-            <CardHeading2 title= {data?.listingDate || <span>&nbsp;&nbsp;</span>}/>
-            {/* <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
+          <div className="grid grid-cols-2 gap-2">
+            <p className="mb-2 leading-none space-y-0.5">
+              {/* <span className=" block">Condition</span> */}
+              <CardHeading1 title="Condition" />
+              <span className="flex items-center">
+                <CardHeading2 title={data?.deviceCondition || <span>&nbsp;&nbsp;</span>} />
+                <BsInfoCircle
+                  className="ml-0.5 text-xs cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openConditionInfo();
+                  }}
+                />
+              </span>
+            </p>
+            <p className="mb-2 leading-none space-y-0.5">
+              {/* <span className="text-[10px] text-[#878787] font-light block">Listed on</span> */}
+              <CardHeading1 title="Listed on" />
+              <CardHeading2 title={data?.listingDate || <span>&nbsp;&nbsp;</span>} />
+              {/* <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
               {data?.listingDate || <span>&nbsp;&nbsp;</span>}
             </span> */}
-          </p>
-                 
-           <p className="mb-2 leading-none space-y-0.5">
-           <CardHeading1 title="RAM"/>
-            <CardHeading2 title={data?.deviceRam || "--"}/>
-            {/* <span className="text-[10px] text-[#878787] font-light block">RAM</span>
+            </p>
+
+            <p className="mb-2 leading-none space-y-0.5">
+              <CardHeading1 title="RAM" />
+              <CardHeading2 title={data?.deviceRam || "--"} />
+              {/* <span className="text-[10px] text-[#878787] font-light block">RAM</span>
             <span className="font-semibold pt-0.5 text-[#373737] text-[11px]  block">{data?.deviceRam || "--"}​</span> */}
-          </p>
-          
-          
-          <p className="mb-2 leading-none space-y-0.5">
-          <CardHeading1 title="Storage"/>
-            <CardHeading2 title={data?.deviceStorage || <span>&nbsp;&nbsp;</span>}/>
-            {/* <span className="text-[10px] text-[#878787] font-light block">Storage</span>
+            </p>
+
+
+            <p className="mb-2 leading-none space-y-0.5">
+              <CardHeading1 title="Storage" />
+              <CardHeading2 title={data?.deviceStorage || <span>&nbsp;&nbsp;</span>} />
+              {/* <span className="text-[10px] text-[#878787] font-light block">Storage</span>
             <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
               {data?.deviceStorage || <span>&nbsp;&nbsp;</span>}
             </span> */}
-          </p>
-          {data?.isVendor ? (
-            <div className="grid">
-              <Image
-                src={data?.vendorImg || Logo}
-                width="100%"
-                height="100%"
-                objectFit="contain"
-              />
-            </div>
-          ) : (
-            <Fragment>
-              <p className="mb-2 leading-none space-y-0.5">
-              <CardHeading1 title="Location"/>
-                {/* <span className="text-[10px] text-[#878787] font-light block">Location</span> */}
-                {data?.listingLocation ? (
-                  <CardHeading2 title={data?.listingLocation}/>
-                  // <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
-                  //   {data?.listingLocation}
-                  // </span>
-                ) : (
-                  <CardHeading2 title="--"/>
-                  // <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">--</span>
-                )}
-              </p>
-            </Fragment>
-          )}
-        </div>
-        <div className="col-span-3 mt-2">
-          <p>
+            </p>
+            {data?.isVendor ? (
+              <div className="grid">
+                <Image
+                  src={data?.vendorImg || Logo}
+                  width="100%"
+                  height="100%"
+                  objectFit="contain"
+                />
+              </div>
+            ) : (
+              <Fragment>
+                <p className="mb-2 leading-none space-y-0.5">
+                  <CardHeading1 title="Location" />
+                  {/* <span className="text-[10px] text-[#878787] font-light block">Location</span> */}
+                  {data?.listingLocation ? (
+                    <CardHeading2 title={data?.listingLocation} />
+                    // <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
+                    //   {data?.listingLocation}
+                    // </span>
+                  ) : (
+                    <CardHeading2 title="--" />
+                    // <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">--</span>
+                  )}
+                </p>
+              </Fragment>
+            )}
+          </div>
+          <div className="col-span-3 mt-2">
+            <p>
               {/* <span className="text-xs text-gray-70">List Price</span> */}
               {/* <span
                 className="font-bold text-[#000944] text-[15px] flex items-center"
               >
                 {"₹" + numberWithCommas(data?.listingPrice)}
               </span> */}
-              <CardHeading3 title={"₹" + numberWithCommas(data?.listingPrice)}/>
+              <CardHeading3 title={"₹" + numberWithCommas(data?.listingPrice)} />
             </p>
-          {/* <h2 className="font-medium text-[#000000]" style={{ fontSize: 14 }}>
+            {/* <h2 className="font-medium text-[#000000]" style={{ fontSize: 14 }}>
             {data?.marketingName}
           </h2> */}
-          <CardHeading4 title={data?.marketingName}/>
-          
-          <div className="flex justify-between items-end mt-2">
-           
-            <Link
-              href={{
-                pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
-                query: { isOtherVendor: data?.isOtherVendor },
-              }}
-              passHref
-            >
-              <a
-                className="flex items-center px-2 w-[88px] h-[35px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
-                onClick={() => setLoadingState(true)}
+            <CardHeading4 title={data?.marketingName} />
+
+            <div className="flex justify-between items-end mt-2">
+
+              <div
+                // href={{
+                //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
+                //   query: { isOtherVendor: data?.isOtherVendor },
+                // }}
+                // passHref
+                onClick={() => window.open(
+                  `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
+                  "_blank"
+                )
+                }
               >
-                <div className="m-auto ">
-                View Deal{" "} <span className="pt-0.5">&gt;</span>
-                </div>           
-              </a>
-            </Link>
+                <a
+                  className="flex items-center px-2 w-[88px] h-[35px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
+                // onClick={() => setLoadingState(true)}
+                >
+                  <div className="m-auto ">
+                    View Deal{" "} <span className="pt-0.5">&gt;</span>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
         </div>
         <div className="relative pt-5">
           {/* {data?.isOtherVendor === "Y" && (
@@ -186,7 +191,7 @@ function BestDealCard({
             priority
           />
         </div>
-       
+
         <div className="absolute right-0 px-3 py-3">
           {!(data.isOtherVendor === "Y") && (
             <AddFav
