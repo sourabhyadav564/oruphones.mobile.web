@@ -7,8 +7,8 @@ import pass from "@/assets/pass1.png";
 import { useEffect, useState } from "react";
 import { deviceConditionQuestion } from "@/utils/constant";
 import ConditionOptionLarge from "./Condition/ConditionOptionLarge";
-import {BsCheckCircle} from "react-icons/bs"; 
-import {AiOutlineCloseCircle} from "react-icons/ai";
+import { BsCheckCircle } from "react-icons/bs";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 function ViewReport({ data, defaultOpen, setDefaultOpen }) {
   if (!data?.verified && !data?.cosmetic) {
@@ -41,22 +41,22 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                 />
               </div>
             </Disclosure.Button>
-           
-           
+
+
 
             <Disclosure.Panel>
-            {data?.verified && (
+              {data?.verified && (
                 <div className="border-t pt-2">
-                   
+
                   <div className="pt-2">
-                  <div>
-                        <h1 className="font-Medium text-[13px] pb-2">Device Verification Report</h1>
-                </div>
+                    <div>
+                      <h1 className="font-Medium text-[13px] pb-2">Device Verification Report</h1>
+                    </div>
                     {data &&
                       data.questionnaireResults &&
                       data.questionnaireResults.map((items, index) => {
                         return (
-                            
+
                           <Results
                             key={index}
                             index={index + 1}
@@ -86,7 +86,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                 </div>
               )}
             </Disclosure.Panel>
-            
+
           </>
         )}
       </Disclosure>
@@ -108,7 +108,7 @@ const TestAndStatus = ({ testName, testStatus }) => (
         src={testStatus === "PASS" ? <BsCheckCircle/> : failedIcon}
       /> */}
       {
-        testStatus==="PASS"?<BsCheckCircle size={13} className="text-red-500 text-[#4CAF50]" /> :<AiOutlineCloseCircle className="text-red-500" size={20}/>
+        testStatus === "PASS" ? <BsCheckCircle size={13} className="text-red-500 text-[#4CAF50]" /> : <AiOutlineCloseCircle className="text-red-500" size={20} />
       }
     </p>
   </div>

@@ -31,8 +31,10 @@ function GlobalHeader() {
         router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]" ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]/[modelName]" ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/pricerange/[min]/[max]" ||
+        router.pathname === "/brands" ||
         router.pathname.includes("shopby") ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou" ||
+        router.pathname === "/product/buy-old-refurbished-used-mobiles/searchBar" ||
         router.pathname === "/product/models") && (
           <div className="flex flex-1 justify-between px-4 py-2 ">
             <div className="w-44 space-x-6 flex items-center">
@@ -60,20 +62,31 @@ function GlobalHeader() {
               </Link>
 
             </div>
-            <div className="flex items-center cursor-pointer flex-shrink-0">
+            <div className="grid grid-cols-2 m-auto absolute right-1 top-4">
               <div
-                className="flex justify-end items-center w-[100px] cursor-pointer space-x-1"
+                className="flex  items-center  cursor-pointer space-x-1"
                 onClick={() => setOpenLocationPopup(true)}
               >
                 <span className="truncate underline font-extrathin text-[12px]" >{selectedSearchCity}</span>
                 <img src={location.src} width={12} height={12} />
                 {/* <img src={dropdown.src} width={12} height={12} /> */}
               </div>
-              {router.pathname === "/" && authenticated && (
+              <div>
+              {(router.pathname === "/" ||
+        router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]" ||
+        router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]/[modelName]" ||
+        router.pathname === "/product/buy-old-refurbished-used-mobiles/pricerange/[min]/[max]" ||
+        router.pathname === "/brands" ||
+        router.pathname.includes("shopby") ||
+        router.pathname ==="/product/buy-old-refurbished-used-mobiles/searchBar" ||
+        router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou" ||
+        router.pathname === "/product/models") && authenticated && (
+          
+         
                 <Link href="/user/notification">
                   <a
                     className="flex-shrink-0 ml-4 flex items-center"
-                    onClick={() => setLoadingState(true)}
+                    onClick={() => setLoadingState(false)}
                   >
                     <Image
                       src={bellDot}
@@ -85,6 +98,8 @@ function GlobalHeader() {
                   </a>
                 </Link>
               )}
+
+              </div>
             </div>
           </div>
         )}

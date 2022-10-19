@@ -5,6 +5,7 @@ import { FaSearchDollar } from "react-icons/fa";
 import ShopByPopup from "../Popup/ShopByPopup";
 import { useRouter } from "next/router";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
+import {ShopCategoryHeading} from "../elements/Heading/heading";
 
 const CategoryCards = ({ data, priceRange }) => {
   const router = useRouter();
@@ -50,7 +51,7 @@ const CategoryCards = ({ data, priceRange }) => {
         }}
       >
 
-        <div className="w-full text-center leading-tight md:px-4 ">
+        <div className="w-full text-center leading-tight md:px-4">
         <a
           className={` h-[80px] flex  justify-center cardShadow1 rounded-md `}
           onClick={() => setLoadingState(true)}
@@ -63,8 +64,8 @@ const CategoryCards = ({ data, priceRange }) => {
             objectFit="contain"
           />
         </a>
-        <span className="font-Regular text-[12px] "  style={{color:"#707070"}}>
-            {data.text}
+        <span>
+            <ShopCategoryHeading title={data.text}/>
         </span>
         </div>
       </Link>

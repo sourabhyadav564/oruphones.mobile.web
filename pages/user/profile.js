@@ -7,8 +7,8 @@ import Header2 from "@/components/Header/header2";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import Footer from "@/components/Footer";
-import {RiDeleteBinLine} from "react-icons/ri";
-import {AiOutlineLogout} from "react-icons/ai";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { AiOutlineLogout } from "react-icons/ai";
 import editImage from "@/assets/icons/edit-image.png";
 
 import {
@@ -85,7 +85,7 @@ function Profile() {
   const deleteUserAccountInfo = () => {
     let payload = {
       userUniqueId: Cookies.get("userUniqueId"),
-    }; 
+    };
     deleteUserAccount(payload).then((res) => {
       dispatch("LOGOUT");
       toast.success("User Account Deleted Successfully", {
@@ -112,98 +112,99 @@ function Profile() {
       <div className="pb-20">
 
 
-      <main className="relative ">
-        <section className=" bg-primary pb-8 mb-20 flex justify-center rounded-b-xl">
-          <UserIcon img={imgPath} onChange={changeImage} />
-          <div className="ml-12 md:ml-0">
-          <div className="absolute  right-20 top-32  text-[20px] font-bold">
-          <div className="text-white">
-            {userName || user.userdetails.userName}
+        <main className="relative ">
+          <section className=" bg-primary pb-8 mb-20 flex justify-center rounded-b-xl">
+            <UserIcon img={imgPath} onChange={changeImage} />
+            <div className="ml-12 md:ml-0">
+              <div className="absolute  right-20 top-32  text-[20px] font-bold">
+                <div className="text-white">
+                  {userName || user.userdetails.userName}
+                </div>
+              </div>
             </div>
-         </div>
-         </div>
-        </section>
-        
-        
-        <section className="px-4 flex flex-col my-8 space-y-4">
-        <Link href="/user/favourites">
-            <a className="border-lg py-3 text-sm text-primary uppercase rounded text-center" style={{backgroundColor:"#F9C414"}}>
-              MY FAVORITES
-            </a>
-        </Link>
-        </section>
-        <section className="px-4 flex flex-col my-8 space-y-4">
-          <h1 className="font-Light text-[14px] border-b-2 pb-2">Basic Info</h1>
-          <div className="space-y-1 text-[12px] font-Regular">
-          <p className="bg-white px-0.5">Name <span className="text-red-500">*</span></p>
-          <Input
-            type="text"
-            inputClass="text-black-ef font-Regular" 
-            maxLength="30"
-            name="username"
-            required
-            defaultValue={user?.userdetails?.userName}
-            onChange={(e) => {
-              setUserName(e.target.value);
-            }}
-          />
+          </section>
+
+
+          <section className="px-4 flex flex-col my-8 space-y-4">
+            <Link href="/user/favourites">
+              <a className="border-lg py-3 text-sm text-primary uppercase rounded text-center" style={{ backgroundColor: "#F9C414" }}>
+                MY FAVORITES
+              </a>
+            </Link>
+          </section>
+          <section className="px-4 flex flex-col my-8 space-y-4">
+            <h1 className="font-Light text-[14px] border-b-2 pb-2">Basic Info</h1>
+            <div className="space-y-1 text-[12px] font-Regular">
+              <p className="bg-white px-0.5">Name <span className="text-red-500">*</span></p>
+              <Input
+                type="text"
+                inputClass="text-black-ef font-Regular"
+                maxLength="30"
+                name="username"
+                required
+                defaultValue={user?.userdetails?.userName}
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                }}
+              />
             </div>
 
-          <div className="space-y-1 text-[12px] font-Regular">
-          <p className="bg-white px-0.5">Mobile No.<span className="text-red-500">*</span></p>
-          <Input
-            disabled
-            inputClass="font-Regular text-black-ef"
-            defaultValue={`+91 | ${user?.userdetails?.mobileNumber}`}
-          />
-          </div>
-          <div className="space-y-1 text-[12px] font-Regular">
-          <p className="bg-white px-0.5">Email ID <span className="text-red-500">*</span></p>
-          <Input
-            type="text"
-            name="email"
-            inputClass="font-Regular text-black-ef"
-            defaultValue={user?.userdetails?.email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-            
-          </div>
-         
+            <div className="space-y-1 text-[12px] font-Regular">
+              <p className="bg-white px-0.5">Mobile No.<span className="text-red-500">*</span></p>
+              <Input
+                disabled
+                inputClass="font-Regular text-black-ef"
+                defaultValue={`+91 | ${user?.userdetails?.mobileNumber}`}
+              />
+            </div>
+            <div className="space-y-1 text-[12px] font-Regular">
+              <p className="bg-white px-0.5">Email ID <span className="text-red-500">*</span></p>
+              <Input
+                type="text"
+                name="email"
+                inputClass="font-Regular text-black-ef"
+                defaultValue={user?.userdetails?.email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
 
-        <div className="w-full py-3 text-white font-medium text-[15px] rounded-md text-center m-auto justify-center" style={{backgroundColor:"#2C2F45"}} onClick={saveUserInfo}>
-        <p>Save Changes</p>
-        </div>
+            </div>
 
-           
-        
-         <div className="flex text-[9px]">
-        <p className="text-sm text-red-500 rounded text-center font-Regular underline flex flex-1">
-          <RiDeleteBinLine className="self-center"/>
-          Delete account
-        </p>
-         <a href="/login">
-            <p
-              className="text-sm text-primary rounded text-center font-Regular underline flex gap-1"
-              onClick={() => {
-                dispatch("LOGOUT");
-              }}
-            >
-              
-              Log Out
-              <AiOutlineLogout className="self-center"/>
-        </p>
-          </a>
 
-         
-         </div>
-          
-          
-        </section>
-      </main>
-      {/* <Footer /> */}
-      <BottomNav />
+            <div className="w-full py-3 text-white font-medium text-[15px] rounded-md text-center m-auto justify-center" style={{ backgroundColor: "#2C2F45" }} onClick={saveUserInfo}>
+              <p>Save Changes</p>
+            </div>
+
+
+
+            <div className="flex text-[9px]">
+              <p className="text-sm text-red-500 rounded text-center font-Regular underline flex flex-1 hover:cursor-pointer"
+                onClick={deleteUserAccountInfo}>
+                <RiDeleteBinLine className="self-center" />
+                Delete account
+              </p>
+              <a href="/login">
+                <p
+                  className="text-sm text-primary rounded text-center font-Regular underline flex gap-1"
+                  onClick={() => {
+                    dispatch("LOGOUT");
+                  }}
+                >
+
+                  Log Out
+                  <AiOutlineLogout className="self-center" />
+                </p>
+              </a>
+
+
+            </div>
+
+
+          </section>
+        </main>
+        {/* <Footer /> */}
+        <BottomNav />
       </div>
     </Fragment>
   );
@@ -272,10 +273,10 @@ const UserIcon = ({ onChange, img }) => (
       </svg> */}
 
       {/* <img src={editImage} alt="profile-edit"/> */}
-      <svg id="Layer_3" height="30" viewBox="0 0 48 48" width="30"  xmlns="http://www.w3.org/2000/svg" data-name="Layer 3">
-        <path d="m13 34.75h7.05a.75.75 0 1 0 0-1.5h-7.05a1.2511 1.2511 0 0 1 -1.25-1.25v-3.4991l4.35-4.3409 3.87 3.87a.75.75 0 0 0 1.0606 0l7.2-7.2 1.4594 1.46a.75.75 0 0 0 1.0606-1.06l-1.99-1.99a.75.75 0 0 0 -1.0606 0l-7.2 7.2-3.87-3.87a.75.75 0 0 0 -1.06-.0005l-3.82 3.8125v-12.382a1.2511 1.2511 0 0 1 1.25-1.25h18a1.2511 1.2511 0 0 1 1.25 1.25v5.49a.75.75 0 0 0 1.5 0v-5.49a2.7528 2.7528 0 0 0 -2.75-2.75h-18a2.7528 2.7528 0 0 0 -2.75 2.75v18a2.7528 2.7528 0 0 0 2.75 2.75z"/><path d="m32.9888 22.1748-10.4468 10.3945a.7506.7506 0 0 0 -.2212.5137l-.0708 2.8984a.76.76 0 0 0 .7681.7686l2.9135-.0708a.7512.7512 0 0 0 .5108-.2183l10.4476-10.394a2.757 2.757 0 1 0 -3.9008-3.8921zm3.2465 1.8452a1.4035 1.4035 0 0 1 -.4038.983l-10.2348 10.1835-1.8277.0445.044-1.8106 10.2334-10.1821a1.3935 1.3935 0 0 1 1.0042-.42 1.204 1.204 0 0 1 1.1847 1.2017z"/><path d="m16.25 18a2.75 2.75 0 1 0 2.75-2.75 2.7528 2.7528 0 0 0 -2.75 2.75zm4 0a1.25 1.25 0 1 1 -1.25-1.25 1.2511 1.2511 0 0 1 1.25 1.25z"/>
+      <svg id="Layer_3" height="30" viewBox="0 0 48 48" width="30" xmlns="http://www.w3.org/2000/svg" data-name="Layer 3">
+        <path d="m13 34.75h7.05a.75.75 0 1 0 0-1.5h-7.05a1.2511 1.2511 0 0 1 -1.25-1.25v-3.4991l4.35-4.3409 3.87 3.87a.75.75 0 0 0 1.0606 0l7.2-7.2 1.4594 1.46a.75.75 0 0 0 1.0606-1.06l-1.99-1.99a.75.75 0 0 0 -1.0606 0l-7.2 7.2-3.87-3.87a.75.75 0 0 0 -1.06-.0005l-3.82 3.8125v-12.382a1.2511 1.2511 0 0 1 1.25-1.25h18a1.2511 1.2511 0 0 1 1.25 1.25v5.49a.75.75 0 0 0 1.5 0v-5.49a2.7528 2.7528 0 0 0 -2.75-2.75h-18a2.7528 2.7528 0 0 0 -2.75 2.75v18a2.7528 2.7528 0 0 0 2.75 2.75z" /><path d="m32.9888 22.1748-10.4468 10.3945a.7506.7506 0 0 0 -.2212.5137l-.0708 2.8984a.76.76 0 0 0 .7681.7686l2.9135-.0708a.7512.7512 0 0 0 .5108-.2183l10.4476-10.394a2.757 2.757 0 1 0 -3.9008-3.8921zm3.2465 1.8452a1.4035 1.4035 0 0 1 -.4038.983l-10.2348 10.1835-1.8277.0445.044-1.8106 10.2334-10.1821a1.3935 1.3935 0 0 1 1.0042-.42 1.204 1.204 0 0 1 1.1847 1.2017z" /><path d="m16.25 18a2.75 2.75 0 1 0 2.75-2.75 2.7528 2.7528 0 0 0 -2.75 2.75zm4 0a1.25 1.25 0 1 1 -1.25-1.25 1.2511 1.2511 0 0 1 1.25 1.25z" />
       </svg>
     </label>
-    
+
   </div>
 );

@@ -6,6 +6,7 @@ import Logo from "@/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 import VerifiedIcon from "../VerifiedIcon";
 import sold_out from "@/assets/soldout.png";
+import {CardHeading3,CardHeading4,CardHeading} from "@/components/elements/CardHeading/cardheading";
 
 function NearByDealCard({ data, setProducts, prodLink }) {
   if (data?.make?.toLowerCase().includes("all")) {
@@ -71,23 +72,32 @@ function NearByDealCard({ data, setProducts, prodLink }) {
                   {numberWithCommas(data?.listingPrice || "")}
                 </p>
                 <h1 className="flex-1 truncate w-full capitalize font-Regular text-[12px] text-black">
-                  {data?.marketingName}
+                  <CardHeading4 title={data?.marketingName}/>
                 </h1>
                 <div
                   className="flex flex-wrap justify-between"
                 >
                   {data?.deviceStorage && (
-                    <p className="mr-1 font-Light text-[8px] text-black">{data?.deviceStorage}</p>
+                    <p className="mr-1 font-Light text-[8px] text-black">
+                      <CardHeading title={data?.deviceStorage}/>
+                      </p>
                   )}
-                  <p>
-                    <span className="font-Light text-[8px] text-black">Condition : </span>
-                    <span className="font-Light text-[8px] text-black">{data?.deviceCondition || "--"}</span>
+                  <p className="flex">
+                    <span className="font-Light text-[8px] text-black">
+                    <CardHeading title={`Condition :   ${" "}`}/>
+                    </span>
+                    <span className="font-Light text-[8px] text-black">
+                     
+                      <CardHeading title={ data?.deviceCondition || "--"}/>
+                      </span>
                   </p>
                 </div>
 
                 <div className="justify-self-end flex justify-between font-Light text-[6px] capitalize">
-                  <span>{data?.listingLocation || "India"}</span>
-                  <span>{data?.listingDate || "Today"}</span>
+                  <span>
+                  <CardHeading title={data?.listingLocation || "India"}/>
+                  </span>
+                  <CardHeading title={data?.listingDate || "Today"}/>
                 </div>
               </div>
             </div>

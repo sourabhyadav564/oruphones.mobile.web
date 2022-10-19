@@ -8,7 +8,9 @@ import { SwiperSlide } from "swiper/react";
 import BrandCard from "../Card/BrandCard";
 import BasicCarousel from "../Carousel/BasicCarousel";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
+import {Heading} from "../elements/Heading/heading";
 import { useRouter } from "next/router";
+
 
 const data = [
   {
@@ -48,8 +50,10 @@ function ShopBy() {
     //     <CategoryCards priceRange />
     //   </Carousel>
     // </section>
-    <section className=" text-gray-70">
-      <h1 className="mt-3 mb-2 px-3 pt-2.5 font-Regular text-based text-xs"> Shop by Categories </h1>
+    
+    <section className=" text-gray-70 ">
+      {/* <h1 className="mt-3 mb-2 px-3 pt-2.5 font-Regular text-based text-xs"> Shop by Categories </h1> */}
+      <Heading title="Shop by Categories"/>
       <BasicCarousel
         slidesPerView={4}
         spaceBetween={8}

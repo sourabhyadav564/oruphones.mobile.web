@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 const Footer = () => {
   return (
-    <footer className="bg-primary-dark px-4 py-6">
+    <footer className="bg-primary-dark px-4 pt-6 pb-16">
       <div className="container grid grid-cols-1 md:grid-cols-3 md:space-y-8 space-y-4 text-white">
         <div className="flex flex-col">
           <h1 className="font-bold">Customer Service</h1>

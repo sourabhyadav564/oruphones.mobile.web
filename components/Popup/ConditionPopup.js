@@ -1,5 +1,6 @@
 import { deviceConditionQuestion } from "@/utils/constant";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import ConditionOptionLarge from "../Condition/ConditionOptionLarge";
 import Modal1 from "./Modal1";
 
@@ -12,7 +13,6 @@ function ConditionPopup({ openCondition, setopenCondition, setConditionResultEdi
     // const [range, setRange] = useState("Featured");
 
     function handleChange(data) {
-        console.log(data);
         setCondition(data);
     }
 
@@ -33,43 +33,44 @@ function ConditionPopup({ openCondition, setopenCondition, setConditionResultEdi
         }
     }, [questionIndex]);
 
+    useEffect(() => {
+        if (openCondition) {
+            setQuestionIndex(0);
+            setConditionResults({});
+        }
+    }, [openCondition]);
+
+
     const calculateDeviceCondition = () => {
         if (conditionResults[0].toString() == "No") {
             handleChange("Needs Repair");
-            console.log("Needs Repair1");
         } else if (
             conditionResults[1].toString().includes("Has significant scratches") ||
             conditionResults[2].toString().includes("Has significant scratches")
         ) {
             handleChange("Fair");
-            console.log("Needs Repair2");
 
         } else if (
             conditionResults[1].toString().includes("Up to 5") ||
             conditionResults[2].toString().includes("Up to 5")
         ) {
             handleChange("Good");
-            console.log("Needs Repair3");
 
         } else if (
             conditionResults[1].toString().includes("Up to 2") ||
             conditionResults[2].toString().includes("Up to 2")
         ) {
             handleChange("Excellent");
-            console.log("Needs Repair4");
 
         } else if (
             conditionResults[1].toString().includes("No scratch") ||
             conditionResults[2].toString().includes("No scratch")
         ) {
             handleChange("Like New");
-            console.log("Needs Repair5");
 
         } else {
             setCondition("Like New");
         }
-        console.log("conditionResults", conditionResults);
-        console.log("condition2", condition);
     };
 
     const handleForward = () => {

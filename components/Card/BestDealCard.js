@@ -7,11 +7,14 @@ import verifiedIcon from "@/assets/verified.svg";
 import Logo from "@/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 
+import {CardHeading,CardHeading1,CardHeading2,CardHeading3,CardHeading4} from "@/components/elements/CardHeading/cardheading";
+import VerifiedIcon from "@/components/VerifiedIcon";
 import { numberWithCommas } from "@/utils/util";
 import { BiChevronRight } from "react-icons/bi";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
 import sold_out from "@/assets/soldout.png";
+import VerificationIcon from "../verificationIcon";
 
 function BestDealCard({
   openConditionInfo,
@@ -26,17 +29,19 @@ function BestDealCard({
   useEffect(() => {
     setLoadingState(false);
   }, [router.pathname]);
-
+ 
   return (
     <>
-      <div className="grid grid-cols-3 mb-6 rounded-lg border cardShadow1 p-4 max-w-sm relative">
-        <div className="text-black-4e text-sm">
-          <p className="mb-2.5">
-            <span className="text-xs block">Condition</span>
-            <span className="font-bold flex items-center">
-              {data?.deviceCondition || <span>&nbsp;&nbsp;</span>}
+      <div className="grid font-SF-Pro grid-cols-2 mb-6 rounded-lg border cardShadow1 p-4  max-w-sm relative bg-white">
+        <div className="cols-span-2">
+        <div className="grid grid-cols-2 gap-2">
+          <p className="mb-2 leading-none space-y-0.5">
+            {/* <span className=" block">Condition</span> */}
+            <CardHeading1 title="Condition"/>
+            <span className="flex items-center">
+              <CardHeading2 title={data?.deviceCondition || <span>&nbsp;&nbsp;</span>} />
               <BsInfoCircle
-                className="ml-2 text-xs mt-0.5 cursor-pointer"
+                className="ml-0.5 text-xs cursor-pointer"
                 onClick={(e) => {
                   e.preventDefault();
                   openConditionInfo();
@@ -44,21 +49,30 @@ function BestDealCard({
               />
             </span>
           </p>
-          <p className="mb-2.5">
-            <span className="text-xs block">RAM</span>
-            <span className="font-bold block">{data?.deviceRam || "--"}​</span>
-          </p>
-          <p className="mb-2.5">
-            <span className="text-xs block">Storage</span>
-            <span className="font-bold block">
-              {data?.deviceStorage || <span>&nbsp;&nbsp;</span>}
-            </span>
-          </p>
-          <p className="mb-2.5">
-            <span className="text-xs block">Listed on</span>
-            <span className="font-bold block">
+          <p className="mb-2 leading-none space-y-0.5">
+            {/* <span className="text-[10px] text-[#878787] font-light block">Listed on</span> */}
+            <CardHeading1 title="Listed on"/>
+            <CardHeading2 title= {data?.listingDate || <span>&nbsp;&nbsp;</span>}/>
+            {/* <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
               {data?.listingDate || <span>&nbsp;&nbsp;</span>}
-            </span>
+            </span> */}
+          </p>
+                 
+           <p className="mb-2 leading-none space-y-0.5">
+           <CardHeading1 title="RAM"/>
+            <CardHeading2 title={data?.deviceRam || "--"}/>
+            {/* <span className="text-[10px] text-[#878787] font-light block">RAM</span>
+            <span className="font-semibold pt-0.5 text-[#373737] text-[11px]  block">{data?.deviceRam || "--"}​</span> */}
+          </p>
+          
+          
+          <p className="mb-2 leading-none space-y-0.5">
+          <CardHeading1 title="Storage"/>
+            <CardHeading2 title={data?.deviceStorage || <span>&nbsp;&nbsp;</span>}/>
+            {/* <span className="text-[10px] text-[#878787] font-light block">Storage</span>
+            <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
+              {data?.deviceStorage || <span>&nbsp;&nbsp;</span>}
+            </span> */}
           </p>
           {data?.isVendor ? (
             <div className="grid">
@@ -71,20 +85,59 @@ function BestDealCard({
             </div>
           ) : (
             <Fragment>
-              <p className="mb-2.5">
-                <span className="text-xs block">Location</span>
+              <p className="mb-2 leading-none space-y-0.5">
+              <CardHeading1 title="Location"/>
+                {/* <span className="text-[10px] text-[#878787] font-light block">Location</span> */}
                 {data?.listingLocation ? (
-                  <span className="font-bold block">
-                    {data?.listingLocation}
-                  </span>
+                  <CardHeading2 title={data?.listingLocation}/>
+                  // <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
+                  //   {data?.listingLocation}
+                  // </span>
                 ) : (
-                  <span className="font-bold block">--</span>
+                  <CardHeading2 title="--"/>
+                  // <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">--</span>
                 )}
               </p>
             </Fragment>
           )}
         </div>
-        <div className="col-span-2 relative pt-5">
+        <div className="col-span-3 mt-2">
+          <p>
+              {/* <span className="text-xs text-gray-70">List Price</span> */}
+              {/* <span
+                className="font-bold text-[#000944] text-[15px] flex items-center"
+              >
+                {"₹" + numberWithCommas(data?.listingPrice)}
+              </span> */}
+              <CardHeading3 title={"₹" + numberWithCommas(data?.listingPrice)}/>
+            </p>
+          {/* <h2 className="font-medium text-[#000000]" style={{ fontSize: 14 }}>
+            {data?.marketingName}
+          </h2> */}
+          <CardHeading4 title={data?.marketingName}/>
+          
+          <div className="flex justify-between items-end mt-2">
+           
+            <Link
+              href={{
+                pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
+                query: { isOtherVendor: data?.isOtherVendor },
+              }}
+              passHref
+            >
+              <a
+                className="flex items-center px-2 w-[88px] h-[35px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
+                onClick={() => setLoadingState(true)}
+              >
+                <div className="m-auto ">
+                View Deal{" "} <span className="pt-0.5">&gt;</span>
+                </div>           
+              </a>
+            </Link>
+          </div>
+        </div>
+        </div>
+        <div className="relative pt-5">
           {/* {data?.isOtherVendor === "Y" && (
           <div className="absolute h-8 -top-1 right-0 left-0 flex justify-center pb-1">
             {" "}
@@ -93,11 +146,12 @@ function BestDealCard({
         )} */}
 
           {(data?.verified && !(data?.status === "Sold_Out")) && (
-            <div className="absolute h-8 -top-2 right-0 left-0 flex px-4 pb-1">
+            <div className="absolute h-8 -top-1 right-0 -left-6 flex px-4 pb-1 z-50">
               <p className="flex items-center">
-                <Image src={verifiedIcon} width={60} height={30} />
+                {/* <Image src={verifiedIcon} width={60} height={30} /> */}
+                <VerifiedIcon width={50} />
                 <BsInfoCircle
-                  className="ml-2 text-xs mt-0.5 cursor-pointer"
+                  className="ml-1 text-xs cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
                     openVerificationInfo();
@@ -125,49 +179,14 @@ function BestDealCard({
           <Image
             alt={data?.marketingName}
             src={data?.imagePath || "/"}
-            width="100%"
-            height="100%"
+            width="80%"
+            height="90%"
             layout="responsive"
             objectFit="contain"
             priority
           />
         </div>
-        <div className="col-span-3 mt-4">
-          <h2 className="font-semibold text-gray-20" style={{ fontSize: 21 }}>
-            {data?.marketingName}
-          </h2>
-          <div className="flex justify-between items-end mt-2">
-            <p>
-              <span className="text-xs text-gray-70">List Price</span>
-              <span
-                className="font-bold text-black-4e flex items-center py-1"
-                style={{ fontSize: 28 }}
-              >
-                {"₹" + numberWithCommas(data?.listingPrice)}
-              </span>
-            </p>
-            <div
-              // href={{
-              //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
-              //   query: { isOtherVendor: data?.isOtherVendor },
-              // }}
-              // passHref
-              onClick={() => window.open(
-                `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
-                "_blank"
-              )
-              }
-            >
-              <a
-                className="flex items-center px-4 py-2 font-semibold bg-primary text-white rounded-md"
-                onClick={() => setLoadingState(true)}
-              >
-                View Deal{" "}
-                <BiChevronRight style={{ marginLeft: 2, fontSize: 20 }} />
-              </a>
-            </div>
-          </div>
-        </div>
+       
         <div className="absolute right-0 px-3 py-3">
           {!(data.isOtherVendor === "Y") && (
             <AddFav

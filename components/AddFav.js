@@ -6,6 +6,7 @@ import { Fragment } from "react";
 import { useAuthState } from "providers/AuthProvider";
 import { BsHeart } from "react-icons/bs";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 function AddFav({ data, setProducts, color, ...rest }) {
 
@@ -37,9 +38,9 @@ function AddFav({ data, setProducts, color, ...rest }) {
       });
     };
     if (data.favourite) {
-      removeFavorite();
+      data?.status != "Sold_Out" ? removeFavorite() : toast.warning("This device is sold out");
     } else {
-      addFavorite();
+      data?.status != "Sold_Out" ? addFavorite() : toast.warning("This device is sold out");
     }
   }
 
@@ -72,6 +73,8 @@ function AddFav({ data, setProducts, color, ...rest }) {
         </svg> */}
         <AiOutlineHeart
           className="hover:cursor-pointer"
+          size='18px'
+          fill={"#000000"}
           onClick={
             (e) => {
               e.preventDefault();
@@ -106,6 +109,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
       data?.favourite ? (<AiFillHeart
         className="hover:cursor-pointer"
         color="#FF0000"
+        size='18px'
         onClick={
           (e) => {
             e.preventDefault();
@@ -116,6 +120,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
         (<AiOutlineHeart
           className="hover:cursor-pointer"
           color="#FF0000"
+          size='18px'
           onClick={
             (e) => {
               e.preventDefault();

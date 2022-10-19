@@ -1,9 +1,13 @@
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+
 import Header2 from "@/components/Header/header2";
+import { ProductPriceHeading, ProductNameHeading } from "@/components/elements/Heading/heading";
 import ImageSlider from "@/components/ImageSlider";
+import { BiSearch } from "react-icons/bi";
 import star from "@/assets/star.svg";
 import { FaRupeeSign } from "react-icons/fa";
 import { BsInfoCircle } from "react-icons/bs";
@@ -30,6 +34,9 @@ import whatsapp from "@/assets/whatsapp.png";
 import WarrantyInfo from "@/components/Popup/WarrantyInfo";
 import VerificationIcon from "@/components/verificationIcon";
 import { AiFillExclamationCircle } from "react-icons/ai";
+import { CardHeading, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
+import SearchBar from "@/components/Header/SearchBar";
+import { toast } from "react-toastify";
 
 
 
@@ -144,7 +151,7 @@ function ProductDeatils({ data }) {
   }
 
   const conditionText = data?.deviceCondition;
-  let filled = 0;
+  let filled = 1;
   if (conditionText === "Like New" || conditionText === "Open Box" || conditionText === "New - Seal Pack") {
     filled = 5;
   } else if (conditionText === "Excellent") {
@@ -163,9 +170,17 @@ function ProductDeatils({ data }) {
     }
   };
 
+  console.log("data2", data);
+
   return (
     <Fragment>
-      <Header2 title={data?.marketingName} />
+      <Header2 title={data?.marketingName}>
+        <div className="absolute right-4 top-3">
+          <Link href="/product/buy-old-refurbished-used-mobiles/searchBar">
+            <BiSearch size={22} />
+          </Link>
+        </div>
+      </Header2>
 
       <main className="py-3 relative ">
 
@@ -204,24 +219,21 @@ function ProductDeatils({ data }) {
                 </Fragment>
               )} */}
             </div>
-            <div className="flex space-x-4 items-center self-center">
+            <div className="flex space-x-2 items-center self-center">
               <AddFav
                 data={deviceListingInfo}
                 setProducts={setDeviceListingInfo}
-                height={22}
-                width={22}
-                color="#707070"
               />
               <ShareIcon
                 data={deviceListingInfo}
-                height={22}
-                width={22}
+                height={14}
+                width={14}
                 color="black"
               />
             </div>
           </div>
         )}
-        <div className="px-4 pt-10">
+        <div className="px-4 pt-2">
           <ImageSlider
             onClick={() => setShowFullImage(true)}
             images={
@@ -247,10 +259,10 @@ function ProductDeatils({ data }) {
         </div>
         <div className="my-4 px-4 ">
           <div className="flex">
-            <div className="flex-1 py-1 ">
+            <div className="flex-1  ">
               {/* <p className="text-gray-70 text-xs">List Price</p> */}
               {/* <p className="text-gray-70 text-xs">Price</p> */}
-              <p
+              {/* <p
                 className="font-bold flex items-center"
                 style={{ fontSize: 29, color: "#000944" }}
               >
@@ -258,9 +270,9 @@ function ProductDeatils({ data }) {
                   <FaRupeeSign className="text-xl font-normal mr-0.5" />
                 )}{" "}
                 {data?.listingPrice}
-              </p>
+              </p> */}
+              <ProductPriceHeading title={data?.listingPrice} />
             </div>
-
 
             <div className="m-auto justify-center">
               {(data?.verified && (
@@ -297,9 +309,10 @@ function ProductDeatils({ data }) {
             </div>
           </div>
           <div className="flex flex-col items-start">
-            <h1 className="text-black font-Regular text-[22px]">
+            {/* <h1 className="text-black font-Regular text-[22px]">
               {data?.marketingName}
-            </h1>
+            </h1> */}
+            <ProductNameHeading title={data?.marketingName} />
 
             {/* {data?.isOtherVendor === "N" && (
               <div className="text-gray-20 w-full flex items-center justify-between my-1">
@@ -312,31 +325,33 @@ function ProductDeatils({ data }) {
               </div>
             )} */}
           </div>
-          <div className="w-full grid grid-cols-2 items-center my-4 gap-2">
-            <div className="w-full flex items-center m-auto rounded-md justify-center" style={{ backgroundColor: "#F3F3F3" }}>
-              <p className="py-3  text-black font-Light text-[10px]">
-                Varient:{" "}
-                <span className="text-black font-Regular text-[12px]">
+          <div className="w-full flex items-center mt-4 mb-[12px] gap-2">
+            <div className="w-11/12 h-[40px]  flex items-center m-auto rounded-[5px] justify-center opacity-bg-50" style={{ backgroundColor: "#F3F3F3" }}>
+              <p className="py-[12px] flex text-[#000000] space-x-1 font-Roboto-Light text-[10px] opacity-100">
+                <span className="self-center"> Varient:{" "} </span>
+                <CardHeading4 title={data?.deviceStorage} />
+                {/* <span className="text-[#000000] font-Roboto-Regular text-[12px]">
                   {data?.deviceStorage}
-                </span>
+                </span> */}
               </p>
             </div>
-            <div className="w-full grid grid-cols-2 flex-1 rounded-md px-4 py-1" style={{ backgroundColor: "#F3F3F3" }}
+            <div className="w-full grid grid-cols-2  rounded-[5px] px-4 h-[40px]  opacity-bg-50" style={{ backgroundColor: "#F3F3F3" }}
               onClick={() => setOpenConditionInfo(true)}
             >
               {/* <p className="text-gray-70 text-xs">List Price</p> */}
-              <div>
+              <div className="m-auto justify-center ">
                 <span
-                  className="text-[10px] font-Light text-black flex items-center"
+                  className="font-Roboto-Light text-[10px] opacity-100 text-[#000] flex leading-tight items-center"
                 // onClick={() => setOpenConditionInfo(true)}
                 >
                   Condition{" "}
                 </span>
-                <p className="text-[12px] font-Regular text-black flex items-center">
+                <CardHeading4 title={data?.deviceCondition} />
+                {/* <p className="text-[12px] font-Regular text-black flex items-center">
                   {data?.deviceCondition}
-                </p>
+                </p> */}
               </div>
-              <div className="flex text-[10px] space-x-1 m-auto justify-center ">
+              <div className="flex text-[10px] space-x-[2.5px] m-auto justify-center ">
                 { }
                 {Array(5)
                   .fill()
@@ -345,27 +360,31 @@ function ProductDeatils({ data }) {
 
             </div>
           </div>
+
+
           <div className="py-2 pb-4">
-            {(data?.verified && (
-              <Fragment>
-                {/* <VerifiedIcon width={75} height={32} /> */}
-                <div className="flex m-auto justify-center text-white px-2 py-2 rounded-md" style={{ background: "#4CAF50" }}>
-                  <div className="flex flex-1 space-x-1 ">
-                    <VerificationIcon className="self-center" />
-                    <p className="font-Light Italic text-[9px] self-center">Verified</p>
+            {(data?.verified &&
+              (
+                <Fragment>
+                  {/* <VerifiedIcon width={75} height={32} /> */}
+                  <div className="flex m-auto justify-center text-white px-2 py-2 rounded-md" style={{ background: "#4CAF50" }}>
+                    <div className="flex flex-1 space-x-1 ">
+                      <VerificationIcon className="self-center" />
+                      <p className="font-Light Italic text-[9px] self-center">Verified</p>
+                    </div>
+                    <div className="m-auto justify-center ">
+                      <p className="text-[12px] font-Light">This phone is verified by ORUphones</p>
+                    </div>
                   </div>
-                  <div className="m-auto justify-center ">
-                    <p className="text-[12px] font-Light">This phone is verified by ORUphones</p>
-                  </div>
-                </div>
-                {/* <span
+                  {/* <span
                     className="bg-white py-1 px-2 rounded text-black-21 text-xs font-semibold"
                     onClick={executeScroll}
                   >
                     Device Report
                   </span> */}
-              </Fragment>
-            )) || (
+                </Fragment>
+              )) ||
+              (
                 <Fragment>
                   {/* <UnVerifiedIcon width={75} height={32} /> */}
                   <div className="w-full  py-2 space-x-2 text-center" >
@@ -373,7 +392,7 @@ function ProductDeatils({ data }) {
                       <div className="flex space-x-1 flex-1">
                         {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
                         <div className="flex space-x-2">
-                          <AiFillExclamationCircle size={20} fill="white" className="self-center text-black" />
+                          <AiFillExclamationCircle s ize={20} fill="white" className="self-center text-black" />
                           {/* <UnVerifiedIcon /> */}
 
                           <span className="text-[9px] font-Light self-center text-[#000944] italic uppercase">unverified</span>
@@ -386,7 +405,8 @@ function ProductDeatils({ data }) {
                           onClick={() =>
                             !authenticated
                               ? setOpenLoginPopup(true)
-                              : setOpenRequestVerificationSuccessPopup(true)
+                              : data?.status != "Sold_Out" ? setOpenRequestVerificationSuccessPopup(true) :
+                                toast.warning("This device is sold out")
                           }
                         >
                           Click here to Request Verification
@@ -452,7 +472,7 @@ function ProductDeatils({ data }) {
           </div>
           <h2 className="text-black text-[14px] border-b-2 pb-1 font-Light my-3">Device Info</h2>
 
-          <div className="fixed bottom-0 z-50 left-0 px-2  py-2 w-full ">
+          <div className="fixed bottom-0 z-50 left-0 px-2 pt-2  w-full ">
             {data?.isOtherVendor === "Y" ? (
               <PrimayButton onClick={() => openWebSite(data?.vendorLink)} className="shadow-2xl border border-gray-700">
                 {" "}
@@ -460,17 +480,17 @@ function ProductDeatils({ data }) {
               </PrimayButton>
             ) : (
               <div className="fixed bottom-0 left-0 w-full flex items-center justify-center space-x-2  px-2 z-50">
-                <PrimayButton onClick={() => showSellerNumber(data?.listingId)}>
+                <PrimayButton onClick={() => data?.status != "Sold_Out" ? showSellerNumber(data?.listingId) : toast.warning("This device is sold out")}>
                   {showNumber ? contactSellerMobileNumber : "Contact Seller"}
                 </PrimayButton>
                 {showNumber && (
                   <div
                     className="  px-3 pt-[2px] pb-[2px] rounded-md bg-white"
                     onClick={() =>
-                      window.open(
-                        `https://wa.me/${contactSellerMobileNumber}?text=Hey There, Check this product on ORU Phones. https://betav1.oruphones.com${router?.asPath}`,
+                      data?.status != "Sold_Out" ? window.open(
+                        `https://wa.me/${contactSellerMobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
                         "_blank"
-                      )
+                      ) : toast.warning("This device is sold out")
                     }
                   >
                     <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
@@ -482,10 +502,10 @@ function ProductDeatils({ data }) {
                       <div
                         className=" px-3 pt-[8px] pb-[2px] rounded-md bg-white border"
                         onClick={() =>
-                          window.open(
-                            `https://wa.me/${contactSellerMobileNumber}?text=Hey There, Check this product on ORU Phones. https://betav1.oruphones.com${router?.asPath}`,
+                          data?.status != "Sold_Out" ? window.open(
+                            `https://wa.me/${contactSellerMobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
                             "_blank"
-                          )
+                          ) : toast.warning("This device is sold out")
                         }
                       >
                         <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
@@ -529,7 +549,7 @@ function ProductDeatils({ data }) {
             </div>
           )}
           {data?.isOtherVendor === "N" && (
-            <div className="grid grid-cols-2 space-y-2">
+            <div className="grid grid-cols-2 gap-4">
               <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
               <IconLabelValue label="storage" value={data?.deviceStorage} />
               <IconLabelValue
@@ -584,6 +604,20 @@ function ProductDeatils({ data }) {
             setDefaultOpen={setDefaultOpen}
             key={defaultOpen}
           />
+          {!data?.verified && <div className="border-t pt-2">
+            <div className="pt-2">
+              <div className="font-Medium text-[13px] pb-2">This is unverified device!</div>
+              <span className="font-Medium text-[13px] pb-2">Please </span>
+              <span className="font-Medium text-[13px] font-bold underline pb-2"
+                onClick={() =>
+                  !authenticated
+                    ? setOpenLoginPopup(true)
+                    : setOpenRequestVerificationSuccessPopup(true)
+                }
+              > Click here </span>
+              <span className="font-Medium text-[13px] pb-2"> to send the verification request to seller for detailed device report.</span>
+            </div>
+          </div>}
         </div>
 
         <div className="px-5 my-5">
@@ -594,6 +628,7 @@ function ProductDeatils({ data }) {
       </main>
       <SimilarProduct data={data} />
       <Footer />
+
       {openRequestVerificationSuccessPopup && (
         <RequestVerificationSuccessPopup
           open={openRequestVerificationSuccessPopup}

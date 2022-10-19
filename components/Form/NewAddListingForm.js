@@ -35,7 +35,7 @@ import ModelPopup from "../AddListing/ModelPopup";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 const VerifyFlowPopup = dynamic(() => import("@/components/Popup/VerifyFlowPopup"));
-
+import { TiTick } from "react-icons/ti";
 import {
   addListingBrandSelector,
   addListingModelSelector,
@@ -55,6 +55,12 @@ import Spinner from "../Loader/Spinner";
 import Geocode from "react-geocode";
 import Cookies from "js-cookie";
 import { getCityFromResponse } from "@/utils/util";
+import Header4 from "../Header/header4";
+import { CardHeading4, CardHeading3, PanelHeading } from "@/components/elements/CardHeading/cardheading.js";
+// import Header2 from "../Header/header2";
+import { Heading, SellPhoneHeading1, ProductPriceHeading, AgeHeading } from "@/components/elements/Heading/Heading.js";
+import VerifyListingPopup from "../Popup/VerifyListingPopup";
+import PricePopup from "../Popup/PricePopup";
 import { BsArrowLeft } from "react-icons/bs";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
@@ -128,7 +134,13 @@ const NewAddListingForm = ({ data }) => {
   const [modelInfo, setModelInfo] = useState();
   const [page, setPage] = useState(0);
   const [openVerifyFlow, setOpenVerifyFlow] = useState(false);
-
+  const [currentStep, setCurrentStep] = useState(1);
+  const [openPricePopup, setOpenPricePopup] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [verifySubmit, setVerifySubmit] = useState(false);
+  const [verifyListingAdded, setVerifyListingAdded] = useState(false);
+  var sellValueTag = document.querySelector("#sellValue") || "";
+  var sellValue = sellValueTag.value || "";
 
 
   useEffect(() => {
@@ -458,11 +470,26 @@ const NewAddListingForm = ({ data }) => {
     }
   }, [location]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    var sellValueTag = document.querySelector("#sellValue");
-    var sellValue = sellValueTag.value;
+  useEffect((e) => {
+    if (submitting === true) {
+      submit();
+    }
+  }, [submitting]);
 
+  async function submit() {
+    sellValueTag = document.querySelector("#sellValue");
+    sellValue = sellValueTag.value;
+
+    if ((sellValue < (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7)
+      || sellValue > (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2))
+      && recommandedPrice?.leastSellingprice != "-"
+      && recommandedPrice?.maxsellingprice != "-" && submitting != true) {
+      setOpenPricePopup(true);
+      console.log("submitting", submitting);
+      if (submitting === false) {
+        return;
+      }
+    }
     var inputNameTag = document.querySelector("#inputName");
     // var inputName = inputNameTag.value;
     var inputName = inputUsername || user?.userdetails?.userName;
@@ -543,12 +570,21 @@ const NewAddListingForm = ({ data }) => {
       };
       saveLisiting(payload).then(
         () => {
-          setListingAdded(true);
+          if (verifySubmit === true) {
+            setVerifyListingAdded(true);
+          } else {
+            setListingAdded(true);
+          }
           dispatch("REFRESH");
         },
         (err) => console.error(err)
       );
     }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submit();
   };
 
   const calculateDeviceCondition = () => {
@@ -580,14 +616,11 @@ const NewAddListingForm = ({ data }) => {
   };
 
   const handleBack = () => {
-    console.log("back", conditionResults);
     if (conditionResults[0].toString() == "No") {
-      console.log("back2", conditionResults);
       setPage(page - 1);
       setQuestionIndex(0);
     }
     else {
-      console.log("back3", conditionResults);
       if ((questionIndex == 0 || page > 2) && conditionResults[0].toString() != "No") {
         setPage(page - 1);
       } else {
@@ -634,9 +667,9 @@ const NewAddListingForm = ({ data }) => {
     <Fragment>
       <header className={`flex  p-4 py-3 bg-[#2C2F45] rounded-b-xl text-white text-lg relative`}>
         {(
-          router.pathname !== "/" && <BsArrowLeft onClick={() => { page != 0 ? setPage(page - 1) : router.back() }} className="cursor-pointer" fontSize="22" />
+          router.pathname !== "/" && <BsArrowLeft onClick={() => { page == 2 || page == 3 ? handleBack() : page != 0 ? setPage(page - 1) : router.back() }} className="cursor-pointer" fontSize="22" />
         )}
-        {<span className="m-auto flex justify-center font-Regular text-[18px]">
+        {<span className="m-auto flex justify-center font-Roboto-Regular text-[15px] text-[#FFFFFF]">
           Sell Your Phone
         </span>}
       </header>
@@ -648,7 +681,7 @@ const NewAddListingForm = ({ data }) => {
           Please fill all the required fields properly
         </h1>
       )} */}
-
+      {/* <Header4 title="Sell your Phone" /> */}
       <form
         className="grid grid-cols-1 space-y-4 container my-4 font-SF-Pro"
         onSubmit={handleSubmit}
@@ -671,21 +704,26 @@ const NewAddListingForm = ({ data }) => {
                 className="border-2 border-gray-200 p-2 w-full rounded-md duration-200"
                 value={make}
               /> */}
-              <div className="m-auto pl-16">
+              <div className="m-auto pl-16 pb-[20px] mb-4 border-b ">
                 <Image src={PhoneImage} width={200} height={200} />
               </div>
-              <p className="font-Regular font-SF-Pro text-[12dp] text-[#2C2F45]">
-                Brand <span className="text-red-400">*</span>
-              </p>
-              <Input
-                value={make}
-                disabled
-                placeholder="Please Select Brand "
-                type="text"
-                className="font-Regular text-[12px] text-[#2C2F45]"
-              >
-                {/* Make */}
-              </Input>
+
+              <SellPhoneHeading1 title="Enter your Phone details" />
+
+              <div className="space-y-[5px]">
+                <p className="pt-[25px] flex space-x-0.5">
+                  <CardHeading4 title="Brands" /> <span className="text-red-400 -mt-1">*</span>
+                </p>
+                <Input
+                  value={make}
+                  disabled
+                  placeholder="Please Select Brand "
+                  type="text"
+                  className="font-Regular  text-[12px] text-[#2C2F45]"
+                >
+                  {/* Make */}
+                </Input>
+              </div>
             </div>
             {mktNameOpt && mktNameOpt.length > 0 && (
               <div
@@ -704,38 +742,60 @@ const NewAddListingForm = ({ data }) => {
                   className="border-2 border-gray-200 p-2 w-full rounded-md duration-200"
                   value={model}
                 /> */}
-                <p className="font-Regular text-[12dp] text-[#2C2F45]">
+                <div className="space-y-[5px]">
+                  <p className="flex space-x-0.5">
+                    <CardHeading4 title="Model" /> <span className="text-red-400 -mt-1">*</span>
+                  </p>
+                  <Input
+                    value={model}
+                    disabled
+                    placeholder="Please Select Model "
+                    type="text"
+                    className="font-Regular  text-[12px] text-[#2C2F45]"
+                  >
+                    {/* Make */}
+                  </Input>
+                </div>
+
+                {/* <p className="font-Regular text-[12dp] text-[#2C2F45]">
                   Model <span className="text-red-400 ">*</span>
-                </p>
-                <Input
+                </p> */}
+                {/* <Input
                   value={model}
                   disabled
                   placeholder="Please select model"
                   type="text"
                   className="font-Regular text-[12px] text-[#2C2F45]"
-                >
-                  {/* Model */}
-                </Input>
+                > */}
+                {/* Model */}
+                {/* </Input> */}
               </div>
             )}
             {storageColorOption && storageColorOption?.storage && (
+
               <div className="space-y-2">
-                <p className="font-Regular text-[12dp] text-[#2C2F45]">
+                <div className="space-y-[5px]">
+                  <p className="flex space-x-0.5" >
+                    <CardHeading4 title="Storage Variant " /> <span className="text-red-400 -mt-1">*</span>
+                  </p>
+                </div>
+                {/* <p className="font-Regular text-[12dp] text-[#2C2F45]">
                   Storage Variant <span className="text-red-400">*</span>
-                </p>
+                </p> */}
                 <div className="grid grid-cols-2 gap-3 ">
                   {storageColorOption &&
                     storageColorOption?.storage &&
                     storageColorOption.storage.map((item, index) => (
                       <div
                         className={`${storage == item
-                          ? "bg-[#E8E8E8] font-Regular text-[12dp] text-[#2C2F45] opacity-100"
-                          : "bg-white"
-                          } border-2 active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular text-[12dp] opacity-50 justify-center rounded-md`}
+                          ? "bg-[#E8E8E8]  text-[12dp] opacity-bg-80 rounded-[5px] border-2 border-white text-[#2C2F45] opacity-100"
+                          : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 rounded-[5px]"
+                          }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular  justify-center`}
                         onClick={() => setStorage(item)}
                         key={index}
                       >
-                        <span>{item}</span>
+                        <CardHeading4 title={item} />
+                        {/* <span>{item}</span> */}
                       </div>
                     ))}
                 </div>
@@ -769,16 +829,19 @@ const NewAddListingForm = ({ data }) => {
               </div>
             )} */}
             {modelInfo && !isGettingPrice && (
-              <div className="border-t-2 border-b-2 pt-4 ">
-                <p className=" flex space-x-2  mt-2">
+              <div className="border-t-2 border-b-2 py-[24px]">
+                <p className=" flex space-x-2 ">
                   <div className="font-Regular self-center  text-[13px] text-[#2C2F45]">Get up to:</div>
-                  <div className="font-Bold text-[23px]  text-[#4CAF50]"> ₹{modelInfo?.price} <span className="absolute pl-1 text-[16px] text-[#F9C414]"> *</span></div>
+                  <div className="font-Roboto-Bold text-[22px]  text-[#4CAF50]"> ₹{modelInfo?.price}
+                    {/* <span className="absolute pl-1 text-[16px] text-[#F9C414]"> *</span> */}
+                  </div>
+                  {/* <ProductPriceHeading title={modelInfo?.price} color='#4CAF50'/> */}
                 </p>
-                <div> <h1 className="font-Regular text-[10px]  text-[#F9C414]  opacity-80 "> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h1> </div>
+                {/* <div> <h1 className="font-Regular text-[10px]  text-[#F9C414]  opacity-80 "> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h1> </div> */}
 
               </div>
-
             )}
+
 
             {isGettingPrice && (
               <div className="py-5">
@@ -797,15 +860,16 @@ const NewAddListingForm = ({ data }) => {
                   src={modelInfo?.imagePath || Logo}
                   className=""
                   alt="model"
-                  height="100"
-                  width="70"
+                  height="120"
+                  width="90"
                 />
-                <div className="flex flex-col  absolute bottom-4 left-28">
-                  <p className="font-bold text-[15px] text-[#2C2F45]">{modelInfo?.marketingName}</p>
+                <div className="flex flex-col  absolute bottom-5 left-36">
+                  {/* <p className="font-bold text-[15px] text-[#2C2F45]">{modelInfo?.marketingName}</p> */}
+                  <CardHeading3 title={modelInfo?.marketingName} />
 
-                  <p className="flex space-x-2">
-                    <span className="font-Regular text-[12px] text-[#2C2F45]">RAM:</span>{" "}
-                    <div className="font-bold text-[12px] text-[#2C2F45]">
+                  <p className="flex space-x-1">
+                    <span><CardHeading4 title="RAM :" /></span>{" "}
+                    <div className="font-Roboto-Bold text-[12px] text-[#2C2F45]">
                       {modelInfo?.deviceRam?.split("/")[1] ||
                         storage
                           ?.toString()
@@ -817,9 +881,9 @@ const NewAddListingForm = ({ data }) => {
                     </div>
                   </p>
 
-                  <p className="flex">
-                    <span className="font-Regular text-[12px] text-[#2C2F45]">Storage:</span>{" "}
-                    <div className="font-bold text-[12px] text-[#2C2F45]">
+                  <p className="flex space-x-1">
+                    <span><CardHeading4 title="Storage :" /> </span>{" "}
+                    <div className="font-Roboto-Bold text-[12px] text-[#2C2F45]">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
                     </div>
@@ -828,10 +892,13 @@ const NewAddListingForm = ({ data }) => {
               </div>
             )}
             <div>
-              <p className="font-Bold text-[#2C2F45] text-[20px]">
+              <div className="py-[25px]">
+                <SellPhoneHeading1 title="Do you have the followings?" />
+              </div>
+              {/* <p className="font-Bold text-[#2C2F45] text-[20px]">
                 Do you have the followings?
-              </p>
-              <div className="grid grid-cols-2 gap-4 mt-5">
+              </p> */}
+              <div className="grid grid-cols-2 gap-4 ">
                 <Checkbox
                   src={chargingImg}
                   text="Original Charger"
@@ -862,7 +929,9 @@ const NewAddListingForm = ({ data }) => {
               </div>
               {showWarranty && (
                 <>
-                  <p className="font-Light text-[#2C2F45] text-[13px] mt-5 border-b pb-2 ">
+
+
+                  <p className="font-Roboto-Light text-[#2C2F45] text-[13px] mt-5 border-b pb-1">
                     What is your mobile age?
                   </p>
                   <div className="my-5 grid grid-cols-2 gap-5">
@@ -870,9 +939,9 @@ const NewAddListingForm = ({ data }) => {
                       <div
                         key={index}
                         className={`${warranty == item?.value
-                          ? "bg-[#F3F3F3] text-[#2C2F45] font-Light text-[13px]"
-                          : "opacity-60 border-2 border-[#9597A2] font-Light text-[13px]"
-                          } py-3 px-5 rounded-md font-Light text-[13px] hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300  flex items-center justify-start text-sm`}
+                          ? "bg-[#F3F3F3] text-[#2C2F45] border-2 border-[#F3F3F3] font-Roboto-Light text-[13px]"
+                          : "opacity-60 border-2 border-[#9597A2] font-Roboto-Light text-[13px] "
+                          } py-3 px-5 rounded-md font-Roboto-Light text-[13px] hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300  flex items-center justify-start text-sm`}
                         onClick={() => setWarranty(item.value)}
                       >
                         <span>{item.label}</span>
@@ -889,20 +958,21 @@ const NewAddListingForm = ({ data }) => {
         {page === 2 && (
           <>
             {modelInfo && (
-              <div className=" p-5 flex space-x-4 border-b-2 ">
+              <div className="p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
                   alt="model"
-                  height="100"
-                  width="70"
+                  height="120"
+                  width="90"
                 />
-                <div className="flex flex-col absolute  left-28 mt-10">
-                  <p className="font-bold text-[15px] text-[#2C2F45]">{modelInfo?.marketingName}</p>
-                  <p className="flex space-x-1">
-                    <span className="font-Regular text-[12px] text-[#2C2F45]">RAM:</span>{" "}
+                <div className="flex flex-col  absolute bottom-5 left-36">
+                  {/* <p className="font-bold text-[15px] text-[#2C2F45]">{modelInfo?.marketingName}</p> */}
+                  <CardHeading3 title={modelInfo?.marketingName} />
 
-                    <div className="font-bold text-[12px] text-[#2C2F45]">
+                  <p className="flex space-x-1">
+                    <span><CardHeading4 title="RAM :" /></span>{" "}
+                    <div className="font-Roboto-Bold text-[12px] text-[#2C2F45]">
                       {modelInfo?.deviceRam?.split("/")[1] ||
                         storage
                           ?.toString()
@@ -915,21 +985,21 @@ const NewAddListingForm = ({ data }) => {
                   </p>
 
                   <p className="flex space-x-1">
-                    <span className="font-Regular text-[12px] text-[#2C2F45]">Storage:</span>{" "}
-                    <div className="font-bold text-[12px] text-[#2C2F45]">
+                    <span><CardHeading4 title="Storage : " /> </span>{" "}
+                    <div className="font-Roboto-Bold text-[12px] text-[#2C2F45]">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
                     </div>
                   </p>
-
                 </div>
               </div>
             )}
 
-            <div className="">
-              <h3 className="text-left font-Bold  text-[#2C2F45] text-[20px]">
+            <div>
+              <SellPhoneHeading1 title={deviceConditionQuestion[questionIndex]?.title} />
+              {/* <h3 className="text-left font-Bold  text-[#2C2F45] text-[20px]">
                 {deviceConditionQuestion[questionIndex]?.title}
-              </h3>
+              </h3> */}
               {deviceConditionQuestion[questionIndex]?.options?.map(
                 (item, index) => (
                   <div
@@ -960,19 +1030,21 @@ const NewAddListingForm = ({ data }) => {
         {page === 3 && (
           <>
             {modelInfo && (
-              <div className=" p-5 flex space-x-4 border-b-2">
+              <div className="p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
                   alt="model"
-                  height="100"
-                  width="70"
+                  height="120"
+                  width="90"
                 />
-                <div className="flex flex-col absolute left-28 mt-10">
-                  <p className="font-bold text-[15px]">{modelInfo?.marketingName}</p>
+                <div className="flex flex-col  absolute bottom-5 left-36">
+                  {/* <p className="font-bold text-[15px] text-[#2C2F45]">{modelInfo?.marketingName}</p> */}
+                  <CardHeading3 title={modelInfo?.marketingName} />
+
                   <p className="flex space-x-1">
-                    <span className="font-Regular text-[12px] text-[#2C2F45]">RAM:</span>{" "}
-                    <div className="font-bold text-[12px] text-[#2C2F45]">
+                    <span><CardHeading4 title="RAM :" /></span>{" "}
+                    <div className="font-Roboto-Bold text-[12px] text-[#2C2F45]">
                       {modelInfo?.deviceRam?.split("/")[1] ||
                         storage
                           ?.toString()
@@ -983,19 +1055,14 @@ const NewAddListingForm = ({ data }) => {
                           .trim()}
                     </div>
                   </p>
+
                   <p className="flex space-x-1">
-                    <span className="font-Regular text-[12px] text-[#2C2F45]">Storage:</span>{" "}
-                    <div className="font-bold text-[12px] text-[#2C2F45]">
+                    <span><CardHeading4 title="Storage : " /> </span>{" "}
+                    <div className="font-Roboto-Bold text-[12px] text-[#2C2F45]">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
                     </div>
                   </p>
-
-                  {/* {condition && (
-                    <p>
-                      <span className="font-bold">Condition:</span> {condition}
-                    </p>
-                  )} */}
                 </div>
               </div>
             )}
@@ -1004,11 +1071,12 @@ const NewAddListingForm = ({ data }) => {
                   condition={condition}
                   answer={conditionResults}
                 /> */}
-              <div className="flex bg-[#F3F3F3] p-2  rounded-md space-x-1">
-                <span className="font-Medium self-center text-[10px]">Your Device is in</span>
-                <p className="font-bold self-center text-[12px]">
+              <div className="flex bg-[#F3F3F3] p-2  rounded-md space-x-2">
+                <span className="font-Roboto-Medium self-center text-[10px]">Your Device is in</span>
+                <p className="font-Roboto-Bold self-center text-[12px]">
                   {condition}
-                  <span> Condition</span>
+                  <span>Condition</span>
+
                 </p>
               </div>
               {/* <p
@@ -1020,16 +1088,20 @@ const NewAddListingForm = ({ data }) => {
 
 
             </>
-            <p className="font-Bold text-[20px]  text-[#2C2F45]">Upload Photos</p>
+            {/* <p className="font-Bold text-[20px]  text-[#2C2F45]">Upload Photos</p> */}
+            <SellPhoneHeading1 title="Upload Photos" />
+            <PanelHeading title="Back Panel" />
             <div className="grid  grid-cols-2 relative">
 
               {images.map((item, index) => (
 
                 <div key={index} className="relative pt-4 even:ml-2 odd:mr-2 mb-2 rounded-md bg-[#E8E8E8]">
                   {index === 0 ? (
-                    <span className="absolute bottom-4 left-14 font-Light text-[11px] opacity-50">Front Panel </span>
+                    <PanelHeading title="Front Panel" />
+                    // <span className="absolute bottom-4 left-16 font-Light text-[11px] opacity-50"> Front Panel </span>
                   ) : index === 1 ? (
-                    <span className="absolute bottom-4 left-14 font-Light text-[11px] opacity-50"> Back Panel</span>
+                    <PanelHeading title="Back Panel" />
+                    // <span className="absolute bottom-4 left-16 font-Light text-[11px] opacity-50"> Back Panel</span>
                   ) : (
                     ""
                   )}
@@ -1049,9 +1121,9 @@ const NewAddListingForm = ({ data }) => {
                   />
                 </div>
               ))}
-              {/* {images && images.length < 8 && (
+              {images && images.length < 8 && (
                 <span
-                  className="absolute -bottom-6 text-sm right-0 text-primary cursor-pointer"
+                  className="absolute -bottom-6 text-sm right-0 pr-2 font-Roboto-Regular text-[#2C2F45] cursor-pointer"
                   onClick={() =>
                     setImages((prev) => [
                       ...prev,
@@ -1062,7 +1134,7 @@ const NewAddListingForm = ({ data }) => {
                 >
                   + Add more
                 </span>
-              )} */}
+              )}
             </div>
             <span className="pb-20" />
 
@@ -1074,19 +1146,21 @@ const NewAddListingForm = ({ data }) => {
         {page === 4 && (
           <>
             {modelInfo && (
-              <div className=" p-5 flex space-x-4 border-b-2">
+              <div className="p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
                   alt="model"
-                  height="100"
-                  width="70"
+                  height="120"
+                  width="90"
                 />
-                <div className="flex flex-col absolute left-28 mt-10">
-                  <p className="font-bold text-[15px]">{modelInfo?.marketingName}</p>
+                <div className="flex flex-col  absolute bottom-5 left-36">
+                  {/* <p className="font-bold text-[15px] text-[#2C2F45]">{modelInfo?.marketingName}</p> */}
+                  <CardHeading3 title={modelInfo?.marketingName} />
+
                   <p className="flex space-x-1">
-                    <span className="font-Regular text-[12px] text-[#2C2F45]">RAM:</span>{" "}
-                    <div className="font-bold text-[12px] text-[#2C2F45]">
+                    <span><CardHeading4 title="RAM :" /></span>{" "}
+                    <div className="font-Roboto-Bold text-[12px] text-[#2C2F45]">
                       {modelInfo?.deviceRam?.split("/")[1] ||
                         storage
                           ?.toString()
@@ -1097,19 +1171,14 @@ const NewAddListingForm = ({ data }) => {
                           .trim()}
                     </div>
                   </p>
+
                   <p className="flex space-x-1">
-                    <span className="font-Regular text-[12px] text-[#2C2F45]">Storage:</span>{" "}
-                    <div className="font-bold text-[12px] text-[#2C2F45]">
+                    <span><CardHeading4 title="Storage : " /> </span>{" "}
+                    <div className="font-Roboto-Bold text-[12px] text-[#2C2F45]">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
                     </div>
                   </p>
-
-                  {/* {condition && (
-                    <p>
-                      <span className="font-bold">Condition:</span> {condition}
-                    </p>
-                  )} */}
                 </div>
               </div>
             )}
@@ -1135,7 +1204,8 @@ const NewAddListingForm = ({ data }) => {
             </>
             <div className="relative">
               <div className="space-y-1 text-[12px] text-[#92949F] font-Regular">
-                <p className="px-0.5 text-[#2C2F45]">Name <span className="text-[#F9C414]">*</span></p>
+
+                <p className="flex  space-x-1"> <CardHeading4 title="Name" /> <span className="text-[#F9C414]">*</span></p>
                 <Input
                   id="inputName"
                   defaultValue={user?.userdetails?.userName}
@@ -1162,7 +1232,7 @@ const NewAddListingForm = ({ data }) => {
 
             <div>
               <div className="space-y-1 text-[12px] font-Regular mt-2">
-                <p className="bg-white px-0.5 text-[#2C2F45]">Location <span className="text-[#F9C414]">*</span></p>
+                <p className="flex space-x-1"><CardHeading4 title="Location" /> <span className="text-[#F9C414]">*</span></p>
               </div>
               <div className="flex w-full justify-center items-center mt-1">
                 <MySelect
@@ -1200,19 +1270,21 @@ const NewAddListingForm = ({ data }) => {
         {page === 5 && (
           <>
             {modelInfo && (
-              <div className=" p-5 flex space-x-4 border-b-2">
+              <div className="p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
                   alt="model"
-                  height="100"
-                  width="70"
+                  height="120"
+                  width="90"
                 />
-                <div className="flex flex-col absolute left-28 mt-10">
-                  <p className="font-bold text-[15px]">{modelInfo?.marketingName}</p>
+                <div className="flex flex-col  absolute bottom-5 left-36">
+                  {/* <p className="font-bold text-[15px] text-[#2C2F45]">{modelInfo?.marketingName}</p> */}
+                  <CardHeading3 title={modelInfo?.marketingName} />
+
                   <p className="flex space-x-1">
-                    <span className="font-Regular text-[12px] text-[#2C2F45]">RAM:</span>{" "}
-                    <div className="font-bold text-[12px] text-[#2C2F45]">
+                    <span><CardHeading4 title="RAM :" /></span>{" "}
+                    <div className="font-Roboto-Bold text-[12px] text-[#2C2F45]">
                       {modelInfo?.deviceRam?.split("/")[1] ||
                         storage
                           ?.toString()
@@ -1223,33 +1295,41 @@ const NewAddListingForm = ({ data }) => {
                           .trim()}
                     </div>
                   </p>
+
                   <p className="flex space-x-1">
-                    <span className="font-Regular text-[12px] text-[#2C2F45]">Storage:</span>{" "}
-                    <div className="font-bold text-[12px] text-[#2C2F45]">
+                    <span><CardHeading4 title="Storage : " /> </span>{" "}
+                    <div className="font-Roboto-Bold text-[12px] text-[#2C2F45]">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
                     </div>
                   </p>
+                  <div className="flex font-Roboto-Bold text-[12px] text-[#2C2F45] ">
+                    {condition && (
+                      <p className="flex space-x-">
+                        <span><CardHeading4 title="Condition : " /> </span> <span>{"  "} {condition} </span>
+                      </p>
+                    )}
+                  </div>
 
-                  {/* {condition && (
-                    <p>
-                      <span className="font-bold">Condition:</span> {condition}
-                    </p>
-                  )} */}
+
+
                 </div>
               </div>
             )}
-            <p className="font-bold text-[20px] pt-4">
-              Enter your sell price <span className="text-red-400">*</span>
+            <p className="flex space-x-1 pt-4">
+              <SellPhoneHeading1 title="Enter your sell price " />
+              {/* Enter your sell price  */}
+              <span className="text-red-400">*</span>
             </p>
             <div className="grid grid-cols-7 gap-4 relative">
+
               <Input
                 id="sellValue"
                 prefix={"₹"}
                 type="number"
                 max="999999"
-                inputClass="text-[24px] text-[#2C2F45] pl-1 my-2 font-bold"
-                className={`h-full col-span-4 text-[24px] font-bold  `}
+                inputClass="text-[24px] text-[#2C2F45] pl-1 font-bold"
+                className={`h-full col-span-4 text-[22px] font-bold  `}
                 errorClass={`border ${sellValueRequired}`}
                 onChange={(e) => {
                   setInputSellPrice(e.target.value);
@@ -1258,18 +1338,14 @@ const NewAddListingForm = ({ data }) => {
               >
                 {/* Enter your sell price* */}
               </Input>
-              {sellValueRequired && (
-                <span className="text-red text-sm absolute -bottom-6 ">
-                  Enter price more than ₹1000
-                </span>
-              )}
 
-              <div className="text-sm bg-[#E8E8E8] col-span-3 px-2 py-3 rounded-md -ml-1 relative  ">
+
+              <div className="text-sm bg-[#E8E8E8] col-span-3 px-2 py-1 rounded-md -ml-1 relative  ">
                 <div className="m-auto">
-                  <span className="font-Regular text-[12px] opacity-50 m-auto justify-center text-[#2C2F45]">Recommended Price</span>
+                  <span className="font-semibold text-[12px] opacity-50 m-auto justify-center text-[#2C2F45]">Recommended Price</span>
                   <br />
                   {(recommandedPrice && recommandedPrice?.leastSellingprice && (
-                    <p className="font-Semibold text-[#2C2F45] text-[14px] m-auto justify-center">
+                    <p className="font-bold text-[#2C2F45] text-[14px] m-auto justify-center">
                       <span className="mr-1">&#x20B9;</span>
                       {recommandedPrice?.leastSellingprice} -
                       {" " + recommandedPrice?.maxsellingprice}
@@ -1278,7 +1354,13 @@ const NewAddListingForm = ({ data }) => {
                 </div>
               </div>
             </div>
+            {sellValueRequired && (
+              <span className="text-red text-sm ">
+                Enter price more than ₹1000
+              </span>
+            )}
             <div className="flex">
+
               <CB
                 checked={termsAndCondition}
                 onChange={(e) => setTermsAndCondition(e.target.checked)}
@@ -1292,12 +1374,13 @@ const NewAddListingForm = ({ data }) => {
               </CB>
             </div>
             {getExternalSellerData && getExternalSellerData.length > 0 && (
-              <p
-                className="font-Light text-[15px] border-b-2 pb-1"
-                style={{ color: "#707070" }}
-              >
-                Price from other vendors :
-              </p>
+              <Heading title="Price from other vendors :" />
+              // <p
+              //   className="font-Light text-[15px] border-b-2 pb-1"
+              //   style={{ color: "#707070" }}
+              // >
+              //   Price from other vendors :
+              // </p>
             )}
             {getExternalSellerData && getExternalSellerData.length > 0 && (
               <div className="border-b-2 pb-6">
@@ -1314,7 +1397,7 @@ const NewAddListingForm = ({ data }) => {
                           alt={items?.externalSourceName}
                         />
                       </div>
-                      <p className="text-[15px] text-[#B4B4B4] flex items-center font-Semibold">
+                      <p className="text-[15px] text-[#100] flex items-center font-Roboto-Semibold">
                         {items?.externalSourcePrice && (
                           <span className="font-normal mr-0.5"> ₹ </span>
                         )}
@@ -1328,28 +1411,26 @@ const NewAddListingForm = ({ data }) => {
             )}
 
             <button
-              className="uppercase rounded py-3 text-[#2C2F45] font-Regular bg-[#F3F3F3] "
+              className="uppercase rounded py-3 text-[#2C2F45] font-Roboto-Regular bg-[#F3F3F3] "
               disabled={!termsAndCondition}
             >
               SUBMIT AS UNVERIFIED
             </button>
 
-            <div className="text-center font-Light font-[Segoe UI] text-[13px] ">
+            <div className="text-center font-[Segoe UI] text-[13px] ">
               <p className="underline text-[#2C2F45]">or</p>
             </div>
 
-            <span
+            <button
               className="w-full uppercase rounded py-3 text-center text-[15px] text-[#FFFFFF] font-Regular bg-[#2C2F45] m-auto "
               disabled={!termsAndCondition}
               onClick={(e) => {
-                e.preventDefault();
-                setOpenVerifyFlow(true);
+                setVerifySubmit(true);
+                // e.preventDefault();
               }}
             >
               TAKE ME TO VERIFICATION
-            </span>
-
-            <span className="pb-20" />
+            </button>
           </>
         )}
       </form>
@@ -1444,6 +1525,8 @@ const NewAddListingForm = ({ data }) => {
       </div>
 
       <ListingAdded open={listingAdded} setOpen={setListingAdded} />
+      <VerifyListingPopup open={verifyListingAdded} setOpen={setVerifyListingAdded} make={make || ""} />
+      <PricePopup open={openPricePopup} setOpen={setOpenPricePopup} price={sellValue} leastPrice={recommandedPrice?.leastSellingprice} maxPrice={recommandedPrice?.maxsellingprice} setSubmitting={setSubmitting} />
       {openConditionInfo && (
         <ConditionInfo
           open={openConditionInfo}
@@ -1478,15 +1561,16 @@ export default NewAddListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border rounded-md bg-[#E8E8E8] py-4 relative h-20 opacity-90 ${checked && "bg-[#9596A1]"}`}
+    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${checked && "bg-[#E8E8E8] opacity-bg-50 "}`}
     onClick={onChange}
   >
     <div className="relative w-7 h-7 mx-auto ">
       <Image src={src} layout="fill" />
     </div>
+
     <input
       type="checkbox"
-      className="absolute top-1 left-1.5 rounded bg-[#E8E8E8]"
+      className="absolute  top-1 left-1.5 rounded bg-black"
       checked={checked}
       readOnly
     />

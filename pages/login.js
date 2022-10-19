@@ -96,7 +96,7 @@ function Login() {
               <h1 className="text-lg font-bold px-1">Welcome</h1>
               <p className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to contribute </p>
               <input
-                className="bg-white border border-2 p-3 w-full font-regular rounded-md"
+                className="bg-white  border-2 p-3 w-full font-regular rounded-md"
                 name="mobile"
                 type="number"
                 prefix="+91-"
@@ -117,7 +117,7 @@ function Login() {
                 </div>
               )}
             </div>
-            <div className="w-full space-y-32">
+            <div className="w-full space-y-4">
             <div className="w-full grid gap-2">
               <button
               className="bg-primary rounded py-3 text-white text-sm w-full disabled:opacity-60"
@@ -147,7 +147,7 @@ function Login() {
             <Link href="/">
               <button
                 type="button"
-                className="w-full rounded text-sm text-gray-400 text-primary font-medium border-2 border-gray-300 disabled:opacity-60 mt-2 p-2"
+                className="w-full rounded text-sm  text-primary font-medium border-2 border-gray-300 disabled:opacity-60 mt-2 p-2"
                 disabled={!formData?.termsAndCondition}
               >
                 Continue as Guest

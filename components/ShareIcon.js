@@ -1,5 +1,6 @@
 import { prepareShareLink } from "api-call";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 export default function ShareIcon({ data, color, ...rest }) {
   function shareListingInfo(data) {
@@ -33,7 +34,7 @@ export default function ShareIcon({ data, color, ...rest }) {
         {...rest}
         onClick={(e) => {
           e.preventDefault();
-          shareListingInfo(data);
+          data?.status != "Sold_Out" ? shareListingInfo(data) : toast.warning("This device is sold out");
         }}
         className="hover:cursor-pointer"
       >

@@ -29,7 +29,12 @@ function AllModel() {
 
   return (
     <>
-      <Filter searchText={`"All Models"`}>
+   
+      <Filter searchText={`All Models`}
+      setSortApplyFilter={setApplyFilter}
+      setApplyFilter={setApplyFilter}
+      applyFilter={applyFilter}>
+     
         {(loading || topsellingmodels?.length > 0) && <h1 className="text-lg font-semibold text-black-4e py-2"> All models </h1>}
         {loading ? (
           <Loader />
@@ -43,6 +48,7 @@ function AllModel() {
               ))}
           </section>
         )}
+        
       </Filter>
       <BottomNav />
     </>

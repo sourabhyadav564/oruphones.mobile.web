@@ -16,6 +16,8 @@ import { BiChevronDown, BiCurrentLocation } from "react-icons/bi";
 import Geocode from "react-geocode";
 import Cookies from "js-cookie";
 import ConditionPopup from "../Popup/ConditionPopup";
+import StorageInfo from "../Popup/StorageInfo";
+import PricePopup from "../Popup/PricePopup";
 
 const EditListingForm = ({ data, resultsSet }) => {
   const [make] = useState(data?.make);
@@ -46,6 +48,8 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [ConditionQuestionEdit, setConditionQuestionEdit] = useState("");
   const [warranty, setWarranty] = useState("more");
   const [showWarranty, setShowWarranty] = useState(data?.warranty != "None");
+  const [locationRequired, setLocationRequired] = useState("");
+  const [openStorageInfo, setOpenStorageInfo] = useState(false);
   const deviceWarrantyCheck = [
     { value: "zero", label: "0-3 Months Ago" },
     { value: "four", label: "4-6 Months Ago" },
@@ -70,13 +74,14 @@ const EditListingForm = ({ data, resultsSet }) => {
 
   const [images, setImages] = useState(initialState);
   const [listingAdded, setListingAdded] = useState(false);
+  const [openPricePopup, setOpenPricePopup] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [verifySubmit, setVerifySubmit] = useState(false);
+  var sellValueTag = document.querySelector("#sellValue") || "";
+  var sellValue = sellValueTag.value || "";
 
   const { user } = useAuthState();
   const dispatch = useAuthDispatch();
-
-  // console.log("resultsSet --->", resultsSet);
-  console.log("data --->", selectedCity);
-  console.log("data2 --->", condition);
 
   useEffect(() => {
     let payload = {
@@ -94,7 +99,7 @@ const EditListingForm = ({ data, resultsSet }) => {
         : data?.deviceRam,
       make: data?.make,
       marketingName: data?.marketingName,
-      deviceCondition: condition,
+      deviceCondition: condition != "" ? condition : data?.deviceCondition,
       warrantyPeriod: warranty,
       hasCharger: headphone ? "Y" : "N",
       hasEarphone: charging ? "Y" : "N",
@@ -111,7 +116,6 @@ const EditListingForm = ({ data, resultsSet }) => {
       condition != undefined
     ) {
       getExternalSellSourceData(payload).then((response) => {
-        console.log("response", response);
         setGetExternalSellerData(response?.dataObject);
       });
     }
@@ -250,7 +254,18 @@ const EditListingForm = ({ data, resultsSet }) => {
     let reqParams = {
       make,
       marketingName,
-      devicestorage: deviceStorage,
+      devicestorage: devStorage?.toString().includes("/")
+        ? devStorage?.split("/")[0]
+        : data?.deviceStorage,
+      deviceRam: devStorage?.toString().includes("/")
+        ? devStorage
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim()
+        : data?.deviceRam,
       deviceCondition: condition,
       earPhones: headphone ? "Y" : "N",
       charger: charging ? "Y" : "N",
@@ -316,13 +331,42 @@ const EditListingForm = ({ data, resultsSet }) => {
     setImages(tempImages);
   };
 
+  useEffect((e) => {
+    if (submitting === true) {
+      submit();
+    }
+  }, [submitting]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    var sellValueTag = document.querySelector("#sellValue");
-    var sellValue = sellValueTag.value;
+    submit();
+  };
+
+  async function submit() {
+    sellValueTag = document.querySelector("#sellValue");
+    sellValue = sellValueTag.value;
+
+    if ((sellValue < (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7)
+      || sellValue > (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2))
+      && recommandedPrice?.leastSellingprice != "-"
+      && recommandedPrice?.maxsellingprice != "-" && submitting != true) {
+      setOpenPricePopup(true);
+      console.log("submitting", submitting);
+      if (submitting === false) {
+        return;
+      }
+    }
 
     if (!sellValue || (sellValue && sellValue.trim() < 1000)) {
       return setSellValueRequired("border-red");
+    }
+    if (
+      selectedCity === "" ||
+      selectedCity === "India" ||
+      selectedCity === undefined
+    ) {
+      window.scroll(0, 450);
+      setLocationRequired("border-red");
     }
     let payload = {
       listingId: data.listingId,
@@ -339,7 +383,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       warrantyPeriod: warranty,
       userUniqueId: user?.userdetails?.userUniqueId,
       verified: data.verified,
-      listedBy: inputUsername || data?.listedBy,
+      listedBy: data?.listedBy,
       recommendedPriceRange:
         recommandedPrice?.leastSellingprice +
         "-" +
@@ -357,7 +401,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       },
       (err) => console.error(err)
     );
-  };
+  }
 
   return (
     <Fragment>
@@ -393,10 +437,8 @@ const EditListingForm = ({ data, resultsSet }) => {
                     .trim() : data?.deviceRam
                       ?.split("/")[1]
                   ||
-                  data.storage
+                  data?.deviceRam
                     ?.toString()
-                    .split("/")[1]
-                    .toString()
                     .replace(/GB/g, " GB")
                     .replace(/RAM/, "")
                     .trim()
@@ -477,9 +519,9 @@ const EditListingForm = ({ data, resultsSet }) => {
               placeholder={selectedCity ? selectedCity : data?.listingLocation}
               value={selectedCity ? selectedCity : data?.listingLocation}
               // className={`${locationRequired}`}
-              className="text-[#2C2F45] "
+              className="text-[#2C2F45] {`${locationRequired}`}"
               onFocus={(e) => {
-                // setLocationRequired("");
+                setLocationRequired("");
               }}
               onChange={(e) => {
                 setSelectedCity(e.value);
@@ -496,11 +538,11 @@ const EditListingForm = ({ data, resultsSet }) => {
               <BiCurrentLocation size={24} />
             </div>
           </div>
-          {/* {locationRequired && (
+          {locationRequired && (
             <p className="text-sm whitespace-nowrap cursor-pointer text-red">
               Please select this field
             </p>
-          )} */}
+          )}
         </div>
         {/* {data?.verified ? (
           <Input value={data?.deviceStorage} disabled>
@@ -605,6 +647,18 @@ const EditListingForm = ({ data, resultsSet }) => {
                 />
               </div>
             ))}
+          {images.length == 0 && (
+            <span
+              className="absolute -bottom-6 text-sm right-0 text-primary cursor-pointer">
+              {
+                setImages((prev) => [
+                  ...prev,
+                  { panel: images.length > 1 && images.length - 0 },
+                  { panel: images.length > 1 && images.length },
+                ])
+              }
+            </span>
+          )}
           {images && images.length < 8 && (
             <span
               className="absolute -bottom-6 text-sm right-0 text-primary cursor-pointer"
@@ -645,7 +699,35 @@ const EditListingForm = ({ data, resultsSet }) => {
           <p className="font-normal text-[16px]  text-[#000000]">
             Do you have the followings?
           </p>
-          <div className="grid grid-cols-2 gap-4 mt-5">
+          {/* <div className="grid grid-cols-2 gap-4 mt-5">
+            <Checkbox
+              src={chargingImg}
+              text="Original Charger"
+              onChange={() => setCharging((prev) => !prev)}
+              checked={charging}
+            />
+            <Checkbox
+              src={headphoneImg}
+              text="Original Earphones"
+              onChange={() => setHeadphone((prev) => !prev)}
+              checked={headphone}
+            />
+            <Checkbox
+              src={originalBoxImg}
+              text="Original Box"
+              onChange={() => setOriginalbox((prev) => !prev)}
+              checked={originalbox}
+            />
+            <Checkbox
+              src={originalBillImg}
+              text="Original Bill"
+              onChange={() => {
+                setShowWarranty((prev) => !prev);
+                setWarranty("more");
+              }}
+              checked={showWarranty}
+            /> */}
+          <div className="grid grid-cols-2 gap-4 ">
             <Checkbox
               src={chargingImg}
               text="Original Charger"
@@ -674,28 +756,28 @@ const EditListingForm = ({ data, resultsSet }) => {
               checked={showWarranty}
             />
           </div>
-          {showWarranty && (
-            <>
-              <p className="font-normal  text-[#2C2F45] text-[13px] mt-8">
-                What is your mobile age?
-              </p>
-              <div className="my-5 grid grid-cols-2 gap-5">
-                {deviceWarrantyCheck?.map((item, index) => (
-                  <div
-                    key={index}
-                    className={`${warranty == item?.value
-                      ? "bg-[#F3F3F3] border border-[#F3F3F3]  text-[#2C2F45] text[13px]"
-                      : " border border-[#9597A2] text-[#2C2F45] text[13px] opacity-60"
-                      } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
-                    onClick={() => setWarranty(item.value)}
-                  >
-                    <span>{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
         </div>
+        {showWarranty && (
+          <>
+            <p className="font-normal  text-[#2C2F45] text-[13px] mt-8">
+              What is your mobile age?
+            </p>
+            <div className="my-5 grid grid-cols-2 gap-5">
+              {deviceWarrantyCheck?.map((item, index) => (
+                <div
+                  key={index}
+                  className={`${warranty == item?.value
+                    ? "bg-[#F3F3F3] border border-[#F3F3F3]  text-[#2C2F45] text[13px]"
+                    : " border border-[#9597A2] text-[#2C2F45] text[13px] opacity-60"
+                    } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
+                  onClick={() => setWarranty(item.value)}
+                >
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
         <div className="text-[12px] font-Regular mt-2">
           <p className="bg-white px-0.5 font-normal text-[#2C2F45] -mb-4 text-[12px]">Name <span className="text-[#F9C414]">*</span></p>
         </div>
@@ -703,6 +785,7 @@ const EditListingForm = ({ data, resultsSet }) => {
           placeholder={"Enter your name"}
           defaultValue={data?.listedBy || ""}
           onChange={(e) => setInputUsername(e.target.value)}
+          disabled
         />
         <div className="text-[12px] font-Regular mt-2">
           <p className="bg-white px-0.5 font-normal text-[#2C2F45] -mb-4 text-[12px]">Enter your sell price <span className="text-[#F9C414]">*</span></p>
@@ -746,6 +829,7 @@ const EditListingForm = ({ data, resultsSet }) => {
             prefix={"₹"}
             type="number"
             max="999999"
+            value={numberFromString(inputSellPrice)}
             inputClass="text-[20px] text-[#2C2F45] pl-1 my-0 font-bold"
             className={`h-full col-span-4 text-[#2C2F45] text-[20px] font-bold  `}
             errorClass={`border ${sellValueRequired}`}
@@ -864,7 +948,17 @@ const EditListingForm = ({ data, resultsSet }) => {
           />
         )
       }
+      {
+        openStorageInfo && (
+          <StorageInfo
+            open={openStorageInfo}
+            setOpen={setOpenStorageInfo}
+            brand={make}
+          />
+        )
+      }
       <ListingAdded open={listingAdded} setOpen={setListingAdded} />
+      <PricePopup open={openPricePopup} setOpen={setOpenPricePopup} price={sellValue} leastPrice={recommandedPrice?.leastSellingprice} maxPrice={recommandedPrice?.maxsellingprice} setSubmitting={setSubmitting} />
       <ConditionPopup openCondition={openCondition} setopenCondition={setopenCondition} setConditionResultEdit={setConditionResultEdit} setConditionQuestionEdit={setConditionQuestionEdit} />
     </Fragment >
   );
@@ -874,21 +968,44 @@ export default EditListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border rounded-md bg-[#ffffff] py-4 relative h-20 opacity-90 ${checked && "bg-[#e2e1e1]"}`}
+    className={`border rounded-md bg-[#E8E8E8] py-4 relative h-20 opacity-bg-90 ${checked && "bg-[#c9c9d0]"}`}
     onClick={onChange}
   >
-    <div className="relative w-7 h-7 mx-auto">
+    <div className="relative w-7 h-7 mx-auto ">
       <Image src={src} layout="fill" />
     </div>
-    <input
-      type="checkbox"
-      className="absolute top-2 left-2 rounded"
-      checked={checked}
-      readOnly
-    />
-    <span className="text-xs mt-2 text-center block text-black-4e">
-      {" "}
-      {text}{" "}
-    </span>
+    <label>
+
+      <input
+        background="transparent"
+        type="checkbox"
+        className="absolute top-1 left-1.5 rounded"
+        checked={checked}
+        readOnly
+      />
+    </label>
+
+    <span className="text-[11px] font-Regular mt-2 text-center block text-black-4e">{text}</span>
   </div>
 );
+
+// const Checkbox = ({ src, text, checked, onChange }) => (
+//   <div
+//     className={`border rounded-md bg-[#ffffff] py-4 relative h-20 opacity-90 ${checked && "bg-[#e2e1e1]"}`}
+//     onClick={onChange}
+//   >
+//     <div className="relative w-7 h-7 mx-auto">
+//       <Image src={src} layout="fill" />
+//     </div>
+//     <input
+//       type="checkbox"
+//       className="absolute top-2 left-2 rounded"
+//       checked={checked}
+//       readOnly
+//     />
+//     <span className="text-xs mt-2 text-center block text-black-4e">
+//       {" "}
+//       {text}{" "}
+//     </span>
+//   </div>
+// );

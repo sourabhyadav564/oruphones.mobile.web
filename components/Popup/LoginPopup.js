@@ -22,8 +22,8 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
 
   const sendOtp = async (e) => {
     e.preventDefault();
-    if (!formData.mobile || formData?.mobile?.length < 10) {
-      setError({ is: true, message: "10 digits number is required" });
+    if (!formData.mobile || formData?.mobile?.length != 10) {
+      setError({ is: true, message: "Please enter valid mobile number" });
     } else {
       const res = await generateOTP(formData?.countryCode, formData.mobile);
       setResponse(res);
@@ -54,7 +54,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
               className="flex flex-col items-center w-full space-y-8"
               onSubmit={sendOtp}
             >
-              <h1 className="text-primary-dark text-2xl font-extrabold py-2">
+              <h1 className="text-primary-dark text-[22px] font-Roboto-Bold py-2">
                 Sign In
               </h1>
               <div className="w-full my-8 relative">

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/oru_phones_logo.png";
+import BottomNav from "../Navigation/BottomNav";
 
 function BrandCard({ data, className, popup }) {
   if (data?.make.toLowerCase().includes("show")) {
@@ -25,12 +26,13 @@ function BrandCard({ data, className, popup }) {
   }
   return (
     <>
+    <div>
       {!popup ? (
         <Link
           href={{ pathname: `/product/buy-old-refurbished-used-mobiles/${data?.make?.toLowerCase()}` }}
         >
           <a
-            className={`flex justify-center p-4  ${
+            className={`flex justify-center p-4 font-Roboto-Regular  ${
               className || "cardShadow1 rounded-md"
             }`}
           >
@@ -46,7 +48,7 @@ function BrandCard({ data, className, popup }) {
       ) : (
         // <Link href={{ pathname: `/product/buy-old-refurbished-used-mobiles/${data?.make?.toLowerCase()}` }}>
         <a
-          className={`h-full  flex justify-center p-2 ${
+          className={`h-full  flex justify-center p-2 font-Roboto-Regular ${
             className || "cardShadow1 rounded-md"
           }`}
         >
@@ -60,6 +62,7 @@ function BrandCard({ data, className, popup }) {
         </a>
         // </Link>
       )}
+      </div>
     </>
   );
 }

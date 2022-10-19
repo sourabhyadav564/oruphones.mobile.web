@@ -4,6 +4,7 @@ import { SwiperSlide } from "swiper/react";
 import BrandCard from "../Card/BrandCard";
 import BasicCarousel from "../Carousel/BasicCarousel";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
+import {Heading} from "@/components/elements/Heading/heading" 
 
 function TopBrand({ brandsList }) {
   const router = useRouter();
@@ -25,10 +26,11 @@ function TopBrand({ brandsList }) {
 
   return (
     <section>
-      <h1 className="my-2 px-3 text-gray-500 font-medium text-sm">
+      {/* <h1 className="my-2 px-3 text-gray-500 font-medium text-sm">
         {" "}
         Shop by Brands{" "}
-      </h1>
+      </h1> */}
+      <Heading title="Shop by Brands"/>
       <BasicCarousel
         slidesPerView={4.4}
         spaceBetween={8}

@@ -1,8 +1,12 @@
 import BestDealSection from "@/components/BestDealSection";
+import ShopByBrandsSection from "@/components/ShopByBrandsSection"
 import OtherListingCard from "@/components/Card/OtherListingCard";
+import { BiSortAlt2, BiFilterAlt } from "react-icons/bi";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { fetchByMakeList, searchFilter } from "api-call";
 import Filter from "@/components/FilterAndSort/Filter";
+import Filter1 from "@/components/FilterAndSort/FilterAndSort1";
 import { useState, useEffect } from "react";
 import { useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
@@ -11,7 +15,13 @@ import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
-import BottomNav from "@/components/Navigation/BottomNav";
+import { FiTablet } from "react-icons/fi";
+import {CardHeading2 }from "@/components/elements/CardHeading/cardheading";
+import {Heading,Heading3 }from "@/components/elements/Heading/heading";
+import BrandCard from "@/components/Card/BrandCard";
+import BasicCarousel from "@/components/Carousel/BasicCarousel";
+
+
 
 // import {
 //   otherVendorDataState,
@@ -19,12 +29,13 @@ import BottomNav from "@/components/Navigation/BottomNav";
 // } from "../../../../atoms/globalState";
 // import { useRecoilState } from "recoil";
 
-function MakePage() {
+function MakePage({bestDealData,data}) {
   const { selectedSearchCity, loading } = useAuthState();
   const router = useRouter();
   let { makeName } = router.query;
 
   const [bestDeals, setBestDeals] = useState([]);
+  const [openSort, setOpenSort] = useState(false);
   const [applyFilter, setApplyFilter] = useState();
   const [otherListings, setOtherListings] = useState([]);
   const [applySortFilter, setSortApplyFilter] = useState();
@@ -206,6 +217,7 @@ function MakePage() {
   }, [applyFilter]);
 
   const sortingProducts = getSortedProducts(applySortFilter, otherListings);
+  
 
   useEffect(() => {
     switch (makeName) {
@@ -276,34 +288,73 @@ function MakePage() {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
       </Head>
+
       <Filter
-        searchText={makeName}
-        setSortApplyFilter={setSortApplyFilter}
+        // searchText={`Home > Shop By Brands > ${makeName}`}
+        // setSortApplyFilter={setSortApplyFilter}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
-        {(isLoading || (bestDeals && bestDeals.length > 0)) && (
-          <h1 className="text-lg font-semibold text-gray-20 py-2.5">
-            Best Deals
-          </h1>
-        )}
+      {/* <div className="-ml-4 -mr-8 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] "> */}
+        {/* {(isLoading || (bestDeals && bestDeals.length > 0)) && (
+          
+        )}  */}
 
         {isLoading ? (
           <Loader />
         ) : (
           bestDeals &&
           bestDeals.length > 0 && (
+            <>
+            <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
+          <div className="flex">
+            <Heading3 title="Best Deals"/>
+            <span className="flex-1"></span>
+            <Heading3 title={makeName}/>
+          </div>
             <BestDealSection
               bestDealData={bestDeals}
               setProducts={setBestDeals}
             />
+            </div>
+            <div>
+          <div className="space-y-4 bg-[#EEEEEE] -mx-4 my-2 px-6 pt-4 pb-2">
+            <CardHeading2 title="Shop by Model"/>
+            <ShopByBrandsSection
+              bestDealData={bestDeals}
+              setProducts={setBestDeals}
+            />
+          </div>
+            </div>
+
+            </>
           )
+          
         )}
+        
+        
+        {/* </div> */}
+        
+        {/* <div className="bg-[#EEEEEE] -mx-4 px-6">
+            <h1 className="text-[#707070] text-[11px] font-normal"> Shop By Model </h1>
+         </div> */}
 
         {(isLoading || (sortingProducts && sortingProducts.length > 0)) && (
-          <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
-            Other Listings ({totalProducts})
+          <div className="flex mt-3 p-2 pb-0">
+          <h2 className=" font-normal text-[#707070] m-auto  text-[11px]  pl-0  capitalize flex-1">
+            {/* Other Listings ({totalProducts}) */} 
+           <Heading title={`${makeName} Phones`}/>
           </h2>
+          <p className="font-normal text-[#707070]  text-[11px]  -mt-2  capitalize underline"> 
+          {/* <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
+              sort <BiSortAlt2 className="ml-1" />
+            </p> */}
+            <Filter1 
+             setSortApplyFilter={setSortApplyFilter}
+            // setApplyFilter={setApplyFilter}
+            ></Filter1>
+          </p>
+          </div>
         )}
 
         {isLoading ? (
@@ -315,10 +366,10 @@ function MakePage() {
                 <div
                   key={item.listingId}
                   className="m-1.5"
-                // onClick={() => {
-                //   // setListingId(item.listingId);
-                //   setProductsData(otherListings);
-                // }}
+                  // onClick={() => {
+                  //   // setListingId(item.listingId);
+                  //   setProductsData(otherListings);
+                  // }}
                 >
                   <OtherListingCard
                     data={item}
@@ -338,8 +389,9 @@ function MakePage() {
         {!isLoading &&
           isFinished === false && otherListings.length != totalProducts && (
             <span
-              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${
+                isLoadingMore ? "w-[250px]" : "w-[150px]"
+              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
               <p className="block text-m-green font-semibold">
@@ -348,8 +400,9 @@ function MakePage() {
             </span>
           )}
       </Filter>
-      <BottomNav />
+    
     </>
+
   );
 }
 

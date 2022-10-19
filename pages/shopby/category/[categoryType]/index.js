@@ -201,7 +201,7 @@ function CategoryPage() {
     }
   }, [applyFilter]);
 
-  // const sortingProducts = getSortedProducts(applySortFilter, otherListings);
+  const sortingProducts = getSortedProducts(applySortFilter, otherListings);
 
   useEffect(() => {
     switch (categoryType) {
@@ -278,7 +278,8 @@ function CategoryPage() {
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
-        {(isLoading || (bestDeals && bestDeals.length > 0)) && (
+        <div className=""> 
+        {(isLoading || ( bestDeals.length > 0)) && (
           <h1 className="text-lg font-semibold text-gray-20 py-2.5">
             Best Deals
           </h1>
@@ -287,7 +288,6 @@ function CategoryPage() {
         {isLoading ? (
           <Loader />
         ) : (
-          bestDeals &&
           bestDeals.length > 0 && (
             <BestDealSection
               bestDealData={bestDeals}
@@ -295,7 +295,7 @@ function CategoryPage() {
             />
           )
         )}
-
+      </div>
         {(isLoading || (otherListings && otherListings.length > 0)) && (
           <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
             Other Listings ({totalProducts})

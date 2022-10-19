@@ -10,6 +10,10 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import sold_out from "@/assets/soldout.png";
+import { BsCardHeading } from "react-icons/bs";
+
+import {CardHeading,CardHeading1,CardHeading2,CardHeading3,CardHeading4} from "@/components/elements/CardHeading/cardheading";
+
 
 function OtherListingCard({ data, setProducts, prodLink }) {
   const router = useRouter();
@@ -81,36 +85,43 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 <Image
                   src={data?.imagePath || Logo}
                   alt={data?.marketingName}
-                  width={150}
-                  height={150}
+                  width={86}
+                  height={120}
                   objectFit="contain"
                 />
               </div>
-              <p className="font-bold flex items-center text-[15px] text-[#000944]">
+              <CardHeading3 title={"₹" + numberWithCommas(data?.listingPrice)}/>
+              {/* <CardHeading4 title={`${data?.listingPrice && <span className="">&#x20B9;</span>}  ${numberWithCommas(data?.listingPrice || "")}`}/> */}
+              {/* <p className="font-bold flex items-center text-[15px] text-[#000944]">
                 {data?.listingPrice && <span className="">&#x20B9;</span>}
                 {numberWithCommas(data?.listingPrice || "")}
-              </p>
+              </p> */}
               <div className="flex-wrap w-full">
-                <h1 className="flex-1 truncate text-black  w-full capitalize font-Regular text-[12px]">
+                {/* <h1 className="flex-1 truncate text-black  w-full capitalize font-Regular text-[12px]">
                   {data?.marketingName}
-                </h1>
-
+                </h1> */}
+                <CardHeading4 title={data?.marketingName}/>
                 <div
-                  className="flex flex-wrap justify-between my-[3px]"
+                  className="flex flex-wrap justify-between"
 
                 >
                   {data?.deviceStorage && (
-                    <p className="mr-1 font-Light text-[8px] ">{data?.deviceStorage}</p>
+                    // <p className="mr-1 font-Light text-[8px] ">{data?.deviceStorage}</p>
+                    <CardHeading title={data?.deviceStorage}/>
                   )}
-                  <p className="font-Light text-[8px]">
-                    <span>Condition : </span>
-                    <span>{data?.deviceCondition || "--"}</span>
+                  <p className="flex space-x-0.5">
+                    {/* <span>Condition : </span> */}
+                    <CardHeading title="Condition : "/>
+                    <CardHeading title={data?.deviceCondition || "--"}/>
+                    {/* <span>{data?.deviceCondition || "--"}</span> */}
                   </p>
                 </div>
 
                 <div className="justify-self-end flex justify-between capitalize">
-                  <span className="truncate mr-1 font-Light text-[6px]">{data?.listingLocation}</span>
-                  <span className="font-Light text-[6px]">{data?.listingDate}</span>
+                <CardHeading title={data?.listingLocation}/>
+                <CardHeading title={data?.listingDate}/>
+                  {/* <span className="truncate mr-1 font-Light text-[6px]">{data?.listingLocation}</span>
+                  <span className="font-Light text-[6px]">{data?.listingDate}</span> */}
                 </div>
               </div>
             </div>

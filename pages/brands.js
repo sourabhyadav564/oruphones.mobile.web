@@ -5,19 +5,22 @@ import { fetchBrands } from "api-call";
 import Footer from "@/components/Footer";
 import Head from "next/head";
 import { metaTags } from "@/utils/constant";
+import * as Axios from "../api-call/index";
+import BottomNav from "@/components/Navigation/BottomNav";
+import Header1 from "@/components/Header/header1";
 
 function Brands({ brandsList }) {
   const [brands, setBrands] = useState([]);
 
-  useEffect(() => {
-    if (brandsList.length === 0) {
-      setBrands(JSON.parse(localStorage.getItem("brands")));
-    } else {
-      localStorage.setItem("brands", JSON.stringify(brandsList));
-      Cookies.set("brands", true);
-      setBrands(brandsList);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (brandsList.length === 0) {
+  //     setBrands(JSON.parse(localStorage.getItem("brands")));
+  //   } else {
+  //     localStorage.setItem("brands", JSON.stringify(brandsList));
+  //     Cookies.set("brands", true);
+  //     setBrands(brandsList);
+  //   }
+  // }, []);
 
   // brandsList = brandsList?.sort((list1, list2) => list2.isPopular - list1.isPopular);
   // brandsList = brandsList?.sort((list1, list2) => parseInt(list1.displayOrder) - parseInt(list2.displayOrder));
@@ -29,15 +32,26 @@ function Brands({ brandsList }) {
   // );
 
 
+ brandsList = brandsList.sort(
+    (list1,list2)=>list2.isPopular = list1.isPopular
+ );
+
+ brandsList =  brandsList.sort(
+  (list1,list2)=> parseInt(list1.displayOrder) - parseInt(list2.displayOrder)
+ );
+
+
   return (
     <>
       <Head>
+        
         <title>{metaTags.BRANDS.title}</title>
         <meta name="description" content={metaTags.BRANDS.description} />
         <meta property="og:title" content={metaTags.BRANDS.title} />
         <meta property="og:description" content={metaTags.BRANDS.description} />
       </Head>
       <Fragment>
+      <Header1/>
         {/* <Header2 title="Brands" /> */}
         <main className="text-sm grid grid-cols-3 sm:grid-cols-5">
           {brandsList &&
@@ -53,7 +67,9 @@ function Brands({ brandsList }) {
               </div>
             ))}
         </main>
+        
         <Footer />
+        <BottomNav />
       </Fragment>
     </>
   );
@@ -63,21 +79,23 @@ export default Brands;
 
 export const getServerSideProps = async ({ req, res, query }) => {
   const { brands } = req.cookies;
+  const brandsList = await Axios.fetchBrands();
+  
 
-  let brandsList;
-  if (brands) {
-    brandsList = [];
-  } else {
-    const data = await fetchBrands();
-    brandsList = data?.dataObject;
-  }
+  // let brandsList  = await Axios.fetchBrands();
+  // if (brands) {
+  //   brandsList = [];
+  // } else {
+  //   const data = await fetchBrands();
+  //   brandsList = data?.dataObject;
+  // }
 
   // const brandsList = await fetchBrands(userUniqueId || "Guest",
   // sessionId || "");
   return {
     props: {
-      // brandsList: brandsList?.dataObject || [],
-      brandsList: brandsList || [],
+      brandsList: brandsList?.dataObject || [],
+      // brandsList: brandsList || [],
     },
   };
 };

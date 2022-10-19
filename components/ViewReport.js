@@ -18,7 +18,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
   console.log("data", data?.cosmetic);
 
   return (
-    <div className="w-full mx-auto rounded-md bg-white p-4 mb-4 bg-[#F9F9F9]">
+    <div className="w-full mx-auto rounded-md  p-4 mb-4 bg-[#F9F9F9]">
       <Disclosure defaultOpen={defaultOpen || false}>
         {({ open }) => (
           <>

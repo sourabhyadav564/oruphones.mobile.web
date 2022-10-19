@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { FiChevronLeft } from "react-icons/fi";
 import { BsArrowLeft } from "react-icons/bs";
+import {Header4Heading} from "@/components/elements/Heading/Heading.js"; 
 
 // import {
 //   otherVendorDataState
@@ -13,15 +14,18 @@ function Header4({ title, className, children, setOpen }) {
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
 
   return (
-    <header className={`flex p-4 py-3 bg-[#2C2F45] rounded-b-xl text-white items-center text-lg relative ${className || " text-white"}`}>
+    <header className={`flex p-4 py-[14px] bg-[#2C2F45]   rounded-b-xl text-white items-center text-lg relative ${className || " text-white"}`}>
       {setOpen ? (
         <BsArrowLeft onClick={() => setOpen(false)} className="cursor-pointer" fontSize="14" />
       ) : (
         // router.pathname !== "/" && <FiChevronLeft onClick={() => {router.back(); setProductsData([]);}} className="cursor-pointer" fontSize="22" />
         router.pathname !== "/" && <BsArrowLeft onClick={() => { router.back() }} className="cursor-pointer" fontSize="22" />
       )}
-      {title && <span className="   m-auto justify-center font-Regular text-[15px]"> {title}</span>}
-      {children}
+      <span className="m-auto justify-center">
+        {title && <Header4Heading title={title}/>}
+        {/*  <span className="   m-auto justify-center font-Regular text-[15px]"> {title}</span> */}
+        {children}
+      </span>
     </header>
   );
 }

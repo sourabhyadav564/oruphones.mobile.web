@@ -74,15 +74,14 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
   }
 
   return (
-    <div className="font-SF-Pro">
+    <div className="font-Roboto-Regular">
       <Fragment>
         <Link href={`/user/listings/${data?.listingId}`}>
-          <a>
             <div
               className={`flex flex-col pt-2 rounded-md ${(data?.status.toUpperCase() !== "ACTIVE" && "bg-gray-ef") || ""}`}
               style={{ boxShadow: "0 1px 20px rgba(0, 0, 0, 0.08)" }}
             >
-              <div className="flex items-start p-1">
+              <div className="flex  p-1">
                 <div className="px-2">
                   <Image
                     src={(data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || "/fullImage"}
@@ -92,9 +91,11 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   />
                 </div>
                 <div className="w-full pt-1">
-                  <div className="text-sm font-bold flex justify-between items-center space-x-2">
+                  <div className="text-sm font-bold flex justify-between  space-x-2">
                     <p className="flex-1 text-sm text-gray-600">{data.marketingName}</p>
+                    <div>
                     <ShareIcon data={data} width={16} height={16} className={"mr-2 mt-1"} />
+                    </div>
                     <div
                       className="listing-tile dropdown inline-block relative"
                     // onClick={(e) => e.preventDefault()}
@@ -105,22 +106,22 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                           e.preventDefault();
                           setOpenMenu((prev) => (prev !== data?.listingId ? data.listingId : -1));
                         }}
-                      ></BiDotsVerticalRounded>
+                      />
                       <div className={`dropdown-menu absolute ${openMenu === data?.listingId ? "block" : "hidden"} pt-1 right-0`}>
                         <div className="w-32 py-2 menuShadow text-left border rounded bg-white" onClick={(e) => e.preventDefault()}>
                           {data?.status === "Active" && (
                             <span
-                              className="rounded-t hover:bg-gray-100 text-black font-normal py-1 px-4 w-full block whitespace-no-wrap"
+                              className="rounded-t  text-black font-normal py-1 px-4 w-full block whitespace-no-wrap"
                               onClick={handlePauseLIsting}
                             >
                               Pause
                             </span>
                           )}
                           <Link href={`/sell-old-refurbished-used-mobiles/edit/${data?.listingId}`}>
-                            <span className="hover:bg-gray-100 text-black font-normal py-1 px-4 w-full block whitespace-no-wrap">Edit</span>
+                            <span className=" text-black font-normal py-1 px-4 w-full block whitespace-no-wrap">Edit</span>
                           </Link>
                           <span
-                            className="rounded-b hover:bg-gray-100 text-red font-normal py-1 px-4 w-full block whitespace-no-wrap "
+                            className="rounded-b text-red font-normal py-1 px-4 w-full block whitespace-no-wrap "
                             onClick={() => {
                               setOpenDeleteListing(true);
                               setOpenMenu(-1);
@@ -246,7 +247,6 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                       </div>
                     )}
             </div>
-          </a>
         </Link>
         {openVerifyInfo && <VerificationInfo open={openVerifyInfo} setOpen={setOpenVerifyInfo} />}
         {openVerifyFlow && <VerifyFlowPopup open={openVerifyFlow} setOpen={setOpenVerifyFlow} />}

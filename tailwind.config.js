@@ -4,7 +4,12 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily:{
-      'SF-Pro':['SF-Pro-Display-Regular']
+      'Roboto-Bold':['Roboto-Bold'],
+      'Roboto-Semibold':['Roboto-Semibold'],
+      'Roboto-Light':['Roboto-Light'],
+      'Roboto-Regular':['Roboto-Regular'],
+      'Roboto-Regularitalic':['Roboto-Regularitalic'],
+      'Roboto-Medium':['Roboto-Medium']
     },
     extend: {
       colors: {

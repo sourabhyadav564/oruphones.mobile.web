@@ -8,6 +8,7 @@ import OtherListingCard from "@/components/Card/OtherListingCard";
 import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
+import BottomNav from "@/components/Navigation/BottomNav";
 
 // import {
 //   otherVendorDataState,
@@ -168,20 +169,23 @@ function Bestdealnearyou() {
 
   return (
     <><Filter
-      searchText={`"Listings near me"`}
+      searchText={`Old Listings`}
       setSortApplyFilter={setSortApplyFilter}
       setApplyFilter={setApplyFilter}
       applyFilter={applyFilter}
     >
-      {(isLoading || bestDeal?.length > 0) && (
-        <h1 className="text-lg font-semibold text-gray-20 py-2.5">
+      {(isLoading || bestDeal && bestDeal?.length > 0) && (
+        <div>
+        <h1 className="text-lg font-semibold text-gray-20 py-2.5 ">
           {" "}
           Best Deals{" "}
         </h1>
+        </div>
       )}
       {isLoading ? (
         <Loader />
       ) : (
+        bestDeal &&
         bestDeal?.length > 0 && (
           <BestDealSection bestDealData={bestDeal} setProducts={setBestDeal} />
         )
@@ -219,7 +223,7 @@ function Bestdealnearyou() {
           <span
             className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
               } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
-            onClick={loadMoreData}
+            onClick={loadMoreData} 
           >
             <p className="block text-m-green font-semibold">
               {isLoadingMore ? "Fetching more products..." : "Load More"}
