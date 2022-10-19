@@ -11,7 +11,7 @@ import originalBillImg from "@/assets/original-bill.png";
 import { BiCurrentLocation } from "react-icons/bi";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
-import PhoneImage from "@/assets/icons/istockphoto-531240774-612x612.jpg";
+import PhoneImage from "@/assets/oru_phones_logo.png";
 import Input from "./Input";
 import {
   getRecommandedPrice,
@@ -704,8 +704,9 @@ const NewAddListingForm = ({ data }) => {
                 className="border-2 border-gray-200 p-2 w-full rounded-md duration-200"
                 value={make}
               /> */}
-              <div className="m-auto pl-16 pb-[20px] mb-4 border-b ">
-                <Image src={PhoneImage} width={200} height={200} />
+              <div className="m-auto pl-24 pb-[20px] mb-4 border-b ">
+                {/* <Image src={PhoneImage} width={200} height={200} /> */}
+                <Image src={PhoneImage} width={130} height={200} />
               </div>
 
               <SellPhoneHeading1 title="Enter your Phone details" />
