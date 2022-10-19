@@ -11,7 +11,7 @@ import originalBillImg from "@/assets/original-bill.png";
 import { BiCurrentLocation } from "react-icons/bi";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
-import PhoneImage from "@/assets/icons/istockphoto.jpg";
+import PhoneImage from "@/assets/icons/istock.png";
 import Input from "./Input";
 import {
   getRecommandedPrice,
