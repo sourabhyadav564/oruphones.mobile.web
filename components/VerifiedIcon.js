@@ -1,4 +1,4 @@
-import Verified from '@/assets/Verified_Icon.png';
+import Verified from '@/assets/Verified_icon.png';
 import Image from "next/image";
 
 export default function VerifiedIcon({ ...rest }) {
