@@ -38,9 +38,9 @@ function AddFav({ data, setProducts, color, ...rest }) {
       });
     };
     if (data.favourite) {
-      data?.status != "Sold_Out" ? removeFavorite() : toast.warning("This device is sold out");
+      data?.status == "Active" ? removeFavorite() : toast.warning("This device is sold out");
     } else {
-      data?.status != "Sold_Out" ? addFavorite() : toast.warning("This device is sold out");
+      data?.status == "Active" ? addFavorite() : toast.warning("This device is sold out");
     }
   }
 

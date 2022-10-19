@@ -39,7 +39,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                 />
               </div>
             </Disclosure.Button>
-           
+
 
             <Disclosure.Panel className="px-1 mt-3 text-sm text-gray-70 divide-y">
               <div className="border-t pt-2">
@@ -52,22 +52,30 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                   <div>
                     {deviceConditionQuestion.map((item, index) => (
                       <div>
-                        <span className="text-[15px] font-Bold text-[#2C2F45] ">{item?.title}</span>
+                        {/* <span className="text-[15px] font-Bold text-[#2C2F45] ">{item?.title}</span>
                         <ConditionOptionLarge
                           title={data?.cosmetic[index]}
                           options={item?.options[0]?.options}
                           conditionResults={data?.cosmetic}
                           questionIndex={index}
-                        />
+                        /> */}
+                        <span className="text-lg font-semibold text-black">{data?.cosmetic[index] != undefined && item?.title}</span>
+                        {data?.cosmetic[index] != undefined &&
+                          <ConditionOptionLarge
+                            title={data?.cosmetic[index]}
+                            options={data?.cosmetic[index] && item?.options[0]?.options}
+                            conditionResults={data?.cosmetic}
+                            questionIndex={index}
+                          />}
                       </div>
 
                     ))}
                   </div>
                 )}
               </div>
-             
+
             </Disclosure.Panel>
-            
+
           </>
         )}
       </Disclosure>

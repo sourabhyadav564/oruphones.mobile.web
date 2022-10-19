@@ -20,11 +20,14 @@ import {
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { VscPass } from "react-icons/vsc";
+import DeleteAccPopup from "@/components/Popup/DeleteAccPopup";
 
 function Profile() {
   const { authenticated, loading, user } = useAuthState();
   const [userName, setUserName] = useState();
   const [email, setEmail] = useState();
+  const [deleteAcc, setDeleteAcc] = useState(false);
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const dispatch = useAuthDispatch();
   const [imgPath, setImagePath] = useState(user?.userdetails?.profilePicPath);
 
@@ -99,6 +102,12 @@ function Profile() {
       });
     });
   };
+
+  useEffect(() => {
+    if (user && deleteAcc === true) {
+      deleteUserAccountInfo();
+    }
+  }, [openDeletePopup]);
 
   if (loading || !authenticated) {
     return (
@@ -180,7 +189,9 @@ function Profile() {
 
             <div className="flex text-[9px]">
               <p className="text-sm text-red-500 rounded text-center font-Regular underline flex flex-1 hover:cursor-pointer"
-                onClick={deleteUserAccountInfo}>
+                onClick={() => {
+                  setOpenDeletePopup(true);
+                }}>
                 <RiDeleteBinLine className="self-center" />
                 Delete account
               </p>
@@ -206,6 +217,7 @@ function Profile() {
         {/* <Footer /> */}
         <BottomNav />
       </div>
+      <DeleteAccPopup open={openDeletePopup} setOpen={setOpenDeletePopup} setDelete={setDeleteAcc} />
     </Fragment>
   );
 }

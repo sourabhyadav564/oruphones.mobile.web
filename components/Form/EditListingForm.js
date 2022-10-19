@@ -374,13 +374,13 @@ const EditListingForm = ({ data, resultsSet }) => {
       marketingName,
       deviceStorage,
       color: devColor || color,
-      deviceCondition: condition,
+      deviceCondition: condition || data?.deviceCondition,
       listingPrice: inputSellPrice,
       platform: make === "Apple" ? "iOS" : "Android",
       charger: charging ? "Y" : "N",
       earphone: headphone ? "Y" : "N",
       originalbox: originalbox ? "Y" : "N",
-      warrantyPeriod: warranty,
+      warranty: warranty || data?.warranty,
       userUniqueId: user?.userdetails?.userUniqueId,
       verified: data.verified,
       listedBy: data?.listedBy,
@@ -392,7 +392,7 @@ const EditListingForm = ({ data, resultsSet }) => {
         (item) => item?.fullImage && item.fullImage !== null
       ),
       listingLocation: selectedCity,
-      cosmetic: ConditionQuestionEdit
+      cosmetic: ConditionQuestionEdit || data?.cosmetic,
     };
     updateLisiting(payload).then(
       () => {

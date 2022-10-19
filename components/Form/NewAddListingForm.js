@@ -568,6 +568,7 @@ const NewAddListingForm = ({ data }) => {
         ),
         model: model,
         cosmetic: conditionResults,
+        warranty: warranty,
       };
       saveLisiting(payload).then(
         () => {

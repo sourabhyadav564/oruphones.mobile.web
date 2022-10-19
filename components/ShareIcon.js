@@ -34,7 +34,7 @@ export default function ShareIcon({ data, color, ...rest }) {
         {...rest}
         onClick={(e) => {
           e.preventDefault();
-          data?.status != "Sold_Out" ? shareListingInfo(data) : toast.warning("This device is sold out");
+          data?.status == "Active" ? shareListingInfo(data) : toast.warning("This device is sold out");
         }}
         className="hover:cursor-pointer"
       >

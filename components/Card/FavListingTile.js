@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { removeFavotie } from "api-call";
 import VerifiedIcon from "../VerifiedIcon";
 import UnVerifiedIcon from "../UnVerifiedIcon";
+import AddFav from "../AddFav";
 
 function FavListingTile({ data, setProducts }) {
   const router = useRouter();
@@ -24,23 +25,24 @@ function FavListingTile({ data, setProducts }) {
 
   return (
     <Fragment>
-      <div
-        // href={{
-        //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
-        //   query: { isOtherVendor: "N" },
-        // }}
-        onClick={() => window.open(
-          `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
-          "_blank"
-        )
-        }
-      >
-        <a>
-          <div className={`flex flex-col pt-2 cardShadow1 rounded-lg`}>
-            <div className="flex">
-              {/* image */}
-              <div className=" m-2 ">
-                {/* {data?.images && (
+      <div className="grid font-SF-Pro grid-cols-1">
+        <div
+          // href={{
+          //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
+          //   query: { isOtherVendor: "N" },
+          // }}
+          onClick={() => window.open(
+            `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
+            "_blank"
+          )
+          }
+        >
+          <a>
+            <div className={`flex flex-col cardShadow1 rounded-lg`}>
+              <div className="flex">
+                {/* image */}
+                <div className=" m-2 ">
+                  {/* {data?.images && (
                   <Image
                     src={
                       (data?.images &&
@@ -64,32 +66,32 @@ function FavListingTile({ data, setProducts }) {
                   />
                 )} */}
 
-                {data?.images && !data?.imagePath ? (
-                  <Image
-                    src={
-                      (data?.images &&
-                        data.images.length > 0 &&
-                        data.images[0].fullImage) ||
-                      data?.defaultImage?.fullImage ||
-                      "/fullImage"
-                    }
-                    width={200}
-                    height={150}
-                    objectFit="contain"
-                  />
-                ) : (
-                  <Image
-                    src={data?.imagePath}
-                    width={200}
-                    height={150}
-                    objectFit="contain"
-                  />
-                )}
-              </div>
-              <div className="w-full pt-1 pr-3 ">
-                <div className="text-sm font-bold flex justify-between items-start uppercase ">
-                  <p className="flex-1">{data.marketingName}​</p>
-                  <svg
+                  {data?.images && !data?.imagePath ? (
+                    <Image
+                      src={
+                        (data?.images &&
+                          data.images.length > 0 &&
+                          data.images[0].fullImage) ||
+                        data?.defaultImage?.fullImage ||
+                        "/fullImage"
+                      }
+                      width={200}
+                      height={150}
+                      objectFit="contain"
+                    />
+                  ) : (
+                    <Image
+                      src={data?.imagePath}
+                      width={200}
+                      height={150}
+                      objectFit="contain"
+                    />
+                  )}
+                </div>
+                <div className="w-full pt-1 pr-7 ">
+                  <div className="text-sm font-bold flex justify-between items-start uppercase ">
+                    <p className="flex-1">{data.marketingName}​</p>
+                    {/* <svg
                     className="text-gray-c7"
                     xmlns="http://www.w3.org/2000/svg"
                     width="20.999"
@@ -106,48 +108,68 @@ function FavListingTile({ data, setProducts }) {
                       transform="translate(-0.024)"
                       fill={data.favourite ? "#FF0000" : "#C7C7C7"}
                     />
-                  </svg>
-                </div>
-                <div className="flex space-x-4 text-gray-70 text-xs mt-3">
-                  <p className="flex flex-col items-start">
-                    <span>Storage</span>
-                    <span className="font-bold text-sm">
-                      {data?.deviceStorage}
-                    </span>
-                  </p>
-                  {/* <p className="flex flex-col items-start">
+                  </svg> */}
+                  </div>
+                  <div className="flex space-x-4 text-gray-70 text-xs mt-3">
+                    <p className="flex flex-col items-start">
+                      <span>Storage</span>
+                      <span className="font-bold text-sm">
+                        {data?.deviceStorage}
+                      </span>
+                    </p>
+                    {/* <p className="flex flex-col items-start">
                     <span>Color</span>
                     <span className="font-bold text-sm"> {data?.color} </span>
                   </p> */}
-                  <p className="flex flex-col items-start">
-                    <span>Condition</span>
-                    <span className="font-bold text-sm">
-                      {data.deviceCondition}
-                    </span>
-                  </p>
-                </div>
-                <div className="grid grid-cols-2">
-                  <div></div>
-                  <div className="bg-black px-4 pt-2 mt-2 rounded-md ">
-                    <div className="text-gray-300 text-xs">List Price</div>
-                    <div className="text-sm font-bold text-gray-50 ">
-                      ₹ {numberWithCommas(data.listingPrice || "")}
+                    <p className="flex flex-col items-start">
+                      <span>Condition</span>
+                      <span className="font-bold text-sm">
+                        {data.deviceCondition}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2">
+                    <div></div>
+                    <div className="bg-black px-4 pt-2 mt-2 rounded-md ">
+                      <div className="text-gray-300 text-xs">List Price</div>
+                      <div className="text-sm font-bold text-gray-50 ">
+                        ₹ {numberWithCommas(data.listingPrice || "")}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex items-center w-full px-4 py-2">
-                  {/* {data?.verified ? (
+                  <div className="flex items-center w-full px-4 py-2">
+                    {/* {data?.verified ? (
                 <VerifiedIcon width={60} height={30} />
               ) : (
                 <UnVerifiedIcon width={60} height={30} />
               )} */}
 
+                  </div>
                 </div>
               </div>
-            </div>
 
+            </div>
+          </a>
+        </div>
+        <div className="absolute right-0 pr-6 py-3">
+          {(
+            <AddFav
+              data={data}
+              setProducts={setProducts}
+              width={22}
+              height={22}
+            />
+          )}
+        </div>
+        {/* <div className="absolute right-0 pb-0 pr-4">
+          <div></div>
+          <div className="bg-black px-4 pt-2 mt-2 rounded-md ">
+            <div className="text-gray-300 text-xs">List Price</div>
+            <div className="text-sm font-bold text-gray-50 ">
+              ₹ {numberWithCommas(data.listingPrice || "")}
+            </div>
           </div>
-        </a>
+        </div> */}
       </div>
     </Fragment>
   );

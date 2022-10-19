@@ -37,7 +37,7 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import { CardHeading, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 import SearchBar from "@/components/Header/SearchBar";
 import { toast } from "react-toastify";
-
+import sold_out from "@/assets/soldout.png";
 
 
 // import {
@@ -256,6 +256,13 @@ function ProductDeatils({ data }) {
               ])
             }
           />
+          {/* <Image
+            className="absolute top-4"
+            src={sold_out}
+            alt="Picture of the author"
+            width={100}
+            height={100}
+          /> */}
         </div>
         <div className="my-4 px-4 ">
           <div className="flex">
@@ -405,7 +412,7 @@ function ProductDeatils({ data }) {
                           onClick={() =>
                             !authenticated
                               ? setOpenLoginPopup(true)
-                              : data?.status != "Sold_Out" ? setOpenRequestVerificationSuccessPopup(true) :
+                              : data?.status == "Active" ? setOpenRequestVerificationSuccessPopup(true) :
                                 toast.warning("This device is sold out")
                           }
                         >
@@ -480,14 +487,14 @@ function ProductDeatils({ data }) {
               </PrimayButton>
             ) : (
               <div className="fixed bottom-0 left-0 w-full flex items-center justify-center space-x-2  px-2 z-50">
-                <PrimayButton onClick={() => data?.status != "Sold_Out" ? showSellerNumber(data?.listingId) : toast.warning("This device is sold out")}>
+                <PrimayButton onClick={() => data?.status == "Active" ? showSellerNumber(data?.listingId) : toast.warning("This device is sold out")}>
                   {showNumber ? contactSellerMobileNumber : "Contact Seller"}
                 </PrimayButton>
                 {showNumber && (
                   <div
                     className="  px-3 pt-[2px] pb-[2px] rounded-md bg-white"
                     onClick={() =>
-                      data?.status != "Sold_Out" ? window.open(
+                      data?.status == "Active" ? window.open(
                         `https://wa.me/${contactSellerMobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
                         "_blank"
                       ) : toast.warning("This device is sold out")
@@ -502,7 +509,7 @@ function ProductDeatils({ data }) {
                       <div
                         className=" px-3 pt-[8px] pb-[2px] rounded-md bg-white border"
                         onClick={() =>
-                          data?.status != "Sold_Out" ? window.open(
+                          data?.status == "Active" ? window.open(
                             `https://wa.me/${contactSellerMobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
                             "_blank"
                           ) : toast.warning("This device is sold out")
@@ -598,12 +605,12 @@ function ProductDeatils({ data }) {
             setDefaultOpen={setDefaultOpen}
             key={defaultOpen}
           />
-          <ViewReport1
+          {data?.verified && <ViewReport1
             data={data}
             defaultOpen={defaultOpen}
             setDefaultOpen={setDefaultOpen}
             key={defaultOpen}
-          />
+          />}
           {data?.isOtherVendor === "N" && !data?.verified && <div className="border-t pt-2">
             <div className="pt-2">
               <div className="font-Medium text-[13px] pb-2">This is unverified device!</div>
