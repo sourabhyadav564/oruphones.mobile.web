@@ -6,6 +6,7 @@ import ShopByPopup from "../Popup/ShopByPopup";
 import { useRouter } from "next/router";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import {ShopCategoryHeading} from "../elements/Heading/heading";
+import price from "../../assets/price.png"
 
 const CategoryCards = ({ data, priceRange }) => {
   const router = useRouter();
@@ -23,14 +24,20 @@ const CategoryCards = ({ data, priceRange }) => {
       <>
         <div className="w-full md:px-4">
           <div
-            className="h-[80px] w-[auto]  flex  justify-center items-center px-2 py-2 cardShadow1 rounded-lg bg-m-white"
+            className="h-[71px] w-[71px]  flex  justify-center items-center px-2 py-2 cardShadow1 rounded-lg bg-m-white"
             onClick={() => setOpenPriceRange(!openPriceRange)}
           >
-            <div className="flex flex-col items-center justify-center">
-              <FaSearchDollar className="text-2xl text-black" />
+            <div className="h-[41px] flex flex-col items-center justify-center">
+              {/* <FaSearchDollar className="text-2xl text-black" /> */}
+              <Image
+            src={price}
+            alt="price"
+
+            objectFit="contain"
+          />
             </div>
           </div>
-          <p className="font-Regular text-xs mt-2 text-center" color="#707070">
+          <p className="font-Roboto-Regular text-[12px] text-[#707070] pt-1 pr-1 text-center">
                 Shop By <span>Price</span>
           </p>
           <ShopByPopup open={openPriceRange} setOpen={setOpenPriceRange} />
@@ -51,23 +58,39 @@ const CategoryCards = ({ data, priceRange }) => {
         }}
       >
 
-        <div className="w-full text-center leading-tight md:px-4">
-        <a
-          className={` h-[80px] flex  justify-center cardShadow1 rounded-md `}
-          onClick={() => setLoadingState(true)}
-        >
-          <Image
+      <div className="m-auto items-center justify-center text-center leading-tight  ">
+         <div
+            className="h-[71px] w-[71px]  flex  justify-center items-center px-2 py-2 cardShadow1 rounded-lg bg-m-white"
+            onClick={() => setOpenPriceRange(!openPriceRange)}
+          >
+            <div className="h-[41px] flex flex-col items-center justify-center">
+              {/* <FaSearchDollar className="text-2xl text-black" /> */}
+              <Image
             src={data?.imagePath}
             alt={data?.make}
-            height={40}
-            width={40}
             objectFit="contain"
           />
-        </a>
-        <span>
+            </div>
+
+            
+          </div>
+          <div className="text-center pt-1 pr-2">
             <ShopCategoryHeading title={data.text}/>
-        </span>
         </div>
+      </div>    
+
+        {/* <div className="h-[71px] w-[71px] px-2 py-2 text-center leading-tight md:px-4">
+          
+          <div className="h-[41px] flex m-auto justify-center cardShadow1 " onClick={() => setLoadingState(true)}>
+          <Image
+            src={data?.imagePath}
+            alt={data?.make}  
+            objectFit="contain"          
+          />
+          </div>
+        
+        
+        </div> */}
       </Link>
       <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
       </>

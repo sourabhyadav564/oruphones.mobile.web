@@ -125,7 +125,7 @@ function Profile() {
           <section className=" bg-primary pb-8 mb-20 flex justify-center rounded-b-xl">
             <UserIcon img={imgPath} onChange={changeImage} />
             <div className="ml-12 md:ml-0">
-              <div className="absolute  right-20 top-32  text-[20px] font-bold">
+              <div className="absolute  right-20 top-32  text-[20px] font-Roboto-Bold">
                 <div className="text-white">
                   {userName || user.userdetails.userName}
                 </div>
@@ -136,14 +136,14 @@ function Profile() {
 
           <section className="px-4 flex flex-col my-8 space-y-4">
             <Link href="/user/favourites">
-              <a className="border-lg py-3 text-sm text-primary uppercase rounded text-center" style={{ backgroundColor: "#F9C414" }}>
+              <a className="border-lg font-Roboto-Regular py-3 text-sm text-primary uppercase rounded text-center" style={{ backgroundColor: "#F9C414" }}>
                 MY FAVORITES
               </a>
             </Link>
           </section>
           <section className="px-4 flex flex-col my-8 space-y-4">
-            <h1 className="font-Light text-[14px] border-b-2 pb-2">Basic Info</h1>
-            <div className="space-y-1 text-[12px] font-Regular">
+            <h1 className="font-Roboto-Light text-[14px] border-b-2 pb-2">Basic Info</h1>
+            <div className="space-y-1 text-[12px] font-Roboto-Regular">
               <p className="bg-white px-0.5">Name <span className="text-red-500">*</span></p>
               <Input
                 type="text"
@@ -158,7 +158,7 @@ function Profile() {
               />
             </div>
 
-            <div className="space-y-1 text-[12px] font-Regular">
+            <div className="space-y-1 text-[12px] font-Roboto-Regular">
               <p className="bg-white px-0.5">Mobile No.<span className="text-red-500">*</span></p>
               <Input
                 disabled
@@ -166,12 +166,12 @@ function Profile() {
                 defaultValue={`+91 | ${user?.userdetails?.mobileNumber}`}
               />
             </div>
-            <div className="space-y-1 text-[12px] font-Regular">
+            <div className="space-y-1 text-[12px] font-Roboto-Regular">
               <p className="bg-white px-0.5">Email ID <span className="text-red-500">*</span></p>
               <Input
                 type="text"
                 name="email"
-                inputClass="font-Regular text-black-ef"
+                inputClass="font-Roboto-Regular text-black-ef"
                 defaultValue={user?.userdetails?.email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -180,24 +180,20 @@ function Profile() {
 
             </div>
 
-
-            <div className="w-full py-3 text-white font-medium text-[15px] rounded-md text-center m-auto justify-center" style={{ backgroundColor: "#2C2F45" }} onClick={saveUserInfo}>
+            <div className="w-full py-3 text-white font-Roboto-Medium text-[15px] rounded-md text-center m-auto justify-center" style={{ backgroundColor: "#2C2F45" }} onClick={saveUserInfo}>
               <p>Save Changes</p>
             </div>
 
 
 
             <div className="flex text-[9px]">
-              <p className="text-sm text-red-500 rounded text-center font-Regular underline flex flex-1 hover:cursor-pointer"
-                onClick={() => {
-                  setOpenDeletePopup(true);
-                }}>
+              <p className="text-sm text-red-500 rounded text-center font-Roboto-Regular underline flex flex-1">
                 <RiDeleteBinLine className="self-center" />
                 Delete account
               </p>
               <a href="/login">
                 <p
-                  className="text-sm text-primary rounded text-center font-Regular underline flex gap-1"
+                  className="text-sm text-primary rounded text-center font-Roboto-Regular underline flex gap-1"
                   onClick={() => {
                     dispatch("LOGOUT");
                   }}

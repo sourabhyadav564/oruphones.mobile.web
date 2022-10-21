@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import CategoryCards from "../Card/CategoryCard";
-import bestSelling from "../../assets/cards/bestselling.png";
-import likeNew from "../../assets/cards/like_new.png";
-import verified from "../../assets/cards/verified.png";
-import warranty from "../../assets/cards/warranty.png";
+import bestSelling from "../../assets/best-selling-mobiles.png";
+import likeNew from "../../assets/like-new.png";
+import verified from "../../assets/verified-mobils.png";
+import warranty from "../../assets/warranty.png";
 import { SwiperSlide } from "swiper/react";
 import BrandCard from "../Card/BrandCard";
 import BasicCarousel from "../Carousel/BasicCarousel";
@@ -15,25 +15,25 @@ import { useRouter } from "next/router";
 const data = [
   {
     id: 1,
-    text: "Bestselling Mobiles",
+    text: "Bestselling",
     imagePath: bestSelling,
     urlPath: "Bestselling",
   },
   {
     id: 3,
-    text: "Verified Mobiles Only",
+    text: "Verified",
     imagePath: verified,
     urlPath: "Verified",
   },
   {
     id: 2,
-    text: "Like New Condition",
+    text: "Like New",
     imagePath: likeNew,
     urlPath: "Like New",
   },
   {
     id: 4,
-    text: "Phones with Warranty",
+    text: "Warranty",
     imagePath: warranty,
     urlPath: "Warranty",
   },

@@ -20,7 +20,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
   console.log("data", data?.cosmetic);
 
   return (
-    <div className="w-full rounded-md bg-white  p-4 mb-4 bg-[#F9F9F9] ">
+    <div className="w-full rounded-md  p-4 mb-4 bg-[#F9F9F9] ">
       <Disclosure defaultOpen={defaultOpen || false}>
         {({ open }) => (
           <>
@@ -33,7 +33,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                   }
                 }}
               >
-                <h2 className="font-Medium  text-[14px] text-[#2C2F45] ">Device Report (ORUPhones)</h2>
+                <h2 className="font-Roboto-Medium  text-[14px] text-[#2C2F45] ">Device Report (ORUPhones)</h2>
 
                 <FiChevronDown
                   className={`${open ? "transform rotate-180" : ""
@@ -56,7 +56,6 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                       data.questionnaireResults &&
                       data.questionnaireResults.map((items, index) => {
                         return (
-
                           <Results
                             key={index}
                             index={index + 1}

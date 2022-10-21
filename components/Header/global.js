@@ -80,8 +80,7 @@ function GlobalHeader() {
         router.pathname.includes("shopby") ||
         router.pathname ==="/product/buy-old-refurbished-used-mobiles/searchBar" ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou" ||
-        router.pathname === "/product/models") && authenticated && (
-          
+        router.pathname === "/product/models") && (
          
                 <Link href="/user/notification">
                   <a

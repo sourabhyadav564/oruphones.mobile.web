@@ -69,6 +69,9 @@ module.exports = {
   },
   variants: {
     extend: {},
+    accentColor: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus','#E8E8E8']
   },
-  plugins: [require("@tailwindcss/line-clamp")],
+  plugins: [require("@tailwindcss/line-clamp"),
+  require('tailwind-accent-color')(),
+],
 };

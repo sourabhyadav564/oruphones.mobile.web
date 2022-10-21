@@ -3,7 +3,7 @@ import Image from "next/image";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/logo_square.svg";
 import OTPVerification from "@/components/Login/OTPVerification";
-import Input from "@/components/Form/Input";
+import Input2 from "@/components/Form/Input2";
 import { generateOTP } from "api-call";
 import Checkbox from "@/components/Form/Checkbox";
 import Modal1 from "./Modal1";
@@ -22,8 +22,8 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
 
   const sendOtp = async (e) => {
     e.preventDefault();
-    if (!formData.mobile || formData?.mobile?.length != 10) {
-      setError({ is: true, message: "Please enter valid mobile number" });
+    if (!formData.mobile || formData?.mobile?.length < 10) {
+      setError({ is: true, message: "10 digits number is required" });
     } else {
       const res = await generateOTP(formData?.countryCode, formData.mobile);
       setResponse(res);
@@ -58,7 +58,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
                 Sign In
               </h1>
               <div className="w-full my-8 relative">
-                <Input
+                <Input2
                   className="bg-white"
                   name="mobile"
                   type="number"
@@ -69,7 +69,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
                   }}
                 >
                   Mobile No
-                </Input>
+                </Input2>
                 {error?.is && (
                   <span className="absolute p-1 text-xs bg-red-500 w-full rounded text-white mt-2">
                     {" "}
@@ -91,12 +91,14 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
                   Accept terms and conditions
                 </label>
               </Checkbox>
+
               <button
                 className="bg-primary uppercase rounded py-3 text-white w-full disabled:opacity-60"
                 disabled={!formData?.termsAndCondition}
               >
                 next
               </button>
+              
             </form>
           ) : (
             <OTPVerification

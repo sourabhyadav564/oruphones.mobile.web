@@ -5,7 +5,7 @@ import {HiOutlineUserCircle} from "react-icons/hi";
 function SellerDetails({ data }) {
   return (
     <Fragment>
-      <h2 className="text-[14px] text-[#2C2F45] font-Light my-3 border-b-2 pb-2">Seller Details</h2>
+      <h2 className="text-[14px] text-[#2C2F45] font-Roboto-Light my-3 border-b-2 pb-2">Seller Details</h2>
       <div className="flex items-center">
         <span>
           {/* <svg xmlns="http://www.w3.org/2000/svg" width="27" height="30" viewBox="0 0 27 30">
@@ -34,8 +34,8 @@ function SellerDetails({ data }) {
 
         {!(data?.isOtherVendor === "Y") && (
           <p className="text-black-7e text-xs flex flex-col ml-3">
-            <span className="text-[#878787] font-Light text-[12px]">{data?.listedBy}</span>
-            <span className="font-Medium text-[13px] text-black">{data?.listingLocation}</span>
+            <span className="text-[#878787] font-Roboto-Light text-[12px]">{data?.listedBy}</span>
+            <span className="font-Roboto-Medium text-[13px] text-black">{data?.listingLocation}</span>
           </p>
         )}
       </div>

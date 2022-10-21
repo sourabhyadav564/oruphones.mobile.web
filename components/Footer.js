@@ -9,10 +9,10 @@ import {
 import Link from "next/link";
 const Footer = () => {
   return (
-    <footer className="bg-primary-dark px-4 pt-6 pb-16">
+    <footer className="bg-primary-dark font-Roboto-Semibold px-4 pt-6 pb-16">
       <div className="container grid grid-cols-1 md:grid-cols-3 md:space-y-8 space-y-4 text-white">
         <div className="flex flex-col">
-          <h1 className="font-bold">Customer Service</h1>
+          <h1 className="font-Roboto-Bold">Customer Service</h1>
           <Link
             href="/privacy-policy"
             className="hover:pl-2 delay-75 mt-4 max-w-max"
@@ -32,7 +32,7 @@ const Footer = () => {
           </Link>
         </div>
         <div className="flex flex-col">
-          <h1 className=" font-bold">Links</h1>
+          <h1 className=" font-Roboto-Bold">Links</h1>
           <a
             href="https://www.oruphones.com/blog"
             className="hover:pl-2 delay-75 mt-4 max-w-max"
@@ -49,7 +49,7 @@ const Footer = () => {
         </div>
         <div>
           <div className="flex flex-col">
-            <h1 className="font-bold">Email us</h1>
+            <h1 className="font-Roboto-Bold">Email us</h1>
             <a
               href="mailto:contact@oruphones.com?subject = Feedback"
               className="hover:pl-2 delay-75 mt-4 max-w-max"

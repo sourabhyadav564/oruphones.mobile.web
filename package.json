@@ -5,7 +5,7 @@
   "name": "oru-phones-web-mobile",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3002",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p $PORT",
     "lint": "next lint"
@@ -32,7 +32,8 @@
     "react-toastify": "^8.1.0",
     "recoil": "^0.7.3-alpha.2",
     "recoil-persist": "^4.2.0",
-    "swiper": "^7.3.1"
+    "swiper": "^7.3.1",
+    "tailwind-accent-color": "^1.0.2"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.55",

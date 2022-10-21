@@ -67,7 +67,7 @@ function NearByDealCard({ data, setProducts, prodLink }) {
                 />
               </div>
               <div className="flex-wrap w-full text-gray-70 pt-1">
-                <p className="font-bold flex items-center " style={{ color: "#000944" }}>
+                <p className="font-Roboto-Bold flex items-center " style={{ color: "#000944" }}>
                   {data?.listingPrice && <span className="mr-1">&#x20B9;</span>}
                   {numberWithCommas(data?.listingPrice || "")}
                 </p>

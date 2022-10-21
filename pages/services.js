@@ -10,15 +10,15 @@ function Services() {
   const [openApp, setOpenApp] = useState(false);
   return (
     <Fragment>
-      <div className="p-4 text-lg bg-primary text-white text-center rounded-b-2xl">
+      <div className="p-4 text-lg bg-primary font-Roboto-Regular text-white text-center rounded-b-2xl">
         <div className="w-52 my-4 mx-auto ">
           <Image src={service_img} width={"208px"} height={"100%"} objectFit="contain" layout="responsive" />
         </div>
         <h1>Services</h1>
       </div>
-      <main className="px-3 my-4 grid">
+      <main className="px-3 my-4 font-Roboto-Regular grid">
         {servicesData.map((item, index) => (
-          <div key={index} className="border py-2 px-4 pl-0 flex items-center rounded shadow mb-3" onClick={() => setOpenApp(true)}>
+          <div key={index} className="border py-2 px-4 pl-0 flex items-center font-Roboto-Medium rounded shadow mb-3" onClick={() => setOpenApp(true)}>
             <div className="p-4">
               <Image src={item?.imgSrc || "/"} width={"48"} height={"30"} objectFit="contain" />
             </div>

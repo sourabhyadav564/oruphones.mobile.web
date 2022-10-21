@@ -131,7 +131,7 @@ function BottomNav() {
                     fill="currentColor"
                   />
                 </svg>
-                <span className="mt-1">SERVICES</span>
+                <span className="mt-1 font-Roboto-Regular">SERVICES</span>
               </a>
             </Link>
             <Link href="/user/profile"

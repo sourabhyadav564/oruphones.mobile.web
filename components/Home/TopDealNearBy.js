@@ -92,7 +92,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
             className="flex items-center justify-center space-x-2"
             onClick={() => setOpenLocationPopup(true)}
           >
-            <span className="mt-3 mb-2 font-Roboto-Bold text-base text-blue-500 underline truncate w-20">
+            <span className="mt-3 mb-2 font-Roboto-Bold text-base text-[#d6b034] underline truncate w-20">
               {selectedSearchCity}
             </span>
             {/* <FaMapMarkerAlt className="text-[#00a483] h-4 w-4 mt-1" /> */}
@@ -137,7 +137,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
             } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer mb-5`}
           onClick={loadMoreData}
         >
-          <p className="block text-m-green font-Semibold">
+          <p className="block text-m-green font-Roboto-Semibold">
             {isLoadingMore ? "Fetching more products..." : "Load More ..."}
           </p>
         </span>

@@ -8,10 +8,9 @@ function Input({ name, className, inputClass, prefix, children, errorClass, ...r
           color: "rgba(0, 0, 0, 0.6)",
         }}
       >
-        <span className="block mr-0.5 self-center font-Roboto-Regular text-[#2C2F45] text-[20px]">{prefix}</span>
+        <span className="block mr-0.5 self-center font-Roboto-Regular text-[#2C2F45] text-[22px]">{prefix}</span>
         <input name={name} className={`py-3 block h-full w-full text-[13px] font-Roboto-Regular appearance-none ring-0 focus:ring-0 bg-transparent  text-[#2C2F45]  ${inputClass || ""}`} {...rest} />
       </div>
-
       <label
         htmlFor={name}
         className="absolute top-0 font-normal left-0 text-sm p-1 z-1 duration-300 origin-0 bg-white"

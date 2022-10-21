@@ -75,25 +75,27 @@ const TopCarousel = () => {
               ) :
               (
                 <div className="flex justify-center relative">
-                  <div style={{ padding: "1.5vh 1vh ", margin: "2px 0px 40px 0px" }}>
+                  <div style={{ margin: "4px 0px 28px 0px" }} className="">
                     <Image
                       src={item.src}
                       alt={item.name}
-                      className="bannerShadow rounded-lg "
+                      width={"395px"}
+                      height={'189px'}
+                      className="bannerShadow"
                     />
                   </div>
                   <div
-                    className="w-full absolute left-0 right-0 md:bottom-16 bottom-0  px-5 flex m-auto justify-center grid grid-cols-2 gap-2 "
+                    className="w-full h-[91px] absolute left-0 right-0 md:bottom-16 bottom-0  px-5  m-auto justify-center grid grid-cols-2 gap-2 "
                     style={{ fontSize: 10 }}
                   >
-                    <div className="w-full flex rounded-md m-auto justify-center" style={{ backgroundColor: "#141929" }}>
+                    <div className="w-full  flex rounded-md m-auto justify-center bg-gradient-to-r from-[#141929] via-[#313648] to-[#43495C]" >
                       <Link href="/sell-old-refurbished-used-mobiles/add">
-                        <div className="p-4 grid grid-rows-2 h-28">
-                          <p className="w-full text-white text-[14px] font-Semibold leading-tight">
+                        <div className="px-4 py-2 grid grid-rows-2 h-[91px]">
+                          <p className="w-full text-white  leading-tight">
                              <BannerSellHeading title="Sell your phone in few steps"/>
                              
                             </p>
-                          <a className="grid  rounded-md border border-none text-center  py-2 self-center" style={{ backgroundColor: "#F9C414" }}>
+                          <a className="grid h-[27px] py-1 rounded-md border border-none text-center self-center bg-gradient-to-r from-[#F9C414] to-[#FFD95B]">
                             {/* <span> Sell Now + </span> */}
                             <BannerSellHeading title="Sell Now + "/>
                           </a>
@@ -103,17 +105,17 @@ const TopCarousel = () => {
 
                     <div className="w-full flex rounded-md shadow-sm shadow-gray-300 my-0.5" style={{ backgroundColor: '#FFFFFF' }}>
                       <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
-                        <div className="p-4 grid grid-rows-2 h-28 m-auto justify-center">
+                        <div className="p-4 grid grid-rows-2 h-[91px] m-auto justify-center py-2">
                           <p className="w-full text-black text-[14px] font-Medium leading-tight">
                           <BannerSellHeading title=" Buy your dream phone in few steps "/>
                             {/* Buy your dream phone in few steps  */}
                             </p>
                           <a
-                            className="grid rounded-md text-center py-2 self-center "
+                            className="grid rounded-md text-center py-1 self-center "
                             onClick={() => setLoadingState(true)}
                           >
-                            <span className="grid  rounded-md  font-Regular border text-center py-2  self-center" style={{ borderColor: "#11121B" }}> 
-                            <BannerBuyHeading title="Buy now &gt;"/>
+                            <span className="grid h-[27px] rounded-md  font-Regular border text-center py-1  self-center" style={{ borderColor: "#11121B" }}> 
+                            <BannerBuyHeading title="Buy Now &gt;"/>
                              </span>
                           </a>
                         </div>
