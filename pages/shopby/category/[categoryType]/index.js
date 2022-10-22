@@ -137,7 +137,7 @@ function CategoryPage() {
     let intialPage = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [categoryType, selectedSearchCity]);
+  }, [categoryType, selectedSearchCity, applySortFilter]);
 
   useEffect(() => {
     if (applyFilter) {

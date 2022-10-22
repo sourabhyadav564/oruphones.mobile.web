@@ -58,10 +58,11 @@ import { getCityFromResponse } from "@/utils/util";
 import Header4 from "../Header/header4";
 import { CardHeading4, CardHeading3, PanelHeading } from "@/components/elements/CardHeading/cardheading.js";
 // import Header2 from "../Header/header2";
-import { Heading, SellPhoneHeading1, ProductPriceHeading, AgeHeading } from "../elements/Heading/heading";
-import { BsArrowLeft } from "react-icons/bs";
 import VerifyListingPopup from "../Popup/VerifyListingPopup";
 import PricePopup from "../Popup/PricePopup";
+import { BsArrowLeft } from "react-icons/bs";
+import { Heading, SellPhoneHeading1, ProductPriceHeading, AgeHeading } from "../elements/Heading/heading";
+import { IoCloseCircle } from "react-icons/io5";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -470,6 +471,12 @@ const NewAddListingForm = ({ data }) => {
     }
   }, [location]);
 
+  useEffect((e) => {
+    if (submitting === true) {
+      submit();
+    }
+  }, [submitting]);
+
   async function submit() {
     sellValueTag = document.querySelector("#sellValue");
     sellValue = sellValueTag.value;
@@ -610,8 +617,6 @@ const NewAddListingForm = ({ data }) => {
     }
   };
 
-
-
   const handleBack = () => {
     if (conditionResults[0].toString() == "No") {
       setPage(page - 1);
@@ -625,8 +630,6 @@ const NewAddListingForm = ({ data }) => {
       }
     }
   };
-
-
 
   const handleForward = () => {
     questionIndex in conditionResults
@@ -1074,7 +1077,7 @@ const NewAddListingForm = ({ data }) => {
                 <span className="font-Roboto-Medium self-center text-[10px]">Your Device is in</span>
                 <p className="font-Roboto-Bold self-center text-[12px]">
                   {condition}
-                  <span>Condition</span>
+                  <span> Condition</span>
 
                 </p>
               </div>
@@ -1421,18 +1424,17 @@ const NewAddListingForm = ({ data }) => {
               <p className="underline text-[#2C2F45]">or</p>
             </div>
 
-            <span
-              className="w-full uppercase rounded py-3 text-center text-[15px] text-[#FFFFFF] font-Roboto-Regular bg-[#2C2F45] m-auto "
+            <button
+              className="w-full uppercase rounded py-3 text-center text-[15px] text-[#FFFFFF] font-Regular bg-[#2C2F45] m-auto "
               disabled={!termsAndCondition}
               onClick={(e) => {
-                e.preventDefault();
-                setOpenVerifyFlow(true);
+                if (authenticated) { setVerifySubmit(true); }
+                // e.preventDefault();
               }}
             >
               TAKE ME TO VERIFICATION
-            </span>
-
-            <span className="pb-20" />
+            </button>
+            <div className="h-10" />
           </>
         )}
       </form>
@@ -1442,7 +1444,7 @@ const NewAddListingForm = ({ data }) => {
           className={`bg-white px-5 py-2 text-center text-black font-semibold rounded-md
         border-2 border-gray-200 duration-300 flex items-center justify-center space-x-5`}
           onClick={() => {
-            if (page == 2) {
+            if (page == 3 || page == 2) {
               handleBack();
             } else if (page != 0) {
               setPage(page - 1);

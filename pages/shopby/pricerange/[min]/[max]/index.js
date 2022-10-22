@@ -155,7 +155,7 @@ function PriceRangePage() {
     let intialPage = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [min, max, selectedSearchCity]);
+  }, [min, max, selectedSearchCity, applySortFilter]);
 
   return (
     <Filter
