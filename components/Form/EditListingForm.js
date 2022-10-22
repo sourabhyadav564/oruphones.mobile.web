@@ -17,7 +17,6 @@ import { BiChevronDown, BiCurrentLocation } from "react-icons/bi";
 import Geocode from "react-geocode";
 import Cookies from "js-cookie";
 import ConditionPopup from "../Popup/ConditionPopup";
-import StorageInfo from "../Popup/StorageInfo";
 import PricePopup from "../Popup/PricePopup";
 
 const EditListingForm = ({ data, resultsSet }) => {
@@ -704,34 +703,34 @@ const EditListingForm = ({ data, resultsSet }) => {
             />
           </div> */}
           <div className="grid grid-cols-2 gap-4 ">
-                <Checkbox
-                  src={chargingImg}
-                  text="Original Charger"
-                  onChange={() => setCharging((prev) => !prev)}
-                  checked={charging}
-                />
-                <Checkbox
-                  src={headphoneImg}
-                  text="Original Earphones"
-                  onChange={() => setHeadphone((prev) => !prev)}
-                  checked={headphone}
-                />
-                <Checkbox
-                  src={originalBoxImg}
-                  text="Original Box"
-                  onChange={() => setOriginalbox((prev) => !prev)}
-                  checked={originalbox}
-                />
-                <Checkbox
-                  src={originalBillImg}
-                  text="Original Bill"
-                  onChange={() => {
-                    setShowWarranty((prev) => !prev);
-                    setWarranty("more");
-                  }}
-                  checked={showWarranty}
-                />
-              </div>
+            <Checkbox
+              src={chargingImg}
+              text="Original Charger"
+              onChange={() => setCharging((prev) => !prev)}
+              checked={charging}
+            />
+            <Checkbox
+              src={headphoneImg}
+              text="Original Earphones"
+              onChange={() => setHeadphone((prev) => !prev)}
+              checked={headphone}
+            />
+            <Checkbox
+              src={originalBoxImg}
+              text="Original Box"
+              onChange={() => setOriginalbox((prev) => !prev)}
+              checked={originalbox}
+            />
+            <Checkbox
+              src={originalBillImg}
+              text="Original Bill"
+              onChange={() => {
+                setShowWarranty((prev) => !prev);
+                setWarranty("more");
+              }}
+              checked={showWarranty}
+            />
+          </div>
           {showWarranty && (
             <>
               <p className="font-Roboto-Regular  text-[#2C2F45] text-[13px] mt-8">
@@ -957,15 +956,15 @@ const Checkbox = ({ src, text, checked, onChange }) => (
       <Image src={src} layout="fill" />
     </div>
     <label>
-      
-    <input
-      type="checkbox"
-      className="absolute top-1 left-1.5 rounded text-white"
-      checked={checked}
-      readOnly
-    />
+
+      <input
+        type="checkbox"
+        className="absolute top-1 left-1.5 rounded text-white"
+        checked={checked}
+        readOnly
+      />
     </label>
-   
+
     <span className="text-[11px] font-Roboto-Regular mt-2 text-center block text-black-4e">{text}</span>
   </div>
 );

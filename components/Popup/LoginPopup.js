@@ -98,7 +98,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
               >
                 next
               </button>
-              
+
             </form>
           ) : (
             <OTPVerification

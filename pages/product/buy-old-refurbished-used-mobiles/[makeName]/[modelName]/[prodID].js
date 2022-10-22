@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
 import Header2 from "@/components/Header/header2";
-import {ProductPriceHeading,ProductNameHeading,BannerSellHeading } from "@/components/elements/Heading/heading";
+import { ProductPriceHeading, ProductNameHeading, BannerSellHeading } from "@/components/elements/Heading/heading";
 import ImageSlider from "@/components/ImageSlider";
 import { BiSearch } from "react-icons/bi";
 import star from "@/assets/star.svg";
@@ -172,13 +172,13 @@ function ProductDeatils({ data }) {
   return (
     <Fragment>
       <Header2 title={data?.marketingName}>
-      <div className="absolute right-4 top-3">
-        <Link href="/product/buy-old-refurbished-used-mobiles/searchBar">
-          <BiSearch size={22}/>  
-        </Link>
-      </div>
+        <div className="absolute right-4 top-3">
+          <Link href="/product/buy-old-refurbished-used-mobiles/searchBar">
+            <BiSearch size={22} />
+          </Link>
+        </div>
       </Header2>
-      
+
       <main className="py-3 relative ">
 
         {data?.isOtherVendor === "N" && (
@@ -269,7 +269,7 @@ function ProductDeatils({ data }) {
                 )}{" "}
                 {data?.listingPrice}
               </p> */}
-              <ProductPriceHeading title={data?.listingPrice}/>
+              <ProductPriceHeading title={data?.listingPrice} />
             </div>
 
             <div className="m-auto justify-center">
@@ -311,7 +311,7 @@ function ProductDeatils({ data }) {
               {data?.marketingName}
             </h1> */}
             <ProductNameHeading title={data?.marketingName} />
-            
+
             {/* {data?.isOtherVendor === "N" && (
               <div className="text-gray-20 w-full flex items-center justify-between my-1">
                 <p className="text-gray-20 font-semibold text-xs">
@@ -326,8 +326,8 @@ function ProductDeatils({ data }) {
           <div className="w-full flex items-center mt-4 mb-[12px] gap-2">
             <div className="w-11/12 h-[40px]  flex items-center m-auto rounded-[5px] justify-center opacity-bg-50" style={{ backgroundColor: "#F3F3F3" }}>
               <p className="py-[12px] flex text-[#000000] space-x-1 font-Roboto-Light text-[10px] opacity-100">
-                 <span className="self-center"> Varient:{" "} </span>
-                <CardHeading4 title={data?.deviceStorage}/>
+                <span className="self-center"> Varient:{" "} </span>
+                <CardHeading4 title={data?.deviceStorage} />
                 {/* <span className="text-[#000000] font-Roboto-Regular text-[12px]">
                   {data?.deviceStorage}
                 </span> */}
@@ -344,7 +344,7 @@ function ProductDeatils({ data }) {
                 >
                   Condition{" "}
                 </span>
-                <CardHeading4 title= {data?.deviceCondition}/>
+                <CardHeading4 title={data?.deviceCondition} />
                 {/* <p className="text-[12px] font-Regular text-black flex items-center">
                   {data?.deviceCondition}
                 </p> */}
@@ -361,28 +361,28 @@ function ProductDeatils({ data }) {
 
 
           <div className="py-2 pb-4">
-            {(data?.verified && 
-            (
-              <Fragment>
-                {/* <VerifiedIcon width={75} height={32} /> */}
-                <div className="flex m-auto justify-center text-white px-2 py-2 rounded-md" style={{ background: "#4CAF50" }}>
-                  <div className="flex flex-1 space-x-1 ">
-                    <VerificationIcon className="self-center" />
-                    <p className="font-Light Italic text-[9px] self-center">Verified</p>
+            {(data?.verified &&
+              (
+                <Fragment>
+                  {/* <VerifiedIcon width={75} height={32} /> */}
+                  <div className="flex m-auto justify-center text-white px-2 py-2 rounded-md" style={{ background: "#4CAF50" }}>
+                    <div className="flex flex-1 space-x-1 ">
+                      <VerificationIcon className="self-center" />
+                      <p className="font-Light Italic text-[9px] self-center">Verified</p>
+                    </div>
+                    <div className="m-auto justify-center ">
+                      <p className="text-[12px] font-Light">This phone is verified by ORUphones</p>
+                    </div>
                   </div>
-                  <div className="m-auto justify-center ">
-                    <p className="text-[12px] font-Light">This phone is verified by ORUphones</p>
-                  </div>
-                </div>
-                {/* <span
+                  {/* <span
                     className="bg-white py-1 px-2 rounded text-black-21 text-xs font-semibold"
                     onClick={executeScroll}
                   >
                     Device Report
                   </span> */}
-              </Fragment>
-            )) || 
-            (
+                </Fragment>
+              )) ||
+              (
                 <Fragment>
                   {/* <UnVerifiedIcon width={75} height={32} /> */}
                   <div className="w-full  py-2 space-x-2 text-center" >
@@ -390,7 +390,7 @@ function ProductDeatils({ data }) {
                       <div className="flex space-x-1 flex-1">
                         {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
                         <div className="flex space-x-2">
-                          <AiFillExclamationCircle s  ize={20} fill="white" className="self-center text-black" />
+                          <AiFillExclamationCircle s ize={20} fill="white" className="self-center text-black" />
                           {/* <UnVerifiedIcon /> */}
 
                           <span className="text-[9px] font-Roboto-Light  self-center text-[#000944] italic uppercase">unverified</span>
@@ -468,7 +468,7 @@ function ProductDeatils({ data }) {
               ))}
           </div>
           <div className="border-b-2 pb-1 mb-2">
-          <BannerSellHeading title="Device Info"/>
+            <BannerSellHeading title="Device Info" />
           </div>
           {/* <h2 className="text-black text-[14px] border-b-2 pb-1 font-Light my-3">Device Info</h2> */}
 
@@ -541,7 +541,7 @@ function ProductDeatils({ data }) {
                   />
                 </>
               )}
-              
+
               <IconLabelValue
                 label="Condition"
                 value={data?.condition || data?.deviceCondition || "--"}
@@ -615,7 +615,7 @@ function ProductDeatils({ data }) {
       </main>
       <SimilarProduct data={data} />
       <Footer />
-      
+
       {openRequestVerificationSuccessPopup && (
         <RequestVerificationSuccessPopup
           open={openRequestVerificationSuccessPopup}
