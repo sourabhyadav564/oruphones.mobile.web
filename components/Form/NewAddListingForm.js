@@ -1560,27 +1560,25 @@ const NewAddListingForm = ({ data }) => {
       </Fragment>
     );
   };
-
-  export default NewAddListingForm;
-
-  const Checkbox = ({ src, text, checked, onChange }) => (
-    <div
-      className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${checked && "bg-[#E8E8E8] opacity-bg-50 "}`}
-      onClick={onChange}
-    >
-      <div className="relative w-7 h-7 mx-auto">
-        <Image src={src} layout="fill" />
-      </div>
-
-      <input
-        type="checkbox"
-        className="accent-gray-500  opacity-bg-40 absolute  top-1 left-1.5 rounded "
-        checked={checked}
-        readOnly
-      />
-      <span className="text-[11px] font-Regular mt-2 text-center block text-black-4e">{text}</span>
-    </div>
-  );
-
-
 }
+
+export default NewAddListingForm;
+
+const Checkbox = ({ src, text, checked, onChange }) => (
+  <div
+    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${checked && "bg-[#E8E8E8] opacity-bg-50 "}`}
+    onClick={onChange}
+  >
+    <div className="relative w-7 h-7 mx-auto">
+      <Image src={src} layout="fill" />
+    </div>
+
+    <input
+      type="checkbox"
+      className="accent-gray-500  opacity-bg-40 absolute  top-1 left-1.5 rounded "
+      checked={checked}
+      readOnly
+    />
+    <span className="text-[11px] font-Regular mt-2 text-center block text-black-4e">{text}</span>
+  </div>
+);
