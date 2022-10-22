@@ -3,7 +3,7 @@ import Image from "next/image";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/logo_square.svg";
 import OTPVerification from "@/components/Login/OTPVerification";
-import Input2 from "@/components/Form/Input2";
+import Input2 from "../Form/Input2";
 import { generateOTP } from "api-call";
 import Checkbox from "@/components/Form/Checkbox";
 import Modal1 from "./Modal1";

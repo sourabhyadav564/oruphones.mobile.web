@@ -36,7 +36,8 @@ import VerificationIcon from "@/components/verificationIcon";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { CardHeading, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 import SearchBar from "@/components/Header/SearchBar";
-
+import { toast } from "react-toastify";
+import sold_out from "@/assets/soldout.png";
 
 
 // import {
@@ -224,8 +225,8 @@ function ProductDeatils({ data }) {
               />
               <ShareIcon
                 data={deviceListingInfo}
-                height={20}
-                width={20}
+                height={14}
+                width={14}
                 color="black"
               />
             </div>
@@ -254,6 +255,13 @@ function ProductDeatils({ data }) {
               ])
             }
           />
+          {/* <Image
+            className="absolute top-4"
+            src={sold_out}
+            alt="Picture of the author"
+            width={100}
+            height={100}
+          /> */}
         </div>
         <div className="my-4 px-4 ">
           <div className="flex">
@@ -399,11 +407,12 @@ function ProductDeatils({ data }) {
                       </div>
                       <p className="flex items-center">
                         <span
-                          className="underline font-Roboto-Light text-[12px]"
+                          className="underline font-Light text-[12px]"
                           onClick={() =>
                             !authenticated
                               ? setOpenLoginPopup(true)
-                              : setOpenRequestVerificationSuccessPopup(true)
+                              : data?.status == "Active" ? setOpenRequestVerificationSuccessPopup(true) :
+                                toast.warning("This device is sold out")
                           }
                         >
                           Click here to Request Verification
@@ -480,17 +489,17 @@ function ProductDeatils({ data }) {
               </PrimayButton>
             ) : (
               <div className="fixed bottom-0 left-0 w-full flex items-center justify-center space-x-2  px-2 z-50">
-                <PrimayButton onClick={() => showSellerNumber(data?.listingId)}>
+                <PrimayButton onClick={() => data?.status == "Active" ? showSellerNumber(data?.listingId) : toast.warning("This device is sold out")}>
                   {showNumber ? contactSellerMobileNumber : "Contact Seller"}
                 </PrimayButton>
                 {showNumber && (
                   <div
                     className="  px-3 pt-[2px] pb-[2px] rounded-md bg-white"
                     onClick={() =>
-                      window.open(
-                        `https://wa.me/${contactSellerMobileNumber}?text=Hey There, Check this product on ORU Phones. https://betav1.oruphones.com${router?.asPath}`,
+                      data?.status == "Active" ? window.open(
+                        `https://wa.me/${contactSellerMobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
                         "_blank"
-                      )
+                      ) : toast.warning("This device is sold out")
                     }
                   >
                     <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
@@ -502,10 +511,10 @@ function ProductDeatils({ data }) {
                       <div
                         className=" px-3 pt-[8px] pb-[2px] rounded-md bg-white border"
                         onClick={() =>
-                          window.open(
-                            `https://wa.me/${contactSellerMobileNumber}?text=Hey There, Check this product on ORU Phones. https://betav1.oruphones.com${router?.asPath}`,
+                          data?.status == "Active" ? window.open(
+                            `https://wa.me/${contactSellerMobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
                             "_blank"
-                          )
+                          ) : toast.warning("This device is sold out")
                         }
                       >
                         <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
@@ -525,6 +534,7 @@ function ProductDeatils({ data }) {
                 label="Storage"
                 value={data?.deviceStorage || "--"}
               />
+              <span></span>
               <IconLabelValue label="Color" value={data?.color || "--"} />
               <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
               {data?.isOtherVendor === "Y" && (
@@ -541,14 +551,12 @@ function ProductDeatils({ data }) {
                   />
                 </>
               )}
-
               <IconLabelValue
                 label="Condition"
                 value={data?.condition || data?.deviceCondition || "--"}
               />
             </div>
           )}
-
           {data?.isOtherVendor === "N" && (
             <div className="grid grid-cols-2 font-Roboto-Light gap-4">
               <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
@@ -599,13 +607,26 @@ function ProductDeatils({ data }) {
             setDefaultOpen={setDefaultOpen}
             key={defaultOpen}
           />
-
-          <ViewReport1
+          {data?.verified && <ViewReport1
             data={data}
             defaultOpen={defaultOpen}
             setDefaultOpen={setDefaultOpen}
             key={defaultOpen}
-          />
+          />}
+          {data?.isOtherVendor === "N" && !data?.verified && <div className="border-t pt-2">
+            <div className="pt-2">
+              <div className="font-Medium text-[13px] pb-2">This is unverified device!</div>
+              <span className="font-Medium text-[13px] pb-2">Please </span>
+              <span className="font-Medium text-[13px] font-bold underline pb-2"
+                onClick={() =>
+                  !authenticated
+                    ? setOpenLoginPopup(true)
+                    : setOpenRequestVerificationSuccessPopup(true)
+                }
+              > Click here </span>
+              <span className="font-Medium text-[13px] pb-2"> to send the verification request to seller for detailed device report.</span>
+            </div>
+          </div>}
         </div>
 
         <div className="px-5 my-5">
