@@ -2,7 +2,7 @@ import Axios from "axios";
 import getServerURL from "@/utils/getServerURL";
 import Cookies from "js-cookie";
 
-const URI = getServerURL();   
+const URI = getServerURL();
 
 // pending from 
 let headers = {
@@ -67,22 +67,22 @@ Axios.interceptors.response.use(
 
 
 
-export const getAboutUsContent = async ()=> {
+export const getAboutUsContent = async () => {
   const url = `${URI}/api/v1/web/aboutus.html`;
   return await Axios.get(url).then(
-    (res)=>{
+    (res) => {
       return res.data;
     },
-    (err)=>{
+    (err) => {
       console.log(err);
     }
   );
 }
 
 
- 
+
 export function getSessionId() {
-  headers = { ...headers,  eventName: "SESSION_CREATED" };
+  headers = { ...headers, eventName: "SESSION_CREATED" };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
@@ -304,6 +304,7 @@ export async function getUserListings(userUniqueId) {
   const url = `${URI}/api/v1/device/listings?userUniqueId=${userUniqueId}`;
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
+    localStorage.setItem("listings", response.data.dataObject.map((item) => item.listingId));
     return response.data;
   });
 }
@@ -546,6 +547,7 @@ export async function addFavotie(payload) {
   const url = `${URI}/api/v1/favorite/add`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
     (response) => {
+      localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
       return response.data;
     },
     (err) => {
@@ -562,8 +564,9 @@ export async function removeFavotie(listingId, userUniqueId) {
     listingId +
     `&userUniqueId=` +
     userUniqueId;
-  return await Axios.post(url, DEFAULT_HEADER).then(
+  return await Axios.post(url, {}, DEFAULT_HEADER).then(
     (response) => {
+      localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
       return response.data;
     },
     (err) => {
@@ -612,6 +615,7 @@ export async function fetchMyFavorites(userUniqueId) {
   const url = `${URI}/api/v1/favorite/fetch?userUniqueId=` + userUniqueId;
   return await Axios.post(url, {}, DEFAULT_HEADER).then(
     (response) => {
+      localStorage.setItem("favoriteList", JSON.stringify(response.data.dataObject.map((item) => item.listingId)));
       return response.data;
     },
     (err) => {

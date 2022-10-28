@@ -25,25 +25,35 @@ const DeviceConditionCard = ({ condition, answer }) => {
   console.log("note", note);
 
   return (
-    <div className="grid grid-cols-5 hover:cursor-pointer p-3 rounded-md border-2 border-gray-200 active:opacity-50 duration-300 hover:bg-gray-300 space-x-3 bg-gray-200">
-      <div className="col-span-5">
-        <p className="text-xl font-semibold">Your device is in</p>
-        <p className="text-3xl font-bold">
-          {condition?.toUpperCase()} <span>CONDITION</span>
+    <div className="flex flex-col bg-white p-2  rounded-md space-x-1 shadow-lg">
+      <div className="flex p-2 space-x-1">
+        <span className="font-Medium self-center text-[10px]">Your Device is in</span>
+        <p className="font-bold self-center text-[12px]">
+          {condition}
+          <span> Condition</span>
+
         </p>
-        <div className="space-y-2">
-          <p className="text-sm">{subtitle}</p>
-          <p className="text-lg font-semibold">{head}</p>
-          <div className="mt-3">
-            {point.map((item, index) => (
-              <CheckPoints points={item} />
-            ))}
-          </div>
-        </div>
       </div>
-      {/* <div className="col-span-1">
-        <p className="text-sm">{description}</p>
-      </div> */}
+
+      <div class="rounded flex  relative justify-between">
+        <div className="rounded-full flex absolute h-0.5 w-full my-3 bg-gray"></div>
+
+        <span><span class={`flex h-7 w-7  rounded-full border relative ${condition == "Needs Repair" ? "bg-primary" : "bg-gray"}`}></span>
+          <div className={`text-xs  ${condition == "Fair" ? "text-primary" : "text-gray"}`}>Needs<br /> Rapair</div></span>
+
+        <span><span class={`flex h-7 w-7  rounded-full border relative ${condition == "Fair" ? "bg-primary" : "bg-gray"}`}></span>
+          <div className={`text-xs  ${condition == "Fair" ? "text-primary" : "text-gray"}`}>Fair</div></span>
+
+        <span><span class={`flex h-7 w-7  rounded-full border relative ${condition == "Good" ? "bg-primary" : "bg-gray"}`}></span>
+          <div className={`text-xs  ${condition == "Fair" ? "text-primary" : "text-gray"}`}>Good</div></span>
+
+        <span><span class={`flex h-7 w-7  rounded-full border relative ${condition == "Excellent" ? "bg-primary" : "bg-gray"}`}></span>
+          <div className={`text-xs  ${condition == "Fair" ? "text-primary" : "text-gray"}`}>Excellent</div></span>
+
+        <span><span class={`flex h-7 w-7  rounded-full border relative ${condition == "Like New" ? "bg-primary" : "bg-gray"}`}></span>
+          <div className={`text-xs  ${condition == "Fair" ? "text-primary" : "text-gray"}`}>Like <br /> New</div>
+        </span>
+      </div>
     </div>
   );
 };
@@ -53,7 +63,7 @@ export default DeviceConditionCard;
 const CheckPoints = ({ points }) => {
   return (
     <div className="flex items-center space-x-3 space-y-1">
-      <BsInfoCircle className="text-[10px]"/>
+      <BsInfoCircle className="text-[10px]" />
       <p className="text-sm">{points}</p>
     </div>
   );

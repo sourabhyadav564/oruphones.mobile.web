@@ -20,7 +20,7 @@ function Services() {
         {servicesData.map((item, index) => (
           <div key={index} className="border py-2 px-4 pl-0 flex items-center font-Roboto-Medium rounded shadow mb-3" onClick={() => setOpenApp(true)}>
             <div className="p-4">
-              <Image src={item?.imgSrc || "/"} width={"48"} height={"30"} objectFit="contain" />
+              <Image src={item?.imgSrc || "/"} width={"25"} height={"25"} objectFit="contain" />
             </div>
             <div className="flex-1">
               <h2 className="text-gray-20">{item.title}</h2>

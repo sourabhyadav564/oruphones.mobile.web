@@ -77,176 +77,176 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
     <div className="font-Roboto-Regular">
       <Fragment>
         <Link href={`/user/listings/${data?.listingId}`}>
-            <div
-              className={`flex flex-col pt-2 rounded-md ${(data?.status.toUpperCase() !== "ACTIVE" && "bg-gray-ef") || ""}`}
-              style={{ boxShadow: "0 1px 20px rgba(0, 0, 0, 0.08)" }}
-            >
-              <div className="flex  p-1">
-                <div className="px-2">
-                  <Image
-                    src={(data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || "/fullImage"}
-                    width={100}
-                    height={100}
-                    objectFit="contain"
-                  />
-                </div>
-                <div className="w-full pt-1">
-                  <div className="text-sm font-bold flex justify-between  space-x-2">
-                    <p className="flex-1 text-sm text-gray-600">{data.marketingName}</p>
-                    <div>
+          <div
+            className={`flex flex-col pt-2 rounded-md ${(data?.status.toUpperCase() !== "ACTIVE" && "bg-gray-ef") || ""}`}
+            style={{ boxShadow: "0 1px 20px rgba(0, 0, 0, 0.08)" }}
+          >
+            <div className="flex  p-1">
+              <div className="px-2">
+                <Image
+                  src={(data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || "/fullImage"}
+                  width={100}
+                  height={100}
+                  objectFit="contain"
+                />
+              </div>
+              <div className="w-full pt-1">
+                <div className="text-sm font-bold flex justify-between  space-x-2">
+                  <p className="flex-1 text-sm text-gray-600">{data.marketingName}</p>
+                  <div>
                     <ShareIcon data={data} width={16} height={16} className={"mr-2 mt-1"} />
-                    </div>
-                    <div
-                      className="listing-tile dropdown inline-block relative"
-                    // onClick={(e) => e.preventDefault()}
-                    >
-                      <BiDotsVerticalRounded
-                        size={22}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setOpenMenu((prev) => (prev !== data?.listingId ? data.listingId : -1));
-                        }}
-                      />
-                      <div className={`dropdown-menu absolute ${openMenu === data?.listingId ? "block" : "hidden"} pt-1 right-0`}>
-                        <div className="w-32 py-2 menuShadow text-left border rounded bg-white" onClick={(e) => e.preventDefault()}>
-                          {data?.status === "Active" && (
-                            <span
-                              className="rounded-t  text-black font-normal py-1 px-4 w-full block whitespace-no-wrap"
-                              onClick={handlePauseLIsting}
-                            >
-                              Pause
-                            </span>
-                          )}
-                          <Link href={`/sell-old-refurbished-used-mobiles/edit/${data?.listingId}`}>
-                            <span className=" text-black font-normal py-1 px-4 w-full block whitespace-no-wrap">Edit</span>
-                          </Link>
+                  </div>
+                  <div
+                    className="listing-tile dropdown inline-block relative"
+                  // onClick={(e) => e.preventDefault()}
+                  >
+                    <BiDotsVerticalRounded
+                      size={22}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenMenu((prev) => (prev !== data?.listingId ? data.listingId : -1));
+                      }}
+                    />
+                    <div className={`dropdown-menu absolute ${openMenu === data?.listingId ? "block" : "hidden"} pt-1 right-0`}>
+                      <div className="w-32 py-2 menuShadow text-left border rounded bg-white" onClick={(e) => e.preventDefault()}>
+                        {data?.status === "Active" && (
                           <span
-                            className="rounded-b text-red font-normal py-1 px-4 w-full block whitespace-no-wrap "
-                            onClick={() => {
-                              setOpenDeleteListing(true);
-                              setOpenMenu(-1);
-                            }}
+                            className="rounded-t  text-black font-normal py-1 px-4 w-full block whitespace-no-wrap"
+                            onClick={handlePauseLIsting}
                           >
-                            Delete
+                            Pause
                           </span>
-                        </div>
+                        )}
+                        <Link href={`/sell-old-refurbished-used-mobiles/edit/${data?.listingId}`}>
+                          <span className=" text-black font-normal py-1 px-4 w-full block whitespace-no-wrap">Edit</span>
+                        </Link>
+                        <span
+                          className="rounded-b text-red font-normal py-1 px-4 w-full block whitespace-no-wrap "
+                          onClick={() => {
+                            setOpenDeleteListing(true);
+                            setOpenMenu(-1);
+                          }}
+                        >
+                          Delete
+                        </span>
                       </div>
                     </div>
                   </div>
-                  <div className="flex space-x-4 text-gray-70 text-xs mt-3">
-                    <p className="flex flex-col items-start">
-                      <span>Storage</span>
-                      <span className="font-semibold text-sm text-gray-600">{data?.deviceStorage}</span>
-                    </p>
-                    {/* <p className="flex flex-col items-start">
+                </div>
+                <div className="flex space-x-4 text-gray-70 text-xs mt-3">
+                  <p className="flex flex-col items-start">
+                    <span>Storage</span>
+                    <span className="font-semibold text-sm text-gray-600">{data?.deviceStorage}</span>
+                  </p>
+                  {/* <p className="flex flex-col items-start">
                     <span>Color</span>
                     <span className="font-bold text-sm"> {data?.color} </span>
                   </p> */}
-                    <p className="flex flex-col items-start">
-                      <span>Condition</span>
-                      <span className="font-semibold text-sm text-gray-600">{data.deviceCondition}</span>
-                    </p>
-                  </div>
+                  <p className="flex flex-col items-start">
+                    <span>Condition</span>
+                    <span className="font-semibold text-sm text-gray-600">{data.deviceCondition}</span>
+                  </p>
                 </div>
               </div>
-              {data?.status.toUpperCase() !== "ACTIVE" ?
-                (
-                  <div className="w-full grid grid-cols-4 px-2 py-2 space-x-2 center">
-                    <div className="bg-gray-400 flex flex-1  py-3 px-2 rounded-md col-span-3" >
-                      <div className="flex space-x-1 flex-1">
-                        {/* <Image src={inactive} width={64} height={29} /> */}
-                        <div className="flex space-x-1  flex-1">
-                          <AiFillExclamationCircle size={20} className="self-center text-white" />
-                          <span className=" text-white self-center text-[9px]  font-light italic uppercase">INActive</span>
-                        </div>
-                        <button className="self-center text-[15px] text-white font-Semibold" onClick={handleActivate}>
-                          Activate Now
-                        </button>
+            </div>
+            {data?.status.toUpperCase() !== "ACTIVE" ?
+              (
+                <div className="w-full grid grid-cols-4 px-2 py-2 space-x-2 center">
+                  <div className="bg-gray-400 flex flex-1  py-3 px-2 rounded-md col-span-3" >
+                  <div className="flex space-x-1 flex-1">
+                      {/* <Image src={inactive} width={64} height={29} /> */}
+                      <div className="flex space-x-1  flex-1">
+                        <AiFillExclamationCircle size={20} className="self-center text-white" />
+                        <span className=" text-white self-center text-[9px]  font-light italic uppercase">INActive</span>
                       </div>
-                    </div>
-                    <div className="rounded-md px-1 text-sm ml-auto justify-center text-center" style={{ backgroundColor: "#2C2F45" }}>
-                      <div className="flex flex-col  h-full m-auto justify-center">
-                        <span className="text-xs text-white self-center text-[#FFFFFF">List Price</span>
-                        <span className="font-Semibold  text-gray-100 text-base ">₹ {numberWithCommas(data.listingPrice)}​</span>
-                      </div>
+                      <button className="self-center text-[15px] text-white font-Semibold" onClick={handleActivate}>
+                        Activate Now
+                      </button>
                     </div>
                   </div>
-                ) : data?.verified && !data?.deviceImagesAvailable ?
-                  (
-                    <div className="gap-2 grid grid-cols-4 w-full px-2 py-2 text-center m-auto justify-between">
-                      {/* <VerifiedIcon width={60} height={30} /> */}
-                      <div className="flex col-span-3 gap-2">
-                        <div className="flex py-1 px-2 space-x-1 rounded-md" style={{ backgroundColor: "#4CAF50" }}>
-                          {/* <VscVerified size={20} className="self-center text-white"/> */}
-                          {/*image  */}
-                          <VerificationIcon />
-                          <span className="text-[10px] self-center text-white uppercase font-light italic">verified</span>
+                  <div className="rounded-md px-1 text-sm ml-auto justify-center text-center" style={{ backgroundColor: "#2C2F45" }}>
+                    <div className="flex flex-col  h-full m-auto justify-center">
+                      <span className="text-xs text-white self-center text-[#FFFFFF">List Price</span>
+                      <span className="font-Semibold  text-gray-100 text-base ">₹ {numberWithCommas(data.listingPrice)}​</span>
+                    </div>
+                  </div>
+                </div>
+              ) : data?.verified && !data?.deviceImagesAvailable ?
+                (
+                  <div className="gap-2 grid grid-cols-4 w-full px-2 py-2 text-center m-auto justify-between">
+                    {/* <VerifiedIcon width={60} height={30} /> */}
+                    <div className="flex col-span-3 gap-2">
+                      <div className="flex py-1 px-2 space-x-1 rounded-md" style={{ backgroundColor: "#4CAF50" }}>
+                        {/* <VscVerified size={20} className="self-center text-white"/> */}
+                        {/*image  */}
+                        <VerificationIcon />
+                        <span className="text-[10px] self-center text-white uppercase font-light italic">verified</span>
+                      </div>
+                      <span
+                        className="w-full flex px-1 bg-yellow-400 rounded-md"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          uploadPhotos();
+                        }}
+
+                        style={{ backgroundColor: "#F9C414" }}
+                      >
+                        {/* <BsPlus size={20} className="self-center font-semibold"/> */}
+                        <p className="self-center font-regular text-[12px] m-auto justify-center">+ Upload Photos</p>
+                      </span>
+                    </div>
+                    <div className="w-full col-span-1 rounded-md px-1 m-auto justify-center flex flex-col py-0.5  " style={{ backgroundColor: "#2C2F45" }}>
+                      <span className="text-white self-center font-normal text-[10px]">List Price</span>
+                      <span className="font-Semibold text-white text-[13px]">₹ {numberWithCommas(data.listingPrice)}​</span>
+                    </div>
+                  </div>
+                ) : data?.verified ? (
+                  <div className="flex items-center pl-4 w-full">
+                    <VerifiedIcon width={60} height={30} />
+                    <span className="text-sm text-black-4e ml-3">On: {data?.verifiedDate}​</span>
+                    <div className="bg-gray-ef text-gray-70 text-sm flex flex-col px-4 py-0.5 ml-auto rounded-tl-md rounded-br-md">
+                      <span>List Price</span>
+                      <span className="text-lg font-bold">₹ {numberWithCommas(data.listingPrice)}​</span>
+                    </div>
+                  </div>
+                )
+                  : (
+                    <div className="grid grid-cols-4 px-2 w-full py-2 space-x-2 text-center" >
+                      <div className="flex py-2 px-3 rounded-md space-x-2 col-span-3" style={{ backgroundColor: "#F9C414" }}>
+                        <div className="flex space-x-1 flex-1">
+                          {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
+                          <div className="flex space-x-2">
+                            <AiFillExclamationCircle size={20} fill="white" className="self-center text-black" />
+                            {/* <UnVerifiedIcon /> */}
+
+                            <span className="text-[9px] font-light self-center text-black italic uppercase">unverified</span>
+                          </div>
+                          {/* <span className="text-xs italic self-center uppercase"> unverified</span> */}
                         </div>
                         <span
-                          className="w-full flex px-1 bg-yellow-400 rounded-md"
+                          className="text-[12px] font-Semibold self-center "
                           onClick={(e) => {
                             e.preventDefault();
-                            uploadPhotos();
+                            setOpenVerifyFlow(true);
                           }}
-
-                          style={{ backgroundColor: "#F9C414" }}
                         >
-                          {/* <BsPlus size={20} className="self-center font-semibold"/> */}
-                          <p className="self-center font-regular text-[12px] m-auto justify-center">+ Upload Photos</p>
+                          Click to Verify Now
                         </span>
                       </div>
-                      <div className="w-full col-span-1 rounded-md px-1 m-auto justify-center flex flex-col py-0.5  " style={{ backgroundColor: "#2C2F45" }}>
-                        <span className="text-white self-center font-normal text-[10px]">List Price</span>
-                        <span className="font-Semibold text-white text-[13px]">₹ {numberWithCommas(data.listingPrice)}​</span>
-                      </div>
-                    </div>
-                  ) : data?.verified ? (
-                    <div className="flex items-center pl-4 w-full">
-                      <VerifiedIcon width={60} height={30} />
-                      <span className="text-sm text-black-4e ml-3">On: {data?.verifiedDate}​</span>
-                      <div className="bg-gray-ef text-gray-70 text-sm flex flex-col px-4 py-0.5 ml-auto rounded-tl-md rounded-br-md">
-                        <span>List Price</span>
-                        <span className="text-lg font-bold">₹ {numberWithCommas(data.listingPrice)}​</span>
-                      </div>
-                    </div>
-                  )
-                    : (
-                      <div className="grid grid-cols-4 px-2 w-full py-2 space-x-2 text-center" >
-                        <div className="flex py-2 px-3 rounded-md space-x-2 col-span-3" style={{ backgroundColor: "#F9C414" }}>
-                          <div className="flex space-x-1 flex-1">
-                            {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
-                            <div className="flex space-x-2">
-                              <AiFillExclamationCircle size={20} fill="white" className="self-center text-black" />
-                              {/* <UnVerifiedIcon /> */}
-
-                              <span className="text-[9px] font-light self-center text-black italic uppercase">unverified</span>
-                            </div>
-                            {/* <span className="text-xs italic self-center uppercase"> unverified</span> */}
-                          </div>
-                          <span
-                            className="text-[12px] font-Semibold self-center "
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setOpenVerifyFlow(true);
-                            }}
-                          >
-                            Click to Verify Now
-                          </span>
-                        </div>
-                        {/* <BsInfoCircle
+                      {/* <BsInfoCircle
                   className="ml-1 text-sm cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
                     setOpenVerifyInfo(true);
                   }}
                 /> */}
-                        <div className=" text-gray-70  flex flex-col m-auto justify-center py-0.5 rounded-md " style={{ backgroundColor: "#2C2F45" }}>
-                          <span className="text-[10px] text-[#FFFFFF] self-center ">List Price</span>
-                          <span className="font-Semibold text-gray-100 text-[13px]">₹ {numberWithCommas(data.listingPrice)}​</span>
-                        </div>
+                      <div className=" text-gray-70  flex flex-col m-auto justify-center py-0.5 rounded-md " style={{ backgroundColor: "#2C2F45" }}>
+                        <span className="text-[10px] text-[#FFFFFF] self-center ">List Price</span>
+                        <span className="font-Semibold text-gray-100 text-[13px]">₹ {numberWithCommas(data.listingPrice)}​</span>
                       </div>
-                    )}
-            </div>
+                    </div>
+                  )}
+          </div>
         </Link>
         {openVerifyInfo && <VerificationInfo open={openVerifyInfo} setOpen={setOpenVerifyInfo} />}
         {openVerifyFlow && <VerifyFlowPopup open={openVerifyFlow} setOpen={setOpenVerifyFlow} />}

@@ -176,10 +176,10 @@ function Bestdealnearyou() {
     >
       {(isLoading || bestDeal && bestDeal?.length > 0) && (
         <div>
-        <h1 className="text-lg font-semibold text-gray-20 py-2.5 ">
-          {" "}
-          Best Deals{" "}
-        </h1>
+          <h1 className="text-lg font-semibold text-gray-20 py-2.5 ">
+            {" "}
+            Best Deals{" "}
+          </h1>
         </div>
       )}
       {isLoading ? (
@@ -190,8 +190,8 @@ function Bestdealnearyou() {
           <BestDealSection bestDealData={bestDeal} setProducts={setBestDeal} />
         )
       )}
-      {(isLoading) && (
-        <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
+      {(!isLoading) && (
+        <h2 className="text-lg font-semibold text-gray-20 py-2.5">
           {" "}
           Other Listings ({totalProducts}){" "}
         </h2>
@@ -223,7 +223,7 @@ function Bestdealnearyou() {
           <span
             className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
               } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
-            onClick={loadMoreData} 
+            onClick={loadMoreData}
           >
             <p className="block text-m-green font-semibold">
               {isLoadingMore ? "Fetching more products..." : "Load More"}

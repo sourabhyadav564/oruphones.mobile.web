@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AiOutlineLogout, AiOutlineInfoCircle, AiOutlineQuestionCircle, AiOutlineLogin } from "react-icons/ai";
 // import userAvatar from "@/assets/user-avatar.png";
 import userAvatar from "@/assets/icons/avatar.png"
-import {BiUserCircle} from "react-icons/bi";
+import { BiUserCircle } from "react-icons/bi";
 import Link from "next/link";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import router from "next/router";
@@ -65,10 +65,10 @@ function Sidebar({ open, setOpen }) {
               <FiChevronLeft className="ml-auto text-lg item-center " onClick={() => setOpen(false)} />
               <div className="flex items-center px-4 py-2" onClick={handleClick}>
                 <div className="border-2 border-white mr-3 rounded-full p-1">
-                <div className={`w-4 h-4 p-3 rounded-full  relative  ${user?.userdetails?.profilePicPath ? "bg-white" : ""}`}>
-                  <Image src={user?.userdetails?.profilePicPath || userAvatar} objectFit="contain" className="" layout="fill" />
+                  <div className={`w-4 h-4 p-3 rounded-full  relative  ${user?.userdetails?.profilePicPath ? "bg-white" : ""}`}>
+                    <Image src={user?.userdetails?.profilePicPath || userAvatar} objectFit="contain" className="" layout="fill" />
+                  </div>
                 </div>
-              </div>
                 <div className="flex flex-col">
                   <h2 className="font-Semibold text-[15px]">{userName}</h2>
                   {user?.userdetails?.createdDate && <p className="text-[10px] font-Light text-gray-300">Joined On {user?.userdetails?.createdDate}</p>}
@@ -84,11 +84,11 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                <MdOutlineFavoriteBorder size={20} className="self-center"/>
-                <p className="self-center flex-1"> My Favorites</p>
-                <FiChevronLeft className="rotate-180 self-center"/>
-                <hr/>
-                </div> 
+                  <MdOutlineFavoriteBorder size={20} className="self-center" />
+                  <p className="self-center flex-1"> My Favorites</p>
+                  <FiChevronLeft className="rotate-180 -mr-2 self-center" />
+                  <hr />
+                </div>
               </ListItem>
 
               <ListItem
@@ -97,10 +97,10 @@ function Sidebar({ open, setOpen }) {
                   setOpen(false);
                 }}
               >
-              <div className="w-full flex gap-2 border-b pb-3">
-                <AiOutlineInfoCircle size={20} className="self-center"/>
-                <p className="self-center flex-1"> About us</p>
-                <FiChevronLeft className="rotate-180 self-center"/>
+                <div className="w-full flex gap-2 border-b pb-3">
+                  <AiOutlineInfoCircle size={20} className="self-center" />
+                  <p className="self-center flex-1"> About us</p>
+                  <FiChevronLeft className="rotate-180 self-center" />
                 </div>
               </ListItem>
               <ListItem
@@ -109,33 +109,33 @@ function Sidebar({ open, setOpen }) {
                   setOpen(false);
                 }}
               >
-              <div className="w-full flex gap-2 border-b pb-3">
-                <AiOutlineQuestionCircle size={20} className="self-center"/>
-                <p className="self-center flex-1"> FAQs</p>
-                <FiChevronLeft className="rotate-180 self-center"/>
-              </div>
+                <div className="w-full flex gap-2 border-b pb-3">
+                  <AiOutlineQuestionCircle size={20} className="self-center" />
+                  <p className="self-center flex-1"> FAQs</p>
+                  <FiChevronLeft className="rotate-180 self-center" />
+                </div>
               </ListItem>
-             <div className="mt-auto border-t ml-2 ">
+              <div className="mt-auto border-t ml-2 ">
                 {authenticated ? (
                   <ListItem
                     href="/login"
                     onClick={() => {
-                    dispatch("LOGOUT");
-                    setOpen(false);
-                  }}
-                >
-                <div className="flex gap-2 -pl-4 pt-2">
-                  <AiOutlineLogout size={20} className="self-center" /> <p>Logout</p>
-                </div>
-                </ListItem>
-              ) : (
-                <ListItem href="/login">
-                  <div className="flex gap-2 -pl-4 pt-2">
-                  <AiOutlineLogin size={20} /> <p>Sign In</p>
-                  </div>
-                </ListItem>
-              )}
-              </div> 
+                      dispatch("LOGOUT");
+                      setOpen(false);
+                    }}
+                  >
+                    <div className="flex gap-2 -pl-4 pt-2">
+                      <AiOutlineLogout size={20} className="self-center" /> <p>Logout</p>
+                    </div>
+                  </ListItem>
+                ) : (
+                  <ListItem href="/login">
+                    <div className="flex gap-2 -pl-4 pt-2">
+                      <AiOutlineLogin size={20} /> <p>Sign In</p>
+                    </div>
+                  </ListItem>
+                )}
+              </div>
             </ul>
           </div>
         </Transition.Child>

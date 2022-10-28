@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Cookies from "js-cookie";
-import { addFavotie, removeFavotie } from "api-call";
+import { addFavotie, getUserListings, removeFavotie } from "api-call";
 import router from "next/router";
 import { Fragment } from "react";
 import { useAuthState } from "providers/AuthProvider";
@@ -9,8 +9,20 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 function AddFav({ data, setProducts, color, ...rest }) {
+  const { authenticated, loading, user } = useAuthState();
+  const [listings, setListings] = useState([]);
 
-  const { authenticated, loading } = useAuthState();
+  // if (user && user?.userdetails?.userUniqueId) {
+  //   getUserListings(user?.userdetails?.userUniqueId).then(
+  //     (res) => {
+  //       setListings(res.dataObject.map((item2) => item2.listingId));
+  //       // console.log("res.dataObject", listings);
+  //       // setListingsLoading(false);
+  //     },
+  //     (err) => console.error(err)
+  //   );
+  // }
+
   function handleFavoties() {
     setProducts((prevState) => {
       let tempVal;
@@ -33,7 +45,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
       });
     };
     const removeFavorite = () => {
-      removeFavotie(data.listingId, Cookies.get("userUniqueId") || "Guest").then((response) => {
+      removeFavotie(data?.listingId, Cookies.get("userUniqueId")).then((response) => {
         console.log("removeFav RES", response);
       });
     };
@@ -106,14 +118,16 @@ function AddFav({ data, setProducts, color, ...rest }) {
       //     fill={data.favourite ? "#FF0000" : color || "#C7C7C7"}
       //   />
       // </svg>
-      data?.favourite ? (<AiFillHeart
+      localStorage.getItem("favoriteList").includes(data?.listingId) ? (<AiFillHeart
         className="hover:cursor-pointer"
         color="#FF0000"
         size='18px'
         onClick={
           (e) => {
             e.preventDefault();
-            handleFavoties(data);
+            // !listings.includes(data.listingId) ? 
+            handleFavoties(data)
+            //  : toast.error("You can't add your own listing to your favorites");
           }
         }
       />) :
@@ -124,7 +138,9 @@ function AddFav({ data, setProducts, color, ...rest }) {
           onClick={
             (e) => {
               e.preventDefault();
+              // !listings.includes(data.listingId) ? 
               handleFavoties(data);
+              //  : toast.error("You can't add your own listing to your favorites");
             }
           }
         />)

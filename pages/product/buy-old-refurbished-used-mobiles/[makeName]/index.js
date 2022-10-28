@@ -338,7 +338,7 @@ function MakePage({ bestDealData, data }) {
             <h1 className="text-[#707070] text-[11px] font-normal"> Shop By Model </h1>
          </div> */}
 
-        {(isLoading || (sortingProducts && sortingProducts.length > 0)) && (
+        {(!isLoading && (sortingProducts && sortingProducts.length > 0)) && (
           <div className="flex mt-3 p-2 pb-0">
             <h2 className=" font-normal text-[#707070] m-auto  text-[11px]  pl-0  capitalize flex-1">
               {/* Other Listings ({totalProducts}) */}

@@ -12,17 +12,36 @@ import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import sold_out from "@/assets/soldout.png";
 import { BsCardHeading } from "react-icons/bs";
 
-import {CardHeading,CardHeading1,CardHeading2,CardHeading3,CardHeading4} from "@/components/elements/CardHeading/cardheading";
+import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
+import { getUserListings } from "api-call";
+import { useAuthState } from "providers/AuthProvider";
+import Cookies from "js-cookie";
 
 
 function OtherListingCard({ data, setProducts, prodLink }) {
   const router = useRouter();
-
+  const [listings, setListings] = useState(localStorage.getItem("listings") || []);
+  const { authenticated, user } = useAuthState();
   const [loadingState, setLoadingState] = useState(false);
+  const [listingState, setListingState] = useState(false);
 
   useEffect(() => {
     setLoadingState(false);
   }, [router.pathname]);
+
+  useEffect(() => {
+    if (user && user?.userdetails?.userUniqueId && listings.length === 0) {
+      localStorage.getItem("listings") || getUserListings(user?.userdetails?.userUniqueId).then(
+        (res) => {
+          setListings(res.dataObject.map((item2) => item2.listingId));
+          // console.log("res.dataObject", listings);
+          // setListingsLoading(false);
+        },
+        (err) => console.error(err)
+      );
+    }
+  }, []);
+
 
   if (data?.make?.toLowerCase().includes("all")) {
     return (
@@ -69,62 +88,114 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 <VerifiedIcon width={45} height={22} />
               ) : <svg height={20} />}
               <span>
-                {!(data?.isOtherVendor === "Y") && (
+                {!(data?.isOtherVendor === "Y") && !listings.includes(data.listingId) && (
                   <AddFav data={data} setProducts={setProducts} />
                 )}
               </span>
             </div>
-            <div
-              onClick={() => window.open(
-                `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${prodLink ? data?.listingId : ""}?isOtherVendor=${data?.isOtherVendor}`,
-                "_blank"
-              )
-              }
-            >
-              <div className="flex justify-center my-2 mt-4 mx-2">
-                <Image
-                  src={data?.imagePath || Logo}
-                  alt={data?.marketingName}
-                  width={86}
-                  height={120}
-                  objectFit="contain"
-                />
-              </div>
-              <CardHeading3 title={"₹" + numberWithCommas(data?.listingPrice)}/>
-              {/* <CardHeading4 title={`${data?.listingPrice && <span className="">&#x20B9;</span>}  ${numberWithCommas(data?.listingPrice || "")}`}/> */}
-              {/* <p className="font-bold flex items-center text-[15px] text-[#000944]">
-                {data?.listingPrice && <span className="">&#x20B9;</span>}
-                {numberWithCommas(data?.listingPrice || "")}
-              </p> */}
-              <div className="flex-wrap w-full">
-                {/* <h1 className="flex-1 truncate text-black  w-full capitalize font-Regular text-[12px]">
-                  {data?.marketingName}
-                </h1> */}
-                <CardHeading4 title={data?.marketingName}/>
-                <div
-                  className="flex flex-wrap justify-between"
-
-                >
-                  {data?.deviceStorage && (
-                    // <p className="mr-1 font-Light text-[8px] ">{data?.deviceStorage}</p>
-                    <CardHeading title={data?.deviceStorage}/>
-                  )}
-                  <p className="flex space-x-0.5">
-                    {/* <span>Condition : </span> */}
-                    <CardHeading title="Condition : "/>
-                    <CardHeading title={data?.deviceCondition || "--"}/>
-                    {/* <span>{data?.deviceCondition || "--"}</span> */}
+            {console.log("data", listings)}
+            {listings.includes(data.listingId)
+              ?
+              <div
+                onClick={() => window.open(
+                  `/user/listings/${data?.listingId}`,
+                  "_blank",)}
+              >
+                <div className="flex justify-center p-2">
+                  <Image
+                    src={data?.imagePath || Logo}
+                    alt={data?.marketingName}
+                    width={150}
+                    height={150}
+                    objectFit="contain"
+                  />
+                </div>
+                <div className="flex-wrap w-full text-gray-70 pt-1">
+                  <p className="font-Roboto-Bold flex items-center " style={{ color: "#000944" }}>
+                    {data?.listingPrice && <span className="mr-1">&#x20B9;</span>}
+                    {numberWithCommas(data?.listingPrice || "")}
                   </p>
-                </div>
+                  <h1 className="flex-1 truncate w-full capitalize font-Regular text-[12px] text-black">
+                    <CardHeading4 title={data?.marketingName} />
+                  </h1>
+                  <div
+                    className="flex flex-wrap justify-between"
+                  >
+                    {data?.deviceStorage && (
+                      <p className="mr-1 font-Light text-[8px] text-black">
+                        <CardHeading title={data?.deviceStorage} />
+                      </p>
+                    )}
+                    <p className="flex">
+                      <span className="font-Light text-[8px] text-black">
+                        <CardHeading title={`Condition :   ${" "}`} />
+                      </span>
+                      <span className="font-Light text-[8px] text-black">
 
-                <div className="justify-self-end flex justify-between capitalize">
-                <CardHeading title={data?.listingLocation}/>
-                <CardHeading title={data?.listingDate}/>
-                  {/* <span className="truncate mr-1 font-Light text-[6px]">{data?.listingLocation}</span>
-                  <span className="font-Light text-[6px]">{data?.listingDate}</span> */}
+                        <CardHeading title={data?.deviceCondition || "--"} />
+                      </span>
+                    </p>
+                  </div>
+
+                  <div className="justify-self-end flex justify-between font-Light text-[6px] capitalize">
+                    <span>
+                      <CardHeading title={data?.listingLocation || "India"} />
+                    </span>
+                    <CardHeading title={data?.listingDate || "Today"} />
+                  </div>
                 </div>
               </div>
-            </div>
+              :
+              <div
+                onClick={() => window.open(
+                  `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${prodLink ? data?.listingId : ""}?isOtherVendor=${data?.isOtherVendor}`,
+                  "_blank",)}
+              >
+                <div className="flex justify-center p-2">
+                  <Image
+                    src={data?.imagePath || Logo}
+                    alt={data?.marketingName}
+                    width={150}
+                    height={150}
+                    objectFit="contain"
+                  />
+                </div>
+                <div className="flex-wrap w-full text-gray-70 pt-1">
+                  <p className="font-Roboto-Bold flex items-center " style={{ color: "#000944" }}>
+                    {data?.listingPrice && <span className="mr-1">&#x20B9;</span>}
+                    {numberWithCommas(data?.listingPrice || "")}
+                  </p>
+                  <h1 className="flex-1 truncate w-full capitalize font-Regular text-[12px] text-black">
+                    <CardHeading4 title={data?.marketingName} />
+                  </h1>
+                  <div
+                    className="flex flex-wrap justify-between"
+                  >
+                    {data?.deviceStorage && (
+                      <p className="mr-1 font-Light text-[8px] text-black">
+                        <CardHeading title={data?.deviceStorage} />
+                      </p>
+                    )}
+                    <p className="flex">
+                      <span className="font-Light text-[8px] text-black">
+                        <CardHeading title={`Condition :   ${" "}`} />
+                      </span>
+                      <span className="font-Light text-[8px] text-black">
+
+                        <CardHeading title={data?.deviceCondition || "--"} />
+                      </span>
+                    </p>
+                  </div>
+
+                  <div className="justify-self-end flex justify-between font-Light text-[6px] capitalize">
+                    <span>
+                      <CardHeading title={data?.listingLocation || "India"} />
+                    </span>
+                    <CardHeading title={data?.listingDate || "Today"} />
+                  </div>
+                </div>
+              </div>
+            }
           </div>
         </a>
       </div>

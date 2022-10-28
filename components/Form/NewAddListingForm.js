@@ -63,6 +63,7 @@ import PricePopup from "../Popup/PricePopup";
 import { BsArrowLeft } from "react-icons/bs";
 import { Heading, SellPhoneHeading1, ProductPriceHeading, AgeHeading } from "../elements/Heading/heading";
 import { IoCloseCircle } from "react-icons/io5";
+import { Stepper, Step } from 'react-form-stepper';
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -960,7 +961,7 @@ const NewAddListingForm = ({ data }) => {
         {page === 2 && (
           <>
             {modelInfo && (
-              <div className="p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
+              <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
@@ -1032,7 +1033,7 @@ const NewAddListingForm = ({ data }) => {
         {page === 3 && (
           <>
             {modelInfo && (
-              <div className="p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
+              <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
@@ -1069,18 +1070,10 @@ const NewAddListingForm = ({ data }) => {
               </div>
             )}
             <>
-              {/* <DeviceConditionCard
-                  condition={condition}
-                  answer={conditionResults}
-                /> */}
-              <div className="flex bg-[#F3F3F3] p-2  rounded-md space-x-2">
-                <span className="font-Roboto-Medium self-center text-[10px]">Your Device is in</span>
-                <p className="font-Roboto-Bold self-center text-[12px]">
-                  {condition}
-                  <span> Condition</span>
-
-                </p>
-              </div>
+              <DeviceConditionCard
+                condition={condition}
+                answer={conditionResults}
+              />
               {/* <p
                 className="text-sm whitespace-nowrap underline cursor-pointer text-[primary] hover:text-primary"
                 onClick={() => setOpenConditionInfo(true)}
@@ -1092,12 +1085,12 @@ const NewAddListingForm = ({ data }) => {
             </>
             {/* <p className="font-Bold text-[20px]  text-[#2C2F45]">Upload Photos</p> */}
             <SellPhoneHeading1 title="Upload Photos" />
-            <PanelHeading title="Back Panel" />
+            {/* <PanelHeading title="Back Panel" /> */}
             <div className="grid  grid-cols-2 relative">
 
               {images.map((item, index) => (
 
-                <div key={index} className="relative pt-4 even:ml-2 odd:mr-2 mb-2 rounded-md bg-[#E8E8E8]">
+                <div key={index} className="relative pt-4 item-center even:ml-2 odd:mr-2 mb-2  rounded-md bg-[#E8E8E8]">
                   {index === 0 ? (
                     <PanelHeading title="Front Panel" />
                     // <span className="absolute bottom-4 left-16 font-Light text-[11px] opacity-50"> Front Panel </span>
@@ -1148,7 +1141,7 @@ const NewAddListingForm = ({ data }) => {
         {page === 4 && (
           <>
             {modelInfo && (
-              <div className="p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
+              <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
@@ -1185,18 +1178,10 @@ const NewAddListingForm = ({ data }) => {
               </div>
             )}
             <>
-              {/* <DeviceConditionCard
-                  condition={condition}
-                  answer={conditionResults}
-                /> */}
-              <div className="flex bg-[#F3F3F3] p-2  rounded-md space-x-1">
-                <span className="font-Medium self-center text-[10px]">Your Device is in</span>
-                <p className="font-bold self-center text-[12px]">
-                  {condition}
-                  <span> Condition</span>
-
-                </p>
-              </div>
+              <DeviceConditionCard
+                condition={condition}
+                answer={conditionResults}
+              />
               {/* <p
                 className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
                 onClick={() => setOpenConditionInfo(true)}
@@ -1273,7 +1258,7 @@ const NewAddListingForm = ({ data }) => {
         {page === 5 && (
           <>
             {modelInfo && (
-              <div className="p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
+              <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
@@ -1306,19 +1291,22 @@ const NewAddListingForm = ({ data }) => {
                         storage?.split("/")[0]}
                     </div>
                   </p>
-                  <div className="flex font-Roboto-Bold text-[12px] text-[#2C2F45] ">
+                  {/* <div className="flex font-Roboto-Bold text-[12px] text-[#2C2F45] ">
                     {condition && (
                       <p className="flex space-x-">
                         <span><CardHeading4 title="Condition : " /> </span> <span>{"  "} {condition} </span>
                       </p>
                     )}
-                  </div>
-
-
-
+                  </div> */}
                 </div>
+
               </div>
             )}
+
+            <DeviceConditionCard
+              condition={condition}
+              answer={conditionResults}
+            />
             <p className="flex space-x-1 pt-4">
               <SellPhoneHeading1 title="Enter your sell price " />
               {/* Enter your sell price  */}
@@ -1531,19 +1519,23 @@ const NewAddListingForm = ({ data }) => {
       <ListingAdded open={listingAdded} setOpen={setListingAdded} />
       <VerifyListingPopup open={verifyListingAdded} setOpen={setVerifyListingAdded} make={make || ""} />
       <PricePopup open={openPricePopup} setOpen={setOpenPricePopup} price={sellValue} leastPrice={recommandedPrice?.leastSellingprice} maxPrice={recommandedPrice?.maxsellingprice} setSubmitting={setSubmitting} />
-      {openConditionInfo && (
-        <ConditionInfo
-          open={openConditionInfo}
-          setOpen={setOpenConditionInfo}
-        />
-      )}
-      {openStorageInfo && (
-        <StorageInfo
-          open={openStorageInfo}
-          setOpen={setOpenStorageInfo}
-          brand={make}
-        />
-      )}
+      {
+        openConditionInfo && (
+          <ConditionInfo
+            open={openConditionInfo}
+            setOpen={setOpenConditionInfo}
+          />
+        )
+      }
+      {
+        openStorageInfo && (
+          <StorageInfo
+            open={openStorageInfo}
+            setOpen={setOpenStorageInfo}
+            brand={make}
+          />
+        )
+      }
       <LoginPopup
         open={openLoginPopup}
         setOpen={setOpenLoginPopup}
@@ -1557,7 +1549,7 @@ const NewAddListingForm = ({ data }) => {
         mktNameOpt={mktNameOpt}
       />
       {openVerifyFlow && <VerifyFlowPopup open={openVerifyFlow} setOpen={setOpenVerifyFlow} />}
-    </Fragment>
+    </Fragment >
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NearByDealCard from "../Card/NearByDealCard";
-import { bestDealNearByYou } from "api-call";
+import { bestDealNearByYou, fetchMyFavorites, getUserListings } from "api-call";
 import Cookies from "js-cookie";
 import Loader from "../Loader/Loader";
 import Spinner from "../Loader/Spinner";
@@ -10,9 +10,11 @@ import { useRouter } from "next/router";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import SortPopup from "../Popup/SortPopup";
 import { BiSortAlt2 } from "react-icons/bi";
+import { useAuthState } from "providers/AuthProvider";
 
 function TopDealNearBy({ selectedSearchCity, loading }) {
   const router = useRouter();
+  const { authenticated, user } = useAuthState();
 
   const [bestDeals, setBestDeals] = useState();
   const [bestDealsLength, setBestDealsLength] = useState();
@@ -25,12 +27,28 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
   const [loadingState, setLoadingState] = useState(false);
   const [openSort, setOpenSort] = useState(false);
   const [applySortFilter, setSortApplyFilter] = useState();
+  const [listings, setListings] = useState([]);
+  const [myFavListings, setMyFavListings] = useState([]);
 
   useEffect(() => {
     setLoadingState(false);
   }, [router.pathname]);
 
-  const loadData = (initialPage) => {
+  const loadData = async (initialPage) => {
+    if (user && user?.userdetails?.userUniqueId && listings.length === 0) {
+      await getUserListings(user?.userdetails?.userUniqueId).then(
+        (res) => {
+          setListings(res.dataObject.map((item2) => item2.listingId));
+          // setListingsLoading(false);
+        },
+        (err) => console.error(err)
+      );
+    }
+    if (authenticated) {
+      fetchMyFavorites(Cookies.get("userUniqueId")).then((res) => {
+        setMyFavListings(res.dataObject.map((item2) => item2.listingId));
+      });
+    }
     if (!loading && selectedSearchCity != undefined) {
       bestDealNearByYou(
         selectedSearchCity,
@@ -115,7 +133,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
               key={item.listingId}
             // onClick={() => setLoadingState(true)}
             >
-              <NearByDealCard data={item} prodLink setProducts={setBestDeals} />
+              <NearByDealCard data={item} prodLink setProducts={setBestDeals} myListing={listings} />
             </div>
           ))) || (
             <div className="space-y-3 col-span-2">

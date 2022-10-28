@@ -15,6 +15,9 @@ import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
 import sold_out from "@/assets/soldout.png";
 import VerificationIcon from "../verificationIcon";
+import { getUserListings } from "api-call";
+import { useAuthState } from "providers/AuthProvider";
+import Cookies from "js-cookie";
 
 function BestDealCard({
   openConditionInfo,
@@ -23,12 +26,27 @@ function BestDealCard({
   setProducts,
 }) {
   const router = useRouter();
-
+  const [listings, setListings] = useState(localStorage.getItem("listings") || []);
+  const { authenticated, user } = useAuthState();
   const [loadingState, setLoadingState] = useState(false);
+  const [listingState, setListingState] = useState(false);
 
   useEffect(() => {
     setLoadingState(false);
   }, [router.pathname]);
+
+  useEffect(() => {
+    if (user && user?.userdetails?.userUniqueId && listings.length === 0) {
+      localStorage.getItem("listings") ? localStorage.getItem("listings") : getUserListings(user?.userdetails?.userUniqueId).then(
+        (res) => {
+          setListings(res.dataObject.map((item2) => item2.listingId));
+          // console.log("res.dataObject", listings);
+          // setListingsLoading(false);
+        },
+        (err) => console.error(err)
+      );
+    }
+  }, []);
 
   return (
     <>
@@ -117,28 +135,45 @@ function BestDealCard({
             <CardHeading4 title={data?.marketingName} />
 
             <div className="flex justify-between items-end mt-2">
-
-              <div
-                // href={{
-                //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
-                //   query: { isOtherVendor: data?.isOtherVendor },
-                // }}
-                // passHref
-                onClick={() => window.open(
-                  `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
-                  "_blank"
-                )
-                }
-              >
-                <a
-                  className="flex items-center px-2 w-[88px] h-[35px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
-                // onClick={() => setLoadingState(true)}
+              {!listings.includes(data.listingId)
+                ?
+                <div
+                  // href={{
+                  //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
+                  //   query: { isOtherVendor: data?.isOtherVendor },
+                  // }}
+                  // passHref
+                  onClick={() => window.open(
+                    `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
+                    "_blank"
+                  )
+                  }
                 >
-                  <div className="m-auto ">
-                    View Deal{" "} <span className="pt-0.5">&gt;</span>
-                  </div>
-                </a>
-              </div>
+                  <a
+                    className="flex items-center px-2 w-[88px] h-[35px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
+                  // onClick={() => setLoadingState(true)}
+                  >
+                    <div className="m-auto ">
+                      View Deal{" "} <span className="pt-0.5">&gt;</span>
+                    </div>
+                  </a>
+                </div>
+                :
+                <div
+                  onClick={() => window.open(
+                    `/user/listings/${data?.listingId}`,
+                    "_blank",)}
+                >
+                  <a
+                    className="flex items-center px-2 w-[88px] h-[35px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
+                  // onClick={() => setLoadingState(true)}
+                  >
+                    <div className="m-auto ">
+                      View Deal{" "} <span className="pt-0.5">&gt;</span>
+                    </div>
+                  </a>
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -193,7 +228,7 @@ function BestDealCard({
         </div>
 
         <div className="absolute right-0 px-3 py-3">
-          {!(data.isOtherVendor === "Y") && (
+          {!(data.isOtherVendor === "Y") && !listings.includes(data.listingId) && (
             <AddFav
               data={data}
               setProducts={setProducts}

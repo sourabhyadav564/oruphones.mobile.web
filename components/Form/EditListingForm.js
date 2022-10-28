@@ -84,10 +84,6 @@ const EditListingForm = ({ data, resultsSet }) => {
   const { user } = useAuthState();
   const dispatch = useAuthDispatch();
 
-  // console.log("resultsSet --->", resultsSet);
-  console.log("data --->", selectedCity);
-  console.log("data2 --->", condition);
-
   useEffect(() => {
     let payload = {
       deviceStorage: devStorage?.toString().includes("/")
@@ -104,7 +100,7 @@ const EditListingForm = ({ data, resultsSet }) => {
         : data?.deviceRam,
       make: data?.make,
       marketingName: data?.marketingName,
-      deviceCondition: condition,
+      deviceCondition: condition || data?.deviceCondition,
       warrantyPeriod: warranty,
       hasCharger: headphone ? "Y" : "N",
       hasEarphone: charging ? "Y" : "N",
@@ -261,7 +257,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       make,
       marketingName,
       devicestorage: deviceStorage,
-      deviceCondition: condition,
+      deviceCondition: condition || data?.deviceCondition,
       earPhones: headphone ? "Y" : "N",
       charger: charging ? "Y" : "N",
       originalBox: originalbox ? "Y" : "N",
@@ -346,7 +342,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       marketingName,
       deviceStorage,
       color: devColor || color,
-      deviceCondition: condition,
+      deviceCondition: condition || data?.deviceCondition,
       listingPrice: inputSellPrice,
       platform: make === "Apple" ? "iOS" : "Android",
       charger: charging ? "Y" : "N",
@@ -364,7 +360,7 @@ const EditListingForm = ({ data, resultsSet }) => {
         (item) => item?.fullImage && item.fullImage !== null
       ),
       listingLocation: selectedCity,
-      cosmetic: ConditionQuestionEdit
+      cosmetic: ConditionQuestionEdit || data?.cosmetic,
     };
     updateLisiting(payload).then(
       () => {
@@ -804,6 +800,7 @@ const EditListingForm = ({ data, resultsSet }) => {
             prefix={"₹"}
             type="number"
             max="999999"
+            value={numberFromString(inputSellPrice)}
             inputClass="text-[20px] text-[#2C2F45] pl-1 my-0 font-Roboto-Bold"
             className={`h-full col-span-4 text-[#2C2F45] text-[20px] font-Roboto-Bold  `}
             errorClass={`border ${sellValueRequired}`}

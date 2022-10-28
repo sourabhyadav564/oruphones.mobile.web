@@ -160,6 +160,8 @@ function ProductDeatils({ data }) {
     filled = 3;
   } else if (conditionText === "Fair") {
     filled = 2;
+  } else if (conditionText === "Needs Repair") {
+    filled = 1;
   }
 
   let iconToShow = (index) => {
