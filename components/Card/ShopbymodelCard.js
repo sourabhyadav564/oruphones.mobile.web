@@ -8,7 +8,7 @@ import Logo from "@/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4, CardHeading5 } from "@/components/elements/CardHeading/cardheading";
 import VerifiedIcon from "@/components/VerifiedIcon";
-import IStock from "@/assets/icons/istock.png"
+// import IStock from "@/assets/icons/phone.png"
 import { numberWithCommas } from "@/utils/util";
 import { BiChevronRight } from "react-icons/bi";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
