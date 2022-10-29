@@ -118,6 +118,90 @@ export const metaTags = {
     description:
       "Where can I buy and sell OnePlus phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
   },
+  NOTHING: {
+    title:
+      "Buy and Sell Nothing Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Nothing phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  GIONEE: {
+    title:
+      "Buy and Sell Gionee Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Gionee phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  HTC: {
+    title:
+      "Buy and Sell HTC Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell HTC phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  INFINIX: {
+    title:
+      "Buy and Sell Infinix Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Infinix phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  KARBONN: {
+    title:
+      "Buy and Sell Karbonn Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Karbonn phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  LAVA: {
+    title:
+      "Buy and Sell Lava Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Lava phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  ALCATEL: {
+    title:
+      "Buy and Sell Alcatel Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Alcatel phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  TECNO: {
+    title:
+      "Buy and Sell Tecno Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Tecno phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  SONY: {
+    title:
+      "Buy and Sell Sony Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Sony phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  PANASONIC: {
+    title:
+      "Buy and Sell Panasonic Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Panasonic phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  MOTOROLA: {
+    title:
+      "Buy and Sell Motorola Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Motorola phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  MICROMAX: {
+    title:
+      "Buy and Sell Micromax Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Micromax phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  LG: {
+    title:
+      "Buy and Sell LG Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell LG phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  HUAWEI: {
+    title:
+      "Buy and Sell Huawei Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Huawei phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
   OPPO: {
     title: "Buy and Sell Oppo Phone | Oppo Mobile Sell | ORUphones",
     description:

@@ -33,6 +33,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
   const [openActivateListing, setOpenActivateListing] = useState(false);
   const [openPauseListing, setOpenPauseListing] = useState(false);
   const [openDeleteListing, setOpenDeleteListing] = useState(false);
+  const [reason, setReason] = useState("");
 
   const handleActivate = (e) => {
     e.preventDefault();
@@ -41,8 +42,13 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
       userUniqueId: Cookies.get("userUniqueId"),
     };
     activateListing(payLoad).then(
-      () => {
+      (res) => {
+        // if (res?.reason === "You are not allowed to activate more then 5 unverified listings.") {
+        setReason(res?.reason);
         setOpenActivateListing(true);
+        // } else {
+        //   setOpenActivateListing(true);
+        // }
       },
       (err) => console.error(err)
     );
@@ -152,8 +158,8 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
             {data?.status.toUpperCase() !== "ACTIVE" ?
               (
                 <div className="w-full grid grid-cols-4 px-2 py-2 space-x-2 center">
-                  <div className="bg-gray-400 flex flex-1  py-3 px-2 rounded-md col-span-3" >
-                  <div className="flex space-x-1 flex-1">
+                  <div className="bg-gray-400 flex flex-1 px-2 rounded-md col-span-3" >
+                    <div className="flex space-x-1 flex-1">
                       {/* <Image src={inactive} width={64} height={29} /> */}
                       <div className="flex space-x-1  flex-1">
                         <AiFillExclamationCircle size={20} className="self-center text-white" />
@@ -165,9 +171,9 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                     </div>
                   </div>
                   <div className="rounded-md px-1 text-sm ml-auto justify-center text-center" style={{ backgroundColor: "#2C2F45" }}>
-                    <div className="flex flex-col  h-full m-auto justify-center">
-                      <span className="text-xs text-white self-center text-[#FFFFFF">List Price</span>
-                      <span className="font-Semibold  text-gray-100 text-base ">₹ {numberWithCommas(data.listingPrice)}​</span>
+                    <div className=" text-gray-70  flex flex-col m-auto justify-center py-0.5 rounded-md ">
+                      <span className="text-[10px] text-white self-center text-[#FFFFFF">List Price</span>
+                      <span className="font-Semibold  text-gray-100 text-[13px] ">₹ {numberWithCommas(data.listingPrice)}​</span>
                     </div>
                   </div>
                 </div>
@@ -250,7 +256,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
         </Link>
         {openVerifyInfo && <VerificationInfo open={openVerifyInfo} setOpen={setOpenVerifyInfo} />}
         {openVerifyFlow && <VerifyFlowPopup open={openVerifyFlow} setOpen={setOpenVerifyFlow} />}
-        {openActivateListing && <ListingActivated open={openActivateListing} setOpen={setOpenActivateListing} />}
+        {openActivateListing && <ListingActivated open={openActivateListing} setOpen={setOpenActivateListing} reason={reason} setReason={setReason} />}
         {openPauseListing && <PauseListing open={openPauseListing} setOpen={setOpenPauseListing} listingId={data?.listingId} />}
         {openDeleteListing && <ListingDeleted open={openDeleteListing} setOpen={setOpenDeleteListing} data={data} setListings={setListings} />}
       </Fragment>

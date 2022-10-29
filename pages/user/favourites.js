@@ -12,7 +12,7 @@ import Spinner from "@/components/Loader/Spinner";
 
 function Favorites() {
   const [myFavList, setMyFavList] = useState();
-  const { authenticated, loading } = useAuthState();
+  const { authenticated, loading, user } = useAuthState();
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +25,7 @@ function Favorites() {
   }, [authenticated, loading]);
 
   useEffect(() => {
-    if (authenticated) {
+    if (authenticated && user && user?.userdetails?.userUniqueId) {
       fetchMyFavorites(Cookies.get("userUniqueId")).then((response) => {
         setMyFavList(response?.dataObject);
         setIsLoading(false);
@@ -48,7 +48,7 @@ function Favorites() {
   return (
     <Fragment>
       {/* <Header2 title="My Favorites" /> */}
-      <Header3 title1={"MyListing"} title2={"My Favorites"}/>
+      <Header3 title1={"MyListing"} title2={"My Favorites"} />
       <main className="px-4 py-4 flex flex-col space-y-6 min-h-screen ">
         {myFavList && myFavList.length > 0 && (
           myFavList?.map((item, index) => (

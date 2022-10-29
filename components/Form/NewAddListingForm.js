@@ -63,7 +63,6 @@ import PricePopup from "../Popup/PricePopup";
 import { BsArrowLeft } from "react-icons/bs";
 import { Heading, SellPhoneHeading1, ProductPriceHeading, AgeHeading } from "../elements/Heading/heading";
 import { IoCloseCircle } from "react-icons/io5";
-import { Stepper, Step } from 'react-form-stepper';
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 

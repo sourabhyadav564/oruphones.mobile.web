@@ -395,7 +395,7 @@ function ProductDeatils({ data }) {
               (
                 <Fragment>
                   {/* <UnVerifiedIcon width={75} height={32} /> */}
-                  <div className="w-full  py-2 space-x-2 text-center" >
+                  {data?.isOtherVendor === "N" && <div className="w-full  py-2 space-x-2 text-center" >
                     <div className="flex py-2 px-3 rounded-md space-x-2 col-span-3" style={{ backgroundColor: "#F9C414" }}>
                       <div className="flex space-x-1 flex-1">
                         {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
@@ -425,7 +425,7 @@ function ProductDeatils({ data }) {
                         />
                       </p>
                     </div>
-                  </div>
+                  </div>}
                   {/* <p className="flex items-center">
                     <span
                       className="underline text-xs"

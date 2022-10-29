@@ -19,6 +19,7 @@ import VerifyFlowPopup from "@/components/Popup/VerifyFlowPopup";
 import Footer from "@/components/Footer";
 import { BsStar } from "react-icons/bs";
 import { BsStarFill } from "react-icons/bs";
+import VerifiedIcon from "@/components/VerifiedIcon";
 const PauseListing = dynamic(() => import("@/components/Popup/PauseListing"));
 const ConditionInfo = dynamic(() => import("@/components/Popup/ConditionInfo"));
 const VerificationInfo = dynamic(() =>
@@ -31,6 +32,7 @@ const ListingActivated = dynamic(() =>
   import("@/components/Popup/ListingActivated")
 );
 const ViewReport = dynamic(() => import("@/components/ViewReport"));
+const ViewReport1 = dynamic(() => import("@/components/ViewReport1"));
 
 
 
@@ -83,6 +85,9 @@ function ListingDeatils({ data, id }) {
         </div>
       </Header2>
       <main className="my-4">
+        <div className="px-4 absolute z-10">
+          <VerifiedIcon width={70} />
+        </div>
         <div className="px-4">
           <ImageSlider
             images={
@@ -224,6 +229,9 @@ function ListingDeatils({ data, id }) {
           <div className="mt-4 px-4 w-full">
             <ViewReport data={data} defaultOpen={false} />
           </div>
+          {data?.verified && <div className="mt-4 px-4 w-full">
+            <ViewReport1 data={data} defaultOpen={false} />
+          </div>}
           <Fragment>
             {data?.status.toUpperCase() === "ACTIVE" ? (
               data?.verified ? (

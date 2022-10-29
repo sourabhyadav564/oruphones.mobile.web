@@ -50,7 +50,12 @@ function BestDealCard({
 
   return (
     <>
-      <div className="grid font-SF-Pro grid-cols-2 mb-6 rounded-lg border cardShadow1 p-4  max-w-sm relative bg-white">
+      <div className="grid font-SF-Pro grid-cols-2 mb-6 rounded-lg border cardShadow1 p-4  max-w-sm relative bg-white"
+        onClick={() => window.open(
+          `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
+          "_blank"
+        )
+        }>
         <div className="cols-span-2">
           <div className="grid grid-cols-2 gap-2">
             <p className="mb-2 leading-none space-y-0.5">
@@ -150,11 +155,12 @@ function BestDealCard({
                   }
                 >
                   <a
-                    className="flex items-center px-2 w-[88px] h-[35px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
+                    className="flex items-center px-[16px]   w-[88px] h-[27px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
                   // onClick={() => setLoadingState(true)}
                   >
-                    <div className="m-auto ">
-                      View Deal{" "} <span className="pt-0.5">&gt;</span>
+                    <div className=" flex">
+                      <div className="pr-0.5">View Deal</div>
+                      <div> &gt; </div>
                     </div>
                   </a>
                 </div>
@@ -165,11 +171,12 @@ function BestDealCard({
                     "_blank",)}
                 >
                   <a
-                    className="flex items-center px-2 w-[88px] h-[35px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
+                    className="flex items-center px-[16px]  w-[88px] h-[27px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
                   // onClick={() => setLoadingState(true)}
                   >
-                    <div className="m-auto ">
-                      View Deal{" "} <span className="pt-0.5">&gt;</span>
+                    <div className=" flex">
+                      <div className="pr-0.5">View Deal</div>
+                      <div> &gt; </div>
                     </div>
                   </a>
                 </div>
@@ -218,7 +225,7 @@ function BestDealCard({
 
           <Image
             alt={data?.marketingName}
-            src={data?.imagePath || "/"}
+            src={data?.imagePath || Logo}
             width="80%"
             height="90%"
             layout="responsive"

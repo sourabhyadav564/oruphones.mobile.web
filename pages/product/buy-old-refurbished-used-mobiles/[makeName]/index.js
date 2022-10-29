@@ -4,7 +4,7 @@ import OtherListingCard from "@/components/Card/OtherListingCard";
 import { BiSortAlt2, BiFilterAlt } from "react-icons/bi";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { fetchByMakeList, searchFilter } from "api-call";
+import { fetchByMakeList, searchFilter, getMakeModelLists } from "api-call";
 import Filter from "@/components/FilterAndSort/Filter";
 import Filter1 from "@/components/FilterAndSort/FilterAndSort1";
 import { useState, useEffect } from "react";
@@ -16,7 +16,7 @@ import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
 import { FiTablet } from "react-icons/fi";
-import { CardHeading2 } from "@/components/elements/CardHeading/cardheading";
+import { CardHeading2, CardHeading5 } from "@/components/elements/CardHeading/cardheading";
 import { Heading, Heading3 } from "@/components/elements/Heading/heading";
 import BrandCard from "@/components/Card/BrandCard";
 import BasicCarousel from "@/components/Carousel/BasicCarousel";
@@ -29,12 +29,14 @@ import BasicCarousel from "@/components/Carousel/BasicCarousel";
 // } from "../../../../atoms/globalState";
 // import { useRecoilState } from "recoil";
 
-function MakePage({ bestDealData, data }) {
+function MakePage({ bestDealData, shopbymodeldata, data }) {
   const { selectedSearchCity, loading } = useAuthState();
   const router = useRouter();
   let { makeName } = router.query;
 
+  const [index, setIndex] = useState(-1);
   const [bestDeals, setBestDeals] = useState([]);
+  const [shopbymodel, setshopbymodel] = useState([]);
   const [openSort, setOpenSort] = useState(false);
   const [applyFilter, setApplyFilter] = useState();
   const [otherListings, setOtherListings] = useState([]);
@@ -94,6 +96,8 @@ function MakePage({ bestDealData, data }) {
     }
   };
 
+
+
   const loadMoreData = () => {
     let newPages = pageNumber + 1;
     setPageNumber(newPages);
@@ -143,6 +147,20 @@ function MakePage({ bestDealData, data }) {
       );
     }
   };
+
+
+  useEffect(async () => {
+    const getMakeModel = async () => {
+      const result = await getMakeModelLists(
+        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId") || ""
+      );
+      return result;
+    };
+    // const result = await getMakeModel();
+    setshopbymodel(JSON.parse(localStorage.getItem("make_models")));
+  }, []);
+
 
   useEffect(() => {
     let intialPage = 0;
@@ -222,56 +240,144 @@ function MakePage({ bestDealData, data }) {
   useEffect(() => {
     switch (makeName) {
       case "apple":
+        setIndex(1);
         setTitle(metaTags.APPLE.title);
         setDescription(metaTags.APPLE.description);
         break;
+      case "nothing":
+        setIndex(0);
+        setTitle(metaTags.NOTHING.title);
+        setDescription(metaTags.NOTHING.description);
+        break;
       case "samsung":
+        setIndex(26);
         setTitle(metaTags.SAMSUNG.title);
         setDescription(metaTags.SAMSUNG.description);
         break;
       case "oppo":
+        setIndex(19);
         setTitle(metaTags.OPPO.title);
         setDescription(metaTags.OPPO.description);
         break;
+      case "gionee":
+        setIndex(19);
+        setTitle(metaTags.GIONEE.title);
+        setDescription(metaTags.GIONEE.description);
+        break;
       case "oneplus":
+        setIndex(18);
         setTitle(metaTags.ONEPLUS.title);
         setDescription(metaTags.ONEPLUS.description);
         break;
       case "xiaomi":
+        setIndex(24);
         setTitle(metaTags.XIAOMI.title);
         setDescription(metaTags.XIAOMI.description);
         break;
       case "vivo":
+        setIndex(27);
         setTitle(metaTags.VIVO.title);
         setDescription(metaTags.VIVO.description);
         break;
+      case "alcatel":
+        setIndex(28);
+        setTitle(metaTags.ALCATEL.title);
+        setDescription(metaTags.ALCATEL.description);
+        break;
       case "realme":
+        setIndex(21);
         setTitle(metaTags.REALME.title);
         setDescription(metaTags.REALME.description);
         break;
+      case "sony":
+        setIndex(22);
+        setTitle(metaTags.SONY.title);
+        setDescription(metaTags.SONY.description);
+        break;
+      case "tecno":
+        setIndex(23);
+        setTitle(metaTags.TECNO.title);
+        setDescription(metaTags.TECNO.description);
+        break;
+      case "micromax":
+        setIndex(14);
+        setTitle(metaTags.MICROMAX.title);
+        setDescription(metaTags.MICROMAX.description);
+        break;
       case "lenovo":
+        setIndex(12);
         setTitle(metaTags.LENOVO.title);
         setDescription(metaTags.LENOVO.description);
         break;
       case "nokia":
+        setIndex(17);
         setTitle(metaTags.NOKIA.title);
         setDescription(metaTags.NOKIA.description);
         break;
       case "google":
+        setIndex(4);
         setTitle(metaTags.GOOGLE.title);
         setDescription(metaTags.GOOGLE.description);
         break;
       case "honor":
+        setIndex(5);
         setTitle(metaTags.HONOR.title);
         setDescription(metaTags.HONOR.description);
         break;
       case "asus":
+        setIndex(2);
         setTitle(metaTags.ASUS.title);
         setDescription(metaTags.ASUS.description);
         break;
       case "blackberry":
+        setIndex(-1);
         setTitle(metaTags.BLACKBERRY.title);
         setDescription(metaTags.BLACKBERRY.description);
+        break;
+      case "lava":
+        setIndex(11);
+        setTitle(metaTags.LAVA.title);
+        setDescription(metaTags.LAVA.description);
+        break;
+      case "panasonic":
+        setIndex(11);
+        setTitle(metaTags.PANASONIC.title);
+        setDescription(metaTags.PANASONIC.description);
+        break;
+      case "lg":
+        setIndex(13);
+        setTitle(metaTags.LG.title);
+        setDescription(metaTags.LG.description);
+        break;
+      case "motorola":
+        setIndex(16);
+        setTitle(metaTags.MOTOROLA.title);
+        setDescription(metaTags.MOTOROLA.description);
+        break;
+      case "karbonn":
+        setIndex(10);
+        setTitle(metaTags.KORBONN.title);
+        setDescription(metaTags.KORBONN.description);
+        break;
+      case "intex":
+        setIndex(9);
+        setTitle(metaTags.INTEX.title);
+        setDescription(metaTags.INTEX.description);
+        break;
+      case "infinix":
+        setIndex(8);
+        setTitle(metaTags.INFINIX.title);
+        setDescription(metaTags.INFINIX.description);
+        break;
+      case "huawei":
+        setIndex(7);
+        setTitle(metaTags.HUAWEI.title);
+        setDescription(metaTags.HUAWEI.description);
+        break;
+      case "htc":
+        setIndex(6);
+        setTitle(metaTags.HTC.title);
+        setDescription(metaTags.HTC.description);
         break;
       default:
         setTitle(metaTags.BRANDS.title);
@@ -317,6 +423,12 @@ function MakePage({ bestDealData, data }) {
                   setProducts={setBestDeals}
                 />
               </div>
+              <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
+                <CardHeading2 title="Shop by Model" />
+                <ShopByBrandsSection
+                  shopbymodeldata={shopbymodel} index={index} location={selectedSearchCity}
+                />
+              </div>
               <div>
                 {/* <div className="space-y-4 bg-[#EEEEEE] -mx-4 my-2 px-6 pt-4 pb-2">
                   <CardHeading2 title="Shop by Model" />
@@ -342,7 +454,7 @@ function MakePage({ bestDealData, data }) {
           <div className="flex mt-3 p-2 pb-0">
             <h2 className=" font-normal text-[#707070] m-auto  text-[11px]  pl-0  capitalize flex-1">
               {/* Other Listings ({totalProducts}) */}
-              <Heading title={`${makeName} Phones`} />
+              <Heading title={`${makeName} Phones (${totalProducts})`} />
             </h2>
             <p className="font-normal text-[#707070]  text-[11px]  -mt-2  capitalize underline">
               {/* <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>

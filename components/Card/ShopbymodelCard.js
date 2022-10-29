@@ -6,42 +6,71 @@ import verifiedIcon from "@/assets/verified.svg";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
-import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
+import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4, CardHeading5 } from "@/components/elements/CardHeading/cardheading";
 import VerifiedIcon from "@/components/VerifiedIcon";
+import IStock from "@/assets/icons/istock.png"
 import { numberWithCommas } from "@/utils/util";
 import { BiChevronRight } from "react-icons/bi";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
 import sold_out from "@/assets/soldout.png";
 import VerificationIcon from "../verificationIcon";
+import { fetchByMarketingName } from "api-call";
+import Cookies from "js-cookie";
 
-function ShopbymodelCard({ data }) {
+
+
+function ShopbymodelCard({ data, location, makeLink, make, src, alt, fallBackSrc = Logo.src }) {
+
   console.log("data3", data);
 
   const router = useRouter();
-
+  const [imageError, setImageError] = useState(false);
+  const [stateImage, setstateImage] = useState(false);
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
     setLoadingState(false);
   }, [router.pathname]);
 
-  return (
-    <>
-      <div className="relative mb-6 inline-block ">
+  const handleModelClick = () => {
+    fetchByMarketingName(
+      location,
+      data,
+      Cookies.get("userUniqueId") || "Guest",
+      0,
+      "Featured"
+    )
+  }
 
-        <div className="m-auto ml-6">
+  console.log("shop by models make : ", make)
+
+  return (
+
+    <>
+      <div className="relative mb-6 inline-block"
+        // onClick={handleModelClick} 
+        onClick={() => window.open(
+          makeLink
+            ? `/product/buy-old-refurbished-used-mobiles/${make}/`
+            : `/product/buy-old-refurbished-used-mobiles/${make}/${data}`,
+          "_blank"
+        )
+        }
+      >
+
+        <div className="ml-6">
           <Image
-            alt={data?.models?.model_name}
-            // src={data?.imagePath || "/"}
-            src={`https://zenrodeviceimages.s3.us-west-2.amazonaws.com/mobiru/product/mobiledevices/img/newModels/${data?.[0].toString().toLowerCase().replaceAll(" ", "_")}.jpg`}
-            width="40"
-            height="40"
+            src={imageError ? fallBackSrc : src}
+            alt={alt}
+            onError={() => setImageError(true)}
+            width="34"
+            height="45"
           />
         </div>
 
         <div className="m-auto">
-          <CardHeading4 title={data?.marketingName} />
+          <CardHeading5 title={data} />
         </div>
 
       </div>

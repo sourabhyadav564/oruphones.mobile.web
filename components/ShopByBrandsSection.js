@@ -4,40 +4,32 @@ import dynamic from "next/dynamic";
 import ShopbymodelCard from "./Card/ShopbymodelCard";
 import CarouselWithPagination from "@/components/Carousel/CarouselWithPagination";
 import BasicCarousel from "./Carousel/BasicCarousel";
-import { getMakeModelLists } from "api-call";
-import Cookies from "js-cookie";
-
 const ConditionInfo = dynamic(() => import("@/components/Popup/ConditionInfo"));
 const VerificationInfo = dynamic(() => import("@/components/Popup/VerificationInfo"));
 
-function ShopByBrandsSection({ bestDealData, setProducts }) {
+function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
-  console.log("bestDealData", bestDealData);
-  const [make, setMake] = useState("");
-  const [makeIndex, setMakeIndex] = useState(-1);
-  const make2 = JSON.parse(localStorage.getItem("make_models"));
-  console.log("make", make);
 
-  // make2.map((item, index) => (
-  //   item.make.toString().toLowerCase() == bestDealData.toString().toLowerCase() && setMakeIndex(index)
-  // ));
+  console.log("shop by brand section", shopbymodeldata)
 
   return (
-    <section>
+    <section className=" m-auto items-center">
       <BasicCarousel
         slidesPerView={3}
-        spaceBetween={4}
+        spaceBetween={1}
       >
-        {/* {make2.map((item, index) => (
-          (item.make.toString().toLowerCase() == bestDealData.toString().toLowerCase() && <SwiperSlide key={item?.make} >
-            {item?.models.map((model, index) => (
-              <ShopbymodelCard
-                data={model}
-              />
-            ))}
-          </SwiperSlide>)
-        ))} */}
+        {shopbymodeldata[index].models.map((item) => (
+          <SwiperSlide key={item?.make} >
+            <ShopbymodelCard
+              data={item.marketingname}
+              src={`https://zenrodeviceimages.s3.us-west-2.amazonaws.com/mobiru/product/mobiledevices/img/newModels/${item?.marketingname?.toString().toLowerCase().replaceAll(" ", "_")}.jpg`}
+              // alt={data?.models?.model_name}
+              location={location}
+              make={shopbymodeldata[index].make}
+            />
+          </SwiperSlide>
+        ))}
       </BasicCarousel>
     </section>
   );

@@ -44,7 +44,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
         (err) => console.error(err)
       );
     }
-    if (authenticated) {
+    if (authenticated && user && user?.userdetails?.userUniqueId) {
       fetchMyFavorites(Cookies.get("userUniqueId")).then((res) => {
         setMyFavListings(res.dataObject.map((item2) => item2.listingId));
       });

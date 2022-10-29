@@ -3,6 +3,7 @@ import OtherListingCard from "@/components/Card/OtherListingCard";
 import { useRouter } from "next/router";
 import { fetchByMakeList, searchFilter, shopByCategory } from "api-call";
 import Filter from "@/components/FilterAndSort/Filter";
+import Filter1 from "@/components/FilterAndSort/FilterAndSort1";
 import { useState, useEffect } from "react";
 import { useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
@@ -274,32 +275,40 @@ function CategoryPage() {
       </Head>
       <Filter
         // searchText={makeName}
-        setSortApplyFilter={setSortApplyFilter}
+        // setSortApplyFilter={setSortApplyFilter}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
-        <div className=""> 
-        {(isLoading || ( bestDeals.length > 0)) && (
-          <h1 className="text-lg font-semibold text-gray-20 py-2.5">
-            Best Deals
-          </h1>
-        )}
+        <div className="">
+          {(isLoading || (bestDeals.length > 0)) && (
+            <h1 className="text-lg font-semibold text-gray-20 py-2.5">
+              Best Deals
+            </h1>
+          )}
 
-        {isLoading ? (
-          <Loader />
-        ) : (
-          bestDeals.length > 0 && (
-            <BestDealSection
-              bestDealData={bestDeals}
-              setProducts={setBestDeals}
-            />
-          )
-        )}
-      </div>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            bestDeals.length > 0 && (
+              <BestDealSection
+                bestDealData={bestDeals}
+                setProducts={setBestDeals}
+              />
+            )
+          )}
+        </div>
         {(isLoading || (otherListings && otherListings.length > 0)) && (
-          <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
-            Other Listings ({totalProducts})
-          </h2>
+          <div className="flex items-center " >
+            <h2 className="text-lg text-[14px] font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
+              Other Listings ({totalProducts})
+            </h2>
+            <div className="">
+              <Filter1
+                setSortApplyFilter={setSortApplyFilter}
+              // setApplyFilter={setApplyFilter}
+              ></Filter1>
+            </div>
+          </div>
         )}
 
         {isLoading ? (

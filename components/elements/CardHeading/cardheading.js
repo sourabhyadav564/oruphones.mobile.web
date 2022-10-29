@@ -46,6 +46,15 @@ function CardHeading4({ title }) {
 }
 
 
+function CardHeading5({ title }) {
+  return (
+    <div>
+      <h1 className='font-Roboto-Light text-[8px] text-[#2C2F45]'>{title}</h1>
+    </div>
+  )
+}
+
+
 function PanelHeading({ title }) {
   return (
     <div>
@@ -59,4 +68,4 @@ function PanelHeading({ title }) {
 
 
 
-export { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4, PanelHeading };
+export { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4, CardHeading5, PanelHeading };

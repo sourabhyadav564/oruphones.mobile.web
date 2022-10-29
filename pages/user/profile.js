@@ -187,7 +187,11 @@ function Profile() {
 
 
             <div className="flex text-[9px]">
-              <p className="text-sm text-red-500 rounded text-center font-Roboto-Regular underline flex flex-1">
+              <p className="text-sm text-red-500 rounded text-center font-Roboto-Regular underline flex flex-1 "
+                onClick={() => {
+                  setOpenDeletePopup(true);
+                }}
+              >
                 <RiDeleteBinLine className="self-center" />
                 Delete account
               </p>
