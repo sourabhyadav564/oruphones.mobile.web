@@ -85,9 +85,9 @@ function ListingDeatils({ data, id }) {
         </div>
       </Header2>
       <main className="my-4">
-        <div className="px-4 absolute z-10">
+        {data?.verified && <div className="px-4 absolute z-10">
           <VerifiedIcon width={70} />
-        </div>
+        </div>}
         <div className="px-4">
           <ImageSlider
             images={
