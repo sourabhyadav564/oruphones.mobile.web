@@ -60,7 +60,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         selectedSearchCity,
         makeName,
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") || "",
+        Cookies.get("sessionId") || localStorage.getItem("sessionId") || "",
         intialPage,
         applySortFilter
       ).then(
@@ -107,7 +107,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         selectedSearchCity,
         makeName,
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") || "",
+        Cookies.get("sessionId") || localStorage.getItem("sessionId") || "",
         newPages,
         applySortFilter
       ).then(
@@ -153,7 +153,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
     const getMakeModel = async () => {
       const result = await getMakeModelLists(
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") || ""
+        Cookies.get("sessionId") || localStorage.getItem("sessionId") || ""
       );
       return result;
     };

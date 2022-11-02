@@ -81,7 +81,7 @@ export default function Home({
     } else {
       const data = await getMakeModelLists(
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") || ""
+        Cookies.get("sessionId") || localStorage.getItem("sessionId") || ""
       );
       if (data) {
         let makeModelLists = data?.dataObject;
@@ -108,7 +108,7 @@ export default function Home({
           <TopCarousel />
           {/* <TopBrand brandsList={brandsList} />
         <TopSellingMobiles topSellingModels={topSellingModels} /> */}
-         
+
           {/* <TopSellingMobiles topSellingModels={topsellingmodels} /> */}
           <ShopBy />
           <TopDealNearBy
@@ -120,7 +120,7 @@ export default function Home({
           <HomeContent />
         </main>
         <Footer />
-        <BottomNav /> 
+        <BottomNav />
       </Fragment>
     </>
   );

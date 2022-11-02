@@ -31,14 +31,16 @@ function OtherListingCard({ data, setProducts, prodLink }) {
 
   useEffect(() => {
     if (user && user?.userdetails?.userUniqueId && listings.length === 0) {
-      localStorage.getItem("listings") || getUserListings(user?.userdetails?.userUniqueId).then(
-        (res) => {
-          setListings(res.dataObject.map((item2) => item2.listingId));
-          // console.log("res.dataObject", listings);
-          // setListingsLoading(false);
-        },
-        (err) => console.error(err)
-      );
+      localStorage.getItem("listings")
+      //  ? localStorage.getItem("listings") : getUserListings(user?.userdetails?.userUniqueId).then(
+      //   (res) => {
+      //     console.log("res");
+      //     setListings(res.dataObject.map((item2) => item2.listingId));
+      //     // console.log("res.dataObject", listings);
+      //     // setListingsLoading(false);
+      //   },
+      //   (err) => console.error(err)
+      // );
     }
   }, []);
 
@@ -93,7 +95,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 )}
               </span>
             </div>
-            {console.log("data", listings)}
+            {/* {console.log("data", listings)} */}
             {listings.includes(data.listingId)
               ?
               <div
