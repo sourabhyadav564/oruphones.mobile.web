@@ -1,4 +1,4 @@
-import Header2 from "@/components/Header/header2";
+import Header5 from "@/components/Header/header5";
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 // import mob from "@/assets/mobiru_logo.svg";
@@ -35,8 +35,8 @@ function Notification({ notificationsListObject }) {
 
   return (
     <Fragment>
-      <Header2 title="Notification" />
-      <main className="overflow-hidden overflow-y-auto">
+      <Header5 title="Notification" />
+      <main className="overflow-hidden pt-12 overflow-y-auto">
         {notifications && notifications?.length > 0 ? (
           notifications?.map((items, index) => (
             <NotificationsItem
@@ -62,9 +62,8 @@ export default Notification;
 
 const NotificationsItem = ({ text, timestamp, onClick, isUnRead }) => (
   <div
-    className={`flex border-b-2 border-white py-3 px-4 ${
-      isUnRead == 0 ? "bg-gray-100" : ""
-    }`}
+    className={`flex border-b-2 border-white py-3 px-4 ${isUnRead == 0 ? "bg-gray-100" : ""
+      }`}
     onClick={onClick}
   >
     <div

@@ -1,6 +1,7 @@
 import BestDealSection from "@/components/BestDealSection";
 import OtherListingCard from "@/components/Card/OtherListingCard";
 import Filter from "@/components/FilterAndSort/Filter";
+import Filter1 from "@/components/FilterAndSort/FilterAndSort1";
 import { fetchByMarketingName, searchFilter } from "api-call";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -10,6 +11,7 @@ import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
+import { Heading } from "@/components/elements/Heading/heading";
 
 // import {
 //   otherVendorDataState,
@@ -207,27 +209,46 @@ function ModelPage() {
   return (
     <>
       <Filter
-        searchText={`"${modelName}"`}
-        setSortApplyFilter={setSortApplyFilter}
+        // searchText={`"${modelName}"`}
+        // setSortApplyFilter={setSortApplyFilter}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
-        {(loading || bestDeals?.length > 0) && (
+        {/* {(loading || bestDeals?.length > 0) && (
           <h1 className="text-lg font-semibold text-gray-20 pl-4 py-2">
             {" "}
             Best Deals{" "}
           </h1>
-        )}
+        )} */}
         {loading ? (
           <Loader />
         ) : (
-          <BestDealSection bestDealData={bestDeals} setProducts={setBestDeals} />
+          <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
+            <h1 className="text-lg font-semibold text-white  py-2.5">
+              {" "}
+              Best Deals{" "}
+            </h1>
+            <BestDealSection bestDealData={bestDeals} setProducts={setBestDeals} />
+          </div>
         )}
-        {(loading || sortingProducts?.length > 0) && (
-          <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
-            {" "}
-            Other Listings ({totalProducts}){" "}
-          </h2>
+        {(!loading || sortingProducts?.length > 0) && (
+          <div className="flex mt-3 pb-0">
+            <h2 className=" flex text-lg font-semibold text-gray-20 py-2.5 flex-1">
+              {" "}
+              {/* Other Listings ({totalProducts}){" "} */}
+              <Heading title={`Other Listings (${totalProducts})${" "}`} />
+            </h2>
+            <p className="font-normal text-[#707070]  text-cx  capitalize underline">
+              {/* <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
+              sort <BiSortAlt2 className="ml-1" />
+            </p> */}
+              <Filter1
+                setSortApplyFilter={setSortApplyFilter}
+              // setApplyFilter={setApplyFilter}
+              ></Filter1>
+            </p>
+
+          </div>
         )}
         {loading ? (
           <Loader />

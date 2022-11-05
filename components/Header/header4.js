@@ -23,7 +23,7 @@ function Header4({ title, className, children, setOpen }) {
       )}
       <span className="m-auto justify-center">
         {title && <Header4Heading title={title} />}
-        {/*  <span className="   m-auto justify-center font-Regular text-[15px]"> {title}</span> */}
+        {/*  <span className="   m-auto justify-center font-Regular text-dx"> {title}</span> */}
         {children}
       </span>
     </header>

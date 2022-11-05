@@ -31,12 +31,6 @@ const data = [
     imagePath: likeNew,
     urlPath: "Like New",
   },
-  {
-    id: 4,
-    text: "Warranty",
-    imagePath: warranty,
-    urlPath: "Warranty",
-  },
 ];
 
 function ShopBy() {
@@ -58,7 +52,6 @@ function ShopBy() {
         slidesPerView={4}
         spaceBetween={8}
         style={{ padding: "8px 8px" }}
-
       >
         {data &&
           data.map((item, index) => (
@@ -66,11 +59,18 @@ function ShopBy() {
               <CategoryCards data={item} />
             </SwiperSlide>
           ))}
-        <SwiperSlide
-          style={{ height: "auto" }}
-        >
-          <CategoryCards priceRange />
-        </SwiperSlide>
+        <div>
+          <SwiperSlide
+            style={{ height: "auto" }}
+          >
+            <CategoryCards warrantycard />
+          </SwiperSlide>
+          <SwiperSlide
+            style={{ height: "auto" }}
+          >
+            <CategoryCards priceRange />
+          </SwiperSlide>
+        </div>
       </BasicCarousel>
     </section>
   );

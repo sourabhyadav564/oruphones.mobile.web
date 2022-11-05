@@ -1,5 +1,5 @@
 import { FiAlertOctagon } from "react-icons/fi";
-import Modal2 from "./Modal2";
+import Modal3 from "./Modal3";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -56,8 +56,8 @@ function ShopByPopup({ open, setOpen }) {
 
   return (
     <>
-      <Modal2 open={open} setOpen={setOpen}>
-        <div className="bg-white h-full px-5 py-2 cardShadow1 rounded-lg bg-m-white grid grid-cols-2 gap-5">
+      <Modal3 open={open} setOpen={setOpen}>
+        <div className="h-full px-5 py-2 cardShadow1 rounded-lg  grid grid-cols-2 gap-5">
           {priceRangeData.map((item, index) => (
             <Link
               href={`/shopby/pricerange/${item.min}/${item.max}`}
@@ -73,7 +73,7 @@ function ShopByPopup({ open, setOpen }) {
             </Link>
           ))}
         </div>
-      </Modal2>
+      </Modal3>
       {/* <LoadingStatePopup open={loadingState} setOpen={setLoadingState} /> */}
     </>
   );

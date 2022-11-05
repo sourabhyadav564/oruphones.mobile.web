@@ -1,14 +1,14 @@
 import moment from "moment";
 
 export function numberWithCommas(x) {
-  // try{
-  //   console.log("TRY")
-  //   x = x.toString().toUpperCase().replace("RS.", "");
-  //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  // }catch(error){
-  //   console.log("CATCH")
-  //   return x;
-  // }
+  try {
+    console.log("TRY")
+    x = x.toString().toUpperCase().replace("RS.", "");
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  } catch (error) {
+    console.log("CATCH")
+    return x;
+  }
   return x;
 }
 

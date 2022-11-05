@@ -118,7 +118,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
       //     fill={data.favourite ? "#FF0000" : color || "#C7C7C7"}
       //   />
       // </svg>
-      localStorage.getItem("favoriteList").includes(data?.listingId) ? (<AiFillHeart
+      localStorage.getItem("favoriteList") != null && localStorage.getItem("favoriteList").includes(data?.listingId) ? (<AiFillHeart
         className="hover:cursor-pointer"
         color="#FF0000"
         size='18px'

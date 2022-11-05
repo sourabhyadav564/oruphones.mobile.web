@@ -82,7 +82,12 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
   return (
     <div className="font-Roboto-Regular">
       <Fragment>
-        <Link href={`/user/listings/${data?.listingId}`}>
+        {/* <Link href={`/user/listings/${data?.listingId}`}> */}
+        <div
+          onClick={() => window.open(
+            `/user/listings/${data?.listingId}`,
+            "_blank",)}
+        >
           <div
             className={`flex flex-col pt-2 rounded-md ${(data?.status.toUpperCase() !== "ACTIVE" && "bg-gray-ef") || ""}`}
             style={{ boxShadow: "0 1px 20px rgba(0, 0, 0, 0.08)" }}
@@ -163,17 +168,17 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                       {/* <Image src={inactive} width={64} height={29} /> */}
                       <div className="flex space-x-1  flex-1">
                         <AiFillExclamationCircle size={20} className="self-center text-white" />
-                        <span className=" text-white self-center text-[9px]  font-light italic uppercase">INActive</span>
+                        <span className=" text-white self-center text-lx  font-light italic uppercase">INActive</span>
                       </div>
-                      <button className="self-center text-[15px] text-white font-Semibold" onClick={handleActivate}>
+                      <button className="self-center text-jx text-white font-Semibold" onClick={handleActivate}>
                         Activate Now
                       </button>
                     </div>
                   </div>
                   <div className="rounded-md px-1 text-sm ml-auto justify-center text-center" style={{ backgroundColor: "#2C2F45" }}>
                     <div className=" text-gray-70  flex flex-col m-auto justify-center py-0.5 rounded-md ">
-                      <span className="text-[10px] text-white self-center text-[#FFFFFF">List Price</span>
-                      <span className="font-Semibold  text-gray-100 text-[13px] ">₹ {numberWithCommas(data.listingPrice)}​</span>
+                      <span className="text-bx text-white self-center text-[#FFFFFF">List Price</span>
+                      <span className="font-Semibold  text-gray-100 text-mx ">₹ {numberWithCommas(data.listingPrice)}​</span>
                     </div>
                   </div>
                 </div>
@@ -186,7 +191,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                         {/* <VscVerified size={20} className="self-center text-white"/> */}
                         {/*image  */}
                         <VerificationIcon />
-                        <span className="text-[10px] self-center text-white uppercase font-light italic">verified</span>
+                        <span className="text-bx self-center text-white uppercase font-light italic">verified</span>
                       </div>
                       <span
                         className="w-full flex px-1 bg-yellow-400 rounded-md"
@@ -198,12 +203,12 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                         style={{ backgroundColor: "#F9C414" }}
                       >
                         {/* <BsPlus size={20} className="self-center font-semibold"/> */}
-                        <p className="self-center font-regular text-[12px] m-auto justify-center">+ Upload Photos</p>
+                        <p className="self-center font-regular text-jx m-auto justify-center">+ Upload Photos</p>
                       </span>
                     </div>
                     <div className="w-full col-span-1 rounded-md px-1 m-auto justify-center flex flex-col py-0.5  " style={{ backgroundColor: "#2C2F45" }}>
-                      <span className="text-white self-center font-normal text-[10px]">List Price</span>
-                      <span className="font-Semibold text-white text-[13px]">₹ {numberWithCommas(data.listingPrice)}​</span>
+                      <span className="text-white self-center font-normal text-bx">List Price</span>
+                      <span className="font-Semibold text-white text-mx">₹ {numberWithCommas(data.listingPrice)}​</span>
                     </div>
                   </div>
                 ) : data?.verified ? (
@@ -225,12 +230,12 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                             <AiFillExclamationCircle size={20} fill="white" className="self-center text-black" />
                             {/* <UnVerifiedIcon /> */}
 
-                            <span className="text-[9px] font-light self-center text-black italic uppercase">unverified</span>
+                            <span className="text-lx font-light self-center text-black italic uppercase">unverified</span>
                           </div>
                           {/* <span className="text-xs italic self-center uppercase"> unverified</span> */}
                         </div>
                         <span
-                          className="text-[12px] font-Semibold self-center "
+                          className="text-jx font-Semibold self-center "
                           onClick={(e) => {
                             e.preventDefault();
                             setOpenVerifyFlow(true);
@@ -247,20 +252,21 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   }}
                 /> */}
                       <div className=" text-gray-70  flex flex-col m-auto justify-center py-0.5 rounded-md " style={{ backgroundColor: "#2C2F45" }}>
-                        <span className="text-[10px] text-[#FFFFFF] self-center ">List Price</span>
-                        <span className="font-Semibold text-gray-100 text-[13px]">₹ {numberWithCommas(data.listingPrice)}​</span>
+                        <span className="text-bx text-[#FFFFFF] self-center ">List Price</span>
+                        <span className="font-Semibold text-gray-100 text-mx">₹ {numberWithCommas(data.listingPrice)}​</span>
                       </div>
                     </div>
                   )}
           </div>
-        </Link>
+          {/* </Link> */}
+        </div>
         {openVerifyInfo && <VerificationInfo open={openVerifyInfo} setOpen={setOpenVerifyInfo} />}
         {openVerifyFlow && <VerifyFlowPopup open={openVerifyFlow} setOpen={setOpenVerifyFlow} />}
         {openActivateListing && <ListingActivated open={openActivateListing} setOpen={setOpenActivateListing} reason={reason} setReason={setReason} />}
         {openPauseListing && <PauseListing open={openPauseListing} setOpen={setOpenPauseListing} listingId={data?.listingId} />}
         {openDeleteListing && <ListingDeleted open={openDeleteListing} setOpen={setOpenDeleteListing} data={data} setListings={setListings} />}
       </Fragment>
-    </div>
+    </div >
   );
 }
 

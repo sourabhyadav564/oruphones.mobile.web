@@ -70,13 +70,13 @@ function Sidebar({ open, setOpen }) {
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <h2 className="font-Semibold text-[15px]">{userName}</h2>
-                  {user?.userdetails?.createdDate && <p className="text-[10px] font-Light text-gray-300">Joined On {user?.userdetails?.createdDate}</p>}
+                  <h2 className="font-Semibold text-dx">{userName}</h2>
+                  {user?.userdetails?.createdDate && <p className="text-bx font-Light text-gray-300">Joined On {user?.userdetails?.createdDate}</p>}
                 </div>
               </div>
             </div>
 
-            <ul className="mt-6 mb-4 text-black-4e flex flex-col flex-1 pr-5 font-Regular text-[13px]">
+            <ul className="mt-6 mb-4 text-black-4e flex flex-col flex-1 pr-5 font-Regular text-mx">
               <ListItem
                 href={authenticated ? "/user/favourites" : "/login"}
                 onClick={() => {

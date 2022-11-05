@@ -88,33 +88,33 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                   />
                 </div>
                 <div className="flex-wrap w-full text-gray-70 pt-1">
-                  <p className="font-Roboto-Bold flex items-center " style={{ color: "#000944" }}>
-                    {data?.listingPrice && <span className="mr-1">&#x20B9;</span>}
+                  <p className="font-Roboto-Bold flex items-center text-dx" style={{ color: "#000944" }}>
+                    {data?.listingPrice && <span className="mr-0.1">&#x20B9;</span>}
                     {numberWithCommas(data?.listingPrice || "")}
                   </p>
-                  <h1 className="flex-1 truncate w-full capitalize font-Regular text-[12px] text-black">
+                  <h1 className="flex-1 truncate w-full capitalize font-Regular  text-black">
                     <CardHeading4 title={data?.marketingName} />
                   </h1>
                   <div
                     className="flex flex-wrap justify-between"
                   >
                     {data?.deviceStorage && (
-                      <p className="mr-1 font-Light text-[8px] text-black">
+                      <p className="mr-1 font-Light text-kx text-black">
                         <CardHeading title={data?.deviceStorage} />
                       </p>
                     )}
                     <p className="flex">
-                      <span className="font-Light text-[8px] text-black">
-                        <CardHeading title={`Condition :   ${" "}`} />
+                      <span className="font-Roboto-Light text-bx text-[#000000]">
+                        {`Condition :   ${" "}`}
                       </span>
-                      <span className="font-Light text-[8px] text-black">
+                      <span className="font-Roboto-Light text-bx text-[#000000]">
 
-                        <CardHeading title={data?.deviceCondition || "--"} />
+                        {data?.deviceCondition || "--"}
                       </span>
                     </p>
                   </div>
 
-                  <div className="justify-self-end flex justify-between font-Light text-[6px] capitalize">
+                  <div className="justify-self-end flex justify-between font-Light text-ax capitalize">
                     <span>
                       <CardHeading title={data?.listingLocation || "India"} />
                     </span>
@@ -138,33 +138,33 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                   />
                 </div>
                 <div className="flex-wrap w-full text-gray-70 pt-1">
-                  <p className="font-Roboto-Bold flex items-center " style={{ color: "#000944" }}>
-                    {data?.listingPrice && <span className="mr-1">&#x20B9;</span>}
+                  <p className="font-Roboto-Bold flex  items-center text-dx" style={{ color: "#000944" }}>
+                    {data?.listingPrice && <span className="mr-0.1">&#x20B9;</span>}
                     {numberWithCommas(data?.listingPrice || "")}
                   </p>
-                  <h1 className="flex-1 truncate w-full capitalize font-Regular text-[12px] text-black">
+                  <h1 className="flex-1 truncate w-full capitalize font-Regular text-jx text-black">
                     <CardHeading4 title={data?.marketingName} />
                   </h1>
                   <div
                     className="flex flex-wrap justify-between"
                   >
                     {data?.deviceStorage && (
-                      <p className="mr-1 font-Light text-[8px] text-black">
+                      <p className="mr-1 font-Light text-kx text-black">
                         <CardHeading title={data?.deviceStorage} />
                       </p>
                     )}
                     <p className="flex">
-                      <span className="font-Light text-[8px] text-black">
-                        <CardHeading title={`Condition :   ${" "}`} />
+                      <span className="font-Roboto-Light text-jx text-[#000000]">
+                        {`Condition :   ${" "}`}
                       </span>
-                      <span className="font-Light text-[8px] text-black">
+                      <span className="font-Roboto-Light text-bx text-[#000000]">
 
-                        <CardHeading title={data?.deviceCondition || "--"} />
+                        {data?.deviceCondition || "--"}
                       </span>
                     </p>
                   </div>
 
-                  <div className="justify-self-end flex justify-between font-Light text-[6px] capitalize">
+                  <div className="justify-self-end flex justify-between font-Light text-ax capitalize">
                     <span>
                       <CardHeading title={data?.listingLocation || "India"} />
                     </span>

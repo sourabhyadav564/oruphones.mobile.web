@@ -279,27 +279,33 @@ function CategoryPage() {
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
-        <div className="">
-          {(isLoading || (bestDeals.length > 0)) && (
+
+        {/* {(isLoading || (bestDeals.length > 0)) && (
             <h1 className="text-lg font-semibold text-gray-20 py-2.5">
               Best Deals
             </h1>
-          )}
+          )} */}
 
-          {isLoading ? (
-            <Loader />
-          ) : (
-            bestDeals.length > 0 && (
+        {isLoading ? (
+          <Loader />
+        ) : (
+          bestDeals.length > 0 && (
+            <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff]">
+              <h1 className="text-lg font-semibold text-white py-2.5">
+                Best Deals
+              </h1>
+
               <BestDealSection
                 bestDealData={bestDeals}
                 setProducts={setBestDeals}
               />
-            )
-          )}
-        </div>
-        {(isLoading || (otherListings && otherListings.length > 0)) && (
+            </div>
+          )
+        )}
+
+        {(!isLoading || (otherListings && otherListings.length > 0)) && (
           <div className="flex items-center " >
-            <h2 className="text-lg text-[14px] font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
+            <h2 className="text-lg text-exfont-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
               Other Listings ({totalProducts})
             </h2>
             <div className="">

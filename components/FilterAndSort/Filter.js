@@ -23,16 +23,16 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
     filterOptions = filterOptions.map((i) =>
       i.id === "brand"
         ? {
-            ...i,
-            options: [
-              {
-                value: makeName,
-                label: makeName,
-                active: true,
-                disabled: true,
-              },
-            ],
-          }
+          ...i,
+          options: [
+            {
+              value: makeName,
+              label: makeName,
+              active: true,
+              disabled: true,
+            },
+          ],
+        }
         : i
     );
   } else if (filterOptions && router.pathname === "/product/models") {
@@ -61,14 +61,14 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
         )}
       </div>
       <main className="text-sm ">
-        <div className="flex justify-between items-center text-gray-20 p-1 border-b text-sm px-4">
+        {/* <div className="flex justify-between items-center text-gray-20 p-1 border-b text-sm px-4">
           <p className="font-bold">{searchText}</p>
           {setSortApplyFilter && (
             <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
               Sort <BiSortAlt2 className="ml-1" />
             </p>
           )}
-        </div>
+        </div> */}
         <div className="px-4">{children}</div>
       </main>
       <Footer />

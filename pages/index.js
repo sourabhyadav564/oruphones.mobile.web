@@ -81,7 +81,7 @@ export default function Home({
     } else {
       const data = await getMakeModelLists(
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") || localStorage.getItem("sessionId") || ""
+        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
       );
       if (data) {
         let makeModelLists = data?.dataObject;

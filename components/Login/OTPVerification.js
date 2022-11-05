@@ -126,32 +126,31 @@ function OTPVerification({
         fontSize="22"
       />
       <div className="">
-      <h1 className=" text-[20px] font-bold py-1" style={{color:"#2C2F45"}}>
-        Verify Mobile No
-      </h1>
+        <h1 className=" text-px font-bold py-1" style={{ color: "#2C2F45" }}>
+          Verify Mobile No
+        </h1>
 
-      <p className="text-left text-[11px] font-regular pb-2" style={{color:"#2C2F45"}}>
-        Please enter the 4 digit verification code sent to your mobile number{" "}
-        <span className="whitespace-nowrap">
-          {" "}
-          {`+${formData?.countryCode}-${formData?.mobile}`}{" "}
-        </span>{" "}
-        via SMS.
-      </p>
+        <p className="text-left text-cx font-regular pb-2" style={{ color: "#2C2F45" }}>
+          Please enter the 4 digit verification code sent to your mobile number{" "}
+          <span className="whitespace-nowrap">
+            {" "}
+            {`+${formData?.countryCode}-${formData?.mobile}`}{" "}
+          </span>{" "}
+          via SMS.
+        </p>
       </div>
-      
+
       <div className="outline relative w-full focus:outline-none">
-      
+
         <input
           type="number"
           name="OTP"
           required
-          className={` block p-4 w-full text-center rounded appearance-none border-1  bg-transparent  ${
-            error
+          className={` block p-4 w-full text-center rounded appearance-none border-1  bg-transparent  ${error
               ? "ring-2 ring-red-600 focus:ring-2 focus:ring-red-600"
               : "ring-0 focus:ring-0"
-          }`}
-          
+            }`}
+
           style={{
             border: "1px solid rgba(0, 0, 0, 0.12)",
             color: "rgba(0, 0, 0, 0.6)",
@@ -165,32 +164,32 @@ function OTPVerification({
           className=" absolute top-0 bg-white p-4 -z-1 origin-0 "
           style={{ color: "rgba(0, 0, 0, 0.6)" }}
         >
-         OTP 
-        </label> 
-        
+          OTP
+        </label>
+
         {error && (
           <span className="text-sm pt-1" style={{ color: "#B00020" }}>
             Invalid OTP. Please try again
           </span>
         )}
       </div>
-      <button className="bg-primary  rounded py-3 text-white text-[15px] font-Semibold w-full">
+      <button className="bg-primary  rounded py-3 text-white text-dx font-Semibold w-full">
         {loading ? "Verifying..." : "Verify"}
       </button>
-      <div className="w-full text-right underline" style={{color:"#2C2F45"}}>
-      {counter < 1 ? (
-        
-        <span
-          className="text-primary  mb-4 ml-auto text-Light text-[13px]"
-          onClick={reSendOtp}
-        >
-          Resend OTP
-        </span>
-      ) : (
-        <span className="mb-4 ml-auto text-sm text-gray-70">
-          Resend OTP in {counter} Sec
-        </span>
-      )}
+      <div className="w-full text-right underline" style={{ color: "#2C2F45" }}>
+        {counter < 1 ? (
+
+          <span
+            className="text-primary  mb-4 ml-auto text-Light text-mx"
+            onClick={reSendOtp}
+          >
+            Resend OTP
+          </span>
+        ) : (
+          <span className="mb-4 ml-auto text-sm text-gray-70">
+            Resend OTP in {counter} Sec
+          </span>
+        )}
       </div>
     </form>
   );

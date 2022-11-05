@@ -134,7 +134,7 @@ function PriceRangePage() {
         searchFilter(
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
-          localStorage.getItem("sessionId") || "",
+          localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
           pageNumber
         ).then((response) => {
           setShopByPriceOtherListings(response?.dataObject?.otherListings);

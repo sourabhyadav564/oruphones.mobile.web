@@ -33,7 +33,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                   }
                 }}
               >
-                <h2 className="font-Roboto-Medium  text-[14px] text-[#2C2F45] ">Device Report (ORUPhones)</h2>
+                <h2 className="font-Roboto-Medium  text-ex text-[#2C2F45] ">Device Report (ORUPhones)</h2>
 
                 <FiChevronDown
                   className={`${open ? "transform rotate-180" : ""
@@ -50,7 +50,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
 
                   <div className="pt-2">
                     <div>
-                      <h1 className="font-Medium text-[13px] pb-2">Device Verification Report</h1>
+                      <h1 className="font-Medium text-mx pb-2">Device Verification Report</h1>
                     </div>
                     {data &&
                       data.questionnaireResults &&
@@ -97,9 +97,9 @@ export default ViewReport;
 
 const TestAndStatus = ({ testName, testStatus }) => (
   <div className="flex justify-between items-center py-2">
-    <p className="font-Regular text-[12px]"> {testName} </p>
+    <p className="font-Regular text-jx"> {testName} </p>
     <p className="flex items-center justify-between gap-2 capitalize">
-      <span className="text-[12px] font-Regular capitalize"> {testStatus} </span>
+      <span className="text-jx font-Regular capitalize"> {testStatus} </span>
       {/* <Image
         width={25}
         height={23}
@@ -107,7 +107,7 @@ const TestAndStatus = ({ testName, testStatus }) => (
         src={testStatus === "PASS" ? <BsCheckCircle/> : failedIcon}
       /> */}
       {
-        testStatus === "PASS" ? <BsCheckCircle size={13} className="text-red-500 text-[#4CAF50]" /> : <AiOutlineCloseCircle className="text-red-500" size={20} />
+        testStatus === "PASS" ? <BsCheckCircle size={13} className="text-[#4CAF50]" /> : <AiOutlineCloseCircle className="text-red-500" size={20} />
       }
     </p>
   </div>

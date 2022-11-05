@@ -3,22 +3,51 @@ module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    fontFamily:{
-      'Roboto-Bold':['Roboto-Bold'],
-      'Roboto-Semibold':['Roboto-Semibold'],
-      'Roboto-Light':['Roboto-Light'],
-      'Roboto-Regular':['Roboto-Regular'],
-      'Roboto-Regularitalic':['Roboto-Regularitalic'],
-      'Roboto-Medium':['Roboto-Medium']
+    fontFamily: {
+      'Roboto-Bold': ['Roboto-Bold'],
+      'Roboto-Semibold': ['Roboto-Semibold'],
+      'Roboto-Light': ['Roboto-Light'],
+      'Roboto-Regular': ['Roboto-Regular'],
+      'Roboto-Regularitalic': ['Roboto-Regularitalic'],
+      'Roboto-Medium': ['Roboto-Medium']
     },
     extend: {
+      fontSize: {
+        'nx': '5px',
+        'ax': '6px',
+        'kx': '8px',
+        'lx': '9px',
+        'bx': '10px',
+        'cx': '11px',
+        'jx': '12px',
+        'mx': '13px',
+        'ex': '14px',
+        'dx': '15px',
+        'gx': '16px',
+        'tx': '18px',
+        'px': '20px',
+        'qx': '22px',
+        'rx': '25px',
+        'ix': '27px',
+        'ox': '29px',
+        'fx': '30px',
+        'sx': '40px',
+        'hx': '100px',
+
+        'ux': '0px',
+        'vx': '0px',
+        'wx': '0px',
+        'xx': '0px',
+        'yx': '0px',
+        'zx': '0px',
+      },
       colors: {
-        primary: { 
+        primary: {
           light: "#2c2f44",
           darkest: "#2c2f44",
           dark: "#2c2f44",
           DEFAULT: "#2c2f44",
-          NavyBlue:"#2C2F45"
+          NavyBlue: "#2C2F45"
         },
         green: {
           light: "#2c2f44",
@@ -44,7 +73,7 @@ module.exports = {
           fb: "#FBB215",
         },
         red: {
-          DEFAULT : "#FF0000",
+          DEFAULT: "#FF0000",
         },
       },
       boxShadow: {
@@ -69,9 +98,9 @@ module.exports = {
   },
   variants: {
     extend: {},
-    accentColor: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus','#E8E8E8']
+    accentColor: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus', '#E8E8E8']
   },
   plugins: [require("@tailwindcss/line-clamp"),
   require('tailwind-accent-color')(),
-],
+  ],
 };

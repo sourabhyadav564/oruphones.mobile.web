@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Input from "@/components/Form/Input";
 import TextArea from "@/components/Form/TextArea";
-import Header2 from "@/components/Header/header2";
+import Header5 from "@/components/Header/header5";
 import { metaTags } from "@/utils/constant";
 import { contactUs } from "api-call";
 import Head from "next/head";
@@ -66,12 +66,12 @@ function ContactUS() {
         />
       </Head>
       <Fragment>
-        <Header2 title={"Contact us"} />
-        <main className="p-4">
+        <Header5 title={"Contact us"} />
+        <main className="p-4 mt-8 z-1">
           <section className="my-6 space-y-3">
-            <div className="flex flex-col">
+            <div className="flex flex-col font-Roboto-Regular">
               <Input
-                className={"mb-6"}
+                className={"mb-6 font-Roboto-Regular"}
                 type="text"
                 onChange={(e) => setName(e.target.value)}
               >
@@ -79,14 +79,14 @@ function ContactUS() {
                 Name{" "}
               </Input>
               {name == "" && (
-                <p className="text-sm whitespace-nowrap cursor-pointer text-red -mt-3">
+                <p className="text-sm  whitespace-nowrap cursor-pointer text-red -mt-3">
                   Please select this field
                 </p>
               )}
             </div>
-            <div>
+            <div className="font-Roboto-Regular">
               <Input
-                className={"mb-6"}
+                className={"mb-6 font-Roboto-Regular"}
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
               >
@@ -99,9 +99,9 @@ function ContactUS() {
                 </p>
               )}
             </div>
-            <div>
+            <div className="font-Roboto-Regular">
               <Input
-                className={"mb-6"}
+                className={"mb-6 font-Roboto-Regular"}
                 type="number"
                 onChange={(e) => setMobile(e.target.value)}
               >
@@ -114,7 +114,7 @@ function ContactUS() {
                 </p>
               )}
             </div>
-            <div>
+            <div className="font-Roboto-Regular">
               <TextArea
                 type="text"
                 name="message"
@@ -129,22 +129,22 @@ function ContactUS() {
               )}
             </div>
             <button
-              className="block bg-primary my-6 w-52 px-4 py-2 rounded text-white mx-auto"
+              className="block bg-primary my-6 w-52 px-4 py-2 rounded font-Roboto-Regular text-white mx-auto"
               onClick={handleSubmit}
             >
               {" "}
               Submit{" "}
             </button>
           </section>
-          <h2 className="text-black font-bold my-2">Connect with us</h2>
+          <h2 className="text-black  text-tx font-Roboto-Semibold">Connect with us</h2>
           <section>
             {/* <div>
             <span className="text-black font-semibold">Give us a call</span>
             <p className="text-black-20 mb-4"> +91 999 123 1234 </p>
           </div> */}
             <div>
-              <span className="text-black font-semibold">Send us an email</span>
-              <p className="text-black-20 mb-4">contact@oruphones.com</p>
+              <span className="text-black font-Roboto-Semibold">Send us an email</span>
+              <p className="text-black-20 mb-4 font-Roboto-Regular">contact@oruphones.com</p>
             </div>
           </section>
         </main>

@@ -287,7 +287,7 @@ function ProductDeatils({ data }) {
                 <Fragment>
                   {/* <VerifiedIcon width={75} height={32} /> */}
                   <span
-                    className="bg-white py-1 px-2 rounded text-black-21 text-[14px] font-Light underline "
+                    className="bg-white py-1 px-2 rounded text-black-21 text-ex font-Light underline "
                     onClick={executeScroll}
                   >
                     Device Report &gt;
@@ -317,7 +317,7 @@ function ProductDeatils({ data }) {
             </div>
           </div>
           <div className="flex flex-col items-start">
-            {/* <h1 className="text-black font-Regular text-[22px]">
+            {/* <h1 className="text-black font-Regular text-qx">
               {data?.marketingName}
             </h1> */}
             <ProductNameHeading title={data?.marketingName} />
@@ -333,12 +333,12 @@ function ProductDeatils({ data }) {
               </div>
             )} */}
           </div>
-          <div className="w-full flex items-center mt-4 mb-[12px] gap-2">
+          <div className="w-full flex items-center mt-4 mb-jx gap-2">
             <div className="w-11/12 h-[40px]  flex items-center m-auto rounded-[5px] justify-center opacity-bg-50" style={{ backgroundColor: "#F3F3F3" }}>
-              <p className="py-[12px] flex text-[#000000] space-x-1 font-Roboto-Light text-[10px] opacity-100">
+              <p className="py-jx flex text-[#000000] space-x-1 font-Roboto-Light text-bx opacity-100">
                 <span className="self-center"> Varient:{" "} </span>
                 <CardHeading4 title={data?.deviceStorage} />
-                {/* <span className="text-[#000000] font-Roboto-Regular text-[12px]">
+                {/* <span className="text-[#000000] font-Roboto-Regular text-jx">
                   {data?.deviceStorage}
                 </span> */}
               </p>
@@ -349,17 +349,17 @@ function ProductDeatils({ data }) {
               {/* <p className="text-gray-70 text-xs">List Price</p> */}
               <div className="m-auto justify-center ">
                 <span
-                  className="font-Roboto-Light text-[10px] opacity-100 text-[#000] flex leading-tight items-center"
+                  className="font-Roboto-Light text-bx opacity-100 text-[#000] flex leading-tight items-center"
                 // onClick={() => setOpenConditionInfo(true)}
                 >
                   Condition{" "}
                 </span>
                 <CardHeading4 title={data?.deviceCondition} />
-                {/* <p className="text-[12px] font-Regular text-black flex items-center">
+                {/* <p className="text-jx font-Regular text-black flex items-center">
                   {data?.deviceCondition}
                 </p> */}
               </div>
-              <div className="flex text-[10px] space-x-[2.5px] m-auto justify-center ">
+              <div className="flex text-bx space-x-[2.5px] m-auto justify-center ">
                 { }
                 {Array(5)
                   .fill()
@@ -378,10 +378,10 @@ function ProductDeatils({ data }) {
                   <div className="flex m-auto justify-center text-white px-2 py-2 rounded-md" style={{ background: "#4CAF50" }}>
                     <div className="flex flex-1 space-x-1 ">
                       <VerificationIcon className="self-center" />
-                      <p className="font-Light Italic text-[9px] self-center">Verified</p>
+                      <p className="font-Light Italic text-lx self-center">Verified</p>
                     </div>
                     <div className="m-auto justify-center ">
-                      <p className="text-[12px] font-Light">This phone is verified by ORUphones</p>
+                      <p className="text-jx font-Light">This phone is verified by ORUphones</p>
                     </div>
                   </div>
                   {/* <span
@@ -403,13 +403,13 @@ function ProductDeatils({ data }) {
                           <AiFillExclamationCircle s ize={20} fill="white" className="self-center text-black" />
                           {/* <UnVerifiedIcon /> */}
 
-                          <span className="text-[9px] font-Roboto-Light  self-center text-[#000944] italic uppercase">unverified</span>
+                          <span className="text-lx font-Roboto-Light  self-center text-[#000944] italic uppercase">unverified</span>
                         </div>
                         {/* <span className="text-xs italic self-center uppercase"> unverified</span> */}
                       </div>
                       <p className="flex items-center">
                         <span
-                          className="underline font-Light text-[12px]"
+                          className="underline font-Light text-jx"
                           onClick={() =>
                             !authenticated
                               ? setOpenLoginPopup(true)
@@ -447,7 +447,7 @@ function ProductDeatils({ data }) {
           </div>
           {data?.externalSource?.length > 0 && (
             <div className="border-b-2 pb-2">
-              <span className="text-[14px]  font-Light">Compare from other sellers</span>
+              <span className="text-ex  font-Light">Compare from other sellers</span>
             </div>
           )}
           <div className=" rounded-md">
@@ -467,7 +467,7 @@ function ProductDeatils({ data }) {
                       </div>
                     </div>
                     <div className="flex px-4">
-                      <p className="text-[15px] flex items-center font-Semibold text-primary" >
+                      <p className="text-dx flex items-center font-Semibold text-primary" >
                         {items?.externalSourcePrice && (
                           <span className="font-normal mr-0.5"> ₹ </span>
                         )}{" "}
@@ -481,7 +481,7 @@ function ProductDeatils({ data }) {
           <div className="border-b-2 pb-1 mb-2">
             <BannerSellHeading title="Device Info" />
           </div>
-          {/* <h2 className="text-black text-[14px] border-b-2 pb-1 font-Light my-3">Device Info</h2> */}
+          {/* <h2 className="text-black text-ex border-b-2 pb-1 font-Light my-3">Device Info</h2> */}
 
           <div className="fixed bottom-0 z-50 font-Roboto-Regular left-0 px-2 pt-2  w-full ">
             {data?.isOtherVendor === "Y" ? (
@@ -599,7 +599,7 @@ function ProductDeatils({ data }) {
           )}
 
           <div>
-            <p className="font-Light text-[12px] py-2 pt-4 border-b-2" style={{ color: "#878787" }}>*this phone might be old or refurbished</p>
+            <p className="font-Light text-jx py-2 pt-4 border-b-2" style={{ color: "#878787" }}>*this phone might be old or refurbished</p>
           </div>
         </div>
         <div className="my-4 mx-5" ref={myRef}>
@@ -617,16 +617,16 @@ function ProductDeatils({ data }) {
           />}
           {data?.isOtherVendor === "N" && !data?.verified && <div className="border-t pt-2">
             <div className="pt-2">
-              <div className="font-Medium text-[13px] pb-2">This is unverified device!</div>
-              <span className="font-Medium text-[13px] pb-2">Please </span>
-              <span className="font-Medium text-[13px] font-bold underline pb-2"
+              <div className="font-Medium text-mx pb-2">This is unverified device!</div>
+              <span className="font-Medium text-mx pb-2">Please </span>
+              <span className="font-Medium text-mx font-bold underline pb-2"
                 onClick={() =>
                   !authenticated
                     ? setOpenLoginPopup(true)
                     : setOpenRequestVerificationSuccessPopup(true)
                 }
               > Click here </span>
-              <span className="font-Medium text-[13px] pb-2"> to send the verification request to seller for detailed device report.</span>
+              <span className="font-Medium text-mx pb-2"> to send the verification request to seller for detailed device report.</span>
             </div>
           </div>}
         </div>
@@ -708,6 +708,8 @@ export const getServerSideProps = async ({ req, res, query }) => {
     userUniqueId || "Guest",
     sessionId || ""
   );
+
+
   return {
     props: {
       data: detailWithUserInfo1?.dataObject || [],

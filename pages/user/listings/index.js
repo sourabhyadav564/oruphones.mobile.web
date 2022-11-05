@@ -58,7 +58,7 @@ function Index({ userInfo }) {
   return (
     <Fragment>
       <Header3 title1={"MyListing"} title2={"My Favorites"} />
-      <main className="md:mb-28 px-4 py-4 flex flex-col space-y-6 min-h-screen">
+      <main className="md:mb-28 px-4 py-4 mt-12 flex flex-col space-y-6 min-h-screen">
         {listingsLoading ? (
           <div className="flex justify-center items-center h-52">
             Loading...

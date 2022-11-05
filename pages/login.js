@@ -80,9 +80,9 @@ function Login() {
         )}
       </div> */}
       <section className="container px-8 flex flex-col items-center space-y-8 max-w-sm">
-          <div className="mt-14">
-            <Image src={Logo} alt={"Logo"} width={108} height={53}/>
-          </div>
+        <div className="mt-14">
+          <Image src={Logo} alt={"Logo"} width={108} height={53} />
+        </div>
         {step === 1 ? (
           <form
             className="flex flex-col items-center w-full "
@@ -94,7 +94,7 @@ function Login() {
             </h1> */}
             <div className="w-full my-8 relative ">
               <h1 className="text-lg font-bold px-1">Welcome</h1>
-              <p className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to contribute </p>
+              <p className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to continue </p>
               <input
                 className="bg-white  border-2 p-3 w-full font-regular rounded-md"
                 name="mobile"
@@ -105,55 +105,55 @@ function Login() {
                 onChange={(e) => {
                   handleChange(e);
                 }}
-                placeholder = {"Mobile Number"}
-                style={{fontSize:'13px'}}
-              />    
+                placeholder={"Mobile Number"}
+                style={{ fontSize: '13px' }}
+              />
               {error?.is && (
                 <div>
-                <span className="absolute p-1 text-xs w-full rounded text-red-500">
-                  {" "}
-                  {error.message}{" "}
-                </span>
+                  <span className="absolute p-1 text-xs w-full rounded text-red-500">
+                    {" "}
+                    {error.message}{" "}
+                  </span>
                 </div>
               )}
             </div>
             <div className="w-full space-y-4">
-            <div className="w-full grid gap-2">
-              <button
-              className="bg-primary rounded py-3 text-white text-sm w-full disabled:opacity-60"
-              disabled={!formData?.termsAndCondition}
-              >
-                Sign In
-              </button>
-              <Checkbox
-                type="checkbox"
-                name="termsAndCondition"
-                checked={formData?.termsAndCondition}
-                onChange={handleChange}
-                className="rounded border text-transparent form-checkbox border-primary focus:ring-transparent"
-              >
-              <label
-                onClick={() => setOpenPopup(true)}
-                className="underline cursor-pointer text-sm text-black-4e"
-              >
-                Accept terms and conditions
-              </label>
-              </Checkbox>
-            </div>
-            <div className="relative w-full justify-center text-center space-x-2">
-            <span className="text-sm text-gray-70"> or </span>
-            <br/>
-            
-            <Link href="/">
-              <button
-                type="button"
-                className="w-full rounded text-sm  text-primary font-medium border-2 border-gray-300 disabled:opacity-60 mt-2 p-2"
-                disabled={!formData?.termsAndCondition}
-              >
-                Continue as Guest
-              </button>
-            </Link>
-            </div>
+              <div className="w-full grid gap-2">
+                <button
+                  className="bg-primary rounded py-3 text-white text-sm w-full disabled:opacity-60"
+                  disabled={!formData?.termsAndCondition}
+                >
+                  Sign In
+                </button>
+                <Checkbox
+                  type="checkbox"
+                  name="termsAndCondition"
+                  checked={formData?.termsAndCondition}
+                  onChange={handleChange}
+                  className="rounded border text-transparent form-checkbox border-primary focus:ring-transparent"
+                >
+                  <label
+                    onClick={() => setOpenPopup(true)}
+                    className="underline cursor-pointer text-sm text-black-4e"
+                  >
+                    Accept terms and conditions
+                  </label>
+                </Checkbox>
+              </div>
+              <div className="relative w-full justify-center text-center">
+                <span className="text-sm text-gray-70"> or </span>
+                <br />
+
+                <Link href="/">
+                  <button
+                    type="button"
+                    className="w-full rounded text-sm  text-primary font-medium border-2 border-gray-300 disabled:opacity-60 mt-2 p-2"
+                    disabled={!formData?.termsAndCondition}
+                  >
+                    Continue as Guest
+                  </button>
+                </Link>
+              </div>
             </div>
           </form>
         ) : (

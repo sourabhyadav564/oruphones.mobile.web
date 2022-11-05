@@ -26,15 +26,29 @@ function BrandCard({ data, className, popup }) {
   }
   return (
     <>
-    <div>
-      {!popup ? (
-        <Link
-          href={{ pathname: `/product/buy-old-refurbished-used-mobiles/${data?.make?.toLowerCase()}` }}
-        >
+      <div>
+        {!popup ? (
+          <Link
+            href={{ pathname: `/product/buy-old-refurbished-used-mobiles/${data?.make?.toLowerCase()}` }}
+          >
+            <a
+              className={`flex justify-center px-4 py-1   font-Roboto-Regular  ${className || "cardShadow1 rounded-md"
+                }`}
+            >
+              <Image
+                src={data?.imagePath || Logo}
+                alt={data?.make}
+                height={40}
+                width={40}
+                objectFit="contain"
+              />
+            </a>
+          </Link>
+        ) : (
+          // <Link href={{ pathname: `/product/buy-old-refurbished-used-mobiles/${data?.make?.toLowerCase()}` }}>
           <a
-            className={`flex justify-center p-4 font-Roboto-Regular  ${
-              className || "cardShadow1 rounded-md"
-            }`}
+            className={`h-full  flex justify-center p-2 font-Roboto-Regular ${className || "cardShadow1 rounded-md"
+              }`}
           >
             <Image
               src={data?.imagePath || Logo}
@@ -44,24 +58,8 @@ function BrandCard({ data, className, popup }) {
               objectFit="contain"
             />
           </a>
-        </Link>
-      ) : (
-        // <Link href={{ pathname: `/product/buy-old-refurbished-used-mobiles/${data?.make?.toLowerCase()}` }}>
-        <a
-          className={`h-full  flex justify-center p-2 font-Roboto-Regular ${
-            className || "cardShadow1 rounded-md"
-          }`}
-        >
-          <Image
-            src={data?.imagePath || Logo}
-            alt={data?.make}
-            height={50}
-            width={50}
-            objectFit="contain"
-          />
-        </a>
-        // </Link>
-      )}
+          // </Link>
+        )}
       </div>
     </>
   );

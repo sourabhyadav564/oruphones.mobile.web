@@ -118,14 +118,14 @@ function Profile() {
   }
   return (
     <Fragment>
-      <div className="pb-20">
+      <div>
 
 
-        <main className="relative ">
-          <section className=" bg-primary pb-8 mb-20 flex justify-center rounded-b-xl">
+        <main className="relative mb-20">
+          <section className=" bg-primary pb-8 mb-20 flex pl-20 rounded-b-xl">
             <UserIcon img={imgPath} onChange={changeImage} />
             <div className="ml-12 md:ml-0">
-              <div className="absolute  right-20 top-32  text-[20px] font-Roboto-Bold">
+              <div className="absolute left-44 top-32  text-px font-Roboto-Bold">
                 <div className="text-white">
                   {userName || user.userdetails.userName}
                 </div>
@@ -142,8 +142,8 @@ function Profile() {
             </Link>
           </section>
           <section className="px-4 flex flex-col my-8 space-y-4">
-            <h1 className="font-Roboto-Light text-[14px] border-b-2 pb-2">Basic Info</h1>
-            <div className="space-y-1 text-[12px] font-Roboto-Regular">
+            <h1 className="font-Roboto-Light text-ex border-b-2 pb-2">Basic Info</h1>
+            <div className="space-y-1 text-jx font-Roboto-Regular">
               <p className="bg-white px-0.5">Name <span className="text-red-500">*</span></p>
               <Input
                 type="text"
@@ -158,7 +158,7 @@ function Profile() {
               />
             </div>
 
-            <div className="space-y-1 text-[12px] font-Roboto-Regular">
+            <div className="space-y-1 text-jx font-Roboto-Regular">
               <p className="bg-white px-0.5">Mobile No.<span className="text-red-500">*</span></p>
               <Input
                 disabled
@@ -166,7 +166,7 @@ function Profile() {
                 defaultValue={`+91 | ${user?.userdetails?.mobileNumber}`}
               />
             </div>
-            <div className="space-y-1 text-[12px] font-Roboto-Regular">
+            <div className="space-y-1 text-jx font-Roboto-Regular">
               <p className="bg-white px-0.5">Email ID <span className="text-red-500">*</span></p>
               <Input
                 type="text"
@@ -180,13 +180,13 @@ function Profile() {
 
             </div>
 
-            <div className="w-full py-3 text-white font-Roboto-Medium text-[15px] rounded-md text-center m-auto justify-center" style={{ backgroundColor: "#2C2F45" }} onClick={saveUserInfo}>
+            <div className="w-full py-3 text-white font-Roboto-Medium text-dx rounded-md text-center m-auto justify-center" style={{ backgroundColor: "#2C2F45" }} onClick={saveUserInfo}>
               <p>Save Changes</p>
             </div>
 
 
 
-            <div className="flex text-[9px]">
+            <div className="flex pt-4 text-lx">
               <p className="text-sm text-red-500 rounded text-center font-Roboto-Regular underline flex flex-1 "
                 onClick={() => {
                   setOpenDeletePopup(true);

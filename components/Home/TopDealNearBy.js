@@ -49,6 +49,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
         setMyFavListings(res.dataObject.map((item2) => item2.listingId));
       });
     }
+
     if (!loading && selectedSearchCity != undefined) {
       bestDealNearByYou(
         selectedSearchCity,
@@ -100,7 +101,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
   }, [loading, selectedSearchCity, applySortFilter]);
 
   return (
-    <section className="px-3 text-sm text-gray-70 mt-4">
+    <section className="px-3 text-sm text-gray-70">
       <div className="flex items-center justify-start space-x-2 ">
         <h1 className="mt-3 mb-2 font-Roboto-Semibold text-base">
           Best Deals Near You
@@ -151,12 +152,12 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
       </div>
       {!isLoading && isFinished === false && (
         <span
-          className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-            } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer mb-5`}
+          className={`${isLoadingMore ? "w-[150px]" : "w-[150px]"
+            } rounded-md shadow border m-auto border-[#707070] hover:drop-shadow-lg p-2 bg-m-white flex justify-center items-center hover:cursor-pointer mb-5`}
           onClick={loadMoreData}
         >
-          <p className="block text-m-green font-Roboto-Semibold">
-            {isLoadingMore ? "Fetching more products..." : "Load More ..."}
+          <p className="block text-[#585757] font-Roboto-Semibold">
+            {isLoadingMore ? "Loading..." : "View More"}
           </p>
         </span>
       )}

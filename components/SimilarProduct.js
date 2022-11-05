@@ -103,7 +103,7 @@ function SimilarProduct({ data }) {
 
   return (
     <section className="px-4">
-      <h1 className="font-Light text-[14px] text-black border-b-2 pb-2">
+      <h1 className="font-Light text-ex text-black border-b-2 pb-2">
         {" "}
         {/* Similar Products ({similar_listings?.length || 0}){" "} */}
         Similar Products
@@ -114,10 +114,10 @@ function SimilarProduct({ data }) {
             <div
               className="m-1.5"
               key={item.listingId}
-              // onClick={() => {
-              //   // setListingId(item.listingId);
-              //   setProductsData(similar_listings || []);
-              // }}
+            // onClick={() => {
+            //   // setListingId(item.listingId);
+            //   setProductsData(similar_listings || []);
+            // }}
             >
               <OtherListingCard
                 data={item}
@@ -140,19 +140,18 @@ function SimilarProduct({ data }) {
           </div>
         )} */}
       </div>
-        {similar_listings && similar_listings.length > 0 &&
-            isFinished == false && (
-              <span
-                className={`${
-                  isLoadingMore ? "w-[250px]" : "w-[150px]"
-                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
-                onClick={loadMoreData}
-              >
-                <p className="block text-m-green font-semibold">
-                  {isLoadingMore ? "Fetching more products..." : "Load More"}
-                </p>
-              </span>
-            )}
+      {similar_listings && similar_listings.length > 0 &&
+        isFinished == false && (
+          <span
+            className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
+              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+            onClick={loadMoreData}
+          >
+            <p className="block text-m-green font-semibold">
+              {isLoadingMore ? "Fetching more products..." : "Load More"}
+            </p>
+          </span>
+        )}
     </section>
   );
 }

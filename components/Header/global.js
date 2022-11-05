@@ -36,7 +36,7 @@ function GlobalHeader() {
         router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou" ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/searchBar" ||
         router.pathname === "/product/models") && (
-          <div className="flex flex-1 justify-between px-4 py-2 ">
+          <div className="w-full flex flex-1 justify-between px-4  py-2 ">
             <div className="w-44 space-x-6 flex items-center">
               <Image
                 onClick={() => setOpenSidebar(true)}
@@ -62,41 +62,41 @@ function GlobalHeader() {
               </Link>
 
             </div>
-            <div className="grid grid-cols-2 m-auto absolute right-1 top-4">
+            <div className="w-full flex justify-end items-center ">
               <div
                 className="flex  items-center  cursor-pointer space-x-1"
                 onClick={() => setOpenLocationPopup(true)}
               >
-                <span className="truncate underline font-extrathin text-[12px]" >{selectedSearchCity}</span>
+                <span className="truncate underline font-extrathin text-jx" >{selectedSearchCity}</span>
                 <img src={location.src} width={12} height={12} />
                 {/* <img src={dropdown.src} width={12} height={12} /> */}
               </div>
               <div>
-              {(router.pathname === "/" ||
-        router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]" ||
-        router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]/[modelName]" ||
-        router.pathname === "/product/buy-old-refurbished-used-mobiles/pricerange/[min]/[max]" ||
-        router.pathname === "/brands" ||
-        router.pathname.includes("shopby") ||
-        router.pathname ==="/product/buy-old-refurbished-used-mobiles/searchBar" ||
-        router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou" ||
-        router.pathname === "/product/models") && (
-         
-                <Link href="/user/notification">
-                  <a
-                    className="flex-shrink-0 ml-4 flex items-center"
-                    onClick={() => setLoadingState(false)}
-                  >
-                    <Image
-                      src={bellDot}
-                      width={18}
-                      height={18}
-                      priority
-                      objectFit="contain"
-                    />
-                  </a>
-                </Link>
-              )}
+                {(router.pathname === "/" ||
+                  router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]" ||
+                  router.pathname === "/product/buy-old-refurbished-used-mobiles/[makeName]/[modelName]" ||
+                  router.pathname === "/product/buy-old-refurbished-used-mobiles/pricerange/[min]/[max]" ||
+                  router.pathname === "/brands" ||
+                  router.pathname.includes("shopby") ||
+                  router.pathname === "/product/buy-old-refurbished-used-mobiles/searchBar" ||
+                  router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou" ||
+                  router.pathname === "/product/models") && (
+
+                    <Link href="/user/notification">
+                      <a
+                        className="flex ml-4"
+                        onClick={() => setLoadingState(false)}
+                      >
+                        <Image
+                          src={bellDot}
+                          width={18}
+                          height={18}
+                          priority
+                          objectFit="contain"
+                        />
+                      </a>
+                    </Link>
+                  )}
 
               </div>
             </div>

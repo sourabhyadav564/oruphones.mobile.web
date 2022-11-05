@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Header2 from "@/components/Header/header2";
+import Header5 from "@/components/Header/header5";
 import { Fragment, useEffect, useState } from "react";
 import EditListingForm from "@/components/Form/EditListingForm";
 import sellDeviceBanner from "@/assets/sell_device_banner.png";
@@ -29,8 +29,8 @@ function editListing({ data, resultsSet }) {
   console.log("makeAndModels", makeAndModels);
   return (
     <Fragment>
-      <Header2 title={"Edit Listing"} />
-      <main className="container my-4">
+      <Header5 title={"Edit Listing"} />
+      <main className="container mt-16 mb-4">
         {/* <div className="flex justify-center">
           <Image
             src={sellDeviceBanner}

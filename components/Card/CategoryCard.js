@@ -3,12 +3,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaSearchDollar } from "react-icons/fa";
 import ShopByPopup from "../Popup/ShopByPopup";
+import WarrantyByPop from "../Popup/WarrantyByPop";
 import { useRouter } from "next/router";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { ShopCategoryHeading } from "../elements/Heading/heading";
 import price from "../../assets/price.png"
+import warranty from "../../assets/warranty.png"
 
-const CategoryCards = ({ data, priceRange }) => {
+const CategoryCards = ({ data, priceRange, warrantycard }) => {
   const router = useRouter();
 
   const [loadingState, setLoadingState] = useState(false);
@@ -18,6 +20,7 @@ const CategoryCards = ({ data, priceRange }) => {
   }, [router.pathname]);
 
   const [openPriceRange, setOpenPriceRange] = useState(false);
+  const [Openwarrantycard, setOpenWarrantycard] = useState(false);
 
   if (priceRange) {
     return (
@@ -37,14 +40,42 @@ const CategoryCards = ({ data, priceRange }) => {
               />
             </div>
           </div>
-          <p className="font-Roboto-Regular text-[12px] text-[#707070] pt-1 pr-1 text-center">
+          <p className="font-Roboto-Regular text-jx text-[#707070] pt-1 pr-5 text-center">
             Shop By <span>Price</span>
           </p>
           <ShopByPopup open={openPriceRange} setOpen={setOpenPriceRange} />
+
         </div>
         <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
       </>
     );
+  }
+
+  if (warrantycard) {
+    return (
+      <>
+        <div className="w-full md:px-4">
+          <div
+            className="h-[71px] w-[71px]  flex  justify-center items-center px-2 py-2 cardShadow1 rounded-lg bg-m-white"
+            onClick={() => setOpenWarrantycard(!Openwarrantycard)}
+          >
+            <div className="h-[41px] flex flex-col items-center justify-center">
+              {/* <FaSearchDollar className="text-2xl text-black" /> */}
+              <Image
+                src={warranty}
+                alt="warranty"
+                objectFit="contain"
+              />
+            </div>
+          </div>
+          <p className="font-Roboto-Regular text-jx text-[#707070] pt-1 pr-5 text-center">
+            Warranty
+          </p>
+          <WarrantyByPop data={data} open={Openwarrantycard} setOpen={setOpenWarrantycard} />
+        </div>
+        <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
+      </>
+    )
   }
   return (
     data.imagePath && (
@@ -71,10 +102,8 @@ const CategoryCards = ({ data, priceRange }) => {
                   objectFit="contain"
                 />
               </div>
-
-
             </div>
-            <div className="text-center pt-1 pr-2">
+            <div className="text-center pt-1 pr-5">
               <ShopCategoryHeading title={data.text} />
             </div>
           </div>

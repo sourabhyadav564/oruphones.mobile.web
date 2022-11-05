@@ -20,7 +20,8 @@ import { CardHeading2, CardHeading5 } from "@/components/elements/CardHeading/ca
 import { Heading, Heading3 } from "@/components/elements/Heading/heading";
 import BrandCard from "@/components/Card/BrandCard";
 import BasicCarousel from "@/components/Carousel/BasicCarousel";
-
+import BottomNav from "@/components/Navigation/BottomNav";
+import LoadingStatePopup from "@/components/Popup/LoadingStatePopup";
 
 
 // import {
@@ -30,10 +31,11 @@ import BasicCarousel from "@/components/Carousel/BasicCarousel";
 // import { useRecoilState } from "recoil";
 
 function MakePage({ bestDealData, shopbymodeldata, data }) {
+
   const { selectedSearchCity, loading } = useAuthState();
   const router = useRouter();
   let { makeName } = router.query;
-
+  const [loadingState, setLoadingState] = useState(false);
   const [index, setIndex] = useState(-1);
   const [bestDeals, setBestDeals] = useState([]);
   const [shopbymodel, setshopbymodel] = useState([]);
@@ -53,14 +55,13 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
   // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
 
-
   const loadData = (intialPage) => {
     if (makeName) {
       fetchByMakeList(
         selectedSearchCity,
         makeName,
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") || localStorage.getItem("sessionId") || "",
+        Cookies.get("sessionId") || "",
         intialPage,
         applySortFilter
       ).then(
@@ -107,7 +108,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         selectedSearchCity,
         makeName,
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") || localStorage.getItem("sessionId") || "",
+        Cookies.get("sessionId") || "",
         newPages,
         applySortFilter
       ).then(
@@ -153,7 +154,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
     const getMakeModel = async () => {
       const result = await getMakeModelLists(
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") || localStorage.getItem("sessionId") || ""
+        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
       );
       return result;
     };
@@ -222,7 +223,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         searchFilter(
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
-          localStorage.getItem("sessionId") || "",
+          Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
           pageNumber
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);
@@ -423,12 +424,6 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
                   setProducts={setBestDeals}
                 />
               </div>
-              <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
-                <CardHeading2 title="Shop by Model" />
-                <ShopByBrandsSection
-                  shopbymodeldata={shopbymodel} index={index} location={selectedSearchCity}
-                />
-              </div>
               <div>
                 {/* <div className="space-y-4 bg-[#EEEEEE] -mx-4 my-2 px-6 pt-4 pb-2">
                   <CardHeading2 title="Shop by Model" />
@@ -444,19 +439,30 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         )}
 
 
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
+            <CardHeading2 title="Shop by Model" />
+            <ShopByBrandsSection
+              shopbymodeldata={shopbymodel} index={index} location={selectedSearchCity}
+            />
+          </div>
+        )}
         {/* </div> */}
 
         {/* <div className="bg-[#EEEEEE] -mx-4 px-6">
-            <h1 className="text-[#707070] text-[11px] font-normal"> Shop By Model </h1>
+            <h1 className="text-[#707070] text-cx font-normal"> Shop By Model </h1>
          </div> */}
 
         {(!isLoading && (sortingProducts && sortingProducts.length > 0)) && (
-          <div className="flex mt-3 p-2 pb-0">
-            <h2 className=" font-normal text-[#707070] m-auto  text-[11px]  pl-0  capitalize flex-1">
+          <div className="flex mt-3">
+
+            <h2 className=" font-normal text-[#707070] m-auto  text-cx  pl-0  capitalize flex-1">
               {/* Other Listings ({totalProducts}) */}
               <Heading title={`${makeName} Phones (${totalProducts})`} />
             </h2>
-            <p className="font-normal text-[#707070]  text-[11px]  -mt-2  capitalize underline">
+            <p className="font-normal text-[#707070]  text-cx  -mt-2  capitalize underline">
               {/* <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
               sort <BiSortAlt2 className="ml-1" />
             </p> */}
@@ -491,6 +497,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
               ))}
           </section>
         )}
+
         {!isLoading &&
           bestDeals &&
           !(bestDeals.length > 0) &&
@@ -500,17 +507,18 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         {!isLoading &&
           isFinished === false && otherListings.length != totalProducts && (
             <span
-              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${isLoadingMore ? "w-[150px]" : "w-[150px]"
+                } border border-[#707070] m-auto  rounded-md shadow hover:drop-shadow-lg p-2 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
-              <p className="block text-m-green font-semibold">
-                {isLoadingMore ? "Fetching more products..." : "Load More"}
+              <p className="block text-[#585757]  font-Semibold h-[23px]">
+                {isLoadingMore ? "Loading..." : "View More"}
               </p>
             </span>
           )}
       </Filter>
-
+      <BottomNav />
+      <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
     </>
 
   );

@@ -8,8 +8,8 @@ import SearchBar from "@/components/Header/SearchBar";
 
 function searchBar() {
   return (
-    <div className="bg-primary p-2 -mt-2 rounded-b-[5px]">
-        <SearchBar/>
+    <div className="bg-primary p-2  rounded-b-[5px]">
+      <SearchBar />
     </div>
   )
 }

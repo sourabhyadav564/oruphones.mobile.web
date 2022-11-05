@@ -31,16 +31,14 @@ function OtherListingCard({ data, setProducts, prodLink }) {
 
   useEffect(() => {
     if (user && user?.userdetails?.userUniqueId && listings.length === 0) {
-      localStorage.getItem("listings")
-      //  ? localStorage.getItem("listings") : getUserListings(user?.userdetails?.userUniqueId).then(
-      //   (res) => {
-      //     console.log("res");
-      //     setListings(res.dataObject.map((item2) => item2.listingId));
-      //     // console.log("res.dataObject", listings);
-      //     // setListingsLoading(false);
-      //   },
-      //   (err) => console.error(err)
-      // );
+      localStorage.getItem("listings") || getUserListings(user?.userdetails?.userUniqueId).then(
+        (res) => {
+          setListings(res.dataObject.map((item2) => item2.listingId));
+          // console.log("res.dataObject", listings);
+          // setListingsLoading(false);
+        },
+        (err) => console.error(err)
+      );
     }
   }, []);
 
@@ -95,7 +93,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 )}
               </span>
             </div>
-            {/* {console.log("data", listings)} */}
+            {console.log("data", listings)}
             {listings.includes(data.listingId)
               ?
               <div
@@ -113,33 +111,32 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                   />
                 </div>
                 <div className="flex-wrap w-full text-gray-70 pt-1">
-                  <p className="font-Roboto-Bold flex items-center " style={{ color: "#000944" }}>
-                    {data?.listingPrice && <span className="mr-1">&#x20B9;</span>}
+                  <p className="font-Roboto-Bold text-gx  flex items-center " style={{ color: "#000944" }}>
+                    {data?.listingPrice && <span className="mr-0.5">&#x20B9;</span>}
                     {numberWithCommas(data?.listingPrice || "")}
                   </p>
-                  <h1 className="flex-1 truncate w-full capitalize font-Regular text-[12px] text-black">
-                    <CardHeading4 title={data?.marketingName} />
+                  <h1 className="flex-1 truncate w-full capitalize font-Roboto-Medium text-jx">
+                    {data?.marketingName}
                   </h1>
                   <div
                     className="flex flex-wrap justify-between"
                   >
                     {data?.deviceStorage && (
-                      <p className="mr-1 font-Light text-[8px] text-black">
+                      <p className="mr-1 font-Light text-kx text-black">
                         <CardHeading title={data?.deviceStorage} />
                       </p>
                     )}
                     <p className="flex">
-                      <span className="font-Light text-[8px] text-black">
-                        <CardHeading title={`Condition :   ${" "}`} />
+                      <span className="font-Roboto-Light text-bx text-black">
+                        {`Condition :  ${" "} `}
                       </span>
-                      <span className="font-Light text-[8px] text-black">
-
-                        <CardHeading title={data?.deviceCondition || "--"} />
+                      <span className="font-Roboto-Light text-bx text-black">
+                        {data?.deviceCondition || "--"}
                       </span>
                     </p>
                   </div>
 
-                  <div className="justify-self-end flex justify-between font-Light text-[6px] capitalize">
+                  <div className="justify-self-end flex justify-between font-Light text-ax capitalize">
                     <span>
                       <CardHeading title={data?.listingLocation || "India"} />
                     </span>
@@ -163,33 +160,33 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                   />
                 </div>
                 <div className="flex-wrap w-full text-gray-70 pt-1">
-                  <p className="font-Roboto-Bold flex items-center " style={{ color: "#000944" }}>
-                    {data?.listingPrice && <span className="mr-1">&#x20B9;</span>}
+                  <p className="font-Roboto-Bold text-gx flex items-center " style={{ color: "#000944" }}>
+                    {data?.listingPrice && <span className="mr-0.5">&#x20B9;</span>}
                     {numberWithCommas(data?.listingPrice || "")}
                   </p>
-                  <h1 className="flex-1 truncate w-full capitalize font-Regular text-[12px] text-black">
-                    <CardHeading4 title={data?.marketingName} />
+                  <h1 className="flex-1 truncate w-full capitalize font-Roboto-Medium text-ex text-[#000944]">
+                    {data?.marketingName}
                   </h1>
                   <div
                     className="flex flex-wrap justify-between"
                   >
                     {data?.deviceStorage && (
-                      <p className="mr-1 font-Light text-[8px] text-black">
+                      <p className="mr-1 font-Light text-kx text-black">
                         <CardHeading title={data?.deviceStorage} />
                       </p>
                     )}
                     <p className="flex">
-                      <span className="font-Light text-[8px] text-black">
-                        <CardHeading title={`Condition :   ${" "}`} />
+                      <span className="font-Roboto-Light text-bx text-black">
+                        {`Condition :   ${" "} `}
                       </span>
-                      <span className="font-Light text-[8px] text-black">
+                      <span className="font-Roboto-Light text-bx text-black">
 
-                        <CardHeading title={data?.deviceCondition || "--"} />
+                        {data?.deviceCondition || "--"}
                       </span>
                     </p>
                   </div>
 
-                  <div className="justify-self-end flex justify-between font-Light text-[6px] capitalize">
+                  <div className="justify-self-end flex justify-between font-Light text-ax capitalize">
                     <span>
                       <CardHeading title={data?.listingLocation || "India"} />
                     </span>

@@ -31,7 +31,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                   }
                 }}
               >
-                <h2 className="font-Roboto-Medium text-[14px] text-[#2C2F45]">Device Cosmetic Report</h2>
+                <h2 className="font-Roboto-Medium text-ex text-[#2C2F45]">Device Cosmetic Report</h2>
 
                 <FiChevronDown
                   className={`${open ? "transform rotate-180" : ""
@@ -52,7 +52,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                   <div>
                     {deviceConditionQuestion.map((item, index) => (
                       <div>
-                        <span className="text-[15px] font-Bold text-[#2C2F45] ">{data?.cosmetic[index] != undefined && item?.title}</span>
+                        <span className="text-dx font-Bold text-[#2C2F45] ">{data?.cosmetic[index] != undefined && item?.title}</span>
                         {data?.cosmetic[index] != undefined &&
                           <ConditionOptionLarge
                             title={data?.cosmetic[index]}

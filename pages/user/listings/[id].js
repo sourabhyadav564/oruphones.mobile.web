@@ -84,7 +84,7 @@ function ListingDeatils({ data, id }) {
           </Link>
         </div>
       </Header2>
-      <main className="my-4">
+      <main className="mb-4 mt-16">
         {data?.verified && <div className="px-4 absolute z-10">
           <VerifiedIcon width={70} />
         </div>}
@@ -122,12 +122,12 @@ function ListingDeatils({ data, id }) {
                 />
               </svg>
             </div>
-            <div className="w-full flex items-center mt-4 mb-[12px] gap-2">
+            <div className="w-full flex items-center mt-4 mb-jx gap-2">
               <div className="w-11/12 h-[40px]  flex items-center m-auto rounded-[5px] justify-center opacity-bg-50" style={{ backgroundColor: "#F3F3F3" }}>
-                <p className="py-[12px] flex text-[#000000] space-x-1 font-Roboto-Light text-[10px] opacity-100">
+                <p className="py-jx flex text-[#000000] space-x-1 font-Roboto-Light text-bx opacity-100">
                   <span className="self-center"> Varient:{" "} </span>
                   <CardHeading4 title={data?.deviceStorage} />
-                  {/* <span className="text-[#000000] font-Roboto-Regular text-[12px]">
+                  {/* <span className="text-[#000000] font-Roboto-Regular text-jx">
                   {data?.deviceStorage}
                 </span> */}
                 </p>
@@ -138,17 +138,17 @@ function ListingDeatils({ data, id }) {
                 {/* <p className="text-gray-70 text-xs">List Price</p> */}
                 <div className="m-auto justify-center ">
                   <span
-                    className="font-Roboto-Light text-[10px] opacity-100 text-[#000] flex leading-tight items-center"
+                    className="font-Roboto-Light text-bx opacity-100 text-[#000] flex leading-tight items-center"
                   // onClick={() => setOpenConditionInfo(true)}
                   >
                     Condition{" "}
                   </span>
                   <CardHeading4 title={data?.deviceCondition} />
-                  {/* <p className="text-[12px] font-Regular text-black flex items-center">
+                  {/* <p className="text-jx font-Regular text-black flex items-center">
                   {data?.deviceCondition}
                 </p> */}
                 </div>
-                <div className="flex text-[10px] space-x-[2.5px] m-auto justify-center ">
+                <div className="flex text-bx space-x-[2.5px] m-auto justify-center ">
                   { }
                   {Array(5)
                     .fill()
@@ -169,16 +169,16 @@ function ListingDeatils({ data, id }) {
             {/* > */}
             {/* <p className="text-gray-70 text-xs">List Price</p> */}
             {/* <div> */}
-            {/* <span className="text-[10px] font-Light text-black flex items-center"
+            {/* <span className="text-bx font-Light text-black flex items-center"
                   onClick={() => setOpenConditionInfo(true)}
                  > */}
             {/* Condition{" "}
                 </span>
-                <p className="text-[12px] font-Regular text-black flex items-center">
+                <p className="text-jx font-Regular text-black flex items-center">
                   {data?.deviceCondition}
                 </p>
               </div>
-              <div className="flex text-[10px] space-x-1 m-auto justify-center "> */}
+              <div className="flex text-bx space-x-1 m-auto justify-center "> */}
             {/* {}
                 {Array(5)
                   .fill()
@@ -204,7 +204,7 @@ function ListingDeatils({ data, id }) {
                 </div>
               </div> */}
             {/* </div> */}
-            <h2 className="text-black text-[14px] border-b-2 pb-1 font-Light my-3 mt-5">Device Info</h2>
+            <h2 className="text-black text-ex border-b-2 pb-1 font-Light my-3 mt-5">Device Info</h2>
             <div className="grid grid-cols-2 gap-4  ">
               <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
               <IconLabelValue label="storage" value={data?.deviceStorage || "--"} />

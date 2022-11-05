@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
-import {BannerSellHeading,BannerBuyHeading} from "../elements/Heading/heading";
+import { BannerSellHeading, BannerBuyHeading } from "../elements/Heading/heading";
 
 const slides = [
   // { name: "GIF", src: bannerssss},
@@ -79,44 +79,43 @@ const TopCarousel = () => {
                     <Image
                       src={item.src}
                       alt={item.name}
-                      width={"395px"}
-                      height={'189px'}
+                      width={"420px"}
+                      height={'179px'}
                       className="bannerShadow"
                     />
                   </div>
                   <div
-                    className="w-full h-[91px] absolute left-0 right-0 md:bottom-16 bottom-0  px-5  m-auto justify-center grid grid-cols-2 gap-2 "
+                    className="w-full h-[91px] mb-1 absolute left-0 right-0 md:bottom-16 bottom-0  px-5   justify-center grid grid-cols-2 gap-2 "
                     style={{ fontSize: 10 }}
                   >
-                    <div className="w-full  flex rounded-md m-auto justify-center bg-gradient-to-r from-[#141929] via-[#313648] to-[#43495C]" >
+                    <div className="w-full flex rounded-[5px] m-auto justify-center bg-gradient-to-r from-[#141929] via-[#313648] to-[#43495C]" >
                       <Link href="/sell-old-refurbished-used-mobiles/add">
-                        <div className="px-4 py-2 grid grid-rows-2 h-[91px]">
+                        <div className="px-4 py-2  rounded-[5px] grid grid-rows-2 h-[91px]">
                           <p className="w-full text-white  leading-tight">
-                             <BannerSellHeading title="Sell your phone in few steps"/>
-                             
-                            </p>
-                          <a className="grid h-[27px] py-1 rounded-md border border-none text-center self-center bg-gradient-to-r from-[#F9C414] to-[#FFD95B]">
+                            <BannerSellHeading title="Sell your phone in few steps" />
+                          </p>
+                          <a className="grid h-[27px] py-1 rounded-[5px] border border-none text-center self-center bg-gradient-to-r from-[#F9C414] to-[#FFD95B]">
                             {/* <span> Sell Now + </span> */}
-                            <BannerSellHeading title="Sell Now + "/>
+                            <BannerSellHeading title="Sell Now + " />
                           </a>
                         </div>
                       </Link>
                     </div>
 
-                    <div className="w-full flex rounded-md shadow-sm shadow-gray-300 my-0.5" style={{ backgroundColor: '#FFFFFF' }}>
+                    <div className="w-full flex rounded-[5px] shadow-sm shadow-gray-300 my-0.5 bg-gradient-to-r from-[#cbcfdc] via-[#e2e3ea] to-[#fff]" >
                       <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
-                        <div className="p-4 grid grid-rows-2 h-[91px] m-auto justify-center py-2">
-                          <p className="w-full text-black text-[14px] font-Medium leading-tight">
-                          <BannerSellHeading title=" Buy your dream phone in few steps "/>
+                        <div className="p-4 grid grid-rows-2 h-[91px] m-auto  justify-center py-2 ">
+                          <p className="w-full text-black text-ex font-Medium leading-tight">
+                            <BannerSellHeading title=" Buy your dream phone in few steps " />
                             {/* Buy your dream phone in few steps  */}
-                            </p>
+                          </p>
                           <a
-                            className="grid rounded-md text-center py-1 self-center "
+                            className="grid rounded-[5px] text-center py-1 self-center "
                             onClick={() => setLoadingState(true)}
                           >
-                            <span className="grid h-[27px] rounded-md  font-Regular border text-center py-1  self-center" style={{ borderColor: "#11121B" }}> 
-                            <BannerBuyHeading title="Buy Now &gt;"/>
-                             </span>
+                            <span className="grid h-[27px] rounded-md bg-primary  text-white   border border-none pb-6 text-center py-1 self-center">
+                              <BannerBuyHeading title="Buy Now &gt;" />
+                            </span>
                           </a>
                         </div>
                       </Link>

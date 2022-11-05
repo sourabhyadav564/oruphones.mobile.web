@@ -15,7 +15,7 @@ let headers = {
   sessionId:
     typeof window !== "undefined"
       ? localStorage.getItem("sessionId")
-      : Cookies.get("sessionId") || "",
+      : Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : "",
   devicePlatform: "Mobile Web",
   location:
     typeof window !== "undefined" ? localStorage.getItem("usedLocation") : "",

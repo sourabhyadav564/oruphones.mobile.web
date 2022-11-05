@@ -273,7 +273,7 @@ const AddListingForm = ({ data }) => {
         listingPrice: inputSellPrice.trim(),
         listingLocation: selectedCity,
         listedBy: inputUsername || user?.userdetails?.userName || "",
-        platform: make === "Apple" ? "iOS" : "Android",
+        platform: "mobWeb",
         charger: charging ? "Y" : "N",
         earphone: headphone ? "Y" : "N",
         originalbox: originalbox ? "Y" : "N",

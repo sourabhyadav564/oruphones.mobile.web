@@ -50,6 +50,7 @@ function BestDealCard({
 
   return (
     <>
+
       <div className="grid font-SF-Pro grid-cols-2 mb-6 rounded-lg border cardShadow1 p-4  max-w-sm relative bg-white"
         onClick={() => window.open(
           `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
@@ -73,10 +74,10 @@ function BestDealCard({
               </span>
             </p>
             <p className="mb-2 leading-none space-y-0.5">
-              {/* <span className="text-[10px] text-[#878787] font-light block">Listed on</span> */}
+              {/* <span className="text-bx text-[#878787] font-light block">Listed on</span> */}
               <CardHeading1 title="Listed on" />
               <CardHeading2 title={data?.listingDate || <span>&nbsp;&nbsp;</span>} />
-              {/* <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
+              {/* <span className="font-semibold pt-0.5 text-[#373737] text-cx block">
               {data?.listingDate || <span>&nbsp;&nbsp;</span>}
             </span> */}
             </p>
@@ -84,16 +85,16 @@ function BestDealCard({
             <p className="mb-2 leading-none space-y-0.5">
               <CardHeading1 title="RAM" />
               <CardHeading2 title={data?.deviceRam || "--"} />
-              {/* <span className="text-[10px] text-[#878787] font-light block">RAM</span>
-            <span className="font-semibold pt-0.5 text-[#373737] text-[11px]  block">{data?.deviceRam || "--"}​</span> */}
+              {/* <span className="text-bx text-[#878787] font-light block">RAM</span>
+            <span className="font-semibold pt-0.5 text-[#373737] text-cx  block">{data?.deviceRam || "--"}​</span> */}
             </p>
 
 
             <p className="mb-2 leading-none space-y-0.5">
               <CardHeading1 title="Storage" />
               <CardHeading2 title={data?.deviceStorage || <span>&nbsp;&nbsp;</span>} />
-              {/* <span className="text-[10px] text-[#878787] font-light block">Storage</span>
-            <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
+              {/* <span className="text-bx text-[#878787] font-light block">Storage</span>
+            <span className="font-semibold pt-0.5 text-[#373737] text-cx block">
               {data?.deviceStorage || <span>&nbsp;&nbsp;</span>}
             </span> */}
             </p>
@@ -110,15 +111,15 @@ function BestDealCard({
               <Fragment>
                 <p className="mb-2 leading-none space-y-0.5">
                   <CardHeading1 title="Location" />
-                  {/* <span className="text-[10px] text-[#878787] font-light block">Location</span> */}
+                  {/* <span className="text-bx text-[#878787] font-light block">Location</span> */}
                   {data?.listingLocation ? (
                     <CardHeading2 title={data?.listingLocation} />
-                    // <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">
+                    // <span className="font-semibold pt-0.5 text-[#373737] text-cx block">
                     //   {data?.listingLocation}
                     // </span>
                   ) : (
                     <CardHeading2 title="--" />
-                    // <span className="font-semibold pt-0.5 text-[#373737] text-[11px] block">--</span>
+                    // <span className="font-semibold pt-0.5 text-[#373737] text-cx block">--</span>
                   )}
                 </p>
               </Fragment>
@@ -128,7 +129,7 @@ function BestDealCard({
             <p>
               {/* <span className="text-xs text-gray-70">List Price</span> */}
               {/* <span
-                className="font-bold text-[#000944] text-[15px] flex items-center"
+                className="font-bold text-[#000944] text-dx flex items-center"
               >
                 {"₹" + numberWithCommas(data?.listingPrice)}
               </span> */}
@@ -155,7 +156,7 @@ function BestDealCard({
                   }
                 >
                   <a
-                    className="flex items-center px-[16px]   w-[88px] h-[27px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
+                    className="flex items-center w-full h-fx font-Roboto-Light text-ex px-5 py-2 bg-primary text-white rounded-[5px]"
                   // onClick={() => setLoadingState(true)}
                   >
                     <div className=" flex">
@@ -171,7 +172,7 @@ function BestDealCard({
                     "_blank",)}
                 >
                   <a
-                    className="flex items-center px-[16px]  w-[88px] h-[27px] font-Roboto-Light text-[11px] bg-primary text-white rounded-lg"
+                    className="flex items-center px-dx  w-hx h-ix font-Roboto-Light text-ex bg-primary text-white rounded-lg"
                   // onClick={() => setLoadingState(true)}
                   >
                     <div className=" flex">
@@ -226,8 +227,8 @@ function BestDealCard({
           <Image
             alt={data?.marketingName}
             src={data?.imagePath || Logo}
-            width="80%"
-            height="90%"
+            width="90%"
+            height="100%"
             layout="responsive"
             objectFit="contain"
             priority

@@ -54,7 +54,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
               className="flex flex-col items-center w-full space-y-8"
               onSubmit={sendOtp}
             >
-              <h1 className="text-primary-dark text-[22px] font-Roboto-Bold py-2">
+              <h1 className="text-primary-dark text-qx font-Roboto-Bold py-2">
                 Sign In
               </h1>
               <div className="w-full my-8 relative">

@@ -1,4 +1,5 @@
 import Filter from "@/components/FilterAndSort/Filter";
+import Filter1 from "@/components/FilterAndSort/FilterAndSort1";
 import React, { useState, useEffect, useContext } from "react";
 import { useAuthState } from "providers/AuthProvider";
 import { bestDealNearYouAll, searchFilter } from "api-call";
@@ -9,6 +10,7 @@ import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
+import { Heading } from "@/components/elements/Heading/heading";
 
 // import {
 //   otherVendorDataState,
@@ -168,69 +170,89 @@ function Bestdealnearyou() {
   // const sortingProducts = getSortedProducts(applySortFilter, products);
 
   return (
-    <><Filter
-      searchText={`All Listings`}
-      setSortApplyFilter={setSortApplyFilter}
-      setApplyFilter={setApplyFilter}
-      applyFilter={applyFilter}
-    >
-      {(isLoading || bestDeal && bestDeal?.length > 0) && (
+    <>
+      <Filter
+        // searchText={`All Listings`}
+        // setSortApplyFilter={setSortApplyFilter}
+        setApplyFilter={setApplyFilter}
+        applyFilter={applyFilter}
+      >
+
+        {/* {(isLoading || bestDeal && bestDeal?.length > 0) && (
         <div>
           <h1 className="text-lg font-semibold text-gray-20 py-2.5 ">
             {" "}
             Best Deals{" "}
           </h1>
         </div>
-      )}
-      {isLoading ? (
-        <Loader />
-      ) : (
-        bestDeal &&
-        bestDeal?.length > 0 && (
-          <BestDealSection bestDealData={bestDeal} setProducts={setBestDeal} />
-        )
-      )}
-      {(!isLoading) && (
-        <h2 className="text-lg font-semibold text-gray-20 py-2.5">
-          {" "}
-          Other Listings ({totalProducts}){" "}
-        </h2>
-      )}
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <section className="grid grid-cols-2 py-3 -m-1.5">
-          {products &&
-            products?.map((item) => (
-              <div key={item.listingId} className="m-1.5">
-                <OtherListingCard
-                  data={item}
-                  prodLink
-                  setProducts={setProducts}
-                />
-              </div>
-            ))}
-        </section>
-      )}
-      {!isLoading &&
-        bestDeal &&
-        !(bestDeal.length > 0) &&
-        products &&
-        !products.length > 0 && <NoMatch />}
-
-      {!isLoading &&
-        isFinished == false && products.length != totalProducts && (
-          <span
-            className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
-            onClick={loadMoreData}
-          >
-            <p className="block text-m-green font-semibold">
-              {isLoadingMore ? "Fetching more products..." : "Load More"}
-            </p>
-          </span>
+      )} */}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          bestDeal &&
+          bestDeal?.length > 0 && (
+            <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
+              <h1 className="text-lg font-semibold text-white py-2.5 ">
+                {" "}
+                Best Deals{" "}
+              </h1>
+              <BestDealSection bestDealData={bestDeal} setProducts={setBestDeal} />
+            </div>
+          )
         )}
-    </Filter>
+        {(!isLoading) && (
+          <div className="flex mt-3 pb-0">
+            <h2 className="flex text-lg font-semibold text-gray-20 py-2.5 flex-1">
+              {" "}
+              <Heading title={`Other Listings (${totalProducts})${" "}`} />
+            </h2>
+            <p className="font-normal text-[#707070]  text-cx  capitalize underline">
+              {/* <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
+              sort <BiSortAlt2 className="ml-1" />
+            </p> */}
+              <Filter1
+                setSortApplyFilter={setSortApplyFilter}
+              // setApplyFilter={setApplyFilter}
+              ></Filter1>
+            </p>
+          </div>
+
+        )}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <section className="grid grid-cols-2 py-3 -m-1.5">
+            {products &&
+              products?.map((item) => (
+                <div key={item.listingId} className="m-1.5">
+                  <OtherListingCard
+                    data={item}
+                    prodLink
+                    setProducts={setProducts}
+                  />
+                </div>
+              ))}
+          </section>
+        )}
+        {!isLoading &&
+          bestDeal &&
+          !(bestDeal.length > 0) &&
+          products &&
+          !products.length > 0 && <NoMatch />}
+
+        {!isLoading &&
+          isFinished == false && products.length != totalProducts && (
+            <span
+              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
+                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              onClick={loadMoreData}
+            >
+              <p className="block text-m-green font-semibold">
+                {isLoadingMore ? "Fetching more products..." : "Load More"}
+              </p>
+            </span>
+          )}
+      </Filter>
       <BottomNav />
     </>
   );

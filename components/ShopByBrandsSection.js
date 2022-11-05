@@ -14,13 +14,13 @@ function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) 
   console.log("shop by brand section", shopbymodeldata)
 
   return (
-    <section className=" m-auto items-center">
+    <section className="m-auto items-center">
       <BasicCarousel
         slidesPerView={3}
         spaceBetween={1}
       >
         {shopbymodeldata[index].models.map((item) => (
-          <SwiperSlide key={item?.make} >
+          <SwiperSlide key={item?.make}>
             <ShopbymodelCard
               data={item.marketingname}
               src={`https://zenrodeviceimages.s3.us-west-2.amazonaws.com/mobiru/product/mobiledevices/img/newModels/${item?.marketingname?.toString().toLowerCase().replaceAll(" ", "_")}.jpg`}
