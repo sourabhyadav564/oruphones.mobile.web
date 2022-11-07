@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import BuySellGuide from "@/components/BuySellGuide";
 import Cookies from "js-cookie";
 import Loader from "@/components/Loader/Loader";
+import { BsArrowLeft } from "react-icons/bs";
 
 function editListing({ data, resultsSet }) {
   // const [resultSet, setResultSet] = useState([]);
