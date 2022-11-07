@@ -14,7 +14,7 @@ function header3({ title1, title2 }) {
 
 
   return (
-    <div className='bg-green-500 text-white w-full z-50 absolute'>
+    <div className='bg-primary text-white w-full z-50 absolute'>
       <div className='text-sm grid grid-cols-2 text-center py-4'>
         <div className='' show={setshow}> <a className={`${isActive("/user/listings") ? "border-b-2 pb-2 transition delay-100 duration-1000 linear " : ""}`}> <Link href="/user/listings" >{title1}</Link> </a> </div>
         <div className=''> <a className={`${isActive("/user/favourites") ? " border-b-2 pb-2 transition delay-100 duration-1000 linear" : ""}`}>  <Link href="/user/favourites" >{title2}</Link> </a> </div>

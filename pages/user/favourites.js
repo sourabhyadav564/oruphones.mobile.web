@@ -49,7 +49,7 @@ function Favorites() {
     <Fragment>
       {/* <Header2 title="My Favorites" /> */}
       <Header3 title1={"MyListing"} title2={"My Favorites"} />
-      <main className="px-4 py-4 mt-12 flex flex-col space-y-6 min-h-screen ">
+      <main className="px-4 py-4 mt-12 flex flex-col space-y-6 min-h-screen absolute">
         {myFavList && myFavList.length > 0 && (
           myFavList?.map((item, index) => (
             <FavListingTile
