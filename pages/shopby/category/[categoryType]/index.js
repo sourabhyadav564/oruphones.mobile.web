@@ -305,7 +305,7 @@ function CategoryPage() {
 
         {(!isLoading || (otherListings && otherListings.length > 0)) && (
           <div className="flex items-center " >
-            <h2 className="text-lg text-exfont-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
+            <h2 className=" text-mx font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
               Other Listings ({totalProducts})
             </h2>
             <div className="">

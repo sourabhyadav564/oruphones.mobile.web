@@ -3,6 +3,7 @@ import OtherListingCard from "@/components/Card/OtherListingCard";
 import { useRouter } from "next/router";
 import { shopByPriceRange, searchFilter } from "api-call";
 import Filter from "@/components/FilterAndSort/Filter";
+import Filter1 from "@/components/FilterAndSort/FilterAndSort1";
 import { useState, useEffect } from "react";
 import { useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
@@ -164,24 +165,43 @@ function PriceRangePage() {
       setApplyFilter={setApplyFilter}
       applyFilter={applyFilter}
     >
-      {(isLoading || shopByPriceBestDeal?.length > 0) && (
+      {/* {(isLoading || shopByPriceBestDeal?.length > 0) && (
         <h1 className="text-lg font-semibold text-gray-20 py-2.5">
           {" "}
           Best Deals{" "}
         </h1>
-      )}
+      )} */}
       {isLoading ? (
         <Loader />
       ) : (
-        shopByPriceBestDeal?.length > 0 && (
-          <BestDealSection bestDealData={shopByPriceBestDeal} />
+        (shopByPriceBestDeal?.length > 0) && (
+          //   <div>
+          //      <h1 className="text-lg font-semibold text-gray-20 py-2.5">
+          //   {" "}
+          //   Best Deals{" "}
+          // </h1>
+          //   <BestDealSection bestDealData={shopByPriceBestDeal} />
+          //   </div>
+          <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff]">
+            <h1 className="text-lg font-semibold text-white py-2.5">
+              Best Deals
+            </h1>
+            <BestDealSection bestDealData={shopByPriceBestDeal} />
+          </div>
         )
       )}
-      {(isLoading || sortingProducts?.length > 0) && (
-        <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3">
-          {" "}
-          Other Listings ({totalProducts}){" "}
-        </h2>
+      {(!isLoading || sortingProducts?.length > 0) && (
+        <div className="flex items-center " >
+          <h2 className=" text-mx font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
+            Other Listings ({totalProducts})
+          </h2>
+          <div className="">
+            <Filter1
+              setSortApplyFilter={setSortApplyFilter}
+            // setApplyFilter={setApplyFilter}
+            ></Filter1>
+          </div>
+        </div>
       )}
       {isLoading ? (
         <Loader />
@@ -199,9 +219,9 @@ function PriceRangePage() {
       {shopByPriceBestDeal &&
         shopByPriceBestDeal.length > 0 &&
         sortingProducts &&
-        sortingProducts.length > 0 ? null : (
-        <NoMatch />
-      )}
+        sortingProducts.length > 0 && (
+          <NoMatch />
+        )}
 
       {!isLoading &&
         isFinished == false && shopByPriceOtherListings.length != totalProducts && (

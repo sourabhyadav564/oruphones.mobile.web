@@ -85,7 +85,7 @@ function GlobalHeader() {
                     <Link href="/user/notification">
                       <a
                         className="flex ml-4"
-                        onClick={() => setLoadingState(false)}
+                        onClick={() => setLoadingState(true)}
                       >
                         <Image
                           src={bellDot}

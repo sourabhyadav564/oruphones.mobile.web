@@ -859,7 +859,7 @@ const NewAddListingForm = ({ data }) => {
         {page === 1 && (
           <>
             {modelInfo && (
-              <div className="p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
+              <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
@@ -886,7 +886,7 @@ const NewAddListingForm = ({ data }) => {
                   </p>
 
                   <p className="flex space-x-1">
-                    <span><CardHeading4 title="Storage :" /> </span>{" "}
+                    <span><CardHeading4 title="Storage : " /> </span>{" "}
                     <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
