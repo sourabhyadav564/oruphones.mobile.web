@@ -382,7 +382,7 @@ const EditListingForm = ({ data, resultsSet }) => {
           Model
         </Input> */}
         {data && (
-          <div className="flex bg-white p-5  space-x-4 rounded-md drop-shadow-md">
+          <div className="flex bg-white p-5  space-x-4 rounded-md drop-shadow-md absolute">
 
             <Image
               src={data?.defaultImage?.fullImage}

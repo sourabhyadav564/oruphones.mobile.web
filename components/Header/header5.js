@@ -27,7 +27,7 @@ function Header2({ title, className, children, setOpen }) {
                     }}
                     className="cursor-pointer" fontSize="20" />
             )}
-            {title && <span className="absolute pl-2  left-10 right-10 font-Roboto-Regular text-dx "> {title}</span>}
+            {title && <span className="absolute pl-2 left-10 right-10 font-Roboto-Regular text-dx "> {title}</span>}
             {children}
         </header>
     );
