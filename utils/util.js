@@ -13,7 +13,7 @@ import moment from "moment";
 //   return x;
 // }
 export function numberWithCommas(s) {
-  s = s.replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+  s = s.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   return s;
 }
 

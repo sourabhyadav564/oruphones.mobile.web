@@ -279,7 +279,7 @@ function ProductDeatils({ data }) {
                 )}{" "}
                 {data?.listingPrice}
               </p> */}
-              <ProductPriceHeading title={data?.listingPrice} />
+              <ProductPriceHeading title={numberWithCommas(data?.listingPrice)} />
             </div>
 
             <div className="m-auto justify-center">
