@@ -792,9 +792,9 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption.storage.map((item, index) => (
                       <div
                         className={`${storage == item
-                          ? "bg-[#E8E8E8]  text-jx opacity-bg-80 rounded-nx border-2 border-white text-[#2C2F45] opacity-100"
-                          : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 rounded-nx"
-                          }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular  justify-center`}
+                          ? "bg-[#E8E8E8]  text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
+                          : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
+                          }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
                         onClick={() => setStorage(item)}
                         key={index}
                       >
@@ -1092,8 +1092,8 @@ const NewAddListingForm = ({ data }) => {
               {images.map((item, index) => (
 
                 <div key={index} className="relative pt-4 item-center even:ml-2 odd:mr-2 mb-2  rounded-md bg-[#E8E8E8]">
-                  {index === 0 ? (
-                    <PanelHeading title="Front Panel" />
+                  {/* {index === 0 ? (
+                    // <PanelHeading title="Front Panel" />
                     // <span className="absolute bottom-4 left-16 font-Light text-cx opacity-50"> Front Panel </span>
                   ) : index === 1 ? (
                     <PanelHeading title="Back Panel" />
@@ -1101,7 +1101,7 @@ const NewAddListingForm = ({ data }) => {
                   ) : (
                     ""
                   )
-                  }
+                  } */}
                   <ImageInput
                     type="file"
                     preview={item?.fullImage}

@@ -87,14 +87,16 @@ const CategoryCards = ({ data, priceRange, warrantycard }) => {
                 ? "/product/models"
                 : `/shopby/category/${data?.urlPath?.toLowerCase()}`,
           }}
+
+          onClick={() => setLoadingState(true)}
         >
 
-          <div className="m-auto items-center justify-center text-center leading-tight  ">
+          <div className="m-auto items-center justify-center text-center leading-tight ">
             <div
               className="h-[71px] w-[71px]  flex  justify-center items-center px-2 py-2 cardShadow1 rounded-lg bg-m-white"
               onClick={() => setOpenPriceRange(!openPriceRange)}
             >
-              <div className="h-[41px] flex flex-col items-center justify-center">
+              <div className="h-[41px] flex flex-col items-center justify-center" onClick={() => setLoadingState(true)}>
                 {/* <FaSearchDollar className="text-2xl text-black" /> */}
                 <Image
                   src={data?.imagePath}

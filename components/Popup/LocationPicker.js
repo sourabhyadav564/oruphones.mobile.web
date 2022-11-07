@@ -137,11 +137,11 @@ function LocationPicker({ openLocationPopup }) {
             <Image src={MapIcon} alt={"MAP"} width={219} height={116} />
           </div> */}
           <div className="text-center space-y-4 px-4">
-            <h1 className="text-xl">Where do you want to buy/sell products?</h1>
-            <p className="text-sm">to enjoy all that ORUphones has to offer you, we need to know where to look for them</p>
+            <h1 className="text-xl font-Roboto-Semibold">Where do you want to buy/sell products?</h1>
+            <p className="text-sm font-Roboto-Regular">to enjoy all that ORUphones has to offer you, we need to know where to look for them</p>
           </div>
           <div className="text-center space-y-5 w-full px-8">
-            <button className="uppercase font-semibold bg-primary text-white p-2 w-full rounded" onClick={handleNearme}>
+            <button className="uppercase font-Roboto-Medium bg-primary text-white p-2 w-full rounded" onClick={handleNearme}>
               Near me
             </button>
             {/* <button
@@ -153,7 +153,7 @@ function LocationPicker({ openLocationPopup }) {
             >
               Other address
             </button> */}
-            <button className="underline text-primary"
+            <button className="underline text-primary font-Roboto-Regular"
               onClick={() => {
                 setOpen(false)
               }}>

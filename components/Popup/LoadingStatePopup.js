@@ -9,8 +9,8 @@ function LoadingStatePopup({ open, setOpen }) {
     <Modal2 open={open} setOpen={setOpen}>
       <div className="flex flex-col items-center max-w-sm px-6 py-6 text-base text-black-4e">
         <Spinner />
-        <h1 className="font-bold mb-2 mt-3">Loading...</h1>
-        <p className="text-xs my-2 text-center">
+        <h1 className="font-Roboto-Bold mb-2 mt-3">Loading...</h1>
+        <p className="text-xs font-Roboto-Regular my-2 text-center">
           Please wait, while we are fetching data for you...{" "}
         </p>
       </div>

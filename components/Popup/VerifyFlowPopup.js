@@ -27,7 +27,7 @@ function VerifyFlowPopup({ open, setOpen }) {
           <Dialog.Title as="h1" className="text-lg leading-6 font-Roboto-Semibold ">
             Just one more step
           </Dialog.Title>
-          <div className="mt-3 w-full text-sm flex flex-wrap mb-4 items-center">
+          <div className="mt-3 w-full text-sm flex flex-wrap mb-4 items-center font-Roboto-Regular">
             <ul className="list-disc text-sm flex flex-col space-y-4 px-4">
               <li>
                 Interact directly with the buyers and sellers of latest mobile

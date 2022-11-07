@@ -64,11 +64,11 @@ function ShopByPopup({ open, setOpen }) {
               key={index}
             >
               <p
-                className="bg-gray-200 flex flex-col items-center justify center px-5 py-2 rounded-md hover:cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-300"
+                className="bg-gray-200 flex flex-col items-center justify font-Roboto-Semibold center px-5 py-2 rounded-md hover:cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-300"
               // onClick={() => setLoadingState(true)}
               >
                 {item.bracket}{" "}
-                <span className="font-semibold">{item.text}</span>
+                <span className="font-Roboto-Semibold">{item.text}</span>
               </p>
             </Link>
           ))}

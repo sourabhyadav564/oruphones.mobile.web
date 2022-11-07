@@ -1,8 +1,15 @@
 import { logEventInfo } from "api-call";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
+import Services from "../../assets/bottom_icon/Outline.png";
+import Home from "../../assets/bottom_icon/Path 66.png";
+import MyListings from "../../assets/bottom_icon/to-do-list.png";
+import Profile from "../../assets/bottom_icon/user.png";
+
+
 
 function BottomNav() {
   const router = useRouter();
@@ -25,18 +32,19 @@ function BottomNav() {
     <>
       <div className="pt-24 bg-primary-dark">
         <div
-          className="fixed z-50 bottom-0 bg-transparent w-full topShadow text-gray"
+          className="fixed z-50 bottom-0  bg-transparent w-full topShadow text-gray"
           style={{ fontSize: 10 }}
         >
-          <div className="container flex justify-between items-end bg-primary-dark pb-3 pt-4 uppercase rounded-t-xl">
-            <Link href="/">
+          <div className="container flex justify-between items-end bg-primary-dark pb-3 pt-4 px-6 uppercase rounded-t-xl">
+            <Link href="/" onClick={() => setLoadingState(true)}>
               <a
                 aria-current="page"
                 className={`flex flex-col items-center   ${isActive("/") ? "text-white" : ""
                   } `}
               // onClick={() => setLoadingState(true)}
               >
-                <svg
+                <Image src={Home} width={20} height={20} />
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
                   height="23"
@@ -58,17 +66,18 @@ function BottomNav() {
                         } `}
                     />
                   </g>
-                </svg>
+                </svg> */}
                 <span className="mt-1">Home</span>
               </a>
             </Link>
-            <Link href="/user/listings">
+            <Link href="/user/listings" onClick={() => setLoadingState(true)}>
               <a
                 className={`flex flex-col items-center ${isActive("/user/listings") ? "text-white" : ""
                   } `}
               // onClick={() => setLoadingState(true)}
               >
-                <svg
+                <Image src={MyListings} width={20} height={20} />
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
                   height="23"
@@ -80,12 +89,12 @@ function BottomNav() {
                     transform="translate(-4.5 -4.5)"
                     fill="currentColor"
                   />
-                </svg>
+                </svg> */}
 
                 <span className="mt-1">My Listings</span>
               </a>
             </Link>
-            <Link href="/sell-old-refurbished-used-mobiles/add">
+            <Link href="/sell-old-refurbished-used-mobiles/add" onClick={() => setLoadingState(true)}>
               <div className="flex flex-col items-center" onClick={logEvent}>
                 <a
                   className="relative text-white inline-flex justify-center mb-1.5 "
@@ -112,13 +121,14 @@ function BottomNav() {
                 <span className="mt-1">Sell Now </span>
               </div>
             </Link>
-            <Link href="/services">
+            <Link href="/services" onClick={() => setLoadingState(true)}>
               <a
                 className={`flex flex-col items-center ${isActive("/services") ? "text-white" : " "
                   }`}
               // onClick={() => setLoadingState(true)}
               >
-                <svg
+                <Image src={Services} width={20} height={20} />
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
                   height="23"
@@ -130,18 +140,19 @@ function BottomNav() {
                     transform="translate(-2.25 -6.756)"
                     fill="currentColor"
                   />
-                </svg>
+                </svg> */}
                 <span className="mt-1 font-Roboto-Regular">SERVICES</span>
               </a>
             </Link>
-            <Link href="/user/profile"
+            <Link href="/user/profile" onClick={() => setLoadingState(true)}
             >
               <a
                 className={`flex flex-col items-center ${isActive("/user/profile") ? "text-white" : " "
                   }`}
               // onClick={() => setLoadingState(true)}
               >
-                <svg
+                <Image src={Profile} width={20} height={20} />
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
                   height="23"
@@ -161,7 +172,7 @@ function BottomNav() {
                       fill="currentColor"
                     />
                   </g>
-                </svg>
+                </svg> */}
                 <span className="mt-1">Account</span>
               </a>
             </Link>

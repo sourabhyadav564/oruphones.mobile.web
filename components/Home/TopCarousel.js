@@ -24,9 +24,9 @@ const slides = [
   },
 ];
 
+
 const TopCarousel = () => {
   const router = useRouter();
-
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
@@ -94,9 +94,9 @@ const TopCarousel = () => {
                           <p className="w-full text-white  leading-tight">
                             <BannerSellHeading title="Sell your phone in few steps" />
                           </p>
-                          <a className="grid h-[27px] py-1 rounded-[5px] border border-none text-center self-center bg-gradient-to-r from-[#F9C414] to-[#FFD95B]">
+                          <a className="grid h-[27px] py-1 rounded-[5px] border border-none text-center self-center bg-gradient-to-r from-[#F9C414] to-[#FFD95B]" onClick={() => setLoadingState(true)}>
                             {/* <span> Sell Now + </span> */}
-                            <BannerSellHeading title="Sell Now + " />
+                            <BannerSellHeading title="Sell Now +" />
                           </a>
                         </div>
                       </Link>

@@ -59,7 +59,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
               </h1>
               <div className="w-full my-8 relative">
                 <Input2
-                  className="bg-white"
+                  className="bg-white font-Roboto-Regular"
                   name="mobile"
                   type="number"
                   prefix="+91-"
@@ -82,7 +82,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
                 name="termsAndCondition"
                 checked={formData?.termsAndCondition}
                 onChange={handleChange}
-                className="rounded border text-transparent form-checkbox border-primary focus:ring-transparent"
+                className="rounded border text-transparent form-checkbox border-primary focus:ring-transparent font-Roboto-Light"
               >
                 <label
                   className="ml-2 underline cursor-pointer text-black-4e"
@@ -93,7 +93,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
               </Checkbox>
 
               <button
-                className="bg-primary uppercase rounded py-3 text-white w-full disabled:opacity-60"
+                className="bg-primary uppercase rounded py-3 font-Roboto-Medium text-white w-full disabled:opacity-60"
                 disabled={!formData?.termsAndCondition}
               >
                 next

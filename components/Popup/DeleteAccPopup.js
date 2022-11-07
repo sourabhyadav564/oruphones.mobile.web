@@ -19,17 +19,17 @@ function DeleteAccPopup({ open, setOpen, setDelete }) {
                     size={52}
                     color="#FFC107"
                 />
-                <h1 className="font-bold mb-2 mt-3">Do you really want to delete your Account? </h1>
-                <div className="mb-2 mt-4">
+                <h1 className="font-Roboto-Bold mb-2 mt-3">Do you really want to delete your Account? </h1>
+                <div className="mb-2 mt-4 font-Roboto-Regular">
                     <span
                         onClick={handleCancel}
                     >
-                        <span className="border border-primary w-32 px-1 mx-1 py-2 rounded text-primary"> CANCEL </span>
+                        <span className="border border-primary w-32 px-4 mx-1 py-2  rounded text-primary"> Cancel </span>
                     </span>
                     <a
                         onClick={handleSubmit}
                     >
-                        <span className="border border-primary w-24 px-3 mx-3 py-2 rounded bg-primary text-white"> YES, I WANT </span>
+                        <span className="border border-primary w-24 px-4 mx-3 py-2 rounded bg-primary text-white"> Yes, I Want </span>
                     </a>
                 </div>
             </div>
