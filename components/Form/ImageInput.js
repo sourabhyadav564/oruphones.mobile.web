@@ -37,7 +37,7 @@ function ImageInput({
             color: "rgba(0, 0, 0, 0.6)",
           }}
         >
-          {clickIndex === index && image ? <Loader /> : <span className=" text-sx opacity-50 m-auto font-Light"> + </span>}
+          {clickIndex === index ? <Loader /> : <span className=" text-sx opacity-50 m-auto font-Light"> + </span>}
           <input name={name} className={`hidden`} id={name} {...rest} />
         </label>
       )}

@@ -8,10 +8,12 @@ import Footer from "@/components/Footer";
 import BuySellGuide from "@/components/BuySellGuide";
 import Cookies from "js-cookie";
 import Loader from "@/components/Loader/Loader";
+import { BsArrowLeft } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 function editListing({ data, resultsSet }) {
   // const [resultSet, setResultSet] = useState([]);
-
+  const router = useRouter();
   const [makeAndModels, setMakeAndModels] = useState([]);
 
   useEffect(() => {
@@ -29,7 +31,15 @@ function editListing({ data, resultsSet }) {
   console.log("makeAndModels", makeAndModels);
   return (
     <Fragment>
-      <Header5 title={"Edit Listing"} />
+      {/* <Header5 title={"Edit Listing"} /> */}
+      <header className={`w-full z-50 flex p-4 h-[45px] bg-[#2C2F45] rounded-b-[10px] absolute text-white items-center  font-Roboto-Regular text-dx`}>
+        <BsArrowLeft
+          onClick={() => {
+            router.back()
+          }}
+          className="cursor-pointer" fontSize="20" />
+        <span className="absolute pl-2  left-10 right-10 font-Roboto-Regular text-dx "> Edit Listing</span>
+      </header>
       <main className="container mt-16 mb-4">
         {/* <div className="flex justify-center">
           <Image

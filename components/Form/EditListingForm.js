@@ -440,7 +440,7 @@ const EditListingForm = ({ data, resultsSet }) => {
             Edit details
           </p>
         </span>
-        {data && data?.deviceStorage && (
+        {data && data?.deviceStorage && !data?.verified && (
           <div className="space-y-2">
             <p className="font-Roboto-Regular text-ex">
               Storage Variant <span className="text-red-400">*</span>
