@@ -14,7 +14,7 @@ function Header2({ title, className, children, setOpen }) {
 
     return (
 
-        <header className={`w-full z-50 fixed flex p-4 h-[45px] bg-[#2C2F45] rounded-b-[10px] text-white items-center  font-Roboto-Regular text-dx  ${className || " text-white"}`}>
+        <header className={`w-full z-50 absolute flex p-4 h-[45px] bg-[#2C2F45] rounded-b-[10px] text-white items-center  font-Roboto-Regular text-dx  ${className || " text-white"}`}>
             {setOpen ? (
                 <BsArrowLeft onClick={() => setOpen(false)} className="cursor-pointer" fontSize="15" />
             ) : (
