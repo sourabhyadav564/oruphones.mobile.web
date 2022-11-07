@@ -219,9 +219,9 @@ function PriceRangePage() {
       {shopByPriceBestDeal &&
         shopByPriceBestDeal.length > 0 &&
         sortingProducts &&
-        sortingProducts.length > 0 && (
-          <NoMatch />
-        )}
+        sortingProducts.length > 0 ? null : (
+        <NoMatch />
+      )}
 
       {!isLoading &&
         isFinished == false && shopByPriceOtherListings.length != totalProducts && (
