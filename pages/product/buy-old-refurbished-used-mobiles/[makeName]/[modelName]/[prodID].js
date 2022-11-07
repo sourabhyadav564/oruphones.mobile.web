@@ -706,7 +706,7 @@ export const getServerSideProps = async ({ req, res, query }) => {
     query.isOtherVendor,
     query.prodID,
     userUniqueId || "Guest",
-    ""
+    sessionId || ""
   );
 
 
