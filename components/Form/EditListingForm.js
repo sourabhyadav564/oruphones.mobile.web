@@ -287,7 +287,7 @@ const EditListingForm = ({ data, resultsSet }) => {
   }, [setopenCondition, ConditionResultEdit, ConditionQuestionEdit]);
 
   const handleImageChange = (e, index) => {
-    setIsUploading(true);
+    // setIsUploading(true);
     const { name, files } = e.target;
     if (files && files.length) {
       let formData = new FormData();
@@ -301,7 +301,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       }).then(
         ({ status, dataObject }) => {
           if (status === "SUCCESS") {
-            setIsUploading(false);
+            // setIsUploading(false);
             let tempImages = [...images];
             tempImages[index] = {
               ...tempImages[index],
