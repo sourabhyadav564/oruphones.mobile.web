@@ -51,7 +51,8 @@ Axios.interceptors.response.use(
         localStorage.setItem("sessionId", result?.data?.dataObject?.sessionId);
       }
       Cookies.set("sessionId", result?.data?.dataObject?.sessionId);
-      window.location.reload();
+      // window.location.reload();
+      wd.location.replace(wd.location.href);
       // console.log("response.config", response.config);
     }
     return response;

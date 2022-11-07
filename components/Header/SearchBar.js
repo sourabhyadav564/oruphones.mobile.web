@@ -67,7 +67,7 @@ function SearchBar({ className }) {
     <Fragment>
       <div className="flex-1 relative " ref={ref}>
         <input
-          placeholder="Search on ORUPhones"
+          placeholder="Search on ORUphones"
           onChange={handleChange}
           value={input}
           className={`w-full bg-white text-gray-800 focus:outline-none rounded-md ${className || "py-2 pl-2 pr-4 text-xs"

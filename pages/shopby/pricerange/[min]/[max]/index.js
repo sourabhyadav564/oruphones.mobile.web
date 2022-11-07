@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
+import BottomNav from "@/components/Navigation/BottomNav";
 
 function PriceRangePage() {
   const router = useRouter();
@@ -159,83 +160,88 @@ function PriceRangePage() {
   }, [min, max, selectedSearchCity, applySortFilter]);
 
   return (
-    <Filter
-      searchText={`Price Range: ₹${min}${" - "}₹${max}`}
-      setSortApplyFilter={setSortApplyFilter}
-      setApplyFilter={setApplyFilter}
-      applyFilter={applyFilter}
-    >
-      {/* {(isLoading || shopByPriceBestDeal?.length > 0) && (
+    <>
+      <Filter
+        searchText={`Price Range: ₹${min}${" - "}₹${max}`}
+        setSortApplyFilter={setSortApplyFilter}
+        setApplyFilter={setApplyFilter}
+        applyFilter={applyFilter}
+      >
+        {/* {(isLoading || shopByPriceBestDeal?.length > 0) && (
         <h1 className="text-lg font-semibold text-gray-20 py-2.5">
           {" "}
           Best Deals{" "}
         </h1>
       )} */}
-      {isLoading ? (
-        <Loader />
-      ) : (
-        (shopByPriceBestDeal?.length > 0) && (
-          //   <div>
-          //      <h1 className="text-lg font-semibold text-gray-20 py-2.5">
-          //   {" "}
-          //   Best Deals{" "}
-          // </h1>
-          //   <BestDealSection bestDealData={shopByPriceBestDeal} />
-          //   </div>
-          <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff]">
-            <h1 className="text-lg font-semibold text-white py-2.5">
-              Best Deals
-            </h1>
-            <BestDealSection bestDealData={shopByPriceBestDeal} />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          (shopByPriceBestDeal?.length > 0) && (
+            //   <div>
+            //      <h1 className="text-lg font-semibold text-gray-20 py-2.5">
+            //   {" "}
+            //   Best Deals{" "}
+            // </h1>
+            //   <BestDealSection bestDealData={shopByPriceBestDeal} />
+            //   </div>
+            <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff]">
+              <h1 className="text-lg font-semibold text-white py-2.5">
+                Best Deals
+              </h1>
+              <BestDealSection bestDealData={shopByPriceBestDeal} />
+            </div>
+          )
+        )}
+        {(!isLoading || sortingProducts?.length > 0) && (
+          <div className="flex items-center " >
+            <h2 className=" text-mx font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
+              Other Listings ({totalProducts})
+            </h2>
+            <div className="">
+              <Filter1
+                setSortApplyFilter={setSortApplyFilter}
+              // setApplyFilter={setApplyFilter}
+              ></Filter1>
+            </div>
           </div>
-        )
-      )}
-      {(!isLoading || sortingProducts?.length > 0) && (
-        <div className="flex items-center " >
-          <h2 className=" text-mx font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
-            Other Listings ({totalProducts})
-          </h2>
-          <div className="">
-            <Filter1
-              setSortApplyFilter={setSortApplyFilter}
-            // setApplyFilter={setApplyFilter}
-            ></Filter1>
-          </div>
-        </div>
-      )}
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <section className="grid grid-cols-2 py-3 -m-1.5">
-          {sortingProducts &&
-            sortingProducts.length > 0 &&
-            sortingProducts.map((item) => (
-              <div key={item.listingId} className="m-1.5">
-                <OtherListingCard data={item} prodLink />
-              </div>
-            ))}
-        </section>
-      )}
-      {shopByPriceBestDeal &&
+        )}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <section className="grid grid-cols-2 py-3 -m-1.5">
+            {sortingProducts &&
+              sortingProducts.length > 0 ?
+              sortingProducts.map((item) => (
+                <div key={item.listingId} className="m-1.5">
+                  <OtherListingCard data={item} prodLink />
+                </div>
+              ))
+              : <NoMatch />
+            }
+          </section>
+        )}
+        {/* {shopByPriceBestDeal &&
         shopByPriceBestDeal.length > 0 &&
         sortingProducts &&
         sortingProducts.length > 0 ? null : (
         <NoMatch />
-      )}
+      )} */}
 
-      {!isLoading &&
-        isFinished == false && shopByPriceOtherListings.length != totalProducts && (
-          <span
-            className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
-            onClick={loadMoreData}
-          >
-            <p className="block text-m-green font-semibold">
-              {isLoadingMore ? "Fetching more products..." : "Load More"}
-            </p>
-          </span>
-        )}
-    </Filter>
+        {!isLoading &&
+          isFinished == false && shopByPriceOtherListings.length != totalProducts && (
+            <span
+              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
+                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              onClick={loadMoreData}
+            >
+              <p className="block text-m-green font-semibold">
+                {isLoadingMore ? "Fetching more products..." : "Load More"}
+              </p>
+            </span>
+          )}
+      </Filter>
+      <BottomNav />
+    </>
   );
 }
 
