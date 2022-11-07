@@ -130,7 +130,7 @@ function FavListingTile({ data, setProducts }) {
                   </div>
                   <div className="grid grid-cols-2">
                     <div></div>
-                    <div className="bg-black px-4 pt-2 mt-2 rounded-md ">
+                    <div className="bg-black pl-4 pt-1 mt-2 rounded-md ">
                       <div className="text-gray-300 text-xs">List Price</div>
                       <div className="text-sm font-bold text-gray-50 ">
                         ₹ {numberWithCommas(data.listingPrice || "")}

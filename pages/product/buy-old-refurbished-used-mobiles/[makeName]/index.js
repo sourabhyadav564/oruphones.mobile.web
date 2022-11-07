@@ -440,7 +440,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
 
 
         {isLoading ? (
-          <Loader />
+          <></>
         ) : (
           <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
             <CardHeading2 title="Shop by Model" />

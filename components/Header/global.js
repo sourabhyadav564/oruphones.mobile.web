@@ -36,7 +36,7 @@ function GlobalHeader() {
         router.pathname === "/product/buy-old-refurbished-used-mobiles/bestdealnearyou" ||
         router.pathname === "/product/buy-old-refurbished-used-mobiles/searchBar" ||
         router.pathname === "/product/models") && (
-          <div className="w-full flex flex-1 justify-between px-4  py-2 ">
+          <div className="w-full flex flex-1 justify-between px-4 py-2.5">
             <div className="w-44 space-x-6 flex items-center">
               <Image
                 onClick={() => setOpenSidebar(true)}

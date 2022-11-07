@@ -22,7 +22,7 @@ import Cookies from "js-cookie";
 
 function ShopbymodelCard({ data, location, makeLink, make, src, alt, fallBackSrc = Logo.src }) {
 
-  console.log("data3", data);
+  // console.log("data3", data);
 
   const router = useRouter();
   const [imageError, setImageError] = useState(false);
@@ -48,7 +48,7 @@ function ShopbymodelCard({ data, location, makeLink, make, src, alt, fallBackSrc
   return (
 
     <>
-      <div className="relative mb-6 inline-block"
+      <div className="flex relative mb-6 flex-col items-center justify-center"
         // onClick={handleModelClick} 
         onClick={() => window.open(
           makeLink
@@ -59,7 +59,7 @@ function ShopbymodelCard({ data, location, makeLink, make, src, alt, fallBackSrc
         }
       >
 
-        <div className="ml-6">
+        <div className="">
           <Image
             src={imageError ? fallBackSrc : src}
             alt={alt}

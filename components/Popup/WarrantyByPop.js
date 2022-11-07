@@ -18,10 +18,12 @@ function ShopByPopup({ data, open, setOpen }) {
     const warrantycarddata = [
         {
             id: 1,
+            Link: "/shopby/category/brandWarranty",
             text: "Brand Warranty"
         },
         {
             id: 2,
+            Link: "/shopby/category/sellerWarranty",
             text: "Seller Warranty"
         },
     ];
@@ -33,7 +35,7 @@ function ShopByPopup({ data, open, setOpen }) {
                     <div className="grid grid-cols-2 gap-5">
                         {warrantycarddata.map((item, index) => (
                             <Link
-                                href={`#`}
+                                href={item.Link}
                                 key={index}
                             >
                                 <p

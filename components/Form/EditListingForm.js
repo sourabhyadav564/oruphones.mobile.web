@@ -257,6 +257,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       make,
       marketingName,
       devicestorage: deviceStorage,
+      deviceRam: data?.deviceRam,
       deviceCondition: condition || data?.deviceCondition,
       earPhones: headphone ? "Y" : "N",
       charger: charging ? "Y" : "N",

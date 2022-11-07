@@ -40,7 +40,7 @@ function CardHeading3({ title }) {
 function CardHeading4({ title }) {
   return (
     <div>
-      <h1 className='font-Roboto-Medium text-ex text-[#000000]'>{title}</h1>
+      <h1 className='font-Roboto-Medium text-ex text-[#000000] truncate'>{title}</h1>
     </div>
   )
 }

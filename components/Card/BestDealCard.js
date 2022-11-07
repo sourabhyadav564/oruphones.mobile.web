@@ -172,7 +172,7 @@ function BestDealCard({
                     "_blank",)}
                 >
                   <a
-                    className="flex items-center px-dx  w-hx h-ix font-Roboto-Light text-ex bg-primary text-white rounded-lg"
+                    className="flex items-center w-full h-fx font-Roboto-Light text-ex px-5 py-2 bg-primary text-white rounded-[5px]"
                   // onClick={() => setLoadingState(true)}
                   >
                     <div className=" flex">
