@@ -18,6 +18,7 @@ import Geocode from "react-geocode";
 import Cookies from "js-cookie";
 import ConditionPopup from "../Popup/ConditionPopup";
 import PricePopup from "../Popup/PricePopup";
+import imageCompression from "browser-image-compression";
 
 const EditListingForm = ({ data, resultsSet }) => {
   const [make] = useState(data?.make);
