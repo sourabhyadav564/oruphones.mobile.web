@@ -392,7 +392,7 @@ const EditListingForm = ({ data, resultsSet }) => {
               width="60"
             />
 
-            <div className="flex flex-col  absolute bottom-4 left-28">
+            <div className="flex flex-col relative bottom-4 left-28">
               <p className="font-Roboto-Semibold text-dx text-[#2C2F45]">{data?.marketingName}</p>
 
               <p className="flex space-x-1">
@@ -416,7 +416,7 @@ const EditListingForm = ({ data, resultsSet }) => {
                   }
                 </div>
               </p>
-              <p className="flex space-x-1">
+              <p className="flex space-x-1 relative">
                 <span className="font-Roboto-Regular text-jx text-[#2C2F45]">Storage:</span>{" "}
                 <div className=" font-Roboto-Bold text-jx text-[#2C2F45]">
                   {devStorage ? devStorage.split("/")[0] :
