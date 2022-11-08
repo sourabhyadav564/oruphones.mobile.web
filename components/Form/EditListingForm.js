@@ -286,12 +286,21 @@ const EditListingForm = ({ data, resultsSet }) => {
     setConditionQuestionEdit(ConditionQuestionEdit);
   }, [setopenCondition, ConditionResultEdit, ConditionQuestionEdit]);
 
-  const handleImageChange = (e, index) => {
+  const handleImageChange = async (e, index) => {
     setIsUploading(true);
     const { name, files } = e.target;
     if (files && files.length) {
+      // let formData = new FormData();
+      // formData.append("image", files[0]);
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(files[0], options);
+
       let formData = new FormData();
-      formData.append("image", files[0]);
+      formData.append("image", compressedFile);
       uploadImage(formData, {
         deviceFace: name,
         deviceStorage,
