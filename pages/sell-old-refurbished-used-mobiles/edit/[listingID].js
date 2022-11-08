@@ -31,7 +31,7 @@ function editListing({ data, resultsSet }) {
   return (
     <Fragment>
       <Header5 title={"Edit Listing"} />
-      <main className="container mt-16 mb-4">
+      <main className="container my-4">
         {/* <div className="flex justify-center">
           <Image
             src={sellDeviceBanner}

@@ -392,7 +392,7 @@ const EditListingForm = ({ data, resultsSet }) => {
               width="60"
             />
 
-            <div className="flex flex-col relative bottom-4 left-28">
+            <div className="flex flex-col relative top-6 left-2">
               <p className="font-Roboto-Semibold text-dx text-[#2C2F45]">{data?.marketingName}</p>
 
               <p className="flex space-x-1">
