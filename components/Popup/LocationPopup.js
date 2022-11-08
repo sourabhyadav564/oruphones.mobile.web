@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
-import MySelect from "../Form/Select";
+import MySelect2 from "../Form/Select2";
 import Modal1 from "./Modal1";
 import { getGlobalCities, updateAddress, getUserDetails } from "api-call";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
+import BasicCarousel from "../Carousel/BasicCarousel";
 import Cookies from "js-cookie";
 import { BiCurrentLocation } from "react-icons/bi";
 import LocationPicker from "../Popup/LocationPicker";
@@ -181,14 +182,14 @@ function LocationPopup({ open, setOpen }) {
 
   return (
     <Modal1 open={open} setOpen={setOpen}>
-      <div className="bg-white px-4 py-6 pb-4">
-        <div className="text-left sm:mt-0 sm:ml-4 sm:text-left text-black-4e">
-          <Dialog.Title as="h1" className="text-lg leading-6 font-semibold ">
+      <div className="bg-white px-4 py-6 pb-4 ">
+        <div className="text-left sm:mt-0 sm:ml-4  sm:text-left text-black-4e">
+          <Dialog.Title as="h1" className="text-ex  font-Roboto-Bold">
             Select Location
           </Dialog.Title>
-          <form className="mb-4 mt-3 w-full text-sm space-y-2 pt-4">
-            <MySelect
-              labelName="Location"
+          <form className="mb-4 w-full text-sm space-y-2 pt-4">
+            <MySelect2
+              // labelName="Location"
               onChange={(e) => {
                 handleCityChange(e.value);
               }}
@@ -199,15 +200,20 @@ function LocationPopup({ open, setOpen }) {
                   return { label: items.city, value: items.city };
                 })}
             />
-            <div onClick={handleNearme}>
+            {/* <div onClick={handleNearme}>
               <p className="text-m text-gray-4e flex font-bold justify-center pt-2">
                 <BiCurrentLocation className="h-5 w-5" />Use Current Location
               </p>
-            </div>
-            <span className="block text-base w-full text-center">or</span>
+            </div> */}
+            {/* <span className="block text-base w-full text-center">or</span> */}
+            {/* <BasicCarousel
+        slidesPerView={4.4}
+        spaceBetween={8}
+        style={{ padding: "8px"}}
+      > */}
             <div
-              className="grid grid-cols-3 text-center -mx-1"
-              style={{ minHeight: "40vh" }}
+              className="flex text-center -mx-1 py-4 overflow-x-scroll no-scrollbar"
+            // style={{ minHeight: "40vh" }}
             >
               {globalCities &&
                 globalCities
@@ -215,7 +221,7 @@ function LocationPopup({ open, setOpen }) {
                   // .slice(0, 9)
                   .map((items) => (
                     <div
-                      className={`border rounded px-0 py-2 m-1 ${selectedCity.current === items.city && "border-primary"
+                      className={`border-0 bg-[#F1F1F1] rounded px-4 py-2 m-1  ${selectedCity.current === items.city && "border-primary"
                         }`}
                       key={items.city}
                       onClick={() => handleCityChange(items.city)}
@@ -229,12 +235,26 @@ function LocationPopup({ open, setOpen }) {
                           objectFit="contain"
                         />
                       </div>
-                      <span className="block capitalize text-m-grey-1 mt-2 text-xs px-2 w-full truncate">
+                      <span className="block capitalize text-[#2C2F45] text-cx font-Roboto-Regular mt-1 text-xs px-2 w-full truncate">
                         {items.city}
                       </span>
                     </div>
                   ))}
             </div>
+            <div>
+              <h1 className="uppercase text-mx border-b pb-1.5 border-black-4e font-Roboto-Medium">all cities</h1>
+              {/* <div>
+                        {globalCities.map((items)=>(
+                            <div>
+                              <p>{items.city}</p>
+                            </div>
+
+                          ))
+                        }
+                </div> */}
+
+            </div>
+            {/* </BasicCarousel> */}
           </form>
         </div>
       </div>

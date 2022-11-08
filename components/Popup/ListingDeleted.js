@@ -35,21 +35,21 @@ function ListingDeleted({ open, setOpen, data, setListings }) {
     <Modal2 open={open} setOpen={setOpen}>
       <div className="flex flex-col items-center max-w-sm px-6 space-y-2 text-base text-black-21">
         <FaRegTrashAlt size={34} color="#f92b2b" />
-        <h1 className="font-bold mb-2"> Delete Listing? </h1>
-        <div className="w-full space-y-8 py-2">
+        <h1 className="font-Roboto-Bold mb-2"> Delete Listing? </h1>
+        <div className="w-full font-Roboto-Regular space-y-8 py-2">
           <p>Do you want to Delete the listing?</p>
           <MySelect labelName="Reason for deletion" options={optionsList} />
         </div>
         <div className="my-4">
           <div className="flex space-x-6 justify-center text-white items-center text-sm">
             <span
-              className="font-medium text-primary rounded uppercase cursor-pointer"
+              className="font-Roboto-Semibold text-primary rounded uppercase cursor-pointer"
               onClick={() => setOpen(false)}
             >
               Cancel
             </span>
             <span
-              className="font-medium px-4 py-2 bg-primary rounded uppercase cursor-pointer"
+              className="font-Roboto-Semibold px-4 py-2 bg-primary rounded uppercase cursor-pointer"
               onClick={handleDelete}
             >
               Ok

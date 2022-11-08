@@ -70,13 +70,13 @@ function Sidebar({ open, setOpen }) {
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <h2 className="font-Semibold text-dx">{userName}</h2>
-                  {user?.userdetails?.createdDate && <p className="text-bx font-Light text-gray-300">Joined On {user?.userdetails?.createdDate}</p>}
+                  <h2 className="font-Roboto-Semibold text-dx">{userName}</h2>
+                  {user?.userdetails?.createdDate && <p className="text-bx font-Roboto-Light text-gray-300">Joined On {user?.userdetails?.createdDate}</p>}
                 </div>
               </div>
             </div>
 
-            <ul className="mt-6 mb-4 text-black-4e flex flex-col flex-1 pr-5 font-Regular text-mx">
+            <ul className="mt-6 mb-4 text-black-4e flex flex-col flex-1 pr-5 font-Roboto-Regular text-mx">
               <ListItem
                 href={authenticated ? "/user/favourites" : "/login"}
                 onClick={() => {
@@ -85,7 +85,7 @@ function Sidebar({ open, setOpen }) {
               >
                 <div className="w-full flex gap-2 border-b pb-3">
                   <MdOutlineFavoriteBorder size={20} className="self-center" />
-                  <p className="self-center flex-1"> My Favorites</p>
+                  <p className="self-center flex-1 font-Roboto-Regular"> My Favorites</p>
                   <FiChevronLeft className="rotate-180 -mr-2 self-center" />
                   <hr />
                 </div>
@@ -99,7 +99,7 @@ function Sidebar({ open, setOpen }) {
               >
                 <div className="w-full flex gap-2 border-b pb-3">
                   <AiOutlineInfoCircle size={20} className="self-center" />
-                  <p className="self-center flex-1"> About us</p>
+                  <p className="self-center flex-1 font-Roboto-Regular"> About us</p>
                   <FiChevronLeft className="rotate-180 self-center" />
                 </div>
               </ListItem>
@@ -111,7 +111,7 @@ function Sidebar({ open, setOpen }) {
               >
                 <div className="w-full flex gap-2 border-b pb-3">
                   <AiOutlineQuestionCircle size={20} className="self-center" />
-                  <p className="self-center flex-1"> FAQs</p>
+                  <p className="self-center flex-1 font-Roboto-Regular"> FAQs</p>
                   <FiChevronLeft className="rotate-180 self-center" />
                 </div>
               </ListItem>
@@ -124,13 +124,13 @@ function Sidebar({ open, setOpen }) {
                       setOpen(false);
                     }}
                   >
-                    <div className="flex gap-2 -pl-4 pt-2">
+                    <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
                       <AiOutlineLogout size={20} className="self-center" /> <p>Logout</p>
                     </div>
                   </ListItem>
                 ) : (
                   <ListItem href="/login">
-                    <div className="flex gap-2 -pl-4 pt-2">
+                    <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
                       <AiOutlineLogin size={20} /> <p>Sign In</p>
                     </div>
                   </ListItem>

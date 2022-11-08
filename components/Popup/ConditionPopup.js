@@ -112,7 +112,7 @@ function ConditionPopup({ openCondition, setopenCondition, setConditionResultEdi
                         Sort by
                     </Dialog.Title> */}
                     <div>
-                        <h3 className="text-center font-semibold text-xl">
+                        <h3 className="text-center font-Roboto-Semibold text-xl">
                             {deviceConditionQuestion[questionIndex]?.title}
                         </h3>
                         {deviceConditionQuestion[questionIndex]?.options?.map(

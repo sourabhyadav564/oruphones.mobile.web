@@ -38,8 +38,8 @@ function BrandCard({ data, className, popup }) {
               <Image
                 src={data?.imagePath || Logo}
                 alt={data?.make}
-                height={40}
-                width={40}
+                height={45}
+                width={45}
                 objectFit="contain"
               />
             </a>
@@ -53,8 +53,8 @@ function BrandCard({ data, className, popup }) {
             <Image
               src={data?.imagePath || Logo}
               alt={data?.make}
-              height={50}
-              width={50}
+              height={45}
+              width={45}
               objectFit="contain"
             />
           </a>

@@ -43,7 +43,7 @@ function ShopByPopup({ data, open, setOpen }) {
                                 // onClick={() => setLoadingState(true)}
                                 >
                                     {item.bracket}{" "}
-                                    <span className=" font-semibold">{item.text}</span>
+                                    <span className=" font-Roboto-Semibold">{item.text}</span>
                                 </p>
                             </Link>
                         ))}
@@ -58,7 +58,7 @@ function ShopByPopup({ data, open, setOpen }) {
                                 className=" bg-gray-200  flex flex-col items-center justify center px-5 py-2 rounded-md hover:cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-300"
                             // onClick={() => setLoadingState(true)}
                             >
-                                <span className="font-semibold">Both</span>
+                                <span className="font-Roboto-Semibold">Both</span>
                             </p>
                         </Link>
                     </div>

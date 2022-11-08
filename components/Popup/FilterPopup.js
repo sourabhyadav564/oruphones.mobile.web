@@ -99,11 +99,11 @@ function FilterPopup({
       <div className="bg-white p-6 pb-4 sm:p-6 sm:pb-4">
         <div className="sm:mt-0 sm:ml-4 sm:text-left text-black-4e">
           <Dialog.Title className={"flex justify-between"}>
-            <span as="h1" className="text-lg leading-6 font-semibold ">
+            <span as="h1" className="text-lg leading-6 font-Roboto-Semibold ">
               Filters
             </span>
             <span
-              className="text-sm text-red-500 text-semibold font-normal underline"
+              className="text-sm text-red-500 text-semibold font-Roboto-Regular underline"
               onClick={() => clearFilter()}
             >
               Clear Filter
@@ -122,10 +122,10 @@ function FilterPopup({
                   ></PriceFilter>
                 ) : (
                   <Fragment key={section?.id}>
-                    <p className="text-base flex items-center">
+                    <p className="text-base font-Roboto-Regular flex items-center">
                       {section.name} {openPopup(section.id)}
                     </p>
-                    <div className="flex text-sm pt-2 pb-4 capitalize space-x-2 overflow-x-auto filterPopup">
+                    <div className="flex text-sm pt-2 pb-4 font-Roboto-Regular capitalize space-x-2 overflow-x-auto filterPopup">
                       {section?.options.map((option) => (
                         <Button
                           key={option.value}
@@ -149,7 +149,7 @@ function FilterPopup({
           </div>
         </div>
         <button
-          className="uppercase bg-primary text-white w-full rounded text-sm py-2 my-2"
+          className="uppercase bg-primary text-white w-full rounded text-sm py-2 my-2 font-Roboto-Medium"
           onClick={submit}
         >
           Apply
@@ -171,11 +171,10 @@ export default FilterPopup;
 
 const Button = ({ children, active, ...rest }) => (
   <button
-    className={`capitalize rounded-md text-xs max-w-max border px-3 py-1 flex-shrink-0 ${
-      active
+    className={`capitalize rounded-md text-xs max-w-max border px-3 py-1 flex-shrink-0 ${active
         ? "bg-primary-light opacity-50 text-white border-primary"
         : "border-gray-c7"
-    }`}
+      }`}
     {...rest}
   >
     {children}

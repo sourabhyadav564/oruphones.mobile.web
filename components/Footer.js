@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 
 const Footer = () => {
   const router = useRouter();
+
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 container md:grid-cols-3 md:space-y-8  text-white">
           <div className="flex flex-col">
             <h1 className="font-Roboto-Semobold text-mx">IMPORTANT LINKS</h1>
-            <Link href="/about-us">
+            <Link href="/about-us" >
               <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2">About Us</a>
             </Link>
             <Link href="/contact-us">
@@ -75,23 +76,30 @@ const Footer = () => {
           <div className="flex flex-col text-white">
             <h1 className="font-Roboto-Semobold text-mx">IMPORTANT LINKS</h1>
             <Link href="/product/buy-old-refurbished-used-mobiles/apple">
-              <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2">Buy Used Apple iPhones</a>
+              <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
+                onClick={() => setLoadingState(true)}
+              > Buy Used Apple iPhones</a>
             </Link>
             <Link href="/product/buy-old-refurbished-used-mobiles/samsung">
-              <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2" >Buy Used Samsung iPhones</a>
+              <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
+                onClick={() => setLoadingState(true)}
+              >Buy Used Samsung Phones</a>
             </Link>
             <Link
               href="/product/buy-old-refurbished-used-mobiles/realme"
               className="yes  delay-75  max-w-max "
             >
-              <a className="yes delay-75   max-w-max font-Roboto-Light text-jx mt-2" >Buy Used Realme Phones</a>
+              <a className="yes delay-75   max-w-max font-Roboto-Light text-jx mt-2"
+                onClick={() => setLoadingState(true)}
+              >Buy Used Realme Phones</a>
             </Link>
             <Link
               href="/product/buy-old-refurbished-used-mobiles/motorola"
               className="yes delay-75 mt-4 max-w-max"
             >
-              <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2" >
-                Buy Used Motorola Phones
+              <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
+                onClick={() => setLoadingState(true)}
+              >Buy Used Motorola Phones
               </a>
             </Link>
             {/* <Link href="#">
