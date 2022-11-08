@@ -286,12 +286,21 @@ const EditListingForm = ({ data, resultsSet }) => {
     setConditionQuestionEdit(ConditionQuestionEdit);
   }, [setopenCondition, ConditionResultEdit, ConditionQuestionEdit]);
 
-  const handleImageChange = (e, index) => {
-    // setIsUploading(true);
+  const handleImageChange = async (e, index) => {
+    setIsUploading(true);
     const { name, files } = e.target;
     if (files && files.length) {
+      // let formData = new FormData();
+      // formData.append("image", files[0]);
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(files[0], options);
+
       let formData = new FormData();
-      formData.append("image", files[0]);
+      formData.append("image", compressedFile);
       uploadImage(formData, {
         deviceFace: name,
         deviceStorage,
@@ -301,7 +310,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       }).then(
         ({ status, dataObject }) => {
           if (status === "SUCCESS") {
-            // setIsUploading(false);
+            setIsUploading(false);
             let tempImages = [...images];
             tempImages[index] = {
               ...tempImages[index],
@@ -392,7 +401,7 @@ const EditListingForm = ({ data, resultsSet }) => {
               width="60"
             />
 
-            <div className="flex flex-col  absolute bottom-4 left-28">
+            <div className="flex flex-col relative top-6 left-2">
               <p className="font-Roboto-Semibold text-dx text-[#2C2F45]">{data?.marketingName}</p>
 
               <p className="flex space-x-1">
@@ -416,7 +425,7 @@ const EditListingForm = ({ data, resultsSet }) => {
                   }
                 </div>
               </p>
-              <p className="flex space-x-1">
+              <p className="flex space-x-1 relative">
                 <span className="font-Roboto-Regular text-jx text-[#2C2F45]">Storage:</span>{" "}
                 <div className=" font-Roboto-Bold text-jx text-[#2C2F45]">
                   {devStorage ? devStorage.split("/")[0] :
