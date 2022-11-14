@@ -792,7 +792,7 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption.storage.map((item, index) => (
                       <div
                         className={`${storage == item
-                          ? "bg-[#E8E8E8]  text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
+                          ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
                           : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
                           }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
                         onClick={() => setStorage(item)}
@@ -1237,7 +1237,7 @@ const NewAddListingForm = ({ data }) => {
                   }}
                   options={globalCities
                     ?.sort((a, b) => a.city.localeCompare(b.city))
-                    // ?.filter((item) => item.displayWithImage != "1")
+                    ?.filter((item) => item.city != "India")
                     .map((items) => {
                       return { label: items.city, value: items.city };
                     })}

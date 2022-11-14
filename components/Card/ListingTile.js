@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import UnVerifiedIcon from "../UnVerifiedIcon";
 import VerifiedIcon from "../VerifiedIcon";
 import ShareIcon from "../ShareIcon";
+import Logo from "@/assets/oru_phones_logo.png";
 
 const PauseListing = dynamic(() => import("@/components/Popup/PauseListing"));
 const VerifyFlowPopup = dynamic(() => import("@/components/Popup/VerifyFlowPopup"));
@@ -90,7 +91,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
           <div className="flex  p-1">
             <div className="px-2">
               <Image
-                src={(data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || "/fullImage"}
+                src={(data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
                 width={100}
                 height={100}
                 objectFit="contain"

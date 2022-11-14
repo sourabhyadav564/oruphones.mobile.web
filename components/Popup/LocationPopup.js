@@ -182,29 +182,32 @@ function LocationPopup({ open, setOpen }) {
 
   return (
     <Modal1 open={open} setOpen={setOpen}>
-      <div className="bg-white px-4 py-6 pb-4 ">
+      <div className="bg-white px-4 py-6 pb-4">
         <div className="text-left sm:mt-0 sm:ml-4  sm:text-left text-black-4e">
           <Dialog.Title as="h1" className="text-ex  font-Roboto-Bold">
             Select Location
           </Dialog.Title>
           <form className="mb-4 w-full text-sm space-y-2 pt-4">
-            <MySelect2
-              // labelName="Location"
-              onChange={(e) => {
-                handleCityChange(e.value);
-              }}
-              options={globalCities
-                ?.sort((a, b) => a.city.localeCompare(b.city))
-                // ?.filter((item) => item.displayWithImage === "-1")
-                ?.map((items) => {
-                  return { label: items.city, value: items.city };
-                })}
-            />
-            {/* <div onClick={handleNearme}>
-              <p className="text-m text-gray-4e flex font-bold justify-center pt-2">
-                <BiCurrentLocation className="h-5 w-5" />Use Current Location
-              </p>
-            </div> */}
+            <div className="flex flex-rpw">
+              <MySelect2
+                // labelName="Location"
+                onChange={(e) => {
+                  handleCityChange(e.value);
+                }}
+                options={globalCities
+                  ?.sort((a, b) => a.city.localeCompare(b.city))
+                  // ?.filter((item) => item.displayWithImage === "-1")
+                  ?.map((items) => {
+                    return { label: items.city, value: items.city };
+                  })}
+              />
+              <span className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-r-md cursor-pointer"
+                onClick={handleNearme}>
+                <p className="text-m text-gray-4e flex font-bold justify-center">
+                  <BiCurrentLocation className="h-5 w-5" />
+                </p>
+              </span>
+            </div>
             {/* <span className="block text-base w-full text-center">or</span> */}
             {/* <BasicCarousel
         slidesPerView={4.4}
@@ -226,33 +229,32 @@ function LocationPopup({ open, setOpen }) {
                       key={items.city}
                       onClick={() => handleCityChange(items.city)}
                     >
-                      <div className="relative w-14 h-14 mx-auto">
+                      <div className="relative w-14 mx-auto">
                         <Image
                           src={items.imgpath}
                           alt={items.city}
-                          width={"100%"}
-                          height={"100%"}
+                          width={47}
+                          height={32}
                           objectFit="contain"
                         />
                       </div>
-                      <span className="block capitalize text-[#2C2F45] text-cx font-Roboto-Regular mt-1 text-xs px-2 w-full truncate">
+                      <span className="block capitalize text-[#2C2F45] text-cx font-Roboto-Regular text-xs px-2 w-full truncate">
                         {items.city}
                       </span>
                     </div>
                   ))}
             </div>
-            <div>
-              <h1 className="uppercase text-mx border-b pb-1.5 border-black-4e font-Roboto-Medium">all cities</h1>
-              {/* <div>
-                        {globalCities.map((items)=>(
-                            <div>
-                              <p>{items.city}</p>
-                            </div>
 
-                          ))
-                        }
-                </div> */}
-
+            <div className="">
+              <h1 className="uppercase text-ex border-b pb-1.5 border-black-4e font-Roboto-Medium ">all cities</h1>
+              <div className="pt-2 h-80 overflow-y-scroll no-scrollbar">
+                {globalCities && globalCities.map((items) => (
+                  <div className="pb-2" onClick={() => handleCityChange(items.city)}>
+                    <p className="border-b px-2 pb-2">{items.city}</p>
+                  </div>
+                ))
+                }
+              </div>
             </div>
             {/* </BasicCarousel> */}
           </form>

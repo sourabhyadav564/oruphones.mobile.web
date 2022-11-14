@@ -673,14 +673,16 @@ export function getShowSerchFilters() {
   );
 }
 
-export async function searchFilter(payLoad, userUniqueId, sessionId, pageNumber) {
+export async function searchFilter(payLoad, userUniqueId, sessionId, pageNumber, sortBy) {
   headers = { ...headers, eventName: "FETCH_SEARCH_LISTINGS", sessionId: sessionId };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
     `${URI}/api/v1/home/listings/search?userUniqueId=` +
     userUniqueId +
     `&pageNumber=` +
-    pageNumber;
+    pageNumber +
+    `&sortBy=` +
+    sortBy;
   return await Axios.post(API_ENDPOINT, payLoad, DEFAULT_HEADER).then(
     (response) => {
       return response.data;

@@ -21,14 +21,15 @@ function PriceRangePage() {
   const [applyFilter, setApplyFilter] = useState();
   const [applySortFilter, setSortApplyFilter] = useState();
   const [isLoading, setLoading] = useState(true);
-
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
   let [pageNumber, setPageNumber] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
+  let intialPage = 0;
 
   const loadData = (intialPage) => {
-    if (min && max) {
+    if (min && max && !isFilterApplied) {
       shopByPriceRange(
         // max === "above" ? "200000" : max,
         max,
@@ -46,6 +47,67 @@ function PriceRangePage() {
         },
         (err) => console.error(err)
       );
+    } else if (isFilterApplied) {
+      if (applyFilter) {
+        const {
+          brand,
+          condition,
+          color,
+          storage,
+          warranty,
+          verification,
+          priceRange,
+        } = applyFilter;
+        if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
+          let payLoad = {
+            listingLocation: selectedSearchCity,
+            // maxsellingPrice: max === "above" ? "200000" : max,
+            maxsellingPrice: max,
+            minsellingPrice: min,
+            reqPage: "SBYP",
+            make: [],
+            marketingName: [],
+            color: [],
+            deviceCondition: [],
+            deviceRam: [],
+            deviceStorage: [],
+            verified: "",
+            warenty: [],
+            pageNumber: intialPage,
+          };
+          if (brand?.length > 0) {
+            payLoad.make = brand.includes("all") ? [] : brand;
+          }
+          if (condition?.length > 0) {
+            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+          }
+          if (storage?.length > 0) {
+            payLoad.deviceStorage = storage.includes("all") ? [] : storage;
+          }
+          if (color?.length > 0) {
+            payLoad.color = color.includes("all") ? [] : color;
+          }
+          if (warranty?.length > 0) {
+            payLoad.warenty = warranty.includes("all") ? [] : warranty;
+          }
+          if (verification?.length > 0) {
+            payLoad.verified = verification.includes("all") ? "" : "verified";
+          }
+          // setLoading(true);
+          searchFilter(
+            payLoad,
+            localStorage.getItem("userUniqueId") || "Guest",
+            localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+            pageNumber,
+            applySortFilter
+          ).then((response) => {
+            setShopByPriceOtherListings(response?.dataObject?.otherListings);
+            setTotalProducts(response?.dataObject?.totalProducts);
+            setShopByPriceBestDeal(response?.dataObject?.bestDeals);
+            // setLoading(false);
+          });
+        }
+      }
     }
   };
 
@@ -53,7 +115,7 @@ function PriceRangePage() {
     let newPages = pageNumber + 1;
     setPageNumber(newPages);
     setIsLoadingMore(true);
-    if (min && max) {
+    if (min && max && !isFilterApplied) {
       shopByPriceRange(
         // max === "above" ? "200000" : max,
         max,
@@ -84,11 +146,88 @@ function PriceRangePage() {
         },
         (err) => console.error(err)
       );
+    } else if (isFilterApplied) {
+      if (applyFilter) {
+        const {
+          brand,
+          condition,
+          color,
+          storage,
+          warranty,
+          verification,
+          priceRange,
+        } = applyFilter;
+        if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
+          let payLoad = {
+            listingLocation: selectedSearchCity,
+            // maxsellingPrice: max === "above" ? "200000" : max,
+            maxsellingPrice: max,
+            minsellingPrice: min,
+            reqPage: "SBYP",
+            make: [],
+            marketingName: [],
+            color: [],
+            deviceCondition: [],
+            deviceRam: [],
+            deviceStorage: [],
+            verified: "",
+            warenty: [],
+            pageNumber: newPages,
+          };
+          if (brand?.length > 0) {
+            payLoad.make = brand.includes("all") ? [] : brand;
+          }
+          if (condition?.length > 0) {
+            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+          }
+          if (storage?.length > 0) {
+            payLoad.deviceStorage = storage.includes("all") ? [] : storage;
+          }
+          if (color?.length > 0) {
+            payLoad.color = color.includes("all") ? [] : color;
+          }
+          if (warranty?.length > 0) {
+            payLoad.warenty = warranty.includes("all") ? [] : warranty;
+          }
+          if (verification?.length > 0) {
+            payLoad.verified = verification.includes("all") ? "" : "verified";
+          }
+          // setLoading(true);
+          searchFilter(
+            payLoad,
+            localStorage.getItem("userUniqueId") || "Guest",
+            localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+            newPages,
+            applySortFilter
+          ).then((response) => {
+            setIsLoadingMore(false);
+            if (newPages == 0) {
+              setShopByPriceOtherListings(response?.dataObject?.otherListings);
+            } else {
+              setShopByPriceOtherListings((products) => [
+                ...products,
+                ...response?.dataObject?.otherListings,
+              ]);
+            }
+            setTotalProducts(response?.dataObject?.totalProducts);
+            if (newPages == 0) {
+              setShopByPriceBestDeal(response?.dataObject?.bestDeals);
+            } else {
+              setShopByPriceBestDeal((products) => [
+                ...products,
+                ...response?.dataObject?.bestDeals,
+              ]);
+            }
+            // setLoading(false);
+          });
+        }
+      }
     }
   };
 
   useEffect(() => {
     if (applyFilter) {
+      setIsFilterApplied(true);
       const {
         brand,
         condition,
@@ -113,6 +252,7 @@ function PriceRangePage() {
           deviceStorage: [],
           verified: "",
           warenty: [],
+          pageNumber: intialPage
         };
         if (brand?.length > 0) {
           payLoad.make = brand.includes("all") ? [] : brand;
@@ -137,7 +277,8 @@ function PriceRangePage() {
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
           localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
-          pageNumber
+          pageNumber,
+          applySortFilter
         ).then((response) => {
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
           setTotalProducts(response?.dataObject?.totalProducts);
@@ -148,13 +289,12 @@ function PriceRangePage() {
     }
   }, [applyFilter]);
 
-  const sortingProducts = getSortedProducts(
-    applySortFilter,
-    shopByPriceOtherListings
-  );
+  // const sortingProducts = getSortedProducts(
+  //   applySortFilter,
+  //   shopByPriceOtherListings
+  // );
 
   useEffect(() => {
-    let intialPage = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
   }, [min, max, selectedSearchCity, applySortFilter]);
@@ -166,6 +306,7 @@ function PriceRangePage() {
         setSortApplyFilter={setSortApplyFilter}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
+        setIsFilterApplied={setIsFilterApplied}
       >
         {/* {(isLoading || shopByPriceBestDeal?.length > 0) && (
         <h1 className="text-lg font-semibold text-gray-20 py-2.5">
@@ -192,7 +333,7 @@ function PriceRangePage() {
             </div>
           )
         )}
-        {(!isLoading || sortingProducts?.length > 0) && (
+        {(!isLoading || shopByPriceOtherListings?.length > 0) && (
           <div className="flex items-center " >
             <h2 className=" text-mx font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
               Other Listings ({totalProducts})
@@ -209,9 +350,9 @@ function PriceRangePage() {
           <Loader />
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
-            {sortingProducts &&
-              sortingProducts.length > 0 ?
-              sortingProducts.map((item) => (
+            {shopByPriceOtherListings &&
+              shopByPriceOtherListings.length > 0 ?
+              shopByPriceOtherListings.map((item) => (
                 <div key={item.listingId} className="m-1.5">
                   <OtherListingCard data={item} prodLink />
                 </div>

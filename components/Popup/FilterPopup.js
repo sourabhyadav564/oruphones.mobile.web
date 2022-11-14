@@ -12,6 +12,7 @@ function FilterPopup({
   setOpenFilter,
   filterOptions,
   setApplyFilter,
+  setIsFilterApplied
 }) {
   const [selectedValues, setSelectedValues] = useState({
     condition: ["all"],
@@ -85,6 +86,7 @@ function FilterPopup({
       warranty: ["all"],
       verification: "",
     });
+    setIsFilterApplied(false);
     setOpenFilter(false);
   };
 
@@ -172,8 +174,8 @@ export default FilterPopup;
 const Button = ({ children, active, ...rest }) => (
   <button
     className={`capitalize rounded-md text-xs max-w-max border px-3 py-1 flex-shrink-0 ${active
-        ? "bg-primary-light opacity-50 text-white border-primary"
-        : "border-gray-c7"
+      ? "bg-primary-light opacity-50 text-white border-primary"
+      : "border-gray-c7"
       }`}
     {...rest}
   >

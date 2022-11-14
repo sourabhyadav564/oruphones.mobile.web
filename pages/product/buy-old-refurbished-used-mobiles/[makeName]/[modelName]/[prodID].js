@@ -131,6 +131,7 @@ function ProductDeatils({ data }) {
     ) {
       fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
         (response) => {
+          console.log("response", response);
           setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
         }
       );
@@ -494,20 +495,29 @@ function ProductDeatils({ data }) {
                 <PrimayButton onClick={() => data?.status == "Active" ? showSellerNumber(data?.listingId) : toast.warning("This device is sold out")}>
                   {showNumber ? contactSellerMobileNumber : "Contact Seller"}
                 </PrimayButton>
-                {showNumber && (
+                {authenticated ? (
                   <div
                     className="  px-3 pt-[2px] pb-[2px] rounded-md bg-white"
                     onClick={() =>
-                      data?.status == "Active" ? window.open(
-                        `https://wa.me/${contactSellerMobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
-                        "_blank"
-                      ) : toast.warning("This device is sold out")
+                      fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
+                        (response) => {
+                          console.log("response", response);
+                          setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
+                        }
+                      ).then(() => {
+                        data?.status == "Active" ? window.open(
+                          `https://wa.me/${contactSellerMobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
+                          "_blank"
+                        ) : toast.warning("This device is sold out")
+                      })
                     }
                   >
                     <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
                   </div>
-                )}
-                {
+                ) :
+                  () => setOpenLoginPopup(true)
+                }
+                {/* {
                   !showNumber && (
                     (
                       <div
@@ -523,7 +533,7 @@ function ProductDeatils({ data }) {
                       </div>
                     )
                   )
-                }
+                } */}
               </div>
             )}
           </div>
@@ -639,25 +649,29 @@ function ProductDeatils({ data }) {
       <SimilarProduct data={data} />
       <Footer />
 
-      {openRequestVerificationSuccessPopup && (
-        <RequestVerificationSuccessPopup
-          open={openRequestVerificationSuccessPopup}
-          setOpen={setOpenRequestVerificationSuccessPopup}
-          data={data}
-        />
-      )}
+      {
+        openRequestVerificationSuccessPopup && (
+          <RequestVerificationSuccessPopup
+            open={openRequestVerificationSuccessPopup}
+            setOpen={setOpenRequestVerificationSuccessPopup}
+            data={data}
+          />
+        )
+      }
 
-      {openRequestVerificationPopup && (
-        <RequestVerificationPopup
-          open={openRequestVerificationPopup}
-          setOpen={setOpenRequestVerificationPopup}
-          data={data}
-          setShowNumber={setShowNumber}
-          setOpenRequestVerificationSuccessPopup={
-            setOpenRequestVerificationSuccessPopup
-          }
-        />
-      )}
+      {
+        openRequestVerificationPopup && (
+          <RequestVerificationPopup
+            open={openRequestVerificationPopup}
+            setOpen={setOpenRequestVerificationPopup}
+            data={data}
+            setShowNumber={setShowNumber}
+            setOpenRequestVerificationSuccessPopup={
+              setOpenRequestVerificationSuccessPopup
+            }
+          />
+        )
+      }
       <FullImageView
         open={showFullImage}
         close={() => setShowFullImage(false)}
@@ -674,27 +688,33 @@ function ProductDeatils({ data }) {
           ])
         }
       />
-      {openConditionInfo && (
-        <ConditionInfo
-          open={openConditionInfo}
-          setOpen={setOpenConditionInfo}
-        />
-      )}
-      {openVerificationInfo && (
-        <VerificationInfo
-          open={openVerificationInfo}
-          setOpen={setOpenVerificationInfo}
-        />
-      )}
-      {openWarrantyInfo && (
-        <WarrantyInfo open={openWarrantyInfo} setOpen={setOpenWarrantyInfo} />
-      )}
+      {
+        openConditionInfo && (
+          <ConditionInfo
+            open={openConditionInfo}
+            setOpen={setOpenConditionInfo}
+          />
+        )
+      }
+      {
+        openVerificationInfo && (
+          <VerificationInfo
+            open={openVerificationInfo}
+            setOpen={setOpenVerificationInfo}
+          />
+        )
+      }
+      {
+        openWarrantyInfo && (
+          <WarrantyInfo open={openWarrantyInfo} setOpen={setOpenWarrantyInfo} />
+        )
+      }
       <LoginPopup
         open={openLoginPopup}
         setOpen={setOpenLoginPopup}
         fromAddListing
       />
-    </Fragment>
+    </Fragment >
   );
 }
 

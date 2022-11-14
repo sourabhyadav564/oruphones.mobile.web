@@ -12,7 +12,7 @@ import filterIcon from "@/assets/filter.png";
 import filterApplyIcon from "@/assets/filter_apply.png";
 import SearchBar from "../Header/SearchBar";
 
-export default function Filter({ children, searchText, setApplyFilter, applyFilter, setSortApplyFilter }) {
+export default function Filter({ children, searchText, setApplyFilter, applyFilter, setSortApplyFilter, setIsFilterApplied }) {
   const [openFilter, setOpenFilter] = useState(false);
   const [openSort, setOpenSort] = useState(false);
   var { filterOptions } = useFilterOptions();
@@ -38,6 +38,9 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
   } else if (filterOptions && router.pathname === "/product/models") {
     filterOptions = filterOptions.filter((i) => i.id === "brand");
   }
+
+  console.log("applyFilter", applyFilter);
+  console.log("filterOptions", filterOptions);
 
   return (
     <Fragment>
@@ -72,7 +75,7 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
         <div className="px-4">{children}</div>
       </main>
       <Footer />
-      <FilterPopup openFilter={openFilter} setOpenFilter={setOpenFilter} filterOptions={filterOptions} setApplyFilter={setApplyFilter} />
+      <FilterPopup openFilter={openFilter} setOpenFilter={setOpenFilter} filterOptions={filterOptions} setApplyFilter={setApplyFilter} setIsFilterApplied={setIsFilterApplied} />
       <SortPopup setSortApplyFilter={setSortApplyFilter} openSort={openSort} setOpenSort={setOpenSort} />
     </Fragment>
   );

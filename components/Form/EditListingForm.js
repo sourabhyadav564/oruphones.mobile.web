@@ -18,6 +18,7 @@ import Geocode from "react-geocode";
 import Cookies from "js-cookie";
 import ConditionPopup from "../Popup/ConditionPopup";
 import PricePopup from "../Popup/PricePopup";
+import Logo from "@/assets/oru_phones_logo.png";
 import imageCompression from "browser-image-compression";
 
 const EditListingForm = ({ data, resultsSet }) => {
@@ -395,7 +396,7 @@ const EditListingForm = ({ data, resultsSet }) => {
           <div className="flex bg-white p-5  space-x-4 rounded-md drop-shadow-md">
 
             <Image
-              src={data?.defaultImage?.fullImage}
+              src={data?.defaultImage?.fullImage || Logo}
               className=""
               alt="model"
               height="80"
