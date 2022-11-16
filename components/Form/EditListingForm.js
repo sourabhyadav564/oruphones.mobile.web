@@ -49,15 +49,15 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [openCondition, setopenCondition] = useState(false);
   const [ConditionResultEdit, setConditionResultEdit] = useState(condition);
   const [ConditionQuestionEdit, setConditionQuestionEdit] = useState("");
-  const [warranty, setWarranty] = useState("more");
+  const [warranty, setWarranty] = useState(data?.warranty);
   const [showWarranty, setShowWarranty] = useState(data?.warranty != "None");
   const [locationRequired, setLocationRequired] = useState("");
   // const [openStorageInfo, setOpenStorageInfo] = useState(false);
   const deviceWarrantyCheck = [
-    { value: "zero", label: "0-3 Months Ago" },
-    { value: "four", label: "4-6 Months Ago" },
-    { value: "seven", label: "7-11 Months Ago" },
-    { value: "more", label: "More Than 11 Months Ago" },
+    { value: "zero", label: "0-3 Months Ago", label2: "More than 9 months" },
+    { value: "four", label: "4-6 Months Ago", label2: "More than 6 months" },
+    { value: "seven", label: "7-11 Months Ago", label2: "More than 3 months" },
+    { value: "more", label: "More Than 11 Months Ago", label2: "None" },
   ];
   const [getExternalSellerData, setGetExternalSellerData] = useState([]);
 
@@ -123,7 +123,7 @@ const EditListingForm = ({ data, resultsSet }) => {
         setGetExternalSellerData(response?.dataObject);
       });
     }
-  }, [make, marketingName, devStorage, condition, headphone, charging, originalbox]);
+  }, [make, marketingName, devStorage, condition, headphone, charging, originalbox, warranty]);
 
 
   useEffect(() => {
@@ -283,6 +283,8 @@ const EditListingForm = ({ data, resultsSet }) => {
     }
   };
 
+  console.log("warranty", warranty);
+
   useEffect(() => {
     setCondition(ConditionResultEdit);
     setConditionQuestionEdit(ConditionQuestionEdit);
@@ -360,7 +362,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       charger: charging ? "Y" : "N",
       earphone: headphone ? "Y" : "N",
       originalbox: originalbox ? "Y" : "N",
-      warrantyPeriod: warranty,
+      warranty: warranty,
       userUniqueId: user?.userdetails?.userUniqueId,
       verified: data.verified,
       listedBy: inputUsername || data?.listedBy,
@@ -733,7 +735,7 @@ const EditListingForm = ({ data, resultsSet }) => {
               src={originalBillImg}
               text="Original Bill"
               onChange={() => {
-                setShowWarranty((prev) => !prev);
+                // setShowWarranty((prev) => !prev);
                 setWarranty("more");
               }}
               checked={showWarranty}
@@ -748,7 +750,7 @@ const EditListingForm = ({ data, resultsSet }) => {
                 {deviceWarrantyCheck?.map((item, index) => (
                   <div
                     key={index}
-                    className={`${warranty == item?.value
+                    className={`${warranty == item?.label2
                       ? "bg-[#F3F3F3] border border-[#F3F3F3]  text-[#2C2F45] textmx"
                       : " border border-[#9597A2] text-[#2C2F45] textmx opacity-60"
                       } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}

@@ -223,7 +223,7 @@ const NewAddListingForm = ({ data }) => {
         setGetExternalSellerData(response?.dataObject);
       });
     }
-  }, [make, model, storage, condition, headphone, charging, originalbox]);
+  }, [make, model, storage, condition, headphone, charging, originalbox, warranty]);
 
   useEffect(() => {
     let reqParams = {

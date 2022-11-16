@@ -8,6 +8,7 @@ import { removeFavotie } from "api-call";
 import VerifiedIcon from "../VerifiedIcon";
 import UnVerifiedIcon from "../UnVerifiedIcon";
 import AddFav from "../AddFav";
+import Logo from "@/assets/oru_phones_logo.png";
 
 function FavListingTile({ data, setProducts }) {
   const router = useRouter();
@@ -73,7 +74,7 @@ function FavListingTile({ data, setProducts }) {
                           data.images.length > 0 &&
                           data.images[0].fullImage) ||
                         data?.defaultImage?.fullImage ||
-                        "/fullImage"
+                        Logo
                       }
                       width={200}
                       height={150}
@@ -92,23 +93,23 @@ function FavListingTile({ data, setProducts }) {
                   <div className="text-sm font-bold flex justify-between items-start uppercase ">
                     <p className="flex-1">{data.marketingName}​</p>
                     {/* <svg
-                    className="text-gray-c7"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20.999"
-                    height="21"
-                    viewBox="0 0 20.999 21"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleFavoties(data);
-                    }}
-                  >
-                    <path
-                      id="hearts"
-                      d="M10.524,21a1.49,1.49,0,0,0-.359-.882,5.824,5.824,0,0,0-.964-.964q-.6-.492-1.394-1.066T6.146,16.806Q5.274,16.1,4.4,15.278A14.483,14.483,0,0,1,2.741,13.4a15.628,15.628,0,0,1-1.394-2.235A11.9,11.9,0,0,1,.383,8.46,13.947,13.947,0,0,1,.024,5.25,5.058,5.058,0,0,1,1.562,1.538,5.058,5.058,0,0,1,5.274,0,5.058,5.058,0,0,1,8.986,1.538,5.058,5.058,0,0,1,10.524,5.25a5.058,5.058,0,0,1,1.538-3.712A5.058,5.058,0,0,1,15.774,0a5.058,5.058,0,0,1,3.712,1.538A5.058,5.058,0,0,1,21.023,5.25a13.99,13.99,0,0,1-.359,3.21,11.861,11.861,0,0,1-.964,2.707A15.7,15.7,0,0,1,18.306,13.4a14.426,14.426,0,0,1-1.661,1.877q-.872.82-1.743,1.528t-1.661,1.282q-.79.574-1.394,1.066a5.854,5.854,0,0,0-.964.964,1.485,1.485,0,0,0-.359.882Z"
-                      transform="translate(-0.024)"
-                      fill={data.favourite ? "#FF0000" : "#C7C7C7"}
-                    />
-                  </svg> */}
+                      className="text-gray-c7"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20.999"
+                      height="21"
+                      viewBox="0 0 20.999 21"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleFavoties(data);
+                      }}
+                    >
+                      <path
+                        id="hearts"
+                        d="M10.524,21a1.49,1.49,0,0,0-.359-.882,5.824,5.824,0,0,0-.964-.964q-.6-.492-1.394-1.066T6.146,16.806Q5.274,16.1,4.4,15.278A14.483,14.483,0,0,1,2.741,13.4a15.628,15.628,0,0,1-1.394-2.235A11.9,11.9,0,0,1,.383,8.46,13.947,13.947,0,0,1,.024,5.25,5.058,5.058,0,0,1,1.562,1.538,5.058,5.058,0,0,1,5.274,0,5.058,5.058,0,0,1,8.986,1.538,5.058,5.058,0,0,1,10.524,5.25a5.058,5.058,0,0,1,1.538-3.712A5.058,5.058,0,0,1,15.774,0a5.058,5.058,0,0,1,3.712,1.538A5.058,5.058,0,0,1,21.023,5.25a13.99,13.99,0,0,1-.359,3.21,11.861,11.861,0,0,1-.964,2.707A15.7,15.7,0,0,1,18.306,13.4a14.426,14.426,0,0,1-1.661,1.877q-.872.82-1.743,1.528t-1.661,1.282q-.79.574-1.394,1.066a5.854,5.854,0,0,0-.964.964,1.485,1.485,0,0,0-.359.882Z"
+                        transform="translate(-0.024)"
+                        fill={data.favourite ? "#FF0000" : "#C7C7C7"}
+                      />
+                    </svg> */}
                   </div>
                   <div className="flex space-x-4 text-gray-70 text-xs mt-3">
                     <p className="flex flex-col items-start">
@@ -151,7 +152,7 @@ function FavListingTile({ data, setProducts }) {
             </div>
           </a>
         </div>
-        <div className="absolute right-0 pr-6 py-3">
+        {/* <div className="absolute right-0 pr-6 py-3">
           {(
             <AddFav
               data={data}
@@ -160,6 +161,26 @@ function FavListingTile({ data, setProducts }) {
               height={22}
             />
           )}
+        </div> */}
+        <div className="flex absolute right-0 pr-10 pt-3">
+          <svg
+            className="text-gray-c7"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20.999"
+            height="21"
+            viewBox="0 0 20.999 21"
+            onClick={(e) => {
+              e.preventDefault();
+              handleFavoties(data);
+            }}
+          >
+            <path
+              id="hearts"
+              d="M10.524,21a1.49,1.49,0,0,0-.359-.882,5.824,5.824,0,0,0-.964-.964q-.6-.492-1.394-1.066T6.146,16.806Q5.274,16.1,4.4,15.278A14.483,14.483,0,0,1,2.741,13.4a15.628,15.628,0,0,1-1.394-2.235A11.9,11.9,0,0,1,.383,8.46,13.947,13.947,0,0,1,.024,5.25,5.058,5.058,0,0,1,1.562,1.538,5.058,5.058,0,0,1,5.274,0,5.058,5.058,0,0,1,8.986,1.538,5.058,5.058,0,0,1,10.524,5.25a5.058,5.058,0,0,1,1.538-3.712A5.058,5.058,0,0,1,15.774,0a5.058,5.058,0,0,1,3.712,1.538A5.058,5.058,0,0,1,21.023,5.25a13.99,13.99,0,0,1-.359,3.21,11.861,11.861,0,0,1-.964,2.707A15.7,15.7,0,0,1,18.306,13.4a14.426,14.426,0,0,1-1.661,1.877q-.872.82-1.743,1.528t-1.661,1.282q-.79.574-1.394,1.066a5.854,5.854,0,0,0-.964.964,1.485,1.485,0,0,0-.359.882Z"
+              transform="translate(-0.024)"
+              fill={data.favourite ? "#FF0000" : "#C7C7C7"}
+            />
+          </svg>
         </div>
         {/* <div className="absolute right-0 pb-0 pr-4">
           <div></div>
