@@ -32,7 +32,7 @@ function editListing({ data, resultsSet }) {
   return (
     <Fragment>
       {/* <Header5 title={"Edit Listing"} /> */}
-      <header className={`w-full z-50 flex p-4 h-[45px] bg-[#2C2F45] rounded-b-[10px] absolute text-white items-center  font-Roboto-Regular text-dx`}>
+      <header className={`w-full z-50 flex p-4 h-[45px] bg-[#2C2F45] rounded-b-[10px] text-white items-center  font-Roboto-Regular text-dx relative`}>
         <BsArrowLeft
           onClick={() => {
             router.back()
@@ -40,7 +40,7 @@ function editListing({ data, resultsSet }) {
           className="cursor-pointer" fontSize="20" />
         <span className="absolute pl-2  left-10 right-10 font-Roboto-Regular text-dx "> Edit Listing</span>
       </header>
-      <main className="container mt-16 mb-4">
+      <main className="container mb-4">
         {/* <div className="flex justify-center">
           <Image
             src={sellDeviceBanner}

@@ -156,6 +156,7 @@ function FilterPopup({
         >
           Apply
         </button>
+        <div className="py-5"></div>
         <ConditionInfo
           open={openConditionPopup}
           setOpen={setOpenConditionPopup}

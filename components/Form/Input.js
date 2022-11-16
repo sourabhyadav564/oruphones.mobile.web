@@ -9,7 +9,7 @@ function Input({ name, className, inputClass, prefix, children, errorClass, ...r
         }}
       >
         <span className="block mr-0.5 self-center font-Roboto-Regular text-[#2C2F45] text-qx">{prefix}</span>
-        <input name={name} className={`py-3 block h-full w-full text-mx font-Roboto-Semibold appearance-none ring-0 focus:ring-0 bg-transparent  text-[#2C2F45]  ${inputClass || ""}`} {...rest} />
+        <input name={name} className={`py-3 block h-full w-full text-mx font-Roboto-Semibold appearance-none ring-0 focus:ring-0 bg-transparent text-black  ${inputClass || ""}`} {...rest} />
       </div>
       <label
         htmlFor={name}

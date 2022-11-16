@@ -39,8 +39,8 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
     filterOptions = filterOptions.filter((i) => i.id === "brand");
   }
 
-  console.log("applyFilter", applyFilter);
-  console.log("filterOptions", filterOptions);
+  // console.log("applyFilter", applyFilter);
+  // console.log("filterOptions", filterOptions);
 
   return (
     <Fragment>

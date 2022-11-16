@@ -547,7 +547,7 @@ export async function addFavotie(payload) {
   const url = `${URI}/api/v1/favorite/add`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
     (response) => {
-      localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
+      // localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
       return response.data;
     },
     (err) => {
@@ -566,7 +566,7 @@ export async function removeFavotie(listingId, userUniqueId) {
     userUniqueId;
   return await Axios.post(url, {}, DEFAULT_HEADER).then(
     (response) => {
-      localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
+      // localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
       return response.data;
     },
     (err) => {

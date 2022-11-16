@@ -16,7 +16,7 @@ import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
 import { FiTablet } from "react-icons/fi";
-import { CardHeading2, CardHeading5 } from "@/components/elements/CardHeading/cardheading";
+import { CardHeading2, CardHeading4, CardHeading5 } from "@/components/elements/CardHeading/cardheading";
 import { Heading, Heading3 } from "@/components/elements/Heading/heading";
 import BrandCard from "@/components/Card/BrandCard";
 import BasicCarousel from "@/components/Carousel/BasicCarousel";
@@ -49,6 +49,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   let intialPage = 0;
+  let newPages = 0;
 
   const [title, setTitle] = useState(metaTags.BRANDS.title);
   const [description, setDescription] = useState(metaTags.BRANDS.description);
@@ -152,7 +153,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             payLoad,
             localStorage.getItem("userUniqueId") || "Guest",
             Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
-            pageNumber,
+            intialPage,
             applySortFilter
           ).then((response) => {
             setOtherListings(response?.dataObject?.otherListings);
@@ -168,8 +169,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
 
 
   const loadMoreData = () => {
-    let newPages = pageNumber + 1;
-    setPageNumber(newPages);
+    newPages = pageNumber + 1;
+    // setPageNumber(newPages);
     setIsLoadingMore(true);
     if (makeName && !isFilterApplied) {
       fetchByMakeList(
@@ -413,7 +414,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         setDescription(metaTags.OPPO.description);
         break;
       case "gionee":
-        setIndex(19);
+        setIndex(3);
         setTitle(metaTags.GIONEE.title);
         setDescription(metaTags.GIONEE.description);
         break;
@@ -493,9 +494,19 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         setDescription(metaTags.LAVA.description);
         break;
       case "panasonic":
-        setIndex(11);
+        setIndex(20);
         setTitle(metaTags.PANASONIC.title);
         setDescription(metaTags.PANASONIC.description);
+        break;
+      case "meizu":
+        setIndex(15);
+        setTitle(metaTags.MEIZU.title);
+        setDescription(metaTags.MEIZU.description);
+        break;
+      case "zte":
+        setIndex(25);
+        setTitle(metaTags.MEIZU.title);
+        setDescription(metaTags.MEIZU.description);
         break;
       case "lg":
         setIndex(13);
@@ -509,8 +520,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         break;
       case "karbonn":
         setIndex(10);
-        setTitle(metaTags.KORBONN.title);
-        setDescription(metaTags.KORBONN.description);
+        setTitle(metaTags.KARBONN.title);
+        setDescription(metaTags.KARBONN.description);
         break;
       case "intex":
         setIndex(9);
@@ -561,7 +572,10 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         )}  */}
 
         {isLoading ? (
-          <Loader />
+          <div className="flex items-center justify-center">
+            <Loader />
+            <CardHeading4 title={"Please wait, while we are fetching the data for you..."} />
+          </div>
         ) : (
           bestDeals &&
           bestDeals.length > 0 && (
@@ -628,7 +642,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         )}
 
         {isLoading ? (
-          <Loader />
+          // <Loader />
+          <></>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {otherListings &&

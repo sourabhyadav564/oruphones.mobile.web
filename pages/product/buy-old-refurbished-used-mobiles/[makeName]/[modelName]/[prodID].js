@@ -523,7 +523,7 @@ function ProductDeatils({ data }) {
                             console.log("response", response);
                             setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
                             data?.status == "Active" ? window.open(
-                              `https://wa.me/${response?.dataObject?.mobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
+                              `https://wa.me/+91${response?.dataObject?.mobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
                               "_blank"
                             ) : toast.warning("This device is sold out")
                           }
@@ -745,7 +745,7 @@ export const getServerSideProps = async ({ req, res, query }) => {
     query.isOtherVendor,
     query.prodID,
     userUniqueId || "Guest",
-    sessionId || ""
+    localStorage.getItem("sessionId") || ""
   );
 
 

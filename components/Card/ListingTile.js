@@ -224,7 +224,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 </div>
               ) : data?.verified ? (
                 <div className="flex items-center pl-4 w-full">
-                  <VerifiedIcon width={60} height={30} />
+                  <VerificationIcon width={60} height={30} />
                   <span className="text-sm text-black-4e ml-3">On: {data?.verifiedDate}​</span>
                   <div className="bg-gray-ef text-gray-70 text-sm flex flex-col px-4 py-0.5 ml-auto rounded-tl-md rounded-br-md">
                     <span>List Price</span>

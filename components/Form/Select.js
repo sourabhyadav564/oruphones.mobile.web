@@ -31,10 +31,14 @@ function MySelect({ name, labelName, className, ...rest }) {
     // </div>
     <div className={`outline px-1 relative w-full focus:outline-none focus:ring-0 rounded border ${className || " border-gray-1f "}`}>
       <Select name={name} styles={customStyles} {...rest} instanceId={labelName || name} classNamePrefix="react-select" />
-      <label htmlFor={name} className="absolute top-0 text-xl2FontSize font-Roboto-Regular bg-[#D2D2D2] p-1 z-1 duration-300 origin-0" style={{ color: "#0000009" }}>
+      <label
+        htmlFor={labelName || name}
+        className="absolute top-0 left-0 text-sm bg-white p-1 z-1 duration-300 origin-0"
+        style={{ color: "rgba(0, 0, 0, 0.6)" }}
+      >
         {labelName}
       </label>
-    </div>
+    </div >
   );
 }
 

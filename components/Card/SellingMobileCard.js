@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { numberWithCommas } from "@/utils/util";
+import Logo from "@/assets/oru_phones_logo.png";
 // import Logo from "@/assets/mobiru_logo.svg";
 
 function SellingMobileCard({ data }) {
@@ -27,7 +28,7 @@ function SellingMobileCard({ data }) {
         <div className="grid grid-cols-1 rounded-lg py-2 px-3 bg-m-white cardShadow1">
           <div className="grid grid-cols-1">
             <div className="flex items-baseline my-1">
-              <Image src={data?.imagePath || "/"} alt={data?.marketingName} width={150} height={150} objectFit="contain" />
+              <Image src={data?.imagePath || Logo} alt={data?.marketingName} width={150} height={150} objectFit="contain" />
             </div>
             <div className="flex-wrap w-full text-gray-70">
               <h1 className="flex-1 truncate w-full capitalize font-semibold">{data?.marketingName}</h1>

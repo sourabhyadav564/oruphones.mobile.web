@@ -35,6 +35,7 @@ function CategoryPage() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   let intialPage = 0;
+  let newPages = 0;
   const [title, setTitle] = useState(metaTags.BRANDS.title);
   const [description, setDescription] = useState(metaTags.BRANDS.description);
 
@@ -133,7 +134,7 @@ function CategoryPage() {
             payLoad,
             localStorage.getItem("userUniqueId") || "Guest",
             localStorage.getItem("sessionId") || "",
-            pageNumber,
+            intialPage,
             applySortFilter
           ).then((response) => {
             setOtherListings(response?.dataObject?.otherListings);
@@ -147,8 +148,8 @@ function CategoryPage() {
   };
 
   const loadMoreData = () => {
-    let newPages = pageNumber + 1;
-    setPageNumber(newPages);
+    newPages = pageNumber + 1;
+    // setPageNumber(newPages);
     setIsLoadingMore(true);
     if (categoryType && !isFilterApplied) {
       shopByCategory(
@@ -429,7 +430,10 @@ function CategoryPage() {
           )} */}
 
         {isLoading ? (
-          <Loader />
+          <div className="flex items-center justify-center">
+            <Loader />
+            <CardHeading4 title={"Please wait, while we are fetching the data for you..."} />
+          </div>
         ) : (
           bestDeals.length > 0 && (
             <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff]">
@@ -460,7 +464,8 @@ function CategoryPage() {
         )}
 
         {isLoading ? (
-          <Loader />
+          // <Loader />
+          <></>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {otherListings &&

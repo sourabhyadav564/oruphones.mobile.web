@@ -27,6 +27,7 @@ function PriceRangePage() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   let intialPage = 0;
+  let newPages = 0;
 
   const loadData = (intialPage) => {
     if (min && max && !isFilterApplied) {
@@ -98,7 +99,7 @@ function PriceRangePage() {
             payLoad,
             localStorage.getItem("userUniqueId") || "Guest",
             localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
-            pageNumber,
+            intialPage,
             applySortFilter
           ).then((response) => {
             setShopByPriceOtherListings(response?.dataObject?.otherListings);
@@ -112,8 +113,8 @@ function PriceRangePage() {
   };
 
   const loadMoreData = () => {
-    let newPages = pageNumber + 1;
-    setPageNumber(newPages);
+    newPages = pageNumber + 1;
+    // setPageNumber(newPages);
     setIsLoadingMore(true);
     if (min && max && !isFilterApplied) {
       shopByPriceRange(
@@ -315,7 +316,10 @@ function PriceRangePage() {
         </h1>
       )} */}
         {isLoading ? (
-          <Loader />
+          <div className="flex items-center justify-center">
+            <Loader />
+            <CardHeading4 title={"Please wait, while we are fetching the data for you..."} />
+          </div>
         ) : (
           (shopByPriceBestDeal?.length > 0) && (
             //   <div>
@@ -347,7 +351,8 @@ function PriceRangePage() {
           </div>
         )}
         {isLoading ? (
-          <Loader />
+          // <Loader />
+          <></>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {shopByPriceOtherListings &&

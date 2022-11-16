@@ -190,6 +190,18 @@ export const metaTags = {
     description:
       "Where can I buy and sell Micromax phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
   },
+  INTEX: {
+    title:
+      "Buy and Sell Intex Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Intex phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
+  MEIZU: {
+    title:
+      "Buy and Sell Meizu Phone Online | Best Value Guarantee | ORUphones",
+    description:
+      "Where can I buy and sell Meizu phone online for the best value? ORUphones offers dream come true deals on every online transaction. We guarantee the best value on second hand mobile deals.",
+  },
   LG: {
     title:
       "Buy and Sell LG Phone Online | Best Value Guarantee | ORUphones",

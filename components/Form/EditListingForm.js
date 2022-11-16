@@ -385,7 +385,7 @@ const EditListingForm = ({ data, resultsSet }) => {
 
   return (
     <Fragment>
-      <form className="grid grid-cols-1 font-SF-Pro space-y-6 mt-8" onSubmit={handleSubmit}>
+      <form className="grid grid-cols-1 font-SF-Pro space-y-6 mt-4" onSubmit={handleSubmit}>
         {/* <Input value={data?.make} disabled>
           Make
         </Input>

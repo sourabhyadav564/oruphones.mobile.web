@@ -39,6 +39,7 @@ function Bestdealnearyou() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   let intialPage = 0;
+  let newPages = 0;
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
 
   const loadData = (intialPage) => {
@@ -110,7 +111,7 @@ function Bestdealnearyou() {
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
           localStorage.getItem("sessionId") || "",
-          pageNumber,
+          intialPage,
           applySortFilter
         ).then((response) => {
           setProducts(response?.dataObject?.otherListings);
@@ -125,8 +126,8 @@ function Bestdealnearyou() {
   };
 
   const loadMoreData = () => {
-    let newPages = pageNumber + 1;
-    setPageNumber(newPages);
+    newPages = pageNumber + 1;
+    // setPageNumber(newPages);
     setIsLoadingMore(true);
     if (selectedSearchCity && !isFilterApplied) {
       bestDealNearYouAll(
@@ -329,7 +330,10 @@ function Bestdealnearyou() {
         </div>
       )} */}
         {isLoading ? (
-          <Loader />
+          <div className="flex items-center justify-center">
+            <Loader />
+            <CardHeading4 title={"Please wait, while we are fetching the data for you..."} />
+          </div>
         ) : (
           bestDeal &&
           bestDeal?.length > 0 && (
@@ -361,7 +365,8 @@ function Bestdealnearyou() {
 
         )}
         {isLoading ? (
-          <Loader />
+          // <Loader />
+          <></>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {products &&

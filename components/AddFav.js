@@ -40,11 +40,26 @@ function AddFav({ data, setProducts, color, ...rest }) {
       userUniqueId: Cookies.get("userUniqueId") || "Guest",
     };
     const addFavorite = () => {
+      let favList = localStorage.getItem("favoriteList");
+      if (favList) {
+        favList = favList.split(",");
+        favList.push(data.listingId);
+        localStorage.setItem("favoriteList", favList);
+      } else {
+        localStorage.setItem("favoriteList", data.listingId);
+      }
       addFavotie(payLoad).then((response) => {
         console.log("addFav RES", response);
       });
     };
     const removeFavorite = () => {
+      //remove listingId from fav
+      let favList = localStorage.getItem("favoriteList");
+      if (favList) {
+        favList = favList.split(",");
+        favList = favList.filter((item) => item !== data.listingId);
+        localStorage.setItem("favoriteList", favList);
+      }
       removeFavotie(data?.listingId, Cookies.get("userUniqueId")).then((response) => {
         console.log("removeFav RES", response);
       });
