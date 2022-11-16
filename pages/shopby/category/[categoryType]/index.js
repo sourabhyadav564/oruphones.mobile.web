@@ -13,6 +13,7 @@ import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
 import BottomNav from "@/components/Navigation/BottomNav";
+import { CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 
 // import {
 //   otherVendorDataState,

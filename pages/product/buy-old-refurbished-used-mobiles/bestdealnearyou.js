@@ -11,6 +11,7 @@ import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { Heading } from "@/components/elements/Heading/heading";
+import { CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 
 // import {
 //   otherVendorDataState,

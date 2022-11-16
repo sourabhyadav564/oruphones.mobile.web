@@ -11,6 +11,7 @@ import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
+import { CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 
 function PriceRangePage() {
   const router = useRouter();
