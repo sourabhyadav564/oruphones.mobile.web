@@ -63,6 +63,7 @@ import PricePopup from "../Popup/PricePopup";
 import { BsArrowLeft } from "react-icons/bs";
 import { Heading, SellPhoneHeading1, ProductPriceHeading, AgeHeading } from "../elements/Heading/heading";
 import { IoCloseCircle } from "react-icons/io5";
+import UnverifiedListingPopup from "../Popup/UnverifiedListingPoup";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -140,6 +141,9 @@ const NewAddListingForm = ({ data }) => {
   const [submitting, setSubmitting] = useState(false);
   const [verifySubmit, setVerifySubmit] = useState(false);
   const [verifyListingAdded, setVerifyListingAdded] = useState(false);
+  const [unverifiedListing, setUnverifiedListing] = useState(false);
+  const [unverifiedListingType, setUnverifiedListingType] = useState("");
+  const [unverifiedListingReason, setUnverifiedListingReason] = useState("");
   var sellValueTag = document.querySelector("#sellValue") || "";
   var sellValue = sellValueTag.value || "";
 
@@ -571,11 +575,22 @@ const NewAddListingForm = ({ data }) => {
         warranty: warranty,
       };
       saveLisiting(payload).then(
-        () => {
+        (res) => {
+          console.log("res", res);
           if (verifySubmit === true) {
             setVerifyListingAdded(true);
           } else {
-            setListingAdded(true);
+            if (res.type != null && res.type != "") {
+              setUnverifiedListingReason(res.reason);
+              setUnverifiedListingType(res.type);
+              console.log("unverifiedListingReason", unverifiedListingReason);
+              console.log("unverifiedListingType", unverifiedListingType);
+              setUnverifiedListing(true);
+              // setListingAdded(true);
+            }
+            else {
+              setListingAdded(true);
+            }
           }
           dispatch("REFRESH");
         },
@@ -1543,6 +1558,7 @@ const NewAddListingForm = ({ data }) => {
         setOpen={setOpenLoginPopup}
         fromAddListing
       />
+      <UnverifiedListingPopup open={unverifiedListing} setOpen={setUnverifiedListing} unverifiedListingReason={unverifiedListingReason} unverifiedListingType={unverifiedListingType} />
       <TermsconditionPopup open={showTCPopUp} setOpen={setShowTCPopup} />
       <BrandPopup open={openBrandPopup} setOpen={setOpenBrandPopup} />
       <ModelPopup

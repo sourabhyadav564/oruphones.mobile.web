@@ -11,6 +11,7 @@ import { BiCurrentLocation } from "react-icons/bi";
 import LocationPicker from "../Popup/LocationPicker";
 import Geocode from "react-geocode";
 import { getCityFromResponse } from "@/utils/util";
+import MySelect from "../Form/Select";
 
 function LocationPopup({ open, setOpen }) {
   const [openLocationPopup, setOpenLocationPopup] = useState(false);
@@ -189,7 +190,7 @@ function LocationPopup({ open, setOpen }) {
           </Dialog.Title>
           <form className="mb-4 w-full text-sm space-y-2 pt-4">
             <div className="flex flex-rpw">
-              <MySelect2
+              <MySelect
                 // labelName="Location"
                 onChange={(e) => {
                   handleCityChange(e.value);
@@ -197,7 +198,7 @@ function LocationPopup({ open, setOpen }) {
                 options={globalCities
                   ?.sort((a, b) => a.city.localeCompare(b.city))
                   // ?.filter((item) => item.displayWithImage === "-1")
-                  ?.map((items) => {
+                  ?.map((items, index) => {
                     return { label: items.city, value: items.city };
                   })}
               />

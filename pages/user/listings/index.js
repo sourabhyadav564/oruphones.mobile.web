@@ -16,6 +16,11 @@ function Index({ userInfo }) {
   const [openMenu, setOpenMenu] = useState(-1);
   const router = useRouter();
   const dispatch = useAuthDispatch();
+  const [loadingState, setLoadingState] = useState(false);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, [router.pathname]);
 
   useEffect(() => {
     if (userInfo === null) return;

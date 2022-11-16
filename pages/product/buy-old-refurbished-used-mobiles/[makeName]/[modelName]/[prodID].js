@@ -67,6 +67,7 @@ function ProductDeatils({ data }) {
     openRequestVerificationSuccessPopup,
     setOpenRequestVerificationSuccessPopup,
   ] = useState(false);
+  // let [data, setData] = useState(data2);
   const [openRequestVerificationPopup, setOpenRequestVerificationPopup] =
     useState(false);
   const [deviceListingInfo, setDeviceListingInfo] = useState(data);
@@ -111,7 +112,19 @@ function ProductDeatils({ data }) {
   };
 
   useEffect(() => {
-    setDeviceListingInfo(data);
+    // setDeviceListingInfo(data2);
+    // setData(
+    detailWithUserInfo(
+      data?.isOtherVendor,
+      data?.listingId,
+      Cookies.get("userUniqueId"),
+      Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") || "",
+    ).then((res) => {
+      console.log("res", res);
+      // setData(res);
+      setDeviceListingInfo(res);
+    })
+    // );
     // if (!(data?.isOtherVendor === "Y") && Cookies.get("userUniqueId") !== undefined) {
     //   fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
     //     (response) => {
@@ -172,6 +185,8 @@ function ProductDeatils({ data }) {
       return <BsStar className="text-black-7e" />;
     }
   };
+
+  // console.log("data", data);
 
   return (
     <Fragment>
@@ -401,7 +416,7 @@ function ProductDeatils({ data }) {
                       <div className="flex space-x-1 flex-1">
                         {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
                         <div className="flex space-x-2">
-                          <AiFillExclamationCircle s ize={20} fill="white" className="self-center text-black" />
+                          <AiFillExclamationCircle size={20} fill="white" className="self-center text-black" />
                           {/* <UnVerifiedIcon /> */}
 
                           <span className="text-lx font-Roboto-Light  self-center text-[#000944] italic uppercase">unverified</span>
@@ -495,27 +510,28 @@ function ProductDeatils({ data }) {
                 <PrimayButton onClick={() => data?.status == "Active" ? showSellerNumber(data?.listingId) : toast.warning("This device is sold out")}>
                   {showNumber ? contactSellerMobileNumber : "Contact Seller"}
                 </PrimayButton>
-                {authenticated ? (
+                {(
                   <div
                     className="  px-3 pt-[2px] pb-[2px] rounded-md bg-white"
-                    onClick={() =>
-                      fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
-                        (response) => {
-                          console.log("response", response);
-                          setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
-                        }
-                      ).then(() => {
-                        data?.status == "Active" ? window.open(
-                          `https://wa.me/${contactSellerMobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
-                          "_blank"
-                        ) : toast.warning("This device is sold out")
-                      })
-                    }
-                  >
+                    onClick={() => {
+                      !authenticated ?
+                        setOpenLoginPopup(true)
+                        :
+                        !(data?.isOtherVendor === "Y") && Cookies.get("userUniqueId") !== undefined &&
+                        fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
+                          (response) => {
+                            console.log("response", response);
+                            setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
+                            data?.status == "Active" ? window.open(
+                              `https://wa.me/${response?.dataObject?.mobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
+                              "_blank"
+                            ) : toast.warning("This device is sold out")
+                          }
+                        )
+                    }}>
                     <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
                   </div>
-                ) :
-                  () => setOpenLoginPopup(true)
+                )
                 }
                 {/* {
                   !showNumber && (
@@ -546,7 +562,10 @@ function ProductDeatils({ data }) {
                 label="Storage"
                 value={data?.deviceStorage || "--"}
               />
-              <span></span>
+              <IconLabelValue
+                label="Listed on"
+                value={data?.listingDate || "--"}
+              />
               <IconLabelValue label="Color" value={data?.color || "--"} />
               <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
               {data?.isOtherVendor === "Y" && (
