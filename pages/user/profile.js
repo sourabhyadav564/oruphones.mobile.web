@@ -40,6 +40,9 @@ function Profile() {
     setLoadingState(false);
   }, [router.pathname]);
 
+  console.log("user", user);
+  console.log("imgPath", imgPath);
+
   const changeImage = (e) => {
     e.preventDefault();
 
@@ -252,7 +255,7 @@ const UserIcon = ({ onChange, img }) => (
           src={img}
           layout="fill"
           className="rounded-full"
-          objectFit="contain"
+          objectFit="cover"
         />
       </div>
     ) : (

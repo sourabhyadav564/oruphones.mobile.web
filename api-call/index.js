@@ -615,7 +615,7 @@ export async function fetchMyFavorites(userUniqueId) {
   const url = `${URI}/api/v1/favorite/fetch?userUniqueId=` + userUniqueId;
   return await Axios.post(url, {}, DEFAULT_HEADER).then(
     (response) => {
-      localStorage.setItem("favoriteList", JSON.stringify(response.data.dataObject.map((item) => item.listingId)));
+      localStorage.setItem("favoriteList", response.data.dataObject.map((item) => item.listingId));
       return response.data;
     },
     (err) => {
@@ -751,6 +751,12 @@ export async function uploadUserProfilePic(userProfilePicData, userUniqueId) {
   const API_ENDPOINT =
     `${URI}/api/v1/device/uploadimage?deviceFace=profilePic&userUniqueId=` +
     userUniqueId;
+  var header = {
+    ...headers,
+    eventName: "UPLOAD_PROFILE_PIC",
+    "Content-Type": "multipart/form-data",
+  };
+  const MULTIPART_HEADER = { headers: { ...header } };
   return await Axios.post(
     API_ENDPOINT,
     userProfilePicData,

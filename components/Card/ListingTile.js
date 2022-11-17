@@ -42,17 +42,19 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
       listingId: data?.listingId,
       userUniqueId: Cookies.get("userUniqueId"),
     };
-    activateListing(payLoad).then(
-      (res) => {
-        // if (res?.reason === "You are not allowed to activate more then 5 unverified listings.") {
-        setReason(res?.reason);
-        setOpenActivateListing(true);
-        // } else {
-        //   setOpenActivateListing(true);
-        // }
-      },
-      (err) => console.error(err)
-    );
+    openMenu === data?.listingId ? () => setOpenMenu(-1) : () => {
+      activateListing(payLoad).then(
+        (res) => {
+          // if (res?.reason === "You are not allowed to activate more then 5 unverified listings.") {
+          setReason(res?.reason);
+          setOpenActivateListing(true);
+          // } else {
+          //   setOpenActivateListing(true);
+          // }
+        },
+        (err) => console.error(err)
+      );
+    }
   };
 
   // useEffect(() => {
@@ -85,6 +87,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
       <Fragment>
         {/* <Link href={`/user/listings/${data?.listingId}`}> */}
         <div
+          onClick={openMenu === data?.listingId ? () => setOpenMenu(-1) : () => { }}
           className={`flex flex-col pt-2 rounded-md ${(data?.status.toUpperCase() !== "ACTIVE" && "bg-gray-ef") || ""}`}
           style={{ boxShadow: "0 1px 20px rgba(0, 0, 0, 0.08)" }}
         >
@@ -101,9 +104,12 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
               <div className="text-sm font-bold flex justify-between space-x-2">
                 <p
                   className="flex-1 text-sm text-gray-600"
-                  onClick={() => window.open(
-                    `/user/listings/${data?.listingId}`,
-                    "_blank",)}
+                  onClick={() => openMenu === data?.listingId ? () => setOpenMenu(-1) : () => {
+                    window.open(
+                      `/user/listings/${data?.listingId}`,
+                      "_blank",)
+                  }
+                  }
                 >
                   {data.marketingName}
                   {/* <p className="flex-1 text-sm text-gray-600">{data.marketingName}</p> */}
@@ -150,9 +156,12 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 </div>
               </div>
               <div
-                onClick={() => window.open(
-                  `/user/listings/${data?.listingId}`,
-                  "_blank",)}
+                onClick={() => openMenu === data?.listingId ? () => setOpenMenu(-1) : () => {
+                  window.open(
+                    `/user/listings/${data?.listingId}`,
+                    "_blank",)
+                }
+                }
               >
                 <div className="flex space-x-4 text-gray-70 text-xs mt-3">
                   <p className="flex flex-col items-start">

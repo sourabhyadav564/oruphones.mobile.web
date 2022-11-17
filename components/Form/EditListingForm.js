@@ -255,6 +255,7 @@ const EditListingForm = ({ data, resultsSet }) => {
   }, [location]);
 
   useEffect(() => {
+    console.log("selectedCity", condition);
     let reqParams = {
       make,
       marketingName,
@@ -264,8 +265,9 @@ const EditListingForm = ({ data, resultsSet }) => {
       earPhones: headphone ? "Y" : "N",
       charger: charging ? "Y" : "N",
       originalBox: originalbox ? "Y" : "N",
+      warrantyPeriod: warranty,
     };
-    if (condition && (charging || headphone || originalbox || true)) {
+    if ((condition || data?.deviceCondition) && (charging || headphone || originalbox || warranty || true)) {
       getRecommandedPrice(reqParams).then(
         ({ dataObject }) => {
           setRecommandedPrice(dataObject);
@@ -735,7 +737,7 @@ const EditListingForm = ({ data, resultsSet }) => {
               src={originalBillImg}
               text="Original Bill"
               onChange={() => {
-                // setShowWarranty((prev) => !prev);
+                setShowWarranty((prev) => !prev);
                 setWarranty("more");
               }}
               checked={showWarranty}
@@ -750,8 +752,8 @@ const EditListingForm = ({ data, resultsSet }) => {
                 {deviceWarrantyCheck?.map((item, index) => (
                   <div
                     key={index}
-                    className={`${warranty == item?.label2
-                      ? "bg-[#F3F3F3] border border-[#F3F3F3]  text-[#2C2F45] textmx"
+                    className={`${warranty == item?.label2 || warranty == item?.value
+                      ? "bg-gray-400 border border-[#F3F3F3]  text-black textmx"
                       : " border border-[#9597A2] text-[#2C2F45] textmx opacity-60"
                       } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
                     onClick={() => setWarranty(item.value)}
@@ -960,23 +962,20 @@ export default EditListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border rounded-md bg-[#E8E8E8] py-4 relative h-20 opacity-bg-90 ${checked && "bg-[#c9c9d0]"}`}
+    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${checked && "bg-[#E8E8E8] opacity-bg-50 "}`}
     onClick={onChange}
   >
-    <div className="relative w-7 h-7 mx-auto ">
+    <div className="relative w-7 h-7 mx-auto">
       <Image src={src} layout="fill" />
     </div>
-    <label>
 
-      <input
-        type="checkbox"
-        className="absolute top-1 left-1.5 rounded text-white"
-        checked={checked}
-        readOnly
-      />
-    </label>
-
-    <span className="text-cx font-Roboto-Regular mt-2 text-center block text-black-4e">{text}</span>
+    <input
+      type="checkbox"
+      className="accent-gray-500  opacity-bg-40 absolute  top-1 left-1.5 rounded "
+      checked={checked}
+      readOnly
+    />
+    <span className="text-cx font-Regular mt-2 text-center block text-black-4e">{text}</span>
   </div>
 );
 

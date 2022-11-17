@@ -197,7 +197,6 @@ function LocationPopup({ open, setOpen }) {
                 }}
                 options={globalCities
                   ?.sort((a, b) => a.city.localeCompare(b.city))
-                  // ?.filter((item) => item.displayWithImage === "-1")
                   ?.map((items, index) => {
                     return { label: items.city, value: items.city };
                   })}

@@ -217,7 +217,7 @@ function ListingDeatils({ data, id }) {
                 />
               )} */}
 
-              <IconLabelValue label="color" value={data?.color || "--"} />
+              {/* <IconLabelValue label="color" value={data?.color || "--"} /> */}
               <IconLabelValue label="warranty" value={data?.warranty || "--"} />
               <IconLabelValue
                 label="Accessories"

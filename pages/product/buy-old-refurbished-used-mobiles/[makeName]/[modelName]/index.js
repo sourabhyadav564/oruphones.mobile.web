@@ -380,7 +380,7 @@ function ModelPage() {
         {loading ? (
           <div className="flex items-center justify-center">
             <Loader />
-            <CardHeading4 title={"Please wait, while we are fetching the data for you..."} />
+            {/* <CardHeading4 title={"Please wait, while we are fetching the data for you..."} /> */}
           </div>
         ) : (
           <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">

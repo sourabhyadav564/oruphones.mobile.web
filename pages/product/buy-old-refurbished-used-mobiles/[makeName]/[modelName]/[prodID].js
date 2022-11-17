@@ -67,7 +67,6 @@ function ProductDeatils({ data }) {
     openRequestVerificationSuccessPopup,
     setOpenRequestVerificationSuccessPopup,
   ] = useState(false);
-  // let [data, setData] = useState(data2);
   const [openRequestVerificationPopup, setOpenRequestVerificationPopup] =
     useState(false);
   const [deviceListingInfo, setDeviceListingInfo] = useState(data);
@@ -110,6 +109,7 @@ function ProductDeatils({ data }) {
       }
     }
   };
+  // console.log("data", data);
 
   useEffect(() => {
     // setDeviceListingInfo(data2);
@@ -120,9 +120,7 @@ function ProductDeatils({ data }) {
       Cookies.get("userUniqueId"),
       Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") || "",
     ).then((res) => {
-      console.log("res", res);
-      // setData(res);
-      setDeviceListingInfo(res);
+      setDeviceListingInfo(res.dataObject);
     })
     // );
     // if (!(data?.isOtherVendor === "Y") && Cookies.get("userUniqueId") !== undefined) {
@@ -512,7 +510,7 @@ function ProductDeatils({ data }) {
                 </PrimayButton>
                 {(
                   <div
-                    className="  px-3 pt-[2px] pb-[2px] rounded-md bg-white"
+                    className="  px-3 pt-[7px] pb-[2px] rounded-md bg-white"
                     onClick={() => {
                       !authenticated ?
                         setOpenLoginPopup(true)

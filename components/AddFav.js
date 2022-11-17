@@ -22,7 +22,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
   //     (err) => console.error(err)
   //   );
   // }
-
+  console.log("data3", data);
   function handleFavoties() {
     setProducts((prevState) => {
       let tempVal;
@@ -64,10 +64,10 @@ function AddFav({ data, setProducts, color, ...rest }) {
         console.log("removeFav RES", response);
       });
     };
-    if (data.favourite) {
-      data?.status == "Active" ? removeFavorite() : toast.warning("This device is sold out");
+    if (data.favourite || localStorage.getItem("favoriteList").includes(data?.listingId)) {
+      (data?.status == 'Active') ? removeFavorite() : toast.warning("This device is sold out");
     } else {
-      data?.status == "Active" ? addFavorite() : toast.warning("This device is sold out");
+      (data?.status == 'Active') ? addFavorite() : toast.warning("This device is sold out");
     }
   }
 
@@ -133,19 +133,20 @@ function AddFav({ data, setProducts, color, ...rest }) {
       //     fill={data.favourite ? "#FF0000" : color || "#C7C7C7"}
       //   />
       // </svg>
-      localStorage.getItem("favoriteList") != null && localStorage.getItem("favoriteList").includes(data?.listingId) ? (<AiFillHeart
-        className="hover:cursor-pointer"
-        color="#FF0000"
-        size='18px'
-        onClick={
-          (e) => {
-            e.preventDefault();
-            // !listings.includes(data.listingId) ? 
-            handleFavoties(data)
-            //  : toast.error("You can't add your own listing to your favorites");
+      localStorage.getItem("favoriteList") != null && (localStorage.getItem("favoriteList").includes(data?.listingId) || data?.favourite) ?
+        (<AiFillHeart
+          className="hover:cursor-pointer"
+          color="#FF0000"
+          size='18px'
+          onClick={
+            (e) => {
+              e.preventDefault();
+              // !listings.includes(data.listingId) ? 
+              handleFavoties(data)
+              //  : toast.error("You can't add your own listing to your favorites");
+            }
           }
-        }
-      />) :
+        />) :
         (<AiOutlineHeart
           className="hover:cursor-pointer"
           color="#FF0000"

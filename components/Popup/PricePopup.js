@@ -23,7 +23,7 @@ function PricePopup({ open, setOpen, price, leastPrice, maxPrice, setSubmitting 
                 />
                 <h1 className="font-Roboto-Bold mb-2 mt-3">Your sell price is too {priceDiff} </h1>
                 <p className="text-xs my-2 font-Roboto-Regular text-center">
-                    Our {priceDiff}est recommended price for your listing is {price}. Do you want to submit the listing at such a {priceDiff} price of {price}?
+                    Our {priceDiff}est recommended price for your listing is ₹{priceDiff == "Low" ? leastPrice : maxPrice}. Do you want to submit the listing at such a {priceDiff} price of ₹{price}?
                 </p>
                 <div className="mb-2 mt-4 font-Roboto-Medium">
                     <span

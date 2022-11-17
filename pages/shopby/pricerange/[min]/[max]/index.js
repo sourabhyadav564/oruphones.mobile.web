@@ -319,7 +319,7 @@ function PriceRangePage() {
         {isLoading ? (
           <div className="flex items-center justify-center">
             <Loader />
-            <CardHeading4 title={"Please wait, while we are fetching the data for you..."} />
+            {/* <CardHeading4 title={"Please wait, while we are fetching the data for you..."} /> */}
           </div>
         ) : (
           (shopByPriceBestDeal?.length > 0) && (

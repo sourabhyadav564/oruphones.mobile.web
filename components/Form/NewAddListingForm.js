@@ -253,7 +253,7 @@ const NewAddListingForm = ({ data }) => {
       model &&
       storage &&
       condition &&
-      (charging || headphone || originalbox || true)
+      (charging || headphone || originalbox || warranty || true)
     ) {
       getRecommandedPrice(reqParams).then(
         ({ dataObject }) => {
@@ -262,7 +262,7 @@ const NewAddListingForm = ({ data }) => {
         (err) => console.error(err)
       );
     }
-  }, [make, model, storage, condition, charging, headphone, originalbox]);
+  }, [make, model, storage, condition, charging, headphone, originalbox, warranty]);
 
   const handleSelectChange = (name) => {
     if (name === "make") {

@@ -9,6 +9,7 @@ import VerifiedIcon from "../VerifiedIcon";
 import UnVerifiedIcon from "../UnVerifiedIcon";
 import AddFav from "../AddFav";
 import Logo from "@/assets/oru_phones_logo.png";
+import { AiFillHeart } from "react-icons/ai";
 
 function FavListingTile({ data, setProducts }) {
   const router = useRouter();
@@ -90,7 +91,7 @@ function FavListingTile({ data, setProducts }) {
                   )}
                 </div>
                 <div className="w-full pt-1 pr-7 ">
-                  <div className="text-sm font-bold flex justify-between items-start uppercase ">
+                  <div className="text-sm font-bold flex justify-between items-start">
                     <p className="flex-1">{data.marketingName}​</p>
                     {/* <svg
                       className="text-gray-c7"
@@ -163,6 +164,15 @@ function FavListingTile({ data, setProducts }) {
           )}
         </div> */}
         <div className="flex absolute right-0 pr-10 pt-3">
+          <AiFillHeart
+            className="text-red"
+            onClick={(e) => {
+              e.preventDefault();
+              handleFavoties(data);
+            }}
+          />
+        </div>
+        {/* <div className="flex absolute right-0 pr-10 pt-3">
           <svg
             className="text-gray-c7"
             xmlns="http://www.w3.org/2000/svg"
@@ -181,7 +191,7 @@ function FavListingTile({ data, setProducts }) {
               fill={data.favourite ? "#FF0000" : "#C7C7C7"}
             />
           </svg>
-        </div>
+        </div> */}
         {/* <div className="absolute right-0 pb-0 pr-4">
           <div></div>
           <div className="bg-black px-4 pt-2 mt-2 rounded-md ">
