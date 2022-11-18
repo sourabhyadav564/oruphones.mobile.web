@@ -42,7 +42,10 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
       listingId: data?.listingId,
       userUniqueId: Cookies.get("userUniqueId"),
     };
-    openMenu === data?.listingId ? () => setOpenMenu(-1) : () => {
+    if (openMenu === data?.listingId) {
+      setOpenMenu(-1)
+    }
+    else {
       activateListing(payLoad).then(
         (res) => {
           // if (res?.reason === "You are not allowed to activate more then 5 unverified listings.") {
@@ -53,7 +56,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
           // }
         },
         (err) => console.error(err)
-      );
+      )
     }
   };
 
@@ -87,12 +90,21 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
       <Fragment>
         {/* <Link href={`/user/listings/${data?.listingId}`}> */}
         <div
-          onClick={openMenu === data?.listingId ? () => setOpenMenu(-1) : () => { }}
+          onClick={openMenu === data?.listingId ? () => setOpenMenu(-1) : () => {
+            //   window.open(
+            //     `/user/listings/${data?.listingId}`,
+            //     "_blank",)
+          }}
           className={`flex flex-col pt-2 rounded-md ${(data?.status.toUpperCase() !== "ACTIVE" && "bg-gray-ef") || ""}`}
           style={{ boxShadow: "0 1px 20px rgba(0, 0, 0, 0.08)" }}
         >
           <div className="flex  p-1">
-            <div className="px-2">
+            <div className="px-2"
+              onClick={() => openMenu === data?.listingId ? () => setOpenMenu(-1) :
+                window.open(
+                  `/user/listings/${data?.listingId}`,
+                  "_blank",)
+              }>
               <Image
                 src={(data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
                 width={100}
@@ -104,11 +116,10 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
               <div className="text-sm font-bold flex justify-between space-x-2">
                 <p
                   className="flex-1 text-sm text-gray-600"
-                  onClick={() => openMenu === data?.listingId ? () => setOpenMenu(-1) : () => {
+                  onClick={() => openMenu === data?.listingId ? setOpenMenu(-1) :
                     window.open(
                       `/user/listings/${data?.listingId}`,
                       "_blank",)
-                  }
                   }
                 >
                   {data.marketingName}
@@ -120,7 +131,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 </div>
                 <div
                   className="listing-tile dropdown inline-block relative"
-                // onClick={(e) => e.preventDefault()}
+                  onClick={(e) => e.preventDefault()}
                 >
                   <BiDotsVerticalRounded
                     size={22}
@@ -156,11 +167,10 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 </div>
               </div>
               <div
-                onClick={() => openMenu === data?.listingId ? () => setOpenMenu(-1) : () => {
+                onClick={() => openMenu === data?.listingId ? () => setOpenMenu(-1) :
                   window.open(
                     `/user/listings/${data?.listingId}`,
                     "_blank",)
-                }
                 }
               >
                 <div className="flex space-x-4 text-gray-70 text-xs mt-3">

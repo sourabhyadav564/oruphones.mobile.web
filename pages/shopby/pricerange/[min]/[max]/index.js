@@ -31,7 +31,7 @@ function PriceRangePage() {
   let newPages = 0;
 
   const loadData = (intialPage) => {
-    if (min && max && !isFilterApplied) {
+    if (min && max && !isFilterApplied && !applySortFilter && !applyFilter) {
       shopByPriceRange(
         // max === "above" ? "200000" : max,
         max,
@@ -115,7 +115,7 @@ function PriceRangePage() {
 
   const loadMoreData = () => {
     newPages = pageNumber + 1;
-    // setPageNumber(newPages);
+    setPageNumber(newPages);
     setIsLoadingMore(true);
     if (min && max && !isFilterApplied) {
       shopByPriceRange(
@@ -148,7 +148,7 @@ function PriceRangePage() {
         },
         (err) => console.error(err)
       );
-    } else if (isFilterApplied) {
+    } else {
       if (applyFilter) {
         const {
           brand,
@@ -279,7 +279,7 @@ function PriceRangePage() {
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
           localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
-          pageNumber,
+          intialPage,
           applySortFilter
         ).then((response) => {
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
@@ -297,9 +297,11 @@ function PriceRangePage() {
   // );
 
   useEffect(() => {
+    intialPage = 0;
+    newPages = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [min, max, selectedSearchCity, applySortFilter]);
+  }, [min, max, selectedSearchCity, applySortFilter, applyFilter]);
 
   return (
     <>

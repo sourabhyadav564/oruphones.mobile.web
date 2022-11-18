@@ -58,7 +58,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
 
   const loadData = (intialPage) => {
-    if (makeName && !isFilterApplied) {
+    if (makeName && !isFilterApplied && !applySortFilter && !applyFilter) {
       fetchByMakeList(
         selectedSearchCity,
         makeName,
@@ -170,7 +170,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
 
   const loadMoreData = () => {
     newPages = pageNumber + 1;
-    // setPageNumber(newPages);
+    setPageNumber(newPages);
     setIsLoadingMore(true);
     if (makeName && !isFilterApplied) {
       fetchByMakeList(
@@ -215,7 +215,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           setLoading(false);
         }
       );
-    } else if (isFilterApplied) {
+    } else {
       if (applyFilter) {
         setIsFilterApplied(true);
         const {
@@ -315,9 +315,11 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
 
 
   useEffect(() => {
+    intialPage = 0;
+    newPages = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [makeName, selectedSearchCity, applySortFilter]);
+  }, [makeName, selectedSearchCity, applySortFilter, applyFilter]);
 
   useEffect(() => {
     if (applyFilter) {
@@ -376,7 +378,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
           Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
-          pageNumber,
+          intialPage,
           applySortFilter
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);

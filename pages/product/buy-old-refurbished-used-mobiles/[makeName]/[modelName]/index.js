@@ -45,7 +45,7 @@ function ModelPage() {
   }, [router.pathname]);
 
   const loadData = (intialPage) => {
-    if (modelName && !isFilterApplied) {
+    if (modelName && !isFilterApplied && !applySortFilter && !applyFilter) {
       fetchByMarketingName(
         selectedSearchCity,
         modelName,
@@ -156,7 +156,7 @@ function ModelPage() {
 
   const loadMoreData = () => {
     newPages = pageNumber + 1;
-    // setPageNumber(newPages);
+    setPageNumber(newPages);
     setIsLoadingMore(true);
     if (modelName && !isFilterApplied) {
       fetchByMarketingName(
@@ -200,7 +200,7 @@ function ModelPage() {
           setLoading(false);
         }
       );
-    } else if (isFilterApplied) {
+    } else {
       if (applyFilter) {
         setIsFilterApplied(true);
         const {
@@ -286,9 +286,11 @@ function ModelPage() {
   };
 
   useEffect(() => {
+    intialPage = 0;
+    newPages = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [modelName, selectedSearchCity, applySortFilter]);
+  }, [modelName, selectedSearchCity, applySortFilter, applyFilter]);
 
   useEffect(() => {
     if (applyFilter) {
@@ -347,7 +349,7 @@ function ModelPage() {
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
           localStorage.getItem("sessionId") || "",
-          pageNumber,
+          intialPage,
           applySortFilter
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);

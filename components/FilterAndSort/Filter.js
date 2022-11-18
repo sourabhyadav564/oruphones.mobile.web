@@ -38,9 +38,70 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
   } else if (filterOptions && router.pathname === "/product/models") {
     filterOptions = filterOptions.filter((i) => i.id === "brand");
   }
+  else if (filterOptions && (router.query.categoryType == "brandWarranty" || router.query.categoryType == "sellerWarranty")) {
+    filterOptions = filterOptions.map((i) =>
+      i.id === "warranty" && router.query.categoryType.toString() == "brandWarranty"
+        ? {
+          ...i,
+          options: [
+            {
+              value: "Brand Warranty",
+              label: "Brand Warranty",
+              active: true,
+              disabled: true,
+            },
+          ],
+        }
+        : i.id === "warranty" && router.query.categoryType.toString() == "sellerWarranty" ? {
+          ...i,
+          options: [
+            {
+              value: "Seller Warranty",
+              label: "Seller Warranty",
+              active: true,
+              disabled: true,
+            },
+          ],
+        } : i
+    );
+  }
+  else if (filterOptions && router.query.categoryType == "like new") {
+    filterOptions = filterOptions.map((i) =>
+      i.id === "condition"
+        ? {
+          ...i,
+          options: [
+            {
+              value: "Like New",
+              label: "Like New",
+              active: true,
+              disabled: true,
+            },
+          ],
+        }
+        : i
+    );
+  }
+  else if (filterOptions && router.query.categoryType == "verified") {
+    filterOptions = filterOptions.map((i) =>
+      i.id === "verification"
+        ? {
+          ...i,
+          options: [
+            {
+              value: "verified",
+              label: "Verified",
+              active: true,
+              disabled: true,
+            },
+          ],
+        }
+        : i
+    );
+  }
 
-  // console.log("applyFilter", applyFilter);
-  // console.log("filterOptions", filterOptions);
+  // console.log("filterOptions2", router.query);
+  console.log("filterOptions", filterOptions);
 
   return (
     <Fragment>

@@ -44,7 +44,7 @@ function Bestdealnearyou() {
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
 
   const loadData = (intialPage) => {
-    if (selectedSearchCity && !isFilterApplied) {
+    if (selectedSearchCity && !isFilterApplied && !applySortFilter && !applyFilter) {
       bestDealNearYouAll(
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
@@ -128,7 +128,7 @@ function Bestdealnearyou() {
 
   const loadMoreData = () => {
     newPages = pageNumber + 1;
-    // setPageNumber(newPages);
+    setPageNumber(newPages);
     setIsLoadingMore(true);
     if (selectedSearchCity && !isFilterApplied) {
       bestDealNearYouAll(
@@ -158,7 +158,7 @@ function Bestdealnearyou() {
         setLoading(false);
         setIsLoadingMore(false);
       });
-    } else if (isFilterApplied) {
+    } else {
       if (applyFilter) {
         const {
           brand,
@@ -240,9 +240,11 @@ function Bestdealnearyou() {
   };
 
   useEffect(() => {
+    intialPage = 0;
+    newPages = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [selectedSearchCity, applySortFilter]);
+  }, [selectedSearchCity, applySortFilter, applyFilter]);
 
   useEffect(() => {
     if (applyFilter) {
@@ -297,7 +299,7 @@ function Bestdealnearyou() {
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
           localStorage.getItem("sessionId") || "",
-          pageNumber,
+          intialPage,
           applySortFilter
         ).then((response) => {
           setProducts(response?.dataObject?.otherListings);

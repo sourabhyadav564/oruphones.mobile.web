@@ -62,6 +62,7 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [getExternalSellerData, setGetExternalSellerData] = useState([]);
 
   let initialState;
+  console.log("data.warranty", data.warranty);
 
   if (data?.images && data.images.length === 1) {
     initialState = [...data?.images, { panel: "back" }];
@@ -364,7 +365,9 @@ const EditListingForm = ({ data, resultsSet }) => {
       charger: charging ? "Y" : "N",
       earphone: headphone ? "Y" : "N",
       originalbox: originalbox ? "Y" : "N",
-      warranty: warranty,
+      warranty: warranty || deviceWarrantyCheck?.map((item, index) => (
+        data?.warranty == item.label2 ? item.value : "more"
+      )),
       userUniqueId: user?.userdetails?.userUniqueId,
       verified: data.verified,
       listedBy: inputUsername || data?.listedBy,
