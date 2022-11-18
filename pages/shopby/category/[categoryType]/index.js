@@ -111,12 +111,17 @@ function CategoryPage() {
             pageNumber: intialPage,
           };
 
+          if (brand?.length > 0) {
+            payLoad.make = brand.includes("all") ? [] : brand;
+          }
           if (priceRange && priceRange.min && priceRange.max) {
             payLoad.minsellingPrice = priceRange.min;
             payLoad.maxsellingPrice = priceRange.max;
           }
-          if (condition?.length > 0) {
+          if (condition?.length > 0 && router.query.categoryType != "like new") {
             payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+          } else if (condition?.length > 0 && router.query.categoryType == "like new") {
+            payLoad.deviceCondition = "Like New";
           }
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
@@ -124,11 +129,17 @@ function CategoryPage() {
           if (color?.length > 0) {
             payLoad.color = color.includes("all") ? [] : color;
           }
-          if (warranty?.length > 0) {
+          if (warranty?.length > 0 && (router.query.categoryType != "brandWarranty" || router.query.categoryType != "sellerWarranty")) {
             payLoad.warenty = warranty.includes("all") ? [] : warranty;
+          } else if (warranty?.length == 0 && router.query.categoryType == "brandWarranty") {
+            payLoad.warenty = "Brand Warranty";
+          } else if (warranty?.length == 0 && router.query.categoryType == "sellerWarranty") {
+            payLoad.warenty = "Seller Warranty";
           }
-          if (verification?.length > 0) {
+          if (verification?.length > 0 && router.query.categoryType != "verified") {
             payLoad.verified = verification.includes("all") ? "" : "verified";
+          } else if (verification?.length == 0 && router.query.categoryType == "verified") {
+            payLoad.verified = "verified";
           }
 
           searchFilter(
@@ -223,12 +234,17 @@ function CategoryPage() {
             pageNumber: newPages,
           };
 
+          if (brand?.length > 0) {
+            payLoad.make = brand.includes("all") ? [] : brand;
+          }
           if (priceRange && priceRange.min && priceRange.max) {
             payLoad.minsellingPrice = priceRange.min;
             payLoad.maxsellingPrice = priceRange.max;
           }
-          if (condition?.length > 0) {
+          if (condition?.length > 0 && router.query.categoryType != "like new") {
             payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+          } else if (condition?.length > 0 && router.query.categoryType == "like new") {
+            payLoad.deviceCondition = "Like New";
           }
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
@@ -236,11 +252,17 @@ function CategoryPage() {
           if (color?.length > 0) {
             payLoad.color = color.includes("all") ? [] : color;
           }
-          if (warranty?.length > 0) {
+          if (warranty?.length > 0 && (router.query.categoryType != "brandWarranty" || router.query.categoryType != "sellerWarranty")) {
             payLoad.warenty = warranty.includes("all") ? [] : warranty;
+          } else if (warranty?.length == 0 && router.query.categoryType == "brandWarranty") {
+            payLoad.warenty = "Brand Warranty";
+          } else if (warranty?.length == 0 && router.query.categoryType == "sellerWarranty") {
+            payLoad.warenty = "Seller Warranty";
           }
-          if (verification?.length > 0) {
+          if (verification?.length > 0 && router.query.categoryType != "verified") {
             payLoad.verified = verification.includes("all") ? "" : "verified";
+          } else if (verification?.length == 0 && router.query.categoryType == "verified") {
+            payLoad.verified = "verified";
           }
 
           searchFilter(

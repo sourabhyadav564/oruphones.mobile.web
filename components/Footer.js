@@ -77,12 +77,12 @@ const Footer = () => {
             <h1 className="font-Roboto-Semobold text-mx">IMPORTANT LINKS</h1>
             <Link href="/product/buy-old-refurbished-used-mobiles/apple">
               <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
-                onClick={() => setLoadingState(true)}
+                // onClick={() => setLoadingState(true)}
               > Buy Used Apple iPhones</a>
             </Link>
             <Link href="/product/buy-old-refurbished-used-mobiles/samsung">
               <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
-                onClick={() => setLoadingState(true)}
+                // onClick={() => setLoadingState(true)}
               >Buy Used Samsung Phones</a>
             </Link>
             <Link
@@ -90,7 +90,7 @@ const Footer = () => {
               className="yes  delay-75  max-w-max "
             >
               <a className="yes delay-75   max-w-max font-Roboto-Light text-jx mt-2"
-                onClick={() => setLoadingState(true)}
+                // onClick={() => setLoadingState(true)}
               >Buy Used Realme Phones</a>
             </Link>
             <Link
@@ -98,7 +98,7 @@ const Footer = () => {
               className="yes delay-75 mt-4 max-w-max"
             >
               <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
-                onClick={() => setLoadingState(true)}
+                // onClick={() => setLoadingState(true)}
               >Buy Used Motorola Phones
               </a>
             </Link>

@@ -357,7 +357,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       listingId: data.listingId,
       make,
       marketingName,
-      deviceStorage,
+      deviceStorage: devStorage || data?.deviceStorage,
       color: devColor || color,
       deviceCondition: condition || data?.deviceCondition,
       listingPrice: inputSellPrice,
