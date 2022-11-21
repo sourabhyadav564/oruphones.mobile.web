@@ -44,7 +44,7 @@ function Bestdealnearyou() {
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
 
   const loadData = (intialPage) => {
-    if (selectedSearchCity && !isFilterApplied && !applySortFilter && !applyFilter) {
+    if (selectedSearchCity && !isFilterApplied && !applyFilter) {
       bestDealNearYouAll(
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
@@ -61,7 +61,7 @@ function Bestdealnearyou() {
         // setProductsData(response?.dataObject?.bestDeals);
         setLoading(false);
       });
-    } else if (applyFilter) {
+    } else {
       const {
         brand,
         condition,

@@ -50,6 +50,9 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [ConditionResultEdit, setConditionResultEdit] = useState(condition);
   const [ConditionQuestionEdit, setConditionQuestionEdit] = useState("");
   const [warranty, setWarranty] = useState(data?.warranty);
+  const [warranty2, setWarranty2] = useState(deviceWarrantyCheck?.map((item, index) => (
+    data?.warranty == item.label2 && item.value
+  )));
   const [showWarranty, setShowWarranty] = useState(data?.warranty != "None");
   const [locationRequired, setLocationRequired] = useState("");
   // const [openStorageInfo, setOpenStorageInfo] = useState(false);
@@ -83,9 +86,26 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [verifySubmit, setVerifySubmit] = useState(false);
   var sellValueTag = document.querySelector("#sellValue") || "";
   var sellValue = sellValueTag.value || "";
-
+  const [verifyListingAdded, setVerifyListingAdded] = useState(false);
+  const [unverifiedListing, setUnverifiedListing] = useState(false);
+  const [unverifiedListingType, setUnverifiedListingType] = useState("");
+  const [unverifiedListingReason, setUnverifiedListingReason] = useState("");
   const { user } = useAuthState();
   const dispatch = useAuthDispatch();
+  var sellValueTag = document.querySelector("#sellValue") || "";
+  var sellValue = sellValueTag.value || "";
+
+  useEffect(() => {
+    if (warranty == "zero" || warranty == "four" || warranty == "seven" || warranty == "more") {
+      deviceWarrantyCheck?.map((item, index) => (
+        warranty == item.value && setWarranty2(warranty)
+      ));
+    } else {
+      deviceWarrantyCheck?.map((item, index) => (
+        warranty == item.label2 && setWarranty2(item.value)
+      ));
+    }
+  }, [warranty]);
 
   useEffect(() => {
     let payload = {
@@ -347,17 +367,44 @@ const EditListingForm = ({ data, resultsSet }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    var sellValueTag = document.querySelector("#sellValue");
-    var sellValue = sellValueTag.value;
+    submit();
+  };
+
+  async function submit() {
+    sellValueTag = document.querySelector("#sellValue");
+    sellValue = sellValueTag.value;
 
     if (!sellValue || (sellValue && sellValue.trim() < 1000)) {
       return setSellValueRequired("border-red");
+    }
+
+    if ((sellValue < (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7)
+      || sellValue > (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2))
+      && recommandedPrice?.leastSellingprice != "-"
+      && recommandedPrice?.maxsellingprice != "-" && submitting != true) {
+      setOpenPricePopup(true);
+      console.log("submitting", submitting);
+      if (submitting === false) {
+        return;
+      }
     }
     let payload = {
       listingId: data.listingId,
       make,
       marketingName,
-      deviceStorage: devStorage || data?.deviceStorage,
+      deviceStorage: devStorage?.toString().includes("/")
+        ? devStorage?.split("/")[0]
+        : data?.deviceStorage,
+      deviceRam: devStorage?.toString().includes("/")
+        ? devStorage
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim()
+        : data?.deviceRam,
+      // deviceStorage: devStorage || data?.deviceStorage,
       color: devColor || color,
       deviceCondition: condition || data?.deviceCondition,
       listingPrice: inputSellPrice,
@@ -365,9 +412,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       charger: charging ? "Y" : "N",
       earphone: headphone ? "Y" : "N",
       originalbox: originalbox ? "Y" : "N",
-      warranty: warranty || deviceWarrantyCheck?.map((item, index) => (
-        data?.warranty == item.label2 ? item.value : "more"
-      )),
+      warranty: warranty2,
       userUniqueId: user?.userdetails?.userUniqueId,
       verified: data.verified,
       listedBy: inputUsername || data?.listedBy,
@@ -378,7 +423,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       images: images.filter(
         (item) => item?.fullImage && item.fullImage !== null
       ),
-      listingLocation: selectedCity,
+      listingLocation: selectedCity || data?.listingLocation,
       cosmetic: ConditionQuestionEdit || data?.cosmetic,
     };
     updateLisiting(payload).then(
@@ -742,6 +787,7 @@ const EditListingForm = ({ data, resultsSet }) => {
               onChange={() => {
                 setShowWarranty((prev) => !prev);
                 setWarranty("more");
+                setWarranty2("more");
               }}
               checked={showWarranty}
             />

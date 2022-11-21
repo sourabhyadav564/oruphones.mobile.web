@@ -31,7 +31,7 @@ function PriceRangePage() {
   let newPages = 0;
 
   const loadData = (intialPage) => {
-    if (min && max && !isFilterApplied && !applySortFilter && !applyFilter) {
+    if (min && max && !isFilterApplied && !applyFilter) {
       shopByPriceRange(
         // max === "above" ? "200000" : max,
         max,
@@ -49,7 +49,7 @@ function PriceRangePage() {
         },
         (err) => console.error(err)
       );
-    } else if (isFilterApplied) {
+    } else {
       if (applyFilter) {
         const {
           brand,

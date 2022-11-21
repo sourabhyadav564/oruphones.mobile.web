@@ -58,7 +58,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
 
   const loadData = (intialPage) => {
-    if (makeName && !isFilterApplied && !applySortFilter && !applyFilter) {
+    if (makeName && !isFilterApplied && !applyFilter) {
       fetchByMakeList(
         selectedSearchCity,
         makeName,
@@ -96,7 +96,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           setLoading(false);
         }
       );
-    } else if (isFilterApplied) {
+    } else {
       if (applyFilter) {
         setIsFilterApplied(true);
         const {
@@ -506,9 +506,9 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         setDescription(metaTags.MEIZU.description);
         break;
       case "zte":
-        setIndex(25);
-        setTitle(metaTags.MEIZU.title);
-        setDescription(metaTags.MEIZU.description);
+        setIndex(26);
+        setTitle(metaTags.ZTE.title);
+        setDescription(metaTags.ZTE.description);
         break;
       case "lg":
         setIndex(13);

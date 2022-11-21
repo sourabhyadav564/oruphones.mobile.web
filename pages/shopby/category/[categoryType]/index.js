@@ -46,7 +46,7 @@ function CategoryPage() {
   console.log("isLoading", isLoading);
 
   const loadData = (intialPage) => {
-    if (categoryType && !isFilterApplied && !applySortFilter && !applyFilter) {
+    if (categoryType && !isFilterApplied && !applyFilter) {
       shopByCategory(
         selectedSearchCity,
         categoryType,
@@ -83,7 +83,7 @@ function CategoryPage() {
           setLoading(false);
         }
       );
-    } else if (isFilterApplied) {
+    } else {
       if (applyFilter) {
         const {
           brand,

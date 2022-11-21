@@ -7,11 +7,11 @@ import BasicCarousel from "./Carousel/BasicCarousel";
 const ConditionInfo = dynamic(() => import("@/components/Popup/ConditionInfo"));
 const VerificationInfo = dynamic(() => import("@/components/Popup/VerificationInfo"));
 
-function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) {
+function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location, brandResult }) {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
 
-  console.log("shop by brand section", shopbymodeldata)
+  console.log("shop by brand section", brandResult)
 
   return (
     <section className="m-auto items-center">
@@ -19,7 +19,7 @@ function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) 
         slidesPerView={3}
         spaceBetween={1}
       >
-        {shopbymodeldata[index].models.map((item) => (
+        {brandResult.models.map((item) => (
           <SwiperSlide key={item?.make}>
             <ShopbymodelCard
               data={item.marketingname}

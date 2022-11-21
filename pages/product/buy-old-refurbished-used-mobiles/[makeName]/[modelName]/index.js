@@ -45,7 +45,7 @@ function ModelPage() {
   }, [router.pathname]);
 
   const loadData = (intialPage) => {
-    if (modelName && !isFilterApplied && !applySortFilter && !applyFilter) {
+    if (modelName && !isFilterApplied && !applyFilter) {
       fetchByMarketingName(
         selectedSearchCity,
         modelName,
@@ -82,7 +82,7 @@ function ModelPage() {
           setLoading(false);
         }
       );
-    } else if (isFilterApplied) {
+    } else {
       if (applyFilter) {
         const {
           brand,
