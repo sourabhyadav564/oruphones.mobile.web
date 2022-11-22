@@ -356,18 +356,19 @@ function PriceRangePage() {
         {isLoading ? (
           // <Loader />
           <></>
-        ) : (
+        ) : ((shopByPriceOtherListings &&
+          shopByPriceOtherListings.length > 0) ?
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {shopByPriceOtherListings &&
-              shopByPriceOtherListings.length > 0 ?
+              shopByPriceOtherListings.length > 0 &&
               shopByPriceOtherListings.map((item) => (
                 <div key={item.listingId} className="m-1.5">
                   <OtherListingCard data={item} prodLink />
                 </div>
               ))
-              : <NoMatch />
             }
           </section>
+          : <NoMatch />
         )}
         {/* {shopByPriceBestDeal &&
         shopByPriceBestDeal.length > 0 &&

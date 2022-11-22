@@ -36,6 +36,12 @@ export const addListingBrandState = atom({
 //   effects_UNSTABLE: [persistAtom],
 });
 
+export const makeState = atom({
+  key: "makeState",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const addListingBrandSelector = selector({
   key: "addListingBrandSelector",
   get: ({ get }) => {

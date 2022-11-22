@@ -188,7 +188,7 @@ export async function getUserDetails(countryCode, mobileNumber) {
 
 
 
-export async function getMakeModelLists(userUniqueId, sessionId) {
+export async function getMakeModelLists(userUniqueId, sessionId, make, isPrimary) {
   headers = {
     ...headers,
     eventName: "GET_MAKE_MODEL_LIST",
@@ -196,7 +196,7 @@ export async function getMakeModelLists(userUniqueId, sessionId) {
     sessionId: sessionId,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  const url = `${URI}/api/v1/master/makemodellist`;
+  const url = `${URI}/api/v1/master/makemodellist?make=${make}&isPrimary=${isPrimary}`;
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;

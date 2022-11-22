@@ -22,6 +22,8 @@ import BrandCard from "@/components/Card/BrandCard";
 import BasicCarousel from "@/components/Carousel/BasicCarousel";
 import BottomNav from "@/components/Navigation/BottomNav";
 import LoadingStatePopup from "@/components/Popup/LoadingStatePopup";
+import { useRecoilValue } from "recoil";
+import { makeState } from "atoms/globalState";
 
 
 // import {
@@ -50,14 +52,15 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   const [isFinished, setIsFinished] = useState(false);
   let intialPage = 0;
   let newPages = 0;
-
+  let brandResult = [];
   const [title, setTitle] = useState(metaTags.BRANDS.title);
   const [description, setDescription] = useState(metaTags.BRANDS.description);
+  let makeName2 = useRecoilValue(makeState);
 
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
   // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
 
-  const loadData = (intialPage) => {
+  const loadData = async (intialPage) => {
     if (makeName && !isFilterApplied && !applyFilter) {
       fetchByMakeList(
         selectedSearchCity,
@@ -164,6 +167,37 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         }
       }
     }
+
+    function capitalName(text){
+      return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+  
+   
+    
+   
+
+    const getMakeModel = async () => {
+      console.log("makename2 ",makeName2);
+      brandResult = await getMakeModelLists(
+        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+        makeName2,
+        "Y"
+      );
+      // console.log("result ",result); 
+      // return result;
+    };
+
+    // makeName2 = "";
+    // if (makeName != undefined) {
+    //   console.log("makeName", router.query);
+    // brandResult = await getMakeModel();
+    await getMakeModel();
+    // }
+    console.log("result", router.query["makeName"]);
+
+    setshopbymodel(brandResult?.dataObject);
+    brandResult = [] ;
   };
 
 
@@ -301,17 +335,25 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   };
 
 
-  useEffect(async () => {
-    const getMakeModel = async () => {
-      const result = await getMakeModelLists(
-        Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
-      );
-      return result;
-    };
-    // const result = await getMakeModel();
-    setshopbymodel(JSON.parse(localStorage.getItem("make_models")));
-  }, []);
+  // useEffect(async () => {
+  //   // makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
+  //   const getMakeModel = async () => {
+  //     const result = await getMakeModelLists(
+  //       Cookies.get("userUniqueId") || "Guest",
+  //       Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+  //       makeName,
+  //       "Y"
+  //     );
+  //     return result;
+  //   };
+  //   if (makeName != undefined) {
+  //     console.log("makeName", router.query);
+  //     brandResult = await getMakeModel();
+  //   }
+  //   console.log("result", router.query["makeName"]);
+  //   setshopbymodel(brandResult?.dataObject);
+  //   // setshopbymodel(JSON.parse(localStorage.getItem("make_models")));
+  // }, [router.pathname, router.query]);
 
 
   useEffect(() => {
@@ -608,13 +650,13 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         )}
 
 
-        {isLoading || isFilterApplied ? (
+        {(isLoading || isFilterApplied || makeName == undefined) && (brandResult == [] || brandResult == "") ? (
           <></>
         ) : (
           <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
             <CardHeading2 title="Shop by Model" />
             <ShopByBrandsSection
-              shopbymodeldata={shopbymodel} index={index} location={selectedSearchCity}
+              shopbymodeldata={shopbymodel} location={selectedSearchCity}
             />
           </div>
         )}

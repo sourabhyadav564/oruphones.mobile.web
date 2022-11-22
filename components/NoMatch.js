@@ -4,7 +4,7 @@ import nomatching from "@/assets/noMatchingFound.png";
 function NoMatch({ text = "No match found" }) {
   return (
     <div
-      className="flex flex-col justify-center items-center"
+      className="flex flex-col w-full justify-center items-center"
       style={{ minHeight: "300px", height: "60vh" }}
     >
       <img src={nomatching.src} />

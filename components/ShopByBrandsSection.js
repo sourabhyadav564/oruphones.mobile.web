@@ -7,11 +7,11 @@ import BasicCarousel from "./Carousel/BasicCarousel";
 const ConditionInfo = dynamic(() => import("@/components/Popup/ConditionInfo"));
 const VerificationInfo = dynamic(() => import("@/components/Popup/VerificationInfo"));
 
-function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location, brandResult }) {
+function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
 
-  console.log("shop by brand section", brandResult)
+  console.log("shop by brand section2", shopbymodeldata)
 
   return (
     <section className="m-auto items-center">
@@ -19,14 +19,14 @@ function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location, br
         slidesPerView={3}
         spaceBetween={1}
       >
-        {brandResult.models.map((item) => (
+        {shopbymodeldata[0].models.map((item) => (
           <SwiperSlide key={item?.make}>
             <ShopbymodelCard
               data={item.marketingname}
               src={`https://zenrodeviceimages.s3.us-west-2.amazonaws.com/mobiru/product/mobiledevices/img/newModels/${item?.marketingname?.toString().toLowerCase().replaceAll(" ", "_")}.jpg`}
               // alt={data?.models?.model_name}
               location={location}
-              make={shopbymodeldata[index].make}
+              make={shopbymodeldata[0].make}
             />
           </SwiperSlide>
         ))}
