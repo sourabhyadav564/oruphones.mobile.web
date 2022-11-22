@@ -18,6 +18,7 @@ import Geocode from "react-geocode";
 import Cookies from "js-cookie";
 import ConditionPopup from "../Popup/ConditionPopup";
 import PricePopup from "../Popup/PricePopup";
+import Logo from "@/assets/oru_phones_logo.png";
 import imageCompression from "browser-image-compression";
 
 const EditListingForm = ({ data, resultsSet }) => {
@@ -48,19 +49,23 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [openCondition, setopenCondition] = useState(false);
   const [ConditionResultEdit, setConditionResultEdit] = useState(condition);
   const [ConditionQuestionEdit, setConditionQuestionEdit] = useState("");
-  const [warranty, setWarranty] = useState("more");
+  const [warranty, setWarranty] = useState(data?.warranty);
+  const [warranty2, setWarranty2] = useState(deviceWarrantyCheck?.map((item, index) => (
+    data?.warranty == item.label2 && item.value
+  )));
   const [showWarranty, setShowWarranty] = useState(data?.warranty != "None");
   const [locationRequired, setLocationRequired] = useState("");
   // const [openStorageInfo, setOpenStorageInfo] = useState(false);
   const deviceWarrantyCheck = [
-    { value: "zero", label: "0-3 Months Ago" },
-    { value: "four", label: "4-6 Months Ago" },
-    { value: "seven", label: "7-11 Months Ago" },
-    { value: "more", label: "More Than 11 Months Ago" },
+    { value: "zero", label: "0-3 Months Ago", label2: "More than 9 months" },
+    { value: "four", label: "4-6 Months Ago", label2: "More than 6 months" },
+    { value: "seven", label: "7-11 Months Ago", label2: "More than 3 months" },
+    { value: "more", label: "More Than 11 Months Ago", label2: "None" },
   ];
   const [getExternalSellerData, setGetExternalSellerData] = useState([]);
 
   let initialState;
+  console.log("data.warranty", data.warranty);
 
   if (data?.images && data.images.length === 1) {
     initialState = [...data?.images, { panel: "back" }];
@@ -81,9 +86,26 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [verifySubmit, setVerifySubmit] = useState(false);
   var sellValueTag = document.querySelector("#sellValue") || "";
   var sellValue = sellValueTag.value || "";
-
+  const [verifyListingAdded, setVerifyListingAdded] = useState(false);
+  const [unverifiedListing, setUnverifiedListing] = useState(false);
+  const [unverifiedListingType, setUnverifiedListingType] = useState("");
+  const [unverifiedListingReason, setUnverifiedListingReason] = useState("");
   const { user } = useAuthState();
   const dispatch = useAuthDispatch();
+  var sellValueTag = document.querySelector("#sellValue") || "";
+  var sellValue = sellValueTag.value || "";
+
+  useEffect(() => {
+    if (warranty == "zero" || warranty == "four" || warranty == "seven" || warranty == "more") {
+      deviceWarrantyCheck?.map((item, index) => (
+        warranty == item.value && setWarranty2(warranty)
+      ));
+    } else {
+      deviceWarrantyCheck?.map((item, index) => (
+        warranty == item.label2 && setWarranty2(item.value)
+      ));
+    }
+  }, [warranty]);
 
   useEffect(() => {
     let payload = {
@@ -122,7 +144,7 @@ const EditListingForm = ({ data, resultsSet }) => {
         setGetExternalSellerData(response?.dataObject);
       });
     }
-  }, [make, marketingName, devStorage, condition, headphone, charging, originalbox]);
+  }, [make, marketingName, devStorage, condition, headphone, charging, originalbox, warranty]);
 
 
   useEffect(() => {
@@ -254,6 +276,7 @@ const EditListingForm = ({ data, resultsSet }) => {
   }, [location]);
 
   useEffect(() => {
+    console.log("selectedCity", condition);
     let reqParams = {
       make,
       marketingName,
@@ -263,8 +286,9 @@ const EditListingForm = ({ data, resultsSet }) => {
       earPhones: headphone ? "Y" : "N",
       charger: charging ? "Y" : "N",
       originalBox: originalbox ? "Y" : "N",
+      warrantyPeriod: warranty,
     };
-    if (condition && (charging || headphone || originalbox || true)) {
+    if ((condition || data?.deviceCondition) && (charging || headphone || originalbox || warranty || true)) {
       getRecommandedPrice(reqParams).then(
         ({ dataObject }) => {
           setRecommandedPrice(dataObject);
@@ -281,6 +305,8 @@ const EditListingForm = ({ data, resultsSet }) => {
       console.error(e);
     }
   };
+
+  console.log("warranty", warranty);
 
   useEffect(() => {
     setCondition(ConditionResultEdit);
@@ -341,17 +367,44 @@ const EditListingForm = ({ data, resultsSet }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    var sellValueTag = document.querySelector("#sellValue");
-    var sellValue = sellValueTag.value;
+    submit();
+  };
+
+  async function submit() {
+    sellValueTag = document.querySelector("#sellValue");
+    sellValue = sellValueTag.value;
 
     if (!sellValue || (sellValue && sellValue.trim() < 1000)) {
       return setSellValueRequired("border-red");
+    }
+
+    if ((sellValue < (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7)
+      || sellValue > (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2))
+      && recommandedPrice?.leastSellingprice != "-"
+      && recommandedPrice?.maxsellingprice != "-" && submitting != true) {
+      setOpenPricePopup(true);
+      console.log("submitting", submitting);
+      if (submitting === false) {
+        return;
+      }
     }
     let payload = {
       listingId: data.listingId,
       make,
       marketingName,
-      deviceStorage,
+      deviceStorage: devStorage?.toString().includes("/")
+        ? devStorage?.split("/")[0]
+        : data?.deviceStorage,
+      deviceRam: devStorage?.toString().includes("/")
+        ? devStorage
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim()
+        : data?.deviceRam,
+      // deviceStorage: devStorage || data?.deviceStorage,
       color: devColor || color,
       deviceCondition: condition || data?.deviceCondition,
       listingPrice: inputSellPrice,
@@ -359,7 +412,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       charger: charging ? "Y" : "N",
       earphone: headphone ? "Y" : "N",
       originalbox: originalbox ? "Y" : "N",
-      warrantyPeriod: warranty,
+      warranty: warranty2,
       userUniqueId: user?.userdetails?.userUniqueId,
       verified: data.verified,
       listedBy: inputUsername || data?.listedBy,
@@ -370,7 +423,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       images: images.filter(
         (item) => item?.fullImage && item.fullImage !== null
       ),
-      listingLocation: selectedCity,
+      listingLocation: selectedCity || data?.listingLocation,
       cosmetic: ConditionQuestionEdit || data?.cosmetic,
     };
     updateLisiting(payload).then(
@@ -384,7 +437,7 @@ const EditListingForm = ({ data, resultsSet }) => {
 
   return (
     <Fragment>
-      <form className="grid grid-cols-1 font-SF-Pro space-y-6 mt-8" onSubmit={handleSubmit}>
+      <form className="grid grid-cols-1 font-SF-Pro space-y-6 mt-4" onSubmit={handleSubmit}>
         {/* <Input value={data?.make} disabled>
           Make
         </Input>
@@ -395,7 +448,7 @@ const EditListingForm = ({ data, resultsSet }) => {
           <div className="flex bg-white p-5  space-x-4 rounded-md drop-shadow-md">
 
             <Image
-              src={data?.defaultImage?.fullImage}
+              src={data?.defaultImage?.fullImage || Logo}
               className=""
               alt="model"
               height="80"
@@ -734,6 +787,7 @@ const EditListingForm = ({ data, resultsSet }) => {
               onChange={() => {
                 setShowWarranty((prev) => !prev);
                 setWarranty("more");
+                setWarranty2("more");
               }}
               checked={showWarranty}
             />
@@ -747,8 +801,8 @@ const EditListingForm = ({ data, resultsSet }) => {
                 {deviceWarrantyCheck?.map((item, index) => (
                   <div
                     key={index}
-                    className={`${warranty == item?.value
-                      ? "bg-[#F3F3F3] border border-[#F3F3F3]  text-[#2C2F45] textmx"
+                    className={`${warranty == item?.label2 || warranty == item?.value
+                      ? "bg-gray-400 border border-[#F3F3F3]  text-black textmx"
                       : " border border-[#9597A2] text-[#2C2F45] textmx opacity-60"
                       } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
                     onClick={() => setWarranty(item.value)}
@@ -957,23 +1011,20 @@ export default EditListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border rounded-md bg-[#E8E8E8] py-4 relative h-20 opacity-bg-90 ${checked && "bg-[#c9c9d0]"}`}
+    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${checked && "bg-[#E8E8E8] opacity-bg-50 "}`}
     onClick={onChange}
   >
-    <div className="relative w-7 h-7 mx-auto ">
+    <div className="relative w-7 h-7 mx-auto">
       <Image src={src} layout="fill" />
     </div>
-    <label>
 
-      <input
-        type="checkbox"
-        className="absolute top-1 left-1.5 rounded text-white"
-        checked={checked}
-        readOnly
-      />
-    </label>
-
-    <span className="text-cx font-Roboto-Regular mt-2 text-center block text-black-4e">{text}</span>
+    <input
+      type="checkbox"
+      className="accent-gray-500  opacity-bg-40 absolute  top-1 left-1.5 rounded "
+      checked={checked}
+      readOnly
+    />
+    <span className="text-cx font-Regular mt-2 text-center block text-black-4e">{text}</span>
   </div>
 );
 

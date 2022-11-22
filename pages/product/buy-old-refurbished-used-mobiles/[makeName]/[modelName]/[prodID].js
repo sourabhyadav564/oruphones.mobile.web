@@ -109,9 +109,20 @@ function ProductDeatils({ data }) {
       }
     }
   };
+  // console.log("data", data);
 
   useEffect(() => {
-    setDeviceListingInfo(data);
+    // setDeviceListingInfo(data2);
+    // setData(
+    detailWithUserInfo(
+      data?.isOtherVendor,
+      data?.listingId,
+      Cookies.get("userUniqueId"),
+      Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") || "",
+    ).then((res) => {
+      setDeviceListingInfo(res.dataObject);
+    })
+    // );
     // if (!(data?.isOtherVendor === "Y") && Cookies.get("userUniqueId") !== undefined) {
     //   fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
     //     (response) => {
@@ -131,6 +142,7 @@ function ProductDeatils({ data }) {
     ) {
       fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
         (response) => {
+          console.log("response", response);
           setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
         }
       );
@@ -171,6 +183,8 @@ function ProductDeatils({ data }) {
       return <BsStar className="text-black-7e" />;
     }
   };
+
+  // console.log("data", data);
 
   return (
     <Fragment>
@@ -400,7 +414,7 @@ function ProductDeatils({ data }) {
                       <div className="flex space-x-1 flex-1">
                         {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
                         <div className="flex space-x-2">
-                          <AiFillExclamationCircle s ize={20} fill="white" className="self-center text-black" />
+                          <AiFillExclamationCircle size={20} fill="white" className="self-center text-black" />
                           {/* <UnVerifiedIcon /> */}
 
                           <span className="text-lx font-Roboto-Light  self-center text-[#000944] italic uppercase">unverified</span>
@@ -494,20 +508,30 @@ function ProductDeatils({ data }) {
                 <PrimayButton onClick={() => data?.status == "Active" ? showSellerNumber(data?.listingId) : toast.warning("This device is sold out")}>
                   {showNumber ? contactSellerMobileNumber : "Contact Seller"}
                 </PrimayButton>
-                {showNumber && (
+                {(
                   <div
-                    className="  px-3 pt-[2px] pb-[2px] rounded-md bg-white"
-                    onClick={() =>
-                      data?.status == "Active" ? window.open(
-                        `https://wa.me/${contactSellerMobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
-                        "_blank"
-                      ) : toast.warning("This device is sold out")
-                    }
-                  >
+                    className="  px-3 pt-[7px] pb-[2px] rounded-md bg-white"
+                    onClick={() => {
+                      !authenticated ?
+                        setOpenLoginPopup(true)
+                        :
+                        !(data?.isOtherVendor === "Y") && Cookies.get("userUniqueId") !== undefined &&
+                        fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
+                          (response) => {
+                            console.log("response", response);
+                            setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
+                            data?.status == "Active" ? window.open(
+                              `https://wa.me/+91${response?.dataObject?.mobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
+                              "_blank"
+                            ) : toast.warning("This device is sold out")
+                          }
+                        )
+                    }}>
                     <Image src={whatsapp} alt="whatsapp" height={30} width={30} />
                   </div>
-                )}
-                {
+                )
+                }
+                {/* {
                   !showNumber && (
                     (
                       <div
@@ -523,7 +547,7 @@ function ProductDeatils({ data }) {
                       </div>
                     )
                   )
-                }
+                } */}
               </div>
             )}
           </div>
@@ -536,7 +560,10 @@ function ProductDeatils({ data }) {
                 label="Storage"
                 value={data?.deviceStorage || "--"}
               />
-              <span></span>
+              <IconLabelValue
+                label="Listed on"
+                value={data?.listingDate || "--"}
+              />
               <IconLabelValue label="Color" value={data?.color || "--"} />
               <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
               {data?.isOtherVendor === "Y" && (
@@ -639,25 +666,29 @@ function ProductDeatils({ data }) {
       <SimilarProduct data={data} />
       <Footer />
 
-      {openRequestVerificationSuccessPopup && (
-        <RequestVerificationSuccessPopup
-          open={openRequestVerificationSuccessPopup}
-          setOpen={setOpenRequestVerificationSuccessPopup}
-          data={data}
-        />
-      )}
+      {
+        openRequestVerificationSuccessPopup && (
+          <RequestVerificationSuccessPopup
+            open={openRequestVerificationSuccessPopup}
+            setOpen={setOpenRequestVerificationSuccessPopup}
+            data={data}
+          />
+        )
+      }
 
-      {openRequestVerificationPopup && (
-        <RequestVerificationPopup
-          open={openRequestVerificationPopup}
-          setOpen={setOpenRequestVerificationPopup}
-          data={data}
-          setShowNumber={setShowNumber}
-          setOpenRequestVerificationSuccessPopup={
-            setOpenRequestVerificationSuccessPopup
-          }
-        />
-      )}
+      {
+        openRequestVerificationPopup && (
+          <RequestVerificationPopup
+            open={openRequestVerificationPopup}
+            setOpen={setOpenRequestVerificationPopup}
+            data={data}
+            setShowNumber={setShowNumber}
+            setOpenRequestVerificationSuccessPopup={
+              setOpenRequestVerificationSuccessPopup
+            }
+          />
+        )
+      }
       <FullImageView
         open={showFullImage}
         close={() => setShowFullImage(false)}
@@ -674,27 +705,33 @@ function ProductDeatils({ data }) {
           ])
         }
       />
-      {openConditionInfo && (
-        <ConditionInfo
-          open={openConditionInfo}
-          setOpen={setOpenConditionInfo}
-        />
-      )}
-      {openVerificationInfo && (
-        <VerificationInfo
-          open={openVerificationInfo}
-          setOpen={setOpenVerificationInfo}
-        />
-      )}
-      {openWarrantyInfo && (
-        <WarrantyInfo open={openWarrantyInfo} setOpen={setOpenWarrantyInfo} />
-      )}
+      {
+        openConditionInfo && (
+          <ConditionInfo
+            open={openConditionInfo}
+            setOpen={setOpenConditionInfo}
+          />
+        )
+      }
+      {
+        openVerificationInfo && (
+          <VerificationInfo
+            open={openVerificationInfo}
+            setOpen={setOpenVerificationInfo}
+          />
+        )
+      }
+      {
+        openWarrantyInfo && (
+          <WarrantyInfo open={openWarrantyInfo} setOpen={setOpenWarrantyInfo} />
+        )
+      }
       <LoginPopup
         open={openLoginPopup}
         setOpen={setOpenLoginPopup}
         fromAddListing
       />
-    </Fragment>
+    </Fragment >
   );
 }
 

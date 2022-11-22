@@ -63,6 +63,7 @@ import PricePopup from "../Popup/PricePopup";
 import { BsArrowLeft } from "react-icons/bs";
 import { Heading, SellPhoneHeading1, ProductPriceHeading, AgeHeading } from "../elements/Heading/heading";
 import { IoCloseCircle } from "react-icons/io5";
+import UnverifiedListingPopup from "../Popup/UnverifiedListingPoup";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -140,6 +141,9 @@ const NewAddListingForm = ({ data }) => {
   const [submitting, setSubmitting] = useState(false);
   const [verifySubmit, setVerifySubmit] = useState(false);
   const [verifyListingAdded, setVerifyListingAdded] = useState(false);
+  const [unverifiedListing, setUnverifiedListing] = useState(false);
+  const [unverifiedListingType, setUnverifiedListingType] = useState("");
+  const [unverifiedListingReason, setUnverifiedListingReason] = useState("");
   var sellValueTag = document.querySelector("#sellValue") || "";
   var sellValue = sellValueTag.value || "";
 
@@ -219,7 +223,7 @@ const NewAddListingForm = ({ data }) => {
         setGetExternalSellerData(response?.dataObject);
       });
     }
-  }, [make, model, storage, condition, headphone, charging, originalbox]);
+  }, [make, model, storage, condition, headphone, charging, originalbox, warranty]);
 
   useEffect(() => {
     let reqParams = {
@@ -249,7 +253,7 @@ const NewAddListingForm = ({ data }) => {
       model &&
       storage &&
       condition &&
-      (charging || headphone || originalbox || true)
+      (charging || headphone || originalbox || warranty || true)
     ) {
       getRecommandedPrice(reqParams).then(
         ({ dataObject }) => {
@@ -258,7 +262,7 @@ const NewAddListingForm = ({ data }) => {
         (err) => console.error(err)
       );
     }
-  }, [make, model, storage, condition, charging, headphone, originalbox]);
+  }, [make, model, storage, condition, charging, headphone, originalbox, warranty]);
 
   const handleSelectChange = (name) => {
     if (name === "make") {
@@ -571,11 +575,22 @@ const NewAddListingForm = ({ data }) => {
         warranty: warranty,
       };
       saveLisiting(payload).then(
-        () => {
+        (res) => {
+          console.log("res", res);
           if (verifySubmit === true) {
             setVerifyListingAdded(true);
           } else {
-            setListingAdded(true);
+            if (res.type != null && res.type != "") {
+              setUnverifiedListingReason(res.reason);
+              setUnverifiedListingType(res.type);
+              console.log("unverifiedListingReason", unverifiedListingReason);
+              console.log("unverifiedListingType", unverifiedListingType);
+              setUnverifiedListing(true);
+              // setListingAdded(true);
+            }
+            else {
+              setListingAdded(true);
+            }
           }
           dispatch("REFRESH");
         },
@@ -792,7 +807,7 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption.storage.map((item, index) => (
                       <div
                         className={`${storage == item
-                          ? "bg-[#E8E8E8]  text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
+                          ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
                           : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
                           }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
                         onClick={() => setStorage(item)}
@@ -1237,7 +1252,7 @@ const NewAddListingForm = ({ data }) => {
                   }}
                   options={globalCities
                     ?.sort((a, b) => a.city.localeCompare(b.city))
-                    // ?.filter((item) => item.displayWithImage != "1")
+                    ?.filter((item) => item.city != "India")
                     .map((items) => {
                       return { label: items.city, value: items.city };
                     })}
@@ -1543,6 +1558,7 @@ const NewAddListingForm = ({ data }) => {
         setOpen={setOpenLoginPopup}
         fromAddListing
       />
+      <UnverifiedListingPopup open={unverifiedListing} setOpen={setUnverifiedListing} unverifiedListingReason={unverifiedListingReason} unverifiedListingType={unverifiedListingType} />
       <TermsconditionPopup open={showTCPopUp} setOpen={setShowTCPopup} />
       <BrandPopup open={openBrandPopup} setOpen={setOpenBrandPopup} />
       <ModelPopup

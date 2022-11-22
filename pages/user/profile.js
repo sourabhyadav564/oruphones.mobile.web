@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Input from "@/components/Form/Input";
@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { AiOutlineLogout } from "react-icons/ai";
 import editImage from "@/assets/icons/edit-image.png";
+import LoadingStatePopup from "../../components/Popup/LoadingStatePopup";
 
 import {
   updateUserProfileDetails,
@@ -23,6 +24,10 @@ import { VscPass } from "react-icons/vsc";
 import DeleteAccPopup from "@/components/Popup/DeleteAccPopup";
 
 function Profile() {
+  const router = useRouter();
+
+
+  const [loadingState, setLoadingState] = useState(false);
   const { authenticated, loading, user } = useAuthState();
   const [userName, setUserName] = useState();
   const [email, setEmail] = useState();
@@ -30,6 +35,13 @@ function Profile() {
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const dispatch = useAuthDispatch();
   const [imgPath, setImagePath] = useState(user?.userdetails?.profilePicPath);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, [router.pathname]);
+
+  console.log("user", user);
+  console.log("imgPath", imgPath);
 
   const changeImage = (e) => {
     e.preventDefault();
@@ -135,8 +147,8 @@ function Profile() {
 
 
           <section className="px-4 flex flex-col my-8 space-y-4">
-            <Link href="/user/favourites">
-              <a className="border-lg font-Roboto-Regular py-3 text-sm text-primary uppercase rounded text-center" style={{ backgroundColor: "#F9C414" }}>
+            <Link href="/user/favourites" >
+              <a className="border-lg font-Roboto-Regular py-3 text-sm text-primary uppercase rounded text-center" style={{ backgroundColor: "#F9C414" }} onClick={() => setLoadingState(true)} >
                 MY FAVORITES
               </a>
             </Link>
@@ -210,7 +222,7 @@ function Profile() {
 
 
             </div>
-
+            <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
 
           </section>
         </main>
@@ -218,6 +230,7 @@ function Profile() {
         <BottomNav />
       </div>
       <DeleteAccPopup open={openDeletePopup} setOpen={setOpenDeletePopup} setDelete={setDeleteAcc} />
+
     </Fragment>
   );
 }
@@ -242,7 +255,7 @@ const UserIcon = ({ onChange, img }) => (
           src={img}
           layout="fill"
           className="rounded-full"
-          objectFit="contain"
+          objectFit="cover"
         />
       </div>
     ) : (

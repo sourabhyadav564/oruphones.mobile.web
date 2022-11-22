@@ -188,7 +188,7 @@ export async function getUserDetails(countryCode, mobileNumber) {
 
 
 
-export async function getMakeModelLists(userUniqueId, sessionId) {
+export async function getMakeModelLists(userUniqueId, sessionId, make, isPrimary) {
   headers = {
     ...headers,
     eventName: "GET_MAKE_MODEL_LIST",
@@ -196,7 +196,7 @@ export async function getMakeModelLists(userUniqueId, sessionId) {
     sessionId: sessionId,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  const url = `${URI}/api/v1/master/makemodellist`;
+  const url = `${URI}/api/v1/master/makemodellist?make=${make}&isPrimary=${isPrimary}`;
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
@@ -547,7 +547,7 @@ export async function addFavotie(payload) {
   const url = `${URI}/api/v1/favorite/add`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
     (response) => {
-      localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
+      // localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
       return response.data;
     },
     (err) => {
@@ -566,7 +566,7 @@ export async function removeFavotie(listingId, userUniqueId) {
     userUniqueId;
   return await Axios.post(url, {}, DEFAULT_HEADER).then(
     (response) => {
-      localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
+      // localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
       return response.data;
     },
     (err) => {
@@ -615,7 +615,7 @@ export async function fetchMyFavorites(userUniqueId) {
   const url = `${URI}/api/v1/favorite/fetch?userUniqueId=` + userUniqueId;
   return await Axios.post(url, {}, DEFAULT_HEADER).then(
     (response) => {
-      localStorage.setItem("favoriteList", JSON.stringify(response.data.dataObject.map((item) => item.listingId)));
+      localStorage.setItem("favoriteList", response.data.dataObject.map((item) => item.listingId));
       return response.data;
     },
     (err) => {
@@ -673,14 +673,16 @@ export function getShowSerchFilters() {
   );
 }
 
-export async function searchFilter(payLoad, userUniqueId, sessionId, pageNumber) {
+export async function searchFilter(payLoad, userUniqueId, sessionId, pageNumber, sortBy) {
   headers = { ...headers, eventName: "FETCH_SEARCH_LISTINGS", sessionId: sessionId };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
     `${URI}/api/v1/home/listings/search?userUniqueId=` +
     userUniqueId +
     `&pageNumber=` +
-    pageNumber;
+    pageNumber +
+    `&sortBy=` +
+    sortBy;
   return await Axios.post(API_ENDPOINT, payLoad, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
@@ -749,6 +751,12 @@ export async function uploadUserProfilePic(userProfilePicData, userUniqueId) {
   const API_ENDPOINT =
     `${URI}/api/v1/device/uploadimage?deviceFace=profilePic&userUniqueId=` +
     userUniqueId;
+  var header = {
+    ...headers,
+    eventName: "UPLOAD_PROFILE_PIC",
+    "Content-Type": "multipart/form-data",
+  };
+  const MULTIPART_HEADER = { headers: { ...header } };
   return await Axios.post(
     API_ENDPOINT,
     userProfilePicData,

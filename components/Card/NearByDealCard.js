@@ -92,7 +92,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                     {data?.listingPrice && <span className="mr-0.1">&#x20B9;</span>}
                     {numberWithCommas(data?.listingPrice || "")}
                   </p>
-                  <h1 className="flex-1 truncate w-full capitalize font-Regular  text-black">
+                  <h1 className="flex-1 truncate w-full font-Regular  text-black">
                     <CardHeading4 title={data?.marketingName} />
                   </h1>
                   <div

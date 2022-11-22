@@ -12,7 +12,7 @@ import filterIcon from "@/assets/filter.png";
 import filterApplyIcon from "@/assets/filter_apply.png";
 import SearchBar from "../Header/SearchBar";
 
-export default function Filter({ children, searchText, setApplyFilter, applyFilter, setSortApplyFilter }) {
+export default function Filter({ children, searchText, setApplyFilter, applyFilter, setSortApplyFilter, setIsFilterApplied }) {
   const [openFilter, setOpenFilter] = useState(false);
   const [openSort, setOpenSort] = useState(false);
   var { filterOptions } = useFilterOptions();
@@ -38,6 +38,70 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
   } else if (filterOptions && router.pathname === "/product/models") {
     filterOptions = filterOptions.filter((i) => i.id === "brand");
   }
+  else if (filterOptions && (router.query.categoryType == "brandWarranty" || router.query.categoryType == "sellerWarranty")) {
+    filterOptions = filterOptions.map((i) =>
+      i.id === "warranty" && router.query.categoryType.toString() == "brandWarranty"
+        ? {
+          ...i,
+          options: [
+            {
+              value: "Brand Warranty",
+              label: "Brand Warranty",
+              active: true,
+              disabled: true,
+            },
+          ],
+        }
+        : i.id === "warranty" && router.query.categoryType.toString() == "sellerWarranty" ? {
+          ...i,
+          options: [
+            {
+              value: "Seller Warranty",
+              label: "Seller Warranty",
+              active: true,
+              disabled: true,
+            },
+          ],
+        } : i
+    );
+  }
+  else if (filterOptions && router.query.categoryType == "like new") {
+    filterOptions = filterOptions.map((i) =>
+      i.id === "condition"
+        ? {
+          ...i,
+          options: [
+            {
+              value: "Like New",
+              label: "Like New",
+              active: true,
+              disabled: true,
+            },
+          ],
+        }
+        : i
+    );
+  }
+  else if (filterOptions && router.query.categoryType == "verified") {
+    filterOptions = filterOptions.map((i) =>
+      i.id === "verification"
+        ? {
+          ...i,
+          options: [
+            {
+              value: "verified",
+              label: "Verified",
+              active: true,
+              disabled: true,
+            },
+          ],
+        }
+        : i
+    );
+  }
+
+  // console.log("filterOptions2", router.query);
+  console.log("filterOptions", filterOptions);
 
   return (
     <Fragment>
@@ -72,7 +136,7 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
         <div className="px-4">{children}</div>
       </main>
       <Footer />
-      <FilterPopup openFilter={openFilter} setOpenFilter={setOpenFilter} filterOptions={filterOptions} setApplyFilter={setApplyFilter} />
+      <FilterPopup openFilter={openFilter} setOpenFilter={setOpenFilter} filterOptions={filterOptions} setApplyFilter={setApplyFilter} setIsFilterApplied={setIsFilterApplied} />
       <SortPopup setSortApplyFilter={setSortApplyFilter} openSort={openSort} setOpenSort={setOpenSort} />
     </Fragment>
   );

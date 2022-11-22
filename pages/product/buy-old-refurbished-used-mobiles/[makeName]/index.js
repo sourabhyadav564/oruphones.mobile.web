@@ -16,7 +16,7 @@ import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
 import { FiTablet } from "react-icons/fi";
-import { CardHeading2, CardHeading5 } from "@/components/elements/CardHeading/cardheading";
+import { CardHeading2, CardHeading4, CardHeading5 } from "@/components/elements/CardHeading/cardheading";
 import { Heading, Heading3 } from "@/components/elements/Heading/heading";
 import BrandCard from "@/components/Card/BrandCard";
 import BasicCarousel from "@/components/Carousel/BasicCarousel";
@@ -31,7 +31,7 @@ import LoadingStatePopup from "@/components/Popup/LoadingStatePopup";
 // import { useRecoilState } from "recoil";
 
 function MakePage({ bestDealData, shopbymodeldata, data }) {
-
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
   const { selectedSearchCity, loading } = useAuthState();
   const router = useRouter();
   let { makeName } = router.query;
@@ -48,7 +48,9 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   const [totalProducts, setTotalProducts] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
-
+  let intialPage = 0;
+  let newPages = 0;
+  let brandResult = [];
   const [title, setTitle] = useState(metaTags.BRANDS.title);
   const [description, setDescription] = useState(metaTags.BRANDS.description);
 
@@ -56,7 +58,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
 
   const loadData = (intialPage) => {
-    if (makeName) {
+    if (makeName && !isFilterApplied && !applyFilter) {
       fetchByMakeList(
         selectedSearchCity,
         makeName,
@@ -94,16 +96,83 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           setLoading(false);
         }
       );
+    } else {
+      if (applyFilter) {
+        setIsFilterApplied(true);
+        const {
+          brand,
+          condition,
+          color,
+          storage,
+          warranty,
+          verification,
+          priceRange,
+        } = applyFilter;
+        if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
+          if (makeName === "oneplus") {
+            makeName = "OnePlus";
+          } else {
+            makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
+          }
+          let payLoad = {
+            listingLocation: selectedSearchCity,
+            make: brand?.length > 0 ? brand : [makeName],
+            reqPage: "BRAND",
+            color: [],
+            deviceCondition: [],
+            deviceStorage: [],
+            deviceRam: [],
+            maxsellingPrice: 200000,
+            minsellingPrice: 0,
+            verified: "",
+            warenty: [],
+            pageNumber: intialPage,
+          };
+
+          if (priceRange && priceRange.min && priceRange.max) {
+            payLoad.minsellingPrice = priceRange.min;
+            payLoad.maxsellingPrice = priceRange.max;
+          }
+          if (condition?.length > 0) {
+            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+          }
+          if (storage?.length > 0) {
+            payLoad.deviceStorage = storage.includes("all") ? [] : storage;
+          }
+          if (color?.length > 0) {
+            payLoad.color = color.includes("all") ? [] : color;
+          }
+          if (warranty?.length > 0) {
+            payLoad.warenty = warranty.includes("all") ? [] : warranty;
+          }
+          if (verification?.length > 0) {
+            payLoad.verified = verification.includes("all") ? "" : "verified";
+          }
+
+          searchFilter(
+            payLoad,
+            localStorage.getItem("userUniqueId") || "Guest",
+            Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+            intialPage,
+            applySortFilter
+          ).then((response) => {
+            setOtherListings(response?.dataObject?.otherListings);
+            // setBestDeals([]);
+            setTotalProducts(response?.dataObject?.totalProducts);
+            setBestDeals(response?.dataObject?.bestDeals);
+          });
+        }
+      }
     }
   };
 
 
 
   const loadMoreData = () => {
-    let newPages = pageNumber + 1;
+    newPages = pageNumber + 1;
     setPageNumber(newPages);
     setIsLoadingMore(true);
-    if (makeName) {
+    if (makeName && !isFilterApplied) {
       fetchByMakeList(
         selectedSearchCity,
         makeName,
@@ -146,6 +215,88 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           setLoading(false);
         }
       );
+    } else {
+      if (applyFilter) {
+        setIsFilterApplied(true);
+        const {
+          brand,
+          condition,
+          color,
+          storage,
+          warranty,
+          verification,
+          priceRange,
+        } = applyFilter;
+        if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
+          if (makeName === "oneplus") {
+            makeName = "OnePlus";
+          } else {
+            makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
+          }
+          let payLoad = {
+            listingLocation: selectedSearchCity,
+            make: brand?.length > 0 ? brand : [makeName],
+            reqPage: "BRAND",
+            color: [],
+            deviceCondition: [],
+            deviceStorage: [],
+            deviceRam: [],
+            maxsellingPrice: 200000,
+            minsellingPrice: 0,
+            verified: "",
+            warenty: [],
+            pageNumber: newPages,
+          };
+
+          if (priceRange && priceRange.min && priceRange.max) {
+            payLoad.minsellingPrice = priceRange.min;
+            payLoad.maxsellingPrice = priceRange.max;
+          }
+          if (condition?.length > 0) {
+            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+          }
+          if (storage?.length > 0) {
+            payLoad.deviceStorage = storage.includes("all") ? [] : storage;
+          }
+          if (color?.length > 0) {
+            payLoad.color = color.includes("all") ? [] : color;
+          }
+          if (warranty?.length > 0) {
+            payLoad.warenty = warranty.includes("all") ? [] : warranty;
+          }
+          if (verification?.length > 0) {
+            payLoad.verified = verification.includes("all") ? "" : "verified";
+          }
+
+          searchFilter(
+            payLoad,
+            localStorage.getItem("userUniqueId") || "Guest",
+            Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+            newPages,
+            applySortFilter
+          ).then((response) => {
+            setIsLoadingMore(false);
+            if (newPages == 0) {
+              setOtherListings(response?.dataObject?.otherListings);
+            } else {
+              setOtherListings((products) => [
+                ...products,
+                ...response?.dataObject?.otherListings,
+              ]);
+            }
+            // setBestDeals([]);
+            setTotalProducts(response?.dataObject?.totalProducts);
+            if (newPages == 0) {
+              setBestDeals(response?.dataObject?.bestDeals);
+            } else {
+              setBestDeals((products) => [
+                ...products,
+                ...response?.dataObject?.bestDeals,
+              ]);
+            }
+          });
+        }
+      }
     }
   };
 
@@ -154,23 +305,31 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
     const getMakeModel = async () => {
       const result = await getMakeModelLists(
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
+        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+        makeName,
+        "Y"
       );
       return result;
     };
-    // const result = await getMakeModel();
-    setshopbymodel(JSON.parse(localStorage.getItem("make_models")));
-  }, []);
+    if (makeName != undefined) {
+      brandResult = await getMakeModel();
+    }
+    console.log("result", brandResult);
+    setshopbymodel(brandResult?.dataObject);
+    // setshopbymodel(JSON.parse(localStorage.getItem("make_models")));
+  }, [makeName]);
 
 
   useEffect(() => {
-    let intialPage = 0;
+    intialPage = 0;
+    newPages = 0;
     setPageNumber(intialPage);
     loadData(intialPage);
-  }, [makeName, selectedSearchCity, applySortFilter]);
+  }, [makeName, selectedSearchCity, applySortFilter, applyFilter]);
 
   useEffect(() => {
     if (applyFilter) {
+      setIsFilterApplied(true);
       const {
         brand,
         condition,
@@ -198,6 +357,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           minsellingPrice: 0,
           verified: "",
           warenty: [],
+          pageNumber: intialPage,
         };
 
         if (priceRange && priceRange.min && priceRange.max) {
@@ -224,7 +384,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
           Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
-          pageNumber
+          intialPage,
+          applySortFilter
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);
           // setBestDeals([]);
@@ -235,7 +396,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
     }
   }, [applyFilter]);
 
-  const sortingProducts = getSortedProducts(applySortFilter, otherListings);
+  // const sortingProducts = getSortedProducts(applySortFilter, otherListings);
 
 
   useEffect(() => {
@@ -261,7 +422,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         setDescription(metaTags.OPPO.description);
         break;
       case "gionee":
-        setIndex(19);
+        setIndex(3);
         setTitle(metaTags.GIONEE.title);
         setDescription(metaTags.GIONEE.description);
         break;
@@ -341,9 +502,19 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         setDescription(metaTags.LAVA.description);
         break;
       case "panasonic":
-        setIndex(11);
+        setIndex(20);
         setTitle(metaTags.PANASONIC.title);
         setDescription(metaTags.PANASONIC.description);
+        break;
+      case "meizu":
+        setIndex(15);
+        setTitle(metaTags.MEIZU.title);
+        setDescription(metaTags.MEIZU.description);
+        break;
+      case "zte":
+        setIndex(26);
+        setTitle(metaTags.ZTE.title);
+        setDescription(metaTags.ZTE.description);
         break;
       case "lg":
         setIndex(13);
@@ -357,8 +528,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         break;
       case "karbonn":
         setIndex(10);
-        setTitle(metaTags.KORBONN.title);
-        setDescription(metaTags.KORBONN.description);
+        setTitle(metaTags.KARBONN.title);
+        setDescription(metaTags.KARBONN.description);
         break;
       case "intex":
         setIndex(9);
@@ -399,6 +570,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
       <Filter
         // searchText={`Home > Shop By Brands > ${makeName}`}
         // setSortApplyFilter={setSortApplyFilter}
+        setIsFilterApplied={setIsFilterApplied}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
@@ -408,7 +580,10 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         )}  */}
 
         {isLoading ? (
-          <Loader />
+          <div className="flex items-center justify-center">
+            <Loader />
+            {/* <CardHeading4 title={"Please wait, while we are fetching the data for you..."} /> */}
+          </div>
         ) : (
           bestDeals &&
           bestDeals.length > 0 && (
@@ -439,13 +614,13 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         )}
 
 
-        {isLoading ? (
+        {(isLoading || isFilterApplied) && (brandResult == [] || brandResult == "") ? (
           <></>
         ) : (
           <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
             <CardHeading2 title="Shop by Model" />
             <ShopByBrandsSection
-              shopbymodeldata={shopbymodel} index={index} location={selectedSearchCity}
+              shopbymodeldata={shopbymodel} brandResult={brandResult} location={selectedSearchCity}
             />
           </div>
         )}
@@ -455,7 +630,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             <h1 className="text-[#707070] text-cx font-normal"> Shop By Model </h1>
          </div> */}
 
-        {(!isLoading && (sortingProducts && sortingProducts.length > 0)) && (
+        {(!isLoading && (otherListings && otherListings.length > 0)) && (
           <div className="flex mt-3">
 
             <h2 className=" font-normal text-[#707070] m-auto  text-cx  pl-0  capitalize flex-1">
@@ -475,11 +650,12 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         )}
 
         {isLoading ? (
-          <Loader />
+          // <Loader />
+          <></>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
-            {sortingProducts &&
-              sortingProducts?.map((item) => (
+            {otherListings &&
+              otherListings?.map((item) => (
                 <div
                   key={item.listingId}
                   className="m-1.5"
@@ -501,8 +677,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         {!isLoading &&
           bestDeals &&
           !(bestDeals.length > 0) &&
-          sortingProducts &&
-          !sortingProducts.length > 0 && <NoMatch />}
+          otherListings &&
+          !otherListings.length > 0 && <NoMatch />}
 
         {!isLoading &&
           isFinished === false && otherListings.length != totalProducts && (
@@ -519,6 +695,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
       </Filter>
       <BottomNav />
       <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
+      <Filter1 open={applySortFilter} setOpen={setSortApplyFilter} />
     </>
 
   );

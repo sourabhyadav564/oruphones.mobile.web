@@ -22,19 +22,20 @@ function AllModel() {
   function getFilteredValues() {
     const tempProducts = topsellingmodels;
     if (applyFilter && applyFilter.brand && applyFilter.brand.length > 0) {
-      tempProducts = tempProducts.filter((items) => applyFilter.brand.includes(items.make) || applyFilter.brand.includes("all"));
+      const tempProducts2 = tempProducts.filter((items) => applyFilter.brand.includes(items.make) || applyFilter.brand.includes("all"));
+      return tempProducts2;
     }
     return tempProducts;
   }
 
   return (
     <>
-   
+
       <Filter searchText={`All Models`}
-      setSortApplyFilter={setApplyFilter}
-      setApplyFilter={setApplyFilter}
-      applyFilter={applyFilter}>
-     
+        setSortApplyFilter={setApplyFilter}
+        setApplyFilter={setApplyFilter}
+        applyFilter={applyFilter}>
+
         {(loading || topsellingmodels?.length > 0) && <h1 className="text-lg font-semibold text-black-4e py-2"> All models </h1>}
         {loading ? (
           <Loader />
@@ -48,7 +49,7 @@ function AllModel() {
               ))}
           </section>
         )}
-        
+
       </Filter>
       <BottomNav />
     </>

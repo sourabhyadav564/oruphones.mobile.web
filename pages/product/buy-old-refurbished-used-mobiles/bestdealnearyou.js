@@ -11,6 +11,7 @@ import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { Heading } from "@/components/elements/Heading/heading";
+import { CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 
 // import {
 //   otherVendorDataState,
@@ -27,6 +28,7 @@ const settings = {
 };
 
 function Bestdealnearyou() {
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [products, setProducts] = useState([]);
   const [bestDeal, setBestDeal] = useState([]);
   const [applyFilter, setApplyFilter] = useState();
@@ -37,11 +39,12 @@ function Bestdealnearyou() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
-
+  let intialPage = 0;
+  let newPages = 0;
   // const [product, setProductsData] = useRecoilState(otherVendorDataState);
 
   const loadData = (intialPage) => {
-    if (selectedSearchCity) {
+    if (selectedSearchCity && !isFilterApplied && !applyFilter) {
       bestDealNearYouAll(
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
@@ -58,54 +61,7 @@ function Bestdealnearyou() {
         // setProductsData(response?.dataObject?.bestDeals);
         setLoading(false);
       });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  };
-
-  const loadMoreData = () => {
-    let newPages = pageNumber + 1;
-    setPageNumber(newPages);
-    setIsLoadingMore(true);
-    if (selectedSearchCity) {
-      bestDealNearYouAll(
-        selectedSearchCity,
-        Cookies.get("userUniqueId") || "Guest",
-        newPages,
-        applySortFilter
-      ).then((response) => {
-        setProducts((products) => [
-          ...products,
-          ...response?.dataObject?.otherListings,
-        ]);
-        // setBestDeal(response?.dataObject?.bestDeals);
-        // setProductsData([
-        //   ...response?.dataObject?.otherListings,
-        //   ...response?.dataObject?.bestDeals,
-        // ]);
-        // setProductsData(response?.dataObject?.bestDeals);
-
-        if (response?.dataObject?.otherListings.length == 0) {
-          setIsFinished(true);
-        }
-
-        if (response?.dataObject?.totalProducts > -1) {
-          setTotalProducts(response?.dataObject?.totalProducts);
-        }
-        setLoading(false);
-        setIsLoadingMore(false);
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  };
-
-  useEffect(() => {
-    let intialPage = 0;
-    setPageNumber(intialPage);
-    loadData(intialPage);
-  }, [selectedSearchCity, applySortFilter]);
-
-  useEffect(() => {
-    if (applyFilter) {
+    } else {
       const {
         brand,
         condition,
@@ -128,6 +84,7 @@ function Bestdealnearyou() {
           minsellingPrice: 0,
           verified: "",
           warenty: [],
+          pageNumber: intialPage,
         };
         if (brand?.length > 0) {
           payLoad.make = brand.includes("all") ? [] : brand;
@@ -155,7 +112,195 @@ function Bestdealnearyou() {
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
           localStorage.getItem("sessionId") || "",
-          pageNumber
+          intialPage,
+          applySortFilter
+        ).then((response) => {
+          setProducts(response?.dataObject?.otherListings);
+          // setBestDeal([]);
+          setTotalProducts(response?.dataObject?.totalProducts);
+          setBestDeal(response?.dataObject?.bestDeals);
+          // setLoading(false);
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  const loadMoreData = () => {
+    newPages = pageNumber + 1;
+    setPageNumber(newPages);
+    setIsLoadingMore(true);
+    if (selectedSearchCity && !isFilterApplied) {
+      bestDealNearYouAll(
+        selectedSearchCity,
+        Cookies.get("userUniqueId") || "Guest",
+        newPages,
+        applySortFilter
+      ).then((response) => {
+        setProducts((products) => [
+          ...products,
+          ...response?.dataObject?.otherListings,
+        ]);
+        // setBestDeal(response?.dataObject?.bestDeals);
+        // setProductsData([
+        //   ...response?.dataObject?.otherListings,
+        //   ...response?.dataObject?.bestDeals,
+        // ]);
+        // setProductsData(response?.dataObject?.bestDeals);
+
+        if (response?.dataObject?.otherListings.length == 0) {
+          setIsFinished(true);
+        }
+
+        if (response?.dataObject?.totalProducts > -1) {
+          setTotalProducts(response?.dataObject?.totalProducts);
+        }
+        setLoading(false);
+        setIsLoadingMore(false);
+      });
+    } else {
+      if (applyFilter) {
+        const {
+          brand,
+          condition,
+          color,
+          storage,
+          warranty,
+          verification,
+          priceRange,
+        } = applyFilter;
+        if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
+          let payLoad = {
+            listingLocation: selectedSearchCity,
+            reqPage: "BBNM",
+            color: [],
+            make: [],
+            deviceCondition: [],
+            deviceStorage: [],
+            deviceRam: [],
+            maxsellingPrice: 200000,
+            minsellingPrice: 0,
+            verified: "",
+            warenty: [],
+            pageNumber: newPages,
+          };
+          if (brand?.length > 0) {
+            payLoad.make = brand.includes("all") ? [] : brand;
+          }
+          if (priceRange && priceRange.min && priceRange.max) {
+            payLoad.minsellingPrice = priceRange.min;
+            payLoad.maxsellingPrice = priceRange.max;
+          }
+          if (condition?.length > 0) {
+            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+          }
+          if (storage?.length > 0) {
+            payLoad.deviceStorage = storage.includes("all") ? [] : storage;
+          }
+          if (color?.length > 0) {
+            payLoad.color = color.includes("all") ? [] : color;
+          }
+          if (warranty?.length > 0) {
+            payLoad.warenty = warranty.includes("all") ? [] : warranty;
+          }
+          if (verification?.length > 0) {
+            payLoad.verified = verification.includes("all") ? "" : "verified";
+          }
+          searchFilter(
+            payLoad,
+            localStorage.getItem("userUniqueId") || "Guest",
+            localStorage.getItem("sessionId") || "",
+            newPages,
+            applySortFilter
+          ).then((response) => {
+            setIsLoadingMore(false);
+            if (newPages == 0) {
+              setOtherListings(response?.dataObject?.otherListings);
+            } else {
+              setProducts((products) => [
+                ...products,
+                ...response?.dataObject?.otherListings,
+              ]);
+            }
+            // setBestDeals([]);
+            setTotalProducts(response?.dataObject?.totalProducts);
+            if (newPages == 0) {
+              setBestDeal(response?.dataObject?.bestDeals);
+            } else {
+              setBestDeal((products) => [
+                ...products,
+                ...response?.dataObject?.bestDeals,
+              ]);
+            }
+          });
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  useEffect(() => {
+    intialPage = 0;
+    newPages = 0;
+    setPageNumber(intialPage);
+    loadData(intialPage);
+  }, [selectedSearchCity, applySortFilter, applyFilter]);
+
+  useEffect(() => {
+    if (applyFilter) {
+      setIsFilterApplied(true);
+      const {
+        brand,
+        condition,
+        color,
+        storage,
+        warranty,
+        verification,
+        priceRange,
+      } = applyFilter;
+      if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
+        let payLoad = {
+          listingLocation: selectedSearchCity,
+          reqPage: "BBNM",
+          color: [],
+          make: [],
+          deviceCondition: [],
+          deviceStorage: [],
+          deviceRam: [],
+          maxsellingPrice: 200000,
+          minsellingPrice: 0,
+          verified: "",
+          warenty: [],
+          pageNumber: intialPage
+        };
+        if (brand?.length > 0) {
+          payLoad.make = brand.includes("all") ? [] : brand;
+        }
+        if (priceRange && priceRange.min && priceRange.max) {
+          payLoad.minsellingPrice = priceRange.min;
+          payLoad.maxsellingPrice = priceRange.max;
+        }
+        if (condition?.length > 0) {
+          payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+        }
+        if (storage?.length > 0) {
+          payLoad.deviceStorage = storage.includes("all") ? [] : storage;
+        }
+        if (color?.length > 0) {
+          payLoad.color = color.includes("all") ? [] : color;
+        }
+        if (warranty?.length > 0) {
+          payLoad.warenty = warranty.includes("all") ? [] : warranty;
+        }
+        if (verification?.length > 0) {
+          payLoad.verified = verification.includes("all") ? "" : "verified";
+        }
+        searchFilter(
+          payLoad,
+          localStorage.getItem("userUniqueId") || "Guest",
+          localStorage.getItem("sessionId") || "",
+          intialPage,
+          applySortFilter
         ).then((response) => {
           setProducts(response?.dataObject?.otherListings);
           // setBestDeal([]);
@@ -174,6 +319,7 @@ function Bestdealnearyou() {
       <Filter
         // searchText={`All Listings`}
         // setSortApplyFilter={setSortApplyFilter}
+        setIsFilterApplied={setIsFilterApplied}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
@@ -187,7 +333,10 @@ function Bestdealnearyou() {
         </div>
       )} */}
         {isLoading ? (
-          <Loader />
+          <div className="flex items-center justify-center">
+            <Loader />
+            {/* <CardHeading4 title={"Please wait, while we are fetching the data for you..."} /> */}
+          </div>
         ) : (
           bestDeal &&
           bestDeal?.length > 0 && (
@@ -219,7 +368,8 @@ function Bestdealnearyou() {
 
         )}
         {isLoading ? (
-          <Loader />
+          // <Loader />
+          <></>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {products &&
@@ -254,6 +404,7 @@ function Bestdealnearyou() {
           )}
       </Filter>
       <BottomNav />
+      <Filter1 open={applySortFilter} setOpen={setSortApplyFilter} />
     </>
   );
 }

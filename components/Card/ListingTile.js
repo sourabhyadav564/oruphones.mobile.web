@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import UnVerifiedIcon from "../UnVerifiedIcon";
 import VerifiedIcon from "../VerifiedIcon";
 import ShareIcon from "../ShareIcon";
+import Logo from "@/assets/oru_phones_logo.png";
 
 const PauseListing = dynamic(() => import("@/components/Popup/PauseListing"));
 const VerifyFlowPopup = dynamic(() => import("@/components/Popup/VerifyFlowPopup"));
@@ -41,17 +42,22 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
       listingId: data?.listingId,
       userUniqueId: Cookies.get("userUniqueId"),
     };
-    activateListing(payLoad).then(
-      (res) => {
-        // if (res?.reason === "You are not allowed to activate more then 5 unverified listings.") {
-        setReason(res?.reason);
-        setOpenActivateListing(true);
-        // } else {
-        //   setOpenActivateListing(true);
-        // }
-      },
-      (err) => console.error(err)
-    );
+    if (openMenu === data?.listingId) {
+      setOpenMenu(-1)
+    }
+    else {
+      activateListing(payLoad).then(
+        (res) => {
+          // if (res?.reason === "You are not allowed to activate more then 5 unverified listings.") {
+          setReason(res?.reason);
+          setOpenActivateListing(true);
+          // } else {
+          //   setOpenActivateListing(true);
+          // }
+        },
+        (err) => console.error(err)
+      )
+    }
   };
 
   // useEffect(() => {
@@ -84,13 +90,23 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
       <Fragment>
         {/* <Link href={`/user/listings/${data?.listingId}`}> */}
         <div
+          onClick={openMenu === data?.listingId ? () => setOpenMenu(-1) : () => {
+            //   window.open(
+            //     `/user/listings/${data?.listingId}`,
+            //     "_blank",)
+          }}
           className={`flex flex-col pt-2 rounded-md ${(data?.status.toUpperCase() !== "ACTIVE" && "bg-gray-ef") || ""}`}
           style={{ boxShadow: "0 1px 20px rgba(0, 0, 0, 0.08)" }}
         >
           <div className="flex  p-1">
-            <div className="px-2">
+            <div className="px-2"
+              onClick={() => openMenu === data?.listingId ? () => setOpenMenu(-1) :
+                window.open(
+                  `/user/listings/${data?.listingId}`,
+                  "_blank",)
+              }>
               <Image
-                src={(data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || "/fullImage"}
+                src={(data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
                 width={100}
                 height={100}
                 objectFit="contain"
@@ -100,9 +116,11 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
               <div className="text-sm font-bold flex justify-between space-x-2">
                 <p
                   className="flex-1 text-sm text-gray-600"
-                  onClick={() => window.open(
-                    `/user/listings/${data?.listingId}`,
-                    "_blank",)}
+                  onClick={() => openMenu === data?.listingId ? setOpenMenu(-1) :
+                    window.open(
+                      `/user/listings/${data?.listingId}`,
+                      "_blank",)
+                  }
                 >
                   {data.marketingName}
                   {/* <p className="flex-1 text-sm text-gray-600">{data.marketingName}</p> */}
@@ -113,7 +131,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 </div>
                 <div
                   className="listing-tile dropdown inline-block relative"
-                // onClick={(e) => e.preventDefault()}
+                  onClick={(e) => e.preventDefault()}
                 >
                   <BiDotsVerticalRounded
                     size={22}
@@ -149,9 +167,11 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 </div>
               </div>
               <div
-                onClick={() => window.open(
-                  `/user/listings/${data?.listingId}`,
-                  "_blank",)}
+                onClick={() => openMenu === data?.listingId ? () => setOpenMenu(-1) :
+                  window.open(
+                    `/user/listings/${data?.listingId}`,
+                    "_blank",)
+                }
               >
                 <div className="flex space-x-4 text-gray-70 text-xs mt-3">
                   <p className="flex flex-col items-start">
@@ -223,7 +243,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 </div>
               ) : data?.verified ? (
                 <div className="flex items-center pl-4 w-full">
-                  <VerifiedIcon width={60} height={30} />
+                  <VerificationIcon width={60} height={30} />
                   <span className="text-sm text-black-4e ml-3">On: {data?.verifiedDate}​</span>
                   <div className="bg-gray-ef text-gray-70 text-sm flex flex-col px-4 py-0.5 ml-auto rounded-tl-md rounded-br-md">
                     <span>List Price</span>

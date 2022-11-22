@@ -16,6 +16,11 @@ function Index({ userInfo }) {
   const [openMenu, setOpenMenu] = useState(-1);
   const router = useRouter();
   const dispatch = useAuthDispatch();
+  const [loadingState, setLoadingState] = useState(false);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, [router.pathname]);
 
   useEffect(() => {
     if (userInfo === null) return;
@@ -58,7 +63,7 @@ function Index({ userInfo }) {
   return (
     <Fragment>
       <Header3 title1={"MyListing"} title2={"My Favorites"} />
-      <main className="md:mb-28 px-4 py-4 mt-12 flex flex-col min-h-screen absolute bg-white w-full">
+      <main className="md:mb-28 px-5 pt-4 pb-24 flex flex-col min-h-screen absolute bg-white w-full">
         {listingsLoading ? (
           <div className="flex justify-center items-center h-52">
             Loading...

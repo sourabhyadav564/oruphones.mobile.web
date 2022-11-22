@@ -3,47 +3,60 @@
 @import "tailwindcss/utilities";
 
 
+@layer utilities {
+  @variants responsive {
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+}
 
 
 /* import font family */
 /* for bold */
-@font-face { 
+@font-face {
   font-family: 'Roboto-Bold';
-  src: local('Roboto-Bold'),url('../assets/fonts/Roboto-Bold.ttf') format('truetype');
+  src: local('Roboto-Bold'), url('../assets/fonts/Roboto-Bold.ttf') format('truetype');
 }
 
 /* semibold font */
-@font-face { 
+@font-face {
   font-family: 'Roboto-Semibold';
-  src: local('Roboto-Semibold'),url('../assets/fonts/Roboto-Semibold.ttf') format('truetype');
+  src: local('Roboto-Semibold'), url('../assets/fonts/Roboto-Semibold.ttf') format('truetype');
 }
 
 
 /* light font */
-@font-face { 
+@font-face {
   font-family: 'Roboto-Light';
-  src: local('Roboto-Light'),url('../assets/fonts/Roboto-Light.ttf') format('truetype');
+  src: local('Roboto-Light'), url('../assets/fonts/Roboto-Light.ttf') format('truetype');
 }
 
 
 /* regular font */
-@font-face { 
+@font-face {
   font-family: 'Roboto-Regular';
-  src: local('Roboto-Regular'),url('../assets/fonts/Roboto-Regular.ttf') format('truetype');
+  src: local('Roboto-Regular'), url('../assets/fonts/Roboto-Regular.ttf') format('truetype');
 }
 
 
 /* regular italic font */
-@font-face { 
+@font-face {
   font-family: 'Roboto-Regularitalic';
-  src: local('Roboto-Regularitalic'),url('../assets/fonts/Roboto-Italic.ttf') format('truetype');
+  src: local('Roboto-Regularitalic'), url('../assets/fonts/Roboto-Italic.ttf') format('truetype');
 }
 
 
 /* medium font */
-@font-face { 
+@font-face {
   font-family: 'Roboto-Medium';
-  src: local('Roboto-Medium'),url('../assets/fonts/Roboto-Medium.ttf') format('truetype');
+  src: local('Roboto-Medium'), url('../assets/fonts/Roboto-Medium.ttf') format('truetype');
 }
 
 
@@ -55,6 +68,7 @@
   outline: none !important;
   box-shadow: none;
 }
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 body::-webkit-scrollbar {
   display: none !important;
@@ -63,7 +77,8 @@ body::-webkit-scrollbar {
 /* Hide scrollbar for IE, Edge add Firefox */
 body {
   -ms-overflow-style: none !important;
-  scrollbar-width: none !important; /* Firefox */
+  scrollbar-width: none !important;
+  /* Firefox */
 }
 
 .cardShadow1 {
@@ -71,11 +86,13 @@ body {
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
 }
+
 .bannerShadow {
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
   -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
+
 .menuShadow {
   -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
   -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
@@ -95,28 +112,31 @@ body {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .filterPopup {
-  -ms-overflow-style: none !important; /* IE and Edge */
-  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important;
+  /* IE and Edge */
+  scrollbar-width: none !important;
+  /* Firefox */
 }
 
-input:checked + div {
+input:checked+div {
   @apply border-primary;
 }
-input:checked + div svg {
+
+input:checked+div svg {
   @apply block;
 }
 
-.outline *:focus-within ~ label,
-.outline *:not(:placeholder-shown) ~ label {
+.outline *:focus-within~label,
+.outline *:not(:placeholder-shown)~label {
   @apply transform -translate-y-2.5 z-0 ml-4 px-1 py-0;
 }
 
-.outline input:focus-within ~ label,
-.outline input ~ label,
-.outline select:focus-within ~ label,
-.outline select:not(:placeholder-shown) ~ label,
-.outline textarea:focus-within ~ label,
-.outline textarea:not(:placeholder-shown) ~ label {
+.outline input:focus-within~label,
+.outline input~label,
+.outline select:focus-within~label,
+.outline select:not(:placeholder-shown)~label,
+.outline textarea:focus-within~label,
+.outline textarea:not(:placeholder-shown)~label {
   @apply transform -translate-y-2.5 z-0 ml-4 px-1 py-0;
 }
 
@@ -127,21 +147,25 @@ input:checked + div svg {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
   @apply pt-3 pb-4 px-6 rounded-lg bg-white;
 }
+
 .content h1 {
   font-size: 21px;
   margin: 1rem 0;
   @apply text-primary;
 }
+
 .content h2 {
   font-size: 16px;
   margin: 0.5rem 0;
   @apply font-bold text-black-4e;
 }
+
 .content h3 {
   font-size: 16px;
   margin: 0.5rem 0;
   @apply font-bold text-black-4e;
 }
+
 .content p {
   @apply text-base font-normal pb-2 text-black-4e;
 }
@@ -154,5 +178,3 @@ input:checked + div svg {
 .swiper-wrapper {
   padding-inline-start: 0;
 }
-
-
