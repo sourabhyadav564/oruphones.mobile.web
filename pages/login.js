@@ -92,7 +92,7 @@ function Login() {
             {/* <h1 className="text-primary-dark text-2xl font-extrabold py-2">
               Sign In
             </h1> */}
-            <div className="w-full my-8 relative " >
+            <div className="w-full my-8 relative ">
               <p className="text-lg font-bold px-1">Welcome</p>
               <h1 className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to continue </h1>
               <input

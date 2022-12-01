@@ -96,7 +96,6 @@ function GlobalHeader() {
                           priority
                           objectFit="contain"
                           alt="ORU notification icon"
-                          className=""
                         />
                       </a>
                     </Link>
