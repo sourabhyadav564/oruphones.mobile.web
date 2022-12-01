@@ -35,7 +35,7 @@ function BottomNav() {
           className="fixed z-50 bottom-0  bg-transparent w-full topShadow text-gray"
           style={{ fontSize: 10 }}
         >
-          <div className="container flex justify-between items-end bg-primary-dark pb-3 pt-4 px-6 uppercase rounded-t-xl">
+          <div className="container flex justify-between items-end bg-primary-dark pb-3 pt-4 px-6 uppercase rounded-t-xl" >
             <Link href="/" onClick={() => setLoadingState(true)}>
               <a
                 aria-current="page"
@@ -43,7 +43,7 @@ function BottomNav() {
                   } `}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={Home} width={20} height={20} />
+                <Image src={Home} width={20} height={20} alt="ORU home" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -74,9 +74,10 @@ function BottomNav() {
               <a
                 className={`flex flex-col items-center ${isActive("/user/listings") ? "text-white" : ""
                   } `}
+                  
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={MyListings} width={20} height={20} />
+                <Image src={MyListings} width={20} height={20} alt="ORU mylistings"/>
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -101,7 +102,7 @@ function BottomNav() {
                   onClick={() => setLoadingState(true)}
                 >
                   <div
-                    className="absolute bottom-0 p-4 rounded-full bg-[#f9c414] border-4 border-white"
+                    className="absolute bottom-0 p-4 rounded-full bg-[#f9c414] border-4 border-white hover:scale-125 duration-300"
                   // style={{ boxShadow: "0 -5px 20px rgba(16, 203, 165, 0.3)" }}
                   >
                     <svg
@@ -110,6 +111,7 @@ function BottomNav() {
                       fill="primary"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
+                      className=""
                     >
                       <path
                         fillRule="evenodd"
@@ -127,7 +129,7 @@ function BottomNav() {
                   }`}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={Services} width={20} height={20} />
+                <Image src={Services} width={20} height={20} alt="ORU services"/>
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -151,7 +153,7 @@ function BottomNav() {
                   }`}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={Profile} width={20} height={20} />
+                <Image src={Profile} width={20} height={20} alt="ORU user profile" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"

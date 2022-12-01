@@ -98,7 +98,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
           className={`flex flex-col pt-2 rounded-md ${(data?.status.toUpperCase() !== "ACTIVE" && "bg-gray-ef") || ""}`}
           style={{ boxShadow: "0 1px 20px rgba(0, 0, 0, 0.08)" }}
         >
-          <div className="flex  p-1">
+          <div className="flex p-1">
             <div className="px-2"
               onClick={() => openMenu === data?.listingId ? () => setOpenMenu(-1) :
                 window.open(
@@ -110,6 +110,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 width={100}
                 height={100}
                 objectFit="contain"
+                alt={data.marketingName}
               />
             </div>
             <div className="w-full pt-1">

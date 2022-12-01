@@ -149,12 +149,12 @@ function Profile() {
           <section className="px-4 flex flex-col my-8 space-y-4">
             <Link href="/user/favourites" >
               <a className="border-lg font-Roboto-Regular py-3 text-sm text-primary uppercase rounded text-center" style={{ backgroundColor: "#F9C414" }} onClick={() => setLoadingState(true)} >
-                MY FAVORITES
+                <h1>MY FAVORITES</h1>
               </a>
             </Link>
           </section>
           <section className="px-4 flex flex-col my-8 space-y-4">
-            <h1 className="font-Roboto-Light text-ex border-b-2 pb-2">Basic Info</h1>
+            <p className="font-Roboto-Light text-ex border-b-2 pb-2">Basic Info</p>
             <div className="space-y-1 text-jx font-Roboto-Regular">
               <p className="bg-white px-0.5">Name <span className="text-red-500">*</span></p>
               <Input
@@ -252,6 +252,7 @@ const UserIcon = ({ onChange, img }) => (
         style={{ width: 132, height: 132 }}
       >
         <Image
+          alt="Oruphones user"
           src={img}
           layout="fill"
           className="rounded-full"

@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { BsInfoCircle } from "react-icons/bs";
 import { deviceConditionResult } from "../../utils/constant";
 

@@ -1015,7 +1015,7 @@ const Checkbox = ({ src, text, checked, onChange }) => (
     onClick={onChange}
   >
     <div className="relative w-7 h-7 mx-auto">
-      <Image src={src} layout="fill" />
+      <Image src={src} layout="fill" alt="ORU user checkclick"/>
     </div>
 
     <input

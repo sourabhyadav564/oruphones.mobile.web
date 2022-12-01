@@ -80,7 +80,7 @@ function Login() {
         )}
       </div> */}
       <section className="container px-8 flex flex-col items-center space-y-8 max-w-sm">
-        <div className="mt-14">
+        <div className="mt-14" data-aos="fade-down">
           <Image src={Logo} alt={"Logo"} width={108} height={53} />
         </div>
         {step === 1 ? (
@@ -92,9 +92,9 @@ function Login() {
             {/* <h1 className="text-primary-dark text-2xl font-extrabold py-2">
               Sign In
             </h1> */}
-            <div className="w-full my-8 relative ">
-              <h1 className="text-lg font-bold px-1">Welcome</h1>
-              <p className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to continue </p>
+            <div className="w-full my-8 relative " >
+              <p className="text-lg font-bold px-1">Welcome</p>
+              <h1 className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to continue </h1>
               <input
                 className="bg-white  border-2 p-3 w-full font-regular rounded-md"
                 name="mobile"
@@ -120,7 +120,7 @@ function Login() {
             <div className="w-full space-y-4">
               <div className="w-full grid gap-2">
                 <button
-                  className="bg-primary rounded py-3 text-white text-sm w-full disabled:opacity-60"
+                  className="bg-primary rounded py-3 text-white text-sm w-full disabled:opacity-60" data-aos="fade-down"
                   disabled={!formData?.termsAndCondition}
                 >
                   Sign In

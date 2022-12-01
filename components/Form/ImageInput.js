@@ -22,7 +22,7 @@ function ImageInput({
           }}
         >
           <div className="h-24 mx-auto">
-            <img src={preview} style={{ width: "auto", height: "100%" }} />
+            <img src={preview} alt="ORU image" style={{ width: "auto", height: "100%" }} />
           </div>
           <GrClose
             className="absolute -top-2 right-2 text-sm cursor-pointer"

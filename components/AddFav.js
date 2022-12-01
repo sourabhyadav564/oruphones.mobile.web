@@ -22,7 +22,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
   //     (err) => console.error(err)
   //   );
   // }
-  console.log("data3", data);
+  // console.log("data3", data);
   function handleFavoties() {
     setProducts((prevState) => {
       let tempVal;

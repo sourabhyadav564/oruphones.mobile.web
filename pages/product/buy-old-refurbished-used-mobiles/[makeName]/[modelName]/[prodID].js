@@ -334,7 +334,8 @@ function ProductDeatils({ data }) {
             {/* <h1 className="text-black font-Regular text-qx">
               {data?.marketingName}
             </h1> */}
-            <ProductNameHeading title={data?.marketingName} />
+           
+            <h1 className="font-Roboto-Regular text-qx text-[#000000]">{data?.marketingName} </h1>
 
             {/* {data?.isOtherVendor === "N" && (
               <div className="text-gray-20 w-full flex items-center justify-between my-1">

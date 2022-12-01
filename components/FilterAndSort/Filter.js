@@ -101,7 +101,7 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
   }
 
   // console.log("filterOptions2", router.query);
-  console.log("filterOptions", filterOptions);
+  // console.log("filterOptions", filterOptions);
 
   return (
     <Fragment>
@@ -120,7 +120,7 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
         </div>
         {setApplyFilter && (
           <div className="absolute right-4 flex items-center justify-center w-10 h-8" onClick={() => setOpenFilter(true)}>
-            <img src={applyFilter && Object.keys(applyFilter).some((i) => applyFilter[i]) ? filterApplyIcon.src : filterIcon.src}></img>
+            <img src={applyFilter && Object.keys(applyFilter).some((i) => applyFilter[i]) ? filterApplyIcon.src : filterIcon.src} alt="ORU filter icon"></img>
           </div>
         )}
       </div>

@@ -299,9 +299,9 @@ const AddListingForm = ({ data }) => {
         marketingNameRequired.length > 0 ||
         deviceConditionRequired.length > 0 ||
         storageRequired.length > 0) && (
-        <h1 className="text-red pt-4">
+        <p className="text-red text-mx pt-4">
           Please fill all the required fields properly
-        </h1>
+        </p>
       )}
       <form className="grid grid-cols-1 space-y-6 mt-8" onSubmit={handleSubmit}>
         <div>
@@ -623,7 +623,7 @@ const Checkbox = ({ src, text, checked, onChange }) => (
     onClick={onChange}
   >
     <div className="relative w-12 h-12 mx-auto">
-      <Image src={src} layout="fill" />
+      <Image src={src} layout="fill" alt="ORU listings"/>
     </div>
     <input
       type="checkbox"

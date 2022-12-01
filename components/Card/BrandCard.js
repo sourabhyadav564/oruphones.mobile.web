@@ -3,8 +3,13 @@ import Image from "next/image";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/oru_phones_logo.png";
 import BottomNav from "../Navigation/BottomNav";
+import { useRecoilState } from "recoil";
+import { makeState } from "atoms/globalState";
 
 function BrandCard({ data, className, popup }) {
+
+  const [make, setMake] = useRecoilState(makeState);
+  
   if (data?.make.toLowerCase().includes("show")) {
     return (
       <>
@@ -38,6 +43,7 @@ function BrandCard({ data, className, popup }) {
               <Image
                 src={data?.imagePath || Logo}
                 alt={data?.make}
+               onClick={()=>setMake(data?.make)}
                 height={45}
                 width={45}
                 objectFit="contain"

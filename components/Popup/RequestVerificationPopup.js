@@ -13,7 +13,7 @@ function RequestVerificationPopup({ open, setOpen, data, setShowNumber, setOpenR
     <Modal2 open={open} setOpen={setOpen}>
       <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e">
         <FiAlertOctagon size={44} color="#f7e17d" />
-        <h1 className="font-Roboto-Bold mt-1">Alert</h1>
+        <p className="font-Roboto-Bold mt-1">Alert</p>
         <div className="text-sm my-2 text-center font-Roboto-Regular">
           <p>
             This device is unverified. Press Request Verification button to ask the seller to perform verification. You will receive a notification

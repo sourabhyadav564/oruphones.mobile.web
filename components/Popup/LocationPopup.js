@@ -185,7 +185,7 @@ function LocationPopup({ open, setOpen }) {
     <Modal1 open={open} setOpen={setOpen}>
       <div className="bg-white px-4 py-6 pb-4">
         <div className="text-left sm:mt-0 sm:ml-4  sm:text-left text-black-4e">
-          <Dialog.Title as="h1" className="text-ex  font-Roboto-Bold">
+          <Dialog.Title as="p" className="text-ex  font-Roboto-Bold">
             Select Location
           </Dialog.Title>
           <form className="mb-4 w-full text-sm space-y-2 pt-4">
@@ -246,7 +246,7 @@ function LocationPopup({ open, setOpen }) {
             </div>
 
             <div className="">
-              <h1 className="uppercase text-ex border-b pb-1.5 border-black-4e font-Roboto-Medium ">all cities</h1>
+              <p className="uppercase text-ex border-b pb-1.5 border-black-4e font-Roboto-Medium ">all cities</p>
               <div className="pt-2 h-80 overflow-y-scroll no-scrollbar">
                 {globalCities && globalCities.map((items) => (
                   <div className="pb-2" onClick={() => handleCityChange(items.city)}>

@@ -31,7 +31,7 @@ const ConditionOptionLarge = ({
             <div className="border border-black p-0.5 rounded-full">
               <GoPrimitiveDot className="text-nx " />
             </div>
-            <h1 className="font-Roboto-Regular text-cx ">{option}</h1>
+            <p className="font-Roboto-Regular text-cx ">{option}</p>
           </div>
         ))}
     </div>

@@ -103,7 +103,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
   return (
     <section className="px-3 text-sm text-gray-70">
       <div className="flex items-center justify-start space-x-2 ">
-        <h1 className="mt-3 mb-2 font-Roboto-Semibold text-base">
+        <h1 className="mt-3 mb-2 font-Roboto-Semibold text-base ">
           Best Deals Near You
         </h1>
         <div className="flex flex-1 items-center justify-between">

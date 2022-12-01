@@ -472,9 +472,9 @@ function CategoryPage() {
         ) : (
           bestDeals.length > 0 && (
             <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff]">
-              <h1 className="text-lg font-semibold text-white py-2.5">
+              <p className="text-lg font-semibold text-white py-2.5">
                 Best Deals
-              </h1>
+              </p>
 
               <BestDealSection
                 bestDealData={bestDeals}
@@ -486,9 +486,9 @@ function CategoryPage() {
 
         {(!isLoading || (otherListings && otherListings.length > 0)) && (
           <div className="flex items-center " >
-            <h2 className=" text-mx font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
+            <h1 className=" text-mx font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
               Other Listings ({totalProducts})
-            </h2>
+            </h1>
             <div className="">
               <Filter1
                 setSortApplyFilter={setSortApplyFilter}

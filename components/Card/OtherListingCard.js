@@ -74,7 +74,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
       // }
       >
         <a
-          className="grid grid-cols-1 h-full shadow-lg shadow-gray-900 rounded-lg relative py-2 px-3 bg-m-white cardShadow1"
+          className="grid grid-cols-1 h-full shadow-lg shadow-gray-900 rounded-lg relative py-2 px-3 bg-m-white cardShadow1" data-aos="fade-up"
         // onClick={() => setLoadingState(true)}
         >
           <div className="grid grid-cols-1">
@@ -84,6 +84,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 width={"50"}
                 height={"20"}
                 objectFit="contain"
+                alt={data.marketingName}
               /> : (!(data?.isOtherVendor === "Y") && data?.verified) ? (
                 <VerifiedIcon width={45} height={22} />
               ) : <svg height={20} />}
@@ -115,9 +116,9 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                     {data?.listingPrice && <span className="mr-0.5">&#x20B9;</span>}
                     {numberWithCommas(data?.listingPrice || "")}
                   </p>
-                  <h1 className="flex-1 truncate w-full capitalize font-Roboto-Medium text-jx">
+                  <p className="flex-1 truncate w-full capitalize font-Roboto-Medium text-jx">
                     {data?.marketingName}
-                  </h1>
+                  </p>
                   <div
                     className="flex flex-wrap justify-between"
                   >
@@ -164,9 +165,9 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                     {data?.listingPrice && <span className="mr-0.5">&#x20B9;</span>}
                     {numberWithCommas(data?.listingPrice || "")}
                   </p>
-                  <h1 className="flex-1 truncate w-full capitalize font-Roboto-Medium text-ex text-[#000944]">
+                  <p className="flex-1 truncate w-full capitalize font-Roboto-Medium text-ex text-[#000944]">
                     {data?.marketingName}
-                  </h1>
+                  </p>
                   <div
                     className="flex flex-wrap justify-between"
                   >

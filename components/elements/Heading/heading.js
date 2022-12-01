@@ -4,7 +4,7 @@ import { FaRupeeSign } from "react-icons/fa";
 function Heading({ title }) {
   return (
     <div>
-      <h1 className='text-mx text-[#707070] font-Roboto-Regular pl-2 pt-2 '>{title}</h1>
+      <p className='text-mx text-[#707070] font-Roboto-Regular pl-2 pt-2 '>{title}</p>
     </div>
   )
 }
@@ -12,7 +12,7 @@ function Heading({ title }) {
 function Heading3({ title }) {
   return (
     <div>
-      <h1 className='font-Roboto-Bold text-dx text-[#FFFFFF] capitalize py-3.5'> {title} </h1>
+      <p className='font-Roboto-Bold text-dx text-[#FFFFFF] capitalize py-3.5'> {title} </p>
     </div>
   )
 }
@@ -43,7 +43,7 @@ function Header4Heading({ title }) {
 function SellPhoneHeading1({ title }) {
   return (
     <div >
-      <h1 className='font-Roboto-Bold text-px text-[#2C2F45]'>{title}</h1>
+      <p className='font-Roboto-Bold text-px text-[#2C2F45]'>{title}</p>
     </div>
   )
 }
@@ -51,7 +51,7 @@ function SellPhoneHeading1({ title }) {
 function ProductNameHeading({ title }) {
   return (
     <div>
-      <h1 className='font-Roboto-Regular text-qx text-[#000000]' >{title}</h1>
+      <p className='font-Roboto-Regular text-qx text-[#000000]' >{title}</p>
     </div>
 
   )
@@ -62,7 +62,7 @@ function ProductNameHeading({ title }) {
 function linkHeading({ title }) {
   return (
     <div>
-      <h1 className='font-Roboto-Regularitalic text-mx text-[#2C2F45]'> {title}</h1>
+      <p className='font-Roboto-Regularitalic text-mx text-[#2C2F45]'> {title}</p>
     </div>
   );
 
@@ -72,7 +72,7 @@ function linkHeading({ title }) {
 function AgeHeading({ title }) {
   return (
     <div>
-      <h1 className='font-Roboto-Light text-jx text-[#2C2F45]'> {title}</h1>
+      <p className='font-Roboto-Light text-jx text-[#2C2F45]'> {title}</p>
     </div>
   );
 }
@@ -81,7 +81,7 @@ function AgeHeading({ title }) {
 function BannerSellHeading({ title }) {
   return (
     <div>
-      <h1 className='font-Roboto-Semibold text-ex '> {title}</h1>
+      <p className='font-Roboto-Semibold text-ex '> {title}</p>
     </div>
   )
 }
@@ -90,7 +90,7 @@ function BannerSellHeading({ title }) {
 function BannerBuyHeading({ title }) {
   return (
     <div>
-      <h1 className='font-Roboto-Regular text-ex'> {title}</h1>
+      <p className='font-Roboto-Regular text-ex'> {title}</p>
     </div>
   )
 }
@@ -99,7 +99,7 @@ function BannerBuyHeading({ title }) {
 function ShopCategoryHeading({ title }) {
   return (
     <div>
-      <h1 className='font-Roboto-Regular text-jx text-[#707070]'> {title}</h1>
+      <p className='font-Roboto-Regular text-jx text-[#707070]'> {title}</p>
     </div>
   )
 }

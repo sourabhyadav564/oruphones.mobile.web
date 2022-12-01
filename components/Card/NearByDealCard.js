@@ -55,7 +55,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
     // }
     >
       <a>
-        <div className="grid grid-cols-1 rounded-md py-2 px-3 bg-m-white cardShadow1">
+        <div className="grid grid-cols-1 rounded-md py-2 px-3 bg-m-white cardShadow1" data-aos="fade-up">
           <div className="grid grid-cols-1 relative">
             <div className="absolute right-0 flex justify-between items-center w-full z-20">
               <span>
@@ -64,6 +64,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                   width={"50"}
                   height={"20"}
                   objectFit="contain"
+                  alt={data.marketingName}
                 /> : (!(data?.isOtherVendor === "Y") && data?.verified) ? (
                   <VerifiedIcon width={45} height={22} />
                 ) : <svg height={20} width={20} />}
@@ -92,9 +93,9 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                     {data?.listingPrice && <span className="mr-0.1">&#x20B9;</span>}
                     {numberWithCommas(data?.listingPrice || "")}
                   </p>
-                  <h1 className="flex-1 truncate w-full font-Regular  text-black">
+                  <p className="flex-1 truncate w-full font-Regular  text-black">
                     <CardHeading4 title={data?.marketingName} />
-                  </h1>
+                  </p>
                   <div
                     className="flex flex-wrap justify-between"
                   >
@@ -142,9 +143,9 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                     {data?.listingPrice && <span className="mr-0.1">&#x20B9;</span>}
                     {numberWithCommas(data?.listingPrice || "")}
                   </p>
-                  <h1 className="flex-1 truncate w-full capitalize font-Regular text-jx text-black">
+                  <p className="flex-1 truncate w-full capitalize font-Regular text-jx text-black">
                     <CardHeading4 title={data?.marketingName} />
-                  </h1>
+                  </p>
                   <div
                     className="flex flex-wrap justify-between"
                   >

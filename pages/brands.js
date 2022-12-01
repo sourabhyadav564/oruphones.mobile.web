@@ -44,7 +44,6 @@ function Brands({ brandsList }) {
   return (
     <>
       <Head>
-        
         <title>{metaTags.BRANDS.title}</title>
         <meta name="description" content={metaTags.BRANDS.description} />
         <meta property="og:title" content={metaTags.BRANDS.title} />

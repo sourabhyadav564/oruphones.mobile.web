@@ -29,7 +29,7 @@ const Footer = () => {
       <div className="border-b pb-8 ">
         <div className="grid grid-cols-2 container md:grid-cols-3 md:space-y-8  text-white">
           <div className="flex flex-col">
-            <h1 className="font-Roboto-Semobold text-mx">IMPORTANT LINKS</h1>
+            <p className="font-Roboto-Semobold text-mx">IMPORTANT LINKS</p>
             <Link href="/about-us" >
               <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2">About Us</a>
             </Link>
@@ -74,7 +74,7 @@ const Footer = () => {
           </Link>
         </div> */}
           <div className="flex flex-col text-white">
-            <h1 className="font-Roboto-Semobold text-mx">IMPORTANT LINKS</h1>
+            <p className="font-Roboto-Semobold text-mx">IMPORTANT LINKS</p>
             <Link href="/product/buy-old-refurbished-used-mobiles/apple">
               <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
                 // onClick={() => setLoadingState(true)}
@@ -198,7 +198,7 @@ const Footer = () => {
         </div> */}
           <div className="grid grid-cols-2  mt-8 px-4 text-white">
             <div className="flex flex-col ">
-              <h1 className=" font-Roboto-Semobold text-mx">IMPORTANT LINKS</h1>
+              <h3 className=" font-Roboto-Semobold text-mx">IMPORTANT LINKS</h3>
               <a
                 href="https://www.oruphones.com/blog"
                 className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
@@ -217,17 +217,17 @@ const Footer = () => {
               </Link>
             </div>
             <div>
-              <h1 className=" font-Roboto-Semobold text-mx">DOWNLOAD ORUphones App</h1>
+              <p className=" font-Roboto-Semobold text-mx">DOWNLOAD ORUphones App</p>
               <div className="grid grid-cols-2 items-center gap-4 my-4">
-                <Link href="https://apps.apple.com/in/app/oruphones-sell-used-phones/id1629378420">
-                  <Image src={AppStoreCard} />
+                <Link href="https://apps.apple.com/dk/app/oruphones/id1629378420">
+                  <Image src={AppStoreCard} alt="app store"/>
                 </Link>
                 <Link href="https://play.google.com/store/apps/details?id=com.oruphones.oru&hl=en&gl=US">
-                  <Image src={PlayStoreCard} />
+                  <Image src={PlayStoreCard} alt="playstore"/>
                 </Link>
               </div>
               <div>
-                <h1 className="font-Roboto-Semobold text-mx">FOLLOW US ON SOCIAL MEDIA</h1>
+                <p className="font-Roboto-Semobold text-mx">FOLLOW US ON SOCIAL MEDIA</p>
                 <div>
                   <div className="flex items-center justify-between pt-2 ">
                     <a

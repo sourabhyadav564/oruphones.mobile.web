@@ -81,16 +81,16 @@ const TopCarousel = () => {
                       alt={item.name}
                       width={"420px"}
                       height={'179px'}
-                      className="bannerShadow"
+                      className="bannerShadow" data-aos="fade-down"
                     />
                   </div>
                   <div
                     className="w-full h-[91px] mb-1 absolute left-0 right-0 md:bottom-16 bottom-0  px-5   justify-center grid grid-cols-2 gap-2 "
                     style={{ fontSize: 10 }}
                   >
-                    <div className="w-full flex rounded-[5px] m-auto justify-center bg-gradient-to-r from-[#141929] via-[#313648] to-[#43495C]" >
+                    <div className="w-full flex rounded-[5px] m-auto justify-center bg-gradient-to-r from-[#141929] via-[#313648] to-[#43495C]" data-aos="zoom-out-up">
                       <Link href="/sell-old-refurbished-used-mobiles/add">
-                        <div className="px-4 py-2  rounded-[5px] grid grid-rows-2 h-[91px]">
+                        <div className="px-4 py-2  rounded-[5px] grid grid-rows-2 h-[91px]" >
                           <p className="w-full text-white  leading-tight">
                             <BannerSellHeading title="Sell your phone in few steps" />
                           </p>
@@ -102,7 +102,7 @@ const TopCarousel = () => {
                       </Link>
                     </div>
 
-                    <div className="w-full flex rounded-[5px] shadow-sm shadow-gray-300 my-0.5 bg-gradient-to-r from-[#cbcfdc] via-[#e2e3ea] to-[#fff]" >
+                    <div className="w-full flex rounded-[5px] shadow-sm shadow-gray-300 my-0.5 bg-gradient-to-r from-[#cbcfdc] via-[#e2e3ea] to-[#fff]" data-aos="zoom-out-up">
                       <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
                         <div className="p-4 grid grid-rows-2 h-[91px] m-auto  justify-center py-2 ">
                           <p className="w-full text-black text-ex font-Medium leading-tight">

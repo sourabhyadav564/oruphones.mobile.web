@@ -54,7 +54,7 @@ function ShopbymodelCard({ data, location, makeLink, make, src, alt, fallBackSrc
           makeLink
             ? `/product/buy-old-refurbished-used-mobiles/${make}/`
             : `/product/buy-old-refurbished-used-mobiles/${make}/${data}`,
-          "_blank"
+          "_blank","nofollow"
         )
         }
       >

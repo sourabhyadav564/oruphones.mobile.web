@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { removeFavotie } from "api-call";
+import VerificationIcon from "@/components/verificationIcon";
 import VerifiedIcon from "../VerifiedIcon";
 import UnVerifiedIcon from "../UnVerifiedIcon";
 import AddFav from "../AddFav";
@@ -16,14 +17,16 @@ function FavListingTile({ data, setProducts }) {
 
   const handleFavoties = async () => {
     setProducts((prevState) => {
-      removeFavotie(data.listingId, Cookies.get("userUniqueId") || "Guest").then(
-        (response) => {
-          console.log("removeFav RES", response);
-        }
-      );
+      removeFavotie(
+        data.listingId,
+        Cookies.get("userUniqueId") || "Guest"
+      ).then((response) => {
+        console.log("removeFav RES", response);
+      });
       return prevState.filter((i) => i.listingId !== data.listingId);
     });
   };
+  console.log("dataFav", data);
 
   return (
     <Fragment>
@@ -33,17 +36,18 @@ function FavListingTile({ data, setProducts }) {
           //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
           //   query: { isOtherVendor: "N" },
           // }}
-          onClick={() => window.open(
-            `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
-            "_blank"
-          )
+          onClick={() =>
+            window.open(
+              `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
+              "_blank"
+            )
           }
         >
           <a>
             <div className={`flex flex-col cardShadow1 rounded-lg`}>
               <div className="flex">
                 {/* image */}
-                <div className=" m-2 ">
+                <div className=" m-2">
                   {/* {data?.images && (
                   <Image
                     src={
@@ -77,16 +81,18 @@ function FavListingTile({ data, setProducts }) {
                         data?.defaultImage?.fullImage ||
                         Logo
                       }
-                      width={200}
+                      width={250}
                       height={150}
                       objectFit="contain"
+                      alt={data.marketingName}
                     />
                   ) : (
                     <Image
                       src={data?.imagePath}
-                      width={200}
+                      width={250}
                       height={150}
                       objectFit="contain"
+                      alt={data.marketingName}
                     />
                   )}
                 </div>
@@ -131,8 +137,24 @@ function FavListingTile({ data, setProducts }) {
                     </p>
                   </div>
                   <div className="grid grid-cols-2">
+                    {data?.verified ? <div className=" w-full pr-2 pt-2 text-center m-auto justify-between">
+                      {/* <VerifiedIcon width={60} height={30} /> */}
+                      <div className="flex">
+                        <div
+                          className="flex w-28 h-9 rounded-md justify-center"
+                          style={{ backgroundColor: "#4CAF50" }}>
+                          {/* <VscVerified size={20} className="self-center text-white"/> */}
+                          {/*image  */}
+                          <VerificationIcon />
+                          <span className="text-bx self-center text-white uppercase font-light italic">
+                            verified
+                          </span>
+                        </div>
+                      </div>
+                    </div>:
                     <div></div>
-                    <div className="bg-black pl-4 pt-1 mt-2 rounded-md ">
+                    }
+                    <div className="bg-black justify-center mt-2 rounded-md flex flex-col items-center">
                       <div className="text-gray-300 text-xs">List Price</div>
                       <div className="text-sm font-bold text-gray-50 ">
                         ₹ {numberWithCommas(data.listingPrice || "")}
@@ -145,11 +167,9 @@ function FavListingTile({ data, setProducts }) {
               ) : (
                 <UnVerifiedIcon width={60} height={30} />
               )} */}
-
                   </div>
                 </div>
               </div>
-
             </div>
           </a>
         </div>
