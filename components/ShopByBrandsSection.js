@@ -7,7 +7,7 @@ import BasicCarousel from "./Carousel/BasicCarousel";
 const ConditionInfo = dynamic(() => import("@/components/Popup/ConditionInfo"));
 const VerificationInfo = dynamic(() => import("@/components/Popup/VerificationInfo"));
 
-function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location, brandResult }) {
+function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
 

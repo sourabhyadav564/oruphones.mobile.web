@@ -43,7 +43,7 @@ function BottomNav() {
                   } `}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={Home} width={20} height={20} />
+                <Image src={Home} width={20} height={20} alt="ORU home" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -74,9 +74,10 @@ function BottomNav() {
               <a
                 className={`flex flex-col items-center ${isActive("/user/listings") ? "text-white" : ""
                   } `}
+                  
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={MyListings} width={20} height={20} />
+                <Image src={MyListings} width={20} height={20} alt="ORU mylistings"/>
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -127,7 +128,7 @@ function BottomNav() {
                   }`}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={Services} width={20} height={20} />
+                <Image src={Services} width={20} height={20} alt="ORU services"/>
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -151,7 +152,7 @@ function BottomNav() {
                   }`}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={Profile} width={20} height={20} />
+                <Image src={Profile} width={20} height={20} alt="ORU user profile" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"

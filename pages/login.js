@@ -93,8 +93,8 @@ function Login() {
               Sign In
             </h1> */}
             <div className="w-full my-8 relative ">
-              <h1 className="text-lg font-bold px-1">Welcome</h1>
-              <p className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to continue </p>
+              <p className="text-lg font-bold px-1">Welcome</p>
+              <h1 className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to continue </h1>
               <input
                 className="bg-white  border-2 p-3 w-full font-regular rounded-md"
                 name="mobile"

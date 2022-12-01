@@ -88,6 +88,7 @@ const TestAndStatus = ({ testName, testStatus }) => (
         height={23}
         objectFit="contain"
         src={testStatus === "PASS" ? passIcon : failedIcon}
+        alt={`${index}.${question}`}
       />
     </p>
   </div>

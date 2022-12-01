@@ -50,7 +50,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
 
                   <div className="pt-2">
                     <div>
-                      <h1 className="font-Medium text-mx pb-2">Device Verification Report</h1>
+                      <p className="font-Medium text-mx pb-2">Device Verification Report</p>
                     </div>
                     {data &&
                       data.questionnaireResults &&
@@ -123,13 +123,13 @@ const Results = ({ question, result, childQuestions, index }) => {
         {childQuestions && childQuestions?.length > 0 ? (
           childQuestions.map((items, index1) => (
             <div key={index1} className="flex items-start pt-2">
-              <img src={pass.src} className="mt-1 mr-2" />
+              <img src={pass.src} className="mt-1 mr-2" alt={items}/>
               <p>{items}</p>
             </div>
           ))
         ) : (
           <div className="flex items-start pt-2">
-            <img src={pass.src} className="mt-1 mr-2" />
+            <img src={pass.src} className="mt-1 mr-2" alt={result} />
             <p>{result}</p>
           </div>
         )}

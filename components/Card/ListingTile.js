@@ -110,6 +110,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 width={100}
                 height={100}
                 objectFit="contain"
+                alt={data.marketingName}
               />
             </div>
             <div className="w-full pt-1">

@@ -67,7 +67,7 @@ function Aboutus() {
               Our vision is to be a trusted marketplace for every user to buy and sell old phones confidently, easily, and for the best price possible.
               We strive to achieve this with a strong base of technology and a dedicated team of professionals who are well-seasoned and understand the needs of the market.
             </p>
-            <h1 className="font-Roboto-Semibold">WHY ORUphones?</h1>
+            <p className="text-gx font-Roboto-Semibold">WHY ORUphones?</p>
             <div>
               <h2 className="font-Roboto-Semibold text-tx"> 01. Best Prices</h2>
               <p className="font-Roboto-Light text-gx">The prices of used phones hike as they reach the end-user through multiple people. A few online shops and stores justify these highly inflated prices by tagging the phones as refurbished. But most of these phones are NOT refurbished, but devices with updates installed and screen-guards changed. So, many sellers and users are not likely to get the best deals.
@@ -75,13 +75,13 @@ function Aboutus() {
               </p>
             </div>
             <div>
-              <h2 className="font-Roboto-Semibold text-tx"> 02. Safe & Secure</h2>
+              <p className="font-Roboto-Semibold text-tx"> 02. Safe & Secure</p>
               <p className="font-Roboto-Light text-gx">Fake or counterfeit smartphones are common in the used & second-hand phone markets in India. Online markets have a higher risk as you cannot personally check out the condition of the device. Phones that look brand new in pictures might be functioning with an outdated processor; or with cheaper components in place of the original parts. It takes extreme precautions and precise observation to spot these fake devices from real ones.
                 We at ORUphones provide advanced technological tools to ensure that the device is branded & genuine. This eliminates any possibility of fraud and fake deals at ORUphones, unlike in other marketplaces. In addition, our Services like Data Wipe and Data Backup/restore helps with data privacy and minimise any risk of personal information and data leak.
               </p>
             </div>
             <div>
-              <h2 className="font-Roboto-Semibold text-tx"> 03. Convenient</h2>
+              <p className="font-Roboto-Semibold text-tx"> 03. Convenient</p>
               <p className="font-Roboto-Light text-gx">ORUphones is a website that makes selling and buying old phones easier. With the provision of the
                 Best Deals section and added free services, ORUphones does all the tedious work and puts forth verified and authentic deals for buyers and sellers so that you can proceed to sell or purchase with assurance and ease.
               </p>
@@ -95,7 +95,7 @@ function Aboutus() {
           {/* <div className="content mt-8">
             <div id="why_xyz" className="">
               <h1 className="font-Roboto-Semibold text-primary text-gx">Why should I use ORUphones?</h1>
-              <h2 className="font-Roboto-Semibold text-primary text-gx">Buy & Sell Your Phone at ORUphones </h2>
+              <p className="font-Roboto-Semibold text-primary text-gx">Buy & Sell Your Phone at ORUphones </p>
               <p className="font-Roboto-Regular text-primary text-jx">
                 ORUphones is India&apos;s first and unique online marketplace where
                 you can buy and sell old phones, refurbished phones and used mobile
@@ -121,7 +121,7 @@ function Aboutus() {
                 general market rate to help you get maximum cash for your old phone.
               </p>
     
-              <h2  className="font-Roboto-Semibold text-primary text-gx">Why should you buy used phones on ORUphones? </h2>
+              <p  className="font-Roboto-Semibold text-primary text-gx">Why should you buy used phones on ORUphones? </p>
               <p className="font-Roboto-Regular text-primary text-jx">
                 1. Save more and buy from direct sellers:&nbsp;Did you know that 90%
                 of the devices sold as refurbished phones on other websites do not
@@ -143,7 +143,7 @@ function Aboutus() {
                 to find the best deal on a particular device model from thousands of
                 deals.
               </p>
-              <h2 className="font-Roboto-Semibold text-primary text-gx"> Why should you sell your old mobile on ORUphones? </h2>
+              <p className="font-Roboto-Semibold text-primary text-gx"> Why should you sell your old mobile on ORUphones? </p>
               <p className="font-Roboto-Regular text-primary text-jx">
                 1. Correct resale value estimation:&nbsp;ORUphones uses an
                 AI-integrated Recommendation Engine that helps us to provide you
@@ -166,7 +166,7 @@ function Aboutus() {
               </p>
             </div>
             <div id="how_to_sell">
-              <h2  className="font-Roboto-Semibold text-primary text-gx">How to Sell Used Phone with ORUphones?</h2>
+              <p  className="font-Roboto-Semibold text-primary text-gx">How to Sell Used Phone with ORUphones?</p>
               <p className="font-Roboto-Regular text-primary text-jx">
                 You can sell used phones online through ORUphones in 3 easy steps.
               </p>
@@ -197,7 +197,7 @@ function Aboutus() {
               directly.
             </div>
             <div id="how_to_buy">
-              <h2  className="font-Roboto-Semibold text-primary text-gx">How to Buy ORUphones Verified Used Phones?</h2>
+              <p  className="font-Roboto-Semibold text-primary text-gx">How to Buy ORUphones Verified Used Phones?</p>
               <p className="font-Roboto-Regular text-primary text-jx">
                 Buying an old device over ORUphones is as easy as selling. We follow
                 a secure procedure when you buy used phones through us. The simple
@@ -235,7 +235,7 @@ function Aboutus() {
               </p>
             </div>
             <div>
-              <h2  className="font-Roboto-Semibold text-primary text-gx">Popular Brands Listed on ORUphones</h2>
+              <p  className="font-Roboto-Semibold text-primary text-gx">Popular Brands Listed on ORUphones</p>
               <p className="font-Roboto-Regular text-primary text-jx">
                 ORUphoness mobile listing contains all the top brands in India. If
                 you want to buy or sell your device through us, you first select the

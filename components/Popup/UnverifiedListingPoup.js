@@ -26,7 +26,7 @@ function UnverifiedListingPopup({ open, setOpen, unverifiedListingType, unverifi
                     size={52}
                     color="#FFC107"
                 />
-                <h1 className="font-Roboto-Bold mb-2 mt-3">{unverifiedListingType}</h1>
+                <p className="text-gx font-Roboto-Bold mb-2 mt-3">{unverifiedListingType}</p>
                 <p className="text-xs my-2 font-Roboto-Regular text-center">
                     {unverifiedListingReason}
                 </p>

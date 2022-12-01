@@ -20,21 +20,21 @@ function IconLabelValue({
       <div className="flex items-start space-x-3 justify-center min-h-14">
         <div>
           {label.toUpperCase().includes("RAM") ? (
-            <Image src={ram} width="30" height="30" objectFit="contain" />
+            <Image src={ram} alt={`ORU ${ram} ram`} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("COLOR") ? (
-            <Image src={color} width="30" height="30" objectFit="contain" />
+            <Image src={color} alt={`ORU ${color} color`} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("STORAGE") ? (
-            <Image src={storage} width="30" height="30" objectFit="contain" />
+            <Image src={storage} alt={`ORU ${storage} storage`} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("ACCESSORIES") ? (
-            <Image src={box} width="30" height="30" objectFit="contain" />
+            <Image src={box} alt={`ORU ${box} box`} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("WARRANTY") ? (
-            <Image src={calendar2} width="30" height="30" objectFit="contain" />
+            <Image src={calendar2} alt={`ORU ${calendar2} calendar`} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("CONDITION") ? (
-            <Image src={calendar2} width="30" height="30" objectFit="contain" />
+            <Image src={calendar2} alt={`ORU ${calendar2} calendar`} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("VERIFIED") ? (
-            <Image src={calendar1} width="30" height="40" objectFit="contain" />
+            <Image src={calendar1} alt={`ORU ${calendar1} calendar`} width="30" height="40" objectFit="contain" />
           ) : label.toUpperCase().includes("LISTED") ? (
-            <Image src={calendar3} width="30" height="30" objectFit="contain" />
+            <Image src={calendar3} alt={`ORU ${calendar3} calendar`} width="30" height="30" objectFit="contain" />
           ) : (
             ""
           )}

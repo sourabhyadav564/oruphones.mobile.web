@@ -8,7 +8,7 @@ import fetchStaticHTML from "api-call/fetchStaticHtml";
 import { Dialog, Transition } from "@headlessui/react";
 
 function TermsconditionPopup({ open, setOpen }) {
-  const [htmlContent, setHtmlContent] = useState("<h1></h1>");
+  const [htmlContent, setHtmlContent] = useState("<span></span>");
   useEffect(() => {
     const apiCall = async () => {
       const { htmlText } = await callFetchStaticHTML();
@@ -69,7 +69,7 @@ async function callFetchStaticHTML() {
   } catch (error) {
     console.log(error);
     return {
-      htmlText: "<h1></h1>",
+      htmlText: "<p></p>",
     };
   }
 
@@ -84,7 +84,7 @@ async function callFetchStaticHTML() {
   } catch (err) {
     console.log("getTC error", err);
     return {
-      htmlText: "<h1></h1>",
+      htmlText: "<p></p>",
     };
   }
 

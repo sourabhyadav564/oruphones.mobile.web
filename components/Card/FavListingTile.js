@@ -80,6 +80,7 @@ function FavListingTile({ data, setProducts }) {
                       width={200}
                       height={150}
                       objectFit="contain"
+                      alt={data.marketingName}
                     />
                   ) : (
                     <Image
@@ -87,6 +88,7 @@ function FavListingTile({ data, setProducts }) {
                       width={200}
                       height={150}
                       objectFit="contain"
+                      alt={data.marketingName}
                     />
                   )}
                 </div>

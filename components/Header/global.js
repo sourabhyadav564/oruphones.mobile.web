@@ -45,6 +45,7 @@ function GlobalHeader() {
                 height={19}
                 className="cursor-pointer"
                 priority
+                alt="ORU Refurbished Phone"
               />
               <Link href="/">
                 <a
@@ -57,6 +58,7 @@ function GlobalHeader() {
                     height={33}
                     priority
                     objectFit="contain"
+                    alt="ORU image"
                   />
                 </a>
               </Link>
@@ -68,7 +70,7 @@ function GlobalHeader() {
                 onClick={() => setOpenLocationPopup(true)}
               >
                 <span className="truncate underline font-extrathin text-jx" >{selectedSearchCity}</span>
-                <img src={location.src} width={12} height={12} />
+                <img src={location.src} width={12} height={12} alt="ORU location" />
                 {/* <img src={dropdown.src} width={12} height={12} /> */}
               </div>
               <div>
@@ -93,6 +95,7 @@ function GlobalHeader() {
                           height={18}
                           priority
                           objectFit="contain"
+                          alt="ORU notification icon"
                         />
                       </a>
                     </Link>

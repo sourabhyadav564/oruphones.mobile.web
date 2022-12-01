@@ -66,7 +66,7 @@ function Sidebar({ open, setOpen }) {
               <div className="flex items-center px-4 py-2" onClick={handleClick}>
                 <div className="border-2 border-white mr-3 rounded-full p-1">
                   <div className={`w-4 h-4 p-3 rounded-full  relative  ${user?.userdetails?.profilePicPath ? "bg-white" : ""}`}>
-                    <Image src={user?.userdetails?.profilePicPath || userAvatar} objectFit="contain" className="" layout="fill" />
+                    <Image src={user?.userdetails?.profilePicPath || userAvatar} objectFit="contain" alt="ORU user" layout="fill" />
                   </div>
                 </div>
                 <div className="flex flex-col">

@@ -688,9 +688,9 @@ const NewAddListingForm = ({ data }) => {
         {(
           router.pathname !== "/" && <BsArrowLeft onClick={() => { page == 2 || page == 3 ? handleBack() : page != 0 ? setPage(page - 1) : router.back() }} className="cursor-pointer" fontSize="22" />
         )}
-        {<span className="m-auto flex justify-center font-Roboto-Regular text-dx text-[#FFFFFF]">
+        {<h1 className="m-auto flex justify-center font-Roboto-Regular text-dx text-[#FFFFFF]">
           Sell Your Phone
-        </span>}
+        </h1>}
       </header>
       {/* {(makeRequired.length > 0 ||
         marketingNameRequired.length > 0 ||
@@ -724,7 +724,7 @@ const NewAddListingForm = ({ data }) => {
                 value={make}
               /> */}
               <div className="m-auto pl-28 pb-px mb-4 border-b ">
-                <Image src={PhoneImage} width={120} height={200} />
+                <Image src={PhoneImage} width={120} height={200}  alt="ORU Refurbished Phone"/>
               </div>
 
               <SellPhoneHeading1 title="Enter your Phone details" />
@@ -1579,7 +1579,7 @@ const Checkbox = ({ src, text, checked, onChange }) => (
     onClick={onChange}
   >
     <div className="relative w-7 h-7 mx-auto">
-      <Image src={src} layout="fill" />
+      <Image src={src} layout="fill" alt="ORU checkbox"/>
     </div>
 
     <input

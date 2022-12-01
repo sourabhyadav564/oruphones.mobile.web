@@ -13,4 +13,13 @@ module.exports = {
       "demo-bucket-c2c-001.s3.amazonaws.com",
     ],
   },
+  // async redirect() {
+  //   return [
+  //     {
+  //       source:'/blog',
+  //       destination:'blog/',
+  //       permanent:false
+  //     },
+  //   ]
+  // }
 };

@@ -82,10 +82,10 @@ function PriceRangePage() {
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
-        {(isLoading || shopByPriceBestDeal?.length > 0) && <h1 className="text-lg font-semibold text-gray-20 py-2.5"> Best Deals </h1>}
+        {(isLoading || shopByPriceBestDeal?.length > 0) && <p className="text-lg font-semibold text-gray-20 py-2.5"> Best Deals </p>}
         {isLoading ? <Loader /> : shopByPriceBestDeal?.length > 0 && <BestDealSection bestDealData={shopByPriceBestDeal} />}
         {(isLoading || sortingProducts?.length > 0) && (
-          <h2 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3"> Other Listings ({sortingProducts?.length}) </h2>
+          <h1 className="text-lg font-semibold text-black-4e p-2 pl-0 mt-3"> Other Listings ({sortingProducts?.length}) </h1>
         )}
         {isLoading ? (
           <Loader />

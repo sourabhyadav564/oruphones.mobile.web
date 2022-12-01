@@ -29,11 +29,11 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
             ) : (
               <FiAlertOctagon size={44} color="#f7e17d" />
             )}
-            <h1 className="font-Roboto-Bold my-2">
+            <p className="font-Roboto-Bold my-2 text-gx">
               {resData?.statusCode === 200
                 ? "Request Sent"
                 : "Request Already Sent"}
-            </h1>
+            </p>
             <p className="text-xs my-2 text-center font-Roboto-Regular">
               {resData?.statusCode === 200
                 ? "You will receive a notification once Seller completes verification."
@@ -47,7 +47,7 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
         ) : (
           <div className="font-Roboto-Regular">
             <Loader />
-            <h1>Your verification request will be sent soon...</h1>
+            <p className="text-mx">Your verification request will be sent soon...</p>
           </div>
         )}
         <div className="mb-2 mt-4 font-Roboto-Regular">

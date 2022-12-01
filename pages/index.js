@@ -100,8 +100,11 @@ export default function Home({
         <meta name="description" content={metaTags.HOME.description} />
         <meta property="og:title" content={metaTags.HOME.title} />
         <meta property="og:description" content={metaTags.HOME.description} />
+        {/* <meta name="Googlebot" content="noindex"></meta> */}
       </Head>
+      
       <Fragment>
+        
         <Header1 />     {/* this is search bar element */}
         <main>
           <TopBrand brandsList={brands} />

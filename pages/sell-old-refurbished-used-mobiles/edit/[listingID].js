@@ -38,7 +38,7 @@ function editListing({ data, resultsSet }) {
             router.back()
           }}
           className="cursor-pointer" fontSize="20" />
-        <span className="absolute pl-2  left-10 right-10 font-Roboto-Regular text-dx "> Edit Listing</span>
+        <h1 className="absolute pl-2  left-10 right-10 font-Roboto-Regular text-dx "> Edit Listing</h1>
       </header>
       <main className="container mb-4">
         {/* <div className="flex justify-center">

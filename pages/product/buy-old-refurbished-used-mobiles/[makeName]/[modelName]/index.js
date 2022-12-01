@@ -385,16 +385,16 @@ function ModelPage() {
             {/* <CardHeading4 title={"Please wait, while we are fetching the data for you..."} /> */}
           </div>
         ) : (
-          <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
-            <h1 className="text-lg font-semibold text-white  py-2.5">
+          <div className="-ml-4 -mr-4 px-6 ">
+            <h1 className="text-lg font-semibold text-primary  py-2.5">
               {" "}
-              Best Deals{" "}
+              All Deals{" "}
             </h1>
             <BestDealSection bestDealData={bestDeals} setProducts={setBestDeals} />
           </div>
         )}
         {(!loading || otherListings?.length > 0) && (
-          <div className="flex mt-3 pb-0">
+          <div className="flex mt- pb-0">
             <h2 className=" flex text-lg font-semibold text-gray-20 py-2.5 flex-1">
               {" "}
               {/* Other Listings ({totalProducts}){" "} */}

@@ -79,7 +79,7 @@ function ListingDeatils({ data, id }) {
         <div className="absolute right-4 top-3">
           <Link href={`/sell-old-refurbished-used-mobiles/edit/${id}`}>
             <a>
-              <Image src={edit} width={26} height={21} className="opacity-90" />
+              <Image src={edit} alt={data?.marketingName}  width={26} height={21} className="opacity-90" />
             </a>
           </Link>
         </div>
@@ -104,7 +104,7 @@ function ListingDeatils({ data, id }) {
               <ProductPriceHeading title={data?.listingPrice} />
             </div>
             <div className="flex justify-between items-center">
-              <ProductNameHeading title={data?.marketingName} />
+              <h1 className='font-Roboto-Regular text-qx text-[#000000]' >{data?.marketingName}</h1>
               {/* <h1 className="text-gray-20 font-bold text-lg">
                 {data?.marketingName}​
               </h1> */}

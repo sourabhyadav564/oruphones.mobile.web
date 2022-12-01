@@ -137,7 +137,7 @@ function LocationPicker({ openLocationPopup }) {
             <Image src={MapIcon} alt={"MAP"} width={219} height={116} />
           </div> */}
           <div className="text-center space-y-4 px-4">
-            <h1 className="text-xl font-Roboto-Semibold">Where do you want to buy/sell products?</h1>
+            <p className="text-xl font-Roboto-Semibold">Where do you want to buy/sell products?</p>
             <p className="text-sm font-Roboto-Regular">to enjoy all that ORUphones has to offer you, we need to know where to look for them</p>
           </div>
           <div className="text-center space-y-5 w-full px-8">

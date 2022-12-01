@@ -3,8 +3,8 @@ const HomeContent = () => {
     <section className="container mb-6">
       <div className="content">
         <div id="why_xyz">
-          <h1 className="text-mx font-Roboto-Bold">Why should I use ORUphones?</h1>
-          <h2 className="font-Roboto-Medium text-cx">Buy & Sell Your Phone at ORUphones </h2>
+          <p className="text-mx font-Roboto-Bold">Why should I use ORUphones?</p>
+          <p className="font-Roboto-Medium text-cx">Buy & Sell Your Phone at ORUphones </p>
           <p className="font-Roboto-Light text-bx text-left">
             ORUphones is India&apos;s first and unique online marketplace where
             you can buy and sell old phones, refurbished phones and used mobile
@@ -30,7 +30,7 @@ const HomeContent = () => {
             general market rate to help you get maximum cash for your old phone.
           </p>
 
-          <h2 className="font-Roboto-Medium text-cx">Why should you buy used phones on ORUphones? </h2>
+          <p className="font-Roboto-Medium text-cx">Why should you buy used phones on ORUphones? </p>
           <p className="font-Roboto-Light text-bx text-left">
             1. Save more and buy from direct sellers:&nbsp;Did you know that 90%
             of the devices sold as refurbished phones on other websites do not
@@ -52,7 +52,7 @@ const HomeContent = () => {
             to find the best deal on a particular device model from thousands of
             deals.
           </p>
-          <h2 className="font-Roboto-Medium text-cx"> Why should you sell your old mobile on ORUphones? </h2>
+          <p className="font-Roboto-Medium text-cx"> Why should you sell your old mobile on ORUphones? </p>
           <p className="font-Roboto-Light text-bx text-left">
             1. Correct resale value estimation:&nbsp;ORUphones uses an
             AI-integrated Recommendation Engine that helps us to provide you
@@ -75,7 +75,7 @@ const HomeContent = () => {
           </p>
         </div>
         <div id="how_to_sell">
-          <h2 className="font-Roboto-Medium text-cx">How to Sell Used Phone with ORUphones?</h2>
+          <p className="font-Roboto-Medium text-cx">How to Sell Used Phone with ORUphones?</p>
           <p className="font-Roboto-Light text-bx text-left">
             You can sell used phones online through ORUphones in 3 easy steps.
           </p>
@@ -106,7 +106,7 @@ const HomeContent = () => {
           directly.
         </div>
         <div id="how_to_buy">
-          <h2 className="font-Roboto-Medium text-cx">How to Buy ORUphones Verified Used Phones?</h2>
+          <p className="font-Roboto-Medium text-cx">How to Buy ORUphones Verified Used Phones?</p>
           <p className="font-Roboto-Light text-bx text-left">
             Buying an old device over ORUphones is as easy as selling. We follow
             a secure procedure when you buy used phones through us. The simple
@@ -144,7 +144,7 @@ const HomeContent = () => {
           </p>
         </div>
         <div>
-          <h2 className="font-Roboto-Medium text-cx">Popular Brands Listed on ORUphones</h2>
+          <p className="font-Roboto-Medium text-cx">Popular Brands Listed on ORUphones</p>
           <p className="font-Roboto-Light text-bx text-left">
             ORUphoness mobile listing contains all the top brands in India. If
             you want to buy or sell your device through us, you first select the

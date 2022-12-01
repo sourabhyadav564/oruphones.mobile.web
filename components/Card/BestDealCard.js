@@ -105,6 +105,7 @@ function BestDealCard({
                   width="100%"
                   height="100%"
                   objectFit="contain"
+                  alt={data?.marketingName}
                 />
               </div>
             ) : (
@@ -212,7 +213,7 @@ function BestDealCard({
           {data?.status === "Sold_Out" && (
             <div className="absolute h-8 -top-2 right-0 left-0 flex px-4 pb-1">
               <p className="flex items-center">
-                <Image src={sold_out} width={60} height={30} />
+                <Image src={sold_out} width={60} height={30} alt={data?.marketingName}/>
                 {/* <BsInfoCircle
                   className="ml-2 text-xs mt-0.5 cursor-pointer"
                   onClick={(e) => {

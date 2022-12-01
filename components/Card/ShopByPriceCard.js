@@ -19,7 +19,7 @@ function ShopByPriceCard({ data }) {
               <Image src={data?.imagePath} alt={data?.marketingName} width={150} height={150} />
             </div>
             <div className="flex-wrap w-full text-gray-70">
-              <h1 className="flex-1 truncate w-full capitalize font-semibold">{data?.marketingName}</h1>
+              <p className="flex-1 truncate w-full capitalize font-semibold">{data?.marketingName}</p>
               <p className="justify-self-end font-bold flex items-center text-black-4e">
                 {data?.listingPrice && <span className="mr-1">&#x20B9;</span>}
                 {numberWithCommas(data?.listingPrice || "")}
