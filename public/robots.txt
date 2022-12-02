@@ -1,4 +1,7 @@
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Allow: /
+Disallow:
+
+
 
 Sitemap :http://localhost:3001/sitemap.xml
