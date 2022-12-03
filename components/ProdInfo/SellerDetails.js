@@ -3,6 +3,11 @@ import React, { Fragment } from "react";
 import {HiOutlineUserCircle} from "react-icons/hi";
 
 function SellerDetails({ data }) {
+  let vendor = data.vendorLogo.replace('https://zenrodeviceimages.s3.us-west-2.amazonaws.com/vendors/', "")
+  vendor = vendor.replaceAll('_logo.png', "");
+  if (vendor.includes('mbr_')) {
+    vendor = vendor.replace('mbr_', "");
+  }
   return (
     <Fragment>
       <p className="text-[14px] text-[#2C2F45] font-Roboto-Light my-3 border-b-2 pb-2">Seller Details</p>
@@ -28,7 +33,7 @@ function SellerDetails({ data }) {
         </span>
         {(data?.isOtherVendor === "Y" ) && ( 
           <div className="ml-2 self-center">
-            <Image alt={data?.listingLocation} src={data?.vendorLogo || "/" } width={130} height={50} objectFit="contain" />
+            <Image alt={vendor} src={data?.vendorLogo || "/" } width={130} height={50} objectFit="contain" />
           </div>
         )}
 

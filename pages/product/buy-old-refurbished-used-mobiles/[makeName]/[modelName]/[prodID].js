@@ -184,7 +184,13 @@ function ProductDeatils({ data }) {
     }
   };
 
-  // console.log("data", data);
+
+  let vendor = data.vendorLogo.replace('https://zenrodeviceimages.s3.us-west-2.amazonaws.com/vendors/', "")
+  vendor = vendor.replaceAll('_logo.png', "");
+  if (vendor.includes('mbr_')) {
+    vendor = vendor.replace('mbr_', "");
+  }
+  // console.log("vendor", vendor);
 
   return (
     <Fragment>
@@ -474,7 +480,7 @@ function ProductDeatils({ data }) {
                       <div>
                         <Image
                           src={items?.externalSourceImage}
-                          alt={items?.externalSourceName}
+                          alt={vendor}
                           height={35}
                           width={70}
                           objectFit="contain"
