@@ -65,7 +65,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
       fetchByMakeList(
         selectedSearchCity,
         makeName,
-        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("userUniqueId") || "Guest", 
         Cookies.get("sessionId") || "",
         intialPage,
         applySortFilter
@@ -105,7 +105,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         const {
           brand,
           condition,
-          color,
+          // color,
+          Ram,
           storage,
           warranty,
           verification,
@@ -121,7 +122,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             listingLocation: selectedSearchCity,
             make: brand?.length > 0 ? brand : [makeName],
             reqPage: "BRAND",
-            color: [],
+            // color: [],
             deviceCondition: [],
             deviceStorage: [],
             deviceRam: [],
@@ -142,8 +143,11 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
           }
-          if (color?.length > 0) {
-            payLoad.color = color.includes("all") ? [] : color;
+          // if (color?.length > 0) {
+          //   payLoad.color = color.includes("all") ? [] : color;
+          // }
+          if (Ram?.length > 0) {
+            payLoad.deviceRam = Ram.includes("all") ? [] : Ram;
           }
           if (warranty?.length > 0) {
             payLoad.warenty = warranty.includes("all") ? [] : warranty;
@@ -255,7 +259,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         const {
           brand,
           condition,
-          color,
+          // color,
+          Ram,
           storage,
           warranty,
           verification,
@@ -271,7 +276,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             listingLocation: selectedSearchCity,
             make: brand?.length > 0 ? brand : [makeName],
             reqPage: "BRAND",
-            color: [],
+            // color: [],
             deviceCondition: [],
             deviceStorage: [],
             deviceRam: [],
@@ -292,9 +297,14 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
           }
-          if (color?.length > 0) {
-            payLoad.color = color.includes("all") ? [] : color;
+
+          if (Ram?.length > 0) {
+            payLoad.deviceRam = Ram.includes("all") ? [] : Ram;
           }
+
+          // if (color?.length > 0) {
+          //   payLoad.color = color.includes("all") ? [] : color;
+          // }
           if (warranty?.length > 0) {
             payLoad.warenty = warranty.includes("all") ? [] : warranty;
           }
@@ -369,7 +379,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
       const {
         brand,
         condition,
-        color,
+        // color,
+        Ram,
         storage,
         warranty,
         verification,
@@ -385,7 +396,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           listingLocation: selectedSearchCity,
           make: brand?.length > 0 ? brand : [makeName],
           reqPage: "BRAND",
-          color: [],
+          // color: [],
           deviceCondition: [],
           deviceStorage: [],
           deviceRam: [],
@@ -406,9 +417,13 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         if (storage?.length > 0) {
           payLoad.deviceStorage = storage.includes("all") ? [] : storage;
         }
-        if (color?.length > 0) {
-          payLoad.color = color.includes("all") ? [] : color;
+        // if (color?.length > 0) {
+        //   payLoad.color = color.includes("all") ? [] : color;
+        // }
+        if (Ram?.length > 0) {
+          payLoad.deviceRam = Ram.includes("all") ? [] : Ram;
         }
+        
         if (warranty?.length > 0) {
           payLoad.warenty = warranty.includes("all") ? [] : warranty;
         }

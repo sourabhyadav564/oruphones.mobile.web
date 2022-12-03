@@ -148,6 +148,10 @@ const NewAddListingForm = ({ data }) => {
   var sellValue = sellValueTag.value || "";
 
 
+  var type = ["old phone", "your"]
+  const soldout = (`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition} soldout`).toLowerCase()
+
+
   useEffect(() => {
     if (make) {
       setDefaultModel("");
@@ -724,7 +728,7 @@ const NewAddListingForm = ({ data }) => {
                 value={make}
               /> */}
               <div className="m-auto pl-28 pb-px mb-4 border-b ">
-                <Image src={PhoneImage} width={120} height={200}  alt="ORU Refurbished Phone"/>
+                <Image src={PhoneImage} width={120} height={200}  alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${model} ${storage} like new`).toLowerCase()}/>
               </div>
 
               <SellPhoneHeading1 title="Enter your Phone details" />
@@ -878,7 +882,7 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt="model"
+                  alt={(`sell ${type[Math.floor((Math.random() * type.length))]} ${model} ${storage} like new `).toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -981,7 +985,7 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt="model"
+                  alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${model} ${storage} like new `).toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1053,7 +1057,7 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt="model"
+                  alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${model} ${storage} `).toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1162,7 +1166,7 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt="model"
+                  alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${modal} ${storage} ${condition} `).toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1279,7 +1283,7 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt="model"
+                  alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${modal} ${storage} ${condition} `).toLowerCase()}
                   height="120"
                   width="90"
                 />

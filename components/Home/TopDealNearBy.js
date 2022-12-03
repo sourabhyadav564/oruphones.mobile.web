@@ -34,6 +34,8 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
     setLoadingState(false);
   }, [router.pathname]);
 
+  
+
   const loadData = async (initialPage) => {
     if (user && user?.userdetails?.userUniqueId && listings.length === 0) {
       await getUserListings(user?.userdetails?.userUniqueId).then(

@@ -18,7 +18,7 @@ function FilterPopup({
     condition: ["all"],
     color: ["all"],
     storage: ["all"],
-    ram: ["all"],
+    Ram: ["all"],
     warranty: ["all"],
     verification: "",
   });
@@ -74,7 +74,7 @@ function FilterPopup({
       condition: ["all"],
       color: ["all"],
       storage: ["all"],
-      ram: ["all"],
+      Ram: ["all"],
       warranty: ["all"],
       verification: "",
     });
@@ -82,7 +82,7 @@ function FilterPopup({
       condition: ["all"],
       color: ["all"],
       storage: ["all"],
-      ram: ["all"],
+      Ram: ["all"],
       warranty: ["all"],
       verification: "",
     });

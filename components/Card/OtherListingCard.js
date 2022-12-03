@@ -59,6 +59,11 @@ function OtherListingCard({ data, setProducts, prodLink }) {
     );
   }
 
+  
+  var type = ["old phone", "used", "refurbished"]
+  const soldout = (`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition} soldout`).toLowerCase()
+
+
   return (
     <>
       <div
@@ -84,7 +89,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 width={"50"}
                 height={"20"}
                 objectFit="contain"
-                alt={data.marketingName}
+                alt={soldout}
               /> : (!(data?.isOtherVendor === "Y") && data?.verified) ? (
                 <VerifiedIcon width={45} height={22} />
               ) : <svg height={20} />}
@@ -105,7 +110,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 <div className="flex justify-center p-2">
                   <Image
                     src={data?.imagePath || Logo}
-                    alt={data?.marketingName}
+                    alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
                     width={150}
                     height={150}
                     objectFit="contain"
@@ -154,7 +159,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 <div className="flex justify-center p-2">
                   <Image
                     src={data?.imagePath || Logo}
-                    alt={data?.marketingName}
+                    alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
                     width={150}
                     height={150}
                     objectFit="contain"

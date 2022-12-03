@@ -48,6 +48,10 @@ function BestDealCard({
     }
   }, []);
 
+
+  var type = ["old phone", "used", "refurbished"]
+  const soldout = (`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition} soldout`).toLowerCase()
+
   return (
     <>
 
@@ -105,7 +109,8 @@ function BestDealCard({
                   width="100%"
                   height="100%"
                   objectFit="contain"
-                  alt={data?.marketingName}
+                  alt={(`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()
+                }
                 />
               </div>
             ) : (
@@ -213,7 +218,7 @@ function BestDealCard({
           {data?.status === "Sold_Out" && (
             <div className="absolute h-8 -top-2 right-0 left-0 flex px-4 pb-1">
               <p className="flex items-center">
-                <Image src={sold_out} width={60} height={30} alt={data?.marketingName}/>
+                <Image src={sold_out} width={60} height={30} alt={soldout}/>
                 {/* <BsInfoCircle
                   className="ml-2 text-xs mt-0.5 cursor-pointer"
                   onClick={(e) => {
@@ -226,7 +231,7 @@ function BestDealCard({
           )}
 
           <Image
-            alt={data?.marketingName}
+            alt={(`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase() }
             src={data?.imagePath || Logo}
             width="90%"
             height="100%"

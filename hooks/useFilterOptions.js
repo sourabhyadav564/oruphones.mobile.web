@@ -23,7 +23,7 @@ const initialState = [
     options: [],
   },
   {
-    id: "ram",
+    id: "Ram",
     name: "Ram(GB)",
     options: [],
   },
@@ -79,7 +79,7 @@ const useFilterOptions = () => {
                   }),
                 ],
               };
-            } else if (item.id === "ram") {
+            } else if (item.id === "Ram") {
               return {
                 ...item,
                 options: [

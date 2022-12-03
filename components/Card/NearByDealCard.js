@@ -16,6 +16,9 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
   // const [listings, setListings] = useState([]);
   // const [listingState, setListingState] = useState(false);
 
+  var type = ["old phone", "used", "refurbished"]
+  const soldout = (`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition} soldout`).toLowerCase()
+
   if (data?.make?.toLowerCase().includes("all")) {
     return (
       <Link href={`/product/buy-old-refurbished-used-mobiles/bestdealnearyou`}>
@@ -64,7 +67,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                   width={"50"}
                   height={"20"}
                   objectFit="contain"
-                  alt={data.marketingName}
+                  alt={soldout}
                 /> : (!(data?.isOtherVendor === "Y") && data?.verified) ? (
                   <VerifiedIcon width={45} height={22} />
                 ) : <svg height={20} width={20} />}
@@ -82,7 +85,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                 <div className="flex justify-center p-2">
                   <Image
                     src={data?.imagePath || Logo}
-                    alt={data?.marketingName}
+                    alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
                     width={150}
                     height={150}
                     objectFit="contain"
@@ -132,7 +135,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                 <div className="flex justify-center p-2">
                   <Image
                     src={data?.imagePath || Logo}
-                    alt={data?.marketingName}
+                    alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
                     width={150}
                     height={150}
                     objectFit="contain"

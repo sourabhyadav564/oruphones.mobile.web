@@ -42,7 +42,7 @@ function BrandCard({ data, className, popup }) {
             >
               <Image
                 src={data?.imagePath || Logo}
-                alt={data?.make}
+                alt={(`buy online refurbished ${data?.make}`).toLowerCase()}
                onClick={()=>setMake(data?.make)}
                 height={45}
                 width={45}
@@ -58,7 +58,7 @@ function BrandCard({ data, className, popup }) {
           >
             <Image
               src={data?.imagePath || Logo}
-              alt={data?.make}
+              alt={(`buy online refurbished ${data?.make}`).toLowerCase()}
               height={45}
               width={45}
               objectFit="contain"
