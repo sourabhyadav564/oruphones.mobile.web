@@ -56,11 +56,12 @@ function BestDealCard({
     <>
 
       <div className="grid font-SF-Pro grid-cols-2 mb-6 rounded-lg border cardShadow1 p-4  max-w-sm relative bg-white"
-        onClick={() => window.open(
-          `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
-          "_blank"
-        )
-        }>
+      // onClick={() => window.open(
+      //   `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
+      //   "_blank"
+      // )
+      // }
+      >
         <div className="cols-span-2">
           <div className="grid grid-cols-2 gap-2">
             <p className="mb-2 leading-none space-y-0.5">
@@ -110,7 +111,7 @@ function BestDealCard({
                   height="100%"
                   objectFit="contain"
                   alt={(`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()
-                }
+                  }
                 />
               </div>
             ) : (
@@ -218,7 +219,7 @@ function BestDealCard({
           {data?.status === "Sold_Out" && (
             <div className="absolute h-8 -top-2 right-0 left-0 flex px-4 pb-1">
               <p className="flex items-center">
-                <Image src={sold_out} width={60} height={30} alt={soldout}/>
+                <Image src={sold_out} width={60} height={30} alt={soldout} />
                 {/* <BsInfoCircle
                   className="ml-2 text-xs mt-0.5 cursor-pointer"
                   onClick={(e) => {
@@ -231,7 +232,7 @@ function BestDealCard({
           )}
 
           <Image
-            alt={(`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase() }
+            alt={(`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
             src={data?.imagePath || Logo}
             width="90%"
             height="100%"
@@ -241,16 +242,16 @@ function BestDealCard({
           />
         </div>
 
-        <div className="absolute right-0 px-3 py-3">
-          {!(data.isOtherVendor === "Y") && !listings.includes(data.listingId) && (
-            <AddFav
-              data={data}
-              setProducts={setProducts}
-              width={22}
-              height={22}
-            />
-          )}
-        </div>
+      </div>
+      <div className="relative flex justify-end bottom-[248px] right-4">
+        {!(data.isOtherVendor === "Y") && !listings.includes(data.listingId) && (
+          <AddFav
+            data={data}
+            setProducts={setProducts}
+            width={22}
+            height={22}
+          />
+        )}
       </div>
       <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
     </>

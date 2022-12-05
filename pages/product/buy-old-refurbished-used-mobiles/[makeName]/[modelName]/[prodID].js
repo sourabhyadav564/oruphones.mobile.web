@@ -78,7 +78,7 @@ function ProductDeatils({ data }) {
   const { authenticated } = useAuthState();
   const myRef = useRef(null);
   const [openLoginPopup, setOpenLoginPopup] = useState(false);
-
+  let vendor = "";
   // const productData = useRecoilValue(otherVandorDataSelector);
 
   // const listingId = useRecoilValue(otherVandorListingIdSelector);
@@ -185,10 +185,12 @@ function ProductDeatils({ data }) {
   };
 
 
-  let vendor = data.vendorLogo.replace('https://zenrodeviceimages.s3.us-west-2.amazonaws.com/vendors/', "")
-  vendor = vendor.replaceAll('_logo.png', "");
-  if (vendor.includes('mbr_')) {
-    vendor = vendor.replace('mbr_', "");
+  if (data?.vendorLogo !== undefined && data?.vendorLogo !== null) {
+    vendor = data?.vendorLogo.replace('https://zenrodeviceimages.s3.us-west-2.amazonaws.com/vendors/', "")
+    vendor = vendor.replaceAll('_logo.png', "");
+    if (vendor.includes('mbr_')) {
+      vendor = vendor.replace('mbr_', "");
+    }
   }
   // console.log("vendor", vendor);
 
@@ -340,7 +342,7 @@ function ProductDeatils({ data }) {
             {/* <h1 className="text-black font-Regular text-qx">
               {data?.marketingName}
             </h1> */}
-           
+
             <h1 className="font-Roboto-Regular text-qx text-[#000000]">{data?.marketingName} </h1>
 
             {/* {data?.isOtherVendor === "N" && (

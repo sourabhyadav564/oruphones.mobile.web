@@ -1,12 +1,15 @@
 import Image from "next/image";
 import React, { Fragment } from "react";
-import {HiOutlineUserCircle} from "react-icons/hi";
+import { HiOutlineUserCircle } from "react-icons/hi";
 
 function SellerDetails({ data }) {
-  let vendor = data.vendorLogo.replace('https://zenrodeviceimages.s3.us-west-2.amazonaws.com/vendors/', "")
-  vendor = vendor.replaceAll('_logo.png', "");
-  if (vendor.includes('mbr_')) {
-    vendor = vendor.replace('mbr_', "");
+  let vendor = "";
+  if (data?.vendorLogo !== undefined && data?.vendorLogo !== null) {
+    vendor = data.vendorLogo.replace('https://zenrodeviceimages.s3.us-west-2.amazonaws.com/vendors/', "")
+    vendor = vendor.replaceAll('_logo.png', "");
+    if (vendor.includes('mbr_')) {
+      vendor = vendor.replace('mbr_', "");
+    }
   }
   return (
     <Fragment>
@@ -29,11 +32,11 @@ function SellerDetails({ data }) {
               />
             </g>
           </svg> */}
-          <HiOutlineUserCircle size={40} color={'#878787'}/>
+          <HiOutlineUserCircle size={40} color={'#878787'} />
         </span>
-        {(data?.isOtherVendor === "Y" ) && ( 
+        {(data?.isOtherVendor === "Y") && (
           <div className="ml-2 self-center">
-            <Image alt={vendor} src={data?.vendorLogo || "/" } width={130} height={50} objectFit="contain" />
+            <Image alt={vendor} src={data?.vendorLogo || "/"} width={130} height={50} objectFit="contain" />
           </div>
         )}
 

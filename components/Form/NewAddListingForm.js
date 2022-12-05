@@ -728,7 +728,7 @@ const NewAddListingForm = ({ data }) => {
                 value={make}
               /> */}
               <div className="m-auto pl-28 pb-px mb-4 border-b ">
-                <Image src={PhoneImage} width={120} height={200}  alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${model} ${storage} like new`).toLowerCase()}/>
+                <Image src={PhoneImage} width={120} height={200} alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${model} ${storage} like new`).toLowerCase()} />
               </div>
 
               <SellPhoneHeading1 title="Enter your Phone details" />
@@ -1166,7 +1166,7 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${modal} ${storage} ${condition} `).toLowerCase()}
+                  alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${model} ${storage} ${condition} `).toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1283,7 +1283,7 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${modal} ${storage} ${condition} `).toLowerCase()}
+                  alt={(` sell ${type[Math.floor((Math.random() * type.length))]} ${model} ${storage} ${condition} `).toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1583,7 +1583,7 @@ const Checkbox = ({ src, text, checked, onChange }) => (
     onClick={onChange}
   >
     <div className="relative w-7 h-7 mx-auto">
-      <Image src={src} layout="fill" alt="ORU checkbox"/>
+      <Image src={src} layout="fill" alt="ORU checkbox" />
     </div>
 
     <input
