@@ -196,9 +196,10 @@ export async function getMakeModelLists(userUniqueId, sessionId, make, isPrimary
     sessionId: sessionId,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  const url = `${URI}/api/v1/master/makemodellist?make=${make}&isPrimary=${isPrimary}`;
+  const url = `${URI}/api/v1/master/makemodellist`;
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
+    localStorage.setItem("make_models", JSON.stringify(response.data.dataObject));
     return response.data;
   });
 }
