@@ -19,7 +19,7 @@ function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) 
         slidesPerView={3}
         spaceBetween={1}
       >
-        {shopbymodeldata[0].models.map((item) => (
+        {shopbymodeldata.map((item) => (
           <SwiperSlide key={item?.make}>
             <ShopbymodelCard
               data={item.marketingname}

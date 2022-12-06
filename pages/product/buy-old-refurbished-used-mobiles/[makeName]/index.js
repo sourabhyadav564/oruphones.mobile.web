@@ -61,6 +61,49 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
 
   const loadData = async (intialPage) => {
+
+    const getMakeModel = async () => {
+      brandResult = await getMakeModelLists(
+        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
+        // makeName2,
+        // "Y"
+        );
+      };
+    // let makemodel=JSON.parse(localStorage.getItem("make_models")!=undefined?localStorage.getItem("make_models"):
+    // await getMakeModel()
+    // );
+    let makemodel;
+    if(localStorage.getItem("make_models")!=undefined){
+      makemodel=JSON.parse(localStorage.getItem("make_models"));
+      makemodel.map((item)=>{
+        if(item.make==makeName2){
+          setTitle(item.make);
+          setDescription(item.make);
+          setshopbymodel(item.models);
+        }
+      })
+    }
+    else{
+      await getMakeModel();
+      makemodel= JSON.parse(localStorage.getItem("make_models"));
+      makemodel.map((item)=>{
+        if(item.make==makeName2){
+          setTitle(item.make);
+          setDescription(item.make);
+          setshopbymodel(item.models);
+        }
+      })
+    }
+    // if(makemodel!=undefined){
+    //   makemodel.map((item)=>{
+    //     if(item.makeName==makeName2){
+    //       setTitle(item.makeName);
+    //       setDescription(item.makeName);
+    //       setshopbymodel(item.models);
+    //     }
+    //   })
+    // }
     if (makeName && !isFilterApplied && !applyFilter) {
       fetchByMakeList(
         selectedSearchCity,
@@ -170,34 +213,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
 
     function capitalName(text){
       return text.charAt(0).toUpperCase() + text.slice(1);
-  }
-  
-   
-    
-   
-
-    const getMakeModel = async () => {
-      console.log("makename2 ",makeName2);
-      brandResult = await getMakeModelLists(
-        Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
-        makeName2,
-        "Y"
-      );
-      // console.log("result ",result); 
-      // return result;
-    };
-
-    // makeName2 = "";
-    // if (makeName != undefined) {
-    //   console.log("makeName", router.query);
-    // brandResult = await getMakeModel();
-    await getMakeModel();
-    // }
-    console.log("result", router.query["makeName"]);
-
-    setshopbymodel(brandResult?.dataObject);
-    brandResult = [] ;
+    }
   };
 
 
