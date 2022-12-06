@@ -24,7 +24,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
   const { authenticated, user } = useAuthState();
   const [loadingState, setLoadingState] = useState(false);
   const [listingState, setListingState] = useState(false);
-
+  const [imageError, setImageError] = useState(false);
   useEffect(() => {
     setLoadingState(false);
   }, [router.pathname]);
@@ -59,7 +59,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
     );
   }
 
-  
+
   var type = ["old phone", "used", "refurbished"]
   const soldout = (`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition} soldout`).toLowerCase()
 
@@ -109,7 +109,10 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                    src={data?.imagePath || Logo}
+                    src={imageError ? Logo : data?.imagePath}
+                    onError={() => {
+                      setImageError(true);
+                    }}
                     alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
                     width={150}
                     height={150}
@@ -158,7 +161,10 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                    src={data?.imagePath || Logo}
+                    src={imageError ? Logo : data?.imagePath}
+                    onError={() => {
+                      setImageError(true);
+                    }}
                     alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
                     width={150}
                     height={150}

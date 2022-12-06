@@ -94,6 +94,7 @@ const EditListingForm = ({ data, resultsSet }) => {
   const dispatch = useAuthDispatch();
   var sellValueTag = document.querySelector("#sellValue") || "";
   var sellValue = sellValueTag.value || "";
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     if (warranty == "zero" || warranty == "four" || warranty == "seven" || warranty == "more") {
@@ -448,7 +449,10 @@ const EditListingForm = ({ data, resultsSet }) => {
           <div className="flex bg-white p-5  space-x-4 rounded-md drop-shadow-md">
 
             <Image
-              src={data?.defaultImage?.fullImage || Logo}
+              src={imageError ? Logo : data?.defaultImage?.fullImage}
+              onError={() => {
+                setImageError(true);
+              }}
               className=""
               alt="model"
               height="80"
@@ -1015,7 +1019,7 @@ const Checkbox = ({ src, text, checked, onChange }) => (
     onClick={onChange}
   >
     <div className="relative w-7 h-7 mx-auto">
-      <Image src={src} layout="fill" alt="ORU user checkclick"/>
+      <Image src={src} layout="fill" alt="ORU user checkclick" />
     </div>
 
     <input

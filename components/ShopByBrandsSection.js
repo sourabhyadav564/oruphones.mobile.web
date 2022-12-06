@@ -10,7 +10,7 @@ const VerificationInfo = dynamic(() => import("@/components/Popup/VerificationIn
 function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
-
+  var type = ["old phone", "used", "refurbished"]
   console.log("shop by brand section2", shopbymodeldata)
 
   return (
@@ -23,8 +23,8 @@ function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) 
           <SwiperSlide key={item?.make}>
             <ShopbymodelCard
               data={item.marketingname}
-              src={`https://zenrodeviceimages.s3.us-west-2.amazonaws.com/mobiru/product/mobiledevices/img/newModels/${item?.marketingname?.toString().toLowerCase().replaceAll(" ", "_")}.jpg`}
-              // alt={data?.models?.model_name}
+              src={`https://zenrodeviceimages.s3.us-west-2.amazonaws.com/allModelsImg/${item?.marketingname?.toString().toLowerCase().replaceAll(" ", "_")}.jpg`}
+              alt={`buy ${type[Math.floor((Math.random() * type.length))]} ` + item?.marketingname}
               location={location}
               make={shopbymodeldata[0].make}
             />

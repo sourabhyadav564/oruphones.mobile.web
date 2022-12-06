@@ -68,27 +68,38 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
         // makeName2,
         // "Y"
-        );
-      };
+      );
+    };
     // let makemodel=JSON.parse(localStorage.getItem("make_models")!=undefined?localStorage.getItem("make_models"):
     // await getMakeModel()
     // );
     let makemodel;
-    if(localStorage.getItem("make_models")!=undefined){
-      makemodel=JSON.parse(localStorage.getItem("make_models"));
-      makemodel.map((item)=>{
-        if(item.make==makeName2){
+    if (localStorage.getItem("make_models") != undefined) {
+      if (makeName === "oneplus") {
+        makeName = "OnePlus";
+      } else {
+        makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
+      }
+      console.log("local storage", makeName);
+      makemodel = JSON.parse(localStorage.getItem("make_models"));
+      makemodel.map((item) => {
+        if (item.make == makeName) {
           setTitle(item.make);
           setDescription(item.make);
           setshopbymodel(item.models);
         }
       })
     }
-    else{
+    else {
+      if (makeName === "oneplus") {
+        makeName = "OnePlus";
+      } else {
+        makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
+      }
       await getMakeModel();
-      makemodel= JSON.parse(localStorage.getItem("make_models"));
-      makemodel.map((item)=>{
-        if(item.make==makeName2){
+      makemodel = JSON.parse(localStorage.getItem("make_models"));
+      makemodel.map((item) => {
+        if (item.make == makeName) {
           setTitle(item.make);
           setDescription(item.make);
           setshopbymodel(item.models);
@@ -108,7 +119,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
       fetchByMakeList(
         selectedSearchCity,
         makeName,
-        Cookies.get("userUniqueId") || "Guest", 
+        Cookies.get("userUniqueId") || "Guest",
         Cookies.get("sessionId") || "",
         intialPage,
         applySortFilter
@@ -215,7 +226,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
       }
     }
 
-    function capitalName(text){
+    function capitalName(text) {
       return text.charAt(0).toUpperCase() + text.slice(1);
     }
   };
@@ -439,7 +450,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         if (Ram?.length > 0) {
           payLoad.deviceRam = Ram.includes("all") ? [] : Ram;
         }
-        
+
         if (warranty?.length > 0) {
           payLoad.warenty = warranty.includes("all") ? [] : warranty;
         }
