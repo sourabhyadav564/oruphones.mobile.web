@@ -30,6 +30,7 @@ function BestDealCard({
   const { authenticated, user } = useAuthState();
   const [loadingState, setLoadingState] = useState(false);
   const [listingState, setListingState] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     setLoadingState(false);
@@ -233,7 +234,10 @@ function BestDealCard({
 
           <Image
             alt={(`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
-            src={data?.imagePath || Logo}
+            src={imageError ? Logo : data?.imagePath}
+            onError={() => {
+              setImageError(true);
+            }}
             width="90%"
             height="100%"
             layout="responsive"

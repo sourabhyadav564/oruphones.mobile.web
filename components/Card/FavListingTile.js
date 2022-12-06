@@ -14,6 +14,7 @@ import { AiFillHeart } from "react-icons/ai";
 
 function FavListingTile({ data, setProducts }) {
   const router = useRouter();
+  const [imageError, setImageError] = useState(false);
 
   const handleFavoties = async () => {
     setProducts((prevState) => {
@@ -74,13 +75,15 @@ function FavListingTile({ data, setProducts }) {
 
                   {data?.images && !data?.imagePath ? (
                     <Image
-                      src={
+                      src={imageError ? Logo :
                         (data?.images &&
                           data.images.length > 0 &&
                           data.images[0].fullImage) ||
-                        data?.defaultImage?.fullImage ||
-                        Logo
+                        data?.defaultImage?.fullImage
                       }
+                      onError={() => {
+                        setImageError(true);
+                      }}
                       width={250}
                       height={150}
                       objectFit="contain"
@@ -88,7 +91,10 @@ function FavListingTile({ data, setProducts }) {
                     />
                   ) : (
                     <Image
-                      src={data?.imagePath}
+                      src={imageError ? Logo : data?.imagePath}
+                      onError={() => {
+                        setImageError(true);
+                      }}
                       width={250}
                       height={150}
                       objectFit="contain"
@@ -151,8 +157,8 @@ function FavListingTile({ data, setProducts }) {
                           </span>
                         </div>
                       </div>
-                    </div>:
-                    <div></div>
+                    </div> :
+                      <div></div>
                     }
                     <div className="bg-black justify-center mt-2 rounded-md flex flex-col items-center">
                       <div className="text-gray-300 text-xs">List Price</div>

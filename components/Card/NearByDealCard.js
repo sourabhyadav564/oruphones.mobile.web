@@ -15,7 +15,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
   const { authenticated, loading, user } = useAuthState();
   // const [listings, setListings] = useState([]);
   // const [listingState, setListingState] = useState(false);
-
+  const [imageError, setImageError] = useState(false);
   var type = ["old phone", "used", "refurbished"]
   const soldout = (`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition} soldout`).toLowerCase()
 
@@ -84,7 +84,10 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                    src={data?.imagePath || Logo}
+                    src={imageError ? Logo : data?.imagePath}
+                    onError={() => {
+                      setImageError(true);
+                    }}
                     alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
                     width={150}
                     height={150}
@@ -134,7 +137,10 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                    src={data?.imagePath || Logo}
+                    src={imageError ? Logo : data?.imagePath}
+                    onError={() => {
+                      setImageError(true);
+                    }}
                     alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
                     width={150}
                     height={150}

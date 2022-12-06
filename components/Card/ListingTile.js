@@ -35,6 +35,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
   const [openPauseListing, setOpenPauseListing] = useState(false);
   const [openDeleteListing, setOpenDeleteListing] = useState(false);
   const [reason, setReason] = useState("");
+  const [imageError, setImageError] = useState(false);
 
   const handleActivate = (e) => {
     e.preventDefault();
@@ -106,7 +107,10 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   "_blank",)
               }>
               <Image
-                src={(data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
+                src={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
+                onError={() => {
+                  setImageError(true);
+                }}
                 width={100}
                 height={100}
                 objectFit="contain"

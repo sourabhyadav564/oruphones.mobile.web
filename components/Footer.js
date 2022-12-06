@@ -13,11 +13,13 @@ import PlayStoreCard from "../assets/play_store.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { makeState } from "atoms/globalState";
 
 
 const Footer = () => {
   const router = useRouter();
-
+  const [make, setMake] = useRecoilState(makeState);
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
@@ -78,11 +80,13 @@ const Footer = () => {
             <Link href="/product/buy-old-refurbished-used-mobiles/apple">
               <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
                 // onClick={() => setLoadingState(true)}
+                onClick={() => setMake("Apple")}
               > Buy Used Apple iPhones</a>
             </Link>
             <Link href="/product/buy-old-refurbished-used-mobiles/samsung">
               <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
                 // onClick={() => setLoadingState(true)}
+                onClick={() => setMake("Samsung")}
               >Buy Used Samsung Phones</a>
             </Link>
             <Link
@@ -91,6 +95,7 @@ const Footer = () => {
             >
               <a className="yes delay-75   max-w-max font-Roboto-Light text-jx mt-2"
                 // onClick={() => setLoadingState(true)}
+                onClick={() => setMake("Realme")}
               >Buy Used Realme Phones</a>
             </Link>
             <Link
@@ -99,6 +104,7 @@ const Footer = () => {
             >
               <a className="yes delay-75  max-w-max font-Roboto-Light text-jx mt-2"
                 // onClick={() => setLoadingState(true)}
+                onClick={() => setMake("Motorola")}
               >Buy Used Motorola Phones
               </a>
             </Link>
@@ -220,10 +226,10 @@ const Footer = () => {
               <p className=" font-Roboto-Semobold text-mx">DOWNLOAD ORUphones App</p>
               <div className="grid grid-cols-2 items-center gap-4 my-4">
                 <Link href="https://apps.apple.com/dk/app/oruphones/id1629378420">
-                  <Image src={AppStoreCard} alt="app store"/>
+                  <Image src={AppStoreCard} alt="app store" />
                 </Link>
                 <Link href="https://play.google.com/store/apps/details?id=com.oruphones.oru&hl=en&gl=US">
-                  <Image src={PlayStoreCard} alt="playstore"/>
+                  <Image src={PlayStoreCard} alt="playstore" />
                 </Link>
               </div>
               <div>
