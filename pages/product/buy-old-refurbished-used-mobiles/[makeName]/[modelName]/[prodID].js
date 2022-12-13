@@ -38,6 +38,7 @@ import { CardHeading, CardHeading4 } from "@/components/elements/CardHeading/car
 import SearchBar from "@/components/Header/SearchBar";
 import { toast } from "react-toastify";
 import sold_out from "@/assets/soldout.png";
+import {FaGreaterThan} from  "react-icons/fa";
 
 
 // import {
@@ -63,12 +64,14 @@ function ProductDeatils({ data }) {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
   const [openWarrantyInfo, setOpenWarrantyInfo] = useState(false);
+  const [performAction,setperformAction]= useState(false);
   const [
     openRequestVerificationSuccessPopup,
     setOpenRequestVerificationSuccessPopup,
   ] = useState(false);
   const [openRequestVerificationPopup, setOpenRequestVerificationPopup] =
     useState(false);
+    const [performAction2,setperformAction2]= useState(false);
   const [deviceListingInfo, setDeviceListingInfo] = useState(data);
   const [contactSellerMobileNumber, setContactSellerMobileNumber] =
     useState("Loading...");
@@ -77,6 +80,7 @@ function ProductDeatils({ data }) {
   const [defaultOpen, setDefaultOpen] = useState(false);
   const { authenticated } = useAuthState();
   const myRef = useRef(null);
+  const [productLink, setProductLink] = useState("");
   const [openLoginPopup, setOpenLoginPopup] = useState(false);
   let vendor = "";
   // const productData = useRecoilValue(otherVandorDataSelector);
@@ -94,13 +98,34 @@ function ProductDeatils({ data }) {
   //   }
   // });
 
-  const showSellerNumber = async (e) => {
+
+  useEffect(() => {
+    if(openLoginPopup==false && performAction==true && Cookies.get("userUniqueId") !==undefined && data?.isOtherVendor !== "Y"){
+      if(data?.verified){
+        showSellerNumber(data?.listingId);
+        // handleButtonClick();
+        // setShowNumber((prev) => !prev);
+      }else{
+        setOpenRequestVerificationPopup(true);
+      }
+    }
+  }, [openLoginPopup]);
+
+
+  // function showSellerNumber(e) {
+  //   myRef.current.scrollIntoView({ behavior: "smooth" });
+  // }
+
+  const showSellerNumber = (e) => {
     handleButtonClick();
-    if (!authenticated) {
+    if(Cookies.get("userUniqueId") ==undefined){
+      setperformAction(true);
       //router.push("/login");
       setOpenLoginPopup(true);
-    } else if (data.verified) {
-      setShowNumber((prev) => !prev);
+    } else if (data?.verified) {
+    //  showSellerNumber(data?.listingId);
+    handleButtonClick();
+    setShowNumber((prev) => !prev);
     } else {
       if (showNumber) {
         setShowNumber((prev) => !prev);
@@ -110,6 +135,7 @@ function ProductDeatils({ data }) {
     }
   };
   // console.log("data", data);
+
 
   useEffect(() => {
     // setDeviceListingInfo(data2);
@@ -135,12 +161,24 @@ function ProductDeatils({ data }) {
     // }
   }, [data]);
 
+  useEffect(() => {
+    if (
+
+      openLoginPopup == false &&
+      performAction2 == true &&
+      Cookies.get("userUniqueId") !== undefined
+      && productLink !== ""
+    ) {
+      window.open(productLink,"_blank");
+    }
+  }, [openLoginPopup]);
+
   const handleButtonClick = async () => {
     if (
       !(data?.isOtherVendor === "Y") &&
       Cookies.get("userUniqueId") !== undefined
     ) {
-      fetchSellerMobileNumber(data.listingId, Cookies.get("userUniqueId")).then(
+      fetchSellerMobileNumber(data?.listingId, Cookies.get("userUniqueId")).then(
         (response) => {
           console.log("response", response);
           setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
@@ -477,7 +515,15 @@ function ProductDeatils({ data }) {
             {data?.externalSource?.length > 0 &&
               data?.externalSource.map((items, index) => (
                 <>
-                  <div className="rounded-md flex items-center space-y-2 my-4 " key={index} style={{ backgroundColor: "#F9F9F9" }}>
+                  <div className="rounded-md flex items-center space-y-2 my-4 " key={index} style={{ backgroundColor: "#F9F9F9" }}
+                  onClick={() => {
+                    if (Cookies.get("userUniqueId") == undefined) {
+                      setOpenLoginPopup(true);
+                      setProductLink(items?.productLink);
+                      setperformAction2(true);
+                    } else window.open(items?.productLink, "_blank");
+                  }}
+                  >
                     <div className="flex-1 flex flex-col justify-start px-4 pt-3">
                       <div>
                         <Image
@@ -490,12 +536,13 @@ function ProductDeatils({ data }) {
                       </div>
                     </div>
                     <div className="flex px-4">
-                      <p className="text-dx flex items-center font-Semibold text-primary" >
+                      <p className="text-dx flex items-center font-Roboto-Bold text-primary" >
                         {items?.externalSourcePrice && (
-                          <span className="font-normal mr-0.5"> ₹ </span>
+                          <span className="font-Roboto-Bold mr-0.5"> ₹ </span>
                         )}{" "}
                         {numberWithCommas(items?.externalSourcePrice)}
                       </p>
+                      <FaGreaterThan size={18} className="pt-1"/>
                     </div>
                   </div>
                 </>

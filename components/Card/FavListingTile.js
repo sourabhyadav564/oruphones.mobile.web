@@ -11,6 +11,7 @@ import UnVerifiedIcon from "../UnVerifiedIcon";
 import AddFav from "../AddFav";
 import Logo from "@/assets/oru_phones_logo.png";
 import { AiFillHeart } from "react-icons/ai";
+import { useState } from "react";
 
 function FavListingTile({ data, setProducts }) {
   const router = useRouter();
@@ -79,7 +80,7 @@ function FavListingTile({ data, setProducts }) {
                         (data?.images &&
                           data.images.length > 0 &&
                           data.images[0].fullImage) ||
-                        data?.defaultImage?.fullImage
+                        data?.defaultImage?.fullImage || Logo
                       }
                       onError={() => {
                         setImageError(true);
@@ -91,7 +92,7 @@ function FavListingTile({ data, setProducts }) {
                     />
                   ) : (
                     <Image
-                      src={imageError ? Logo : data?.imagePath}
+                      src={imageError ? Logo : data?.imagePath || Logo}
                       onError={() => {
                         setImageError(true);
                       }}

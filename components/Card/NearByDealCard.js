@@ -13,6 +13,7 @@ import { getUserListings } from "api-call";
 
 function NearByDealCard({ data, setProducts, prodLink, myListing }) {
   const { authenticated, loading, user } = useAuthState();
+  // const [ImageError,setImageError] = useState(false);
   // const [listings, setListings] = useState([]);
   // const [listingState, setListingState] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -84,7 +85,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                    src={imageError ? Logo : data?.imagePath}
+                    src={imageError ? Logo : data?.imagePath || Logo}
                     onError={() => {
                       setImageError(true);
                     }}
@@ -137,7 +138,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                    src={imageError ? Logo : data?.imagePath}
+                    src={imageError ? Logo : data?.imagePath || Logo}
                     onError={() => {
                       setImageError(true);
                     }}

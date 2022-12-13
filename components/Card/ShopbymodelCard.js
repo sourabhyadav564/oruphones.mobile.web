@@ -61,7 +61,7 @@ function ShopbymodelCard({ data, location, makeLink, make, src, alt, fallBackSrc
 
         <div className="">
           <Image
-            src={imageError ? fallBackSrc : src}
+            src={imageError ? fallBackSrc : src ||Logo}
             alt={alt}
             onError={() => setImageError(true)}
             width="34"

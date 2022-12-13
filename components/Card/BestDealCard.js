@@ -234,7 +234,7 @@ function BestDealCard({
 
           <Image
             alt={(`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
-            src={imageError ? Logo : data?.imagePath}
+            src={imageError ? Logo : data?.imagePath || Logo}
             onError={() => {
               setImageError(true);
             }}

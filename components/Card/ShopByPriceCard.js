@@ -16,7 +16,7 @@ function ShopByPriceCard({ data }) {
         <div className="grid grid-cols-1 rounded-md py-2 px-3 bg-white cardShadow1">
           <div className="grid grid-cols-1">
             <div className="flex justify-center my-1">
-              <Image src={data?.imagePath} alt={data?.marketingName} width={150} height={150} />
+              <Image src={data?.imagePath || Logo} alt={data?.marketingName} width={150} height={150} />
             </div>
             <div className="flex-wrap w-full text-gray-70">
               <p className="flex-1 truncate w-full capitalize font-semibold">{data?.marketingName}</p>

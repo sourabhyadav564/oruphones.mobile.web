@@ -2,9 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { numberWithCommas } from "@/utils/util";
 import Logo from "@/assets/oru_phones_logo.png";
+import { useState } from "react";
 // import Logo from "@/assets/mobiru_logo.svg";
 
 function SellingMobileCard({ data }) {
+  const [Imageerror, setImageerror] = useState(false);
   if (data?.make?.toLowerCase().includes("all")) {
     return (
       <Link href={`/product/models`}>
@@ -30,7 +32,8 @@ function SellingMobileCard({ data }) {
         <div className="grid grid-cols-1 rounded-lg py-2 px-3 bg-m-white cardShadow1">
           <div className="grid grid-cols-1">
             <div className="flex items-baseline my-1">
-              <Image src={data?.imagePath || Logo} alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} like new `).toLowerCase()} width={150} height={150} objectFit="contain" />
+              <Image  src={Imageerror ? Logo : data?.imagePath || Logo}
+                onError={() => setImageerror(true)} alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} like new `).toLowerCase()} width={150} height={150} objectFit="contain" />
             </div>
             <div className="flex-wrap w-full text-gray-70">
               <h1 className="flex-1 truncate w-full capitalize font-semibold">{data?.marketingName}</h1>

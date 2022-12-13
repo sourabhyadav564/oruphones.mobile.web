@@ -9,9 +9,11 @@ let headers = {
   "Content-Type": "application/json",
   srcFrom: "Mobile Web",
   eventName: "NA",
-  userUniqueId: Cookies.get("userUniqueId")
-    ? Cookies.get("userUniqueId")
-    : "Guest",
+  userUniqueId: 
+  // Cookies.get("userUniqueId")!==undefined
+    // ? Cookies.get("userUniqueId")
+    // :
+     0,
   sessionId:
     typeof window !== "undefined"
       ? localStorage.getItem("sessionId")
@@ -424,7 +426,7 @@ export async function detailWithUserInfo(
 }
 
 export async function fetchSellerMobileNumber(listingid, userUniqueId) {
-  headers = { ...headers, eventName: "GET_SELLER_CONTACT" };
+  headers = { ...headers, eventName: "GET_SELLER_CONTACT", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/device/listing/user/mobilenumber?listingId=` +
@@ -433,7 +435,11 @@ export async function fetchSellerMobileNumber(listingid, userUniqueId) {
     userUniqueId;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
-  });
+  },
+  (err) => {
+    console.log(err);
+  }
+  );
 }
 
 export async function getGlobalCities() {

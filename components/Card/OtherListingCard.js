@@ -109,7 +109,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                    src={imageError ? Logo : data?.imagePath}
+                    src={imageError ? Logo : data?.imagePath || Logo}
                     onError={() => {
                       setImageError(true);
                     }}
@@ -161,7 +161,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                    src={imageError ? Logo : data?.imagePath}
+                    src={imageError ? Logo : data?.imagePath || Logo}
                     onError={() => {
                       setImageError(true);
                     }}

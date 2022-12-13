@@ -5,10 +5,12 @@ import Logo from "@/assets/oru_phones_logo.png";
 import BottomNav from "../Navigation/BottomNav";
 import { useRecoilState } from "recoil";
 import { makeState } from "atoms/globalState";
+import { useState } from "react";
 
 function BrandCard({ data, className, popup }) {
 
   const [make, setMake] = useRecoilState(makeState);
+  const [Imageerror, setImageerror] = useState(false);
   
   if (data?.make.toLowerCase().includes("show")) {
     return (
@@ -41,7 +43,9 @@ function BrandCard({ data, className, popup }) {
                 }`}
             >
               <Image
-                src={data?.imagePath || Logo}
+                // src={data?.imagePath || Logo}
+                src={Imageerror ? Logo : data?.imagePath || Logo}
+                onError={() => setImageerror(true)}
                 alt={(`buy online refurbished ${data?.make}`).toLowerCase()}
                onClick={()=>setMake(data?.make)}
                 height={45}
@@ -57,7 +61,9 @@ function BrandCard({ data, className, popup }) {
               }`}
           >
             <Image
-              src={data?.imagePath || Logo}
+              // src={data?.imagePath || Logo}
+              src={Imageerror ? Logo : data?.imagePath || Logo}
+              onError={() => setImageerror(true)}
               alt={(`buy online refurbished ${data?.make}`).toLowerCase()}
               height={45}
               width={45}
