@@ -100,7 +100,7 @@ function ProductDeatils({ data }) {
 
 
   useEffect(() => {
-    if(openLoginPopup==false && performAction==true && Cookies.get("userUniqueId") !==undefined && data?.isOtherVendor !== "Y"){
+    if(openLoginPopup==false && performAction==true && Cookies.get("userUniqueId") !==undefined && data?.isOtherVendor !== "Y" ){
       if(data?.verified){
         showSellerNumber(data?.listingId);
         // handleButtonClick();
@@ -167,7 +167,7 @@ function ProductDeatils({ data }) {
       openLoginPopup == false &&
       performAction2 == true &&
       Cookies.get("userUniqueId") !== undefined
-      && productLink !== ""
+      && data?.productLink !== ""
     ) {
       window.open(productLink,"_blank");
     }
@@ -517,11 +517,11 @@ function ProductDeatils({ data }) {
                 <>
                   <div className="rounded-md flex items-center space-y-2 my-4 " key={index} style={{ backgroundColor: "#F9F9F9" }}
                   onClick={() => {
-                    if (Cookies.get("userUniqueId") == undefined) {
+                    if (Cookies.get("userUniqueId") == undefined ) {
                       setOpenLoginPopup(true);
                       setProductLink(items?.productLink);
                       setperformAction2(true);
-                    } else window.open(items?.productLink, "_blank");
+                    } else if(items?.externalSourceImage != 'https://zenrodeviceimages.s3.us-west-2.amazonaws.com/oru/product/mobiledevices/img/txt_phone.png') window.open(items?.productLink, "_blank");
                   }}
                   >
                     <div className="flex-1 flex flex-col justify-start px-4 pt-3">

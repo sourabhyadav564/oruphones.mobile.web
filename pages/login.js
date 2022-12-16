@@ -4,7 +4,7 @@ import Link from "next/link";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/logo_square.svg";
 import OTPVerification from "@/components/Login/OTPVerification";
-import Input from "@/components/Form/Input";
+import Input from "@/components/Form/Input2";
 import { generateOTP } from "api-call";
 import router from "next/router";
 import { useAuthState } from "providers/AuthProvider";
@@ -45,7 +45,7 @@ function Login() {
     e.preventDefault();
     if (!formData.mobile || formData?.mobile?.length !== 10) {
       setError({ is: true, message: "Please enter valid mobile number" });
-    } else {
+    } else if(formData?.mobile?.length == 10){
       const res = await generateOTP(formData?.countryCode, formData.mobile);
       setResponse(res);
       setStep(2);
@@ -95,16 +95,17 @@ function Login() {
             <div className="w-full my-8 relative ">
               <p className="text-lg font-bold px-1">Welcome</p>
               <h1 className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to continue </h1>
-              <input
-                className="bg-white  border-2 p-3 w-full font-regular rounded-md"
+              <Input
                 name="mobile"
-                type="number"
-                prefix="+91-"
+                pattern="[0-9]*"
+                type="text"
+                // prefix="+91-"
                 value={formData?.mobile}
                 errorClass={error.is && "border border-red-500 border-[2px]"}
                 onChange={(e) => {
                   handleChange(e);
                 }}
+                // className="bg-white  border-2 p-3 w-full font-regular rounded-md"
                 placeholder={"Mobile Number"}
                 style={{ fontSize: '13px' }}
               />

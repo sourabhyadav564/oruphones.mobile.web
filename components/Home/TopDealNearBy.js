@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import NearByDealCard from "../Card/NearByDealCard";
 import { bestDealNearByYou, fetchMyFavorites, getUserListings } from "api-call";
@@ -34,7 +35,6 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
     setLoadingState(false);
   }, [router.pathname]);
 
-  
 
   const loadData = async (initialPage) => {
     if (user && user?.userdetails?.userUniqueId && listings.length === 0) {

@@ -148,13 +148,13 @@ function Profile() {
 
           <section className="px-4 flex flex-col my-8 space-y-4">
             <Link href="/user/favourites" >
-              <a className="border-lg font-Roboto-Regular py-3 text-sm text-primary uppercase rounded text-center" style={{ backgroundColor: "#F9C414" }} onClick={() => setLoadingState(true)} >
+              <a className="border-lg font-Roboto-Regular py-2 text-sm text-primary uppercase rounded text-center" style={{ backgroundColor: "#F9C414" }} onClick={() => setLoadingState(true)} >
                 <h1>MY FAVORITES</h1>
               </a>
             </Link>
           </section>
           <section className="px-4 flex flex-col my-8 space-y-4">
-            <p className="font-Roboto-Light text-ex border-b-2 pb-2">Basic Info</p>
+            <p className="font-Roboto-Light text-ex border-b-2 pb-1">Basic Information</p>
             <div className="space-y-1 text-jx font-Roboto-Regular">
               <p className="bg-white px-0.5">Name <span className="text-red-500">*</span></p>
               <Input
@@ -174,8 +174,9 @@ function Profile() {
               <p className="bg-white px-0.5">Mobile No.<span className="text-red-500">*</span></p>
               <Input
                 disabled
+                prefix="+91"
                 inputClass="font-Regular text-black-ef"
-                defaultValue={`+91 | ${user?.userdetails?.mobileNumber}`}
+                defaultValue={` |  ${user?.userdetails?.mobileNumber}`}
               />
             </div>
             <div className="space-y-1 text-jx font-Roboto-Regular">
@@ -192,34 +193,35 @@ function Profile() {
 
             </div>
 
-            <div className="w-full py-3 text-white font-Roboto-Medium text-dx rounded-md text-center m-auto justify-center" style={{ backgroundColor: "#2C2F45" }} onClick={saveUserInfo}>
+            <div className="w-full py-2 text-white font-Roboto-Medium text-dx rounded-md text-center m-auto justify-center" style={{ backgroundColor: "#2C2F45" }} onClick={saveUserInfo}>
               <p>Save Changes</p>
             </div>
 
 
 
-            <div className="flex pt-4 text-lx">
-              <p className="text-sm text-red-500 rounded text-center font-Roboto-Regular underline flex flex-1 "
-                onClick={() => {
-                  setOpenDeletePopup(true);
-                }}
-              >
-                <RiDeleteBinLine className="self-center" />
-                Delete account
-              </p>
-              <a href="/login">
-                <p
-                  className="text-sm text-primary rounded text-center font-Roboto-Regular underline flex gap-1"
+            <div className=" pt-4 text-lx space-y-8">
+              <div className="border border-primary rounded-[5px] py-2">
+                <a href="/login">
+                  <p
+                    className="text-sm text-primary rounded text-center font-Roboto-Regular uppercase "
+                    onClick={() => {
+                      dispatch("LOGOUT");
+                    }}
+                  >
+                    Log Out
+                  </p>
+                </a>
+              </div>
+
+              <div className="border border-red-500 rounded-[5px] py-2">
+                <p className="text-sm text-red-500 rounded text-center font-Roboto-Regular  "
                   onClick={() => {
-                    dispatch("LOGOUT");
+                    setOpenDeletePopup(true);
                   }}
                 >
-
-                  Log Out
-                  <AiOutlineLogout className="self-center" />
+                  Delete Account
                 </p>
-              </a>
-
+              </div>
 
             </div>
             <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />

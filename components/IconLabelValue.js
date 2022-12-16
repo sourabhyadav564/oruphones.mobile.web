@@ -1,8 +1,17 @@
 import Image from "next/image";
-import box from "@/assets/box.png";
-import ram from "@/assets/ram.png";
-import color from "@/assets/color.png";
-import storage from "@/assets/storage.png";
+import ram from "../assets/svgicons/memory.svg";
+import storage from "../assets/svgicons/micro-sd.svg";
+import verified from "../assets/svgicons/quality.svg";
+import color from "../assets/svgicons/color.svg";
+import accessories from "../assets/svgicons/charger2.svg";
+import listedon from "../assets/svgicons/calendar.svg";
+import warranty from "../assets/svgicons/warranty.svg";
+
+
+import box from "../assets/box.png";
+// import ram from "@/assets/ram.png";
+// import color from "@/assets/color.png";
+// import storage from "@/assets/storage.png";
 import calendar1 from "@/assets/calendar-1.png";
 import calendar2 from "@/assets/calendar-2.png";
 import calendar3 from "@/assets/calendar-3.png";
@@ -26,15 +35,15 @@ function IconLabelValue({
           ) : label.toUpperCase().includes("STORAGE") ? (
             <Image src={storage} alt={`ORU ${storage} storage`} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("ACCESSORIES") ? (
-            <Image src={box} alt={`ORU ${box} box`} width="30" height="30" objectFit="contain" />
+            <Image src={accessories} alt={`ORU ${accessories} box`} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("WARRANTY") ? (
-            <Image src={calendar2} alt={`ORU ${calendar2} calendar`} width="30" height="30" objectFit="contain" />
+            <Image src={warranty} alt={`ORU ${warranty} calendar`} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("CONDITION") ? (
-            <Image src={calendar2} alt={`ORU ${calendar2} calendar`} width="30" height="30" objectFit="contain" />
+            <Image src={verified} alt={`ORU ${verified} calendar`} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("VERIFIED") ? (
             <Image src={calendar1} alt={`ORU ${calendar1} calendar`} width="30" height="40" objectFit="contain" />
           ) : label.toUpperCase().includes("LISTED") ? (
-            <Image src={calendar3} alt={`ORU ${calendar3} calendar`} width="30" height="30" objectFit="contain" />
+            <Image src={listedon} alt={`ORU ${listedon} calendar`} width="30" height="30" objectFit="contain" />
           ) : (
             ""
           )}

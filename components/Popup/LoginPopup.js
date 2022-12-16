@@ -24,7 +24,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
     e.preventDefault();
     if (!formData.mobile || formData?.mobile?.length < 10) {
       setError({ is: true, message: "10 digits number is required" });
-    } else {
+    } else if(formData?.mobile?.length == 10){
       const res = await generateOTP(formData?.countryCode, formData.mobile);
       setResponse(res);
       setStep(2);
@@ -61,7 +61,8 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
                 <Input2
                   className="bg-white font-Roboto-Regular"
                   name="mobile"
-                  type="number"
+                  pattern="[0-9]*"
+                  type="text"
                   prefix="+91-"
                   value={formData?.mobile}
                   onChange={(e) => {

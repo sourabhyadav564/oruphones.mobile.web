@@ -64,6 +64,8 @@ import { BsArrowLeft } from "react-icons/bs";
 import { Heading, SellPhoneHeading1, ProductPriceHeading, AgeHeading } from "../elements/Heading/heading";
 import { IoCloseCircle } from "react-icons/io5";
 import UnverifiedListingPopup from "../Popup/UnverifiedListingPoup";
+import Input2 from "./input2";
+import Input3 from "./input3";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -184,7 +186,6 @@ const NewAddListingForm = ({ data }) => {
     if (model) {
       setColor();
       setStorage();
-
       setCondition();
       setConditionResults({});
       setQuestionIndex(0);
@@ -1335,11 +1336,11 @@ const NewAddListingForm = ({ data }) => {
             </p>
             <div className="grid grid-cols-7 gap-4 relative">
 
-              <Input
+              <Input3
                 id="sellValue"
                 prefix={"₹"}
-                type="number"
-                max="999999"
+                pattern="[0-9]*"
+                type="text"
                 inputClass="text-[24px] text-[#2C2F45] pl-1 font-bold"
                 className={`h-full col-span-4 text-qx font-bold  `}
                 errorClass={`border ${sellValueRequired}`}
@@ -1349,7 +1350,7 @@ const NewAddListingForm = ({ data }) => {
                 }}
               >
                 {/* Enter your sell price* */}
-              </Input>
+              </Input3>
 
 
               <div className="text-sm bg-[#E8E8E8] col-span-3 px-2 py-1 rounded-md -ml-1 relative  ">

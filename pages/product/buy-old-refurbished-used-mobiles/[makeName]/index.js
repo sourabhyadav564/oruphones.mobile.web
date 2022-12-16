@@ -115,6 +115,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
     //     }
     //   })
     // }
+     
     if (makeName && !isFilterApplied && !applyFilter) {
       fetchByMakeList(
         selectedSearchCity,
