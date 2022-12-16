@@ -19,6 +19,7 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
   const router = useRouter();
   const { makeName } = router.query;
 
+  let tempFilters = filterOptions;
   if (filterOptions && makeName !== null && makeName !== undefined) {
     filterOptions = filterOptions.map((i) =>
       i.id === "brand"
@@ -100,6 +101,32 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
     );
   }
 
+  if(filterOptions && (router.query["makeName"]=="apple" || router.query["makeName"]=="Apple")){
+    filterOptions = filterOptions.map((i) =>
+    i.id == "Ram"
+    ? {
+      ...i,
+      
+      options: [
+        {
+          value:"All",
+          label:"All",
+          disabled: true,
+          checked:true,
+          active: true,
+        }
+      ],
+    }
+    : i
+    );
+  }
+
+
+  
+  // console.log("router query makename : ", router.query["makeName"]);
+
+  // console.log("tempfilters : ", tempFilters);
+
   // console.log("filterOptions2", router.query);
   // console.log("filterOptions", filterOptions);
 
@@ -136,7 +163,7 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
         <div className="px-4">{children}</div>
       </main>
       <Footer />
-      <FilterPopup openFilter={openFilter} setOpenFilter={setOpenFilter} filterOptions={filterOptions} setApplyFilter={setApplyFilter} setIsFilterApplied={setIsFilterApplied} />
+      <FilterPopup openFilter={openFilter} setOpenFilter={setOpenFilter} filterOptions={filterOptions} setApplyFilter={setApplyFilter} setIsFilterApplied={setIsFilterApplied} key={makeName}/>
       <SortPopup setSortApplyFilter={setSortApplyFilter} openSort={openSort} setOpenSort={setOpenSort} />
     </Fragment>
   );

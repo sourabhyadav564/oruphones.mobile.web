@@ -78,7 +78,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
       if (makeName === "oneplus") {
         makeName = "OnePlus";
       } else {
-        makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
+        makeName = String(makeName).charAt(0).toUpperCase() + String(makeName).slice(1);
       }
       console.log("local storage", makeName);
       makemodel = JSON.parse(localStorage.getItem("make_models"));
@@ -171,7 +171,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           if (makeName === "oneplus") {
             makeName = "OnePlus";
           } else {
-            makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
+            makeName = String(makeName).charAt(0).toUpperCase() + String(makeName).slice(1);
           }
           let payLoad = {
             listingLocation: selectedSearchCity,
@@ -204,6 +204,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           if (Ram?.length > 0) {
             payLoad.deviceRam = Ram.includes("all") ? [] : Ram;
           }
+
           if (warranty?.length > 0) {
             payLoad.warenty = warranty.includes("all") ? [] : warranty;
           }
@@ -700,7 +701,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
             <CardHeading2 title="Shop by Model" />
             <ShopByBrandsSection
-              shopbymodeldata={shopbymodel} location={selectedSearchCity}
+              shopbymodeldata={shopbymodel} location={selectedSearchCity} shopbymakedata={makeName}
             />
           </div>
         )}

@@ -7,7 +7,7 @@ import BasicCarousel from "./Carousel/BasicCarousel";
 const ConditionInfo = dynamic(() => import("@/components/Popup/ConditionInfo"));
 const VerificationInfo = dynamic(() => import("@/components/Popup/VerificationInfo"));
 
-function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) {
+function ShopByBrandsSection({ shopbymodeldata,shopbymakedata, setProducts, index, location }) {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
   var type = ["old phone", "used", "refurbished"]
@@ -26,7 +26,7 @@ function ShopByBrandsSection({ shopbymodeldata, setProducts, index, location }) 
               src={`https://zenrodeviceimages.s3.us-west-2.amazonaws.com/allModelsImg/${item?.marketingname?.toString().toLowerCase().replaceAll(" ", "_")}.jpg`}
               alt={`buy ${type[Math.floor((Math.random() * type.length))]} ` + item?.marketingname}
               location={location}
-              make={shopbymodeldata[0].make}
+              make={shopbymakedata}
             />
           </SwiperSlide>
         ))}
