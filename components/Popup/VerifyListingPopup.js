@@ -6,6 +6,7 @@ import { useState } from "react";
 import QRCode from "react-qr-code";
 
 function VerifyListingPopup({ open, setOpen, make }) {
+    console.log("make", make);
     const QRValue = make == "Apple"
         ? "https://apps.apple.com/in/app/oruphones/id1629378420"
         : "https://play.google.com/store/apps/details?id=com.oruphones.oru";

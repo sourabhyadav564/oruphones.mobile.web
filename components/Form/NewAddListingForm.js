@@ -146,6 +146,7 @@ const NewAddListingForm = ({ data }) => {
   const [unverifiedListing, setUnverifiedListing] = useState(false);
   const [unverifiedListingType, setUnverifiedListingType] = useState("");
   const [unverifiedListingReason, setUnverifiedListingReason] = useState("");
+  const [performAction, setPerformAction] = useState(false);
   var sellValueTag = document.querySelector("#sellValue") || "";
   var sellValue = sellValueTag.value || "";
 
@@ -287,6 +288,73 @@ const NewAddListingForm = ({ data }) => {
     } else {
       console.error(e);
     }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+
+      if(openLoginPopup==false && performAction==true && Cookies.get("userUniqueId")!=undefined){
+        completeListing();
+        setPerformAction(true);
+        clearInterval(interval);
+      }
+    }, 1000);
+    }, [openLoginPopup]);
+
+  const completeListing = () => {
+    console.log("id",Cookies.get("userUniqueId"));
+    let payload = {
+      make,
+      color,
+      marketingName: model,
+      // deviceStorage: storage?.split("/")[0],
+      // deviceRam: storage?.split("/")[1].replace("RAM", ""),
+      deviceStorage: storage.toString().split("/")[0].toString().trim(),
+      deviceRam: storage
+        .toString()
+        .split("/")[1]
+        .toString()
+        .replace(/GB/g, " GB")
+        .replace(/RAM/, "")
+        .trim(),
+      deviceCondition: condition,
+      listingPrice: inputSellPrice.trim(),
+      listingLocation: selectedCity,
+      listedBy: inputUsername || user?.userdetails?.userName || "",
+      platform: "mobWeb",
+      charger: charging ? "Y" : "N",
+      earphone: headphone ? "Y" : "N",
+      originalbox: originalbox ? "Y" : "N",
+      userUniqueId: Cookies.get("userUniqueId"),
+      images: images.filter(
+        (item) => item?.fullImage && item.fullImage !== null
+      ),
+      model: model,
+      cosmetic: conditionResults,
+      warranty: warranty,
+    };
+    saveLisiting(payload).then(
+      (res) => {
+        console.log("res", res);
+        if (verifySubmit === true) {
+          setVerifyListingAdded(true);
+        } else {
+          if (res.type != null && res.type != "") {
+            setUnverifiedListingReason(res.reason);
+            setUnverifiedListingType(res.type);
+            console.log("unverifiedListingReason", unverifiedListingReason);
+            console.log("unverifiedListingType", unverifiedListingType);
+            setUnverifiedListing(true);
+            // setListingAdded(true);
+          }
+          else {
+            setListingAdded(true);
+          }
+        }
+        dispatch("REFRESH");
+      },
+      (err) => console.error(err)
+    );
   };
 
   const handleImageChange = async (e, index) => {
@@ -548,59 +616,9 @@ const NewAddListingForm = ({ data }) => {
       }
     } else if (!loading && !authenticated) {
       setOpenLoginPopup(true);
-    } else {
-      let payload = {
-        make,
-        color,
-        marketingName: model,
-        // deviceStorage: storage?.split("/")[0],
-        // deviceRam: storage?.split("/")[1].replace("RAM", ""),
-        deviceStorage: storage.toString().split("/")[0].toString().trim(),
-        deviceRam: storage
-          .toString()
-          .split("/")[1]
-          .toString()
-          .replace(/GB/g, " GB")
-          .replace(/RAM/, "")
-          .trim(),
-        deviceCondition: condition,
-        listingPrice: inputSellPrice.trim(),
-        listingLocation: selectedCity,
-        listedBy: inputUsername || user?.userdetails?.userName || "",
-        platform: "mobWeb",
-        charger: charging ? "Y" : "N",
-        earphone: headphone ? "Y" : "N",
-        originalbox: originalbox ? "Y" : "N",
-        userUniqueId: user?.userdetails?.userUniqueId,
-        images: images.filter(
-          (item) => item?.fullImage && item.fullImage !== null
-        ),
-        model: model,
-        cosmetic: conditionResults,
-        warranty: warranty,
-      };
-      saveLisiting(payload).then(
-        (res) => {
-          console.log("res", res);
-          if (verifySubmit === true) {
-            setVerifyListingAdded(true);
-          } else {
-            if (res.type != null && res.type != "") {
-              setUnverifiedListingReason(res.reason);
-              setUnverifiedListingType(res.type);
-              console.log("unverifiedListingReason", unverifiedListingReason);
-              console.log("unverifiedListingType", unverifiedListingType);
-              setUnverifiedListing(true);
-              // setListingAdded(true);
-            }
-            else {
-              setListingAdded(true);
-            }
-          }
-          dispatch("REFRESH");
-        },
-        (err) => console.error(err)
-      );
+      setPerformAction(true);
+    } else if(authenticated && performAction==false){
+      completeListing();
     }
   }
 

@@ -10,6 +10,7 @@ import Modal1 from "./Modal1";
 import TermsconditionPopup from "./TermsconditionPopup";
 
 function LoginPopup({ open, setOpen, fromAddListing }) {
+  const login = false;
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     countryCode: "91",
@@ -108,6 +109,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
               fromAddListing={fromAddListing}
               setStep={setStep}
               setOpen={setOpen}
+              login={login}
             />
           )}
         </section>

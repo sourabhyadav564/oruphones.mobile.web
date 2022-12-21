@@ -98,8 +98,8 @@ export default ViewReport;
 const TestAndStatus = ({ testName, testStatus }) => (
   <div className="flex justify-between items-center py-2">
     <p className="font-Regular text-jx"> {testName} </p>
-    <p className="flex items-center justify-between gap-2 capitalize">
-      <span className="text-jx font-Regular capitalize"> {testStatus} </span>
+    <p className="flex items-center justify-between capitalize">
+      <span className="text-jx font-Regular capitalize pr-2"> {testStatus} </span>
       {/* <Image
         width={25}
         height={23}

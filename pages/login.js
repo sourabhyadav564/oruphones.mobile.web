@@ -15,6 +15,7 @@ import Spinner from "@/components/Loader/Spinner";
 
 
 function Login() {
+  const login = true;
   const [step, setStep] = useState(1);
   const [openPoup, setOpenPopup] = useState(false);
   const [formData, setFormData] = useState({
@@ -162,6 +163,7 @@ function Login() {
             formData={formData}
             dataObject={response?.dataObject}
             setStep={setStep}
+            login={login}
           />
         )}
       </section>

@@ -18,6 +18,7 @@ function OTPVerification({
   fromAddListing,
   setStep,
   setOpen,
+  login,
 }) {
   const [counter, setCounter] = useState(30 || dataObject?.maxTime);
   const [error, setError] = useState(false);
@@ -78,11 +79,16 @@ function OTPVerification({
           Cookies.set("countryCode", formData?.countryCode);
           setLoading(false);
           dispatch("REFRESH");
-          if (!fromAddListing) {
-            router.push("/");
-          } else {
-            setOpen(false);
-          }
+          // if (!fromAddListing) {
+          //   router.push("/");
+          // } else {
+            if(login){
+              router.push("/");
+            }
+            else{
+              setOpen(false);
+            }
+          // }
         } else {
           setError(true);
           setLoading(false);

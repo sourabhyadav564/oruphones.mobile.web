@@ -7,10 +7,14 @@ import { useAuthState } from "providers/AuthProvider";
 import { BsHeart } from "react-icons/bs";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { toast } from "react-toastify";
+import LoginPopup from "./Popup/LoginPopup";
+import { useEffect } from "react";
 
 function AddFav({ data, setProducts, color, ...rest }) {
   const { authenticated, loading, user } = useAuthState();
   const [listings, setListings] = useState([]);
+  const [openLoginPopup, setOpenLoginPopup] = useState(false);
+  const [performAction, setPerformAction] = useState(false);
 
   // if (user && user?.userdetails?.userUniqueId) {
   //   getUserListings(user?.userdetails?.userUniqueId).then(
@@ -24,59 +28,76 @@ function AddFav({ data, setProducts, color, ...rest }) {
   // }
   // console.log("data3", data);
   function handleFavoties() {
-    setProducts((prevState) => {
-      let tempVal;
-      if (Array.isArray(prevState)) {
-        let index = prevState.findIndex((i) => i.listingId === data.listingId);
-        tempVal = [...prevState];
-        tempVal[index] = { ...tempVal[index], favourite: !data.favourite };
-      } else {
-        tempVal = { ...prevState, favourite: !data.favourite };
-      }
-      return tempVal;
-    });
-    let payLoad = {
-      listingId: data.listingId,
-      userUniqueId: Cookies.get("userUniqueId") || "Guest",
-    };
-    const addFavorite = () => {
-      let favList = localStorage.getItem("favoriteList");
-      if (favList) {
-        favList = favList.split(",");
-        favList.push(data.listingId);
-        localStorage.setItem("favoriteList", favList);
-      } else {
-        localStorage.setItem("favoriteList", data.listingId);
-      }
-      addFavotie(payLoad).then((response) => {
-        console.log("addFav RES", response);
+      setProducts((prevState) => {
+        let tempVal;
+        if (Array.isArray(prevState)) {
+          let index = prevState.findIndex(
+            (i) => i.listingId === data?.listingId
+          );
+          tempVal = [...prevState];
+          tempVal[index] = { ...tempVal[index], favourite: !data?.favourite };
+        } else {
+          tempVal = { ...prevState, favourite: !data?.favourite };
+        }
+        return tempVal;
       });
-    };
-    const removeFavorite = () => {
-      //remove listingId from fav
-      let favList = localStorage.getItem("favoriteList");
-      if (favList) {
-        favList = favList.split(",");
-        favList = favList.filter((item) => item !== data.listingId);
-        localStorage.setItem("favoriteList", favList);
+      let payLoad = {
+        listingId: data?.listingId,
+        userUniqueId: Cookies.get("userUniqueId") || "Guest",
+      };
+      const addFavorite = () => {
+        let favList = localStorage.getItem("favoriteList");
+        if (favList) {
+          favList = favList.split(",");
+          favList.push(data?.listingId);
+          localStorage.setItem("favoriteList", favList);
+        } else {
+          localStorage.setItem("favoriteList", data?.listingId);
+        }
+        addFavotie(payLoad).then((response) => {
+          console.log("addFav RES", response);
+        });
+      };
+      const removeFavorite = () => {
+        //remove listingId from fav
+        let favList = localStorage.getItem("favoriteList");
+        if (favList) {
+          favList = favList.split(",");
+          favList = favList.filter((item) => item !== data?.listingId);
+          localStorage.setItem("favoriteList", favList);
+        }
+        removeFavotie(data?.listingId, Cookies.get("userUniqueId")).then(
+          (response) => {
+            console.log("removeFav RES", response);
+          }
+        );
+      };
+      console.log("datastatus", data);
+      if (
+        data?.favourite ||
+        localStorage.getItem("favoriteList").includes(data?.listingId)
+      ) {
+        data?.status == "Active"
+          ? removeFavorite()
+          : toast.warning("This device is sold out");
+      } else {
+        data?.status == "Active"
+          ? addFavorite()
+          : toast.warning("This device is sold out");
       }
-      removeFavotie(data?.listingId, Cookies.get("userUniqueId")).then((response) => {
-        console.log("removeFav RES", response);
-      });
-    };
-    if (data.favourite || localStorage.getItem("favoriteList").includes(data?.listingId)) {
-      (data?.status == 'Active') ? removeFavorite() : toast.warning("This device is sold out");
-    } else {
-      (data?.status == 'Active') ? addFavorite() : toast.warning("This device is sold out");
-    }
   }
-
+  useEffect(() => {
+    if (openLoginPopup == false && performAction == true) {
+      handleFavoties();
+    }
+  }, [openLoginPopup]);
   function redirectToLogin() {
-    router.push("/login");
+    setOpenLoginPopup(true);
+    // router.push("/login");
   }
   if (loading) return <svg width="16" height="16" {...rest} />;
 
-  if (!authenticated) {
+  if (Cookies.get("userUniqueId") === undefined) {
     return (
       <Fragment>
         {/* <svg
@@ -100,15 +121,15 @@ function AddFav({ data, setProducts, color, ...rest }) {
         </svg> */}
         <AiOutlineHeart
           className="hover:cursor-pointer"
-          size='18px'
+          size="18px"
           fill={"#000000"}
-          onClick={
-            (e) => {
-              e.preventDefault();
-              redirectToLogin();
-            }
-          }
+          onClick={(e) => {
+            e.preventDefault();
+            redirectToLogin();
+            setPerformAction(true);
+          }}
         />
+        <LoginPopup open={openLoginPopup} setOpen={setOpenLoginPopup} />
       </Fragment>
     );
   }
@@ -133,33 +154,33 @@ function AddFav({ data, setProducts, color, ...rest }) {
       //     fill={data.favourite ? "#FF0000" : color || "#C7C7C7"}
       //   />
       // </svg>
-      localStorage.getItem("favoriteList") != null && (localStorage.getItem("favoriteList").includes(data?.listingId) || data?.favourite) ?
-        (<AiFillHeart
+      localStorage.getItem("favoriteList") != null &&
+        (localStorage.getItem("favoriteList").includes(data?.listingId) ||
+          data?.favourite) ? (
+        <AiFillHeart
           className="hover:cursor-pointer"
           color="#FF0000"
-          size='18px'
-          onClick={
-            (e) => {
-              e.preventDefault();
-              // !listings.includes(data.listingId) ? 
-              handleFavoties(data)
-              //  : toast.error("You can't add your own listing to your favorites");
-            }
-          }
-        />) :
-        (<AiOutlineHeart
+          size="18px"
+          onClick={(e) => {
+            e.preventDefault();
+            // !listings.includes(data.listingId) ?
+            handleFavoties(data);
+            //  : toast.error("You can't add your own listing to your favorites");
+          }}
+        />
+      ) : (
+        <AiOutlineHeart
           className="hover:cursor-pointer"
           color="#FF0000"
-          size='18px'
-          onClick={
-            (e) => {
-              e.preventDefault();
-              // !listings.includes(data.listingId) ? 
-              handleFavoties(data);
-              //  : toast.error("You can't add your own listing to your favorites");
-            }
-          }
-        />)
+          size="18px"
+          onClick={(e) => {
+            e.preventDefault();
+            // !listings.includes(data.listingId) ?
+            handleFavoties(data);
+            //  : toast.error("You can't add your own listing to your favorites");
+          }}
+        />
+      )
     );
   }
 }

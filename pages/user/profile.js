@@ -131,8 +131,6 @@ function Profile() {
   return (
     <Fragment>
       <div>
-
-
         <main className="relative mb-20">
           <section className=" bg-primary pb-8 mb-20 flex pl-20 rounded-b-xl">
             <UserIcon img={imgPath} onChange={changeImage} />
