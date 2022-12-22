@@ -4,7 +4,7 @@ import Link from "next/link";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/logo_square.svg";
 import OTPVerification from "@/components/Login/OTPVerification";
-// import Input from "@/components/Form/Input2";
+import Input from "@/components/Form/Input";
 import { generateOTP } from "api-call";
 import router from "next/router";
 import { useAuthState } from "providers/AuthProvider";
@@ -12,7 +12,7 @@ import Checkbox from "@/components/Form/Checkbox";
 import TermsconditionPopup from "@/components/Popup/TermsconditionPopup";
 import CloseIcon from "@/assets/close-icon.svg";
 import Spinner from "@/components/Loader/Spinner";
-import Input2 from "@/components/Form/Input2";
+// import Input2 from "@/components/Form/Input2";
 
 
 function Login() {
@@ -97,7 +97,7 @@ function Login() {
             <div className="w-full my-8 relative ">
               <p className="text-lg font-bold px-1">Welcome</p>
               <h1 className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to continue </h1>
-              <Input2
+              <Input
                 name="mobile"
                 pattern="[0-9]*"
                 type="text"
