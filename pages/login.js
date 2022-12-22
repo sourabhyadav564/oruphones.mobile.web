@@ -4,7 +4,7 @@ import Link from "next/link";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/logo_square.svg";
 import OTPVerification from "@/components/Login/OTPVerification";
-import Input from "@/components/Form/Input";
+import Input from "@/components/Form/input2";
 import { generateOTP } from "api-call";
 import router from "next/router";
 import { useAuthState } from "providers/AuthProvider";
