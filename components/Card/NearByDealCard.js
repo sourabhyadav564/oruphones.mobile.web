@@ -85,6 +85,11 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
+                   loading="lazy"
+                   placeholder="blur"
+                   priority={false}
+                   unoptimized={false}
+                   blurDataURL={imageError ? Logo : data?.imagePath || Logo}
                     src={imageError ? Logo : data?.imagePath || Logo}
                     onError={() => {
                       setImageError(true);
@@ -138,6 +143,11 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
+                    loading="lazy"
+                    placeholder="blur"
+                    priority={false}
+                    unoptimized={false}
+                    blurDataURL={imageError ? Logo : data?.imagePath || Logo}
                     src={imageError ? Logo : data?.imagePath || Logo}
                     onError={() => {
                       setImageError(true);

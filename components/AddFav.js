@@ -26,7 +26,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
   //     (err) => console.error(err)
   //   );
   // }
-  // console.log("data3", data);
+  console.log("data3", data);
   function handleFavoties() {
       setProducts((prevState) => {
         let tempVal;
@@ -97,7 +97,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
   }
   if (loading) return <svg width="16" height="16" {...rest} />;
 
-  if (Cookies.get("userUniqueId") === undefined) {
+  if (!authenticated) {
     return (
       <Fragment>
         {/* <svg

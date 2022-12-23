@@ -44,6 +44,11 @@ function BrandCard({ data, className, popup }) {
             >
               <Image
                 // src={data?.imagePath || Logo}
+                loading="lazy"
+                placeholder="blur"
+                priority={false}
+                unoptimized={false}
+                blurDataURL={Imageerror ? Logo : data?.imagePath || Logo}
                 src={Imageerror ? Logo : data?.imagePath || Logo}
                 onError={() => setImageerror(true)}
                 alt={(`buy online refurbished ${data?.make}`).toLowerCase()}

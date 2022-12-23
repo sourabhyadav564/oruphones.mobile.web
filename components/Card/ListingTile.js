@@ -107,6 +107,11 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   "_blank",)
               }>
               <Image
+                 loading="lazy"
+                 placeholder="blur"
+                 priority={false}
+                 unoptimized={false}
+                 blurDataURL={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
                 src={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
                 onError={() => {
                   setImageError(true);

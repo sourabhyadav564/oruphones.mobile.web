@@ -76,6 +76,15 @@ function FavListingTile({ data, setProducts }) {
 
                   {data?.images && !data?.imagePath ? (
                     <Image
+                    loading="lazy"
+                    placeholder="blur"
+                    priority={false}
+                    unoptimized={false}
+                    blurDataURL={imageError ? Logo :
+                      (data?.images &&
+                        data.images.length > 0 &&
+                        data.images[0].fullImage) ||
+                      data?.defaultImage?.fullImage || Logo}
                       src={imageError ? Logo :
                         (data?.images &&
                           data.images.length > 0 &&
@@ -92,6 +101,11 @@ function FavListingTile({ data, setProducts }) {
                     />
                   ) : (
                     <Image
+                    loading="lazy"
+                    placeholder="blur"
+                    priority={false}
+                    unoptimized={false}
+                    blurDataURL={imageError ? Logo : data?.imagePath || Logo}
                       src={imageError ? Logo : data?.imagePath || Logo}
                       onError={() => {
                         setImageError(true);
