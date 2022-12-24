@@ -3,6 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import first from "@/assets/first.png";
+import second from "@/assets/second.png";
+import third from "@/assets/third.png";
 
 import Header2 from "@/components/Header/header2";
 import {
@@ -601,8 +604,24 @@ function ProductDeatils({ data }) {
                         window.open(items?.productLink, "_blank");
                     }}
                   >
-                    <div className="flex-1 flex flex-col justify-start px-4 pt-3">
+                    <div className="flex-1 flex flex-col justify-start px-2 pt-3">
                       <div>
+                        {index < 3 && (
+                          <Image
+                            src={
+                              index == 0
+                                ? first
+                                : index == 1
+                                ? second
+                                : index == 2 && third
+                            }
+                            alt="icon"
+                            width={50}
+                            height={35}
+                            objectFit="contain"
+                            className=""
+                          />
+                        )}
                         <Image
                           src={items?.externalSourceImage}
                           alt={vendor}
