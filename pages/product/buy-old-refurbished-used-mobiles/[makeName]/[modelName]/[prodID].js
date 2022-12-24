@@ -108,27 +108,46 @@ function ProductDeatils({ data }) {
   //   }
   // });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (
-        openLoginPopup == false &&
-        performAction == true &&
-        Cookies.get("userUniqueId") !== undefined &&
-        data?.isOtherVendor !== "Y"
-      ) {
-        if (data?.verified) {
-          showSellerNumber(data?.listingId);
-          // handleButtonClick();
-          // setShowNumber((prev) => !prev);
-          clearInterval(interval);
-        } else {
-          setOpenRequestVerificationPopup(true);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (
+  //       openLoginPopup == false &&
+  //       performAction == true &&
+  //       Cookies.get("userUniqueId") !== undefined &&
+  //       data?.isOtherVendor !== "Y"
+  //     ) {
+  //       if (data?.verified) {
+  //         showSellerNumber(data?.listingId);
+  //         // handleButtonClick();
+  //         // setShowNumber((prev) => !prev);
+  //         clearInterval(interval);
+  //       } else {
+  //         setOpenRequestVerificationPopup(true);
+  //         clearInterval(interval);
+  //       }
+  //     }
+  //   }, 1000);
+  // }, [openLoginPopup]);
 
-          clearInterval(interval);
+
+  useEffect(() => {
+     
+        if (
+          openLoginPopup == false &&
+          performAction == true &&
+          Cookies.get("userUniqueId") !== undefined &&
+          data?.isOtherVendor !== "Y"
+        ) {
+          if (data?.verified) {
+            showSellerNumber(data?.listingId);
+            // handleButtonClick();
+            // setShowNumber((prev) => !prev);
+          } else {
+            setOpenRequestVerificationPopup(true);
+          }
         }
-      }
-    }, 1000);
-  }, [openLoginPopup]);
+     
+    }, [openLoginPopup]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -196,17 +215,20 @@ function ProductDeatils({ data }) {
     // }
   }, [data]);
 
+  
   useEffect(() => {
     if (
       openLoginPopup == false &&
       performAction2 == true &&
       Cookies.get("userUniqueId") !== undefined &&
-      data?.productLink !== ""
+      data?.productLink !== "" && productLink !== "" 
     ) {
+      
       window.open(productLink, "_blank");
     }
   }, [openLoginPopup]);
-
+  console.log("Data::",data);
+ 
   const handleButtonClick = async () => {
     if (
       !(data?.isOtherVendor === "Y") &&
@@ -597,9 +619,10 @@ function ProductDeatils({ data }) {
                         setOpenLoginPopup(true);
                         setProductLink(items?.productLink);
                         setperformAction2(true);
-                      } else if (
+                      } else
+                       if (
                         items?.externalSourceImage !=
-                        "https://zenrodeviceimages.s3.us-west-2.amazonaws.com/oru/product/mobiledevices/img/txt_phone.png"
+                        'https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png'
                       )
                         window.open(items?.productLink, "_blank");
                     }}
