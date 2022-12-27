@@ -30,7 +30,7 @@ const index = ({ data }) => {
   const [makeAndModels, setMakeAndModels] = useState([]);
 
   useEffect(() => {
-    if (data?.length === 0) {
+    if (data?.length == 0) {
       setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
     } else {
       localStorage.setItem("make_models", JSON.stringify(data));

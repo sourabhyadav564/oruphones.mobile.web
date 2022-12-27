@@ -37,12 +37,14 @@ function Index({ userInfo }) {
     }
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (!loading && !authenticated) {
       router.push("/login");
     }
-    if (!loading && user && user?.userdetails?.userUniqueId) {
-      getUserListings(user?.userdetails?.userUniqueId).then(
+    if (!loading && user && user?.userdetails?.userUniqueId && Cookies.get("userUniqueId")!=undefined) {
+      console.log("user", user);
+      await getUserListings(Cookies.get("userUniqueId")).then(
+      // await getUserListings(user?.userdetails?.userUniqueId).then(
         (res) => {
           setListings(res.dataObject);
           setListingsLoading(false);

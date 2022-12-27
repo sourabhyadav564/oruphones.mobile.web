@@ -190,6 +190,16 @@ export async function getUserDetails(countryCode, mobileNumber) {
 
 
 
+export async function getUserDetailsViaUUID(uuid) {
+  headers = { ...headers, eventName: "FETCH_USER_DETAILS_VIA_UUID" };
+  const DEFAULT_HEADER = { headers: { ...headers } };
+  const url = `${URI}/api/v1/login/user/details?userUniqueId=${uuid}`;
+  return await Axios.get(url, DEFAULT_HEADER).then((response) => {
+    return response.data;
+  });
+}
+
+
 export async function getMakeModelLists(userUniqueId, sessionId, make, isPrimary) {
   headers = {
     ...headers,

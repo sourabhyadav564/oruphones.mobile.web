@@ -151,6 +151,7 @@ const NewAddListingForm = ({ data }) => {
   var sellValue = sellValueTag.value || "";
 
 
+
   var type = ["old phone", "your"]
   const soldout = (`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition} soldout`).toLowerCase()
 
@@ -557,7 +558,7 @@ const NewAddListingForm = ({ data }) => {
   async function submit() {
     sellValueTag = document.querySelector("#sellValue");
     sellValue = sellValueTag.value;
-
+    
     if ((sellValue < (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7)
       || sellValue > (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2))
       && recommandedPrice?.leastSellingprice != "-"

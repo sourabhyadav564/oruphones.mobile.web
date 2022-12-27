@@ -4,6 +4,7 @@ import { FiAlertOctagon } from "react-icons/fi";
 import Modal2 from "./Modal2";
 
 function RequestVerificationPopup({ open, setOpen, data, setShowNumber, setOpenRequestVerificationSuccessPopup }) {
+ 
   const sendVerificationLink = () => {
     setOpen(false);
     setOpenRequestVerificationSuccessPopup(true);

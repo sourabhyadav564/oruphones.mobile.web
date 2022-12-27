@@ -63,6 +63,7 @@ const ConditionInfo = dynamic(() => import("@/components/Popup/ConditionInfo"));
 const VerificationInfo = dynamic(() =>
   import("@/components/Popup/VerificationInfo")
 );
+
 const ViewReport = dynamic(() => import("@/components/ViewReport"));
 const ViewReport1 = dynamic(() => import("@/components/ViewReport1"));
 const RequestVerificationSuccessPopup = dynamic(() =>

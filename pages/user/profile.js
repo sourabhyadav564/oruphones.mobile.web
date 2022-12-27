@@ -25,8 +25,6 @@ import DeleteAccPopup from "@/components/Popup/DeleteAccPopup";
 
 function Profile() {
   const router = useRouter();
-
-
   const [loadingState, setLoadingState] = useState(false);
   const { authenticated, loading, user } = useAuthState();
   const [userName, setUserName] = useState();

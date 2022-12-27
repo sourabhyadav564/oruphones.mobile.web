@@ -18,10 +18,12 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
   }, [data]);
 
   const [resData, setResData] = useState({});
+  
+  console.log("resdata : ",resData);
 
   return (
     <Modal2 open={open} setOpen={setOpen}>
-      <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e">
+      <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e py-2">
         {resData?.statusCode ? (
           <>
             {resData?.statusCode === 200 ? (

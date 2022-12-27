@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
 import { getUserDetails, updateAddress } from "api-call";
+import { useRouter } from "next/router";
 
 const options = {
   enableHighAccuracy: true,
@@ -21,6 +22,8 @@ const options = {
 };
 
 function LocationPicker({ openLocationPopup }) {
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
   const dispatch = useAuthDispatch();
@@ -30,7 +33,6 @@ function LocationPicker({ openLocationPopup }) {
     loaded: false,
     city: "",
   });
-
 
   const onSuccess = async (location) => {
     let lat = location.coords.latitude;
@@ -84,12 +86,18 @@ function LocationPicker({ openLocationPopup }) {
   };
 
   useEffect(() => {
-    const initialState = localStorage.getItem("usedLocation");
-    if (!initialState || initialState == null) {
-      setOpen(true);
-    } else {
-      dispatch("ADDCITY", initialState);
+    if(router.pathname !== '/showListings' && router.pathname !== '/oops'){
+      const initialState = localStorage.getItem("usedLocation");
+      if (!initialState || initialState == null ) {
+        setOpen(true);
+      } else{
+        dispatch("ADDCITY", initialState);
+      }
+    }else{
+      setOpen(false);
     }
+
+   
   }, []);
 
   useEffect(() => {

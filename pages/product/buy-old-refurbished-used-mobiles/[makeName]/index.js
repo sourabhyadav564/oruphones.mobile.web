@@ -233,8 +233,6 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
     }
   };
 
-
-
   const loadMoreData = () => {
     newPages = pageNumber + 1;
     setPageNumber(newPages);

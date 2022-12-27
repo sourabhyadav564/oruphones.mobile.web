@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { addFavotie, getUserListings, removeFavotie } from "api-call";
 import router from "next/router";
@@ -8,7 +8,7 @@ import { BsHeart } from "react-icons/bs";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { toast } from "react-toastify";
 import LoginPopup from "./Popup/LoginPopup";
-import { useEffect } from "react";
+
 
 function AddFav({ data, setProducts, color, ...rest }) {
   const { authenticated, loading, user } = useAuthState();
