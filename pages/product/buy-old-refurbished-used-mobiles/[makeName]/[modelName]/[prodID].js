@@ -49,6 +49,7 @@ import SearchBar from "@/components/Header/SearchBar";
 import { toast } from "react-toastify";
 import sold_out from "@/assets/soldout.png";
 import { FaGreaterThan } from "react-icons/fa";
+import ThisPhonePopup from "@/components/Popup/Thisphonepopup";
 
 // import {
 //   otherVandorDataSelector,
@@ -71,6 +72,7 @@ const RequestVerificationSuccessPopup = dynamic(() =>
 );
 
 function ProductDeatils({ data }) {
+  const [thisPhonePopup, setThisPhonePopup] = useState(false);
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
   const [openWarrantyInfo, setOpenWarrantyInfo] = useState(false);
@@ -130,25 +132,22 @@ function ProductDeatils({ data }) {
   //   }, 1000);
   // }, [openLoginPopup]);
 
-
   useEffect(() => {
-     
-        if (
-          openLoginPopup == false &&
-          performAction == true &&
-          Cookies.get("userUniqueId") !== undefined &&
-          data?.isOtherVendor !== "Y"
-        ) {
-          if (data?.verified) {
-            showSellerNumber(data?.listingId);
-            // handleButtonClick();
-            // setShowNumber((prev) => !prev);
-          } else {
-            setOpenRequestVerificationPopup(true);
-          }
-        }
-     
-    }, [openLoginPopup]);
+    if (
+      openLoginPopup == false &&
+      performAction == true &&
+      Cookies.get("userUniqueId") !== undefined &&
+      data?.isOtherVendor !== "Y"
+    ) {
+      if (data?.verified) {
+        showSellerNumber(data?.listingId);
+        // handleButtonClick();
+        // setShowNumber((prev) => !prev);
+      } else {
+        setOpenRequestVerificationPopup(true);
+      }
+    }
+  }, [openLoginPopup]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -216,20 +215,19 @@ function ProductDeatils({ data }) {
     // }
   }, [data]);
 
-  
   useEffect(() => {
     if (
       openLoginPopup == false &&
       performAction2 == true &&
       Cookies.get("userUniqueId") !== undefined &&
-      data?.productLink !== "" && productLink !== "" 
+      data?.productLink !== "" &&
+      productLink !== ""
     ) {
-      
       window.open(productLink, "_blank");
     }
   }, [openLoginPopup]);
-  console.log("Data::",data);
- 
+  console.log("Data::", data);
+
   const handleButtonClick = async () => {
     if (
       !(data?.isOtherVendor === "Y") &&
@@ -263,6 +261,7 @@ function ProductDeatils({ data }) {
       setOpenLoginPopup(true);
     }
   }
+  console.log("this pjoen",thisPhonePopup);
 
   const conditionText = data?.deviceCondition;
   let filled = 1;
@@ -412,7 +411,6 @@ function ProductDeatils({ data }) {
                 title={numberWithCommas(data?.listingPrice)}
               />
             </div>
-
             <div className="m-auto justify-center">
               {(data?.verified && (
                 <Fragment>
@@ -620,16 +618,21 @@ function ProductDeatils({ data }) {
                         setOpenLoginPopup(true);
                         setProductLink(items?.productLink);
                         setperformAction2(true);
-                      } else
-                       if (
+                      } else if (
                         items?.externalSourceImage !=
-                        'https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png'
+                        "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
                       )
                         window.open(items?.productLink, "_blank");
+                      else if (
+                        items?.externalSourceImage ==
+                        "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
+                      ) {
+                        setThisPhonePopup(true);
+                      }
                     }}
                   >
                     <div className="flex-1 flex flex-col justify-start px-2 pt-3">
-                      <div>
+                      <div className="flex flex-row">
                         {index < 3 && (
                           <Image
                             src={
@@ -645,14 +648,15 @@ function ProductDeatils({ data }) {
                             objectFit="contain"
                             className=""
                           />
-                        )}
+                          )}
                         <Image
                           src={items?.externalSourceImage}
                           alt={vendor}
                           height={35}
                           width={70}
                           objectFit="contain"
-                        />
+                          />
+                          {data?.listingId==items.listingId && data.isOtherVendor=="Y" && <p className="font-Roboto-Semibold opacity-30 py-1 ">(This Phone)</p>}
                       </div>
                     </div>
                     <div className="flex px-4">
@@ -935,6 +939,7 @@ function ProductDeatils({ data }) {
         setOpen={setOpenLoginPopup}
         fromAddListing
       />
+      <ThisPhonePopup open={thisPhonePopup} setOpen={setThisPhonePopup} />
     </Fragment>
   );
 }
