@@ -49,7 +49,7 @@ import SearchBar from "@/components/Header/SearchBar";
 import { toast } from "react-toastify";
 import sold_out from "@/assets/soldout.png";
 import { FaGreaterThan } from "react-icons/fa";
-import ThisPhonePopup from "@/components/Popup/Thisphonepopup";
+import ThisPhonePopup from "@/components/Popup/ThisPhonePopup";
 
 // import {
 //   otherVandorDataSelector,
