@@ -20,6 +20,7 @@ import {
   getExternalSellSourceData,
   getGlobalCities,
   marketingNameByModel,
+  getMakeModelLists,
 } from "api-call";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import { numberWithCommas, numberFromString } from "@/utils/util";
@@ -79,7 +80,7 @@ const NewAddListingForm = ({ data }) => {
 
   const router = useRouter();
 
-
+  const [makeModels, setMakeModels] = useState([data]);
   const [defaultBrand, setDefaultBrand] = useRecoilState(addListingBrandState);
   const [defaultModel, setDefaultModel] = useRecoilState(addListingModelState);
   const selectedBrand = useRecoilValue(addListingBrandSelector);
@@ -181,7 +182,17 @@ const NewAddListingForm = ({ data }) => {
         (err) => console.error(err)
       );
     }
-  }, []);
+  }, []); 
+
+  useEffect(async() => {
+    if(data==undefined || data==null || data.length==0){
+      await getMakeModelLists.then((response) => {
+        console.log("response.dataObject", response.dataObject)
+        setMakeModels(JSON.stringify(response.dataObject));
+        localStorage.setItem("make_models", JSON.stringify(response.dataObject));
+      });
+    }
+  }, [data]);
 
   useEffect(() => {
     if (model) {
@@ -410,7 +421,7 @@ const NewAddListingForm = ({ data }) => {
     if (selectedModel) {
       handleSelectChange("model");
     }
-  }, [selectedBrand, selectedModel]);
+  }, [selectedBrand, selectedModel,data]);
 
   useEffect(() => {
     if (make && model && storage) {
@@ -881,6 +892,7 @@ const NewAddListingForm = ({ data }) => {
                 </p>
                 {/* <div> <h1 className="font-Regular text-bx  text-[#F9C414]  opacity-80 "> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h1> </div> */}
 
+                <div className="font-Roboto-Regular text-mx text-primary-light"><b><u>Disclaimer</u></b>:- Price shown here are indicative and only for reference purposes. Also, these prices are based on current market conditions and are likely to change from time to time.</div>
               </div>
             )}
 
