@@ -49,8 +49,11 @@ export default function Home({
   useEffect(async () => {
     Cookies.set("sessionId", sessionId);
     localStorage.setItem("sessionId", sessionId);
-
-    const make_models = Cookies.get("make_models");
+    console.log("sessionId", localStorage.getItem("make_models"));
+    let make_models = true;
+    if(!localStorage.getItem("make_models")|| localStorage.getItem("make_models").toString() == "undefined"){
+      make_models = false;
+    }
 
     if (brandsList.length === 0) {
       setBrands(JSON.parse(localStorage.getItem("brands")));
@@ -74,11 +77,12 @@ export default function Home({
     //   Cookies.set("top_articles", true);
     //   setTopArticles(fetchTopArticles);
     // }
-
+    console.log("make_models", make_models);
     if (make_models) {
       // setBrands(JSON.parse(localStorage.getItem("make_models")));
       console.log("makeModelLists from local");
     } else {
+      console.log("makeModelLists from api");
       const data = await getMakeModelLists(
         Cookies.get("userUniqueId") || "Guest",
         Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""

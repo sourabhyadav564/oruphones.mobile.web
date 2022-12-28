@@ -32,7 +32,7 @@ const index = ({ data }) => {
   useEffect(() => {
     if (data?.length === 0) {
       setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
-    } else {
+    } else  {
       localStorage.setItem("make_models", JSON.stringify(data));
       Cookies.set("make_models", true);
       setMakeAndModels(data);
