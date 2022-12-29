@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useEffect } from "react";
 import { useState } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import Modal2 from "./Modal2";
@@ -7,6 +8,18 @@ import VerifyListingPopup from "./VerifyListingPopup";
 function UnverifiedListingPopup({ open, setOpen, unverifiedListingType, unverifiedListingReason }) {
     const [openVerifyListingPopup, setOpenVerifyListingPopup] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
+    useEffect(() => {
+        if(open){const onBackButtonEvent = (e) => {
+            e.preventDefault();
+            setOpen(false);
+        }
+    
+        window.history.pushState(null, null, window.location.pathname);
+        window.addEventListener('popstate', onBackButtonEvent);
+        return () => {
+            window.removeEventListener('popstate', onBackButtonEvent);  
+        };}
+    },[open]);
 
     const handleContinue = () => {
         setOpenVerifyListingPopup(true);

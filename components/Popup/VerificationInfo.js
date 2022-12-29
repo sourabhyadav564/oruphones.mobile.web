@@ -6,6 +6,18 @@ import { parse as nodeParser } from "node-html-parser";
 
 function VerificationInfo({ open, setOpen }) {
   const [htmlText1, setHtmlText1] = useState("");
+    useEffect(() => {
+    if(open){const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        setOpen(false);
+    }
+
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener('popstate', onBackButtonEvent);
+    return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);  
+    };}
+},[open]);
 
   useEffect(() => {
     callStaticPages();

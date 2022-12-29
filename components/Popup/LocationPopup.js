@@ -20,18 +20,39 @@ function LocationPopup({ open, setOpen }) {
   const [searchLocationID, setSearchLocationID] = useState();
   const { user, authenticated } = useAuthState();
   const dispatch = useAuthDispatch();
-
+  const [globalCities2, setGlobalCities2] = useState();
   const [location, setLocation] = useState({
     loaded: false,
     city: "",
   });
+    useEffect(() => {
+      if(open){const onBackButtonEvent = (e) => {
+          e.preventDefault();
+          setOpen(false);
+      }
 
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+          window.removeEventListener('popstate', onBackButtonEvent);
+      };}
+  },[open]);
+
+  // console.log("globalCities2", globalCities2);
   useEffect(() => {
     if (
       localStorage.getItem("cities") != undefined &&
       JSON.parse(localStorage.getItem("cities"))?.length > 0
     ) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
+      // globalCities
+      //   ?.sort((a, b) => a.city.localeCompare(b.city))
+      //   .filter((item) => item.city !== "India");
+
+      // setGlobalCities2({
+      //     displayWithImage: "0", city: "India",
+      //   ...globalCities
+      // })
       console.log("cities from local");
     } else {
       console.log("cities from api");
@@ -40,6 +61,13 @@ function LocationPopup({ open, setOpen }) {
         getGlobalCities().then(
           (response) => {
             setGlobalCities(response.dataObject);
+            // globalCities
+            //   ?.sort((a, b) => a.city.localeCompare(b.city))
+            //   .filter((item) => item.city !== "India");
+              // setGlobalCities2({
+              //   displayWithImage: "0", city: "India",
+              //   ...globalCities
+              // })
             localStorage.setItem("cities", JSON.stringify(response.dataObject));
           },
           (err) => console.error(err)
@@ -201,8 +229,10 @@ function LocationPopup({ open, setOpen }) {
                     return { label: items.city, value: items.city };
                   })}
               />
-              <span className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-r-md cursor-pointer"
-                onClick={handleNearme}>
+              <span
+                className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-r-md cursor-pointer"
+                onClick={handleNearme}
+              >
                 <p className="text-m text-gray-4e flex font-bold justify-center">
                   <BiCurrentLocation className="h-5 w-5" />
                 </p>
@@ -216,7 +246,7 @@ function LocationPopup({ open, setOpen }) {
       > */}
             <div
               className="flex text-center -mx-1 py-4 overflow-x-scroll no-scrollbar"
-            // style={{ minHeight: "40vh" }}
+              // style={{ minHeight: "40vh" }}
             >
               {globalCities &&
                 globalCities
@@ -224,8 +254,9 @@ function LocationPopup({ open, setOpen }) {
                   // .slice(0, 9)
                   .map((items) => (
                     <div
-                      className={`border-0 bg-[#F1F1F1] rounded px-4 py-2 m-1  ${selectedCity.current === items.city && "border-primary"
-                        }`}
+                      className={`border-0 bg-[#F1F1F1] rounded px-4 py-2 m-1  ${
+                        selectedCity.current === items.city && "border-primary"
+                      }`}
                       key={items.city}
                       onClick={() => handleCityChange(items.city)}
                     >
@@ -246,14 +277,19 @@ function LocationPopup({ open, setOpen }) {
             </div>
 
             <div className="">
-              <p className="uppercase text-ex border-b pb-1.5 border-black-4e font-Roboto-Medium ">all cities</p>
+              <p className="uppercase text-ex border-b pb-1.5 border-black-4e font-Roboto-Medium ">
+                all cities
+              </p>
               <div className="pt-2 h-80 overflow-y-scroll no-scrollbar">
-                {globalCities && globalCities.map((items) => (
-                  <div className="pb-2" onClick={() => handleCityChange(items.city)}>
-                    <p className="border-b px-2 pb-2">{items.city}</p>
-                  </div>
-                ))
-                }
+                {globalCities &&
+                  globalCities.map((items) => (
+                    <div
+                      className="pb-2"
+                      onClick={() => handleCityChange(items.city)}
+                    >
+                      <p className="border-b px-2 pb-2">{items.city}</p>
+                    </div>
+                  ))}
               </div>
             </div>
             {/* </BasicCarousel> */}
@@ -261,7 +297,7 @@ function LocationPopup({ open, setOpen }) {
         </div>
       </div>
       <LocationPicker openLocationPopup={() => setOpenLocationPopup(true)} />
-    </Modal1 >
+    </Modal1>
   );
 }
 
@@ -269,8 +305,9 @@ export default LocationPopup;
 
 const Button = ({ children, active, ...rest }) => (
   <p
-    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"
-      }`}
+    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${
+      active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"
+    }`}
     {...rest}
   >
     {children}

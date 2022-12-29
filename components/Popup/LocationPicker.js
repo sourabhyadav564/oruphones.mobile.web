@@ -28,6 +28,18 @@ function LocationPicker({ openLocationPopup }) {
   const cancelButtonRef = useRef(null);
   const dispatch = useAuthDispatch();
   const { authenticated, user } = useAuthState();
+//     useEffect(() => {
+//     const onBackButtonEvent = (e) => {
+//         e.preventDefault();
+//         setOpen(false);
+//     }
+
+//     window.history.pushState(null, null, window.location.pathname);
+//     window.addEventListener('popstate', onBackButtonEvent);
+//     return () => {
+//         window.removeEventListener('popstate', onBackButtonEvent);  
+//     };
+// });
 
   const [location, setLocation] = useState({
     loaded: false,

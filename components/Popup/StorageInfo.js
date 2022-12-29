@@ -6,7 +6,20 @@ import { parse as nodeParser } from "node-html-parser";
 
 function StorageInfo({ open, setOpen, brand }) {
   const [htmlText1, setHtmlText1] = useState("");
+  useEffect(() => {
+    if (open) {
+      const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        setOpen(false);
+      };
 
+      window.history.pushState(null, window.location.pathname);
+      window.addEventListener("popstate", onBackButtonEvent);
+      return () => {
+        window.removeEventListener("popstate", onBackButtonEvent);
+      };
+    }
+  },[open]);
   useEffect(() => {
     callStaticPages();
   }, []);
@@ -24,7 +37,13 @@ function StorageInfo({ open, setOpen, brand }) {
     try {
       // const { serverUrl, templateUrls } = staticDataPath;
       // const res = await fetchStaticHTML("/verification.html");
-      const res = await fetchStaticHTML(`${brand.toLowerCase() === "apple" ? "/apple_storage_check.html" : "/android_storage_check.html"}`);
+      const res = await fetchStaticHTML(
+        `${
+          brand.toLowerCase() === "apple"
+            ? "/apple_storage_check.html"
+            : "/android_storage_check.html"
+        }`
+      );
       // const res = await fetchStaticHTML(serverUrl + templateUrls.VERIFICATION);
       const html = res.data;
       const doc = nodeParser(html);
@@ -45,9 +64,7 @@ function StorageInfo({ open, setOpen, brand }) {
               Benefits Of Verification
             </Dialog.Title> */}
             <div className="mt-2">
-              <p className="text-sm text-gray-500">{
-                parse(htmlText1)
-            }</p>
+              <p className="text-sm text-gray-500">{parse(htmlText1)}</p>
             </div>
           </div>
         </div>

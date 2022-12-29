@@ -4,6 +4,7 @@ import styles from "../../styles/fullimageview.module.css";
 import { MdClose } from "react-icons/md";
 import CarouselWithPagination from "../Carousel/CarouselWithPagination";
 import { SwiperSlide } from "swiper/react";
+import { useEffect } from "react";
 
 // const ArrowLeft = ({ className, currentSlide, slideCount, ...rest }) => (
 //   <BiChevronLeft {...rest} className={`fullimage_prev prev ${className}`} size={32} />
@@ -20,6 +21,18 @@ function FullImageView({ open, close, images }) {
   if (!Array.isArray(images)) {
     images = [images];
   }
+//     useEffect(() => {
+//     const onBackButtonEvent = (e) => {
+//         e.preventDefault();
+//         setOpen(false);
+//     }
+
+//     window.history.pushState(null, null, window.location.pathname);
+//     window.addEventListener('popstate', onBackButtonEvent);
+//     return () => {
+//         window.removeEventListener('popstate', onBackButtonEvent);  
+//     };
+// });
 
   return (
     <section className={styles.imageview_container}>

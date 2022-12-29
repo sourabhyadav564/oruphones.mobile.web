@@ -1,6 +1,7 @@
 import { deleteListing } from "api-call";
 import Cookies from "js-cookie";
 import router from "next/router";
+import { useEffect } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import MySelect from "../Form/Select";
 import Modal2 from "./Modal2";
@@ -30,6 +31,20 @@ function ListingDeleted({ open, setOpen, data, setListings }) {
       }
     });
   }
+
+  useEffect(() => {
+    if(open){const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        setOpen(false);
+    }
+
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener('popstate', onBackButtonEvent);
+    return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);  
+    };}
+},[open]);
+
 
   return (
     <Modal2 open={open} setOpen={setOpen}>

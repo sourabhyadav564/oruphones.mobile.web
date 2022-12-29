@@ -1,8 +1,20 @@
+import { useEffect } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import Modal2 from "./Modal2";
 
 function PricePopup({ open, setOpen, price, leastPrice, maxPrice, setSubmitting }) {
-
+    useEffect(() => {
+        if(open){const onBackButtonEvent = (e) => {
+            e.preventDefault();
+            setOpen(false);
+        }
+    
+        window.history.pushState(null, null, window.location.pathname);
+        window.addEventListener('popstate', onBackButtonEvent);
+        return () => {
+            window.removeEventListener('popstate', onBackButtonEvent);  
+        };}
+    },[open]);
     const handleSubmit = () => {
         setOpen(false);
         setSubmitting(true);

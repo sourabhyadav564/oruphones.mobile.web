@@ -17,7 +17,7 @@ import ImageSlider from "@/components/ImageSlider";
 import { BiSearch } from "react-icons/bi";
 import star from "@/assets/star.svg";
 import { FaRupeeSign } from "react-icons/fa";
-import { BsInfoCircle } from "react-icons/bs";
+// import { BsInfoCircle } from "react-icons/bs";
 import { detailWithUserInfo, fetchSellerMobileNumber } from "api-call";
 import IconLabelValue from "@/components/IconLabelValue";
 import { getAccessoriesText, numberWithCommas } from "@/utils/util";
@@ -571,10 +571,10 @@ function ProductDeatils({ data }) {
                         >
                           Click here to Request Verification
                         </span>
-                        <BsInfoCircle
+                        {/* <BsInfoCircle
                           className="ml-1"
                           onClick={() => setOpenVerificationInfo(true)}
-                        />
+                        /> */}
                       </p>
                     </div>
                   </div>

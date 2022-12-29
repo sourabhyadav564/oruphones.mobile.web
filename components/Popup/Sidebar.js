@@ -17,6 +17,19 @@ function Sidebar({ open, setOpen }) {
   const dispatch = useAuthDispatch();
   const [userName, setUserName] = useState("Guest");
 
+    useEffect(() => {
+    if(open){const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        setOpen(false);
+    }
+
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener('popstate', onBackButtonEvent);
+    return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);  
+    };}
+},[open]);
+
   useEffect(() => {
     if (authenticated && user != null) {
       setUserName(user.userdetails.userName || "User");

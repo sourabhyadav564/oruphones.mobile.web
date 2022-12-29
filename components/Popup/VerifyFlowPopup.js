@@ -9,6 +9,18 @@ function VerifyFlowPopup({ open, setOpen }) {
   const [qrValue1, setQrValue1] = useState(
     "https://apps.apple.com/in/app/oruphones/id1629378420"
   );
+    useEffect(() => {
+    if(open){const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        setOpen(false);
+    }
+
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener('popstate', onBackButtonEvent);
+    return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);  
+    };}
+},[open]);
 
   const [qrValue2, setQrValue2] = useState(
     "https://play.google.com/store/apps/details?id=com.oruphones.oru"

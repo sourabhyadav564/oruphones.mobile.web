@@ -1,5 +1,6 @@
 import { sendverification } from "api-call";
 import Cookies from "js-cookie";
+import { useEffect } from "react";
 import { FiAlertOctagon } from "react-icons/fi";
 import Modal2 from "./Modal2";
 
@@ -9,6 +10,18 @@ function RequestVerificationPopup({ open, setOpen, data, setShowNumber, setOpenR
     setOpen(false);
     setOpenRequestVerificationSuccessPopup(true);
   };
+    useEffect(() => {
+    if(open){const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        setOpen(false);
+    }
+
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener('popstate', onBackButtonEvent);
+    return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);  
+    };}
+},[open]);
 
   return (
     <Modal2 open={open} setOpen={setOpen}>

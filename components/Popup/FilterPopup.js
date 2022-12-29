@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { BsInfoCircle } from "react-icons/bs";
 import ConditionInfo from "./ConditionInfo";
 import VerificationInfo from "./VerificationInfo";
+import { useEffect } from "react";
 
 function FilterPopup({
   openFilter,
@@ -26,6 +27,18 @@ function FilterPopup({
   const [openVerificationPopup, setOpenVerificationPopup] = useState(false);
 
   const router = useRouter();
+    useEffect(() => {
+    if(openFilter){const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        setOpenFilter(false);
+    }
+
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener('popstate', onBackButtonEvent);
+    return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);  
+    };}
+},[openFilter]);
 
   const openPopup = (id) => {
     if (id === "condition") {

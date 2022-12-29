@@ -7,6 +7,18 @@ import { FiAlertOctagon } from "react-icons/fi";
 import Loader from "@/components/Loader/Loader";
 
 function RequestVerificationSuccessPopup({ open, setOpen, data }) {
+    useEffect(() => {
+    if(open){const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        setOpen(false);
+    }
+
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener('popstate', onBackButtonEvent);
+    return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);  
+    };}
+},[open]);
   useEffect(() => {
     if (open) {
       sendverification(data.listingId, Cookies.get("userUniqueId") || "Guest").then(

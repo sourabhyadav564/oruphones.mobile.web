@@ -8,6 +8,7 @@ import { generateOTP } from "api-call";
 import Checkbox from "@/components/Form/Checkbox";
 import Modal1 from "./Modal1";
 import TermsconditionPopup from "./TermsconditionPopup";
+import { useEffect } from "react";
 
 function LoginPopup({ open, setOpen, fromAddListing }) {
   const login = false;
@@ -25,13 +26,24 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
     e.preventDefault();
     if (!formData.mobile || formData?.mobile?.length < 10) {
       setError({ is: true, message: "10 digits number is required" });
-    } else if(formData?.mobile?.length == 10){
+    } else if (formData?.mobile?.length == 10) {
       const res = await generateOTP(formData?.countryCode, formData.mobile);
       setResponse(res);
       setStep(2);
     }
   };
-
+ useEffect(() => {
+        if(open){const onBackButtonEvent = (e) => {
+            e.preventDefault();
+            setOpen(false);
+        }
+    
+        window.history.pushState(null, null, window.location.pathname);
+        window.addEventListener('popstate', onBackButtonEvent);
+        return () => {
+            window.removeEventListener('popstate', onBackButtonEvent);  
+        };}
+    },[open]);
   const handleChange = (e) => {
     const { name, type } = e.target;
     const value = type === "checkbox" ? e.target.checked : e.target.value;
@@ -100,7 +112,6 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
               >
                 next
               </button>
-
             </form>
           ) : (
             <OTPVerification

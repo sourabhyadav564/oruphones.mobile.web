@@ -4,12 +4,25 @@ import patchCheck from "@/assets/patch-check.svg";
 import Modal2 from "./Modal2";
 import { useState } from "react";
 import QRCode from "react-qr-code";
+import { useEffect } from "react";
 
 function VerifyListingPopup({ open, setOpen, make }) {
     console.log("make", make);
     const QRValue = make == "Apple"
         ? "https://apps.apple.com/in/app/oruphones/id1629378420"
         : "https://play.google.com/store/apps/details?id=com.oruphones.oru";
+        useEffect(() => {
+            if(open){const onBackButtonEvent = (e) => {
+                e.preventDefault();
+                setOpen(false);
+            }
+        
+            window.history.pushState(null, null, window.location.pathname);
+            window.addEventListener('popstate', onBackButtonEvent);
+            return () => {
+                window.removeEventListener('popstate', onBackButtonEvent);  
+            };}
+        },[open]);
 
     return (
         <Modal2 open={open} setOpen={setOpen}>

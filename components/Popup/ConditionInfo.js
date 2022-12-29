@@ -11,6 +11,18 @@ function ConditionInfo({ open, setOpen }) {
     callStaticPages();
   }, []);
 
+  useEffect(() => {
+    if(open){const onBackButtonEvent = (e) => {
+      e.preventDefault();
+      setOpen(false);
+    };
+
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener("popstate", onBackButtonEvent);
+    return () => {
+      window.removeEventListener("popstate", onBackButtonEvent);
+    };}
+  },[open]);
   async function callStaticPages() {
     // let staticDataPath;
     // try {
