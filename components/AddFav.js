@@ -75,7 +75,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
       console.log("datastatus", data);
       if (
         data?.favourite ||
-        localStorage.getItem("favoriteList").includes(data?.listingId)
+        (localStorage.getItem("favoriteList") && localStorage.getItem("favoriteList").includes(data?.listingId))
       ) {
         data?.status == "Active"
           ? removeFavorite()

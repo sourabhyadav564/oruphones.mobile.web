@@ -62,21 +62,7 @@ export default function Home({
       Cookies.set("brands", true);
       setBrands(brandsList);
     }
-    if (topSellingModels.length === 0) {
-      setTopsellingmodels(JSON.parse(localStorage.getItem("top_models")));
-    } else {
-      localStorage.setItem("top_models", JSON.stringify(topSellingModels));
-      Cookies.set("top_models", true);
-      setTopsellingmodels(topSellingModels);
-    }
 
-    // if (fetchTopArticles.length === 0) {
-    //   setTopArticles(JSON.parse(localStorage.getItem("top_articles")));
-    // } else {
-    //   localStorage.setItem("top_articles", JSON.stringify(fetchTopArticles));
-    //   Cookies.set("top_articles", true);
-    //   setTopArticles(fetchTopArticles);
-    // }
     console.log("make_models", make_models);
     if (make_models) {
       // setBrands(JSON.parse(localStorage.getItem("make_models")));
@@ -94,6 +80,22 @@ export default function Home({
         //   // setBrands(brandsList);
       }
     }
+
+    if (topSellingModels.length === 0) {
+      setTopsellingmodels(JSON.parse(localStorage.getItem("top_models")));
+    } else {
+      localStorage.setItem("top_models", JSON.stringify(topSellingModels));
+      Cookies.set("top_models", true);
+      setTopsellingmodels(topSellingModels);
+    }
+
+    // if (fetchTopArticles.length === 0) {
+    //   setTopArticles(JSON.parse(localStorage.getItem("top_articles")));
+    // } else {
+    //   localStorage.setItem("top_articles", JSON.stringify(fetchTopArticles));
+    //   Cookies.set("top_articles", true);
+    //   setTopArticles(fetchTopArticles);
+    // }
   }, []);
 
   const { selectedSearchCity, loading } = useAuthState();
