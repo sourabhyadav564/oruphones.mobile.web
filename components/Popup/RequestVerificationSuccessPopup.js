@@ -7,18 +7,23 @@ import { FiAlertOctagon } from "react-icons/fi";
 import Loader from "@/components/Loader/Loader";
 
 function RequestVerificationSuccessPopup({ open, setOpen, data }) {
-    useEffect(() => {
-    if(open){const onBackButtonEvent = (e) => {
+
+  const [resData, setResData] = useState({});
+
+  useEffect(() => {
+    if (open) {
+      const onBackButtonEvent = (e) => {
         e.preventDefault();
         setOpen(false);
-    }
+      }
 
-    window.history.pushState(null, null, window.location.pathname);
-    window.addEventListener('popstate', onBackButtonEvent);
-    return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);  
-    };}
-},[open]);
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    }
+  }, [open]);
   useEffect(() => {
     if (open) {
       sendverification(data.listingId, Cookies.get("userUniqueId") || "Guest").then(
@@ -27,11 +32,7 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
         }
       );
     }
-  }, [data]);
-
-  const [resData, setResData] = useState({});
-  
-  console.log("resdata : ",resData);
+  }, [open]);
 
   return (
     <Modal2 open={open} setOpen={setOpen}>
@@ -67,7 +68,7 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
         <div className="mb-2 mt-4 font-Roboto-Regular">
           <button
             className="border border-primary w-32 px-4 py-2 rounded text-primary"
-            onClick={(e) => {
+            onClick={() => {
               setOpen(false);
             }}
           >

@@ -6,11 +6,14 @@ import { Fragment } from "react";
 import { BiSearch } from "react-icons/bi";
 import Loader from "../Loader/Loader";
 import Spinner from "../Loader/Spinner";
+import {CgCloseO} from "react-icons/cg";
 
 function SearchBar({ className }) {
   const [searchResults, setSearchResults] = useState();
   const [input, setInput] = useState("");
   const ref = useRef();
+
+ 
 
   useEffect(() => {
     let timeOut = setTimeout(() => {
@@ -65,7 +68,9 @@ function SearchBar({ className }) {
 
   return (
     <Fragment>
+      
       <div className="flex-1 relative " ref={ref}>
+     
         <input
           placeholder="Search on ORUphones"
           onChange={handleChange}

@@ -1,27 +1,49 @@
 import { sendverification } from "api-call";
 import Cookies from "js-cookie";
+import { useState } from "react";
 import { useEffect } from "react";
 import { FiAlertOctagon } from "react-icons/fi";
 import Modal2 from "./Modal2";
+import RequestVerificationSuccessPopup from "./RequestVerificationSuccessPopup";
 
-function RequestVerificationPopup({ open, setOpen, data, setShowNumber, setOpenRequestVerificationSuccessPopup }) {
- 
+function RequestVerificationPopup({ open, setOpen, data, setShowNumber, setOpenRequestVerificationSuccessPopup, openRequestVerificationSuccessPopup }) {
+
   const sendVerificationLink = () => {
-    setOpen(false);
     setOpenRequestVerificationSuccessPopup(true);
   };
-    useEffect(() => {
-    if(open){const onBackButtonEvent = (e) => {
+
+  const [resData, setResData] = useState([]);
+  const [listingid, setListingid] = useState(data?.listingId);
+
+  const requestVerification = async () => {
+    setOpen(false);
+    setListingid(data?.listingId);
+    await sendverification(
+      listingid,
+      Cookies.get("userUniqueId") || "Guest"
+    ).then((response) => {
+      setResData(response);
+      console.log("responseData", response);
+      // if (response.status == "SUCCESS") {
+      setOpen(false);
+      setOpenRequestVerificationSuccessPopup(true);
+      // }
+    });
+  };
+
+  useEffect(() => {
+    if (open) {
+      const onBackButtonEvent = (e) => {
         e.preventDefault();
         setOpen(false);
+      }
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
     }
-
-    window.history.pushState(null, null, window.location.pathname);
-    window.addEventListener('popstate', onBackButtonEvent);
-    return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);  
-    };}
-},[open]);
+  }, [open]);
 
   return (
     <Modal2 open={open} setOpen={setOpen}>
@@ -35,7 +57,22 @@ function RequestVerificationPopup({ open, setOpen, data, setShowNumber, setOpenR
           </p>
         </div>
         <div className="mb-2 mt-4 flex flex-col">
-          <button className="border border-primary px-4 py-2 rounded text-primary uppercase w-full font-Roboto-Medium" onClick={() => sendVerificationLink()}>
+          <button className="border border-primary px-4 py-2 rounded text-primary uppercase w-full font-Roboto-Medium"
+            // onClick={() => sendVerificationLink()}
+            // onClick={() => {
+            //   setOpenRequestVerificationSuccessPopup(true);
+            //   setOpen(false);
+            // }}
+            onClick={() => {
+              if (Cookies.get("userUniqueId") === undefined) {
+                setPerformAction2(true);
+                setShowLoginPopup(true);
+              } else {
+                // setOpen(false);
+                requestVerification();
+              }
+            }}
+          >
             Request Verification
           </button>
           <button
@@ -49,7 +86,8 @@ function RequestVerificationPopup({ open, setOpen, data, setShowNumber, setOpenR
           </button>
         </div>
       </div>
-    </Modal2>
+      <RequestVerificationSuccessPopup open={openRequestVerificationSuccessPopup} setOpen={setOpenRequestVerificationSuccessPopup} data={data} />
+    </Modal2 >
   );
 }
 

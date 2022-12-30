@@ -6,6 +6,9 @@ import TopCarousel from "@/components/Home/TopCarousel";
 import TopSellingMobiles from "@/components/Home/TopSellingMobiles";
 import TopDealNearBy from "@/components/Home/TopDealNearBy";
 import ShopByPrice from "@/components/Home/ShopByPrice";
+import { toast } from "react-toastify";
+
+
 import {
   fetchBrands,
   fetchTopsellingmodels,
@@ -37,6 +40,7 @@ export default function Home({
   const router = useRouter();
 
   const [loadingState, setLoadingState] = useState(false);
+  
 
   useEffect(() => {
     setLoadingState(false);
@@ -111,7 +115,8 @@ export default function Home({
       
       <Fragment>
         
-        <Header1 />     {/* this is search bar element */}
+        <Header1 />
+          {/* this is search bar element */}
         <main>
           <TopBrand brandsList={brands} />
           <TopCarousel />
