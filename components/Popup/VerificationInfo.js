@@ -6,18 +6,30 @@ import { parse as nodeParser } from "node-html-parser";
 
 function VerificationInfo({ open, setOpen }) {
   const [htmlText1, setHtmlText1] = useState("");
-    useEffect(() => {
-    if(open){const onBackButtonEvent = (e) => {
+  useEffect(() => {
+    if (open) {
+      const onBackButtonEvent = (e) => {
         e.preventDefault();
         setOpen(false);
-    }
+      }
 
-    window.history.pushState(null, null, window.location.pathname);
-    window.addEventListener('popstate', onBackButtonEvent);
-    return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);  
-    };}
-},[open]);
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    } else {
+      const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        window.history.back();
+      }
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    }
+  }, [open]);
 
   useEffect(() => {
     callStaticPages();
@@ -59,7 +71,7 @@ function VerificationInfo({ open, setOpen }) {
             <div className="mt-2">
               <p className="text-sm text-gray-500">{
                 parse(htmlText1)
-            }</p>
+              }</p>
             </div>
           </div>
         </div>

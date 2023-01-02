@@ -28,63 +28,63 @@ function AddFav({ data, setProducts, color, ...rest }) {
   // }
   // console.log("data3", data);
   function handleFavoties() {
-      setProducts((prevState) => {
-        let tempVal;
-        if (Array.isArray(prevState)) {
-          let index = prevState.findIndex(
-            (i) => i.listingId === data?.listingId
-          );
-          tempVal = [...prevState];
-          tempVal[index] = { ...tempVal[index], favourite: !data?.favourite };
-        } else {
-          tempVal = { ...prevState, favourite: !data?.favourite };
-        }
-        return tempVal;
-      });
-      let payLoad = {
-        listingId: data?.listingId,
-        userUniqueId: Cookies.get("userUniqueId") || "Guest",
-      };
-      const addFavorite = () => {
-        let favList = localStorage.getItem("favoriteList");
-        if (favList) {
-          favList = favList.split(",");
-          favList.push(data?.listingId);
-          localStorage.setItem("favoriteList", favList);
-        } else {
-          localStorage.setItem("favoriteList", data?.listingId);
-        }
-        addFavotie(payLoad).then((response) => {
-          console.log("addFav RES", response);
-        });
-      };
-      const removeFavorite = () => {
-        //remove listingId from fav
-        let favList = localStorage.getItem("favoriteList");
-        if (favList) {
-          favList = favList.split(",");
-          favList = favList.filter((item) => item !== data?.listingId);
-          localStorage.setItem("favoriteList", favList);
-        }
-        removeFavotie(data?.listingId, Cookies.get("userUniqueId")).then(
-          (response) => {
-            console.log("removeFav RES", response);
-          }
+    setProducts((prevState) => {
+      let tempVal;
+      if (Array.isArray(prevState)) {
+        let index = prevState.findIndex(
+          (i) => i.listingId === data?.listingId
         );
-      };
-      console.log("datastatus", data);
-      if (
-        data?.favourite ||
-        (localStorage.getItem("favoriteList") && localStorage.getItem("favoriteList").includes(data?.listingId))
-      ) {
-        data?.status == "Active"
-          ? removeFavorite()
-          : toast.warning("This device is sold out");
+        tempVal = [...prevState];
+        tempVal[index] = { ...tempVal[index], favourite: !data?.favourite };
       } else {
-        data?.status == "Active"
-          ? addFavorite()
-          : toast.warning("This device is sold out");
+        tempVal = { ...prevState, favourite: !data?.favourite };
       }
+      return tempVal;
+    });
+    let payLoad = {
+      listingId: data?.listingId,
+      userUniqueId: Cookies.get("userUniqueId") || "Guest",
+    };
+    const addFavorite = () => {
+      let favList = localStorage.getItem("favoriteList");
+      if (favList) {
+        favList = favList.split(",");
+        favList.push(data?.listingId);
+        localStorage.setItem("favoriteList", favList);
+      } else {
+        localStorage.setItem("favoriteList", data?.listingId);
+      }
+      addFavotie(payLoad).then((response) => {
+        console.log("addFav RES", response);
+      });
+    };
+    const removeFavorite = () => {
+      //remove listingId from fav
+      let favList = localStorage.getItem("favoriteList");
+      if (favList) {
+        favList = favList.split(",");
+        favList = favList.filter((item) => item !== data?.listingId);
+        localStorage.setItem("favoriteList", favList);
+      }
+      removeFavotie(data?.listingId, Cookies.get("userUniqueId")).then(
+        (response) => {
+          console.log("removeFav RES", response);
+        }
+      );
+    };
+    // console.log("datastatus", data);
+    if (
+      data?.favourite ||
+      (localStorage.getItem("favoriteList") && localStorage.getItem("favoriteList").includes(data?.listingId))
+    ) {
+      data?.status == "Active"
+        ? removeFavorite()
+        : toast.warning("This device is sold out");
+    } else {
+      data?.status == "Active"
+        ? addFavorite()
+        : toast.warning("This device is sold out");
+    }
   }
   useEffect(() => {
     if (openLoginPopup == false && performAction == true) {

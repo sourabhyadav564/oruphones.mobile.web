@@ -43,7 +43,8 @@ import VerificationIcon from "@/components/verificationIcon";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import {
   CardHeading,
-  CardHeading4,
+  CardHeading2,
+  CardHeading5,
 } from "@/components/elements/CardHeading/cardheading";
 import SearchBar from "@/components/Header/SearchBar";
 import { toast } from "react-toastify";
@@ -226,7 +227,7 @@ function ProductDeatils({ data }) {
       window.open(productLink, "_blank");
     }
   }, [openLoginPopup]);
-  console.log("Data::", data);
+  // console.log("Data::", data);
 
   const handleButtonClick = async () => {
     if (
@@ -472,7 +473,7 @@ function ProductDeatils({ data }) {
             >
               <p className="py-jx flex text-[#000000] space-x-1 font-Roboto-Light text-bx opacity-100">
                 <span className="self-center"> Varient: </span>
-                <CardHeading4 title={data?.deviceStorage} />
+                <CardHeading2 title={data?.deviceStorage} />
                 {/* <span className="text-[#000000] font-Roboto-Regular text-jx">
                   {data?.deviceStorage}
                 </span> */}
@@ -491,7 +492,7 @@ function ProductDeatils({ data }) {
                 >
                   Condition{" "}
                 </span>
-                <CardHeading4 title={data?.deviceCondition} />
+                <CardHeading2 title={data?.deviceCondition} />
                 {/* <p className="text-jx font-Regular text-black flex items-center">
                   {data?.deviceCondition}
                 </p> */}

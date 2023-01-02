@@ -6,7 +6,7 @@ import failedIcon from "@/assets/testFail.png";
 import pass from "@/assets/pass1.png";
 import { useEffect, useState } from "react";
 import { deviceConditionQuestion } from "@/utils/constant";
-import ConditionOptionLarge from "./Condition/ConditionOptionLarge";
+import ConditionOptionLarge2 from "./Condition/ConditionOptionLarge2";
 import { BsCheckCircle } from "react-icons/bs";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
@@ -17,7 +17,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
 
   const [questionIndex, setQuestionIndex] = useState(0);
 
-  console.log("data", data?.cosmetic);
+  // console.log("data", data?.cosmetic);
 
   return (
     <div className="w-full rounded-md  p-4 mb-4 bg-[#F9F9F9] ">

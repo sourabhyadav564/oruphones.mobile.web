@@ -27,18 +27,30 @@ function FilterPopup({
   const [openVerificationPopup, setOpenVerificationPopup] = useState(false);
 
   const router = useRouter();
-    useEffect(() => {
-    if(openFilter){const onBackButtonEvent = (e) => {
+  useEffect(() => {
+    if (openFilter) {
+      const onBackButtonEvent = (e) => {
         e.preventDefault();
         setOpenFilter(false);
-    }
+      }
 
-    window.history.pushState(null, null, window.location.pathname);
-    window.addEventListener('popstate', onBackButtonEvent);
-    return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);  
-    };}
-},[openFilter]);
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    } else {
+      const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        window.history.back();
+      }
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    }
+  }, [openFilter]);
 
   const openPopup = (id) => {
     if (id === "condition") {

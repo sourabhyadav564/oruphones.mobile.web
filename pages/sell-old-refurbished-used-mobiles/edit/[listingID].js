@@ -89,8 +89,8 @@ export async function getServerSideProps({ req, res, query }) {
       result = data?.dataObject;
     }
 
-    console.log("data", data);
-    console.log("result", result);
+    // console.log("data", data);
+    // console.log("result", result);
 
     return {
       // props: { data: data?.dataObject, resultsSet: result?.dataObject },

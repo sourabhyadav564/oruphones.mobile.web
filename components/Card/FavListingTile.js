@@ -28,7 +28,7 @@ function FavListingTile({ data, setProducts }) {
       return prevState.filter((i) => i.listingId !== data.listingId);
     });
   };
-  console.log("dataFav", data);
+  // console.log("dataFav", data);
 
   return (
     <Fragment>

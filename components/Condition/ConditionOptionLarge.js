@@ -17,8 +17,8 @@ const ConditionOptionLarge = ({
       <div className="flex items-center space-x-3 pb-1">
         <VscPass
           className={`${conditionResults?.[questionIndex] == title
-              ? "text-black "
-              : "text-gray-400"
+            ? "text-black "
+            : "text-gray-400"
             } text-[1dp] self-center`}
         />
         <h1 className="font-Roboto-Bold text-[#2C2F45] text-jx self-center">{title}</h1>

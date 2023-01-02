@@ -99,7 +99,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 )}
               </span>
             </div>
-            {console.log("data", listings)}
+            {/* {console.log("data", listings)} */}
             {listings.includes(data.listingId)
               ?
               <div

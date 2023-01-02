@@ -7,18 +7,30 @@ import { useEffect, useState } from "react";
 import LoadingStatePopup from "./LoadingStatePopup";
 
 function ShopByPopup({ open, setOpen }) {
-    useEffect(() => {
-    if(open){const onBackButtonEvent = (e) => {
+  useEffect(() => {
+    if (open) {
+      const onBackButtonEvent = (e) => {
         e.preventDefault();
         setOpen(false);
-    }
+      }
 
-    window.history.pushState(null, null, window.location.pathname);
-    window.addEventListener('popstate', onBackButtonEvent);
-    return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);  
-    };}
-},[open]);
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    } else {
+      const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        window.history.back();
+      }
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    }
+  }, [open]);
   const router = useRouter();
 
   // const [loadingState, setLoadingState] = useState(false);

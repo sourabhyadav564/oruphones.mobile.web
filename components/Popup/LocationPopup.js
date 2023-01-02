@@ -25,18 +25,30 @@ function LocationPopup({ open, setOpen }) {
     loaded: false,
     city: "",
   });
-    useEffect(() => {
-      if(open){const onBackButtonEvent = (e) => {
-          e.preventDefault();
-          setOpen(false);
+  useEffect(() => {
+    if (open) {
+      const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        setOpen(false);
       }
 
       window.history.pushState(null, null, window.location.pathname);
       window.addEventListener('popstate', onBackButtonEvent);
       return () => {
-          window.removeEventListener('popstate', onBackButtonEvent);
-      };}
-  },[open]);
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    } else {
+      const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        window.history.back();
+      }
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    }
+  }, [open]);
 
   // console.log("globalCities2", globalCities2);
   useEffect(() => {
@@ -64,10 +76,10 @@ function LocationPopup({ open, setOpen }) {
             // globalCities
             //   ?.sort((a, b) => a.city.localeCompare(b.city))
             //   .filter((item) => item.city !== "India");
-              // setGlobalCities2({
-              //   displayWithImage: "0", city: "India",
-              //   ...globalCities
-              // })
+            // setGlobalCities2({
+            //   displayWithImage: "0", city: "India",
+            //   ...globalCities
+            // })
             localStorage.setItem("cities", JSON.stringify(response.dataObject));
           },
           (err) => console.error(err)
@@ -246,7 +258,7 @@ function LocationPopup({ open, setOpen }) {
       > */}
             <div
               className="flex text-center -mx-1 py-4 overflow-x-scroll no-scrollbar"
-              // style={{ minHeight: "40vh" }}
+            // style={{ minHeight: "40vh" }}
             >
               {globalCities &&
                 globalCities
@@ -254,9 +266,8 @@ function LocationPopup({ open, setOpen }) {
                   // .slice(0, 9)
                   .map((items) => (
                     <div
-                      className={`border-0 bg-[#F1F1F1] rounded px-4 py-2 m-1  ${
-                        selectedCity.current === items.city && "border-primary"
-                      }`}
+                      className={`border-0 bg-[#F1F1F1] rounded px-4 py-2 m-1  ${selectedCity.current === items.city && "border-primary"
+                        }`}
                       key={items.city}
                       onClick={() => handleCityChange(items.city)}
                     >
@@ -305,9 +316,8 @@ export default LocationPopup;
 
 const Button = ({ children, active, ...rest }) => (
   <p
-    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${
-      active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"
-    }`}
+    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"
+      }`}
     {...rest}
   >
     {children}

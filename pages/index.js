@@ -8,7 +8,6 @@ import TopDealNearBy from "@/components/Home/TopDealNearBy";
 import ShopByPrice from "@/components/Home/ShopByPrice";
 import { toast } from "react-toastify";
 
-
 import {
   fetchBrands,
   fetchTopsellingmodels,
@@ -40,7 +39,6 @@ export default function Home({
   const router = useRouter();
 
   const [loadingState, setLoadingState] = useState(false);
-  
 
   useEffect(() => {
     setLoadingState(false);
@@ -53,10 +51,14 @@ export default function Home({
   useEffect(async () => {
     Cookies.set("sessionId", sessionId);
     localStorage.setItem("sessionId", sessionId);
-    console.log("sessionId", localStorage.getItem("make_models"));
     let make_models = true;
-    if(!localStorage.getItem("make_models")|| localStorage.getItem("make_models").toString() == "undefined"){
+    if (!localStorage.getItem("make_models") || localStorage.getItem("make_models").toString() == "undefined") {
       make_models = false;
+    }
+
+    if (!Cookies.get("userUniqueId") || Cookies.get("userUniqueId") == undefined) {
+      localStorage.removeItem("listings");
+      localStorage.removeItem("favoriteList");
     }
 
     if (brandsList.length === 0) {
@@ -112,11 +114,11 @@ export default function Home({
         <meta property="og:description" content={metaTags.HOME.description} />
         {/* <meta name="Googlebot" content="noindex"></meta> */}
       </Head>
-      
+
       <Fragment>
-        
+
         <Header1 />
-          {/* this is search bar element */}
+        {/* this is search bar element */}
         <main>
           <TopBrand brandsList={brands} />
           <TopCarousel />

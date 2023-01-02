@@ -183,17 +183,7 @@ const NewAddListingForm = ({ data }) => {
         (err) => console.error(err)
       );
     }
-  }, []); 
-
-  useEffect(async() => {
-    if(data==undefined || data==null || data.length==0){
-      await getMakeModelLists.then((response) => {
-        console.log("response.dataObject", response.dataObject)
-        setMakeModels(JSON.stringify(response.dataObject));
-        localStorage.setItem("make_models", JSON.stringify(response.dataObject));
-      });
-    }
-  }, [data]);
+  }, []);
 
   useEffect(() => {
     if (model) {
@@ -305,16 +295,16 @@ const NewAddListingForm = ({ data }) => {
   useEffect(() => {
     const interval = setInterval(() => {
 
-      if(openLoginPopup==false && performAction==true && Cookies.get("userUniqueId")!=undefined){
+      if (openLoginPopup == false && performAction == true && Cookies.get("userUniqueId") != undefined) {
         completeListing();
         setPerformAction(true);
         clearInterval(interval);
       }
     }, 1000);
-    }, [openLoginPopup]);
+  }, [openLoginPopup]);
 
   const completeListing = () => {
-    console.log("id",Cookies.get("userUniqueId"));
+    console.log("id", Cookies.get("userUniqueId"));
     let payload = {
       make,
       color,
@@ -422,7 +412,7 @@ const NewAddListingForm = ({ data }) => {
     if (selectedModel) {
       handleSelectChange("model");
     }
-  }, [selectedBrand, selectedModel,data]);
+  }, [selectedBrand, selectedModel, data]);
 
   useEffect(() => {
     if (make && model && storage) {
@@ -569,7 +559,7 @@ const NewAddListingForm = ({ data }) => {
   async function submit() {
     sellValueTag = document.querySelector("#sellValue");
     sellValue = sellValueTag.value;
-    
+
     if ((sellValue < (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7)
       || sellValue > (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2))
       && recommandedPrice?.leastSellingprice != "-"
@@ -629,7 +619,7 @@ const NewAddListingForm = ({ data }) => {
     } else if (!loading && !authenticated) {
       setOpenLoginPopup(true);
       setPerformAction(true);
-    } else if(authenticated && performAction==false){
+    } else if (authenticated && performAction == false) {
       completeListing();
     }
   }

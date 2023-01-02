@@ -6,7 +6,7 @@ import failedIcon from "@/assets/testFail.png";
 import pass from "@/assets/pass1.png";
 import { useEffect, useState } from "react";
 import { deviceConditionQuestion } from "@/utils/constant";
-import ConditionOptionLarge from "./Condition/ConditionOptionLarge";
+import ConditionOptionLarge2 from "./Condition/ConditionOptionLarge2";
 
 function ViewReport({ data, defaultOpen, setDefaultOpen }) {
   if (!data?.verified && !data?.cosmetic) {
@@ -15,7 +15,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
 
   const [questionIndex, setQuestionIndex] = useState(0);
 
-  console.log("data", data?.cosmetic);
+  // console.log("data", data?.cosmetic);
 
   return (
     <div className="w-full mx-auto rounded-md  p-4 mb-4 bg-[#F9F9F9]">
@@ -54,9 +54,9 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                       <div>
                         <span className="text-dx font-Bold text-[#2C2F45] ">{data?.cosmetic[index] != undefined && item?.title}</span>
                         {data?.cosmetic[index] != undefined &&
-                          <ConditionOptionLarge
+                          <ConditionOptionLarge2
                             title={data?.cosmetic[index]}
-                            options={data?.cosmetic[index] && item?.options[0]?.options}
+                            options={data?.cosmetic[index] && item?.options}
                             conditionResults={data?.cosmetic}
                             questionIndex={index}
                           />}

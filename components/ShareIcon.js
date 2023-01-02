@@ -25,7 +25,7 @@ export default function ShareIcon({ data, color, ...rest }) {
       // fallback
     }
   }
-  console.log("data2", data);
+  // console.log("data2", data);
 
   return (
     <div className="bg-transparent p-1">

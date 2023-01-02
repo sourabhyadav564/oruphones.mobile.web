@@ -9,7 +9,7 @@ import star from "@/assets/star.svg";
 import edit from "@/assets/edit.svg";
 
 import { ProductPriceHeading, ProductNameHeading } from "@/components/elements/Heading/heading";
-import { CardHeading4 } from "@/components/elements/CardHeading/cardheading";
+import { CardHeading4, CardHeading2 } from "@/components/elements/CardHeading/cardheading";
 import { BsInfoCircle } from "react-icons/bs";
 import { activateListing, deleteListing, getListingDetails } from "api-call";
 import IconLabelValue from "@/components/IconLabelValue";
@@ -79,7 +79,7 @@ function ListingDeatils({ data, id }) {
         <div className="absolute right-4 top-3">
           <Link href={`/sell-old-refurbished-used-mobiles/edit/${id}`}>
             <a>
-              <Image src={edit} alt={data?.marketingName}  width={26} height={21} className="opacity-90" />
+              <Image src={edit} alt={data?.marketingName} width={26} height={21} className="opacity-90" />
             </a>
           </Link>
         </div>
@@ -126,7 +126,7 @@ function ListingDeatils({ data, id }) {
               <div className="w-11/12 h-[40px]  flex items-center m-auto rounded-[5px] justify-center opacity-bg-50" style={{ backgroundColor: "#F3F3F3" }}>
                 <p className="py-jx flex text-[#000000] space-x-1 font-Roboto-Light text-bx opacity-100">
                   <span className="self-center"> Varient:{" "} </span>
-                  <CardHeading4 title={data?.deviceStorage} />
+                  <CardHeading2 title={data?.deviceStorage} />
                   {/* <span className="text-[#000000] font-Roboto-Regular text-jx">
                   {data?.deviceStorage}
                 </span> */}
@@ -143,7 +143,7 @@ function ListingDeatils({ data, id }) {
                   >
                     Condition{" "}
                   </span>
-                  <CardHeading4 title={data?.deviceCondition} />
+                  <CardHeading2 title={data?.deviceCondition} />
                   {/* <p className="text-jx font-Regular text-black flex items-center">
                   {data?.deviceCondition}
                 </p> */}

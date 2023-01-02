@@ -5,17 +5,29 @@ import Modal1 from "./Modal1";
 
 function SortPopup({ openSort, setOpenSort, setSortApplyFilter }) {
   useEffect(() => {
-   if(openSort){ const onBackButtonEvent = (e) => {
+    if (openSort) {
+      const onBackButtonEvent = (e) => {
         e.preventDefault();
         setOpenSort(false);
-    }
+      }
 
-    window.history.pushState(null, null, window.location.pathname);
-    window.addEventListener('popstate', onBackButtonEvent);
-    return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);  
-    };}
-},[openSort]);
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    } else {
+      const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        window.history.back();
+      }
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
+    }
+  }, [openSort]);
 
   const [range, setRange] = useState("Featured");
 

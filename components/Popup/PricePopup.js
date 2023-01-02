@@ -4,17 +4,29 @@ import Modal2 from "./Modal2";
 
 function PricePopup({ open, setOpen, price, leastPrice, maxPrice, setSubmitting }) {
     useEffect(() => {
-        if(open){const onBackButtonEvent = (e) => {
-            e.preventDefault();
-            setOpen(false);
+        if (open) {
+            const onBackButtonEvent = (e) => {
+                e.preventDefault();
+                setOpen(false);
+            }
+
+            window.history.pushState(null, null, window.location.pathname);
+            window.addEventListener('popstate', onBackButtonEvent);
+            return () => {
+                window.removeEventListener('popstate', onBackButtonEvent);
+            };
+        } else {
+            const onBackButtonEvent = (e) => {
+                e.preventDefault();
+                window.history.back();
+            }
+            window.history.pushState(null, null, window.location.pathname);
+            window.addEventListener('popstate', onBackButtonEvent);
+            return () => {
+                window.removeEventListener('popstate', onBackButtonEvent);
+            };
         }
-    
-        window.history.pushState(null, null, window.location.pathname);
-        window.addEventListener('popstate', onBackButtonEvent);
-        return () => {
-            window.removeEventListener('popstate', onBackButtonEvent);  
-        };}
-    },[open]);
+    }, [open]);
     const handleSubmit = () => {
         setOpen(false);
         setSubmitting(true);

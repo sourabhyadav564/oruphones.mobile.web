@@ -10,8 +10,10 @@ import BuySellGuide from "@/components/BuySellGuide";
 import Loader from "@/components/Loader/Loader";
 import Cookies from "js-cookie";
 import NewAddListingForm from "@/components/Form/NewAddListingForm";
+import { useRouter } from "next/router";
 
 const index = ({ data }) => {
+  const router = useRouter();
   // const index = () => {
   // const [makeModelLists, setMakeModelLists] = useState([]);
 
@@ -28,16 +30,41 @@ const index = ({ data }) => {
   // }, []);
 
   const [makeAndModels, setMakeAndModels] = useState([]);
+  let make_models = true;
 
-  useEffect(() => {
+  useEffect(async () => {
+    if (!localStorage.getItem("make_models") || localStorage.getItem("make_models") == undefined || localStorage.getItem("make_models").toString() == "undefined") {
+      make_models = false;
+    }
+
+    if (make_models) {
+      // setBrands(JSON.parse(localStorage.getItem("make_models")));
+      console.log("makeModelLists from local");
+    } else {
+      console.log("makeModelLists from api");
+      const data = await getMakeModelLists(
+        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
+      );
+      if (data) {
+        let makeModelLists = data?.dataObject;
+        localStorage.setItem("make_models", JSON.stringify(makeModelLists));
+        Cookies.set("make_models", true);
+        // if (router.pathname == "/sell-old-refurbished-used-mobiles/add") { window.location.reload(); }
+        //   // setBrands(brandsList);
+      }
+    }
+
     if (data?.length == 0) {
       setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
-    } else  {
+    } else {
       localStorage.setItem("make_models", JSON.stringify(data));
       Cookies.set("make_models", true);
       setMakeAndModels(data);
     }
   }, []);
+
+  // console.log("router.pathname", router.pathname);
 
   return (
     <Fragment>

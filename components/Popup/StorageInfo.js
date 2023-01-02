@@ -18,8 +18,18 @@ function StorageInfo({ open, setOpen, brand }) {
       return () => {
         window.removeEventListener("popstate", onBackButtonEvent);
       };
+    } else {
+      const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        window.history.back();
+      }
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener('popstate', onBackButtonEvent);
+      return () => {
+        window.removeEventListener('popstate', onBackButtonEvent);
+      };
     }
-  },[open]);
+  }, [open]);
   useEffect(() => {
     callStaticPages();
   }, []);
@@ -38,10 +48,9 @@ function StorageInfo({ open, setOpen, brand }) {
       // const { serverUrl, templateUrls } = staticDataPath;
       // const res = await fetchStaticHTML("/verification.html");
       const res = await fetchStaticHTML(
-        `${
-          brand.toLowerCase() === "apple"
-            ? "/apple_storage_check.html"
-            : "/android_storage_check.html"
+        `${brand.toLowerCase() === "apple"
+          ? "/apple_storage_check.html"
+          : "/android_storage_check.html"
         }`
       );
       // const res = await fetchStaticHTML(serverUrl + templateUrls.VERIFICATION);

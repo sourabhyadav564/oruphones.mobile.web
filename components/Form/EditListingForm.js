@@ -65,7 +65,7 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [getExternalSellerData, setGetExternalSellerData] = useState([]);
 
   let initialState;
-  console.log("data.warranty", data.warranty);
+  // console.log("data.warranty", data.warranty);
 
   if (data?.images && data.images.length === 1) {
     initialState = [...data?.images, { panel: "back" }];
