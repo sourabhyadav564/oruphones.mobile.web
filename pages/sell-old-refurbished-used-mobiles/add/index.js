@@ -74,19 +74,19 @@ const index = ({ data }) => {
 
     if (data?.length == 0) {
       setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
-      if(check==1){
-        window.location.reload();
-        check++;
-      }
+        // window.location.reload();
+      
     } else {
       localStorage.setItem("make_models", JSON.stringify(makeModelLists));
       Cookies.set("make_models", true);
       setMakeAndModels(data);
-      if(check==1){
-      window.location.reload();
-      check++;
+      // window.location.reload();
+
       }
-    }
+      if(localStorage.getItem("make_models") == undefined || localStorage.getItem("make_models").toString() == "undefined") {
+        window.location.reload();
+      }
+    
   }, []);
 
   // console.log("router.pathname", router.pathname);
