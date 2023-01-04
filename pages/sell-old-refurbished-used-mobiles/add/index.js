@@ -31,7 +31,7 @@ const index = ({ data }) => {
 
   const [makeAndModels, setMakeAndModels] = useState([]);
   let make_models = true;
-  let makeModelLists = [];
+  let makeModelLists = data;
 
   useEffect(async () => {
     if (!localStorage.getItem("make_models") || localStorage.getItem("make_models") == undefined || localStorage.getItem("make_models").toString() == "undefined") {
