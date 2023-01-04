@@ -79,11 +79,11 @@ function AddFav({ data, setProducts, color, ...rest }) {
     ) {
       data?.status == "Active"
         ? removeFavorite()
-        : toast.warning("This device is sold out");
+        : toast.warning(`This device is sold out`, {toastId: "004"});
     } else {
       data?.status == "Active"
         ? addFavorite()
-        : toast.warning("This device is sold out");
+        : toast.warning(`This device is sold out`,{toastId: "003"});
     }
   }
   useEffect(() => {

@@ -570,7 +570,7 @@ function ProductDeatils({ data }) {
                               setperformAction3(true);
                             } else if (data?.status == "Active") {
                               setOpenRequestVerificationSuccessPopup(true);
-                            } else toast.warning("This device is sold out");
+                            } else toast.warning(`This device is sold out`,{toastId: "009"});
                           }}
                         >
                           Click here to Request Verification
@@ -701,7 +701,7 @@ function ProductDeatils({ data }) {
                   onClick={() =>
                     data?.status == "Active"
                       ? showSellerNumber(data?.listingId)
-                      : toast.warning("This device is sold out")
+                      : toast.warning(`This device is sold out`,{toastId: "010"})
                   }
                 >
                   {showNumber ? contactSellerMobileNumber : "Contact Seller"}
@@ -727,7 +727,7 @@ function ProductDeatils({ data }) {
                                   `https://wa.me/+91${response?.dataObject?.mobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
                                   "_blank"
                                 )
-                              : toast.warning("This device is sold out");
+                              : toast.warning(`This device is sold out`,{toastId: "011"});
                           });
                     }}
                   >
@@ -870,7 +870,7 @@ function ProductDeatils({ data }) {
                       setperformAction3(true);
                     } else if (data?.status == "Active") {
                       setOpenRequestVerificationSuccessPopup(true);
-                    } else toast.warning("This device is sold out");
+                    } else toast.warning(`This device is sold out`,{toastId:"013"});
                   }}
                 >
                   {" "}

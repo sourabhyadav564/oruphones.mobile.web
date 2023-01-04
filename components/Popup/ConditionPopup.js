@@ -111,6 +111,7 @@ function ConditionPopup({ openCondition, setopenCondition, setConditionResultEdi
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
+                toastId: "008",
             });
         if (conditionResults[0].toString() == "No") {
             calculateDeviceCondition();
