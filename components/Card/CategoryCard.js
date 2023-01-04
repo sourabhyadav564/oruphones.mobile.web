@@ -69,7 +69,7 @@ const CategoryCards = ({ data, priceRange, warrantycard }) => {
             </div>
           </div>
           <p className="font-Roboto-Regular text-jx text-[#707070] pt-1 pr-5 text-center">
-            Warranty
+           Phones with Warranty 
           </p>
           <WarrantyByPop data={data} open={Openwarrantycard} setOpen={setOpenWarrantycard} />
         </div>

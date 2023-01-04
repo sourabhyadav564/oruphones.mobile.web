@@ -3,30 +3,31 @@ import { useEffect } from "react";
 import Modal2 from "./Modal2";
 
 function ListingActivated({ open, setOpen, reason, setReason }) {
-  useEffect(() => {
-    if (open) {
-      const onBackButtonEvent = (e) => {
-        e.preventDefault();
-        setOpen(false);
-      }
+  // useEffect(() => {
+  //   if (open) {
+  //     const onBackButtonEvent = (e) => {
+  //       e.preventDefault();
+  //       setOpen(false);
+  //     }
 
-      window.history.pushState(null, null, window.location.pathname);
-      window.addEventListener('popstate', onBackButtonEvent);
-      return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);
-      };
-    } else {
-      const onBackButtonEvent = (e) => {
-        e.preventDefault();
-        window.history.back();
-      }
-      window.history.pushState(null, null, window.location.pathname);
-      window.addEventListener('popstate', onBackButtonEvent);
-      return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);
-      };
-    }
-  }, [open]);
+  //     window.history.pushState(null, null, window.location.pathname);
+  //     window.addEventListener('popstate', onBackButtonEvent);
+  //     return () => {
+  //       window.removeEventListener('popstate', onBackButtonEvent);
+  //     };
+    // } 
+    // // else {
+    // //   const onBackButtonEvent = (e) => {
+    // //     e.preventDefault();
+    // //     window.history.back();
+    // //   }
+    // //   window.history.pushState(null, null, window.location.pathname);
+    // //   window.addEventListener('popstate', onBackButtonEvent);
+    // //   return () => {
+    // //     window.removeEventListener('popstate', onBackButtonEvent);
+    // //   };
+  //   }
+  // }, [open]);
   return (
     <Modal2 open={open} setOpen={setOpen}>
       <div className="flex flex-col items-center max-w-sm px-10 text-base text-black-4e">

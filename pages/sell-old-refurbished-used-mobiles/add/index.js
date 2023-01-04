@@ -55,6 +55,18 @@ const index = ({ data }) => {
       }
     }
 
+    if(localStorage.getItem("make_models") == undefined || localStorage.getItem("make_models").toString() == "undefined") {
+      const data = await getMakeModelLists(
+        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
+      );
+      let makeModelLists = data?.dataObject;
+      localStorage.setItem("make_models", JSON.stringify(makeModelLists));
+      Cookies.set("make_models", true);
+    }
+    if(localStorage.getItem("make_models") == undefined || localStorage.getItem("make_models").toString() == "undefined")
+    window.location.reload();
+
     if (data?.length == 0) {
       setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
     } else {

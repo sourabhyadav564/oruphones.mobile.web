@@ -10,37 +10,38 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
 
   const [resData, setResData] = useState({});
 
-  useEffect(() => {
-    if (open) {
-      const onBackButtonEvent = (e) => {
-        e.preventDefault();
-        setOpen(false);
-      }
+  // useEffect(() => {
+  //   if (open) {
+  //     const onBackButtonEvent = (e) => {
+  //       e.preventDefault();
+  //       setOpen(false);
+  //     }
 
-      window.history.pushState(null, null, window.location.pathname);
-      window.addEventListener('popstate', onBackButtonEvent);
-      return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);
-      };
-    } else {
-      const onBackButtonEvent = (e) => {
-        e.preventDefault();
-        window.history.back();
-      }
-      window.history.pushState(null, null, window.location.pathname);
-      window.addEventListener('popstate', onBackButtonEvent);
-      return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);
-      };
-    }
-  }, [open]);
+  //     window.history.pushState(null, null, window.location.pathname);
+  //     window.addEventListener('popstate', onBackButtonEvent);
+  //     return () => {
+  //       window.removeEventListener('popstate', onBackButtonEvent);
+  //     };
+    // } else {
+    //   const onBackButtonEvent = (e) => {
+    //     e.preventDefault();
+    //     window.history.back();
+    //   }
+    //   window.history.pushState(null, null, window.location.pathname);
+    //   window.addEventListener('popstate', onBackButtonEvent);
+    //   return () => {
+    //     window.removeEventListener('popstate', onBackButtonEvent);
+    //   };
+    // }
+  // }, [open]);
   useEffect(() => {
     if (open) {
-      sendverification(data.listingId, Cookies.get("userUniqueId") || "Guest").then(
-        (response) => {
-          setResData(response);
-        }
-      );
+      sendverification(
+        data.listingId,
+        Cookies.get("userUniqueId") || "Guest"
+      ).then((response) => {
+        setResData(response);
+      });
     }
   }, [open]);
 
@@ -72,7 +73,9 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
         ) : (
           <div className="font-Roboto-Regular">
             <Loader />
-            <p className="text-mx">Your verification request will be sent soon...</p>
+            <p className="text-mx">
+              Your verification request will be sent soon...
+            </p>
           </div>
         )}
         <div className="mb-2 mt-4 font-Roboto-Regular">

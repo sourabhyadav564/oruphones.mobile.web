@@ -15,30 +15,30 @@ function ConditionPopup({ openCondition, setopenCondition, setConditionResultEdi
     function handleChange(data) {
         setCondition(data);
     }
-    useEffect(() => {
-        if (openCondition) {
-            const onBackButtonEvent = (e) => {
-                e.preventDefault();
-                setopenCondition(false);
-            }
+    // useEffect(() => {
+    //     if (openCondition) {
+    //         const onBackButtonEvent = (e) => {
+    //             e.preventDefault();
+    //             setopenCondition(false);
+    //         }
 
-            window.history.pushState(null, null, window.location.pathname);
-            window.addEventListener('popstate', onBackButtonEvent);
-            return () => {
-                window.removeEventListener('popstate', onBackButtonEvent);
-            };
-        } else {
-            const onBackButtonEvent = (e) => {
-                e.preventDefault();
-                window.history.back();
-            }
-            window.history.pushState(null, null, window.location.pathname);
-            window.addEventListener('popstate', onBackButtonEvent);
-            return () => {
-                window.removeEventListener('popstate', onBackButtonEvent);
-            };
-        }
-    }, [openCondition]);
+    //         window.history.pushState(null, null, window.location.pathname);
+    //         window.addEventListener('popstate', onBackButtonEvent);
+    //         return () => {
+    //             window.removeEventListener('popstate', onBackButtonEvent);
+    //         };
+        // } else {
+        //     const onBackButtonEvent = (e) => {
+        //         e.preventDefault();
+        //         window.history.back();
+        //     }
+        //     window.history.pushState(null, null, window.location.pathname);
+        //     window.addEventListener('popstate', onBackButtonEvent);
+        //     return () => {
+        //         window.removeEventListener('popstate', onBackButtonEvent);
+        //     };
+    //     }
+    // }, [openCondition]);
     useEffect(() => {
         setConditionResultEdit(condition);
         setConditionQuestionEdit(conditionResults);

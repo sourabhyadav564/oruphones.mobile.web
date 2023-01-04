@@ -15,19 +15,19 @@ import { useRouter } from "next/router";
 const data = [
   {
     id: 1,
-    text: "Bestselling",
+    text: "Bestselling Mobiles",
     imagePath: bestSelling,
     urlPath: "Bestselling",
   },
   {
     id: 3,
-    text: "Verified",
+    text: "Verified Devices Only",
     imagePath: verified,
     urlPath: "Verified",
   },
   {
     id: 2,
-    text: "Like New",
+    text: "Like New Condition",
     imagePath: likeNew,
     urlPath: "Like New",
   },
@@ -47,7 +47,7 @@ function ShopBy() {
 
     <section className=" text-gray-70 ">
       {/* <h1 className="mt-3 mb-2 px-3 pt-2.5 font-Regular text-based text-xs"> Shop by Categories </h1> */}
-      <Heading title="Shop by Categories" />
+      <Heading title="Shop by" />
       <BasicCarousel
         slidesPerView={4}
         spaceBetween={8}

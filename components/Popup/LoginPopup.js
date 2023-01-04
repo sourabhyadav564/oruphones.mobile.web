@@ -32,30 +32,30 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
       setStep(2);
     }
   };
-  useEffect(() => {
-    if (open) {
-      const onBackButtonEvent = (e) => {
-        e.preventDefault();
-        setOpen(false);
-      }
+  // useEffect(() => {
+  //   if (open) {
+  //     const onBackButtonEvent = (e) => {
+  //       e.preventDefault();
+  //       setOpen(false);
+  //     }
 
-      window.history.pushState(null, null, window.location.pathname);
-      window.addEventListener('popstate', onBackButtonEvent);
-      return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);
-      };
-    } else {
-      const onBackButtonEvent = (e) => {
-        e.preventDefault();
-        window.history.back();
-      }
-      window.history.pushState(null, null, window.location.pathname);
-      window.addEventListener('popstate', onBackButtonEvent);
-      return () => {
-        window.removeEventListener('popstate', onBackButtonEvent);
-      };
-    }
-  }, [open]);
+  //     window.history.pushState(null, null, window.location.pathname);
+  //     window.addEventListener('popstate', onBackButtonEvent);
+  //     return () => {
+  //       window.removeEventListener('popstate', onBackButtonEvent);
+  //     };
+    // } else {
+    //   const onBackButtonEvent = (e) => {
+    //     e.preventDefault();
+    //     window.history.back();
+    //   }
+    //   // window.history.pushState(null, null, window.location.pathname);
+    //   window.addEventListener('popstate', onBackButtonEvent);
+    //   return () => {
+    //     window.removeEventListener('popstate', onBackButtonEvent);
+    //   };
+  //   }
+  // }, [open]);
   const handleChange = (e) => {
     const { name, type } = e.target;
     const value = type === "checkbox" ? e.target.checked : e.target.value;

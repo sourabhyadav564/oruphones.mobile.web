@@ -8,30 +8,30 @@ import VerifyListingPopup from "./VerifyListingPopup";
 function UnverifiedListingPopup({ open, setOpen, unverifiedListingType, unverifiedListingReason }) {
     const [openVerifyListingPopup, setOpenVerifyListingPopup] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
-    useEffect(() => {
-        if (open) {
-            const onBackButtonEvent = (e) => {
-                e.preventDefault();
-                setOpen(false);
-            }
+    // useEffect(() => {
+    //     if (open) {
+    //         const onBackButtonEvent = (e) => {
+    //             e.preventDefault();
+    //             setOpen(false);
+    //         }
 
-            window.history.pushState(null, null, window.location.pathname);
-            window.addEventListener('popstate', onBackButtonEvent);
-            return () => {
-                window.removeEventListener('popstate', onBackButtonEvent);
-            };
-        } else {
-            const onBackButtonEvent = (e) => {
-                e.preventDefault();
-                window.history.back();
-            }
-            window.history.pushState(null, null, window.location.pathname);
-            window.addEventListener('popstate', onBackButtonEvent);
-            return () => {
-                window.removeEventListener('popstate', onBackButtonEvent);
-            };
-        }
-    }, [open]);
+    //         window.history.pushState(null, null, window.location.pathname);
+    //         window.addEventListener('popstate', onBackButtonEvent);
+    //         return () => {
+    //             window.removeEventListener('popstate', onBackButtonEvent);
+    //         };
+        // } else {
+        //     const onBackButtonEvent = (e) => {
+        //         e.preventDefault();
+        //         window.history.back();
+        //     }
+        //     window.history.pushState(null, null, window.location.pathname);
+        //     window.addEventListener('popstate', onBackButtonEvent);
+        //     return () => {
+        //         window.removeEventListener('popstate', onBackButtonEvent);
+        //     };
+    //     }
+    // }, [open]);
 
     const handleContinue = () => {
         setOpenVerifyListingPopup(true);
