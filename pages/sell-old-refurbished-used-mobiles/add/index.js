@@ -48,7 +48,7 @@ const index = ({ data }) => {
         Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
       );
       if (data) {
-        let makeModelLists = data?.dataObject;
+        makeModelLists = data?.dataObject;
         localStorage.setItem("make_models", JSON.stringify(makeModelLists));
         Cookies.set("make_models", true);
         // if (router.pathname == "/sell-old-refurbished-used-mobiles/add") { window.location.reload(); }
