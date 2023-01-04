@@ -103,7 +103,7 @@ function SimilarProduct({ data }) {
 
   return (
     <section className="px-4">
-      <p className="font-Light text-ex text-black border-b-2 pb-2">
+      <p className="font-Roboto-Light text-ex text-black border-b-2 pb-2">
         {" "}
         {/* Similar Products ({similar_listings?.length || 0}){" "} */}
         Similar Products

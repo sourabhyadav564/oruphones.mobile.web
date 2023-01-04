@@ -107,11 +107,11 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   "_blank",)
               }>
               <Image
-                 loading="lazy"
-                 placeholder="blur"
-                 priority={false}
-                 unoptimized={false}
-                 blurDataURL={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
+                loading="lazy"
+                placeholder="blur"
+                priority={false}
+                unoptimized={false}
+                blurDataURL={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
                 src={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
                 onError={() => {
                   setImageError(true);
@@ -237,7 +237,8 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                       className="w-full flex px-1 bg-yellow-400 rounded-md"
                       onClick={(e) => {
                         e.preventDefault();
-                        uploadPhotos();
+                        openMenu === data?.listingId ? setOpenMenu(-1) :
+                          uploadPhotos();
                       }}
 
                       style={{ backgroundColor: "#F9C414" }}
@@ -252,12 +253,40 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   </div>
                 </div>
               ) : data?.verified ? (
-                <div className="flex items-center pl-4 w-full">
-                  <VerificationIcon width={60} height={30} />
-                  <span className="text-sm text-black-4e ml-3">On: {data?.verifiedDate}​</span>
-                  <div className="bg-gray-ef text-gray-70 text-sm flex flex-col px-4 py-0.5 ml-auto rounded-tl-md rounded-br-md">
-                    <span>List Price</span>
-                    <span className="text-lg font-bold">₹ {numberWithCommas(data.listingPrice)}​</span>
+                // <div className="flex items-center pl-4 w-full">
+                //   <VerificationIcon width={60} height={30} />
+                //   <span className="text-sm text-black-4e ml-3">On: {data?.verifiedDate}​</span>
+                //   <div className="bg-gray-ef text-gray-70 text-sm flex flex-col px-4 py-0.5 ml-auto rounded-tl-md rounded-br-md">
+                //     <span>List Price</span>
+                //     <span className="text-lg font-bold">₹ {numberWithCommas(data.listingPrice)}​</span>
+                //   </div>
+                // </div>
+                <div className="gap-2 grid grid-cols-4 w-full px-2 py-2 text-center m-auto justify-between">
+                  {/* <VerifiedIcon width={60} height={30} /> */}
+                  <div className="flex col-span-3 gap-2">
+                    <div className="flex py-1 px-2 space-x-1 rounded-md" style={{ backgroundColor: "#4CAF50" }}>
+                      {/* <VscVerified size={20} className="self-center text-white"/> */}
+                      {/*image  */}
+                      <VerificationIcon />
+                      <span className="text-bx self-center text-white uppercase font-light italic">verified</span>
+                    </div>
+                    <span
+                      className="w-full flex px-1 bg-yellow-400 rounded-md"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        openMenu === data?.listingId ? setOpenMenu(-1) :
+                          uploadPhotos();
+                      }}
+
+                      style={{ backgroundColor: "#F9C414" }}
+                    >
+                      {/* <BsPlus size={20} className="self-center font-semibold"/> */}
+                      <p className="self-center font-regular text-jx m-auto justify-center">+ Upload Photos</p>
+                    </span>
+                  </div>
+                  <div className="w-full col-span-1 rounded-md px-1 m-auto justify-center flex flex-col py-0.5  " style={{ backgroundColor: "#2C2F45" }}>
+                    <span className="text-white self-center font-normal text-bx">List Price</span>
+                    <span className="font-Semibold text-white text-mx">₹ {numberWithCommas(data.listingPrice)}​</span>
                   </div>
                 </div>
               )
@@ -278,7 +307,8 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                         className="text-jx font-Semibold self-center "
                         onClick={(e) => {
                           e.preventDefault();
-                          setOpenVerifyFlow(true);
+                          openMenu === data?.listingId ? setOpenMenu(-1) :
+                            setOpenVerifyFlow(true);
                         }}
                       >
                         Click to Verify Now

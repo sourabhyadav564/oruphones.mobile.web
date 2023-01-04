@@ -39,11 +39,11 @@ function BottomNav() {
             <Link href="/" onClick={() => setLoadingState(true)}>
               <a
                 aria-current="page"
-                className={`flex flex-col items-center   ${isActive("/") ? "text-white" : ""
+                className={`flex flex-col items-center   ${isActive("/") ? "text-white font-Roboto-Semibold" : ""
                   } `}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={Home} width={20} height={20} alt="ORU home" />
+                <Image src={Home} width={isActive("/") ? 22 : 20} height={isActive("/") ? 22 : 20} alt="ORU home" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -72,12 +72,12 @@ function BottomNav() {
             </Link>
             <Link href="/user/listings" onClick={() => setLoadingState(true)}>
               <a
-                className={`flex flex-col items-center ${isActive("/user/listings") ? "text-white" : ""
+                className={`flex flex-col items-center ${isActive("/user/listings") ? "text-white font-Roboto-Semibold" : ""
                   } `}
-                  
+
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={MyListings} width={20} height={20} alt="ORU mylistings"/>
+                <Image src={MyListings} width={isActive("/user/listings") ? 22 : 20} height={isActive("/user/listings") ? 22 : 20} alt="ORU mylistings" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -125,11 +125,11 @@ function BottomNav() {
             </Link>
             <Link href="/services" onClick={() => setLoadingState(true)}>
               <a
-                className={`flex flex-col items-center ${isActive("/services") ? "text-white" : " "
+                className={`flex flex-col items-center ${isActive("/services") ? "text-white font-Roboto-Semibold" : " "
                   }`}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={Services} width={20} height={20} alt="ORU services"/>
+                <Image src={Services} width={isActive("/services") ? 22 : 20} height={isActive("/services") ? 22 : 20} alt="ORU services" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -149,11 +149,11 @@ function BottomNav() {
             <Link href="/user/profile" onClick={() => setLoadingState(true)}
             >
               <a
-                className={`flex flex-col items-center ${isActive("/user/profile") ? "text-white" : " "
+                className={`flex flex-col items-center ${isActive("/user/profile") ? "text-white font-Roboto-Semibold" : " "
                   }`}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={Profile} width={20} height={20} alt="ORU user profile" />
+                <Image src={Profile} width={isActive("/user/profile") ? 22 : 20} height={isActive("/user/profile") ? 22 : 20} alt="ORU user profile" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"

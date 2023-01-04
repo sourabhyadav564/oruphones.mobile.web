@@ -134,20 +134,24 @@ function ProductDeatils({ data }) {
   // }, [openLoginPopup]);
 
   useEffect(() => {
-    if (
-      openLoginPopup == false &&
-      performAction == true &&
-      Cookies.get("userUniqueId") !== undefined &&
-      data?.isOtherVendor !== "Y"
-    ) {
-      if (data?.verified) {
-        showSellerNumber(data?.listingId);
-        // handleButtonClick();
-        // setShowNumber((prev) => !prev);
-      } else {
-        setOpenRequestVerificationPopup(true);
+    const interval = setInterval(() => {
+      if (
+        openLoginPopup == false &&
+        performAction == true &&
+        Cookies.get("userUniqueId") !== undefined &&
+        data?.isOtherVendor !== "Y"
+      ) {
+        if (data?.verified) {
+          showSellerNumber(data?.listingId);
+          clearInterval(interval);
+          // handleButtonClick();
+          // setShowNumber((prev) => !prev);
+        } else {
+          setOpenRequestVerificationPopup(true);
+          clearInterval(interval);
+        }
       }
-    }
+    }, 1000);
   }, [openLoginPopup]);
 
   useEffect(() => {
@@ -251,8 +255,8 @@ function ProductDeatils({ data }) {
   }, [showNumber]);
 
   const executeScroll = () => {
-    setDefaultOpen(true);
     myRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    // setDefaultOpen(true);
   };
 
   function openWebSite(data) {
@@ -511,17 +515,17 @@ function ProductDeatils({ data }) {
               <Fragment>
                 {/* <VerifiedIcon width={75} height={32} /> */}
                 <div
-                  className="flex m-auto justify-center text-white px-2 py-2 rounded-md"
+                  className="flex m-auto justify-center text-white px-3 py-0.5 rounded-md "
                   style={{ background: "#4CAF50" }}
                 >
-                  <div className="flex flex-1 space-x-1 ">
+                  <div className="flex flex-1  ">
                     <VerificationIcon className="self-center" />
-                    <p className="font-Light Italic text-lx self-center">
+                    <p className="font-Roboto-Light Italic text-ex self-center">
                       Verified
                     </p>
                   </div>
                   <div className="m-auto justify-center ">
-                    <p className="text-jx font-Light">
+                    <p className="text-jx font-Roboto-Light">
                       This phone is verified by ORUphones
                     </p>
                   </div>
@@ -601,7 +605,7 @@ function ProductDeatils({ data }) {
           </div>
           {data?.externalSource?.length > 0 && (
             <div className="border-b-2 pb-2">
-              <span className="text-ex  font-Light">
+              <span className="text-ex  font-Roboto-Light">
                 Compare from other sellers
               </span>
             </div>
