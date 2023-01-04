@@ -32,6 +32,7 @@ const index = ({ data }) => {
   const [makeAndModels, setMakeAndModels] = useState([]);
   let make_models = true;
   let makeModelLists = data;
+  let check = 1; 
 
   useEffect(async () => {
     if (!localStorage.getItem("make_models") || localStorage.getItem("make_models") == undefined || localStorage.getItem("make_models").toString() == "undefined") {
@@ -64,19 +65,27 @@ const index = ({ data }) => {
       makeModelLists = data?.dataObject;
       localStorage.setItem("make_models", JSON.stringify(makeModelLists));
       Cookies.set("make_models", true);
-      window.location.reload();
+      // window.location.reload();
     }
-    // if(localStorage.getItem("make_models") == undefined || localStorage.getItem("make_models").toString() == "undefined")
-    // window.location.reload();
+    // if((localStorage.getItem("make_models") == undefined || localStorage.getItem("make_models").toString() == "undefined") && check == 1){
+    //   window.location.reload();
+    //   check++;
+    // }
 
     if (data?.length == 0) {
       setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
-      // window.location.reload();
+      if(check==1){
+        window.location.reload();
+        check++;
+      }
     } else {
       localStorage.setItem("make_models", JSON.stringify(makeModelLists));
       Cookies.set("make_models", true);
       setMakeAndModels(data);
-      // window.location.reload();
+      if(check==1){
+      window.location.reload();
+      check++;
+      }
     }
   }, []);
 
