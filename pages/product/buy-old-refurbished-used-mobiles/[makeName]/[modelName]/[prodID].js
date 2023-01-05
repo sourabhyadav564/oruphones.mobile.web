@@ -51,7 +51,7 @@ import { toast } from "react-toastify";
 import sold_out from "@/assets/soldout.png";
 import { FaGreaterThan } from "react-icons/fa";
 import ThisPhonePopup from "@/components/Popup/ThisPhonePopup";
-// import ComparisonTable from "@/components/Tables/comparisonTable";
+import ComparisonTable from "@/components/Tables/ComparisonTable";
 
 // import {
 //   otherVandorDataSelector,
@@ -222,15 +222,25 @@ function ProductDeatils({ data }) {
   }, [data]);
 
   useEffect(() => {
-    if (
-      openLoginPopup == false &&
-      performAction2 == true &&
-      Cookies.get("userUniqueId") !== undefined &&
-      data?.productLink !== "" &&
-      productLink !== ""
-    ) {
-      window.open(productLink, "_blank");
-    }
+    const interval = setInterval(() => {
+
+      if (
+        openLoginPopup == false &&
+        performAction2 == true &&
+        Cookies.get("userUniqueId") !== undefined &&
+        data?.productLink !== "" &&
+        productLink !== ""
+        ) {
+          window.open(productLink, "_blank");
+          clearInterval(interval);}
+        else if( openLoginPopup == false &&
+          performAction2 == true &&
+          Cookies.get("userUniqueId") !== undefined &&
+          productLink == ""){
+            setThisPhonePopup(true);
+            clearInterval(interval);
+          }
+      } , 1000);
   }, [openLoginPopup]);
   // console.log("Data::", data);
 
@@ -900,9 +910,13 @@ function ProductDeatils({ data }) {
         <div className="px-5 my-5">
           <SellerDetails data={data} />
         </div>
-        {/* <div>
-          <ComparisonTable />
-        </div> */}
+        <div className="py-2 px-5">
+          {/* <p className="pl-5 font-Roboto-Light text-ex border-b-2">Detailed Comparison Between Other Sellers</p> */}
+          <p className="text-[14px] text-[#2C2F45] font-Roboto-Light my-3 border-b-2 pb-1 ">Detailed Comparison Between Other Sellers</p>
+          <ComparisonTable  
+            data={data?.externalSource.length > 0 ? data?.externalSource : []}
+          />
+        </div>
       </main>
       <SimilarProduct data={data} />
       <Footer />
