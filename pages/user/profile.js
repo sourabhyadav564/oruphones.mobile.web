@@ -90,6 +90,7 @@ function Profile() {
         dispatch("LOGIN", resp.dataObject);
         toast.info("Profile information saved successfully", {
           position: toast.POSITION.TOP_CENTER,
+          toastId:"014",
         });
       });
     });
@@ -109,6 +110,7 @@ function Profile() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        toastId:"015",
       });
     });
   };

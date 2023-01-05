@@ -51,6 +51,7 @@ import { toast } from "react-toastify";
 import sold_out from "@/assets/soldout.png";
 import { FaGreaterThan } from "react-icons/fa";
 import ThisPhonePopup from "@/components/Popup/ThisPhonePopup";
+// import ComparisonTable from "@/components/Tables/comparisonTable";
 
 // import {
 //   otherVandorDataSelector,
@@ -570,7 +571,10 @@ function ProductDeatils({ data }) {
                               setperformAction3(true);
                             } else if (data?.status == "Active") {
                               setOpenRequestVerificationSuccessPopup(true);
-                            } else toast.warning(`This device is sold out`,{toastId: "009"});
+                            } else
+                              toast.warning(`This device is sold out`, {
+                                toastId: "009",
+                              });
                           }}
                         >
                           Click here to Request Verification
@@ -701,7 +705,9 @@ function ProductDeatils({ data }) {
                   onClick={() =>
                     data?.status == "Active"
                       ? showSellerNumber(data?.listingId)
-                      : toast.warning(`This device is sold out`,{toastId: "010"})
+                      : toast.warning(`This device is sold out`, {
+                          toastId: "010",
+                        })
                   }
                 >
                   {showNumber ? contactSellerMobileNumber : "Contact Seller"}
@@ -727,7 +733,9 @@ function ProductDeatils({ data }) {
                                   `https://wa.me/+91${response?.dataObject?.mobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
                                   "_blank"
                                 )
-                              : toast.warning(`This device is sold out`,{toastId: "011"});
+                              : toast.warning(`This device is sold out`, {
+                                  toastId: "011",
+                                });
                           });
                     }}
                   >
@@ -870,7 +878,10 @@ function ProductDeatils({ data }) {
                       setperformAction3(true);
                     } else if (data?.status == "Active") {
                       setOpenRequestVerificationSuccessPopup(true);
-                    } else toast.warning(`This device is sold out`,{toastId:"013"});
+                    } else
+                      toast.warning(`This device is sold out`, {
+                        toastId: "013",
+                      });
                   }}
                 >
                   {" "}
@@ -889,6 +900,9 @@ function ProductDeatils({ data }) {
         <div className="px-5 my-5">
           <SellerDetails data={data} />
         </div>
+        {/* <div>
+          <ComparisonTable />
+        </div> */}
       </main>
       <SimilarProduct data={data} />
       <Footer />

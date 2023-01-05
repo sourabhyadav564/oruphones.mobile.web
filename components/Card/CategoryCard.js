@@ -40,7 +40,7 @@ const CategoryCards = ({ data, priceRange, warrantycard }) => {
               />
             </div>
           </div>
-          <p className="font-Roboto-Regular text-jx text-[#707070] pt-1 pr-5 text-center">
+          <p className="font-Roboto-Regular font-bold text-jx text-[#707070] pt-1 pr-5 text-center">
             Shop By <span>Price</span>
           </p>
           <ShopByPopup open={openPriceRange} setOpen={setOpenPriceRange} />
@@ -68,7 +68,7 @@ const CategoryCards = ({ data, priceRange, warrantycard }) => {
               />
             </div>
           </div>
-          <p className="font-Roboto-Regular text-jx text-[#707070] pt-1 pr-5 text-center">
+          <p className="font-Roboto-Regular font-bold text-jx text-[#707070] pt-1 pr-5 text-center">
            Phones with Warranty 
           </p>
           <WarrantyByPop data={data} open={Openwarrantycard} setOpen={setOpenWarrantycard} />

@@ -99,7 +99,7 @@ function BannerBuyHeading({ title }) {
 function ShopCategoryHeading({ title }) {
   return (
     <div>
-      <p className='font-Roboto-Regular text-jx text-[#707070]'> {title}</p>
+      <p className='font-Roboto-Regular font-bold text-jx text-[#707070]'> {title}</p>
     </div>
   )
 }
