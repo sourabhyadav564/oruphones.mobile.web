@@ -9,11 +9,11 @@ let headers = {
   "Content-Type": "application/json",
   srcFrom: "Mobile Web",
   eventName: "NA",
-  userUniqueId: 
-  // Cookies.get("userUniqueId")!==undefined
+  userUniqueId:
+    // Cookies.get("userUniqueId")!==undefined
     // ? Cookies.get("userUniqueId")
     // :
-     0,
+    0,
   sessionId:
     typeof window !== "undefined"
       ? localStorage.getItem("sessionId")
@@ -446,9 +446,9 @@ export async function fetchSellerMobileNumber(listingid, userUniqueId) {
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   },
-  (err) => {
-    console.log(err);
-  }
+    (err) => {
+      console.log(err);
+    }
   );
 }
 
@@ -830,6 +830,21 @@ export function markAsRead(notificationId, userUniqueId) {
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
     `${URI}/api/v1/notification/read/` + notificationId + userUniqueId;
+  return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
+    (response) => {
+      return response.data;
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+
+export function deleteNotification(notificationId, userUniqueId) {
+  headers = { ...headers, eventName: "NOTIFICATION_REMOVED" };
+  const DEFAULT_HEADER = { headers: { ...headers } };
+  const API_ENDPOINT =
+    `${URI}/api/v1/notification/remove?id=` + notificationId + "&userUniqueId=" + userUniqueId;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
       return response.data;

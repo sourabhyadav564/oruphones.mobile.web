@@ -3,16 +3,64 @@ import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 // import mob from "@/assets/mobiru_logo.svg";
 import mob from "@/assets/logo_square.svg";
-import { getAllNotificationByUserd, markAsRead } from "api-call";
+import { deleteNotification, getAllNotificationByUserd, markAsRead } from "api-call";
 import Cookies from "js-cookie";
 import router from "next/router";
 import VerifyFlowPopup from "@/components/Popup/VerifyFlowPopup";
+import {
+  LeadingActions,
+  SwipeableList,
+  SwipeableListItem,
+  SwipeAction,
+  TrailingActions,
+} from 'react-swipeable-list';
+import 'react-swipeable-list/dist/styles.css';
 
 function Notification({ notificationsListObject }) {
   const [notifications, setNotifications] = useState(
     notificationsListObject?.notifications
   );
   const [openVerifyFlow, setOpenVerifyFlow] = useState(false);
+
+  const leadingActions = (id) => (
+    <LeadingActions>
+      <SwipeAction
+        destructive={true}
+        onClick={() =>
+          deleteNotification(id, Cookies.get("userUniqueId")).then(
+            (response) => {
+              console.log("deleteNotification -> ", response);
+            }
+            , (error) => {
+              console.log("deleteNotification -> ", error);
+            })}
+      >
+        <div className="flex font-Roboto-Semibold text-ex justify-center w-full px-40 text-white bg-red text-center items-center">
+          Delete
+        </div>
+      </SwipeAction>
+    </LeadingActions>
+  );
+
+  const trailingActions = (id) => (
+    <TrailingActions>
+      <SwipeAction
+        destructive={true}
+        onClick={() =>
+          deleteNotification(id, Cookies.get("userUniqueId")).then(
+            (response) => {
+              console.log("deleteNotification -> ", response);
+            }
+            , (error) => {
+              console.log("deleteNotification -> ", error);
+            }
+          )}>
+        <div className="flex font-Roboto-Semibold text-ex justify-center w-full px-40 text-white bg-red text-center items-center">
+          Delete
+        </div>
+      </SwipeAction>
+    </TrailingActions>
+  );
 
   function redirectTo(data) {
     if (data.webEventAction === "APP_DOWNLOAD") {
@@ -36,16 +84,23 @@ function Notification({ notificationsListObject }) {
   return (
     <Fragment>
       <Header5 title="Notification" />
-      <main className="overflow-hidden pt-12 overflow-y-auto">
+      <main className="overflow-hidden overflow-y-auto">
         {notifications && notifications?.length > 0 ? (
           notifications?.map((items, index) => (
-            <NotificationsItem
-              key={index}
-              text={items.messageContent}
-              timestamp={items.createdDate}
-              isUnRead={items.isUnRead === 0}
-              onClick={() => redirectTo(items)}
-            />
+            <SwipeableList>
+              <SwipeableListItem key={index}
+                leadingActions={leadingActions(items.notificationId)}
+                trailingActions={trailingActions(items.notificationId)}
+              >
+                <NotificationsItem
+                  key={index}
+                  text={items.messageContent}
+                  timestamp={items.createdDate}
+                  isUnRead={items.isUnRead === 0}
+                  onClick={() => redirectTo(items)}
+                />
+              </SwipeableListItem>
+            </SwipeableList>
           ))
         ) : (
           <div className="flex justify-center items-center h-52">
@@ -74,12 +129,12 @@ const NotificationsItem = ({ text, timestamp, onClick, isUnRead }) => (
     </div>
     <div>
       <p
-        className={`text-sm text-m-grey-1 ${isUnRead == 0 ? "font-bold" : ""}`}
+        className={`text-sm text-m-grey-1 font-Roboto-Semibold ${isUnRead == 0 ? "font-bold" : ""}`}
       >
         {" "}
         {text}{" "}
       </p>
-      <span className="text-xs" style={{ color: "#C7C7C7" }}>
+      <span className="text-xs font-Roboto-Regular" style={{ color: "#C7C7C7" }}>
         {timestamp}
       </span>
     </div>
