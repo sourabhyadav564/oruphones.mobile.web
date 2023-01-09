@@ -6,7 +6,14 @@ import verifiedIcon from "@/assets/verified.svg";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
-import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4, CardHeading5 } from "@/components/elements/CardHeading/cardheading";
+import {
+  CardHeading,
+  CardHeading1,
+  CardHeading2,
+  CardHeading3,
+  CardHeading4,
+  CardHeading5,
+} from "@/components/elements/CardHeading/cardheading";
 import VerifiedIcon from "@/components/VerifiedIcon";
 // import IStock from "@/assets/icons/phone.png"
 import { numberWithCommas } from "@/utils/util";
@@ -18,10 +25,15 @@ import VerificationIcon from "../verificationIcon";
 import { fetchByMarketingName } from "api-call";
 import Cookies from "js-cookie";
 
-
-
-function ShopbymodelCard({ data, location, makeLink, make, src, alt, fallBackSrc = Logo.src }) {
-
+function ShopbymodelCard({
+  data,
+  location,
+  makeLink,
+  make,
+  src,
+  alt,
+  fallBackSrc = Logo.src,
+}) {
   // console.log("data3", data);
 
   const router = useRouter();
@@ -40,28 +52,29 @@ function ShopbymodelCard({ data, location, makeLink, make, src, alt, fallBackSrc
       Cookies.get("userUniqueId") || "Guest",
       0,
       "Featured"
-    )
-  }
+    );
+  };
 
-  console.log("shop by models make : ", make)
+  console.log("shop by models make : ", make);
 
   return (
-
     <>
-      <div className="flex relative mb-6 flex-col items-center justify-center"
-        // onClick={handleModelClick} 
-        onClick={() => window.open(
-          makeLink
-            ? `/product/buy-old-refurbished-used-mobiles/${make}/`
-            : `/product/buy-old-refurbished-used-mobiles/${make}/${data}`,
-          "_blank","nofollow"
-        )
+      <div
+        className="flex relative mb-6 flex-col items-center justify-center"
+        // onClick={handleModelClick}
+        onClick={() =>
+          window.open(
+            makeLink
+              ? `/product/buy-old-refurbished-used-mobiles/${make}/`
+              : `/product/buy-old-refurbished-used-mobiles/${make}/${data}`,
+            "_blank",
+            "nofollow"
+          )
         }
       >
-
         <div className="">
           <Image
-            src={imageError ? fallBackSrc : src ||Logo}
+            src={imageError ? fallBackSrc : src || Logo}
             alt={alt}
             onError={() => setImageError(true)}
             width="34"
@@ -72,12 +85,9 @@ function ShopbymodelCard({ data, location, makeLink, make, src, alt, fallBackSrc
         <div className="m-auto">
           <CardHeading5 title={data} />
         </div>
-
       </div>
     </>
-
-  )
-};
-
+  );
+}
 
 export default ShopbymodelCard;

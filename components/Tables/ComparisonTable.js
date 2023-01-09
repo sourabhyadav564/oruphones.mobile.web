@@ -1,6 +1,15 @@
+import Cookies from "js-cookie";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { BsInfoCircle } from "react-icons/bs";
+import { FaGreaterThan } from "react-icons/fa";
+import LoginPopup from "../Popup/LoginPopup";
+import ThisPhonePopup from "../Popup/ThisPhonePopup";
+import WarrantyInfo from "@/components/Popup/WarrantyInfo";
+import VerificationInfo from "../Popup/VerificationInfo";
+
+
 
 function ComparisonTable(data) {
   console.log("data prod", data);
@@ -14,6 +23,35 @@ function ComparisonTable(data) {
       }, 1000);
     }
   }, []);
+  const [performAction2, setperformAction2] = useState(false);
+  const [openLoginPopup, setOpenLoginPopup] = useState(false);
+  const [productLink, setProductLink] = useState("");
+  const [thisPhonePopup, setThisPhonePopup] = useState(false);
+  const [openWarrantyInfo, setOpenWarrantyInfo] = useState(false);
+  const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
+  
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+
+      if (
+        openLoginPopup == false &&
+        performAction2 == true &&
+        Cookies.get("userUniqueId") !== undefined &&
+        data?.productLink !== "" &&
+        productLink !== ""
+        ) {
+          window.open(productLink, "_blank");
+          clearInterval(interval);}
+        else if( openLoginPopup == false &&
+          performAction2 == true &&
+          Cookies.get("userUniqueId") !== undefined &&
+          productLink == ""){
+            setThisPhonePopup(true);
+            clearInterval(interval);
+          }
+      } , 1000);
+  }, [openLoginPopup]);
 
   return (
     <>
@@ -35,33 +73,42 @@ function ComparisonTable(data) {
               </th>
               <th
                 scope="col"
-                class="px-6 py-3 bg-primary border-[1px] border-r-gray"
+                class="px-6 py-3 bg-primary border-[1px] border-r-gray text-center"
               >
-                Brand Warranty
+                <div className="flex justify-center items-center" onClick={()=>setOpenWarrantyInfo(true)}>
+                <p className="pr-1">Brand Warranty</p>
+                <BsInfoCircle size={20} classname="pl-1"/>
+                </div>
               </th>
               <th
                 scope="col"
-                class="px-6 py-3 bg-primary border-[1px] border-r-gray"
+                class="px-6 py-3 bg-primary border-[1px] border-r-gray text-center"
               >
-                Seller Warranty
+              <div className="flex justify-center items-center" onClick={()=>setOpenWarrantyInfo(true)}>
+                <p className="pr-1">Seller Warranty</p>
+                <BsInfoCircle size={20} classname="pl-1"/>
+                </div>
               </th>
               <th
                 scope="col"
-                class="px-6 py-3 bg-primary border-[1px] border-r-gray"
+                class="px-6 py-3 bg-primary border-[1px] border-r-gray text-center"
               >
                 Accessories (Compatible)
               </th>
               <th
                 scope="col"
-                class="px-6 py-3 bg-primary border-[1px] border-r-gray"
+                class="px-6 py-3 bg-primary border-[1px] border-r-gray text-center"
               >
                 Accessories (Original)
               </th>
               <th
                 scope="col"
-                class="px-6 py-3 bg-primary border-[1px] border-r-gray"
+                class="px-6 py-3 bg-primary border-[1px] border-r-gray text-center"
               >
-                ORU Verified
+                <div className="flex justify-center items-center" onClick={()=>setOpenVerificationInfo(true)}>
+                <p className="pr-1">Oru Verified</p>
+                <BsInfoCircle size={20} classname="pl-1"/>
+                </div>
               </th>
             </tr>
           </thead>
@@ -72,22 +119,43 @@ function ComparisonTable(data) {
                   <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center">
                     <th
                       scope="row"
-                      class="px-6 py-4 font-medium text-gray-400 whitespace-nowrap dark:text-white sticky top-0 left-0 bg-white drop-shadow-2xl  border-[1px]"
+                      class="px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-white drop-shadow-2xl  border-[1px]"
                     >
+                      <div className="flex" onClick={() => {
+                      if (Cookies.get("userUniqueId") == undefined) {
+                        setOpenLoginPopup(true);
+                        setProductLink(item?.productLink);
+                        setperformAction2(true);
+                      } else if (
+                        item?.externalSourceImage !=
+                        "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
+                      )
+                        window.open(item?.productLink, "_blank");
+                      else if (
+                        item?.externalSourceImage ==
+                        "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
+                      ) {
+                        setThisPhonePopup(true);
+                      }
+                    }}>
+
                       {item?.userName &&
                       item?.externalSourceImage !=
-                        "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? (
+                      "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? (
                         item?.userName
-                      ) : (
-                        <Image
+                        ) : (
+                          <Image
                           src={item?.externalSourceImage}
                           height={30}
                           width={70}
-                        />
-                      )}
+                          />
+                          )
+                        }
+                      <FaGreaterThan size={18} className="pt-1.5" />
+                        </div>
                     </th>
-                    <td class="px-6 py-4 border-[1px] ">
-                      {item?.externalSourcePrice}
+                    <td class="mx-4 py-4 border-[1px] ">
+                    ₹ {item?.externalSourcePrice}
                     </td>
                     <td class="px-6 py-4  border-[1px]">
                       {item?.Object?.isOtherVendor == "N"
@@ -166,6 +234,21 @@ function ComparisonTable(data) {
           </tbody>
         </table>
       </div>
+      <LoginPopup
+        open={openLoginPopup}
+        setOpen={setOpenLoginPopup}
+        fromAddListing
+      />
+      <ThisPhonePopup open={thisPhonePopup} setOpen={setThisPhonePopup}/>
+      {openWarrantyInfo && (
+        <WarrantyInfo open={openWarrantyInfo} setOpen={setOpenWarrantyInfo} />
+      )}
+       {openVerificationInfo && (
+        <VerificationInfo
+          open={openVerificationInfo}
+          setOpen={setOpenVerificationInfo}
+        />
+      )}
     </>
   );
 }

@@ -44,6 +44,8 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import {
   CardHeading,
   CardHeading2,
+  CardHeading3,
+  CardHeading4,
   CardHeading5,
 } from "@/components/elements/CardHeading/cardheading";
 import SearchBar from "@/components/Header/SearchBar";
@@ -83,6 +85,7 @@ function ProductDeatils({ data }) {
     openRequestVerificationSuccessPopup,
     setOpenRequestVerificationSuccessPopup,
   ] = useState(false);
+  const [ImageError, setImageError] = useState(false);
   const [openRequestVerificationPopup, setOpenRequestVerificationPopup] =
     useState(false);
   const [performAction2, setperformAction2] = useState(false);
@@ -223,24 +226,25 @@ function ProductDeatils({ data }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-
       if (
         openLoginPopup == false &&
         performAction2 == true &&
         Cookies.get("userUniqueId") !== undefined &&
         data?.productLink !== "" &&
         productLink !== ""
-        ) {
-          window.open(productLink, "_blank");
-          clearInterval(interval);}
-        else if( openLoginPopup == false &&
-          performAction2 == true &&
-          Cookies.get("userUniqueId") !== undefined &&
-          productLink == ""){
-            setThisPhonePopup(true);
-            clearInterval(interval);
-          }
-      } , 1000);
+      ) {
+        window.open(productLink, "_blank");
+        clearInterval(interval);
+      } else if (
+        openLoginPopup == false &&
+        performAction2 == true &&
+        Cookies.get("userUniqueId") !== undefined &&
+        productLink == ""
+      ) {
+        setThisPhonePopup(true);
+        clearInterval(interval);
+      }
+    }, 1000);
   }, [openLoginPopup]);
   // console.log("Data::", data);
 
@@ -912,8 +916,57 @@ function ProductDeatils({ data }) {
         </div>
         <div className="py-2 px-5">
           {/* <p className="pl-5 font-Roboto-Light text-ex border-b-2">Detailed Comparison Between Other Sellers</p> */}
-          <p className="text-[14px] text-[#2C2F45] font-Roboto-Light my-3 border-b-2 pb-1 ">Detailed Comparison Between Other Sellers</p>
-          <ComparisonTable  
+          <p className="text-[16px] text-[#2C2F45] font-Roboto-Bold my-3 border-b-2 pb-1 ">
+            Detailed Comparison Between Other Sellers
+          </p>
+          {data && (
+            <div className=" pb-5 flex space-x-4 w-full drop-shadow-2xl border-b-2 ">
+              {/* <Image
+                src={ImageError ? Logo : data?.defaultImage || Logo}
+                onError={()=>setImageError(true)}
+                className=""
+                // alt={`${
+                //   type[Math.floor(Math.random() * type.length)]
+                // } ${model} ${storage} like new `.toLowerCase()}
+                height={120}
+                width={90}
+              /> */}
+              <div className="flex flex-col bottom-5 left-36">
+                <p className="font-bold font-Roboto-Light text-dx text-[#2C2F45]">{data?.marketingName}</p>
+
+
+                {data?.make != "Apple" && (
+                  <p className="flex space-x-1">
+                    <span>
+                      <CardHeading4 title="RAM :" />
+                    </span>{" "}
+                    <div className="font-Roboto-light text-jx text-[#2C2F45] pt-[3px] font-bold">
+                      {data?.deviceRam}
+                    </div>
+                  </p>
+                )}
+                <div className="flex flex-row space-x-2">
+                  <p className="flex ">
+                    <span>
+                    <p className="font-Roboto-Light font-bold text-ex">Storage :</p>
+                    </span>{" "}
+                    <div className="font-Roboto-Regular text-jx text-[#2C2F45] pt-[2.5px] pl-1 font-bold">
+                      {data?.deviceStorage?.split("/")[0]}
+                    </div>
+                  </p>
+                  <p className="flex space-x-1">
+                    <span>
+                      <p className="font-Roboto-Light font-bold text-ex">Condition :</p>
+                    </span>{" "}
+                    <div className="font-Roboto-regular text-jx text-[#2C2F45] pt-[2.5px] font-bold">
+                      {data?.deviceCondition?.split("/")[0]}
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+          <ComparisonTable
             data={data?.externalSource.length > 0 ? data?.externalSource : []}
           />
         </div>

@@ -1,5 +1,5 @@
 import BestDealSection from "@/components/BestDealSection";
-import ShopByBrandsSection from "@/components/ShopByBrandsSection"
+import ShopByBrandsSection from "@/components/ShopByBrandsSection";
 import OtherListingCard from "@/components/Card/OtherListingCard";
 import { BiSortAlt2, BiFilterAlt } from "react-icons/bi";
 import { useRouter } from "next/router";
@@ -16,7 +16,11 @@ import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
 import { FiTablet } from "react-icons/fi";
-import { CardHeading2, CardHeading4, CardHeading5 } from "@/components/elements/CardHeading/cardheading";
+import {
+  CardHeading2,
+  CardHeading4,
+  CardHeading5,
+} from "@/components/elements/CardHeading/cardheading";
 import { Heading, Heading3 } from "@/components/elements/Heading/heading";
 import BrandCard from "@/components/Card/BrandCard";
 import BasicCarousel from "@/components/Carousel/BasicCarousel";
@@ -24,7 +28,6 @@ import BottomNav from "@/components/Navigation/BottomNav";
 import LoadingStatePopup from "@/components/Popup/LoadingStatePopup";
 import { useRecoilValue } from "recoil";
 import { makeState } from "atoms/globalState";
-
 
 // import {
 //   otherVendorDataState,
@@ -61,11 +64,14 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
 
   const loadData = async (intialPage) => {
-
     const getMakeModel = async () => {
       brandResult = await getMakeModelLists(
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
+        Cookies.get("sessionId") != undefined
+          ? Cookies.get("sessionId")
+          : localStorage.getItem("sessionId") != undefined
+          ? localStorage.getItem("sessionId")
+          : ""
         // makeName2,
         // "Y"
       );
@@ -77,8 +83,13 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
     if (localStorage.getItem("make_models") != undefined) {
       if (makeName === "oneplus") {
         makeName = "OnePlus";
-      } else {
-        makeName = String(makeName).charAt(0).toUpperCase() + String(makeName).slice(1);
+      } else if (makeName === "lg") {
+        makeName = "LG";
+      } else if(makeName === 'htc'){makeName="HTC"} 
+      else if(makeName==='zte'){makeName="ZTE"}
+      else {
+        makeName =
+          String(makeName).charAt(0).toUpperCase() + String(makeName).slice(1);
       }
       console.log("local storage", makeName);
       makemodel = JSON.parse(localStorage.getItem("make_models"));
@@ -88,9 +99,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           setDescription(item.make);
           setshopbymodel(item.models);
         }
-      })
-    }
-    else {
+      });
+    } else {
       if (makeName === "oneplus") {
         makeName = "OnePlus";
       } else {
@@ -104,7 +114,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           setDescription(item.make);
           setshopbymodel(item.models);
         }
-      })
+      });
     }
     // if(makemodel!=undefined){
     //   makemodel.map((item)=>{
@@ -115,7 +125,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
     //     }
     //   })
     // }
-     
+
     if (makeName && !isFilterApplied && !applyFilter) {
       fetchByMakeList(
         selectedSearchCity,
@@ -171,7 +181,9 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           if (makeName === "oneplus") {
             makeName = "OnePlus";
           } else {
-            makeName = String(makeName).charAt(0).toUpperCase() + String(makeName).slice(1);
+            makeName =
+              String(makeName).charAt(0).toUpperCase() +
+              String(makeName).slice(1);
           }
           let payLoad = {
             listingLocation: selectedSearchCity,
@@ -193,7 +205,9 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             payLoad.maxsellingPrice = priceRange.max;
           }
           if (condition?.length > 0) {
-            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+            payLoad.deviceCondition = condition.includes("all")
+              ? []
+              : condition;
           }
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
@@ -215,7 +229,11 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           searchFilter(
             payLoad,
             localStorage.getItem("userUniqueId") || "Guest",
-            Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+            Cookies.get("sessionId") != undefined
+              ? Cookies.get("sessionId")
+              : localStorage.getItem("sessionId") != undefined
+              ? localStorage.getItem("sessionId")
+              : "",
             intialPage,
             applySortFilter
           ).then((response) => {
@@ -319,7 +337,9 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             payLoad.maxsellingPrice = priceRange.max;
           }
           if (condition?.length > 0) {
-            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+            payLoad.deviceCondition = condition.includes("all")
+              ? []
+              : condition;
           }
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
@@ -342,7 +362,11 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           searchFilter(
             payLoad,
             localStorage.getItem("userUniqueId") || "Guest",
-            Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+            Cookies.get("sessionId") != undefined
+              ? Cookies.get("sessionId")
+              : localStorage.getItem("sessionId") != undefined
+              ? localStorage.getItem("sessionId")
+              : "",
             newPages,
             applySortFilter
           ).then((response) => {
@@ -371,7 +395,6 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
     }
   };
 
-
   // useEffect(async () => {
   //   // makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
   //   const getMakeModel = async () => {
@@ -391,7 +414,6 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   //   setshopbymodel(brandResult?.dataObject);
   //   // setshopbymodel(JSON.parse(localStorage.getItem("make_models")));
   // }, [router.pathname, router.query]);
-
 
   useEffect(() => {
     intialPage = 0;
@@ -461,7 +483,11 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         searchFilter(
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
-          Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+          Cookies.get("sessionId") != undefined
+            ? Cookies.get("sessionId")
+            : localStorage.getItem("sessionId") != undefined
+            ? localStorage.getItem("sessionId")
+            : "",
           intialPage,
           applySortFilter
         ).then((response) => {
@@ -475,7 +501,6 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   }, [applyFilter]);
 
   // const sortingProducts = getSortedProducts(applySortFilter, otherListings);
-
 
   useEffect(() => {
     switch (makeName) {
@@ -670,8 +695,9 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
                 <div className="flex">
                   <Heading3 title="Best Deals" />
                   <span className="flex-1"></span>
-                  <h1 className="font-Roboto-Bold text-dx text-[#FFFFFF] capitalize py-3.5">{makeName}</h1>
-
+                  <h1 className="font-Roboto-Bold text-dx text-[#FFFFFF] capitalize py-3.5">
+                    {makeName}
+                  </h1>
                 </div>
                 <BestDealSection
                   bestDealData={bestDeals}
@@ -686,20 +712,20 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
                   />
                 </div> */}
               </div>
-
             </>
           )
-
         )}
 
-
-        {(isLoading || isFilterApplied || makeName == undefined) && (brandResult == [] || brandResult == "") ? (
+        {(isLoading || isFilterApplied || makeName == undefined) &&
+        (brandResult == [] || brandResult == "") ? (
           <></>
         ) : (
           <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
             <CardHeading2 title="Shop by Model" />
             <ShopByBrandsSection
-              shopbymodeldata={shopbymodel} location={selectedSearchCity} shopbymakedata={makeName}
+              shopbymodeldata={shopbymodel}
+              location={selectedSearchCity}
+              shopbymakedata={makeName}
             />
           </div>
         )}
@@ -709,9 +735,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             <h1 className="text-[#707070] text-cx font-normal"> Shop By Model </h1>
          </div> */}
 
-        {(!isLoading && (otherListings && otherListings.length > 0)) && (
+        {!isLoading && otherListings && otherListings.length > 0 && (
           <div className="flex mt-3">
-
             <h2 className=" font-normal text-[#707070] m-auto  text-cx  pl-0  capitalize flex-1">
               {/* Other Listings ({totalProducts}) */}
               <Heading title={`${makeName} Phones (${totalProducts})`} />
@@ -722,7 +747,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             </p> */}
               <Filter1
                 setSortApplyFilter={setSortApplyFilter}
-              // setApplyFilter={setApplyFilter}
+                // setApplyFilter={setApplyFilter}
               ></Filter1>
             </p>
           </div>
@@ -738,10 +763,10 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
                 <div
                   key={item.listingId}
                   className="m-1.5"
-                // onClick={() => {
-                //   // setListingId(item.listingId);
-                //   setProductsData(otherListings);
-                // }}
+                  // onClick={() => {
+                  //   // setListingId(item.listingId);
+                  //   setProductsData(otherListings);
+                  // }}
                 >
                   <OtherListingCard
                     data={item}
@@ -760,10 +785,12 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           !otherListings.length > 0 && <NoMatch />}
 
         {!isLoading &&
-          isFinished === false && otherListings.length != totalProducts && (
+          isFinished === false &&
+          otherListings.length != totalProducts && (
             <span
-              className={`${isLoadingMore ? "w-[150px]" : "w-[150px]"
-                } border border-[#707070] m-auto  rounded-md shadow hover:drop-shadow-lg p-2 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${
+                isLoadingMore ? "w-[150px]" : "w-[150px]"
+              } border border-[#707070] m-auto  rounded-md shadow hover:drop-shadow-lg p-2 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
               <p className="block text-[#585757]  font-Semibold h-[23px]">
@@ -776,7 +803,6 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
       <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
       <Filter1 open={applySortFilter} setOpen={setSortApplyFilter} />
     </>
-
   );
 }
 
