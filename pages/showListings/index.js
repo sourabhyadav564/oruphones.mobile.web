@@ -16,43 +16,45 @@ function index() {
   const [userUniqueId, setUserUniqueId] = useState(router.query?.routeto);
 
   let userUniqueId2 = (router.asPath);
-  userUniqueId2 = userUniqueId2.replace("/showListings?routeto=", "");
+  // userUniqueId2 = userUniqueId2.replace("/showListings?routeto=", "");
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (userUniqueId2 != undefined && userUniqueId2 != null && userUniqueId2 != "") {
-        setUserUniqueId(userUniqueId2);
-        getUserDetailsViaUUID(userUniqueId2).then((response) => {
-          window.localStorage.clear();
-          sessionStorage.removeItem("getUserDetails");
-          setUserData(response?.dataObject?.userdetails);
-          setusername(response?.dataObject?.userdetails?.userName);
-          sessionStorage.setItem("getUserDetails", JSON.stringify(response?.dataObject?.userdetails));
-          Cookies.set('userUniqueId', response?.dataObject?.userdetails?.userUniqueId);
-          Cookies.set('mobileNumber', response?.dataObject?.userdetails?.mobileNumber);
-          Cookies.set('countryCode', response?.dataObject?.userdetails?.countryCode);
-          setUserMobileNumber(response?.dataObject?.userdetails?.mobileNumber);
-          clearInterval(interval);
-        },
-          (err) => {
-            Cookies.remove('userUniqueId');
+    if (!authenticated) {
+      const interval = setInterval(async () => {
+        if (userUniqueId2 != undefined && userUniqueId2 != null && userUniqueId2 != "") {
+          userUniqueId2 = userUniqueId2.replace("/showListings?routeto=", "");
+          setUserUniqueId(userUniqueId2);
+          await getUserDetailsViaUUID(userUniqueId2).then((response) => {
+            window.localStorage.clear();
+            sessionStorage.removeItem("getUserDetails");
+            setUserData(response?.dataObject?.userdetails);
+            setusername(response?.dataObject?.userdetails?.userName);
+            sessionStorage.setItem("getUserDetails", JSON.stringify(response?.dataObject?.userdetails));
+            Cookies.set('userUniqueId', response?.dataObject?.userdetails?.userUniqueId);
+            Cookies.set('mobileNumber', response?.dataObject?.userdetails?.mobileNumber);
+            Cookies.set('countryCode', response?.dataObject?.userdetails?.countryCode);
+            setUserMobileNumber(response?.dataObject?.userdetails?.mobileNumber);
             clearInterval(interval);
-          }
-        );
-      }
-    }, 1000);
+          },
+            (err) => {
+              Cookies.remove('userUniqueId');
+              clearInterval(interval);
+            }
+          );
+        }
+      }, 1000);
 
-    if (Cookies.get("userUniqueId") != undefined && Cookies.get("userUniqueId") != null && Cookies.get("userUniqueId") != "") {
-      const interval2 = setInterval(() => {
-        router.push("/user/listings");
-        clearInterval(interval2);
-      }, 3000)
-    }
-    else {
-      const interval3 = setInterval(() => {
-        router.push("/oops");
-        clearInterval(interval3);
-      }, 1000)
+      const interval1 = setInterval(() => {
+        if (!Cookies.get("userUniqueId") && !sessionStorage.getItem("getUserDetails")) {
+          router.push("/oops");
+          clearInterval(interval1);
+        }
+        else {
+          router.push("/user/listings");
+          clearInterval(interval1);
+        }
+        // clearInterval(interval1);
+      }, 3000);
     }
   }, [])
 

@@ -42,14 +42,14 @@ function Header1() {
 
   return (
     <>
-      
+
       <div className="justify-between items-center w-full py-1  px-2 text-sm font-medium bg-primary text-white sticky top-12 z-50 rounded-b-xl" data-aos="fade-down">
-       {show ?
-        <div className="relative flex   bg-yellow-400 w-full  text-white py-1 my-1 rounded-sm  items-center  px-3" >
-          <a href="https://play.google.com/store/apps/details?id=com.oruphones.oru" className="text-mx  text-primary font-Roboto-semibold flex-1 opacity-70 ">Download ORUphones for better experience</a>
-          <p onClick={handleClose} className="text-mx  "><CgCloseO className="w-4 h-4 text-red opacity-50" /></p>
-        </div> : <div></div>
-      }
+        {show ?
+          <div className="relative flex   bg-yellow-400 w-full  text-white py-1 my-1 rounded-sm  items-center  px-3" >
+            <a href="https://play.google.com/store/apps/details?id=com.oruphones.oru" className="text-mx  text-primary font-Roboto-semibold flex-1 opacity-70 ">Download ORUphones App for better experience</a>
+            <p onClick={handleClose} className="text-mx  "><CgCloseO className="w-4 h-4 text-red opacity-50" /></p>
+          </div> : <div></div>
+        }
         <SearchBar />
       </div>
     </>

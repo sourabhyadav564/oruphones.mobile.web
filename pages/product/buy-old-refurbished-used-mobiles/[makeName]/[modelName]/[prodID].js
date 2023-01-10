@@ -442,9 +442,9 @@ function ProductDeatils({ data }) {
                   </span>
                 </Fragment>
               )) || (
-                <Fragment>
-                  {/* <UnVerifiedIcon width={75} height={32} /> */}
-                  {/* <p className="flex items-center">
+                  <Fragment>
+                    {/* <UnVerifiedIcon width={75} height={32} /> */}
+                    {/* <p className="flex items-center">
                     <span
                       className="underline text-xs"
                       onClick={() =>
@@ -460,8 +460,8 @@ function ProductDeatils({ data }) {
                       onClick={() => setOpenVerificationInfo(true)}
                     />
                   </p> */}
-                </Fragment>
-              )}
+                  </Fragment>
+                )}
             </div>
           </div>
           <div className="flex flex-col items-start">
@@ -506,7 +506,7 @@ function ProductDeatils({ data }) {
               <div className="m-auto justify-center ">
                 <span
                   className="font-Roboto-Light text-bx opacity-100 text-[#000] flex leading-tight items-center"
-                  // onClick={() => setOpenConditionInfo(true)}
+                // onClick={() => setOpenConditionInfo(true)}
                 >
                   Condition{" "}
                 </span>
@@ -516,7 +516,7 @@ function ProductDeatils({ data }) {
                 </p> */}
               </div>
               <div className="flex text-bx space-x-[2.5px] m-auto justify-center ">
-                {}
+                { }
                 {Array(5)
                   .fill()
                   .map((_, index) => iconToShow(index))}
@@ -552,56 +552,56 @@ function ProductDeatils({ data }) {
                   </span> */}
               </Fragment>
             )) || (
-              <Fragment>
-                {/* <UnVerifiedIcon width={75} height={32} /> */}
-                {data?.isOtherVendor === "N" && (
-                  <div className="w-full  py-2 space-x-2 text-center">
-                    <div
-                      className="flex py-2 px-3 rounded-md space-x-2 col-span-3"
-                      style={{ backgroundColor: "#F9C414" }}
-                    >
-                      <div className="flex space-x-1 flex-1">
-                        {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
-                        <div className="flex space-x-2">
-                          <AiFillExclamationCircle
-                            size={20}
-                            fill="white"
-                            className="self-center text-black"
-                          />
-                          {/* <UnVerifiedIcon /> */}
+                <Fragment>
+                  {/* <UnVerifiedIcon width={75} height={32} /> */}
+                  {data?.isOtherVendor === "N" && (
+                    <div className="w-full  py-2 space-x-2 text-center">
+                      <div
+                        className="flex py-2 px-3 rounded-md space-x-2 col-span-3"
+                        style={{ backgroundColor: "#F9C414" }}
+                      >
+                        <div className="flex space-x-1 flex-1">
+                          {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
+                          <div className="flex space-x-2">
+                            <AiFillExclamationCircle
+                              size={20}
+                              fill="white"
+                              className="self-center text-black"
+                            />
+                            {/* <UnVerifiedIcon /> */}
 
-                          <span className="text-lx font-Roboto-Light  self-center text-[#000944] italic uppercase">
-                            unverified
-                          </span>
+                            <span className="text-lx font-Roboto-Light  self-center text-[#000944] italic uppercase">
+                              unverified
+                            </span>
+                          </div>
+                          {/* <span className="text-xs italic self-center uppercase"> unverified</span> */}
                         </div>
-                        {/* <span className="text-xs italic self-center uppercase"> unverified</span> */}
-                      </div>
-                      <p className="flex items-center">
-                        <span
-                          className="underline font-Light text-jx"
-                          onClick={() => {
-                            if (!authenticated) {
-                              setOpenLoginPopup(true);
-                              setperformAction3(true);
-                            } else if (data?.status == "Active") {
-                              setOpenRequestVerificationSuccessPopup(true);
-                            } else
-                              toast.warning(`This device is sold out`, {
-                                toastId: "009",
-                              });
-                          }}
-                        >
-                          Click here to Request Verification
-                        </span>
-                        {/* <BsInfoCircle
+                        <p className="flex items-center">
+                          <span
+                            className="underline font-Light text-jx"
+                            onClick={() => {
+                              if (!authenticated) {
+                                setOpenLoginPopup(true);
+                                setperformAction3(true);
+                              } else if (data?.status == "Active") {
+                                setOpenRequestVerificationSuccessPopup(true);
+                              } else
+                                toast.warning(`This device is sold out`, {
+                                  toastId: "009",
+                                });
+                            }}
+                          >
+                            Click here to Request Verification
+                          </span>
+                          {/* <BsInfoCircle
                           className="ml-1"
                           onClick={() => setOpenVerificationInfo(true)}
                         /> */}
-                      </p>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {/* <p className="flex items-center">
+                  )}
+                  {/* <p className="flex items-center">
                     <span
                       className="underline text-xs"
                       onClick={() =>
@@ -617,8 +617,8 @@ function ProductDeatils({ data }) {
                       onClick={() => setOpenVerificationInfo(true)}
                     />
                   </p> */}
-              </Fragment>
-            )}
+                </Fragment>
+              )}
           </div>
           {data?.externalSource?.length > 0 && (
             <div className="border-b-2 pb-2">
@@ -661,8 +661,8 @@ function ProductDeatils({ data }) {
                               index == 0
                                 ? first
                                 : index == 1
-                                ? second
-                                : index == 2 && third
+                                  ? second
+                                  : index == 2 && third
                             }
                             alt="icon"
                             width={50}
@@ -720,8 +720,8 @@ function ProductDeatils({ data }) {
                     data?.status == "Active"
                       ? showSellerNumber(data?.listingId)
                       : toast.warning(`This device is sold out`, {
-                          toastId: "010",
-                        })
+                        toastId: "010",
+                      })
                   }
                 >
                   {showNumber ? contactSellerMobileNumber : "Contact Seller"}
@@ -733,24 +733,24 @@ function ProductDeatils({ data }) {
                       !authenticated
                         ? setOpenLoginPopup(true)
                         : !(data?.isOtherVendor === "Y") &&
-                          Cookies.get("userUniqueId") !== undefined &&
-                          fetchSellerMobileNumber(
-                            data.listingId,
-                            Cookies.get("userUniqueId")
-                          ).then((response) => {
-                            console.log("response", response);
-                            setContactSellerMobileNumber(
-                              response?.dataObject?.mobileNumber
-                            );
-                            data?.status == "Active"
-                              ? window.open(
-                                  `https://wa.me/+91${response?.dataObject?.mobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
-                                  "_blank"
-                                )
-                              : toast.warning(`This device is sold out`, {
-                                  toastId: "011",
-                                });
-                          });
+                        Cookies.get("userUniqueId") !== undefined &&
+                        fetchSellerMobileNumber(
+                          data.listingId,
+                          Cookies.get("userUniqueId")
+                        ).then((response) => {
+                          console.log("response", response);
+                          setContactSellerMobileNumber(
+                            response?.dataObject?.mobileNumber
+                          );
+                          data?.status == "Active"
+                            ? window.open(
+                              `https://wa.me/+91${response?.dataObject?.mobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
+                              "_blank"
+                            )
+                            : toast.warning(`This device is sold out`, {
+                              toastId: "011",
+                            });
+                        });
                     }}
                   >
                     <Image
@@ -920,7 +920,7 @@ function ProductDeatils({ data }) {
             Detailed Comparison Between Other Sellers
           </p>
           {data && (
-            <div className=" pb-5 flex space-x-4 w-full drop-shadow-2xl border-b-2 ">
+            <div className=" pb-5 flex w-full drop-shadow-2xl border-b-2">
               {/* <Image
                 src={ImageError ? Logo : data?.defaultImage || Logo}
                 onError={()=>setImageError(true)}
@@ -931,37 +931,35 @@ function ProductDeatils({ data }) {
                 height={120}
                 width={90}
               /> */}
-              <div className="flex flex-col bottom-5 left-36">
+              <div className="w-full bottom-5">
                 <p className="font-bold font-Roboto-Light text-dx text-[#2C2F45]">{data?.marketingName}</p>
-
-
                 {data?.make != "Apple" && (
-                  <p className="flex space-x-1">
+                  <p className="space-x-1 w-full flex flex-row">
                     <span>
-                      <CardHeading4 title="RAM :" />
+                      <p className="font-Roboto-Light font-bold text-ex">RAM :</p>
                     </span>{" "}
-                    <div className="font-Roboto-light text-jx text-[#2C2F45] pt-[3px] font-bold">
+                    <div className="font-Roboto-Regular text-jx text-[#2C2F45] pt-[2.5px] pl-0.5 font-bold">
                       {data?.deviceRam}
                     </div>
                   </p>
                 )}
-                <div className="flex flex-row space-x-2">
-                  <p className="flex ">
+                <div className="flex flex-auto">
+                  <div className="space-x-1 flex flex-row pr-2">
                     <span>
-                    <p className="font-Roboto-Light font-bold text-ex">Storage :</p>
+                      <p className="font-Roboto-Light font-bold text-ex">Storage :</p>
                     </span>{" "}
-                    <div className="font-Roboto-Regular text-jx text-[#2C2F45] pt-[2.5px] pl-1 font-bold">
+                    <div className="font-Roboto-Regular text-jx text-[#2C2F45] pt-[2px] pl-1 font-bold">
                       {data?.deviceStorage?.split("/")[0]}
                     </div>
-                  </p>
-                  <p className="flex space-x-1">
+                  </div>
+                  <div className="space-x-1 flex flex-row">
                     <span>
                       <p className="font-Roboto-Light font-bold text-ex">Condition :</p>
                     </span>{" "}
-                    <div className="font-Roboto-regular text-jx text-[#2C2F45] pt-[2.5px] font-bold">
+                    <div className="font-Roboto-Regular text-jx text-[#2C2F45] pt-[2px] font-bold">
                       {data?.deviceCondition?.split("/")[0]}
                     </div>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1057,9 +1055,8 @@ export const getServerSideProps = async ({ req, res, query }) => {
 
 const PrimayButton = ({ className, children, ...rest }) => (
   <button
-    className={`p-2 my-3 bg-primary text-base text-white font-semibold w-full rounded uppercase ${
-      className || ""
-    }`}
+    className={`p-2 my-3 bg-primary text-base text-white font-semibold w-full rounded uppercase ${className || ""
+      }`}
     {...rest}
   >
     {children}

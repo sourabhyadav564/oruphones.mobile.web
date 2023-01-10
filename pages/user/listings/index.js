@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Header2 from "@/components/Header/header2";
 import Header3 from "@/components/Header/header3";
 import BottomNav from "@/components/Navigation/BottomNav";
-import { getUserListings } from "api-call";
+import { getUserListings, getSessionId } from "api-call";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
@@ -38,23 +38,26 @@ function Index({ userInfo }) {
   }, []);
 
   useEffect(async () => {
-    if (!loading && !authenticated) {
-      router.push("/login");
-    }
-    if (!loading && user && user?.userdetails?.userUniqueId && Cookies.get("userUniqueId")!=undefined) {
+    if (!loading && Cookies.get("userUniqueId") != undefined) {
       console.log("user", user);
       await getUserListings(Cookies.get("userUniqueId")).then(
-      // await getUserListings(user?.userdetails?.userUniqueId).then(
-        (res) => {
+        // await getUserListings(user?.userdetails?.userUniqueId).then(
+        async (res) => {
+          await getSessionId().then((res) => {
+            Cookies.set("sessionId", res.dataObject);
+          });
           setListings(res.dataObject);
           setListingsLoading(false);
         },
         (err) => console.error(err)
       );
     }
+    else if (!loading && !authenticated) {
+      router.push("/login");
+    }
   }, [authenticated, loading]);
 
-  if (loading || !authenticated) {
+  if (loading && !authenticated) {
     return (
       <div className="min-h-screen flex justify-center ">
         <p>Loading...</p>
