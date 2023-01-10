@@ -21,6 +21,21 @@ function Notification({ notificationsListObject }) {
     notificationsListObject?.notifications
   );
   const [openVerifyFlow, setOpenVerifyFlow] = useState(false);
+ 
+
+
+  // useEffect(() => {
+  //   if (notifications) {
+  //     getAllNotificationByUserd(Cookies.get("userUniqueId")).then(
+  //       (response) => {
+  //         setNotifications(response?.dataObject?.notifications);
+  //         setUnreadNotificationsCount(
+  //           response?.dataObject?.unReadCount
+  //         );
+  //       }
+  //     );
+  //   }
+  // }, [notifications]);
 
   const leadingActions = (id) => (
     <LeadingActions>
