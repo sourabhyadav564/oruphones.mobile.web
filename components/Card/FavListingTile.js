@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { numberWithCommas } from "@/utils/util";
+import { getDefaultImage, numberWithCommas } from "@/utils/util";
 import { Fragment } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -76,20 +76,20 @@ function FavListingTile({ data, setProducts }) {
 
                   {data?.images && !data?.imagePath ? (
                     <Image
-                    loading="lazy"
-                    placeholder="blur"
-                    priority={false}
-                    unoptimized={false}
-                    blurDataURL={imageError ? Logo :
-                      (data?.images &&
-                        data.images.length > 0 &&
-                        data.images[0].fullImage) ||
-                      data?.defaultImage?.fullImage || Logo}
+                      loading="lazy"
+                      placeholder="blur"
+                      priority={false}
+                      unoptimized={false}
+                      blurDataURL={imageError ? Logo :
+                        (data?.images &&
+                          data.images.length > 0 &&
+                          data.images[0].fullImage) ||
+                        data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName)}
                       src={imageError ? Logo :
                         (data?.images &&
                           data.images.length > 0 &&
                           data.images[0].fullImage) ||
-                        data?.defaultImage?.fullImage || Logo
+                        data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName)
                       }
                       onError={() => {
                         setImageError(true);
@@ -101,12 +101,12 @@ function FavListingTile({ data, setProducts }) {
                     />
                   ) : (
                     <Image
-                    loading="lazy"
-                    placeholder="blur"
-                    priority={false}
-                    unoptimized={false}
-                    blurDataURL={imageError ? Logo : data?.imagePath || Logo}
-                      src={imageError ? Logo : data?.imagePath || Logo}
+                      loading="lazy"
+                      placeholder="blur"
+                      priority={false}
+                      unoptimized={false}
+                      blurDataURL={imageError ? Logo : data?.imagePath || Logo}
+                      src={imageError ? Logo : data?.imagePath || getDefaultImage(data?.marketingName)}
                       onError={() => {
                         setImageError(true);
                       }}
@@ -166,7 +166,9 @@ function FavListingTile({ data, setProducts }) {
                           style={{ backgroundColor: "#4CAF50" }}>
                           {/* <VscVerified size={20} className="self-center text-white"/> */}
                           {/*image  */}
-                          <VerificationIcon />
+                          <div className="w-7 h-7 ">
+                            <VerificationIcon />
+                          </div>
                           <span className="text-bx self-center text-white uppercase font-light italic">
                             verified
                           </span>

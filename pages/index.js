@@ -52,8 +52,12 @@ export default function Home({
     Cookies.set("sessionId", sessionId);
     localStorage.setItem("sessionId", sessionId);
     let make_models = true;
+    let brandsData = true;
     if (!localStorage.getItem("make_models") || localStorage.getItem("make_models").toString() == "undefined") {
       make_models = false;
+    }
+    if (!localStorage.getItem("brands") || localStorage.getItem("brands").toString() == "undefined" || localStorage.getItem("brands").toString() == "null" || localStorage.getItem("brands").toString() == "[]") {
+      brandsData = false;
     }
 
     if (!Cookies.get("userUniqueId") || Cookies.get("userUniqueId") == undefined) {
@@ -61,13 +65,13 @@ export default function Home({
       localStorage.removeItem("favoriteList");
     }
 
-    if (brandsList.length === 0) {
-      setBrands(JSON.parse(localStorage.getItem("brands")));
-    } else {
-      localStorage.setItem("brands", JSON.stringify(brandsList));
-      Cookies.set("brands", true);
-      setBrands(brandsList);
-    }
+    // if (brandsList.length === 0) {
+    //   setBrands(JSON.parse(localStorage.getItem("brands")));
+    // } else {
+    //   localStorage.setItem("brands", JSON.stringify(brandsList));
+    //   Cookies.set("brands", true);
+    //   setBrands(brandsList);
+    // }
 
     console.log("make_models", make_models);
     if (make_models) {
@@ -84,6 +88,23 @@ export default function Home({
         localStorage.setItem("make_models", JSON.stringify(makeModelLists));
         Cookies.set("make_models", true);
         //   // setBrands(brandsList);
+      }
+    }
+
+    if (brandsData) {
+      setBrands(JSON.parse(localStorage.getItem("brands")));
+      console.log("brands from local");
+    } else {
+      console.log("brands from api");
+      const data = await fetchBrands(
+        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
+      );
+      if (data) {
+        let brandsList = data?.dataObject;
+        setBrands(brandsList);
+        localStorage.setItem("brands", JSON.stringify(brandsList));
+        Cookies.set("brands", true);
       }
     }
 

@@ -4,14 +4,15 @@ import dynamic from "next/dynamic";
 import ShopbymodelCard from "./Card/ShopbymodelCard";
 import CarouselWithPagination from "@/components/Carousel/CarouselWithPagination";
 import BasicCarousel from "./Carousel/BasicCarousel";
+import { getDefaultImage } from "@/utils/util";
 const ConditionInfo = dynamic(() => import("@/components/Popup/ConditionInfo"));
 const VerificationInfo = dynamic(() => import("@/components/Popup/VerificationInfo"));
 
-function ShopByBrandsSection({ shopbymodeldata,shopbymakedata, setProducts, index, location }) {
+function ShopByBrandsSection({ shopbymodeldata, shopbymakedata, setProducts, index, location }) {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
   var type = ["old phone", "used", "refurbished"]
-  console.log("shop by brand section2", shopbymodeldata)
+  // console.log("shop by brand section2", shopbymodeldata)
 
   return (
     <section className="m-auto items-center">
@@ -23,7 +24,8 @@ function ShopByBrandsSection({ shopbymodeldata,shopbymakedata, setProducts, inde
           <SwiperSlide key={item?.make}>
             <ShopbymodelCard
               data={item.marketingname}
-              src={`https://zenrodeviceimages.s3.us-west-2.amazonaws.com/allModelsImg/${item?.marketingname?.toString().toLowerCase().replaceAll(" ", "_")}.jpg`}
+              src={getDefaultImage(item.marketingname)}
+              // src={`https://zenrodeviceimages.s3.us-west-2.amazonaws.com/allModelsImg/${item?.marketingname?.toString().toLowerCase().replaceAll(" ", "_")}.jpg`}
               alt={`buy ${type[Math.floor((Math.random() * type.length))]} ` + item?.marketingname}
               location={location}
               make={shopbymakedata}

@@ -741,7 +741,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
               {/* Other Listings ({totalProducts}) */}
               <Heading title={`${makeName} Phones (${totalProducts})`} />
             </h2>
-            <p className="font-normal text-[#707070]  text-cx  -mt-2  capitalize underline">
+            <p className="font-Roboto-Semibold text-[#707070]  text-cx  -mt-2  capitalize underline">
               {/* <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
               sort <BiSortAlt2 className="ml-1" />
             </p> */}

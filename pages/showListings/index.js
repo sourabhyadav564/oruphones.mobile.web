@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { getSessionId, getUserDetailsViaUUID } from "api-call";
-import { useAuthState } from "providers/AuthProvider";
+import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import Cookies from 'js-cookie';
-
+import logo from "@/assets/logo_square.svg";
+import Image from 'next/image';
 
 function index() {
   const router = useRouter()
@@ -14,9 +15,19 @@ function index() {
   const [username, setusername] = useState("user");
   const [userMobileNumber, setUserMobileNumber] = useState("");
   const [userUniqueId, setUserUniqueId] = useState(router.query?.routeto);
+  const dispatch = useAuthDispatch();
 
   let userUniqueId2 = (router.asPath);
   // userUniqueId2 = userUniqueId2.replace("/showListings?routeto=", "");
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      if (authenticated && Cookies.get("userUniqueId") && Cookies.get("userUniqueId") != userUniqueId2.replace("/showListings?routeto=", "")) {
+        dispatch("LOGOUT");
+        clearInterval(interval);
+      }
+    }, 1000);
+  }, [authenticated])
 
   useEffect(() => {
     if (!authenticated) {
@@ -34,6 +45,8 @@ function index() {
             Cookies.set('mobileNumber', response?.dataObject?.userdetails?.mobileNumber);
             Cookies.set('countryCode', response?.dataObject?.userdetails?.countryCode);
             setUserMobileNumber(response?.dataObject?.userdetails?.mobileNumber);
+            dispatch("LOGIN", response?.dataObject);
+            console.log("userUniqueId2", response?.dataObject);
             clearInterval(interval);
           },
             (err) => {
@@ -46,7 +59,7 @@ function index() {
 
       const interval1 = setInterval(() => {
         if (!Cookies.get("userUniqueId") && !sessionStorage.getItem("getUserDetails")) {
-          router.push("/oops");
+          router.push("/");
           clearInterval(interval1);
         }
         else {
@@ -59,10 +72,19 @@ function index() {
   }, [])
 
   return (
-    <div className='flex justify-center'>
-      <div className=''>
-        <div className='mt-52 flex items-center justify-center text-px font-Roboto-Semibold text-primary'> Loading...</div>
-        <div className=' text-px font-Roboto-Light '>
+    <div className='flex justify-center h-full'>
+      <div className='h-full'>
+        <div className='flex justify-center pt-10'>
+          <Image src={logo} alt='ORUphones' className='w-px-300 h-px-300 ' />
+        </div>
+        <div className=''>
+          <div class="">
+            <div class="loader"></div>
+            <div class="loader"></div>
+            <div class="loader"></div>
+          </div>
+        </div>
+        <div className=' text-px font-Roboto-Light items-end'>
           <p className='pt-24 text-center' > Hey {`${username}`}
             <br />Welcome to <span className='font-Roboto-Semibold text-primary'>ORUphones </span></p>
         </div>

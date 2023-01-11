@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { numberWithCommas } from "@/utils/util";
+import { getDefaultImage, numberWithCommas } from "@/utils/util";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
@@ -85,11 +85,11 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                   loading="lazy"
-                   placeholder="blur"
-                   priority={false}
-                   unoptimized={false}
-                   blurDataURL={imageError ? Logo : data?.imagePath || Logo}
+                    loading="lazy"
+                    placeholder="blur"
+                    priority={false}
+                    unoptimized={false}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) : data?.imagePath || Logo}
                     src={imageError ? Logo : data?.imagePath || Logo}
                     onError={() => {
                       setImageError(true);
@@ -147,7 +147,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? Logo : data?.imagePath || Logo}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) : data?.imagePath || Logo}
                     src={imageError ? Logo : data?.imagePath || Logo}
                     onError={() => {
                       setImageError(true);

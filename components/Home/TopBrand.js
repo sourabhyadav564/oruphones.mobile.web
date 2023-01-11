@@ -4,11 +4,11 @@ import { SwiperSlide } from "swiper/react";
 import BrandCard from "../Card/BrandCard";
 import BasicCarousel from "../Carousel/BasicCarousel";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
-import {Heading} from "@/components/elements/Heading/heading" 
+import { Heading } from "@/components/elements/Heading/heading"
 
 function TopBrand({ brandsList }) {
   const router = useRouter();
-
+  // console.log("brandsList2", brandsList)
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
@@ -30,11 +30,11 @@ function TopBrand({ brandsList }) {
         {" "}
         Shop by Brands{" "}
       </h1> */}
-      <Heading title="Shop by Brands"/>
+      <Heading title="Shop by Brands" />
       <BasicCarousel
         slidesPerView={4.4}
         spaceBetween={8}
-        style={{ padding: "8px"}}
+        style={{ padding: "8px" }}
       >
         {homePagebrandsList &&
           homePagebrandsList.map((item) => (
@@ -43,8 +43,8 @@ function TopBrand({ brandsList }) {
             </SwiperSlide>
           ))}
         <SwiperSlide
-          style={{ height: "auto"}}
-          onClick={() => setLoadingState(true)} 
+          style={{ height: "auto" }}
+          onClick={() => setLoadingState(true)}
         >
           <BrandCard data={{ make: "Show all" }} />
         </SwiperSlide>

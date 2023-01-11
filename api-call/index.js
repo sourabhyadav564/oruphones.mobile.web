@@ -312,7 +312,7 @@ export async function pauseListing(params) {
 }
 
 export async function getUserListings(userUniqueId) {
-  headers = { ...headers, eventName: "MYLISTINGS_VIEW_LISTING" };
+  headers = { ...headers, eventName: "MYLISTINGS_VIEW_LISTING", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listings?userUniqueId=${userUniqueId}`;
 

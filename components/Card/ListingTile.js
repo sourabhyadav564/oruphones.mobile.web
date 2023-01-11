@@ -9,7 +9,7 @@ import { VscUnverified } from "react-icons/vsc";
 import { MdVerified } from "react-icons/md";
 import VerificationIcon from "@/components/verificationIcon";
 import { BsPlus } from "react-icons/bs";
-import { numberWithCommas } from "@/utils/util";
+import { getDefaultImage, numberWithCommas } from "@/utils/util";
 import { Fragment, useState } from "react";
 import Cookies from "js-cookie";
 import { activateListing } from "api-call";
@@ -111,8 +111,8 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 placeholder="blur"
                 priority={false}
                 unoptimized={false}
-                blurDataURL={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
-                src={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || Logo}
+                blurDataURL={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName)}
+                src={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName)}
                 onError={() => {
                   setImageError(true);
                 }}

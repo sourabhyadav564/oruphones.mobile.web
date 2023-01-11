@@ -120,7 +120,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
           </div>
           <span className="">
             {(
-              <span className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
+              <span className="cursor-pointer flex items-center font-Roboto-Semibold" onClick={() => setOpenSort(true)}>
                 Sort <BiSortAlt2 className="ml-1" />
               </span>
             )}

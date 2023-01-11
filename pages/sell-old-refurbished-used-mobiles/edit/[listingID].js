@@ -15,12 +15,47 @@ function editListing({ data, resultsSet }) {
   // const [resultSet, setResultSet] = useState([]);
   const router = useRouter();
   const [makeAndModels, setMakeAndModels] = useState([]);
-
-  useEffect(() => {
+  let make_models = false;
+  useEffect(async () => {
+    // if (resultsSet.length === 0) {
+    //   console.log("first");
+    //   setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
+    // } else {
+    //   console.log("second");
+    //   localStorage.setItem("make_models", JSON.stringify(resultsSet));
+    //   Cookies.set("make_models", true);
+    //   setMakeAndModels(resultsSet);
+    // }
     if (resultsSet.length === 0) {
-      console.log("first");
-      setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
-    } else {
+      if (
+        (!localStorage.getItem("make_models") ||
+          localStorage.getItem("make_models") == undefined ||
+          localStorage.getItem("make_models").toString() == "undefined")
+      ) {
+        make_models = false;
+      }
+
+      if (make_models) {
+        // setBrands(JSON.parse(localStorage.getItem("make_models")));
+        console.log("makeModelLists from local");
+      } else {
+        console.log("makeModelLists from api");
+        const data = await getMakeModelLists(
+          Cookies.get("userUniqueId") || "Guest",
+          Cookies.get("sessionId") != undefined
+            ? Cookies.get("sessionId")
+            : ""
+        );
+        if (data) {
+          setMakeAndModels(data?.dataObject);
+          localStorage.setItem("make_models", JSON.stringify(data?.dataObject));
+          Cookies.set("make_models", true);
+          // if (router.pathname == "/sell-old-refurbished-used-mobiles/add") { window.location.reload(); }
+          //   // setBrands(brandsList);
+        }
+      }
+    }
+    else {
       console.log("second");
       localStorage.setItem("make_models", JSON.stringify(resultsSet));
       Cookies.set("make_models", true);
@@ -28,7 +63,7 @@ function editListing({ data, resultsSet }) {
     }
   }, []);
 
-  console.log("makeAndModels", makeAndModels);
+  // console.log("makeAndModels", makeAndModels);
   return (
     <Fragment>
       {/* <Header5 title={"Edit Listing"} /> */}
@@ -63,7 +98,7 @@ function editListing({ data, resultsSet }) {
 }
 export async function getServerSideProps({ req, res, query }) {
   const { userUniqueId, sessionId, make_models } = req.cookies;
-  console.log("make_models", make_models);
+  // console.log("make_models", make_models);
   try {
     const data = await getListingDetails(
       query.listingID,

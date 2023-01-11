@@ -8,17 +8,18 @@ import LoginPopup from "../Popup/LoginPopup";
 import ThisPhonePopup from "../Popup/ThisPhonePopup";
 import WarrantyInfo from "@/components/Popup/WarrantyInfo";
 import VerificationInfo from "../Popup/VerificationInfo";
+import { numberWithCommas } from "@/utils/util";
 
 
 
 function ComparisonTable(data) {
-  console.log("data prod", data);
+  // console.log("data prod", data);
   const [productData, setProductData] = useState([]);
   useEffect(() => {
     if (data?.data?.length > 0) {
       const interval = setInterval(() => {
         setProductData(data?.data);
-        console.log("productData", productData);
+        // console.log("productData", productData);
         clearInterval(interval);
       }, 1000);
     }
@@ -143,7 +144,11 @@ function ComparisonTable(data) {
                         {item?.userName &&
                           item?.externalSourceImage !=
                           "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? (
-                          item?.userName
+                          <div
+                            className="text-ex font-Roboto-Regular"
+                          >
+                            {item?.userName}
+                          </div>
                         ) : (
                           <Image
                             src={item?.externalSourceImage}
@@ -152,26 +157,26 @@ function ComparisonTable(data) {
                           />
                         )
                         }
-                        <FaGreaterThan size={18} className="pt-1.5" />
+                        {/* <FaGreaterThan size={18} className="pt-1.5" /> */}
                       </div>
                     </th>
                     <td class="mx-4 py-4 border-[1px] ">
-                      ₹ {item?.externalSourcePrice}
+                      ₹ {numberWithCommas(item?.externalSourcePrice)}
                     </td>
                     <td class="px-6 py-4  border-[1px]">
                       {item?.Object?.isOtherVendor == "N"
                         ? item?.Object?.warranty
-                        : "Not Applicable"}
+                        : "None"}
                     </td>
                     <td class="px-6 py-4  border-[1px]">
                       {item?.Object?.isOtherVendor == "N"
-                        ? "Not Applicable"
+                        ? "None"
                         : "6 months"}
                     </td>
                     <td class="px-6 py-4 border-[1px]">
                       {item?.Object?.isOtherVendor == "N"
-                        ? "Not Applicable"
-                        : "Charger, Original Box"}
+                        ? "None"
+                        : "Phone Charger, Phone Box"}
                     </td>
                     <td class="px-6 py-4 border-[1px]">
                       {item?.Object?.isOtherVendor == "N"
@@ -190,14 +195,14 @@ function ComparisonTable(data) {
                             : item?.Object?.originalbox == "Y"
                               ? "Original Box"
                               : "Not Available"
-                        : "Not Applicable"}
+                        : "None"}
                     </td>
                     <td class="px-6 py-4 border-[1px]">
                       {item?.Object?.isOtherVendor == "N"
                         ? item?.Object?.verified
                           ? "Yes"
                           : "No"
-                        : "Not Applicable"}
+                        : "None"}
                     </td>
                   </tr>
                 );

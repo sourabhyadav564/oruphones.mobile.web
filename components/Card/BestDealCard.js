@@ -9,7 +9,7 @@ import AddFav from "../AddFav";
 
 import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 import VerifiedIcon from "@/components/VerifiedIcon";
-import { numberWithCommas } from "@/utils/util";
+import { getDefaultImage, numberWithCommas } from "@/utils/util";
 import { BiChevronRight } from "react-icons/bi";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
@@ -233,13 +233,13 @@ function BestDealCard({
           )}
 
           <Image
-             loading="lazy"
-             placeholder="blur"
-             priority={false}
-             unoptimized={false}
-             blurDataURL={imageError ? Logo : data?.imagePath || Logo}
+            loading="lazy"
+            placeholder="blur"
+            priority={false}
+            unoptimized={false}
+            blurDataURL={imageError ? Logo : data?.imagePath || getDefaultImage(data?.marketingName)}
             alt={(`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
-            src={imageError ? Logo : data?.imagePath || Logo}
+            src={imageError ? Logo : data?.imagePath || getDefaultImage(data?.marketingName)}
             onError={() => {
               setImageError(true);
             }}

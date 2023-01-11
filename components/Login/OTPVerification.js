@@ -153,8 +153,8 @@ function OTPVerification({
           name="OTP"
           required
           className={` block p-4 w-full text-center rounded appearance-none border-1  bg-transparent  ${error
-              ? "ring-2 ring-red-600 focus:ring-2 focus:ring-red-600"
-              : "ring-0 focus:ring-0"
+            ? "ring-2 ring-red-600 focus:ring-2 focus:ring-red-600"
+            : "ring-0 focus:ring-0"
             }`}
 
           style={{

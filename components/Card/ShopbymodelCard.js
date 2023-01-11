@@ -16,7 +16,7 @@ import {
 } from "@/components/elements/CardHeading/cardheading";
 import VerifiedIcon from "@/components/VerifiedIcon";
 // import IStock from "@/assets/icons/phone.png"
-import { numberWithCommas } from "@/utils/util";
+import { getDefaultImage, numberWithCommas } from "@/utils/util";
 import { BiChevronRight } from "react-icons/bi";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
@@ -55,7 +55,7 @@ function ShopbymodelCard({
     );
   };
 
-  console.log("shop by models make : ", make);
+  // console.log("shop by models make : ", make);
 
   return (
     <>
@@ -74,7 +74,12 @@ function ShopbymodelCard({
       >
         <div className="">
           <Image
-            src={imageError ? fallBackSrc : src || Logo}
+            loading="lazy"
+            placeholder="blur"
+            priority={false}
+            unoptimized={false}
+            blurDataURL={imageError ? Logo : src || Logo}
+            src={imageError ? Logo : src || Logo}
             alt={alt}
             onError={() => setImageError(true)}
             width="34"

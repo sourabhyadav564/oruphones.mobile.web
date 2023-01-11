@@ -1,4 +1,5 @@
 import moment from "moment";
+import { defaultDeviceImage } from "@/utils/constant";
 
 // export function numberWithCommas(x) {
 //   try {
@@ -15,6 +16,11 @@ import moment from "moment";
 export function numberWithCommas(s) {
   s = s.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   return s;
+}
+
+export function getDefaultImage(data) {
+  data = data?.toString().toLowerCase().replace("+", "plus");
+  return defaultDeviceImage[data];
 }
 
 export function getAccessoriesText(data) {

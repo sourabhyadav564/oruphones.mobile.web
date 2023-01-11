@@ -400,7 +400,7 @@ function ModelPage() {
               {/* Other Listings ({totalProducts}){" "} */}
               <Heading title={`Other Listings (${totalProducts})${" "}`} />
             </h2>
-            <p className="font-normal text-[#707070]  text-cx  capitalize underline">
+            <p className="font-Roboto-Semibold text-[#707070]  text-cx  capitalize underline">
               {/* <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
               sort <BiSortAlt2 className="ml-1" />
             </p> */}

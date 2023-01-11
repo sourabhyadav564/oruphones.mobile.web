@@ -449,7 +449,7 @@ const EditListingForm = ({ data, resultsSet }) => {
           <div className="flex bg-white p-5  space-x-4 rounded-md drop-shadow-md">
 
             <Image
-              src={imageError ? Logo : data?.defaultImage?.fullImage}
+              src={imageError ? Logo : getDefaultImage(data?.marketingName)}
               onError={() => {
                 setImageError(true);
               }}

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { numberWithCommas } from "@/utils/util";
+import { getDefaultImage, numberWithCommas } from "@/utils/util";
 // import Logo from "@/assets/mobiru_logo.svg";
 import Logo from "@/assets/oru_phones_logo.png";
 // import verified from "@/assets/verified.svg";
@@ -109,12 +109,12 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                   loading="lazy"
-                   placeholder="blur"
-                   priority={false}
-                   unoptimized={false}
-                   blurDataURL={imageError ? Logo : data?.imagePath || Logo}
-                    src={imageError ? Logo : data?.imagePath || Logo}
+                    loading="lazy"
+                    placeholder="blur"
+                    priority={false}
+                    unoptimized={false}
+                    blurDataURL={imageError ? Logo : data?.imagePath || getDefaultImage(data?.marketingName)}
+                    src={imageError ? Logo : data?.imagePath || getDefaultImage(data?.marketingName)}
                     onError={() => {
                       setImageError(true);
                     }}
@@ -166,11 +166,11 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
-                   loading="lazy"
-                   placeholder="blur"
-                   priority={false}
-                   unoptimized={false}
-                   blurDataURL={imageError ? Logo : data?.imagePath || Logo}
+                    loading="lazy"
+                    placeholder="blur"
+                    priority={false}
+                    unoptimized={false}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) : data?.imagePath || Logo}
                     src={imageError ? Logo : data?.imagePath || Logo}
                     onError={() => {
                       setImageError(true);

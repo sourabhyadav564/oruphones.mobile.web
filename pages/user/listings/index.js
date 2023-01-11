@@ -38,14 +38,17 @@ function Index({ userInfo }) {
   }, []);
 
   useEffect(async () => {
+    // if (Cookies.get("sessionId") == undefined) {
+    //   await getSessionId().then((res) => {
+    //     console.log("response2", res)
+    //     Cookies.set("sessionId", res.dataObject.sessionId);
+    //   });
+    // }
     if (!loading && Cookies.get("userUniqueId") != undefined) {
       console.log("user", user);
-      await getUserListings(Cookies.get("userUniqueId")).then(
-        // await getUserListings(user?.userdetails?.userUniqueId).then(
+      // await getUserListings(Cookies.get("userUniqueId")).then(
+      await getUserListings(user?.userdetails?.userUniqueId).then(
         async (res) => {
-          await getSessionId().then((res) => {
-            Cookies.set("sessionId", res.dataObject);
-          });
           setListings(res.dataObject);
           setListingsLoading(false);
         },
