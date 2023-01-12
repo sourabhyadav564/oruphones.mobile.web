@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 
 function PriceFilter({ setSelectedValues, router, seletedValues }) {
   const { min, max } = router.query;
-
-  console.log("price :: ", seletedValues);
   const [minPrice, setMinPrice] = useState(
     seletedValues?.priceRange?.min || ""
   );

@@ -37,16 +37,16 @@ function LocationPopup({ open, setOpen }) {
   //     return () => {
   //       window.removeEventListener('popstate', onBackButtonEvent);
   //     };
-    // } else {
-    //   const onBackButtonEvent = (e) => {
-    //     e.preventDefault();
-    //     window.history.back();
-    //   }
-    //   window.history.pushState(null, null, window.location.pathname);
-    //   window.addEventListener('popstate', onBackButtonEvent);
-    //   return () => {
-    //     window.removeEventListener('popstate', onBackButtonEvent);
-    //   };
+  // } else {
+  //   const onBackButtonEvent = (e) => {
+  //     e.preventDefault();
+  //     window.history.back();
+  //   }
+  //   window.history.pushState(null, null, window.location.pathname);
+  //   window.addEventListener('popstate', onBackButtonEvent);
+  //   return () => {
+  //     window.removeEventListener('popstate', onBackButtonEvent);
+  //   };
   //   }
   // }, [open]);
 
