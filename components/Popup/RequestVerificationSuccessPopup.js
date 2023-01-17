@@ -7,7 +7,6 @@ import { FiAlertOctagon } from "react-icons/fi";
 import Loader from "@/components/Loader/Loader";
 
 function RequestVerificationSuccessPopup({ open, setOpen, data }) {
-
   const [resData, setResData] = useState({});
 
   // useEffect(() => {
@@ -22,17 +21,17 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
   //     return () => {
   //       window.removeEventListener('popstate', onBackButtonEvent);
   //     };
-    // } else {
-    //   const onBackButtonEvent = (e) => {
-    //     e.preventDefault();
-    //     window.history.back();
-    //   }
-    //   window.history.pushState(null, null, window.location.pathname);
-    //   window.addEventListener('popstate', onBackButtonEvent);
-    //   return () => {
-    //     window.removeEventListener('popstate', onBackButtonEvent);
-    //   };
-    // }
+  // } else {
+  //   const onBackButtonEvent = (e) => {
+  //     e.preventDefault();
+  //     window.history.back();
+  //   }
+  //   window.history.pushState(null, null, window.location.pathname);
+  //   window.addEventListener('popstate', onBackButtonEvent);
+  //   return () => {
+  //     window.removeEventListener('popstate', onBackButtonEvent);
+  //   };
+  // }
   // }, [open]);
   useEffect(() => {
     if (open) {
@@ -43,7 +42,9 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
         setResData(response);
       });
     }
-  }, [open]);
+  }, [data]);
+
+  console.log("resdata : ", resData);
 
   return (
     <Modal2 open={open} setOpen={setOpen}>

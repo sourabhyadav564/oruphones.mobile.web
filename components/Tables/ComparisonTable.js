@@ -118,10 +118,10 @@ function ComparisonTable(data) {
             {productData &&
               productData?.map((item) => {
                 return (
-                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center">
+                  <tr class={`${item.externalSourceImage=="https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? "bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center" : "bg-white border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center"}`}>
                     <th
                       scope="row"
-                      class="px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-white drop-shadow-2xl  border-[1px]"
+                      class={`${item.externalSourceImage=="https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? "px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-gray-100 drop-shadow-2xl border-[1px]" : "px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-white drop-shadow-2xl border-[1px]"}`}
                     >
                       <div className="flex" onClick={() => {
                         if (Cookies.get("userUniqueId") == undefined) {
@@ -145,12 +145,13 @@ function ComparisonTable(data) {
                           item?.externalSourceImage !=
                           "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? (
                           <div
-                            className="text-ex font-Roboto-Regular"
+                            className="text-ex font-Roboto-Regular object-contain"
                           >
                             {item?.userName}
                           </div>
                         ) : (
                           <Image
+                          className={`${item.externalSourceImage=="https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? "object-contain " : "object-contain brightness-0 invert-0"}`}
                             src={item?.externalSourceImage}
                             height={30}
                             width={70}
@@ -160,7 +161,7 @@ function ComparisonTable(data) {
                         {/* <FaGreaterThan size={18} className="pt-1.5" /> */}
                       </div>
                     </th>
-                    <td class="mx-4 py-4 border-[1px] ">
+                    <td class="mx-4 py-4 border-[1px] text-yellow-fb">
                       ₹ {numberWithCommas(item?.externalSourcePrice)}
                     </td>
                     <td class="px-6 py-4  border-[1px]">
