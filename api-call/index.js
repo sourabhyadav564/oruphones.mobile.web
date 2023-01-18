@@ -100,7 +100,7 @@ export function getSessionId() {
 
 
 export function getSearchResults(q) {
-  headers = { ...headers, eventName: "SEARCH_TEXT_SUGGESTIONS" };
+  headers = { ...headers, eventName: "SEARCH_TEXT_SUGGESTIONS", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/cscglobal/search";
   return Axios.post(
@@ -204,7 +204,7 @@ export async function getMakeModelLists(userUniqueId, sessionId, make, isPrimary
   headers = {
     ...headers,
     eventName: "GET_MAKE_MODEL_LIST",
-    userUniqueId: userUniqueId,
+    userUniqueId: 0,
     sessionId: sessionId,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -226,6 +226,7 @@ export async function uploadImage(data, params) {
     ...headers,
     eventName: "ADDLISTING_UPLOAD_PHOTOS_SUCCESS",
     "Content-Type": "multipart/form-data",
+    userUniqueId: 0
   };
   const MULTIPART_HEADER = { headers: { ...header } };
 
@@ -238,7 +239,7 @@ export async function uploadImage(data, params) {
 
 
 export async function getRecommandedPrice(data) {
-  headers = { ...headers, eventName: "FETCH_RECOMMENDED_PRICE" };
+  headers = { ...headers, eventName: "FETCH_RECOMMENDED_PRICE", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/global/recomanded/price`;
 
@@ -368,7 +369,7 @@ export async function fetchByMakeList(
   pageNumber,
   sortBy,
 ) {
-  headers = { ...headers, eventName: `BRAND_SELECTED ${makeName}`, userUniqueId: userUniqueId, sessionId: sessionId };
+  headers = { ...headers, eventName: `BRAND_SELECTED ${makeName}`, userUniqueId: 0, sessionId: sessionId };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/home/listingsbymake?listingLocation=` +
@@ -394,6 +395,7 @@ export async function fetchByMarketingName(
   headers = {
     ...headers,
     eventName: `HOME_TOP_SELLING_MODEL_SELECTED ${marketingName}`,
+    userUniqueId: 0
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -504,7 +506,7 @@ export async function bestDealNearByYou(location, userUniqueId, pageNumber, sort
     userUniqueId +
     `&pageNumber=` +
     pageNumber + `&sortBy=` + sortBy;
-  headers = { ...headers, eventName: "GET_BEST_DEALS" };
+  headers = { ...headers, eventName: "GET_BEST_DEALS", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then(
     (response) => {
@@ -593,7 +595,7 @@ export async function removeFavotie(listingId, userUniqueId) {
 }
 
 export async function bestDealNearYouAll(location, userUniqueId, pageNumber, sortBy) {
-  headers = { ...headers, eventName: "HOME_BESTDEAL_VIEW_ALL" };
+  headers = { ...headers, eventName: "HOME_BESTDEAL_VIEW_ALL", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/device/listings/best/nearall?userLocation=` +
@@ -691,7 +693,7 @@ export function getShowSerchFilters() {
 }
 
 export async function searchFilter(payLoad, userUniqueId, sessionId, pageNumber, sortBy) {
-  headers = { ...headers, eventName: "FETCH_SEARCH_LISTINGS", sessionId: sessionId };
+  headers = { ...headers, eventName: "FETCH_SEARCH_LISTINGS", sessionId: sessionId, userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
     `${URI}/api/v1/home/listings/search?userUniqueId=` +
@@ -894,7 +896,7 @@ export function shopByCategory(location, category, userUniqueId, pageNumber, sor
     pageNumber +
     `&userUniqueId=` +
     userUniqueId + `&sortBy=` + sortBy;
-  headers = { ...headers, eventName: "FETCH_TOP_ARTICLES" };
+  headers = { ...headers, eventName: "FETCH_TOP_ARTICLES", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {

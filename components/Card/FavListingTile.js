@@ -80,16 +80,16 @@ function FavListingTile({ data, setProducts }) {
                       placeholder="blur"
                       priority={false}
                       unoptimized={false}
-                      blurDataURL={imageError ? Logo :
+                      blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo :
                         (data?.images &&
                           data.images.length > 0 &&
                           data.images[0].fullImage) ||
-                        data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName)}
-                      src={imageError ? Logo :
+                        data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName) || Logo}
+                      src={imageError ? getDefaultImage(data?.marketingName) || Logo :
                         (data?.images &&
                           data.images.length > 0 &&
                           data.images[0].fullImage) ||
-                        data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName)
+                        data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName) || Logo
                       }
                       onError={() => {
                         setImageError(true);
@@ -105,8 +105,8 @@ function FavListingTile({ data, setProducts }) {
                       placeholder="blur"
                       priority={false}
                       unoptimized={false}
-                      blurDataURL={imageError ? Logo : data?.imagePath || Logo}
-                      src={imageError ? Logo : data?.imagePath || getDefaultImage(data?.marketingName)}
+                      blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+                      src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
                       onError={() => {
                         setImageError(true);
                       }}

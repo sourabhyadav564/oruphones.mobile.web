@@ -916,12 +916,12 @@ function ProductDeatils({ data }) {
           {data?.isOtherVendor === "N" && !data?.verified && (
             <div className="border-t pt-2">
               <div className="pt-2">
-                <div className="font-Medium text-mx pb-2">
+                <div className="font-Roboto-Regular text-mx pb-2">
                   This is unverified device!
                 </div>
-                <span className="font-Medium text-mx pb-2">Please </span>
+                <span className="font-Roboto-Regular text-mx pb-2">Please </span>
                 <span
-                  className="font-Medium text-mx font-bold underline pb-2"
+                  className="font-Roboto-Bold text-mx font-bold underline pb-2"
                   onClick={() => {
                     if (!authenticated) {
                       setOpenLoginPopup(true);
@@ -937,7 +937,7 @@ function ProductDeatils({ data }) {
                   {" "}
                   Click here{" "}
                 </span>
-                <span className="font-Medium text-mx pb-2">
+                <span className="font-Roboto-Regular text-mx pb-2">
                   {" "}
                   to send the verification request to seller for detailed device
                   report.
@@ -970,8 +970,8 @@ function ProductDeatils({ data }) {
               {data && (
                 <div className="relative flex drop-shadow-2xl">
                   <Image
-                    src={getDefaultImage(data?.marketingName)}
-                    // onError={() => setImageError(true)}
+                    src={ImageError ? Logo : getDefaultImage(data?.marketingName) || Logo}
+                    onError={() => setImageError(true)}
                     className=""
                     // alt={`${
                     //   type[Math.floor(Math.random() * type.length)]

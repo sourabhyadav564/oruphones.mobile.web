@@ -89,8 +89,8 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) : data?.imagePath || Logo}
-                    src={imageError ? Logo : data?.imagePath || Logo}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+                    src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
                     onError={() => {
                       setImageError(true);
                     }}
@@ -147,8 +147,8 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) : data?.imagePath || Logo}
-                    src={imageError ? Logo : data?.imagePath || Logo}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+                    src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
                     onError={() => {
                       setImageError(true);
                     }}

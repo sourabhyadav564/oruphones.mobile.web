@@ -113,8 +113,8 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? Logo : data?.imagePath || getDefaultImage(data?.marketingName)}
-                    src={imageError ? Logo : data?.imagePath || getDefaultImage(data?.marketingName)}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+                    src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
                     onError={() => {
                       setImageError(true);
                     }}
@@ -170,8 +170,8 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) : data?.imagePath || Logo}
-                    src={imageError ? Logo : data?.imagePath || Logo}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+                    src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
                     onError={() => {
                       setImageError(true);
                     }}

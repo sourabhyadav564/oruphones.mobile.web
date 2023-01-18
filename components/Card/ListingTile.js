@@ -111,8 +111,8 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                 placeholder="blur"
                 priority={false}
                 unoptimized={false}
-                blurDataURL={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName)}
-                src={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName)}
+                blurDataURL={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName) || Logo}
+                src={imageError ? Logo : (data?.images && data.images.length > 0 && data.images[0].fullImage) || data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName) || Logo}
                 onError={() => {
                   setImageError(true);
                 }}

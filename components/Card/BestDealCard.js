@@ -237,9 +237,9 @@ function BestDealCard({
             placeholder="blur"
             priority={false}
             unoptimized={false}
-            blurDataURL={imageError ? Logo : data?.imagePath || getDefaultImage(data?.marketingName)}
+            blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
             alt={(`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
-            src={imageError ? Logo : data?.imagePath || getDefaultImage(data?.marketingName)}
+            src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
             onError={() => {
               setImageError(true);
             }}

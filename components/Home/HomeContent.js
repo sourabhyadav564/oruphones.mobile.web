@@ -103,7 +103,6 @@ const HomeContent = () => {
             the ORUphones app &amp; if satisfied you can conclude the deal and
             get instant payment from the buyer directly.
           </p>
-          directly.
         </div>
         <div id="how_to_buy">
           <p className="font-Roboto-Medium text-cx">How to Buy ORUphones Verified Used Phones?</p>

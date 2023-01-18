@@ -130,7 +130,7 @@ function SimilarProduct({ data }) {
           // <div className="col-span-4">
           // <Loader />
           // </div>
-          <div className="text-center pt-2 col-span-4 h-20">
+          <div className="text-center pt-2 col-span-4 h-20 font-Roboto-Regular">
             There are no similar products
           </div>
         )}

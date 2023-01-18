@@ -50,8 +50,6 @@ function Header1() {
     }
   })
 
-
-
   return (
     <>
 
