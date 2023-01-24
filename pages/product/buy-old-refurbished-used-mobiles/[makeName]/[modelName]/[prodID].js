@@ -20,7 +20,11 @@ import { FaRupeeSign } from "react-icons/fa";
 // import { BsInfoCircle } from "react-icons/bs";
 import { detailWithUserInfo, fetchSellerMobileNumber } from "api-call";
 import IconLabelValue from "@/components/IconLabelValue";
-import { getAccessoriesText, getDefaultImage, numberWithCommas } from "@/utils/util";
+import {
+  getAccessoriesText,
+  getDefaultImage,
+  numberWithCommas,
+} from "@/utils/util";
 import Footer from "@/components/Footer";
 import SimilarProduct from "@/components/SimilarProduct";
 import AddFav from "@/components/AddFav";
@@ -442,9 +446,9 @@ function ProductDeatils({ data }) {
                   </span>
                 </Fragment>
               )) || (
-                  <Fragment>
-                    {/* <UnVerifiedIcon width={75} height={32} /> */}
-                    {/* <p className="flex items-center">
+                <Fragment>
+                  {/* <UnVerifiedIcon width={75} height={32} /> */}
+                  {/* <p className="flex items-center">
                     <span
                       className="underline text-xs"
                       onClick={() =>
@@ -460,8 +464,8 @@ function ProductDeatils({ data }) {
                       onClick={() => setOpenVerificationInfo(true)}
                     />
                   </p> */}
-                  </Fragment>
-                )}
+                </Fragment>
+              )}
             </div>
           </div>
           <div className="flex flex-col items-start">
@@ -506,7 +510,7 @@ function ProductDeatils({ data }) {
               <div className="m-auto justify-center ">
                 <span
                   className="font-Roboto-Light text-bx opacity-100 text-[#000] flex leading-tight items-center"
-                // onClick={() => setOpenConditionInfo(true)}
+                  // onClick={() => setOpenConditionInfo(true)}
                 >
                   Condition{" "}
                 </span>
@@ -516,7 +520,7 @@ function ProductDeatils({ data }) {
                 </p> */}
               </div>
               <div className="flex text-bx space-x-[2.5px] m-auto justify-center ">
-                { }
+                {}
                 {Array(5)
                   .fill()
                   .map((_, index) => iconToShow(index))}
@@ -576,64 +580,64 @@ function ProductDeatils({ data }) {
                   </span> */}
               </Fragment>
             )) || (
-                <Fragment>
-                  {/* <UnVerifiedIcon width={75} height={32} /> */}
-                  {data?.isOtherVendor === "N" && (
-                    <div className="w-full  py-2 space-x-2 text-center">
-                      <div
-                        className="flex py-2 rounded-md"
-                        style={{ backgroundColor: "#F9C414" }}
-                      >
-                        <div className="flex space-x-1 pl-3">
-                          {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
-                          <div className="flex space-x-2">
-                            <AiFillExclamationCircle
-                              size={20}
-                              fill="white"
-                              className="self-center text-black"
-                            />
-                            {/* <UnVerifiedIcon /> */}
+              <Fragment>
+                {/* <UnVerifiedIcon width={75} height={32} /> */}
+                {data?.isOtherVendor === "N" && (
+                  <div className="w-full  py-2 space-x-2 text-center">
+                    <div
+                      className="flex py-2 rounded-md"
+                      style={{ backgroundColor: "#F9C414" }}
+                    >
+                      <div className="flex space-x-1 pl-3">
+                        {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
+                        <div className="flex space-x-2">
+                          <AiFillExclamationCircle
+                            size={20}
+                            fill="white"
+                            className="self-center text-black"
+                          />
+                          {/* <UnVerifiedIcon /> */}
 
-                            <span className="text-lx font-Roboto-Light  self-center text-[#000944] italic uppercase">
-                              unverified
-                            </span>
-                            <BsInfoCircle
-                              size={18}
-                              className="ml-1 pt-1.5 hover:cursor-pointer"
-                              onClick={() => setOpenVerificationInfo(true)}
-                            />
-                            <div className="pl-1">
-                              <div className="bg-gray-100 w-[0.5px] h-6 "></div>
-                            </div>
-                          </div>
-                          {/* <span className="text-xs italic self-center uppercase"> unverified</span> */}
-                        </div>
-                        <p className="flex items-center w-full justify-end pr-3"
-                          onClick={() => {
-                            if (!authenticated) {
-                              setOpenLoginPopup(true);
-                              setperformAction3(true);
-                            } else if (data?.status == "Active") {
-                              setOpenRequestVerificationSuccessPopup(true);
-                            } else
-                              toast.warning(`This device is sold out`, {
-                                toastId: "009",
-                              });
-                          }}>
-                          <span
-                            className="underline font-Light text-jx"
-                          >
-                            Click here to Request Verification
+                          <span className="text-lx font-Roboto-Light  self-center text-[#000944] italic uppercase">
+                            unverified
                           </span>
-                          {/* <BsInfoCircle
+                          <BsInfoCircle
+                            size={18}
+                            className="ml-1 pt-1.5 hover:cursor-pointer"
+                            onClick={() => setOpenVerificationInfo(true)}
+                          />
+                          <div className="pl-1">
+                            <div className="bg-gray-100 w-[0.5px] h-6 "></div>
+                          </div>
+                        </div>
+                        {/* <span className="text-xs italic self-center uppercase"> unverified</span> */}
+                      </div>
+                      <p
+                        className="flex items-center w-full justify-end pr-3"
+                        onClick={() => {
+                          if (!authenticated) {
+                            setOpenLoginPopup(true);
+                            setperformAction3(true);
+                          } else if (data?.status == "Active") {
+                            setOpenRequestVerificationSuccessPopup(true);
+                          } else
+                            toast.warning(`This device is sold out`, {
+                              toastId: "009",
+                            });
+                        }}
+                      >
+                        <span className="underline font-Light text-jx">
+                          Click here to Request Verification
+                        </span>
+                        {/* <BsInfoCircle
                           className="ml-1"
                           onClick={() => setOpenVerificationInfo(true)}
                         /> */}
-                        </p>
-                      </div>
+                      </p>
                     </div>
-                  )}
-                  {/* <p className="flex items-center">
+                  </div>
+                )}
+                {/* <p className="flex items-center">
                     <span
                       className="underline text-xs"
                       onClick={() =>
@@ -649,8 +653,8 @@ function ProductDeatils({ data }) {
                       onClick={() => setOpenVerificationInfo(true)}
                     />
                   </p> */}
-                </Fragment>
-              )}
+              </Fragment>
+            )}
           </div>
           {data?.externalSource?.length > 0 && (
             <div className="border-b-2 pb-2">
@@ -693,8 +697,8 @@ function ProductDeatils({ data }) {
                               index == 0
                                 ? first
                                 : index == 1
-                                  ? second
-                                  : index == 2 && third
+                                ? second
+                                : index == 2 && third
                             }
                             alt="icon"
                             width={50}
@@ -703,20 +707,23 @@ function ProductDeatils({ data }) {
                             className=""
                           />
                         )}
-                        {items?.externalSourceImage == "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/oru_logo.png" ?
+                        {items?.externalSourceImage ==
+                        "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/oru_logo.png" ? (
                           <div className="flex opacity-40 font-Roboto-Regular text-dx items-center pb-1">
                             {items?.userName}
-                          </div> :
+                          </div>
+                        ) : (
                           <Image
                             src={items?.externalSourceImage}
                             alt={vendor}
                             height={35}
                             width={70}
                             objectFit="contain"
-                          />}
+                          />
+                        )}
                         {data?.listingId == items.listingId &&
                           data.isOtherVendor == "Y" && (
-                            <p className="font-Roboto-Semibold opacity-30 py-1 ">
+                            <p className="font-Roboto-Semibold opacity-30 py-1 object-contain">
                               (This Phone)
                             </p>
                           )}
@@ -756,8 +763,8 @@ function ProductDeatils({ data }) {
                     data?.status == "Active"
                       ? showSellerNumber(data?.listingId)
                       : toast.warning(`This device is sold out`, {
-                        toastId: "010",
-                      })
+                          toastId: "010",
+                        })
                   }
                 >
                   {showNumber ? contactSellerMobileNumber : "Contact Seller"}
@@ -769,24 +776,24 @@ function ProductDeatils({ data }) {
                       !authenticated
                         ? setOpenLoginPopup(true)
                         : !(data?.isOtherVendor === "Y") &&
-                        Cookies.get("userUniqueId") !== undefined &&
-                        fetchSellerMobileNumber(
-                          data.listingId,
-                          Cookies.get("userUniqueId")
-                        ).then((response) => {
-                          console.log("response", response);
-                          setContactSellerMobileNumber(
-                            response?.dataObject?.mobileNumber
-                          );
-                          data?.status == "Active"
-                            ? window.open(
-                              `https://wa.me/+91${response?.dataObject?.mobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
-                              "_blank"
-                            )
-                            : toast.warning(`This device is sold out`, {
-                              toastId: "011",
-                            });
-                        });
+                          Cookies.get("userUniqueId") !== undefined &&
+                          fetchSellerMobileNumber(
+                            data.listingId,
+                            Cookies.get("userUniqueId")
+                          ).then((response) => {
+                            console.log("response", response);
+                            setContactSellerMobileNumber(
+                              response?.dataObject?.mobileNumber
+                            );
+                            data?.status == "Active"
+                              ? window.open(
+                                  `https://wa.me/+91${response?.dataObject?.mobileNumber}?text=Hey ${data?.listedBy}, I am interested in your ${data?.marketingName} which is listed at ₹${data?.listingPrice} on ORUphones`,
+                                  "_blank"
+                                )
+                              : toast.warning(`This device is sold out`, {
+                                  toastId: "011",
+                                });
+                          });
                     }}
                   >
                     <Image
@@ -919,7 +926,9 @@ function ProductDeatils({ data }) {
                 <div className="font-Roboto-Regular text-mx pb-2">
                   This is unverified device!
                 </div>
-                <span className="font-Roboto-Regular text-mx pb-2">Please </span>
+                <span className="font-Roboto-Regular text-mx pb-2">
+                  Please{" "}
+                </span>
                 <span
                   className="font-Roboto-Bold text-mx font-bold underline pb-2"
                   onClick={() => {
@@ -950,14 +959,14 @@ function ProductDeatils({ data }) {
         <div className="px-5 my-5">
           <SellerDetails data={data} />
         </div>
-        {data?.externalSource.length && data?.externalSource.length > 0 && <div className="py-2 px-5">
-          {/* <p className="pl-5 font-Roboto-Light text-ex border-b-2">Detailed Comparison Between Other Sellers</p> */}
-          <p className="text-[16px] text-[#2C2F45] font-Roboto-Bold my-3 border-b-2 pb-1 ">
-            Detailed Comparison Between Other Sellers
-          </p>
-          {data && (
-            <div className=" pb-5 flex w-full drop-shadow-2xl border-b-2">
-              {/* <Image
+        {data?.externalSource && data?.externalSource.length > 0 && (
+          <div className="py-2 px-5">
+            <p className="text-[16px] text-[#2C2F45] font-Roboto-Bold my-3 border-b-2 pb-1 ">
+              Detailed Comparison Between Other Sellers
+            </p>
+            {data && (
+              <div className=" pb-5 flex w-full drop-shadow-2xl border-b-2">
+                {/* <Image
                 src={ImageError ? Logo : data?.defaultImage || Logo}
                 onError={()=>setImageError(true)}
                 className=""
@@ -967,93 +976,98 @@ function ProductDeatils({ data }) {
                 height={120}
                 width={90}
               /> */}
-              {data && (
-                <div className="relative flex drop-shadow-2xl">
-                  <Image
-                    src={ImageError ? Logo : getDefaultImage(data?.marketingName) || Logo}
-                    onError={() => setImageError(true)}
-                    className=""
-                    // alt={`${
-                    //   type[Math.floor(Math.random() * type.length)]
-                    // } ${model} ${storage} like new `.toLowerCase()}
-                    height="120"
-                    width="90"
-                  />
-                  <div className="flex flex-col justify-end relative bottom-5 left-6">
-                    {/* <p className="font-bold text-dx text-[#2C2F45]">{data?.marketingName}</p> */}
-                    <CardHeading3 title={data?.marketingName} />
+                {data && (
+                  <div className="relative flex drop-shadow-2xl">
+                    <Image
+                      src={
+                        ImageError
+                          ? Logo
+                          : getDefaultImage(data?.marketingName) || Logo
+                      }
+                      onError={() => setImageError(true)}
+                      className=""
+                      // alt={`${
+                      //   type[Math.floor(Math.random() * type.length)]
+                      // } ${model} ${storage} like new `.toLowerCase()}
+                      height="120"
+                      width="90"
+                    />
+                    <div className="flex flex-col justify-end relative bottom-5 left-6">
+                      {/* <p className="font-bold text-dx text-[#2C2F45]">{data?.marketingName}</p> */}
+                      <CardHeading3 title={data?.marketingName} />
 
-                    {data?.make != "Apple" && <p className="flex space-x-1">
-                      <span>
-                        <CardHeading4 title="RAM :" />
-                      </span>{" "}
-                      <div className="font-Roboto-Bold text-jx pt-0.5 text-[#2C2F45]">
-                        {data?.deviceRam}
-                      </div>
-                    </p>}
+                      {data?.make != "Apple" && (
+                        <p className="flex space-x-1">
+                          <span>
+                            <CardHeading4 title="RAM :" />
+                          </span>{" "}
+                          <div className="font-Roboto-Bold text-jx pt-0.5 text-[#2C2F45]">
+                            {data?.deviceRam}
+                          </div>
+                        </p>
+                      )}
 
-                    <p className="flex space-x-1">
-                      <span>
-                        <CardHeading4 title="Storage : " />{" "}
-                      </span>{" "}
-                      <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
-                        {data?.deviceStorage}
-                      </div>
-                    </p>
-                    <p className="flex space-x-1">
-                      <span>
-                        <CardHeading4 title="Condition : " />{" "}
-                      </span>{" "}
-                      <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
-                        {data?.deviceCondition}
-                      </div>
-                    </p>
+                      <p className="flex space-x-1">
+                        <span>
+                          <CardHeading4 title="Storage : " />{" "}
+                        </span>{" "}
+                        <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
+                          {data?.deviceStorage}
+                        </div>
+                      </p>
+                      <p className="flex space-x-1">
+                        <span>
+                          <CardHeading4 title="Condition : " />{" "}
+                        </span>{" "}
+                        <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
+                          {data?.deviceCondition}
+                        </div>
+                      </p>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          )}
-          {data?.externalSource && data?.externalSource.length > 0 && <div className="flex">
-            <span className="text-cx font-Roboto-Light">
-              *The products compared here are either used mobile phones,
-              refurbished/renewed smartphone or second hand mobile phones.
-              These are not new phones.
-            </span>
-          </div>}
-          <ComparisonTable
-            data={data?.externalSource.length > 0 ? data?.externalSource : []}
-          />
-        </div>}
+                )}
+              </div>
+            )}
+            {data?.externalSource && data?.externalSource.length > 0 && (
+              <div className="flex">
+                <span className="text-cx font-Roboto-Light">
+                  *The products compared here are either used mobile phones,
+                  refurbished/renewed smartphone or second hand mobile phones.
+                  These are not new phones.
+                </span>
+              </div>
+            )}
+            <ComparisonTable
+              data={data?.externalSource.length > 0 ? data?.externalSource : []}
+            />
+          </div>
+        )}
       </main>
       <SimilarProduct data={data} />
       <Footer />
 
-      {
-        openRequestVerificationSuccessPopup && (
-          <RequestVerificationSuccessPopup
-            open={openRequestVerificationSuccessPopup}
-            setOpen={setOpenRequestVerificationSuccessPopup}
-            data={data}
-          />
-        )
-      }
+      {openRequestVerificationSuccessPopup && (
+        <RequestVerificationSuccessPopup
+          open={openRequestVerificationSuccessPopup}
+          setOpen={setOpenRequestVerificationSuccessPopup}
+          data={data}
+        />
+      )}
 
-      {
-        openRequestVerificationPopup && (
-          <RequestVerificationPopup
-            open={openRequestVerificationPopup}
-            setOpen={setOpenRequestVerificationPopup}
-            data={data}
-            setShowNumber={setShowNumber}
-            openRequestVerificationSuccessPopup={
-              openRequestVerificationSuccessPopup
-            }
-            setOpenRequestVerificationSuccessPopup={
-              setOpenRequestVerificationSuccessPopup
-            }
-          />
-        )
-      }
+      {openRequestVerificationPopup && (
+        <RequestVerificationPopup
+          open={openRequestVerificationPopup}
+          setOpen={setOpenRequestVerificationPopup}
+          data={data}
+          setShowNumber={setShowNumber}
+          openRequestVerificationSuccessPopup={
+            openRequestVerificationSuccessPopup
+          }
+          setOpenRequestVerificationSuccessPopup={
+            setOpenRequestVerificationSuccessPopup
+          }
+        />
+      )}
       <FullImageView
         open={showFullImage}
         close={() => setShowFullImage(false)}
@@ -1070,34 +1084,28 @@ function ProductDeatils({ data }) {
           ])
         }
       />
-      {
-        openConditionInfo && (
-          <ConditionInfo
-            open={openConditionInfo}
-            setOpen={setOpenConditionInfo}
-          />
-        )
-      }
-      {
-        openVerificationInfo && (
-          <VerificationInfo
-            open={openVerificationInfo}
-            setOpen={setOpenVerificationInfo}
-          />
-        )
-      }
-      {
-        openWarrantyInfo && (
-          <WarrantyInfo open={openWarrantyInfo} setOpen={setOpenWarrantyInfo} />
-        )
-      }
+      {openConditionInfo && (
+        <ConditionInfo
+          open={openConditionInfo}
+          setOpen={setOpenConditionInfo}
+        />
+      )}
+      {openVerificationInfo && (
+        <VerificationInfo
+          open={openVerificationInfo}
+          setOpen={setOpenVerificationInfo}
+        />
+      )}
+      {openWarrantyInfo && (
+        <WarrantyInfo open={openWarrantyInfo} setOpen={setOpenWarrantyInfo} />
+      )}
       <LoginPopup
         open={openLoginPopup}
         setOpen={setOpenLoginPopup}
         fromAddListing
       />
       <ThisPhonePopup open={thisPhonePopup} setOpen={setThisPhonePopup} />
-    </Fragment >
+    </Fragment>
   );
 }
 
@@ -1121,8 +1129,9 @@ export const getServerSideProps = async ({ req, res, query }) => {
 
 const PrimayButton = ({ className, children, ...rest }) => (
   <button
-    className={`p-2 my-3 bg-primary text-base text-white font-semibold w-full rounded uppercase ${className || ""
-      }`}
+    className={`p-2 my-3 bg-primary text-base text-white font-semibold w-full rounded uppercase ${
+      className || ""
+    }`}
     {...rest}
   >
     {children}

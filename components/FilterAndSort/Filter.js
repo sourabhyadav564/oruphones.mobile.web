@@ -128,7 +128,7 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
   // console.log("tempfilters : ", tempFilters);
 
   // console.log("filterOptions2", router.query);
-  // console.log("filterOptions", filterOptions);
+  // console.log("filterOptions2", filterOptions);
 
   return (
     <Fragment>

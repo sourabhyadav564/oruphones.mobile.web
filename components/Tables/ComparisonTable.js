@@ -145,7 +145,7 @@ function ComparisonTable(data) {
                           item?.externalSourceImage !=
                           "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? (
                           <div
-                            className="text-ex font-Roboto-Regular object-contain"
+                            className="text-ex font-Roboto-Regular invert-0 brightness-0 m-auto object-contain"
                           >
                             {item?.userName}
                           </div>

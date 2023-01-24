@@ -48,7 +48,7 @@ function ModelPage() {
     if (modelName && !isFilterApplied && !applyFilter) {
       fetchByMarketingName(
         selectedSearchCity,
-        modelName,
+        modelName.replace("+", "%2B"),
         Cookies.get("userUniqueId") || "Guest",
         intialPage,
         applySortFilter
@@ -102,7 +102,7 @@ function ModelPage() {
           let payLoad = {
             listingLocation: selectedSearchCity,
             make: brand?.length > 0 ? brand : [makeName],
-            marketingName: [modelName],
+            marketingName: [modelName.replace("+", "%2B")],
             reqPage: "BBNM",
             color: [],
             deviceCondition: [],
@@ -161,7 +161,7 @@ function ModelPage() {
     if (modelName && !isFilterApplied) {
       fetchByMarketingName(
         selectedSearchCity,
-        modelName,
+        modelmodelName.replace("+", "%2B"),
         Cookies.get("userUniqueId") || "Guest",
         newPages,
         applySortFilter
@@ -221,7 +221,7 @@ function ModelPage() {
           let payLoad = {
             listingLocation: selectedSearchCity,
             make: brand?.length > 0 ? brand : [makeName],
-            marketingName: [modelName],
+            marketingName: [modelName.replace("+", "%2B")],
             reqPage: "BBNM",
             color: [],
             deviceCondition: [],
@@ -313,7 +313,7 @@ function ModelPage() {
         let payLoad = {
           listingLocation: selectedSearchCity,
           make: brand?.length > 0 ? brand : [makeName],
-          marketingName: [modelName],
+          marketingName: [modelName.replace("+", "%2B")],
           reqPage: "BBNM",
           color: [],
           deviceCondition: [],

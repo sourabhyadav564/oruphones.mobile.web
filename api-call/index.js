@@ -679,7 +679,7 @@ export async function sendverification(listingid, userUniqueId) {
 }
 
 export function getShowSerchFilters() {
-  headers = { ...headers, eventName: "FETCH_SEARCH_FILTERS" };
+  headers = { ...headers, eventName: "FETCH_SEARCH_FILTERS",userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/master/showserchFilters`;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(

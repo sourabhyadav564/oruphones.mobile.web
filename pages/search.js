@@ -37,7 +37,6 @@ function Search() {
 
   const handleChange = (e) => {
     setInput(e.target.value);
-
     if (e.target.value.trim().length < 3 && searchResults && searchResults.results) {
       setSearchResults();
     }

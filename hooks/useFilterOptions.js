@@ -57,6 +57,7 @@ const useFilterOptions = () => {
   const fetchApi = () => {
     getShowSerchFilters().then(
       (res) => {
+        console.log("response from getShowSerchFilters : ", res);
         if (res?.status === "SUCCESS") {
           let tempFilters = filterOptions.map((item) => {
             if (item.id === "brand") {

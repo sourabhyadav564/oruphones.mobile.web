@@ -54,6 +54,7 @@ function FilterPopup({
 
   const openPopup = (id) => {
     if (id === "condition") {
+      // console.log("nimit");
       return (
         <BsInfoCircle
           className="text-sm cursor-pointer ml-1"
@@ -136,6 +137,7 @@ function FilterPopup({
               Clear Filter
             </span>
           </Dialog.Title>
+          {/* {console.log("sourabh",filterOptions)} */}
 
           <div className="mt-3 w-full">
             {filterOptions &&
