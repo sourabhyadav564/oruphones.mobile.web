@@ -161,7 +161,7 @@ function ModelPage() {
     if (modelName && !isFilterApplied) {
       fetchByMarketingName(
         selectedSearchCity,
-        modelmodelName.replace("+", "%2B"),
+        modelName.replace("+", "%2B"),
         Cookies.get("userUniqueId") || "Guest",
         newPages,
         applySortFilter

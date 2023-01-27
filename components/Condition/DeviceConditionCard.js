@@ -25,32 +25,32 @@ const DeviceConditionCard = ({ condition, answer }) => {
   console.log("note", note);
 
   return (
-    <div className="flex flex-col bg-white p-2  rounded-md space-x-1 shadow-lg">
+    <div className="flex flex-col bg-white p-2 font-Roboto-Regular rounded-md space-x-1 shadow-lg">
       <div className="flex p-2 space-x-1">
         <span className="font-Medium self-center text-bx">Your Device is in</span>
-        <p className="font-bold self-center text-jx">
+        <p className="font-Roboto-Bold self-center text-jx">
           {condition}
           <span> Condition</span>
         </p>
       </div>
 
-      <div class="rounded flex  relative justify-between">
+      <div class="rounded flex font-Roboto-Semibold relative justify-between">
         <div className="rounded-full flex absolute h-0.5 w-full my-3 bg-gray"></div>
 
         <span><span class={`flex h-7 w-7  rounded-full border relative ${condition == "Needs Repair" ? "bg-primary" : "bg-gray"}`}></span>
-          <div className={`text-xs  ${condition == "Fair" ? "text-primary" : "text-gray"}`}>Needs<br /> Repair</div></span>
+          <div className={`text-xs  ${condition == "Needs Repair" ? "text-primary" : "text-gray"}`}>Needs<br /> Repair</div></span>
 
         <span><span class={`flex h-7 w-7  rounded-full border relative ${condition == "Fair" ? "bg-primary" : "bg-gray"}`}></span>
           <div className={`text-xs  ${condition == "Fair" ? "text-primary" : "text-gray"}`}>Fair</div></span>
 
         <span><span class={`flex h-7 w-7  rounded-full border relative ${condition == "Good" ? "bg-primary" : "bg-gray"}`}></span>
-          <div className={`text-xs  ${condition == "Fair" ? "text-primary" : "text-gray"}`}>Good</div></span>
+          <div className={`text-xs  ${condition == "Good" ? "text-primary" : "text-gray"}`}>Good</div></span>
 
         <span><span class={`flex h-7 w-7  rounded-full border relative ${condition == "Excellent" ? "bg-primary" : "bg-gray"}`}></span>
-          <div className={`text-xs  ${condition == "Fair" ? "text-primary" : "text-gray"}`}>Excellent</div></span>
+          <div className={`text-xs  ${condition == "Excellent" ? "text-primary" : "text-gray"}`}>Excellent</div></span>
 
         <span><span class={`flex h-7 w-7  rounded-full border relative ${condition == "Like New" ? "bg-primary" : "bg-gray"}`}></span>
-          <div className={`text-xs  ${condition == "Fair" ? "text-primary" : "text-gray"}`}>Like <br /> New</div>
+          <div className={`text-xs  ${condition == "Like New" ? "text-primary" : "text-gray"}`}>Like <br /> New</div>
         </span>
       </div>
     </div>

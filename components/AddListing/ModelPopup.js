@@ -27,11 +27,11 @@ function ModelPopup({ open, setOpen, mktNameOpt }) {
         <div className="text-left sm:mt-0 sm:ml-4 sm:text-left text-black-4e mx-2">
           <Dialog.Title
             as="h1"
-            className="text-lg leading-6 font-semibold px-4 py-6 -mx-2"
+            className="text-lg leading-6 font-Roboto-Semibold px-4 py-6 -mx-2"
           >
             Select Model
           </Dialog.Title>
-          <div className="border-2 border-gray-200 w-full p-2 flex items-center justify-start space-x-2 rounded-md">
+          <div className="border-2 border-gray-200 w-full p-2 flex font-Roboto-Semibold items-center justify-start space-x-2 rounded-md">
             <BiSearch className="text-2xl" />
             <input
               type="text"
@@ -47,7 +47,7 @@ function ModelPopup({ open, setOpen, mktNameOpt }) {
               models.map((item, index) => (
                 <div
                   key={index}
-                  className="p-4 hover:bg-gray-200 active:bg-gray-300 duration-300"
+                  className="p-4 hover:bg-gray-200 active:bg-gray-300 duration-300 font-Roboto-Regular"
                   onClick={() => {
                     setModelState(item.marketingname);
                     setOpen(false);

@@ -42,7 +42,7 @@ function BrandPopup({ open, setOpen }) {
         <div className="text-left sm:mt-0 sm:ml-4 sm:text-left text-black-4e">
           <Dialog.Title
             as="h1"
-            className="text-lg leading-6 font-semibold  px-4 py-6"
+            className="text-lg leading-6 font-Roboto-Semibold px-4 py-6"
           >
             Select Brand
           </Dialog.Title>
