@@ -140,7 +140,7 @@ function ComparisonTable(data, listingId) {
                       thisPhoneListingId == item.listingId
                         ? "bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center"
                         : "bg-white border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center"
-                    }`}
+                      }`}
                   >
                     <th
                       scope="row"
@@ -151,7 +151,7 @@ function ComparisonTable(data, listingId) {
                         thisPhoneListingId == item.listingId
                           ? "px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-gray-100 drop-shadow-2xl border-[1px]"
                           : "px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-white drop-shadow-2xl border-[1px]"
-                      }`}
+                        }`}
                     >
                       <div
                         className="flex"
@@ -160,10 +160,14 @@ function ComparisonTable(data, listingId) {
                             setOpenLoginPopup(true);
                             setProductLink(item?.productLink);
                             setperformAction2(true);
-                          } else if (thisPhoneListingId != item.listingId)
-                            window.open(item?.productLink, "_blank");
-                          else if (thisPhoneListingId == item.listingId) {
+                          }
+                          else if (thisPhoneListingId == item.listingId && item?.Object?.isOtherVendor == "N") {
                             setThisPhonePopup(true);
+                          } else if (thisPhoneListingId != item.listingId) {
+                            window.open(item?.productLink, "_blank");
+                          }
+                          else {
+                            window.open(item?.productLink, "_blank");
                           }
                         }}
                       >
@@ -180,17 +184,16 @@ function ComparisonTable(data, listingId) {
                               //   "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
                               thisPhoneListingId != item.listingId &&
                               "invert-0 brightness-0"
-                            } m-auto object-contain`}
+                              } m-auto object-contain`}
                           >
                             {item?.userName}
                           </div>
                         ) : (
                           <Image
-                            className={`${
-                              thisPhoneListingId == item.listingId
-                                ? "object-contain "
-                                : "object-contain brightness-0 invert-0"
-                            }`}
+                            className={`${thisPhoneListingId == item.listingId
+                              ? "object-contain "
+                              : "object-contain brightness-0 invert-0"
+                              }`}
                             src={item?.externalSourceImage}
                             height={30}
                             width={70}
@@ -225,15 +228,15 @@ function ComparisonTable(data, listingId) {
                               ? "Phone Charger, Earphone, Phone Box"
                               : "Phone Charger, Earphone"
                             : item?.Object?.originalbox == "Y"
-                            ? "Phone Charger, Phone Box"
-                            : "Phone Charger"
+                              ? "Phone Charger, Phone Box"
+                              : "Phone Charger"
                           : item?.Object?.earphone == "Y"
-                          ? item?.Object?.originalbox == "Y"
-                            ? "Earphone, Phone Box"
-                            : "Earphone"
-                          : item?.Object?.originalbox == "Y"
-                          ? "Phone Box"
-                          : "Not Available"
+                            ? item?.Object?.originalbox == "Y"
+                              ? "Earphone, Phone Box"
+                              : "Earphone"
+                            : item?.Object?.originalbox == "Y"
+                              ? "Phone Box"
+                              : "Not Available"
                         : "None"}
                     </td>
                     <td class="px-6 py-4 border-[1px]">
@@ -244,15 +247,15 @@ function ComparisonTable(data, listingId) {
                               ? "Charger, Earphone, Original Box"
                               : "Charger, Earphone"
                             : item?.Object?.originalbox == "Y"
-                            ? "Charger, Original Box"
-                            : "Charger"
+                              ? "Charger, Original Box"
+                              : "Charger"
                           : item?.Object?.earphone == "Y"
-                          ? item?.Object?.originalbox == "Y"
-                            ? "Earphone, Original Box"
-                            : "Earphone"
-                          : item?.Object?.originalbox == "Y"
-                          ? "Original Box"
-                          : "Not Available"
+                            ? item?.Object?.originalbox == "Y"
+                              ? "Earphone, Original Box"
+                              : "Earphone"
+                            : item?.Object?.originalbox == "Y"
+                              ? "Original Box"
+                              : "Not Available"
                         : "None"}
                     </td>
                     <td class="px-6 py-4 border-[1px]">

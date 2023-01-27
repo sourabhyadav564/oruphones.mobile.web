@@ -677,13 +677,11 @@ function ProductDeatils({ data }) {
                         setProductLink(items?.productLink);
                         setperformAction2(true);
                       } else if (
-                        items?.externalSourceImage !=
-                        "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
+                        items?.listingId == data?.listingId && data?.isOtherVendor == "Y"
                       )
                         window.open(items?.productLink, "_blank");
                       else if (
-                        items?.externalSourceImage ==
-                        "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
+                        items?.listingId == data?.listingId
                       ) {
                         setThisPhonePopup(true);
                       }
@@ -712,7 +710,7 @@ function ProductDeatils({ data }) {
                             {items?.userName}
                           </div>
                         ) :
-                          items?.listingId == data?.listingId ? (
+                          items?.listingId == data?.listingId && data?.isOtherVendor == "N" ? (
                             <>
                               <p className="flex opacity-40 font-Roboto-Regular text-dx items-center pb-1">
                                 {items?.userName}
