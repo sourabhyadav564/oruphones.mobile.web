@@ -8,6 +8,14 @@ function Search() {
   const [searchResults, setSearchResults] = useState();
   const [input, setInput] = useState("");
   const inputElement = useRef(null);
+  var pastSearches = [];
+
+  useEffect(() => {
+    // console.log("searchResults", pastSearches);
+    Window.localStorage.setItem("pastSearches", JSON.stringify(pastSearches));
+  }, []);
+
+  console.log("serachResults", pastSearches);
 
   useEffect(() => {
     if (inputElement.current) {
@@ -37,7 +45,11 @@ function Search() {
 
   const handleChange = (e) => {
     setInput(e.target.value);
-    if (e.target.value.trim().length < 3 && searchResults && searchResults.results) {
+    if (
+      e.target.value.trim().length < 3 &&
+      searchResults &&
+      searchResults.results
+    ) {
       setSearchResults();
     }
   };
@@ -56,13 +68,23 @@ function Search() {
       </Header2>
       <main>
         {searchResults && (
-          <div className="bg-white overflow-y-auto " style={{ boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.16)" }}>
-            {searchResults && searchResults.results && searchResults.results.length > 0 ? (
+          <div
+            className="bg-white overflow-y-auto "
+            style={{ boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.16)" }}
+          >
+            {searchResults &&
+            searchResults.results &&
+            searchResults.results.length > 0 ? (
               searchResults.results.map((item) => (
                 <ListItem
                   key={item}
-                  make={searchResults && searchResults.marketingNameAndMakeMap && searchResults.marketingNameAndMakeMap[item]}
+                  make={
+                    searchResults &&
+                    searchResults.marketingNameAndMakeMap &&
+                    searchResults.marketingNameAndMakeMap[item]
+                  }
                   marketingName={item}
+                  pastSearches={pastSearches}
                 />
               ))
             ) : (
@@ -77,18 +99,22 @@ function Search() {
 
 export default Search;
 
-const ListItem = ({ make, marketingName, children }) => {
+const ListItem = ({ make, marketingName, children, pastSearches }) => {
   if (children) {
     return <p className="px-6 py-3 block border-b last:border-0">{children}</p>;
   }
+
+  const handleClick = () => {
+    pastSearches.push(marketingName);
+    // window.open(
+    //   `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`,
+    //   "_blank"
+    // );
+  };
   return (
     <div
-      // href={`/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`}
-      onClick={() => window.open(
-        `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`,
-        "_blank"
-      )
-      }
+      href={`/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`}
+      onClick={handleClick()}
     >
       <a className="px-6 py-3 block border-b last:border-0">{marketingName}</a>
     </div>

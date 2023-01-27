@@ -10,8 +10,6 @@ import WarrantyInfo from "@/components/Popup/WarrantyInfo";
 import VerificationInfo from "../Popup/VerificationInfo";
 import { numberWithCommas } from "@/utils/util";
 
-
-
 function ComparisonTable(data) {
   // console.log("data prod", data);
   const [productData, setProductData] = useState([]);
@@ -31,10 +29,8 @@ function ComparisonTable(data) {
   const [openWarrantyInfo, setOpenWarrantyInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
 
-
   useEffect(() => {
     const interval = setInterval(() => {
-
       if (
         openLoginPopup == false &&
         performAction2 == true &&
@@ -44,11 +40,12 @@ function ComparisonTable(data) {
       ) {
         window.open(productLink, "_blank");
         clearInterval(interval);
-      }
-      else if (openLoginPopup == false &&
+      } else if (
+        openLoginPopup == false &&
         performAction2 == true &&
         Cookies.get("userUniqueId") !== undefined &&
-        productLink == "") {
+        productLink == ""
+      ) {
         setThisPhonePopup(true);
         clearInterval(interval);
       }
@@ -69,6 +66,12 @@ function ComparisonTable(data) {
               </th>
               <th
                 scope="col"
+                class="px-3 py-3 bg-primary border-[1px] border-r-gray"
+              >
+                Rank
+              </th>
+              <th
+                scope="col"
                 class="px-6 py-3 bg-primary border-[1px] border-r-gray"
               >
                 Price
@@ -77,7 +80,10 @@ function ComparisonTable(data) {
                 scope="col"
                 class="px-6 py-3 bg-primary border-[1px] border-r-gray text-center"
               >
-                <div className="flex justify-center items-center" onClick={() => setOpenWarrantyInfo(true)}>
+                <div
+                  className="flex justify-center items-center"
+                  onClick={() => setOpenWarrantyInfo(true)}
+                >
                   <p className="pr-1">Brand Warranty</p>
                   <BsInfoCircle size={20} classname="pl-1" />
                 </div>
@@ -86,7 +92,10 @@ function ComparisonTable(data) {
                 scope="col"
                 class="px-6 py-3 bg-primary border-[1px] border-r-gray text-center"
               >
-                <div className="flex justify-center items-center" onClick={() => setOpenWarrantyInfo(true)}>
+                <div
+                  className="flex justify-center items-center"
+                  onClick={() => setOpenWarrantyInfo(true)}
+                >
                   <p className="pr-1">Seller Warranty</p>
                   <BsInfoCircle size={20} classname="pl-1" />
                 </div>
@@ -107,7 +116,10 @@ function ComparisonTable(data) {
                 scope="col"
                 class="px-6 py-3 bg-primary border-[1px] border-r-gray text-center"
               >
-                <div className="flex justify-center items-center" onClick={() => setOpenVerificationInfo(true)}>
+                <div
+                  className="flex justify-center items-center"
+                  onClick={() => setOpenVerificationInfo(true)}
+                >
                   <p className="pr-1">Oru Verified</p>
                   <BsInfoCircle size={20} classname="pl-1" />
                 </div>
@@ -116,51 +128,65 @@ function ComparisonTable(data) {
           </thead>
           <tbody>
             {productData &&
-              productData?.map((item) => {
+              productData?.map((item, index) => {
                 return (
-                  <tr class={`${item.externalSourceImage == "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? "bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center" : "bg-white border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center"}`}>
+                  <tr
+                    class={`${
+                      item.externalSourceImage == ""
+                        ? "bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center"
+                        : "bg-white border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center"
+                    }`}
+                  >
                     <th
                       scope="row"
-                      class={`${item.externalSourceImage == "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? "px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-gray-100 drop-shadow-2xl border-[1px]" : "px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-white drop-shadow-2xl border-[1px]"}`}
+                      class={`${
+                        item.externalSourceImage == ""
+                          ? "px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-gray-100 drop-shadow-2xl border-[1px]"
+                          : "px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-white drop-shadow-2xl border-[1px]"
+                      }`}
                     >
-                      <div className="flex" onClick={() => {
-                        if (Cookies.get("userUniqueId") == undefined) {
-                          setOpenLoginPopup(true);
-                          setProductLink(item?.productLink);
-                          setperformAction2(true);
-                        } else if (
-                          item?.externalSourceImage !=
-                          "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
-                        )
-                          window.open(item?.productLink, "_blank");
-                        else if (
-                          item?.externalSourceImage ==
-                          "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
-                        ) {
-                          setThisPhonePopup(true);
-                        }
-                      }}>
-
+                      <div
+                        className="flex"
+                        onClick={() => {
+                          if (Cookies.get("userUniqueId") == undefined) {
+                            setOpenLoginPopup(true);
+                            setProductLink(item?.productLink);
+                            setperformAction2(true);
+                          } else if (item?.externalSourceImage != "")
+                            window.open(item?.productLink, "_blank");
+                          else if (item?.externalSourceImage == "") {
+                            setThisPhonePopup(true);
+                          }
+                        }}
+                      >
                         {item?.userName &&
-                          item?.externalSourceImage !=
-                          "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? (
+                        (item?.externalSourceImage == "" ||
+                          item?.externalSourceImage ==
+                            "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/oru_logo.png") ? (
                           <div
-                            className="text-ex font-Roboto-Regular invert-0 brightness-0 m-auto object-contain"
+                            className={`text-ex font-Roboto-Regular ${
+                              item?.externalSourceImage != "" &&
+                              "invert-0 brightness-0"
+                            } m-auto object-contain`}
                           >
                             {item?.userName}
                           </div>
                         ) : (
                           <Image
-                            className={`${item.externalSourceImage == "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png" ? "object-contain " : "object-contain brightness-0 invert-0"}`}
+                            className={`${
+                              item.externalSourceImage == ""
+                                ? "object-contain "
+                                : "object-contain brightness-0 invert-0"
+                            }`}
                             src={item?.externalSourceImage}
                             height={30}
                             width={70}
                           />
-                        )
-                        }
+                        )}
                         {/* <FaGreaterThan size={18} className="pt-1.5" /> */}
                       </div>
                     </th>
+                    <td class="mx-4 py-4 border-[1px]">{index + 1}</td>
                     <td class="mx-4 py-4 border-[1px] text-yellow-fb">
                       ₹ {numberWithCommas(item?.externalSourcePrice)}
                     </td>
@@ -172,12 +198,29 @@ function ComparisonTable(data) {
                     <td class="px-6 py-4  border-[1px]">
                       {item?.Object?.isOtherVendor == "N"
                         ? "None"
-                        : "6 months"}
+                        : item?.Object?.warranty}
                     </td>
                     <td class="px-6 py-4 border-[1px]">
-                      {item?.Object?.isOtherVendor == "N"
+                      {/* {item?.Object?.isOtherVendor == "N"
                         ? "None"
-                        : "Phone Charger, Phone Box"}
+                        : "Phone Charger, Phone Box"} */}
+                      {item?.Object?.isOtherVendor == "Y"
+                        ? item?.Object?.charger == "Y"
+                          ? item?.Object?.earphone == "Y"
+                            ? item?.Object?.originalbox == "Y"
+                              ? "Phone Charger, Earphone, Phone Box"
+                              : "Phone Charger, Earphone"
+                            : item?.Object?.originalbox == "Y"
+                            ? "Phone Charger, Phone Box"
+                            : "Phone Charger"
+                          : item?.Object?.earphone == "Y"
+                          ? item?.Object?.originalbox == "Y"
+                            ? "Earphone, Phone Box"
+                            : "Earphone"
+                          : item?.Object?.originalbox == "Y"
+                          ? "Phone Box"
+                          : "Not Available"
+                        : "None"}
                     </td>
                     <td class="px-6 py-4 border-[1px]">
                       {item?.Object?.isOtherVendor == "N"
@@ -186,23 +229,23 @@ function ComparisonTable(data) {
                             ? item?.Object?.originalbox == "Y"
                               ? "Charger, Earphone, Original Box"
                               : "Charger, Earphone"
-                            : item?.Object?.originalbox == "Y" ?
-                              "Charger, Original Box"
-                              : "Charger"
-                          : item?.Object?.earphone == "Y"
-                            ? item?.Object?.originalbox == "Y"
-                              ? "Earphone, Original Box"
-                              : "Earphone"
                             : item?.Object?.originalbox == "Y"
-                              ? "Original Box"
-                              : "Not Available"
+                            ? "Charger, Original Box"
+                            : "Charger"
+                          : item?.Object?.earphone == "Y"
+                          ? item?.Object?.originalbox == "Y"
+                            ? "Earphone, Original Box"
+                            : "Earphone"
+                          : item?.Object?.originalbox == "Y"
+                          ? "Original Box"
+                          : "Not Available"
                         : "None"}
                     </td>
                     <td class="px-6 py-4 border-[1px]">
                       {item?.Object?.isOtherVendor == "N"
                         ? item?.Object?.verified
-                          ? "Yes"
-                          : "No"
+                          ? "Verified"
+                          : "Not Verified"
                         : "None"}
                     </td>
                   </tr>

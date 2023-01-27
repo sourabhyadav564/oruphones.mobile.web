@@ -70,7 +70,7 @@ module.exports = {
           21: "#212121",
         },
         yellow: {
-          fb: "#FBB215",
+          fb: "#F9C414",
         },
         red: {
           DEFAULT: "#FF0000",

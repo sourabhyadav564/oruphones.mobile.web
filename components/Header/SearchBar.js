@@ -6,18 +6,30 @@ import { Fragment } from "react";
 import { BiSearch } from "react-icons/bi";
 import Loader from "../Loader/Loader";
 import Spinner from "../Loader/Spinner";
-import {CgCloseO} from "react-icons/cg";
+import { CgCloseO } from "react-icons/cg";
 
 function SearchBar({ className }) {
   const [searchResults, setSearchResults] = useState();
   const [input, setInput] = useState("");
   const ref = useRef();
-
- 
+  const [recentSearch, setRecentSearch] = useState([]);
+  let showRecentSearch = true;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (
+        localStorage.getItem("pastSearches") &&
+        recentSearch !== JSON.parse(localStorage.getItem("pastSearches"))
+      ) {
+        setRecentSearch(JSON.parse(localStorage.getItem("pastSearches")));
+        clearInterval(interval);
+      }
+    }, 1000);
+  }, [input]);
 
   useEffect(() => {
     let timeOut = setTimeout(() => {
       if (input.trim().length > 2) {
+        showRecentSearch = false;
         getSearchResults(input).then(
           (res) => {
             if (res && res.status === "SUCCESS") {
@@ -40,6 +52,7 @@ function SearchBar({ className }) {
       if (ref.current && !ref.current.contains(e.target)) {
         setSearchResults();
         setInput("");
+        showRecentSearch = true;
       }
     };
 
@@ -49,10 +62,8 @@ function SearchBar({ className }) {
     };
   }, []);
 
-
   const handleChange = (e) => {
     setInput(e.target.value);
-
     if (
       e.target.value.trim().length < 3 &&
       searchResults &&
@@ -68,25 +79,47 @@ function SearchBar({ className }) {
 
   return (
     <Fragment>
-      
       <div className="flex-1 relative " ref={ref}>
-     
         <input
           placeholder="Search on ORUphones"
           onChange={handleChange}
           value={input}
-          className={`w-full bg-white text-gray-800 focus:outline-none rounded-md ${className || "py-2 pl-2 pr-4 text-xs"
-            } ${searchResults && "rounded-b-none"}`}
+          className={`w-full bg-white text-gray-800 focus:outline-none rounded-md ${
+            className || "py-2 pl-2 pr-4 text-xs"
+          } ${searchResults && "rounded-b-none"}`}
           style={{ boxShadow: "0px 2px 3px #0000000A" }}
         />
         {searchResults && (
           <div
+            // className="overflow-y-auto"
             className="absolute z-20 left-0 right-0 rounded-b-lg  bg-white overflow-y-auto text-black"
             style={{
               boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.16)",
-              maxHeight: 315,
+              maxHeight: 400,
             }}
           >
+            <div>
+              {recentSearch && showRecentSearch && recentSearch.length > 0 && (
+                <>
+                  <p className="px-4 py-3 block border-b text-primary text-xs">
+                    Recent Searches
+                  </p>
+                  <div>
+                    {recentSearch.map((item) => (
+                      <ListItem
+                        clicked={() => {
+                          setInput("");
+                          setSearchResults();
+                          showRecentSearch = true;
+                        }}
+                        marketingName={item}
+                        make={item && item.split(" ")[0]}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
             {searchResults.brandList && searchResults.brandList.length > 0 && (
               <p className="px-4 py-3 block border-b text-primary text-xs">
                 Brand
@@ -99,10 +132,13 @@ function SearchBar({ className }) {
                   clicked={() => {
                     setInput("");
                     setSearchResults();
+                    showRecentSearch = true;
                   }}
                   key={item}
                   make={item}
                   makeLink
+                  // setPastSearches={setPastSearches}
+                  // pastSearches = {pastSearches}
                 />
               ))}
             {searchResults.results && searchResults.results.length > 0 && (
@@ -118,6 +154,7 @@ function SearchBar({ className }) {
                   clicked={() => {
                     setInput("");
                     setSearchResults();
+                    showRecentSearch = true;
                   }}
                   key={item}
                   make={
@@ -126,6 +163,8 @@ function SearchBar({ className }) {
                     searchResults.marketingNameAndMakeMap[item]
                   }
                   marketingName={item}
+                  // setPastSearches={setPastSearches}
+                  // pastSearches={pastSearches}
                 />
               ))}
             {searchResults === "loading" && (
@@ -133,6 +172,7 @@ function SearchBar({ className }) {
                 clicked={() => {
                   setInput("");
                   setSearchResults();
+                  showRecentSearch = true;
                 }}
               >
                 <Spinner />
@@ -152,8 +192,10 @@ function SearchBar({ className }) {
                   searchResults.brandList.length < 1)) && (
                 <ListItem
                   clicked={() => {
+                    // setPastSearches(...pastSearches,marketingName)
                     setInput("");
                     setSearchResults();
+                    showRecentSearch = true;
                   }}
                 >
                   Not found
@@ -161,6 +203,7 @@ function SearchBar({ className }) {
               )}
           </div>
         )}
+        {/* </div> */}
         {!className && (
           <div className="absolute right-2 top-0 bottom-0 flex items-center">
             <BiSearch className="text-primary " size={20} />
@@ -184,20 +227,41 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
       </p>
     );
   }
+  const pastSearches = () => {
+    // let pastSearch = new Map();
+    let pastSearch = [];
+    if (localStorage.getItem("pastSearches")) {
+      pastSearch = localStorage.getItem("pastSearches");
+      pastSearch = JSON.parse(pastSearch);
+      pastSearch = pastSearch.filter((item) => item !== marketingName || make);
+    }
+    if (pastSearch.length >= 5) {
+      pastSearch.shift();
+    }
+    pastSearch.push(marketingName || make);
+    localStorage.setItem("pastSearches", JSON.stringify(pastSearch));
+    // }
+  };
+  const handleClick = () => {
+    // setPastSearches(marketingName)
+    clicked();
+    pastSearches();
+    window.open(
+      makeLink
+        ? `/product/buy-old-refurbished-used-mobiles/${make}/`
+        : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`,
+      "_blank"
+    );
+  };
+
   return (
     <div
-      onClick={() => window.open(
-        makeLink
-          ? `/product/buy-old-refurbished-used-mobiles/${make}/`
-          : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`,
-        "_blank"
-      )
-      }
-    // href={
-    //   makeLink
-    //     ? `/product/buy-old-refurbished-used-mobiles/${make}/`
-    //     : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`
-    // }
+      onClick={() => handleClick()}
+      // href={
+      //   makeLink
+      //     ? `/product/buy-old-refurbished-used-mobiles/${make}/`
+      //     : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`
+      // }
     >
       <a
         className="px-6 py-3 block border-b last:border-0 capitalize"

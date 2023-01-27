@@ -689,7 +689,7 @@ function ProductDeatils({ data }) {
                       }
                     }}
                   >
-                    <div className="flex-1 flex flex-col justify-start px-2 pt-3">
+                    <div className="flex-1 flex flex-col justify-start px-2 py-1.5">
                       <div className="flex flex-row">
                         {index < 3 && (
                           <Image
@@ -712,15 +712,23 @@ function ProductDeatils({ data }) {
                           <div className="flex opacity-40 font-Roboto-Regular text-dx items-center pb-1">
                             {items?.userName}
                           </div>
-                        ) : (
+                        ) 
+                        : items.externalSourceImage !=  "" && items?.productLink!="" ? (
                           <Image
                             src={items?.externalSourceImage}
                             alt={vendor}
                             height={35}
                             width={70}
                             objectFit="contain"
+                            className="px-2 pt-2"
                           />
+                        ) : 
+                        (
+                          <div className="flex opacity-40 font-Roboto-Regular text-dx items-center py-1.5 px-2">
+                            {"This phone"}
+                          </div>
                         )}
+                        {/* {console.log("items", items)} */}
                         {data?.listingId == items.listingId &&
                           data.isOtherVendor == "Y" && (
                             <p className="font-Roboto-Semibold opacity-30 py-1 object-contain">
@@ -964,8 +972,9 @@ function ProductDeatils({ data }) {
             <p className="text-[16px] text-[#2C2F45] font-Roboto-Bold my-3 border-b-2 pb-1 ">
               Detailed Comparison Between Other Sellers
             </p>
+
             {data && (
-              <div className=" pb-5 flex w-full drop-shadow-2xl border-b-2">
+              <div className=" pb-5 flex w-full border-b-2">
                 {/* <Image
                 src={ImageError ? Logo : data?.defaultImage || Logo}
                 onError={()=>setImageError(true)}
@@ -977,7 +986,7 @@ function ProductDeatils({ data }) {
                 width={90}
               /> */}
                 {data && (
-                  <div className="relative flex drop-shadow-2xl">
+                  <div className="relative flex">
                     <Image
                       src={
                         ImageError
@@ -1038,7 +1047,7 @@ function ProductDeatils({ data }) {
               </div>
             )}
             <ComparisonTable
-              data={data?.externalSource.length > 0 ? data?.externalSource : []}
+              data={data?.compareData.length > 0 ? data?.compareData : []}
             />
           </div>
         )}
