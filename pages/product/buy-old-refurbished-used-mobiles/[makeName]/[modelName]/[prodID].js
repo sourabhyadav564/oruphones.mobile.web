@@ -712,8 +712,8 @@ function ProductDeatils({ data }) {
                           <div className="flex opacity-40 font-Roboto-Regular text-dx items-center pb-1">
                             {items?.userName}
                           </div>
-                        ) 
-                        : items.externalSourceImage !=  "" && items?.productLink!="" ? (
+                        ) : items.externalSourceImage != "" &&
+                          items?.productLink != "" ? (
                           <Image
                             src={items?.externalSourceImage}
                             alt={vendor}
@@ -722,10 +722,9 @@ function ProductDeatils({ data }) {
                             objectFit="contain"
                             className="px-2 pt-2"
                           />
-                        ) : 
-                        (
+                        ) : (
                           <div className="flex opacity-40 font-Roboto-Regular text-dx items-center py-1.5 px-2">
-                            {"This phone"}
+                            {items?.userName}
                           </div>
                         )}
                         {/* {console.log("items", items)} */}
@@ -1048,7 +1047,9 @@ function ProductDeatils({ data }) {
             )}
             <ComparisonTable
               data={data?.compareData.length > 0 ? data?.compareData : []}
+              listingId={data?.listingId !== undefined ? data?.listingId : []}
             />
+            {console.log("data?.compareData", data?.listingId)}
           </div>
         )}
       </main>

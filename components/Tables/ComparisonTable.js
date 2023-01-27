@@ -10,14 +10,16 @@ import WarrantyInfo from "@/components/Popup/WarrantyInfo";
 import VerificationInfo from "../Popup/VerificationInfo";
 import { numberWithCommas } from "@/utils/util";
 
-function ComparisonTable(data) {
-  // console.log("data prod", data);
+function ComparisonTable(data, listingId) {
+  // console.log("data prod", data?.listingId);
   const [productData, setProductData] = useState([]);
+  const [thisPhoneListingId, setThisPhoneListingId] = useState("");
   useEffect(() => {
     if (data?.data?.length > 0) {
       const interval = setInterval(() => {
         setProductData(data?.data);
-        // console.log("productData", productData);
+        setThisPhoneListingId(data?.listingId);
+        // console.log("productData", thisPhoneListingId);
         clearInterval(interval);
       }, 1000);
     }
@@ -132,7 +134,10 @@ function ComparisonTable(data) {
                 return (
                   <tr
                     class={`${
-                      item.externalSourceImage == ""
+                      // item.externalSourceImage == "" ||
+                      // item.externalSourceImage ==
+                      //   "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
+                      thisPhoneListingId == item.listingId
                         ? "bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center"
                         : "bg-white border-b dark:bg-gray-800 dark:border-gray-700 overflow-x-scroll font-Roboto-Regular text-center"
                     }`}
@@ -140,7 +145,10 @@ function ComparisonTable(data) {
                     <th
                       scope="row"
                       class={`${
-                        item.externalSourceImage == ""
+                        // item.externalSourceImage == "" ||
+                        // item.externalSourceImage ==
+                        //   "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
+                        thisPhoneListingId == item.listingId
                           ? "px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-gray-100 drop-shadow-2xl border-[1px]"
                           : "px-2 py-4 font-medium text-gray-400 dark:text-white sticky top-0 left-0 bg-white drop-shadow-2xl border-[1px]"
                       }`}
@@ -152,20 +160,25 @@ function ComparisonTable(data) {
                             setOpenLoginPopup(true);
                             setProductLink(item?.productLink);
                             setperformAction2(true);
-                          } else if (item?.externalSourceImage != "")
+                          } else if (thisPhoneListingId != item.listingId)
                             window.open(item?.productLink, "_blank");
-                          else if (item?.externalSourceImage == "") {
+                          else if (thisPhoneListingId == item.listingId) {
                             setThisPhonePopup(true);
                           }
                         }}
                       >
-                        {item?.userName &&
-                        (item?.externalSourceImage == "" ||
-                          item?.externalSourceImage ==
-                            "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/oru_logo.png") ? (
+                        {item?.userName ? (
+                          // (item?.externalSourceImage == "" ||
+                          //   item?.externalSourceImage ==
+                          //     "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/oru_logo.png" ||
+                          //   item.externalSourceImage ==
+                          //     "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png")
                           <div
                             className={`text-ex font-Roboto-Regular ${
-                              item?.externalSourceImage != "" &&
+                              // item.externalSourceImage != "" &&
+                              // item.externalSourceImage !=
+                              //   "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
+                              thisPhoneListingId != item.listingId &&
                               "invert-0 brightness-0"
                             } m-auto object-contain`}
                           >
@@ -174,7 +187,7 @@ function ComparisonTable(data) {
                         ) : (
                           <Image
                             className={`${
-                              item.externalSourceImage == ""
+                              thisPhoneListingId == item.listingId
                                 ? "object-contain "
                                 : "object-contain brightness-0 invert-0"
                             }`}
@@ -182,6 +195,7 @@ function ComparisonTable(data) {
                             height={30}
                             width={70}
                           />
+                          // <div></div>
                         )}
                         {/* <FaGreaterThan size={18} className="pt-1.5" /> */}
                       </div>
