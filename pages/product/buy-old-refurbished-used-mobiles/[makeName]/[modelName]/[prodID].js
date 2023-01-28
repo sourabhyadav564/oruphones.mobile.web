@@ -677,13 +677,15 @@ function ProductDeatils({ data }) {
                         setProductLink(items?.productLink);
                         setperformAction2(true);
                       } else if (
-                        items?.listingId == data?.listingId && data?.isOtherVendor == "Y"
+                        items?.listingId == data?.listingId && data?.isOtherVendor == "N"
                       )
-                        window.open(items?.productLink, "_blank");
-                      else if (
-                        items?.listingId == data?.listingId
-                      ) {
                         setThisPhonePopup(true);
+                      else if (
+                        items?.listingId != data?.listingId
+                      ) {
+                        window.open(items?.productLink, "_blank");
+                      } else {
+                        window.open(items?.productLink, "_blank");
                       }
                     }}
                   >
