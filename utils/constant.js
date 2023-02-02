@@ -1,5 +1,11 @@
 export const servicesData = [
   {
+    title: "Price Comparison (Beta)",
+    description: "Compare deals on Old, Refurbished and Used phones",
+    imgSrc: require("@/assets/services/fake-detection.svg"),
+    link:"/services/PriceComparison",
+  },
+  {
     title: "Data Transfer to other devices",
     description:
       "can transfer the existing data (Photos, videos, contacts, apps, settings etc) to another device",

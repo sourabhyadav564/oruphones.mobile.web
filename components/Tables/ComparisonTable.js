@@ -11,7 +11,7 @@ import VerificationInfo from "../Popup/VerificationInfo";
 import { numberWithCommas } from "@/utils/util";
 
 function ComparisonTable(data, listingId) {
-  // console.log("data prod", data?.listingId);
+  // console.log("data prod", data);
   const [productData, setProductData] = useState([]);
   const [thisPhoneListingId, setThisPhoneListingId] = useState("");
   useEffect(() => {

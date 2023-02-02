@@ -94,16 +94,16 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 <VerifiedIcon width={45} height={22} />
               ) : <svg height={20} />}
               <span>
-                {!(data?.isOtherVendor === "Y") && !listings.includes(data.listingId) && (
+                {!(data?.isOtherVendor === "Y") && listings && !listings.includes(data?.listingId) && (
                   <AddFav data={data} setProducts={setProducts} />
                 )}
               </span>
             </div>
             {/* {console.log("data", listings)} */}
-            {listings.includes(data.listingId)
+            {listings.includes(data?.listingId) 
               ?
               <div
-                onClick={() => window.open(
+                onClick={() => window.open( 
                   `/user/listings/${data?.listingId}`,
                   "_blank",)}
               >

@@ -152,7 +152,7 @@ function ModelPage() {
     }
   };
 
-  console.log("otherListings", otherListings);
+  // console.log("otherListings", otherListings);
 
   const loadMoreData = () => {
     newPages = pageNumber + 1;
@@ -372,7 +372,7 @@ function ModelPage() {
         setIsFilterApplied={setIsFilterApplied}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
-      >
+       >
         {/* {(loading || bestDeals?.length > 0) && (
           <h1 className="text-lg font-semibold text-gray-20 pl-4 py-2">
             {" "}

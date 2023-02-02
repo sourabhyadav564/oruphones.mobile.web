@@ -63,3 +63,17 @@ export const addListingModelState = atom({
       return data;
     },
   });
+
+  export const addListingStorageState = atom({
+    key: "addListingStorageState",
+    default: "",
+  //   effects_UNSTABLE: [persistAtom],
+  });
+
+  export const addListingStorageSelector = selector({
+    key: "addListingStorageSelector",
+    get: ({ get }) => {
+      const data = get(addListingStorageState);
+      return data;
+    }
+  });
