@@ -11,7 +11,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { AiOutlineLogout } from "react-icons/ai";
 import editImage from "@/assets/icons/edit-image.png";
 import LoadingStatePopup from "../../components/Popup/LoadingStatePopup";
-
+import imageCompression from "browser-image-compression";
 import {
   updateUserProfileDetails,
   getUserDetails,
@@ -41,31 +41,41 @@ function Profile() {
   console.log("user", user);
   console.log("imgPath", imgPath);
 
-  const changeImage = (e) => {
+  const changeImage = async (e) => {
     e.preventDefault();
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    const compressedFile = await imageCompression(e.target.files[0], options);
 
-    let data = new FormData();
-    data.append("image", e.target.files[0]);
-    uploadUserProfilePic(data, Cookies.get("userUniqueId")).then((response) => {
-      if (response?.status === "SUCCESS") {
-        let payload = {
-          profilePicPath: response?.dataObject?.imagePath,
-          profileThumbnailPath: response?.dataObject?.thumbnailImagePath,
-          mobileNumber: Cookies.get("mobileNumber"),
-          userUniqueId: Cookies.get("userUniqueId"),
-        };
+    let formData = new FormData();
+    formData.append("image", compressedFile);
+    // let data = new FormData();
+    // data.append("image", e.target.files[0]);
+    uploadUserProfilePic(formData, Cookies.get("userUniqueId")).then(
+      (response) => {
+        if (response?.status === "SUCCESS") {
+          let payload = {
+            profilePicPath: response?.dataObject?.imagePath,
+            profileThumbnailPath: response?.dataObject?.thumbnailImagePath,
+            mobileNumber: Cookies.get("mobileNumber"),
+            userUniqueId: Cookies.get("userUniqueId"),
+          };
 
-        updateUserProfileDetails(payload).then((res) => {
-          if (res?.status === "SUCCESS") {
-            user.userdetails = {
-              ...user.userdetails,
-              profilePicPath: res?.dataObject?.userdetails.profilePicPath,
-            };
-            setImagePath(res?.dataObject?.userdetails.profilePicPath);
-          }
-        });
+          updateUserProfileDetails(payload).then((res) => {
+            if (res?.status === "SUCCESS") {
+              user.userdetails = {
+                ...user.userdetails,
+                profilePicPath: res?.dataObject?.userdetails.profilePicPath,
+              };
+              setImagePath(res?.dataObject?.userdetails.profilePicPath);
+            }
+          });
+        }
       }
-    });
+    );
   };
 
   useEffect(() => {
@@ -90,7 +100,7 @@ function Profile() {
         dispatch("LOGIN", resp.dataObject);
         toast.info("Profile information saved successfully", {
           position: toast.POSITION.TOP_CENTER,
-          toastId:"014",
+          toastId: "014",
         });
       });
     });
@@ -110,7 +120,7 @@ function Profile() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        toastId:"015",
+        toastId: "015",
       });
     });
   };
@@ -143,18 +153,25 @@ function Profile() {
             </div>
           </section>
 
-
           <section className="px-4 flex flex-col my-8 space-y-4">
-            <Link href="/user/favourites" >
-              <a className="border-lg font-Roboto-Regular py-2 text-sm text-primary uppercase rounded text-center" style={{ backgroundColor: "#F9C414" }} onClick={() => setLoadingState(true)} >
+            <Link href="/user/favourites">
+              <a
+                className="border-lg font-Roboto-Regular py-2 text-sm text-primary uppercase rounded text-center"
+                style={{ backgroundColor: "#F9C414" }}
+                onClick={() => setLoadingState(true)}
+              >
                 <h1>MY FAVORITES</h1>
               </a>
             </Link>
           </section>
           <section className="px-4 flex flex-col my-8 space-y-4">
-            <p className="font-Roboto-Light text-ex border-b-2 pb-1">Basic Information</p>
+            <p className="font-Roboto-Light text-ex border-b-2 pb-1">
+              Basic Information
+            </p>
             <div className="space-y-1 text-jx font-Roboto-Regular">
-              <p className="bg-white px-0.5">Name <span className="text-red-500">*</span></p>
+              <p className="bg-white px-0.5">
+                Name <span className="text-red-500">*</span>
+              </p>
               <Input
                 type="text"
                 inputClass="text-black-ef font-Regular"
@@ -169,7 +186,9 @@ function Profile() {
             </div>
 
             <div className="space-y-1 text-jx font-Roboto-Regular">
-              <p className="bg-white px-0.5">Mobile No.<span className="text-red-500">*</span></p>
+              <p className="bg-white px-0.5">
+                Mobile No.<span className="text-red-500">*</span>
+              </p>
               <Input
                 disabled
                 prefix="+91"
@@ -178,7 +197,9 @@ function Profile() {
               />
             </div>
             <div className="space-y-1 text-jx font-Roboto-Regular">
-              <p className="bg-white px-0.5">Email ID <span className="text-red-500">*</span></p>
+              <p className="bg-white px-0.5">
+                Email ID <span className="text-red-500">*</span>
+              </p>
               <Input
                 type="text"
                 name="email"
@@ -188,14 +209,15 @@ function Profile() {
                   setEmail(e.target.value);
                 }}
               />
-
             </div>
 
-            <div className="w-full py-2 text-white font-Roboto-Medium text-dx rounded-md text-center m-auto justify-center" style={{ backgroundColor: "#2C2F45" }} onClick={saveUserInfo}>
+            <div
+              className="w-full py-2 text-white font-Roboto-Medium text-dx rounded-md text-center m-auto justify-center"
+              style={{ backgroundColor: "#2C2F45" }}
+              onClick={saveUserInfo}
+            >
               <p>Save Changes</p>
             </div>
-
-
 
             <div className=" pt-4 text-lx space-y-8">
               <div className="border border-primary rounded-[5px] py-2">
@@ -212,7 +234,8 @@ function Profile() {
               </div>
 
               <div className="border border-red-500 rounded-[5px] py-2">
-                <p className="text-sm text-red-500 rounded text-center font-Roboto-Regular  "
+                <p
+                  className="text-sm text-red-500 rounded text-center font-Roboto-Regular  "
                   onClick={() => {
                     setOpenDeletePopup(true);
                   }}
@@ -220,17 +243,18 @@ function Profile() {
                   Delete Account
                 </p>
               </div>
-
             </div>
             <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
-
           </section>
         </main>
         {/* <Footer /> */}
         <BottomNav />
       </div>
-      <DeleteAccPopup open={openDeletePopup} setOpen={setOpenDeletePopup} setDelete={setDeleteAcc} />
-
+      <DeleteAccPopup
+        open={openDeletePopup}
+        setOpen={setOpenDeletePopup}
+        setDelete={setDeleteAcc}
+      />
     </Fragment>
   );
 }
@@ -238,7 +262,11 @@ function Profile() {
 export default Profile;
 
 const UserIcon = ({ onChange, img }) => (
-  <div className={`relative top-20 -left-16  p-1 py-1  ${img ? " bg-white rounded-full" : ""} `}>
+  <div
+    className={`relative top-20 -left-16  p-1 py-1  ${
+      img ? " bg-white rounded-full" : ""
+    } `}
+  >
     <input
       type="file"
       className="hidden"
@@ -282,7 +310,10 @@ const UserIcon = ({ onChange, img }) => (
         </g>
       </svg>
     )}
-    <label htmlFor="photo" className="absolute right-1 top-4 bg-white rounded-full">
+    <label
+      htmlFor="photo"
+      className="absolute right-1 top-4 bg-white rounded-full"
+    >
       {/* <svg
         xmlns="http://www.w3.org/2000/svg"
         width="34"
@@ -299,10 +330,18 @@ const UserIcon = ({ onChange, img }) => (
       </svg> */}
 
       {/* <img src={editImage} alt="profile-edit"/> */}
-      <svg id="Layer_3" height="30" viewBox="0 0 48 48" width="30" xmlns="http://www.w3.org/2000/svg" data-name="Layer 3">
-        <path d="m13 34.75h7.05a.75.75 0 1 0 0-1.5h-7.05a1.2511 1.2511 0 0 1 -1.25-1.25v-3.4991l4.35-4.3409 3.87 3.87a.75.75 0 0 0 1.0606 0l7.2-7.2 1.4594 1.46a.75.75 0 0 0 1.0606-1.06l-1.99-1.99a.75.75 0 0 0 -1.0606 0l-7.2 7.2-3.87-3.87a.75.75 0 0 0 -1.06-.0005l-3.82 3.8125v-12.382a1.2511 1.2511 0 0 1 1.25-1.25h18a1.2511 1.2511 0 0 1 1.25 1.25v5.49a.75.75 0 0 0 1.5 0v-5.49a2.7528 2.7528 0 0 0 -2.75-2.75h-18a2.7528 2.7528 0 0 0 -2.75 2.75v18a2.7528 2.7528 0 0 0 2.75 2.75z" /><path d="m32.9888 22.1748-10.4468 10.3945a.7506.7506 0 0 0 -.2212.5137l-.0708 2.8984a.76.76 0 0 0 .7681.7686l2.9135-.0708a.7512.7512 0 0 0 .5108-.2183l10.4476-10.394a2.757 2.757 0 1 0 -3.9008-3.8921zm3.2465 1.8452a1.4035 1.4035 0 0 1 -.4038.983l-10.2348 10.1835-1.8277.0445.044-1.8106 10.2334-10.1821a1.3935 1.3935 0 0 1 1.0042-.42 1.204 1.204 0 0 1 1.1847 1.2017z" /><path d="m16.25 18a2.75 2.75 0 1 0 2.75-2.75 2.7528 2.7528 0 0 0 -2.75 2.75zm4 0a1.25 1.25 0 1 1 -1.25-1.25 1.2511 1.2511 0 0 1 1.25 1.25z" />
+      <svg
+        id="Layer_3"
+        height="30"
+        viewBox="0 0 48 48"
+        width="30"
+        xmlns="http://www.w3.org/2000/svg"
+        data-name="Layer 3"
+      >
+        <path d="m13 34.75h7.05a.75.75 0 1 0 0-1.5h-7.05a1.2511 1.2511 0 0 1 -1.25-1.25v-3.4991l4.35-4.3409 3.87 3.87a.75.75 0 0 0 1.0606 0l7.2-7.2 1.4594 1.46a.75.75 0 0 0 1.0606-1.06l-1.99-1.99a.75.75 0 0 0 -1.0606 0l-7.2 7.2-3.87-3.87a.75.75 0 0 0 -1.06-.0005l-3.82 3.8125v-12.382a1.2511 1.2511 0 0 1 1.25-1.25h18a1.2511 1.2511 0 0 1 1.25 1.25v5.49a.75.75 0 0 0 1.5 0v-5.49a2.7528 2.7528 0 0 0 -2.75-2.75h-18a2.7528 2.7528 0 0 0 -2.75 2.75v18a2.7528 2.7528 0 0 0 2.75 2.75z" />
+        <path d="m32.9888 22.1748-10.4468 10.3945a.7506.7506 0 0 0 -.2212.5137l-.0708 2.8984a.76.76 0 0 0 .7681.7686l2.9135-.0708a.7512.7512 0 0 0 .5108-.2183l10.4476-10.394a2.757 2.757 0 1 0 -3.9008-3.8921zm3.2465 1.8452a1.4035 1.4035 0 0 1 -.4038.983l-10.2348 10.1835-1.8277.0445.044-1.8106 10.2334-10.1821a1.3935 1.3935 0 0 1 1.0042-.42 1.204 1.204 0 0 1 1.1847 1.2017z" />
+        <path d="m16.25 18a2.75 2.75 0 1 0 2.75-2.75 2.7528 2.7528 0 0 0 -2.75 2.75zm4 0a1.25 1.25 0 1 1 -1.25-1.25 1.2511 1.2511 0 0 1 1.25 1.25z" />
       </svg>
     </label>
-
   </div>
 );
