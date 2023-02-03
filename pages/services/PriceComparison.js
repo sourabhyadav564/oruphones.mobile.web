@@ -333,7 +333,7 @@ function Index() {
 
                 <div className="space-y-nx">
                   <p className="pt-rx flex space-x-0.5">
-                    <CardHeading4 title="Brands" />{" "}
+                    <CardHeading4 title="Brand" />{" "}
                     <span className="text-red-400 -mt-1">*</span>
                   </p>
                   <Input

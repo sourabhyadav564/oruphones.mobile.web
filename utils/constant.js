@@ -2,7 +2,7 @@ export const servicesData = [
   {
     title: "Price Comparison (Beta)",
     description: "Compare deals on Old, Refurbished and Used phones",
-    imgSrc: require("@/assets/services/fake-detection.svg"),
+    imgSrc: require("@/assets/services/prcomp.png"),
     link:"/services/PriceComparison",
   },
   {
