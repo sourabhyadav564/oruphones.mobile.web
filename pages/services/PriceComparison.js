@@ -564,12 +564,9 @@ function Index() {
                 ))}
             </section>
           )}
-          <div className="-my-44">
-            {!loading &&
-              bestDeals &&
-              !(bestDeals.length > 0) &&
-              otherListings &&
-              !otherListings.length > 0 && <NoMatch />}
+          <div className="-my-28">
+            { !loading && otherListings?.length == 0 && make && model && storage && condition &&
+              <NoMatch />}
           </div>
         </div>
       )}
