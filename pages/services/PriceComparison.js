@@ -39,7 +39,9 @@ import NoMatch from "@/components/NoMatch";
 function Index() {
   const [defaultBrand, setDefaultBrand] = useRecoilState(addListingBrandState);
   const [defaultModel, setDefaultModel] = useRecoilState(addListingModelState);
-  const [defaultStorage, setDefaultStorage] = useRecoilState(addListingStorageState);
+  const [defaultStorage, setDefaultStorage] = useRecoilState(
+    addListingStorageState
+  );
   const [sellSelected, setSellSelected] = useState(true);
   const [openBrandPopup, setOpenBrandPopup] = useState(false);
   const selectedBrand = useRecoilValue(addListingBrandSelector);
@@ -80,7 +82,6 @@ function Index() {
       setStorageColorOption();
       setCondition();
       setDefaultModel("");
-
     }
   }, [make]);
 
@@ -161,7 +162,7 @@ function Index() {
   const handleSelectChange = (name) => {
     if (name === "make") {
       setMake(selectedBrand);
-      let index = data.findIndex((i) => i.make === selectedBrand);
+      let index = data?.findIndex((i) => i.make === selectedBrand);
       setMktNameOpt(data[index]?.models);
     } else if (name === "model") {
       setModel(selectedModel);
@@ -265,7 +266,7 @@ function Index() {
       <Header4 title="Price Comparison" />
       <div className="flex justify-center items-center pt-4">
         <div
-          className="pr-5"
+          className="pr-6"
           onClick={() => {
             setSellSelected(true);
             setMake("");
@@ -282,15 +283,15 @@ function Index() {
           <button
             className={`${
               sellSelected == true
-                ? "bg-primary py-1 w-32 h-12 border-2 rounded-2xl border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
-                : "bg-white py-1 w-32 h-12 border-2 rounded-2xl border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
+                ? "bg-primary py-1 w-32 h-9 border-2 rounded-lg border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
+                : "bg-white py-1 w-32 h-9 border-2 rounded-lg border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
             }`}
           >
             Sell
           </button>
         </div>
         <div
-          className="pl-5"
+          className="pl-6"
           onClick={() => {
             setSellSelected(false);
             setMake("");
@@ -306,8 +307,8 @@ function Index() {
           <button
             className={`${
               sellSelected == false
-                ? " bg-primary py-1 w-32 h-12 border-2 rounded-2xl border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
-                : " bg-white py-1 w-32 h-12 border-2 rounded-2xl border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
+                ? " bg-primary py-1 w-32 h-9 border-2 rounded-lg border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
+                : " bg-white py-1 w-32 h-9 border-2 rounded-lg border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
             }`}
           >
             Buy
@@ -383,7 +384,7 @@ function Index() {
                         <div
                           className={`${
                             storage == item
-                              ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
+                              ? "bg-[#E8E8E8] font-Roboto-Semibold hover:border-primary text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
                               : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
                           }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
                           onClick={() => setStorage(item)}
@@ -448,10 +449,10 @@ function Index() {
           </Link>
         </div>
       )}
-      <div className="px-2 pt-2  text-primary">
+      <div className="px-2 pt-2  text-primary font-semibold">
         {getExternalSellerData &&
           getExternalSellerData.length > 0 &&
-          sellSelected && <Heading title="Check Prices from Other Buyers :" />}
+          sellSelected && <Heading title="Check prices from other buyers " />}
       </div>
       {getExternalSellerData &&
         getExternalSellerData.length > 0 &&
@@ -463,6 +464,12 @@ function Index() {
                   className="px-4 py-2 bg-[#F9F9F9] rounded-md flex justify-between w-full "
                   key={index}
                 >
+                  <p className="text-dx text-[#100] flex items-center font-Roboto-Semibold">
+                    {items?.externalSourcePrice && (
+                      <span className="font-normal mr-0.5"> ₹ </span>
+                    )}
+                    {numberWithCommas(items?.externalSourcePrice)}
+                  </p>
                   <div className="">
                     <img
                       src={items?.externalSourceImage}
@@ -475,12 +482,6 @@ function Index() {
                       alt={items?.externalSourceName}
                     />
                   </div>
-                  <p className="text-dx text-[#100] flex items-center font-Roboto-Semibold">
-                    {items?.externalSourcePrice && (
-                      <span className="font-normal mr-0.5"> ₹ </span>
-                    )}
-                    {numberWithCommas(items?.externalSourcePrice)}
-                  </p>
                 </div>
               ))}
             </div>
@@ -563,11 +564,13 @@ function Index() {
                 ))}
             </section>
           )}
-          {!loading &&
-            bestDeals &&
-            !(bestDeals.length > 0) &&
-            otherListings &&
-            !otherListings.length > 0 && <NoMatch />}
+          <div className="-my-44">
+            {!loading &&
+              bestDeals &&
+              !(bestDeals.length > 0) &&
+              otherListings &&
+              !otherListings.length > 0 && <NoMatch />}
+          </div>
         </div>
       )}
 

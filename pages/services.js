@@ -31,7 +31,8 @@ function Services() {
           <Link href={{ pathname: item.link || "" }}>
             <div
               key={index}
-              className="border py-2 px-4 pl-0 flex items-center font-Roboto-Medium rounded shadow mb-3"
+              className={`${item.link ? "border bg-[rgba(0,0,0,0.03)] py-2 px-4 pl-0 flex items-center font-Roboto-Medium rounded shadow mb-3" :
+               "border py-2 px-4 pl-0 flex items-center font-Roboto-Medium rounded shadow mb-3 opacity-60"}`}
               data-aos="flip-up"
               onClick={() => (item.link ? setOpenApp(false) : setOpenApp(true))}
             >
