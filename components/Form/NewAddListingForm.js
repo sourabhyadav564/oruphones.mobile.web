@@ -351,6 +351,7 @@ const NewAddListingForm = ({ data }) => {
   const handleSelectChange = (name) => {
     if (name === "make") {
       setMake(selectedBrand);
+      console.log("make", selectedBrand);
       let index = data.findIndex((i) => i.make === selectedBrand);
       setMktNameOpt(data[index]?.models);
     } else if (name === "model") {

@@ -196,7 +196,7 @@ function Index() {
         make: make,
         marketingName: model,
         deviceCondition: "Like New",
-        deviceWarranty: "zero",
+        warrantyPeriod: "zero",
         hasCharger: "Y",
         hasEarphone: "Y",
         hasOriginalBox: "Y",
