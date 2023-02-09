@@ -10,12 +10,14 @@ import Link from "next/link";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import router from "next/router";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
+import SellNowIconPopup from "@/components/Popup/SellNowIconPopup";
 
 function Sidebar({ open, setOpen }) {
   const cancelButtonRef = useRef(null);
   const { authenticated, user } = useAuthState();
   const dispatch = useAuthDispatch();
   const [userName, setUserName] = useState("Guest");
+  const [opensellnowpopup, setOpensellnowpopup] = useState(false);
 
   // useEffect(() => {
   //   if (open) {
@@ -129,6 +131,18 @@ function Sidebar({ open, setOpen }) {
                 </div>
               </ListItem>
               <ListItem
+                href=""
+                onClick={() => {
+                  setOpensellnowpopup(true);
+                }}
+              >
+                <div className="w-full flex gap-2 border-b pb-3">
+                  <AiOutlineInfoCircle size={20} className="self-center" />
+                  <p className="self-center flex-1 font-Roboto-Regular">How to sell your phone</p>
+                  <FiChevronLeft className="rotate-180 self-center" />
+                </div>
+              </ListItem>
+              <ListItem
                 href="/faq"
                 onClick={() => {
                   setOpen(false);
@@ -164,6 +178,7 @@ function Sidebar({ open, setOpen }) {
             </ul>
           </div>
         </Transition.Child>
+        <SellNowIconPopup open={opensellnowpopup} setOpen={setOpensellnowpopup} />
       </Dialog>
     </Transition.Root>
   );
