@@ -175,7 +175,7 @@ function Profile() {
               <Input
                 type="text"
                 inputClass="text-black-ef font-Regular"
-                maxLength="30"
+                maxLength="25"
                 name="username"
                 required
                 defaultValue={user?.userdetails?.userName}

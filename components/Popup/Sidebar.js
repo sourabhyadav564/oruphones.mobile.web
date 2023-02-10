@@ -131,18 +131,6 @@ function Sidebar({ open, setOpen }) {
                 </div>
               </ListItem>
               <ListItem
-                href=""
-                onClick={() => {
-                  setOpensellnowpopup(true);
-                }}
-              >
-                <div className="w-full flex gap-2 border-b pb-3">
-                  <AiOutlineInfoCircle size={20} className="self-center" />
-                  <p className="self-center flex-1 font-Roboto-Regular">How to sell your phone</p>
-                  <FiChevronLeft className="rotate-180 self-center" />
-                </div>
-              </ListItem>
-              <ListItem
                 href="/faq"
                 onClick={() => {
                   setOpen(false);
@@ -151,6 +139,18 @@ function Sidebar({ open, setOpen }) {
                 <div className="w-full flex gap-2 border-b pb-3">
                   <AiOutlineQuestionCircle size={20} className="self-center" />
                   <p className="self-center flex-1 font-Roboto-Regular"> FAQs</p>
+                  <FiChevronLeft className="rotate-180 self-center" />
+                </div>
+              </ListItem>
+               <ListItem
+                href=""
+                onClick={() => {
+                  setOpensellnowpopup(true);
+                }}
+              >
+                <div className="w-full flex gap-2 border-b pb-3">
+                  <AiOutlineInfoCircle size={20} className="self-center" />
+                  <p className="self-center flex-1 font-Roboto-Regular">How to sell your phone</p>
                   <FiChevronLeft className="rotate-180 self-center" />
                 </div>
               </ListItem>
@@ -167,6 +167,7 @@ function Sidebar({ open, setOpen }) {
                       <AiOutlineLogout size={20} className="self-center" /> <p>Logout</p>
                     </div>
                   </ListItem>
+                  
                 ) : (
                   <ListItem href="/login">
                     <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">

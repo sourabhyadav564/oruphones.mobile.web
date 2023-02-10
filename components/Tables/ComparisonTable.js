@@ -126,6 +126,16 @@ function ComparisonTable(data, listingId) {
                   <BsInfoCircle size={20} classname="pl-1" />
                 </div>
               </th>
+              <th
+                scope="col"
+                class="px-6 py-3 bg-primary border-[1px] border-r-gray text-center"
+              >
+                <div
+                  className="flex justify-center items-center"
+                >
+                  <p className="pr-1">Location</p>
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -264,6 +274,9 @@ function ComparisonTable(data, listingId) {
                           ? "Verified"
                           : "Not Verified"
                         : "None"}
+                    </td>
+                    <td class="px-6 py-4 border-[1px]">
+                      {item?.Object?.listingLocation}
                     </td>
                   </tr>
                 );
