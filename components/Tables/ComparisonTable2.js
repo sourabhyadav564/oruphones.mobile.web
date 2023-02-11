@@ -1,21 +1,50 @@
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import LoginPopup from "../Popup/LoginPopup";
+import ThisPhonePopup from "../Popup/ThisPhonePopup";
 
 function ComparisonTable2(data, listingId) {
   const [productData, setProductData] = useState([]);
   const [thisPhoneListingId, setThisPhoneListingId] = useState(listingId);
+  const [thisPhonePopup, setThisPhonePopup] = useState(false);
+  const [openLoginPopup, setOpenLoginPopup] = useState(false);
+  const [performAction1, setperformAction1] = useState(false);
+  const [productLink, setProductLink] = useState("");
 
   useEffect(() => {
     if (data?.data?.length > 0) {
       const interval = setInterval(() => {
         setProductData(data?.data);
         setThisPhoneListingId(data?.listingId);
-
         clearInterval(interval);
       }, 1000);
     }
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (
+        openLoginPopup == false &&
+        performAction1 == true &&
+        Cookies.get("userUniqueId") !== undefined &&
+        data?.productLink !== "" &&
+        productLink !== ""
+      ) {
+        window.open(productLink, "_blank");
+        clearInterval(interval);
+      } else if (
+        openLoginPopup == false &&
+        performAction1 == true &&
+        Cookies.get("userUniqueId") !== undefined
+      ) {
+        setThisPhonePopup(true);
+        clearInterval(interval);
+      }
+    }, 1000);
+  }, [openLoginPopup]);
+  console.log("productData", data, thisPhoneListingId);
 
   return (
     <div className="overflow-x-scroll relative">
@@ -23,7 +52,34 @@ function ComparisonTable2(data, listingId) {
         <tr className="text-white sticky left-0">
           <th className="mx-6 py-3 border bg-primary sticky left-0">Compare By</th>
           {productData?.map((item, index) => (
-            <th className="border px-2 py-4 bg-primary ">
+            <th className="border px-2 py-4 bg-primary"
+            onClick={() => {
+              if(Cookies.get("userUniqueId") == undefined){
+                setProductLink(`www.oruphones.com/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`);
+                setOpenLoginPopup(true);
+                setperformAction1(true);
+              }
+              else if (thisPhoneListingId == item?.listingId && item?.isOtherVendor == "N") {
+                setThisPhonePopup(true);
+              } else 
+              if (thisPhoneListingId != item?.listingId) {
+                // window.open(item.productLink, "_blank");}
+                window.open(
+                  `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
+                  "_blank"
+                );}
+                else if(item?.isOtherVendor=="Y" && item?.vendorLink)
+            {
+              window.open(item?.vendorLink,"_blank");
+            }
+                else {
+                window.open(
+                  `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
+                  "_blank"
+                );
+              }
+            }}
+            >
               {item?.listingId == thisPhoneListingId
                 ? `This Deal (${item?.marketingName})`
                 : item?.marketingName}
@@ -36,16 +92,6 @@ function ComparisonTable2(data, listingId) {
             // <Link href={item.ven}>
             <th
               className="border px-2 py-6 text-yellow-500 font-Roboto-Light "
-              onClick={() => {
-                if (item.vendorLink) {
-                  window.open(item.vendorLink, "_blank");
-                } else {
-                  window.open(
-                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                    "_blank"
-                  );
-                }
-              }}
             >
               {" "}
               <span className="px-0.2">₹</span> {item?.listingPrice}
@@ -54,20 +100,10 @@ function ComparisonTable2(data, listingId) {
           ))}
         </tr>
         <tr className="  font-Roboto-Regular text-cx sticky">
-          <th className=" bg-white px-4 py-2 sticky left-0 drop-shadow-2xl uppercase">Condition</th>
+          <th className=" bg-white px-4 py-2 border sticky left-0 drop-shadow-2xl uppercase">Condition</th>
           {productData?.map((item, index) => (
             <th
               className="border px-4 py-4 font-Roboto-Light text-gray"
-              onClick={() => {
-                if (item.vendorLink) {
-                  window.open(item.vendorLink, "_blank");
-                } else {
-                  window.open(
-                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                    "_blank"
-                  );
-                }
-              }}
             >
               {item?.deviceCondition}
             </th>
@@ -78,38 +114,19 @@ function ComparisonTable2(data, listingId) {
           {productData?.map((item, index) => (
             <th
               className="border px-4 py-4 font-Roboto-Light text-gray"
-              onClick={() => {
-                if (item.vendorLink) {
-                  window.open(item.vendorLink, "_blank");
-                } else {
-                  window.open(
-                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                    "_blank"
-                  );
-                }
-              }}
             >
               {item?.deviceStorage}
             </th>
           ))}
         </tr>
         <tr className="  font-Roboto-Regular text-cx">
-          <th className="sticky left-0 bg-white px-4 py-2 drop-shadow-2xl uppercase">
+          <th className="sticky border left-0 bg-white px-4 py-2 drop-shadow-2xl uppercase">
             Seller's warranty
           </th>
           {productData?.map((item, index) => (
             <th
               className="border px-4 py-4 font-Roboto-Light text-gray"
-              onClick={() => {
-                if (item.vendorLink) {
-                  window.open(item.vendorLink, "_blank");
-                } else {
-                  window.open(
-                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                    "_blank"
-                  );
-                }
-              }}
+              
             >
               {item?.isOtherVendor == "Y" ? item?.warranty : "None"}
             </th>
@@ -120,16 +137,7 @@ function ComparisonTable2(data, listingId) {
           {productData?.map((item, index) => (
             <th
               className="border px-4 py-4 font-Roboto-Light text-gray"
-              onClick={() => {
-                if (item.vendorLink) {
-                  window.open(item.vendorLink, "_blank");
-                } else {
-                  window.open(
-                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                    "_blank"
-                  );
-                }
-              }}
+              
             >
               {item?.isOtherVendor == "N" ? item?.warranty : "None"}
             </th>
@@ -142,16 +150,7 @@ function ComparisonTable2(data, listingId) {
           {productData?.map((item, index) => (
             <th
               className="border px-4 py-4 font-Roboto-Light text-gray"
-              onClick={() => {
-                if (item.vendorLink) {
-                  window.open(item.vendorLink, "_blank");
-                } else {
-                  window.open(
-                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                    "_blank"
-                  );
-                }
-              }}
+              
             >
               {item?.isOtherVendor == "Y"
                 ? item?.charger == "Y"
@@ -180,16 +179,7 @@ function ComparisonTable2(data, listingId) {
           {productData?.map((item, index) => (
             <th
               className="border px-4 py-4 font-Roboto-Light text-gray"
-              onClick={() => {
-                if (item.vendorLink) {
-                  window.open(item.vendorLink, "_blank");
-                } else {
-                  window.open(
-                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                    "_blank"
-                  );
-                }
-              }}
+              
             >
               {item?.isOtherVendor == "N"
                 ? item?.charger == "Y"
@@ -216,16 +206,6 @@ function ComparisonTable2(data, listingId) {
           {productData?.map((item, index) => (
             <th
               className={`border px-4 py-4 font-Roboto-Light text-gray`}
-              onClick={() => {
-                if (item.vendorLink) {
-                  window.open(item.vendorLink, "_blank");
-                } else {
-                  window.open(
-                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                    "_blank"
-                  );
-                }
-              }}
             >
               {item?.listingLocation}
             </th>
@@ -238,16 +218,6 @@ function ComparisonTable2(data, listingId) {
           {productData?.map((item, index) => (
             <th
               className={`border px-4 py-4 font-Roboto-Light text-gray`}
-              onClick={() => {
-                if (item.vendorLink) {
-                  window.open(item.vendorLink, "_blank");
-                } else {
-                  window.open(
-                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                    "_blank"
-                  );
-                }
-              }}
             >
               {!item?.listedBy ? (
                 <Image
@@ -263,6 +233,12 @@ function ComparisonTable2(data, listingId) {
           ))}
         </tr>
       </table>
+      <ThisPhonePopup open={thisPhonePopup} setOpen={setThisPhonePopup} />
+      <LoginPopup
+        open={openLoginPopup}
+        setOpen={setOpenLoginPopup}
+        fromAddListing
+      />
     </div>
   );
 }
