@@ -50,35 +50,39 @@ function ComparisonTable2(data, listingId) {
     <div className="overflow-x-scroll relative">
       <table className="w-full text-center font-Roboto-Medium text-cx cursor-default relative">
         <tr className="text-white sticky left-0">
-          <th className="mx-6 py-3 border bg-primary sticky left-0">Compare By</th>
+          <th className="mx-6 py-3 border bg-primary sticky left-0">
+            Compare By
+          </th>
           {productData?.map((item, index) => (
-            <th className="border px-2 py-4 bg-primary"
-            onClick={() => {
-              if(Cookies.get("userUniqueId") == undefined){
-                setProductLink(`www.oruphones.com/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`);
-                setOpenLoginPopup(true);
-                setperformAction1(true);
-              }
-              else if (thisPhoneListingId == item?.listingId && item?.isOtherVendor == "N") {
-                setThisPhonePopup(true);
-              } else 
-              if (thisPhoneListingId != item?.listingId) {
-                // window.open(item.productLink, "_blank");}
-                window.open(
-                  `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                  "_blank"
-                );}
-                else if(item?.isOtherVendor=="Y" && item?.vendorLink)
-            {
-              window.open(item?.vendorLink,"_blank");
-            }
-                else {
-                window.open(
-                  `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
-                  "_blank"
-                );
-              }
-            }}
+            <th
+              className="border px-2 py-4 bg-primary"
+              onClick={() => {
+                if (Cookies.get("userUniqueId") == undefined) {
+                  setProductLink(
+                    `www.oruphones.com/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`
+                  );
+                  setOpenLoginPopup(true);
+                  setperformAction1(true);
+                } else if (
+                  thisPhoneListingId == item?.listingId &&
+                  item?.isOtherVendor == "N"
+                ) {
+                  setThisPhonePopup(true);
+                } else if (thisPhoneListingId != item?.listingId) {
+                  // window.open(item.productLink, "_blank");}
+                  window.open(
+                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
+                    "_blank"
+                  );
+                } else if (item?.isOtherVendor == "Y" && item?.vendorLink) {
+                  window.open(item?.vendorLink, "_blank");
+                } else {
+                  window.open(
+                    `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
+                    "_blank"
+                  );
+                }
+              }}
             >
               {item?.listingId == thisPhoneListingId
                 ? `This Deal (${item?.marketingName})`
@@ -87,11 +91,17 @@ function ComparisonTable2(data, listingId) {
           ))}
         </tr>
         <tr className=" font-Roboto-Regular text-cx">
-          <th className="bg-white border px-6 py-3 sticky left-0 drop-shadow-2xl uppercase">Price</th>
+          <th className="bg-white border px-6 py-3 sticky left-0 drop-shadow-2xl uppercase">
+            Price
+          </th>
           {productData?.map((item, index) => (
             // <Link href={item.ven}>
             <th
-              className="border px-2 py-6 text-yellow-500 font-Roboto-Light "
+              className={`${
+                thisPhoneListingId == item?.listingId
+                  ? "border px-2 py-6 text-yellow-500 font-Roboto-Light bg-gray-100"
+                  : "border px-2 py-6 text-yellow-500 font-Roboto-Light"
+              }`}
             >
               {" "}
               <span className="px-0.2">₹</span> {item?.listingPrice}
@@ -100,21 +110,27 @@ function ComparisonTable2(data, listingId) {
           ))}
         </tr>
         <tr className="  font-Roboto-Regular text-cx sticky">
-          <th className=" bg-white px-4 py-2 border sticky left-0 drop-shadow-2xl uppercase">Condition</th>
+          <th className=" bg-white px-4 py-2 border sticky left-0 drop-shadow-2xl uppercase">
+            Condition
+          </th>
           {productData?.map((item, index) => (
             <th
-              className="border px-4 py-4 font-Roboto-Light text-gray"
+              className={`${
+                thisPhoneListingId == item?.listingId
+                  ? "border px-4 bg-gray-100 py-4 font-Roboto-Light text-gray"
+                  : "border px-4 py-4 font-Roboto-Light text-gray"
+              }`}
             >
               {item?.deviceCondition}
             </th>
           ))}
         </tr>
         <tr className=" bg-opacity-10  font-Roboto-Regular text-cx">
-          <th className="border px-4 py-2  sticky left-0 bg-white drop-shadow-2xl uppercase">Storage</th>
+          <th className="border px-4 py-2  sticky left-0 bg-white drop-shadow-2xl uppercase">
+            Storage
+          </th>
           {productData?.map((item, index) => (
-            <th
-              className="border px-4 py-4 font-Roboto-Light text-gray"
-            >
+            <th className={`${thisPhoneListingId == item?.listingId ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray" : "border px-4 py-4 font-Roboto-Light text-gray"}`}>
               {item?.deviceStorage}
             </th>
           ))}
@@ -124,21 +140,17 @@ function ComparisonTable2(data, listingId) {
             Seller's warranty
           </th>
           {productData?.map((item, index) => (
-            <th
-              className="border px-4 py-4 font-Roboto-Light text-gray"
-              
-            >
+            <th className={`${thisPhoneListingId == item?.listingId ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray" : "border px-4 py-4 font-Roboto-Light text-gray"}`}>
               {item?.isOtherVendor == "Y" ? item?.warranty : "None"}
             </th>
           ))}
         </tr>
         <tr className="  font-Roboto-Regular text-cx">
-          <th className="sticky left-0 bg-white border px-4 py-2 drop-shadow-2xl uppercase">Brand warranty</th>
+          <th className="sticky left-0 bg-white border px-4 py-2 drop-shadow-2xl uppercase">
+            Brand warranty
+          </th>
           {productData?.map((item, index) => (
-            <th
-              className="border px-4 py-4 font-Roboto-Light text-gray"
-              
-            >
+            <th className={`${thisPhoneListingId == item?.listingId ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray" : "border px-4 py-4 font-Roboto-Light text-gray"}`}>
               {item?.isOtherVendor == "N" ? item?.warranty : "None"}
             </th>
           ))}
@@ -148,10 +160,7 @@ function ComparisonTable2(data, listingId) {
             Accessories (Compatible)
           </th>
           {productData?.map((item, index) => (
-            <th
-              className="border px-4 py-4 font-Roboto-Light text-gray"
-              
-            >
+            <th className={`${thisPhoneListingId == item?.listingId ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray" : "border px-4 py-4 font-Roboto-Light text-gray"}`}>
               {item?.isOtherVendor == "Y"
                 ? item?.charger == "Y"
                   ? item?.earphone == "Y"
@@ -177,10 +186,7 @@ function ComparisonTable2(data, listingId) {
             Accessories (Original)
           </th>
           {productData?.map((item, index) => (
-            <th
-              className="border px-4 py-4 font-Roboto-Light text-gray"
-              
-            >
+            <th className={`${thisPhoneListingId == item?.listingId ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray" : "border px-4 py-4 font-Roboto-Light text-gray"}`}>
               {item?.isOtherVendor == "N"
                 ? item?.charger == "Y"
                   ? item?.earphone == "Y"
@@ -202,11 +208,11 @@ function ComparisonTable2(data, listingId) {
           ))}
         </tr>
         <tr className=" font-Roboto-Regular text-cx">
-          <th className="sticky left-0 bg-white border px-4 py-2 drop-shadow-2xl uppercase">Location</th>
+          <th className="sticky left-0 bg-white border px-4 py-2 drop-shadow-2xl uppercase">
+            Location
+          </th>
           {productData?.map((item, index) => (
-            <th
-              className={`border px-4 py-4 font-Roboto-Light text-gray`}
-            >
+            <th className={`${thisPhoneListingId == item?.listingId ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray" : "border px-4 py-4 font-Roboto-Light text-gray"}`}>
               {item?.listingLocation}
             </th>
           ))}
@@ -216,9 +222,7 @@ function ComparisonTable2(data, listingId) {
             Listed By
           </th>
           {productData?.map((item, index) => (
-            <th
-              className={`border px-4 py-4 font-Roboto-Light text-gray`}
-            >
+            <th className={`${thisPhoneListingId == item?.listingId ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray" : "border px-4 py-4 font-Roboto-Light text-gray"}`}>
               {!item?.listedBy ? (
                 <Image
                   src={item?.vendorLogo}
