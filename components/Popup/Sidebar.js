@@ -2,15 +2,25 @@ import { FiChevronLeft } from "react-icons/fi";
 import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
-import { AiOutlineLogout, AiOutlineInfoCircle, AiOutlineQuestionCircle, AiOutlineLogin } from "react-icons/ai";
+import {
+  AiOutlineLogout,
+  AiOutlineInfoCircle,
+  AiOutlineQuestionCircle,
+  AiOutlineLogin,
+} from "react-icons/ai";
 // import userAvatar from "@/assets/user-avatar.png";
-import userAvatar from "@/assets/icons/avatar.png"
+import userAvatar from "@/assets/icons/avatar.png";
 import { BiUserCircle } from "react-icons/bi";
 import Link from "next/link";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import router from "next/router";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import SellNowIconPopup from "@/components/Popup/SellNowIconPopup";
+import BuyNowIconPopup from "./BuyNowIconPopup";
+import Buy from "@/assets/buy.png";
+import Sell from "@/assets/sell.png";
+import Book from "@/assets/Book.png";
+import OruGuidePopup from "./OruGuidePopup";
 
 function Sidebar({ open, setOpen }) {
   const cancelButtonRef = useRef(null);
@@ -18,6 +28,8 @@ function Sidebar({ open, setOpen }) {
   const dispatch = useAuthDispatch();
   const [userName, setUserName] = useState("Guest");
   const [opensellnowpopup, setOpensellnowpopup] = useState(false);
+  const [openbuynowpopup, setOpenbuynowpopup] = useState(false);
+  const [openOruGuidePopup, setOpenOruGuidePopup] = useState(false);
 
   // useEffect(() => {
   //   if (open) {
@@ -31,16 +43,16 @@ function Sidebar({ open, setOpen }) {
   //     return () => {
   //       window.removeEventListener('popstate', onBackButtonEvent);
   //     };
-    // } else {
-    //   const onBackButtonEvent = (e) => {
-    //     e.preventDefault();
-    //     window.history.back();
-    //   }
-    //   window.history.pushState(null, null, window.location.pathname);
-    //   window.addEventListener('popstate', onBackButtonEvent);
-    //   return () => {
-    //     window.removeEventListener('popstate', onBackButtonEvent);
-    //   };
+  // } else {
+  //   const onBackButtonEvent = (e) => {
+  //     e.preventDefault();
+  //     window.history.back();
+  //   }
+  //   window.history.pushState(null, null, window.location.pathname);
+  //   window.addEventListener('popstate', onBackButtonEvent);
+  //   return () => {
+  //     window.removeEventListener('popstate', onBackButtonEvent);
+  //   };
   //   }
   // }, [open]);
 
@@ -63,7 +75,12 @@ function Sidebar({ open, setOpen }) {
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="fixed z-50 top-0 left-0 w-10/12 h-full max-w-xs" initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Dialog
+        as="div"
+        className="fixed z-50 top-0 left-0 w-10/12 h-full max-w-xs"
+        initialFocus={cancelButtonRef}
+        onClose={setOpen}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -75,7 +92,10 @@ function Sidebar({ open, setOpen }) {
         >
           <Dialog.Overlay className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" />
         </Transition.Child>
-        <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+        <span
+          className="hidden sm:inline-block sm:align-middle sm:h-screen"
+          aria-hidden="true"
+        >
           &#8203;
         </span>
         <Transition.Child
@@ -89,16 +109,35 @@ function Sidebar({ open, setOpen }) {
         >
           <div className="flex flex-col w-full h-full max-h-screen bg-white overflow-hidden shadow-xl transform transition-all">
             <div className="p-4  bg-green-light text-white rounded-b-2xl">
-              <FiChevronLeft className="ml-auto text-lg item-center " onClick={() => setOpen(false)} />
-              <div className="flex items-center px-4 py-2" onClick={handleClick}>
+              <FiChevronLeft
+                className="ml-auto text-lg item-center "
+                onClick={() => setOpen(false)}
+              />
+              <div
+                className="flex items-center px-4 py-2"
+                onClick={handleClick}
+              >
                 <div className="border-2 border-white mr-3 rounded-full p-1">
-                  <div className={`w-4 h-4 p-3 rounded-full  relative  ${user?.userdetails?.profilePicPath ? "bg-white" : ""}`}>
-                    <Image src={user?.userdetails?.profilePicPath || userAvatar} objectFit="contain" alt="ORU user" layout="fill" />
+                  <div
+                    className={`w-4 h-4 p-3 rounded-full  relative  ${
+                      user?.userdetails?.profilePicPath ? "bg-white" : ""
+                    }`}
+                  >
+                    <Image
+                      src={user?.userdetails?.profilePicPath || userAvatar}
+                      objectFit="contain"
+                      alt="ORU user"
+                      layout="fill"
+                    />
                   </div>
                 </div>
                 <div className="flex flex-col">
                   <h2 className="font-Roboto-Semibold text-dx">{userName}</h2>
-                  {user?.userdetails?.createdDate && <p className="text-bx font-Roboto-Light text-gray-300">Joined On {user?.userdetails?.createdDate}</p>}
+                  {user?.userdetails?.createdDate && (
+                    <p className="text-bx font-Roboto-Light text-gray-300">
+                      Joined On {user?.userdetails?.createdDate}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -112,7 +151,10 @@ function Sidebar({ open, setOpen }) {
               >
                 <div className="w-full flex gap-2 border-b pb-3">
                   <MdOutlineFavoriteBorder size={20} className="self-center" />
-                  <p className="self-center flex-1 font-Roboto-Regular"> My Favorites</p>
+                  <p className="self-center flex-1 font-Roboto-Regular">
+                    {" "}
+                    My Favorites
+                  </p>
                   <FiChevronLeft className="rotate-180 -mr-2 self-center" />
                   <hr />
                 </div>
@@ -126,7 +168,10 @@ function Sidebar({ open, setOpen }) {
               >
                 <div className="w-full flex gap-2 border-b pb-3">
                   <AiOutlineInfoCircle size={20} className="self-center" />
-                  <p className="self-center flex-1 font-Roboto-Regular"> About us</p>
+                  <p className="self-center flex-1 font-Roboto-Regular">
+                    {" "}
+                    About us
+                  </p>
                   <FiChevronLeft className="rotate-180 self-center" />
                 </div>
               </ListItem>
@@ -138,48 +183,142 @@ function Sidebar({ open, setOpen }) {
               >
                 <div className="w-full flex gap-2 border-b pb-3">
                   <AiOutlineQuestionCircle size={20} className="self-center" />
-                  <p className="self-center flex-1 font-Roboto-Regular"> FAQs</p>
-                  <FiChevronLeft className="rotate-180 self-center" />
-                </div>
-              </ListItem>
-               <ListItem
-                href=""
-                onClick={() => {
-                  setOpensellnowpopup(true);
-                }}
-              >
-                <div className="w-full flex gap-2 border-b pb-3">
-                  <AiOutlineInfoCircle size={20} className="self-center" />
-                  <p className="self-center flex-1 font-Roboto-Regular">How to sell your phone</p>
+                  <p className="self-center flex-1 font-Roboto-Regular">
+                    {" "}
+                    FAQs
+                  </p>
                   <FiChevronLeft className="rotate-180 self-center" />
                 </div>
               </ListItem>
               <div className="mt-auto border-t ml-2 ">
                 {authenticated ? (
-                  <ListItem
-                    href="/login"
-                    onClick={() => {
-                      dispatch("LOGOUT");
-                      setOpen(false);
-                    }}
-                  >
-                    <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
-                      <AiOutlineLogout size={20} className="self-center" /> <p>Logout</p>
-                    </div>
-                  </ListItem>
-                  
+                  <>
+                    <ListItem
+                      href=""
+                      onClick={() => {
+                        setOpensellnowpopup(true);
+                      }}
+                    >
+                      <div className="w-full flex gap-2 border-b pb-3">
+                        {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
+                        <p className="self-center flex-1 font-Roboto-Regular">
+                          How to sell
+                        </p>
+                        {/* <FiChevronLeft className="rotate-180 self-center" /> */}
+                      </div>
+                    </ListItem>
+                    <ListItem
+                      href=""
+                      onClick={() => {
+                        setOpenbuynowpopup(true);
+                      }}
+                    >
+                      <div className="w-full flex gap-2 border-b pb-3">
+                        <AiOutlineInfoCircle
+                          size={20}
+                          className="self-center"
+                        />
+                        <p className="self-center flex-1 font-Roboto-Regular">
+                          How to buy
+                        </p>
+                        <FiChevronLeft className="rotate-180 self-center" />
+                      </div>
+                    </ListItem>
+                    <ListItem
+                      href="/login"
+                      onClick={() => {
+                        dispatch("LOGOUT");
+                        setOpen(false);
+                      }}
+                    >
+                      <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
+                        <AiOutlineLogout size={20} className="self-center" />{" "}
+                        <p>Logout</p>
+                      </div>
+                    </ListItem>
+                  </>
                 ) : (
-                  <ListItem href="/login">
-                    <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
-                      <AiOutlineLogin size={20} /> <p>Sign In</p>
+                  <>
+                    <div className="flex justify-between">
+                      <ListItem
+                        href=""
+                        onClick={() => {
+                          setOpensellnowpopup(true);
+                        }}
+                      >
+                        <div className="w-full flex gap-2 pb-3 flex-col">
+                          <Image
+                            src={Sell}
+                            alt="Sell"
+                            width={20}
+                            height={50}
+                            className="self-center"
+                           />
+                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
+                          <p className="self-center flex-1 font-Roboto-Semibold">
+                            How to sell
+                          </p>
+                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
+                        </div>
+                      </ListItem>
+                      <ListItem
+                        href=""
+                        onClick={() => {
+                          setOpenbuynowpopup(true);
+                        }}
+                      >
+                        <div className="w-full flex gap-2 pb-3 flex-col">
+                          <Image
+                          src={Buy}
+                          alt="Buy"
+                          width={20}
+                          height={50}
+                          />
+                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
+                          <p className="self-center flex-1 font-Roboto-Semibold">
+                            How to buy
+                          </p>
+                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
+                        </div>
+                      </ListItem>
+                      <ListItem
+                        href=""
+                        onClick={() => {
+                          setOpenOruGuidePopup(true);
+                        }}
+                      >
+                        <div className="w-full flex gap-2 pb-3 flex-col">
+                          <Image
+                          src={Book}
+                          alt="OruGuide"
+                          width={22}
+                          height={52}
+                          />
+                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
+                          <p className="self-center flex-1 font-Roboto-Semibold">
+                            Oru Guide
+                          </p>
+                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
+                        </div>
+                      </ListItem>
                     </div>
-                  </ListItem>
+                    <ListItem href="/login">
+                      <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
+                        <AiOutlineLogin size={20} /> <p>Sign In</p>
+                      </div>
+                    </ListItem>
+                  </>
                 )}
               </div>
             </ul>
           </div>
         </Transition.Child>
-        <SellNowIconPopup open={opensellnowpopup} setOpen={setOpensellnowpopup} />
+        <SellNowIconPopup
+          open={opensellnowpopup}
+          setOpen={setOpensellnowpopup}
+        />
+        <BuyNowIconPopup open={openbuynowpopup} setOpen={setOpenbuynowpopup} />
+        <OruGuidePopup open={openOruGuidePopup} setOpen={setOpenOruGuidePopup} />
       </Dialog>
     </Transition.Root>
   );
@@ -190,7 +329,9 @@ export default Sidebar;
 const ListItem = ({ children, href, onClick }) => (
   <li className="last:mt-auto " onClick={onClick}>
     <Link href={href}>
-      <a className="pl-4 mb-2 py-2 hover:bg-gray-ef border-l-2 border-transparent hover:border-primary flex items-center space-x-2 ">{children}</a>
+      <a className="pl-4 mb-2 py-2 hover:bg-gray-ef border-l-2 border-transparent hover:border-primary flex items-center space-x-2 ">
+        {children}
+      </a>
     </Link>
   </li>
 );

@@ -18,7 +18,7 @@ function BuyNowIconPopup({ open, setOpen}) {
         <>
         <Modal1 open={open} setOpen={setOpen}>
             <div className="text-px font-Roboto-Semibold flex items-center justify-center py-4">
-                <p>Steps On How to Sell Your Phone</p>
+                <p>Steps On How to Buy Phone</p>
             </div>
            <div className="px-14 flex justify-between pt-2">
             <Image 
