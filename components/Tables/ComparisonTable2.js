@@ -58,9 +58,11 @@ function ComparisonTable2(data, listingId) {
               className="border px-2 py-4 bg-primary"
               onClick={() => {
                 if (Cookies.get("userUniqueId") == undefined) {
-                  setProductLink(
-                    `www.oruphones.com/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`
-                  );
+                  thisPhoneListingId == item?.listingId ?
+                    setProductLink("") :
+                    setProductLink(
+                      `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`
+                    );
                   setOpenLoginPopup(true);
                   setperformAction1(true);
                 } else if (

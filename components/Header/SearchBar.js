@@ -84,9 +84,8 @@ function SearchBar({ className }) {
           placeholder="Search on ORUphones"
           onChange={handleChange}
           value={input}
-          className={`w-full bg-white text-gray-800 focus:outline-none rounded-md ${
-            className || "py-2 pl-2 pr-4 text-xs"
-          } ${searchResults && "rounded-b-none"}`}
+          className={`w-full bg-white text-gray-800 focus:outline-none rounded-md ${className || "py-2 pl-2 pr-4 text-xs"
+            } ${searchResults && "rounded-b-none"}`}
           style={{ boxShadow: "0px 2px 3px #0000000A" }}
         />
         {searchResults && (
@@ -98,28 +97,6 @@ function SearchBar({ className }) {
               maxHeight: 400,
             }}
           >
-            <div>
-              {recentSearch && showRecentSearch && recentSearch.length > 0 && (
-                <>
-                  <p className="px-4 py-3 block border-b text-primary text-xs">
-                    Recent Searches
-                  </p>
-                  <div>
-                    {recentSearch.map((item) => (
-                      <ListItem
-                        clicked={() => {
-                          setInput("");
-                          setSearchResults();
-                          showRecentSearch = true;
-                        }}
-                        marketingName={item}
-                        make={item && item.split(" ")[0]}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
             {searchResults.brandList && searchResults.brandList.length > 0 && (
               <p className="px-4 py-3 block border-b text-primary text-xs">
                 Brand
@@ -137,8 +114,8 @@ function SearchBar({ className }) {
                   key={item}
                   make={item}
                   makeLink
-                  // setPastSearches={setPastSearches}
-                  // pastSearches = {pastSearches}
+                // setPastSearches={setPastSearches}
+                // pastSearches = {pastSearches}
                 />
               ))}
             {searchResults.results && searchResults.results.length > 0 && (
@@ -163,8 +140,8 @@ function SearchBar({ className }) {
                     searchResults.marketingNameAndMakeMap[item]
                   }
                   marketingName={item}
-                  // setPastSearches={setPastSearches}
-                  // pastSearches={pastSearches}
+                // setPastSearches={setPastSearches}
+                // pastSearches={pastSearches}
                 />
               ))}
             {searchResults === "loading" && (
@@ -183,7 +160,28 @@ function SearchBar({ className }) {
                 </p>
               </ListItem>
             )}
-
+            <div>
+              {recentSearch && showRecentSearch && recentSearch.length > 0 && (
+                <>
+                  <p className="px-4 py-3 block border-b text-primary text-xs">
+                    Recent Searches
+                  </p>
+                  <div>
+                    {recentSearch.map((item) => (
+                      <ListItem
+                        clicked={() => {
+                          setInput("");
+                          setSearchResults();
+                          showRecentSearch = true;
+                        }}
+                        marketingName={item}
+                        make={item && item.split(" ")[0]}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
             {searchResults &&
               (!searchResults.results ||
                 (searchResults.results && searchResults.results.length < 1)) &&
@@ -233,7 +231,7 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
     if (localStorage.getItem("pastSearches")) {
       pastSearch = localStorage.getItem("pastSearches");
       pastSearch = JSON.parse(pastSearch);
-      pastSearch = pastSearch.filter((item) => item !== marketingName || make);
+      pastSearch = pastSearch.filter((item) => item !== (marketingName || make));
     }
     if (pastSearch.length >= 5) {
       pastSearch.shift();
@@ -257,11 +255,11 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
   return (
     <div
       onClick={() => handleClick()}
-      // href={
-      //   makeLink
-      //     ? `/product/buy-old-refurbished-used-mobiles/${make}/`
-      //     : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`
-      // }
+    // href={
+    //   makeLink
+    //     ? `/product/buy-old-refurbished-used-mobiles/${make}/`
+    //     : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`
+    // }
     >
       <a
         className="px-6 py-3 block border-b last:border-0 capitalize"
