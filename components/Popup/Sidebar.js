@@ -199,31 +199,77 @@ function Sidebar({ open, setOpen }) {
                         setOpensellnowpopup(true);
                       }}
                     >
-                      <div className="w-full flex gap-2 border-b pb-3">
+                      {/* <div className="w-full flex gap-2 border-b pb-3"> */}
                         {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
-                        <p className="self-center flex-1 font-Roboto-Regular">
+                        {/* <p className="self-center flex-1 font-Roboto-Regular">
                           How to sell
-                        </p>
+                        </p> */}
                         {/* <FiChevronLeft className="rotate-180 self-center" /> */}
-                      </div>
+                      {/* </div> */}
                     </ListItem>
-                    <ListItem
-                      href=""
-                      onClick={() => {
-                        setOpenbuynowpopup(true);
-                      }}
-                    >
-                      <div className="w-full flex gap-2 border-b pb-3">
-                        <AiOutlineInfoCircle
-                          size={20}
-                          className="self-center"
-                        />
-                        <p className="self-center flex-1 font-Roboto-Regular">
-                          How to buy
-                        </p>
-                        <FiChevronLeft className="rotate-180 self-center" />
-                      </div>
-                    </ListItem>
+                    <div className="flex justify-between">
+                      <ListItem
+                        href=""
+                        onClick={() => {
+                          setOpensellnowpopup(true);
+                        }}
+                      >
+                        <div className="w-full flex gap-2 pb-3 flex-col">
+                          <Image
+                            src={Sell}
+                            alt="Sell"
+                            width={20}
+                            height={50}
+                            className="self-center"
+                           />
+                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
+                          <p className="self-center flex-1 font-Roboto-Semibold">
+                            How to sell
+                          </p>
+                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
+                        </div>
+                      </ListItem>
+                      <ListItem
+                        href=""
+                        onClick={() => {
+                          setOpenbuynowpopup(true);
+                        }}
+                      >
+                        <div className="w-full flex gap-2 pb-3 flex-col">
+                          <Image
+                          src={Buy}
+                          alt="Buy"
+                          width={20}
+                          height={50}
+                          />
+                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
+                          <p className="self-center flex-1 font-Roboto-Semibold">
+                            How to buy
+                          </p>
+                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
+                        </div>
+                      </ListItem>
+                      <ListItem
+                        href=""
+                        onClick={() => {
+                          setOpenOruGuidePopup(true);
+                        }}
+                      >
+                        <div className="w-full flex gap-2 pb-3 flex-col">
+                          <Image
+                          src={Book}
+                          alt="OruGuide"
+                          width={22}
+                          height={52}
+                          />
+                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
+                          <p className="self-center flex-1 font-Roboto-Semibold">
+                            Oru Guide
+                          </p>
+                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
+                        </div>
+                      </ListItem>
+                    </div>
                     <ListItem
                       href="/login"
                       onClick={() => {
