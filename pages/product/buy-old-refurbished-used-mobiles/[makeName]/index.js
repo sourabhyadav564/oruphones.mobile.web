@@ -44,6 +44,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   const [index, setIndex] = useState(-1);
   const [bestDeals, setBestDeals] = useState([]);
   const [shopbymodel, setshopbymodel] = useState([]);
+  // let shopbymodel = [];
   const [openSort, setOpenSort] = useState(false);
   const [applyFilter, setApplyFilter] = useState();
   const [otherListings, setOtherListings] = useState([]);
@@ -85,19 +86,37 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         makeName = "OnePlus";
       } else if (makeName === "lg") {
         makeName = "LG";
-      } else if(makeName === 'htc'){makeName="HTC"} 
-      else if(makeName==='zte'){makeName="ZTE"}
-      else {
+      } else if (makeName === "htc") {
+        makeName = "HTC";
+      } else if (makeName === "zte") {
+        makeName = "ZTE";
+      } else {
         makeName =
           String(makeName).charAt(0).toUpperCase() + String(makeName).slice(1);
       }
       console.log("local storage", makeName);
-      makemodel = JSON.parse(localStorage.getItem("make_models"));
+      makemodel = JSON.parse(localStorage.getItem("shopByModel"));
       makemodel.map((item) => {
         if (item.make == makeName) {
           setTitle(item.make);
           setDescription(item.make);
-          setshopbymodel(item.models);
+          // if(shopbymodel==[])
+          // {
+          // shopbymodel.push(item.marketingName);
+          // }
+          // else{
+          //   shopbymodel.push(
+          //     item.marketingName.toString()
+          //   );
+          // }
+
+          if (shopbymodel == []) {
+            setshopbymodel(JSON.stringify(item.marketingName));
+          } else {
+            //push marketing name to shopbymodel array 
+            setshopbymodel((shopbymodel) => [...shopbymodel, JSON.stringify(item.marketingName)]);
+          }
+          // console.log("shopbymodel", shopbymodel);
         }
       });
     } else {
@@ -106,13 +125,21 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
       } else {
         makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
       }
-      await getMakeModel();
-      makemodel = JSON.parse(localStorage.getItem("make_models"));
+      // await getMakeModel();
+      makemodel = JSON.parse(localStorage.getItem("shopByModel"));
       makemodel.map((item) => {
         if (item.make == makeName) {
           setTitle(item.make);
           setDescription(item.make);
-          setshopbymodel(item.models);
+          // if(shopbymodel==[])
+          // {
+          // shopbymodel.push(item.marketingName);
+          // }
+          // else{
+          //   shopbymodel.push(
+          //     item.marketingName.toString()
+          //   );
+          // }
         }
       });
     }
@@ -719,8 +746,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         {(isLoading || isFilterApplied || makeName == undefined) &&
         (brandResult == [] || brandResult == "") ? (
           <></>
-        ) : (
-          <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
+        ) : ( 
+          shopbymodel?.length > 0  && <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
             <CardHeading2 title="Shop by Model" />
             <ShopByBrandsSection
               shopbymodeldata={shopbymodel}

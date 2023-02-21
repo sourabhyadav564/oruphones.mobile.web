@@ -33,12 +33,14 @@ export default function Home({
   topSellingModels,
   // fetchShopByPrice,
   sessionId,
+  shopByModel,
   fetchTopArticles,
 }) {
 
   const router = useRouter();
 
   const [loadingState, setLoadingState] = useState(false);
+  const [shopByModel2, setShopByModel2] = useState(shopByModel);
 
   useEffect(() => {
     setLoadingState(false);
@@ -64,6 +66,11 @@ export default function Home({
       localStorage.removeItem("listings");
       localStorage.removeItem("favoriteList");
     }
+
+    if (shopByModel2.length > 0) {
+      localStorage.setItem("shopByModel", JSON.stringify(shopByModel2));
+    } 
+
 
     // if (brandsList.length === 0) {
     //   setBrands(JSON.parse(localStorage.getItem("brands")));
@@ -198,11 +205,13 @@ export const getServerSideProps = async ({ req, res, query }) => {
   }
 
   let topsellingmodels;
+  let shopByModel = [];
   if (top_models) {
     topsellingmodels = [];
   } else {
     const data = await fetchTopsellingmodels();
     topsellingmodels = data?.dataObject;
+    shopByModel = data?.allModels;
   }
 
   // let topArticles;
@@ -227,6 +236,7 @@ export const getServerSideProps = async ({ req, res, query }) => {
       brandsList: brandsList || [],
       topSellingModels: topsellingmodels || [],
       // fetchShopByPrice: fetchShopByPrice?.dataObject || [],
+      shopByModel: shopByModel || [],
       sessionId: sessionID,
       // fetchTopArticles: topArticles || [],
     },

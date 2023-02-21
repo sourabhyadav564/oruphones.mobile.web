@@ -12,7 +12,7 @@ function ShopByBrandsSection({ shopbymodeldata, shopbymakedata, setProducts, ind
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
   var type = ["old phone", "used", "refurbished"]
-  // console.log("shop by brand section2", shopbymodeldata)
+  console.log("shop by brand section2", shopbymodeldata)
 
   return (
     <section className="m-auto items-center">
@@ -20,13 +20,13 @@ function ShopByBrandsSection({ shopbymodeldata, shopbymakedata, setProducts, ind
         slidesPerView={3}
         spaceBetween={1}
       >
-        {shopbymodeldata.map((item) => (
+        {shopbymodeldata?.map((item) => (
           <SwiperSlide key={item?.make}>
             <ShopbymodelCard
-              data={item.marketingname}
-              src={getDefaultImage(item.marketingname)}
+              data={item.replace(/"/g, "")}
+              src={getDefaultImage(item.replace(/"/g, ""))}
               // src={`https://zenrodeviceimages.s3.us-west-2.amazonaws.com/allModelsImg/${item?.marketingname?.toString().toLowerCase().replaceAll(" ", "_")}.jpg`}
-              alt={`buy ${type[Math.floor((Math.random() * type.length))]} ` + item?.marketingname}
+              alt={`buy ${type[Math.floor((Math.random() * type.length))]} ` + item.replace(/"/g, "")}
               location={location}
               make={shopbymakedata}
             />
