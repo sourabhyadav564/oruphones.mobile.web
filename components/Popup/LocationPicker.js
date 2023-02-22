@@ -176,6 +176,8 @@ function LocationPicker({ openLocationPopup }) {
             <button className="underline text-primary font-Roboto-Regular"
               onClick={() => {
                 setOpen(false)
+                // set current time to localStorage
+                Cookies.set("CloseClick", new Date().getTime());
               }}>
               Close
             </button>

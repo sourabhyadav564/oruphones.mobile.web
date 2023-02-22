@@ -23,6 +23,9 @@ function GlobalHeader() {
   const router = useRouter();
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(-1);
   const [loadingState, setLoadingState] = useState(false);
+  // current time in a variable in milliseconds
+  const currentTime = new Date().getTime();
+  let BetweenTime = currentTime - Cookies.get("CloseClick");
 
   useEffect(async () => {
     if (unreadNotificationsCount == -1)
@@ -37,6 +40,13 @@ function GlobalHeader() {
   useEffect(() => {
     setLoadingState(false);
   }, [router.pathname]);
+
+  useEffect(() => {
+     BetweenTime = currentTime - Cookies.get("CloseClick");
+    //  console.log("BetweenTime", BetweenTime);
+    //  console.log("currentTime", currentTime);
+    //  console.log("currentTime2", (BetweenTime > 172800000));
+  }, []);
 
   return (
     <header className=" bg-primary text-white  flex justify-between items-center sticky top-0 z-50">
@@ -140,7 +150,10 @@ function GlobalHeader() {
         )}
       <LocationPopup open={openLocationPopup} setOpen={setOpenLocationPopup} />
       <Sidebar open={openSidebar} setOpen={setOpenSidebar} />
-      <LocationPicker openLocationPopup={() => setOpenLocationPopup(true)} />
+      {
+        ((BetweenTime > 14400000) || !Cookies.get("CloseClick")) &&
+        <LocationPicker openLocationPopup={()=>{setOpenLocationPopup(true)}}/>
+      }
       <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
     </header>
   );

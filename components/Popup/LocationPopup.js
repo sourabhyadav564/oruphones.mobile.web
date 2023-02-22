@@ -307,7 +307,7 @@ function LocationPopup({ open, setOpen }) {
           </form>
         </div>
       </div>
-      <LocationPicker openLocationPopup={() => setOpenLocationPopup(true)} />
+      {/* <LocationPicker openLocationPopup={() => setOpenLocationPopup(true)} /> */}
     </Modal1>
   );
 }
