@@ -12,13 +12,38 @@ import Nine from "@/assets/buy_icons/9.png";
 import Ten from "@/assets/buy_icons/10.png";
 import Eleven from "@/assets/buy_icons/13.png"
 import Twelve from "@/assets/buy_icons/12.png"
+import { useState } from "react";
+import QRCode from "react-qr-code";
 
 function BuyNowIconPopup({ open, setOpen}) {
+  const [qrValue2, setQrValue2] = useState(
+    "https://play.google.com/store/apps/details?id=com.oruphones.oru"
+  );
+  const [qrValue1, setQrValue1] = useState(
+    "https://apps.apple.com/in/app/oruphones/id1629378420"
+  );
     return (
         <>
         <Modal1 open={open} setOpen={setOpen}>
             <div className="text-px font-Roboto-Semibold flex items-center justify-center py-4">
                 <p>Steps On How to Buy Phone</p>
+            </div>
+            <div className="flex space-x-6 py-5 justify-center items-center px-7">
+              <div className="flex flex-col justify-center items-center space-y-3">
+                <QRCode value={qrValue1 || ""} size={120} level={"H"} />
+                <a href={qrValue1}>
+                  <p className="w-32 h-10 bg-appStore bg-no-repeat bg-contain" />
+                </a>
+              </div>
+              <div className="flex flex-col justify-center items-center space-y-3">
+                <QRCode value={qrValue2 || ""} size={120} level={"H"} />
+                <a href={qrValue2}>
+                  <p className="w-32 h-10 bg-playStore bg-no-repeat bg-contain" />
+                </a>
+              </div>
+            </div>
+            <div className="text-px text-center font-Roboto-Semibold flex items-center justify-center px-14">
+                <p>Download our App these <br></br> these QR Codes</p>
             </div>
            <div className="px-14 flex justify-between pt-2">
             <Image 
