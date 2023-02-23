@@ -165,11 +165,9 @@ const NewAddListingForm = ({ data }) => {
   var sellValue = sellValueTag.value || "";
 
   var type = ["old phone", "your"];
-  const soldout = `bestdeals buy ${
-    type[Math.floor(Math.random() * type.length)]
-  } ${data?.marketingName} ${data?.deviceStorage} ${
-    data?.deviceCondition
-  } soldout`.toLowerCase();
+  const soldout = `bestdeals buy ${type[Math.floor(Math.random() * type.length)]
+    } ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition
+    } soldout`.toLowerCase();
 
   useEffect(() => {
     if (make) {
@@ -216,12 +214,12 @@ const NewAddListingForm = ({ data }) => {
         : storage,
       deviceRam: storage?.toString().includes("/")
         ? storage
-            ?.toString()
-            .split("/")[1]
-            .toString()
-            .replace(/GB/g, " GB")
-            .replace(/RAM/, "")
-            .trim()
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim()
         : "",
       make: make,
       marketingName: model,
@@ -265,12 +263,12 @@ const NewAddListingForm = ({ data }) => {
         : storage,
       deviceRam: storage?.toString().includes("/")
         ? storage
-            ?.toString()
-            .split("/")[1]
-            .toString()
-            .replace(/GB/g, " GB")
-            .replace(/RAM/, "")
-            .trim()
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim()
         : "",
       deviceCondition: condition,
       earPhones: headphone ? "Y" : "N",
@@ -324,7 +322,7 @@ const NewAddListingForm = ({ data }) => {
           data &&
           data[index]?.models &&
           data[index]?.models.length > 0 &&
-          data[index]?.models !== undefined 
+          data[index]?.models !== undefined
         ) {
           // console.log("data[index]?.models",data[index]?.models)
           setMktNameOpt(data[index]?.models);
@@ -340,8 +338,7 @@ const NewAddListingForm = ({ data }) => {
           // }
           // console.log(check);
         }
-        if(check)
-        {
+        if (check) {
           setModel(selectedModel);
         }
       }
@@ -506,12 +503,12 @@ const NewAddListingForm = ({ data }) => {
         model: "",
         ram: storage?.toString().includes("/")
           ? storage
-              ?.toString()
-              .split("/")[1]
-              .toString()
-              .replace(/GB/g, " GB")
-              .replace(/RAM/, "")
-              .trim()
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
           : "",
       };
       marketingNameByModel(payload).then(
@@ -646,7 +643,7 @@ const NewAddListingForm = ({ data }) => {
       (sellValue <
         (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7) ||
         sellValue >
-          (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2)) &&
+        (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2)) &&
       recommandedPrice?.leastSellingprice != "-" &&
       recommandedPrice?.maxsellingprice != "-" &&
       submitting != true
@@ -761,20 +758,20 @@ const NewAddListingForm = ({ data }) => {
   const handleForward = () => {
     questionIndex in conditionResults
       ? setQuestionIndex(
-          questionIndex < deviceConditionQuestion.length - 1
-            ? questionIndex + 1
-            : deviceConditionQuestion.length - 1
-        )
+        questionIndex < deviceConditionQuestion.length - 1
+          ? questionIndex + 1
+          : deviceConditionQuestion.length - 1
+      )
       : toast.warning("Please select condition", {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          toastId: "007",
-        });
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        toastId: "007",
+      });
     if (conditionResults[0].toString() == "No") {
       calculateDeviceCondition();
       setPage(page + 1);
@@ -805,8 +802,8 @@ const NewAddListingForm = ({ data }) => {
               page == 2 || page == 3
                 ? handleBack()
                 : page != 0
-                ? setPage(page - 1)
-                : router.back();
+                  ? setPage(page - 1)
+                  : router.back();
             }}
             className="cursor-pointer"
             fontSize="22"
@@ -854,9 +851,8 @@ const NewAddListingForm = ({ data }) => {
                   src={PhoneImage}
                   width={120}
                   height={200}
-                  alt={` sell ${
-                    type[Math.floor(Math.random() * type.length)]
-                  } ${model} ${storage} like new`.toLowerCase()}
+                  alt={` sell ${type[Math.floor(Math.random() * type.length)]
+                    } ${model} ${storage} like new`.toLowerCase()}
                 />
               </div>
 
@@ -941,11 +937,10 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption?.storage &&
                     storageColorOption.storage.map((item, index) => (
                       <div
-                        className={`${
-                          storage == item
-                            ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
-                            : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
-                        }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
+                        className={`${storage == item
+                          ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
+                          : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
+                          }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
                         onClick={() => setStorage(item)}
                         key={index}
                       >
@@ -1025,9 +1020,8 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt={`sell ${
-                    type[Math.floor(Math.random() * type.length)]
-                  } ${model} ${storage} like new `.toLowerCase()}
+                  alt={`sell ${type[Math.floor(Math.random() * type.length)]
+                    } ${model} ${storage} like new `.toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1108,11 +1102,10 @@ const NewAddListingForm = ({ data }) => {
                     {deviceWarrantyCheck?.map((item, index) => (
                       <div
                         key={index}
-                        className={`${
-                          warranty == item?.value
-                            ? "bg-[#F3F3F3] text-[#2C2F45] border-2 border-[#F3F3F3] font-Roboto-Light text-mx"
-                            : "opacity-60 border-2 border-[#9597A2] font-Roboto-Light text-mx "
-                        } py-3 px-5 rounded-md font-Roboto-Light text-mx hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300  flex items-center justify-start text-sm`}
+                        className={`${warranty == item?.value
+                          ? "bg-[#F3F3F3] text-[#2C2F45] border-2 border-[#F3F3F3] font-Roboto-Light text-mx"
+                          : "opacity-60 border-2 border-[#9597A2] font-Roboto-Light text-mx "
+                          } py-3 px-5 rounded-md font-Roboto-Light text-mx hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300  flex items-center justify-start text-sm`}
                         onClick={() => setWarranty(item.value)}
                       >
                         <span>{item.label}</span>
@@ -1133,9 +1126,8 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt={` sell ${
-                    type[Math.floor(Math.random() * type.length)]
-                  } ${model} ${storage} like new `.toLowerCase()}
+                  alt={` sell ${type[Math.floor(Math.random() * type.length)]
+                    } ${model} ${storage} like new `.toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1213,9 +1205,8 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt={` sell ${
-                    type[Math.floor(Math.random() * type.length)]
-                  } ${model} ${storage} `.toLowerCase()}
+                  alt={` sell ${type[Math.floor(Math.random() * type.length)]
+                    } ${model} ${storage} `.toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1266,36 +1257,31 @@ const NewAddListingForm = ({ data }) => {
             {/* <p className="font-Bold text-px  text-[#2C2F45]">Upload Photos</p> */}
             <SellPhoneHeading1 title="Upload Photos" />
             {/* <PanelHeading title="Back Panel" /> */}
-            <div className="grid  grid-cols-2 relative">
+            <div className="grid grid-cols-2 relative">
               {images.map((item, index) => (
-                <div
-                  key={index}
-                  className="relative pt-4 item-center even:ml-2 odd:mr-2 mb-2  rounded-md bg-[#E8E8E8]"
-                >
-                  {/* {index === 0 ? (
-                    // <PanelHeading title="Front Panel" />
-                    // <span className="absolute bottom-4 left-16 font-Light text-cx opacity-50"> Front Panel </span>
-                  ) : index === 1 ? (
-                    <PanelHeading title="Back Panel" />
-                    // <span className="absolute bottom-4 left-16 font-Light text-cx opacity-50"> Back Panel</span>
-                  ) : (
-                    ""
-                  )
-                  } */}
-                  <ImageInput
-                    type="file"
-                    preview={item?.fullImage}
-                    name={item?.panel}
-                    onChange={(e) => {
-                      handleImageChange(e, index);
-                      setImageIndex(index);
-                    }}
-                    clearImage={(e) => clearImage(e, index)}
-                    accept="image/*"
-                    clickIndex={imageIndex}
-                    loading={isUploading}
-                    index={index}
-                  />
+                <div className="">
+                  <div className="flex justify-center font-Roboto-Semibold text-cx text-gray-600">
+                    Product Image
+                  </div>
+                  <div
+                    key={index}
+                    className="relative item-center even:ml-2 odd:mr-2 mb-2  rounded-md bg-[#E8E8E8]"
+                  >
+                    <ImageInput
+                      type="file"
+                      preview={item?.fullImage}
+                      name={item?.panel}
+                      onChange={(e) => {
+                        handleImageChange(e, index);
+                        setImageIndex(index);
+                      }}
+                      clearImage={(e) => clearImage(e, index)}
+                      accept="image/*"
+                      clickIndex={imageIndex}
+                      loading={isUploading}
+                      index={index}
+                    />
+                  </div>
                 </div>
               ))}
               {images && images.length < 8 && (
@@ -1324,9 +1310,8 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt={` sell ${
-                    type[Math.floor(Math.random() * type.length)]
-                  } ${model} ${storage} ${condition} `.toLowerCase()}
+                  alt={` sell ${type[Math.floor(Math.random() * type.length)]
+                    } ${model} ${storage} ${condition} `.toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1454,9 +1439,8 @@ const NewAddListingForm = ({ data }) => {
                 <Image
                   src={modelInfo?.imagePath || Logo}
                   className=""
-                  alt={` sell ${
-                    type[Math.floor(Math.random() * type.length)]
-                  } ${model} ${storage} ${condition} `.toLowerCase()}
+                  alt={` sell ${type[Math.floor(Math.random() * type.length)]
+                    } ${model} ${storage} ${condition} `.toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1645,9 +1629,8 @@ const NewAddListingForm = ({ data }) => {
           <span>Back</span>
         </div>
         <div
-          className={`bg-[#2C2F45]  text-center px-5 py-2  text-white font-semibold rounded-md border-2 border-[#2C2F45] duration-300 flex items-center justify-center space-x-5 ${
-            page === 5 ? "hidden" : ""
-          }`}
+          className={`bg-[#2C2F45]  text-center px-5 py-2  text-white font-semibold rounded-md border-2 border-[#2C2F45] duration-300 flex items-center justify-center space-x-5 ${page === 5 ? "hidden" : ""
+            }`}
           onClick={() => {
             if (page == 0) {
               if (
@@ -1661,10 +1644,9 @@ const NewAddListingForm = ({ data }) => {
                 setPage(page + 1);
               } else {
                 toast.warning(
-                  `${
-                    make == ""
-                      ? "Please select a brand"
-                      : model == ""
+                  `${make == ""
+                    ? "Please select a brand"
+                    : model == ""
                       ? "Please select a model"
                       : "Please select a storage variant"
                   }`,
@@ -1695,14 +1677,13 @@ const NewAddListingForm = ({ data }) => {
                 setPage(page + 1);
               } else {
                 toast.warning(
-                  `${
-                    selectedCity == "India"
-                      ? "Please select a different city"
-                      : selectedCity == "" || selectedCity == undefined
+                  `${selectedCity == "India"
+                    ? "Please select a different city"
+                    : selectedCity == "" || selectedCity == undefined
                       ? "Please select a city"
                       : inputName?.value == ""
-                      ? "Please enter your name"
-                      : "Please select a city"
+                        ? "Please enter your name"
+                        : "Please select a city"
                   }`,
                   {
                     position: toast.POSITION.TOP_RIGHT,
@@ -1781,9 +1762,8 @@ export default NewAddListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${
-      checked && "bg-[#E8E8E8] opacity-bg-50 "
-    }`}
+    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${checked && "bg-[#E8E8E8] opacity-bg-50 "
+      }`}
     onClick={onChange}
   >
     <div className="relative w-7 h-7 mx-auto">
