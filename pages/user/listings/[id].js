@@ -208,7 +208,7 @@ function ListingDeatils({ data, id }) {
             <div className="grid grid-cols-2 gap-4  ">
               <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
               <IconLabelValue label="storage" value={data?.deviceStorage || "--"} />
-
+              <IconLabelValue label="location" value={data?.listingLocation || "--"} />
               {/* {data?.verified && (
                 <IconLabelValue
                   label="verified on"
@@ -221,7 +221,7 @@ function ListingDeatils({ data, id }) {
               <IconLabelValue label="warranty" value={data?.warranty || "--"} />
               <IconLabelValue
                 label="Accessories"
-                value={getAccessoriesText(data)}
+                value={getAccessoriesText(data) || "--"}
               />
               <IconLabelValue label="Listed On" value={data?.listingDate} />
             </div>

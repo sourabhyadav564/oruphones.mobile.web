@@ -45,7 +45,7 @@ function OruGuidePopup({ open, setOpen }) {
               </div>
             </div>
               <div className="text-px text-center font-Roboto-Semibold flex items-center justify-center px-14">
-                <p>Download our App these <br></br> these QR Codes</p>
+                <p>Download our App using <br></br> these QR Codes</p>
             </div>
         <div className="px-14 font-Roboto-Semibold text-px py-4">
           <p>1. Device Health Check</p>

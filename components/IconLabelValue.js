@@ -6,8 +6,7 @@ import color from "../assets/svgicons/color.svg";
 import accessories from "../assets/svgicons/charger2.svg";
 import listedon from "../assets/svgicons/calendar.svg";
 import warranty from "../assets/svgicons/warranty.svg";
-
-
+import location from "../assets/icons/location.svg";
 import box from "../assets/box.png";
 // import ram from "@/assets/ram.png";
 // import color from "@/assets/color.png";
@@ -44,6 +43,8 @@ function IconLabelValue({
             <Image src={calendar1} alt={`ORU ${calendar1} calendar`} width="30" height="40" objectFit="contain" />
           ) : label.toUpperCase().includes("LISTED") ? (
             <Image src={listedon} alt={`ORU ${listedon} calendar`} width="30" height="30" objectFit="contain" />
+          ) : label.toUpperCase().includes("LOCATION") ? (
+            <Image src={location} alt={`ORU ${listedon} location`} width="30" height="30" objectFit="contain" className="opacity-60" />
           ) : (
             ""
           )}

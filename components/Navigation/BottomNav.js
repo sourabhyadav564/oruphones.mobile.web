@@ -129,6 +129,9 @@ function BottomNav() {
                   }`}
               // onClick={() => setLoadingState(true)}
               >
+                <div className="absolute ml-8 bg-red text-right rounded-md px-0.5 text-kx text-white">
+                  NEW
+                </div>
                 <Image src={Services} width={isActive("/services") ? 22 : 20} height={isActive("/services") ? 22 : 20} alt="ORU services" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -11,7 +11,7 @@ import { getExternalSellSourceData, getGlobalCities, getRecommandedPrice, update
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import ListingAdded from "../Popup/ListingAdded";
 import StorageInfo from "../Popup/StorageInfo";
-import { getCityFromResponse, numberFromString, numberWithCommas } from "@/utils/util";
+import { getCityFromResponse, getDefaultImage, numberFromString, numberWithCommas } from "@/utils/util";
 import ConditionInfo from "../Popup/ConditionInfo";
 import { BiChevronDown, BiCurrentLocation } from "react-icons/bi";
 import Geocode from "react-geocode";
@@ -449,7 +449,7 @@ const EditListingForm = ({ data, resultsSet }) => {
           <div className="flex bg-white p-5  space-x-4 rounded-md drop-shadow-md">
 
             <Image
-              src={imageError ? Logo : getDefaultImage(data?.marketingName)}
+              src={imageError ? Logo : getDefaultImage(data?.marketingName) || Logo}
               onError={() => {
                 setImageError(true);
               }}
@@ -651,16 +651,21 @@ const EditListingForm = ({ data, resultsSet }) => {
         </>
         <p className="text-[#000000] font-Roboto-Regular text-ex border-b-2 pb-1 ">Upload Photos</p>
         <div className="grid grid-cols-2 relative">
+          <div className="flex justify-center font-Roboto-Semibold text-cx text-gray-600">
+            Product Image
+          </div><div className="flex justify-center font-Roboto-Semibold text-cx text-gray-600">
+            Product Image
+          </div>
           {images &&
             images.map((item, index) => (
               <div key={index} className="relative pt-4 even:ml-2 odd:mr-2 mb-2 rounded-md bg-[#E8E8E8]">
-                {index === 0 ? (
+                {/* {index === 0 ? (
                   <span className="absolute bottom-4 left-14 font-Roboto-Light text-cx opacity-50">Front Panel </span>
                 ) : index === 1 ? (
                   <span className="absolute bottom-4 left-14 font-Roboto-Light text-cx opacity-50"> Back Panel</span>
                 ) : (
                   ""
-                )}
+                )} */}
                 {/* <ImageInput
                   type="file"
                   preview={item?.fullImage}

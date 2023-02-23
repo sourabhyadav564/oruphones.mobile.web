@@ -1258,31 +1258,34 @@ const NewAddListingForm = ({ data }) => {
             <SellPhoneHeading1 title="Upload Photos" />
             {/* <PanelHeading title="Back Panel" /> */}
             <div className="grid grid-cols-2 relative">
+              <div className="flex justify-center font-Roboto-Semibold text-cx text-gray-600">
+                Product Image
+              </div>
+              <div className="flex justify-center font-Roboto-Semibold text-cx text-gray-600">
+                Product Image
+              </div>
               {images.map((item, index) => (
-                <div className="">
-                  <div className="flex justify-center font-Roboto-Semibold text-cx text-gray-600">
-                    Product Image
-                  </div>
-                  <div
-                    key={index}
-                    className="relative item-center even:ml-2 odd:mr-2 mb-2  rounded-md bg-[#E8E8E8]"
-                  >
-                    <ImageInput
-                      type="file"
-                      preview={item?.fullImage}
-                      name={item?.panel}
-                      onChange={(e) => {
-                        handleImageChange(e, index);
-                        setImageIndex(index);
-                      }}
-                      clearImage={(e) => clearImage(e, index)}
-                      accept="image/*"
-                      clickIndex={imageIndex}
-                      loading={isUploading}
-                      index={index}
-                    />
-                  </div>
+                // <div className="">
+                <div
+                  key={index}
+                  className="relative pt-4 item-center even:ml-2 odd:mr-2 mb-2  rounded-md bg-[#E8E8E8]"
+                >
+                  <ImageInput
+                    type="file"
+                    preview={item?.fullImage}
+                    name={item?.panel}
+                    onChange={(e) => {
+                      handleImageChange(e, index);
+                      setImageIndex(index);
+                    }}
+                    clearImage={(e) => clearImage(e, index)}
+                    accept="image/*"
+                    clickIndex={imageIndex}
+                    loading={isUploading}
+                    index={index}
+                  />
                 </div>
+                // </div>
               ))}
               {images && images.length < 8 && (
                 <span
