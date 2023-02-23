@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 // import Logo from "@/assets/mobiru_logo.svg";
-import Logo from "@/assets/oru_phones_logo.png";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import BottomNav from "../Navigation/BottomNav";
 import { useRecoilState } from "recoil";
 import { makeState } from "atoms/globalState";
@@ -48,8 +48,8 @@ function BrandCard({ data, className, popup }) {
                 placeholder="blur"
                 priority={false}
                 unoptimized={false}
-                blurDataURL={Imageerror ? Logo : data?.imagePath || Logo}
-                src={Imageerror ? Logo : data?.imagePath || Logo}
+                blurDataURL={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                src={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                 onError={() => setImageerror(true)}
                 alt={(`buy online refurbished ${data?.make}`).toLowerCase()}
                onClick={()=>setMake(data?.make)}
@@ -67,7 +67,7 @@ function BrandCard({ data, className, popup }) {
           >
             <Image
               // src={data?.imagePath || Logo}
-              src={Imageerror ? Logo : data?.imagePath || Logo}
+              src={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
               onError={() => setImageerror(true)}
               alt={(`buy online refurbished ${data?.make}`).toLowerCase()}
               height={45}

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/assets/logo_white.svg";
-import menu from "@/assets/menu-icon.svg";
-import bellDot from "@/assets/bell-dot.svg";
-import dropdown from "@/assets/drop-down.svg";
-import location from "@/assets/map-marker.svg";
+// import logo from "https://d1tl44nezj10jx.cloudfront.net/assets/logo_white.svg";
+// import menu from "https://d1tl44nezj10jx.cloudfront.net/assets/menu-icon.svg";
+// import bellDot from "https://d1tl44nezj10jx.cloudfront.net/assets/bell-dot.svg";
+// import dropdown from "@/assets/drop-down.svg";
+// import location from "https://d1tl44nezj10jx.cloudfront.net/assets/map-marker.svg";
 import LocationPopup from "../Popup/LocationPopup";
 import { useEffect, useState } from "react";
 import { useAuthState } from "providers/AuthProvider";
@@ -68,7 +68,7 @@ function GlobalHeader() {
             <div className="w-44 space-x-6 flex items-center">
               <Image
                 onClick={() => setOpenSidebar(true)}
-                src={menu}
+                src={"https://d1tl44nezj10jx.cloudfront.net/assets/menu-icon.svg"}
                 width={26}
                 height={19}
                 className="cursor-pointer"
@@ -81,7 +81,7 @@ function GlobalHeader() {
                 // onClick={() => setLoadingState(true)}
                 >
                   <Image
-                    src={logo}
+                    src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_white.svg"}
                     width={73}
                     height={33}
                     priority
@@ -100,7 +100,7 @@ function GlobalHeader() {
                   {selectedSearchCity}
                 </span>
                 <img
-                  src={location.src}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/map-marker.svg"}
                   width={12}
                   height={12}
                   alt="ORU location"
@@ -128,7 +128,7 @@ function GlobalHeader() {
                         onClick={() => setLoadingState(true)}
                       >
                         <Image
-                          src={bellDot}
+                          src={"https://d1tl44nezj10jx.cloudfront.net/assets/bell-dot.svg"}
                           width={18}
                           height={18}
                           priority

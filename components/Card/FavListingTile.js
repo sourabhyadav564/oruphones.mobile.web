@@ -1,15 +1,15 @@
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
 import { Fragment } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { removeFavotie } from "api-call";
 import VerificationIcon from "@/components/verificationIcon";
-import VerifiedIcon from "../VerifiedIcon";
-import UnVerifiedIcon from "../UnVerifiedIcon";
-import AddFav from "../AddFav";
-import Logo from "@/assets/oru_phones_logo.png";
+// import VerifiedIcon from "../VerifiedIcon";
+// import UnVerifiedIcon from "../UnVerifiedIcon";
+// import AddFav from "../AddFav";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import { AiFillHeart } from "react-icons/ai";
 import { useState } from "react";
 
@@ -80,16 +80,16 @@ function FavListingTile({ data, setProducts }) {
                       placeholder="blur"
                       priority={false}
                       unoptimized={false}
-                      blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo :
+                      blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" :
                         (data?.images &&
                           data.images.length > 0 &&
                           data.images[0].fullImage) ||
-                        data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName) || Logo}
-                      src={imageError ? getDefaultImage(data?.marketingName) || Logo :
+                        data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                      src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" :
                         (data?.images &&
                           data.images.length > 0 &&
                           data.images[0].fullImage) ||
-                        data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName) || Logo
+                        data?.defaultImage?.fullImage || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"
                       }
                       onError={() => {
                         setImageError(true);
@@ -105,8 +105,8 @@ function FavListingTile({ data, setProducts }) {
                       placeholder="blur"
                       priority={false}
                       unoptimized={false}
-                      blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
-                      src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+                      blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                      src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                       onError={() => {
                         setImageError(true);
                       }}

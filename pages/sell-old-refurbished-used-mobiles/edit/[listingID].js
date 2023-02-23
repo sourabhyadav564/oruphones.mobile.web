@@ -2,7 +2,7 @@ import Image from "next/image";
 import Header5 from "@/components/Header/header5";
 import { Fragment, useEffect, useState } from "react";
 import EditListingForm from "@/components/Form/EditListingForm";
-import sellDeviceBanner from "@/assets/sell_device_banner.png";
+// import sellDeviceBanner from "@/assets/sell_device_banner.png";
 import { getListingDetails, getMakeModelLists } from "api-call";
 import Footer from "@/components/Footer";
 import BuySellGuide from "@/components/BuySellGuide";

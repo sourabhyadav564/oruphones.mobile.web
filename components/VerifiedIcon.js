@@ -1,5 +1,5 @@
-import Verified from '@/assets/Verified_icon.png';
-import Image from "next/image";
+// import Verified from '@/assets/Verified_icon.png';
+// import Image from "next/image";
 
 export default function VerifiedIcon({ ...rest }) {
   return (

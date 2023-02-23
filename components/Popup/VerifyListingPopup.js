@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import patchCheck from "@/assets/patch-check.svg";
+// import patchCheck from "https://d1tl44nezj10jx.cloudfront.net/assets/patch-check.svg";
 import Modal2 from "./Modal2";
 import { useState } from "react";
 import QRCode from "react-qr-code";
@@ -39,7 +39,7 @@ function VerifyListingPopup({ open, setOpen, make }) {
     return (
         <Modal2 open={open} setOpen={setOpen}>
             <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e">
-                <Image src={patchCheck} height={50} width={50} alt={make} />
+                <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/patch-check.svg"} height={50} width={50} alt={make} />
                 <h1 className="font-Roboto-Bold mb-2 mt-3">Congratulations!</h1>
                 <p className="text-xs my-2 text-center font-Roboto-Regular">
                     Your device has been submitted for listing. To verify the device kindly download the ORUphones app. We recommend that you verify the device in order to sell it quickly.

@@ -2,7 +2,7 @@ import Header5 from "@/components/Header/header5";
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 // import mob from "@/assets/mobiru_logo.svg";
-import mob from "@/assets/logo_square.svg";
+// import mob from "https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg";
 import { deleteNotification, getAllNotificationByUserd, markAsRead } from "api-call";
 import Cookies from "js-cookie";
 import router from "next/router";
@@ -140,7 +140,7 @@ const NotificationsItem = ({ text, timestamp, onClick, isUnRead }) => (
       className="w-12 h-12 rounded-2xl flex-shrink-0 mr-4 flex justify-center items-center"
       style={{ background: "#EFEFEF" }}
     >
-      <Image src={mob} width={30} height={30} alt="ORUPhones" />
+      <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"} width={30} height={30} alt="ORUPhones" />
     </div>
     <div>
       <p

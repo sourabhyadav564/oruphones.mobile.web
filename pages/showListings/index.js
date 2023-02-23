@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { getSessionId, getUserDetailsViaUUID } from "api-call";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import Cookies from 'js-cookie';
-import logo from "@/assets/logo_square.svg";
+// import logo from "https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg";
 import Image from 'next/image';
 
 function index() {
@@ -75,7 +75,7 @@ function index() {
     <div className='flex justify-center h-full'>
       <div className='h-full'>
         <div className='flex justify-center pt-10'>
-          <Image src={logo} alt='ORUphones' className='w-px-300 h-px-300 ' />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"} alt='ORUphones' className='w-px-300 h-px-300 ' />
         </div>
         <div className=''>
           <div class="">

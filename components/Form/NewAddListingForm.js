@@ -4,14 +4,14 @@ import { Fragment, useEffect, useState } from "react";
 // import headphoneImg from "@/assets/headphones-line.svg";
 // import originalBoxImg from "@/assets/box.svg";
 import dynamic from "next/dynamic";
-import chargingImg from "@/assets/charging-station.png";
-import headphoneImg from "@/assets/headphones-line.png";
-import originalBoxImg from "@/assets/box.png";
-import originalBillImg from "@/assets/original-bill.png";
+// import chargingImg from "https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.png";
+// import headphoneImg from "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.png";
+// import originalBoxImg from "https://d1tl44nezj10jx.cloudfront.net/assets/box.png";
+// import originalBillImg from "https://d1tl44nezj10jx.cloudfront.net/assets/original-bill.png";
 import { BiCurrentLocation } from "react-icons/bi";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
-import PhoneImage from "@/assets/icons/phone.png";
+// import PhoneImage from "https://d1tl44nezj10jx.cloudfront.net/assets/icons/phone.png";
 import Input from "./Input";
 import {
   getRecommandedPrice,
@@ -50,7 +50,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { deviceConditionQuestion } from "@/utils/constant";
 import ConditionOptionLarge from "../Condition/ConditionOptionLarge";
 import DeviceConditionCard from "../Condition/DeviceConditionCard";
-import Logo from "@/assets/oru_phones_logo.png";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";
 import StorageInfo from "../Popup/StorageInfo";
@@ -848,7 +848,7 @@ const NewAddListingForm = ({ data }) => {
               /> */}
               <div className="m-auto pl-28 pb-px mb-4 border-b ">
                 <Image
-                  src={PhoneImage}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/icons/phone.png"}
                   width={120}
                   height={200}
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
@@ -1018,7 +1018,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
-                  src={modelInfo?.imagePath || Logo}
+                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                   className=""
                   alt={`sell ${type[Math.floor(Math.random() * type.length)]
                     } ${model} ${storage} like new `.toLowerCase()}
@@ -1066,25 +1066,25 @@ const NewAddListingForm = ({ data }) => {
               </p> */}
               <div className="grid grid-cols-2 gap-4 ">
                 <Checkbox
-                  src={chargingImg}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.png"}
                   text="Original Charger"
                   onChange={() => setCharging((prev) => !prev)}
                   checked={charging}
                 />
                 <Checkbox
-                  src={headphoneImg}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.png"}
                   text="Original Earphones"
                   onChange={() => setHeadphone((prev) => !prev)}
                   checked={headphone}
                 />
                 <Checkbox
-                  src={originalBoxImg}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/box.png"}
                   text="Original Box"
                   onChange={() => setOriginalbox((prev) => !prev)}
                   checked={originalbox}
                 />
                 <Checkbox
-                  src={originalBillImg}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/original-bill.png"}
                   text="Original Bill"
                   onChange={() => {
                     setShowWarranty((prev) => !prev);
@@ -1124,7 +1124,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
-                  src={modelInfo?.imagePath || Logo}
+                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
                     } ${model} ${storage} like new `.toLowerCase()}
@@ -1203,7 +1203,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
-                  src={modelInfo?.imagePath || Logo}
+                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
                     } ${model} ${storage} `.toLowerCase()}
@@ -1311,7 +1311,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
-                  src={modelInfo?.imagePath || Logo}
+                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
                     } ${model} ${storage} ${condition} `.toLowerCase()}
@@ -1440,7 +1440,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
-                  src={modelInfo?.imagePath || Logo}
+                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
                     } ${model} ${storage} ${condition} `.toLowerCase()}

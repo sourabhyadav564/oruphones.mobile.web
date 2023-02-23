@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Header4 from "@/components/Header/header4";
 import { Fragment, useEffect, useState } from "react";
-import buyStep from "@/assets/how_to_buy.png";
-import sellDeviceBanner from "@/assets/how_to_sell.png";
+// import buyStep from "@/assets/how_to_buy.png";
+// import sellDeviceBanner from "@/assets/how_to_sell.png";
 import AddListingForm from "@/components/Form/AddListing";
 import { getMakeModelLists } from "api-call";
 import Footer from "@/components/Footer";

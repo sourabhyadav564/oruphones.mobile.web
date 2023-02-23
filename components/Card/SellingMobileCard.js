@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
-import Logo from "@/assets/oru_phones_logo.png";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import { useState } from "react";
 // import Logo from "@/assets/mobiru_logo.svg";
 
@@ -32,7 +32,7 @@ function SellingMobileCard({ data }) {
         <div className="grid grid-cols-1 rounded-lg py-2 px-3 bg-m-white cardShadow1">
           <div className="grid grid-cols-1">
             <div className="flex items-baseline my-1">
-              <Image src={Imageerror ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+              <Image src={Imageerror ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                 onError={() => setImageerror(true)} alt={(`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} like new `).toLowerCase()} width={150} height={150} objectFit="contain" />
             </div>
             <div className="flex-wrap w-full text-gray-70">

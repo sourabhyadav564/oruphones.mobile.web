@@ -6,7 +6,7 @@ import { infoTemplates } from "api-call";
 import { parse as nodeParser } from "node-html-parser";
 import Error from "next/error";
 import fetchStaticHTML from "api-call/fetchStaticHtml";
-import faqImg from "@/assets/FAQs.png";
+// import faqImg from "@/assets/FAQs.png";
 import Image from "next/image";
 import Head from "next/head";
 import { metaTags } from "@/utils/constant";

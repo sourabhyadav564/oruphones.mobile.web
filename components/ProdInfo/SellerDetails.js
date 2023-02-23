@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { Fragment } from "react";
 import { HiOutlineUserCircle } from "react-icons/hi";
-import userIcon from "@/assets/icons/user.svg";
+// import userIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/icons/user.svg";
 
 function SellerDetails({ data }) {
   let vendor = "";
@@ -34,7 +34,7 @@ function SellerDetails({ data }) {
             </g>
           </svg> */}
           {/* <HiOutlineUserCircle size={40} color={'#878787'} /> */}
-          <Image src={userIcon} width={40} height={40} objectFit="contain" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/icons/user.svg"} width={40} height={40} objectFit="contain" />
         </span>
         {(data?.isOtherVendor === "Y") && (
           <div className="ml-2 self-center">

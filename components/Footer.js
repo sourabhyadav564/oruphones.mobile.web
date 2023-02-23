@@ -8,8 +8,8 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import LoadingStatePopup from "../components/Popup/LoadingStatePopup";
-import AppStoreCard from "../assets/app_store.svg";
-import PlayStoreCard from "../assets/play_store.png";
+// import AppStoreCard from "https://d1tl44nezj10jx.cloudfront.net/assets/app_store.svg";
+// import PlayStoreCard from "https://d1tl44nezj10jx.cloudfront.net/assets/play_store.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -226,10 +226,10 @@ const Footer = () => {
               <p className=" font-Roboto-Semobold text-mx">DOWNLOAD ORUphones App</p>
               <div className="grid grid-cols-2 items-center gap-4 my-4">
                 <Link href="https://apps.apple.com/dk/app/oruphones/id1629378420">
-                  <Image src={AppStoreCard} alt="app store" />
+                  <Image src="https://d1tl44nezj10jx.cloudfront.net/assets/app_store.svg" width={70} height={30} alt="app store" />
                 </Link>
                 <Link href="https://play.google.com/store/apps/details?id=com.oruphones.oru&hl=en&gl=US">
-                  <Image src={PlayStoreCard} alt="playstore" />
+                  <Image src="https://d1tl44nezj10jx.cloudfront.net/assets/play_store.png" width={70} height={25} alt="playstore" />
                 </Link>
               </div>
               <div>

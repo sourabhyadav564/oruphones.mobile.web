@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import first from "@/assets/first.png";
-import second from "@/assets/second.png";
-import third from "@/assets/third.png";
+// import first from "https://d1tl44nezj10jx.cloudfront.net/assets/first.png";
+// import second from "https://d1tl44nezj10jx.cloudfront.net/assets/second.png";
+// import third from "https://d1tl44nezj10jx.cloudfront.net/assets/third.png";
 
 import Header2 from "@/components/Header/header2";
 import {
@@ -15,7 +15,7 @@ import {
 } from "@/components/elements/Heading/heading";
 import ImageSlider from "@/components/ImageSlider";
 import { BiSearch } from "react-icons/bi";
-import star from "@/assets/star.svg";
+// import star from "@/assets/star.svg";
 import { FaRupeeSign } from "react-icons/fa";
 // import { BsInfoCircle } from "react-icons/bs";
 import { detailWithUserInfo, fetchSellerMobileNumber } from "api-call";
@@ -38,10 +38,10 @@ import { useRef } from "react";
 import SellerDetails from "@/components/ProdInfo/SellerDetails";
 import LoginPopup from "@/components/Popup/LoginPopup";
 // import Logo from "@/assets/mobiru_logo.svg";
-import Logo from "@/assets/oru_phones_logo.png";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import { BsInfoCircle, BsStar } from "react-icons/bs";
 import { BsStarFill } from "react-icons/bs";
-import whatsapp from "@/assets/whatsapp.png";
+// import whatsapp from "https://d1tl44nezj10jx.cloudfront.net/assets/whatsapp.png";
 import WarrantyInfo from "@/components/Popup/WarrantyInfo";
 import VerificationIcon from "@/components/verificationIcon";
 import { AiFillExclamationCircle } from "react-icons/ai";
@@ -54,7 +54,7 @@ import {
 } from "@/components/elements/CardHeading/cardheading";
 import SearchBar from "@/components/Header/SearchBar";
 import { toast } from "react-toastify";
-import sold_out from "@/assets/soldout.png";
+// import sold_out from "@/assets/soldout.png";
 import { FaGreaterThan } from "react-icons/fa";
 import ThisPhonePopup from "@/components/Popup/ThisPhonePopup";
 import ComparisonTable from "@/components/Tables/ComparisonTable";
@@ -403,8 +403,8 @@ function ProductDeatils({ data }) {
                 {
                   // fullImage: data?.vendorLogo,
                   // thumbImage: data?.vendorLogo,
-                  fullImage: Logo,
-                  thumbImage: Logo,
+                  fullImage: "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png",
+                  thumbImage: "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png",
                 },
               ])
             }
@@ -695,10 +695,10 @@ function ProductDeatils({ data }) {
                           <Image
                             src={
                               index == 0
-                                ? first
+                                ? "https://d1tl44nezj10jx.cloudfront.net/assets/first.png"
                                 : index == 1
-                                  ? second
-                                  : index == 2 && third
+                                  ? "https://d1tl44nezj10jx.cloudfront.net/assets/second.png"
+                                  : index == 2 && "https://d1tl44nezj10jx.cloudfront.net/assets/third.png"
                             }
                             alt="icon"
                             width={50}
@@ -814,7 +814,7 @@ function ProductDeatils({ data }) {
                     }}
                   >
                     <Image
-                      src={whatsapp}
+                      src={"https://d1tl44nezj10jx.cloudfront.net/assets/whatsapp.png"}
                       alt="whatsapp"
                       height={30}
                       width={30}
@@ -999,8 +999,8 @@ function ProductDeatils({ data }) {
                     <Image
                       src={
                         ImageError
-                          ? Logo
-                          : getDefaultImage(data?.marketingName) || Logo
+                          ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"
+                          : getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"
                       }
                       onError={() => setImageError(true)}
                       className=""
@@ -1112,7 +1112,7 @@ function ProductDeatils({ data }) {
             {
               // fullImage: data?.vendorLogo,
               // thumbImage: data?.vendorLogo,
-              fullImage: Logo?.src,
+              fullImage: "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"?.src,
             },
           ])
         }

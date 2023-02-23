@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { BsInfoCircle } from "react-icons/bs";
-import verifiedIcon from "@/assets/verified.svg";
+// import Link from "next/link";
+// import { BsInfoCircle } from "react-icons/bs";
+// import verifiedIcon from "@/assets/verified.svg";
 // import Logo from "@/assets/mobiru_logo.svg";
-import Logo from "@/assets/oru_phones_logo.png";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 import {
   CardHeading,
@@ -20,7 +20,7 @@ import { getDefaultImage, numberWithCommas } from "@/utils/util";
 import { BiChevronRight } from "react-icons/bi";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
-import sold_out from "@/assets/soldout.png";
+// import sold_out from "@/assets/soldout.png";
 import VerificationIcon from "../verificationIcon";
 import { fetchByMarketingName } from "api-call";
 import Cookies from "js-cookie";
@@ -32,7 +32,7 @@ function ShopbymodelCard({
   make,
   src,
   alt,
-  fallBackSrc = Logo.src,
+  // fallBackSrc = "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png",
 }) {
   // console.log("data3", data);
 
@@ -78,8 +78,8 @@ function ShopbymodelCard({
             placeholder="blur"
             priority={false}
             unoptimized={false}
-            blurDataURL={imageError ? Logo : src || Logo}
-            src={imageError ? Logo : src || Logo}
+            blurDataURL={imageError ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : src || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+            src={imageError ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : src || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
             alt={alt}
             onError={() => setImageError(true)}
             width="34"

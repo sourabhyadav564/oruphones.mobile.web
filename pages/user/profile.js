@@ -9,7 +9,7 @@ import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import Footer from "@/components/Footer";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { AiOutlineLogout } from "react-icons/ai";
-import editImage from "@/assets/icons/edit-image.png";
+// import editImage from "@/assets/icons/edit-image.png";
 import LoadingStatePopup from "../../components/Popup/LoadingStatePopup";
 import imageCompression from "browser-image-compression";
 import {

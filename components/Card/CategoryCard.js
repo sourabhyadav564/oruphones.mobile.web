@@ -7,8 +7,8 @@ import WarrantyByPop from "../Popup/WarrantyByPop";
 import { useRouter } from "next/router";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { ShopCategoryHeading } from "../elements/Heading/heading";
-import price from "../../assets/price.png"
-import warranty from "../../assets/warranty.png"
+// import price from "https://d1tl44nezj10jx.cloudfront.net/assets/price.png"
+// import warranty from "https://d1tl44nezj10jx.cloudfront.net/assets/warranty.png"
 
 const CategoryCards = ({ data, priceRange, warrantycard }) => {
   const router = useRouter();
@@ -33,9 +33,10 @@ const CategoryCards = ({ data, priceRange, warrantycard }) => {
             <div className="h-[41px] flex flex-col items-center justify-center">
               {/* <FaSearchDollar className="text-2xl text-black" /> */}
               <Image
-                src={price}
+                src="https://d1tl44nezj10jx.cloudfront.net/assets/price.png"
                 alt="price"
-
+                width={50}
+                height={50}
                 objectFit="contain"
               />
             </div>
@@ -62,9 +63,11 @@ const CategoryCards = ({ data, priceRange, warrantycard }) => {
             <div className="h-[41px] flex flex-col items-center justify-center">
               {/* <FaSearchDollar className="text-2xl text-black" /> */}
               <Image
-                src={warranty}
+                src="https://d1tl44nezj10jx.cloudfront.net/assets/warranty.png"
                 alt="warranty"
                 objectFit="contain"
+                width={50}
+                height={50}
               />
             </div>
           </div>
@@ -102,6 +105,8 @@ const CategoryCards = ({ data, priceRange, warrantycard }) => {
                   src={data?.imagePath}
                   alt={data?.make}
                   objectFit="contain"
+                  width={50}
+                  height={50}
                 />
               </div>
             </div>

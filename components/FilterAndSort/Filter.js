@@ -8,8 +8,8 @@ import Header2 from "../Header/header2";
 import FilterPopup from "../Popup/FilterPopup";
 import SortPopup from "../Popup/SortPopup";
 // import Image from "next/image";
-import filterIcon from "@/assets/filter.png";
-import filterApplyIcon from "@/assets/filter_apply.png";
+// import filterIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/filter.png";
+// import filterApplyIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/filter_apply.png";
 import SearchBar from "../Header/SearchBar";
 
 export default function Filter({ children, searchText, setApplyFilter, applyFilter, setSortApplyFilter, setIsFilterApplied }) {
@@ -147,7 +147,7 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
         </div>
         {setApplyFilter && (
           <div className="absolute right-4 flex items-center justify-center w-10 h-8" onClick={() => setOpenFilter(true)}>
-            <img src={applyFilter && Object.keys(applyFilter).some((i) => applyFilter[i]) ? filterApplyIcon.src : filterIcon.src} alt="" ></img>
+            <img src={applyFilter && Object.keys(applyFilter).some((i) => applyFilter[i]) ? "https://d1tl44nezj10jx.cloudfront.net/assets/filter_apply.png" : "https://d1tl44nezj10jx.cloudfront.net/assets/filter.png"} alt="" ></img>
           </div>
         )}
       </div>

@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
 // import Logo from "@/assets/mobiru_logo.svg";
-import Logo from "@/assets/oru_phones_logo.png";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 import VerifiedIcon from "../VerifiedIcon";
-import sold_out from "@/assets/soldout.png";
+// import sold_out from "https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png";
 import { CardHeading3, CardHeading4, CardHeading } from "@/components/elements/CardHeading/cardheading";
 import { useEffect, useState } from "react";
 import { useAuthState } from "providers/AuthProvider";
@@ -64,7 +64,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
             <div className="absolute right-0 flex justify-between items-center w-full z-20">
               <span>
                 {data?.status === "Sold_Out" ? <Image
-                  src={sold_out}
+                  src="https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png"
                   width={"50"}
                   height={"20"}
                   objectFit="contain"
@@ -89,8 +89,8 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
-                    src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                    src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                     onError={() => {
                       setImageError(true);
                     }}
@@ -147,8 +147,8 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
-                    src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                    src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                     onError={() => {
                       setImageError(true);
                     }}

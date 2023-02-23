@@ -140,7 +140,7 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
             </div>
           ))) || (
             <div className="space-y-3 col-span-2">
-              <Spinner />
+              <Spinner/>
               <div className="text-center">
                 Please wait, while we are fetching data for you...{" "}
               </div>

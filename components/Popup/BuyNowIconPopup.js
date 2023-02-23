@@ -1,17 +1,17 @@
 import Modal1 from "./Modal1";
 import Image from "next/image";
-import One from "@/assets/buy_icons/1.png";
-import Two from "@/assets/buy_icons/2.png";
-import Three from "@/assets/buy_icons/3.png";
-import Four from "@/assets/buy_icons/4.png";
-import Five from "@/assets/buy_icons/5.png";
-import Six from "@/assets/buy_icons/6.png";
-import Seven from "@/assets/buy_icons/7.png";
-import Eight from "@/assets/buy_icons/8.png";
-import Nine from "@/assets/buy_icons/9.png";
-import Ten from "@/assets/buy_icons/10.png";
-import Eleven from "@/assets/buy_icons/13.png"
-import Twelve from "@/assets/buy_icons/12.png"
+// import One from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/1.png";
+// import Two from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/2.png";
+// import Three from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/3.png";
+// import Four from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/4.png";
+// import Five from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/5.png";
+// import Six from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/6.png";
+// import Seven from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/7.png";
+// import Eight from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/8.png";
+// import Nine from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/9.png";
+// import Ten from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/10.png";
+// import Eleven from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/13.png"
+// import Twelve from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/12.png"
 import { useState } from "react";
 import QRCode from "react-qr-code";
 
@@ -47,7 +47,7 @@ function BuyNowIconPopup({ open, setOpen}) {
             </div>
            <div className="px-14 flex justify-between pt-2">
             <Image 
-            src={One}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/1.png"}
             height={200}
             width={120}
             alt="sell_now_icon"
@@ -61,7 +61,7 @@ function BuyNowIconPopup({ open, setOpen}) {
                 You can buy through search, Buy now and scroll for best deals.
             </p>
             <Image 
-            src={Two}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/2.png"}
             height={450}
             width={280}
             alt="sell_now_icon"
@@ -69,7 +69,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pt-8">
             <Image 
-            src={Three}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/3.png"}
             height={450}
             width={280}
             alt="sell_now_icon"
@@ -83,7 +83,7 @@ function BuyNowIconPopup({ open, setOpen}) {
               Click on the filter icon <br></br>to add specific filters.
             </p>
             <Image 
-            src={Four}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/4.png"}
             height={200}
             width={120}
             alt="sell_now_icon"
@@ -91,7 +91,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pt-8">
             <Image 
-            src={Five}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/5.png"}
             height={480}
             width={290}
             alt="sell_now_icon"
@@ -105,7 +105,7 @@ function BuyNowIconPopup({ open, setOpen}) {
                Now open desired deal from all the available products.
             </p>
             <Image 
-            src={Six}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/6.png"}
             height={430}
             width={250}
             alt="sell_now_icon"
@@ -113,7 +113,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pt-4">
             <Image 
-            src={Seven}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/7.png"}
             height={280}
             width={160}
             alt="sell_now_icon"
@@ -127,7 +127,7 @@ function BuyNowIconPopup({ open, setOpen}) {
               Click on Contact Seller to request verification.
             </p>
             <Image 
-            src={Nine}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/9.png"}
             height={400}
             width={240}
             alt="sell_now_icon"
@@ -135,7 +135,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pb-2 pt-6">
             <Image 
-            src={Eight}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/8.png"}
             height={350}
             width={210}
             alt="sell_now_icon"
@@ -149,7 +149,7 @@ function BuyNowIconPopup({ open, setOpen}) {
               Go to Home<br></br> and Click on Three lines <br></br> on top left corner and click on verification for buyer tile.
             </p>
             <Image 
-            src={Ten}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/10.png"}
             height={460}
             width={270}
             alt="sell_now_icon"
@@ -157,7 +157,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pb-4 pt-6">
             <Image 
-            src={Twelve}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/12.png"}
             height={300}
             width={180}
             alt="sell_now_icon"
@@ -171,7 +171,7 @@ function BuyNowIconPopup({ open, setOpen}) {
               Wait for Diagnostic<br></br> check. Once it <br></br>completes you can contact the seller.
             </p>
             <Image 
-            src={Eleven}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/13.png"}
             height={300}
             width={180}
             alt="sell_now_icon"

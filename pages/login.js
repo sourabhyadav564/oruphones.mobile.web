@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 // import Logo from "@/assets/mobiru_logo.svg";
-import Logo from "@/assets/logo_square.svg";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg";
 import OTPVerification from "@/components/Login/OTPVerification";
 import Input from "@/components/Form/input2";
 import { generateOTP } from "api-call";
@@ -10,7 +10,7 @@ import router from "next/router";
 import { useAuthState } from "providers/AuthProvider";
 import Checkbox from "@/components/Form/Checkbox";
 import TermsconditionPopup from "@/components/Popup/TermsconditionPopup";
-import CloseIcon from "@/assets/close-icon.svg";
+// import CloseIcon from "@/assets/close-icon.svg";
 import Spinner from "@/components/Loader/Spinner";
 // import Input2 from "@/components/Form/Input2";
 
@@ -83,7 +83,7 @@ function Login() {
       </div> */}
       <section className="container px-8 flex flex-col items-center space-y-8 max-w-sm">
         <div className="mt-14" data-aos="fade-down">
-          <Image src={Logo} alt={"Logo"} width={108} height={53} />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"} alt={"Logo"} width={108} height={53} />
         </div>
         {step === 1 ? (
           <form

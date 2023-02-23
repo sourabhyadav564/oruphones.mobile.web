@@ -1,5 +1,5 @@
 import Image from "next/image";
-import service_img from "@/assets/service_img.png";
+// import service_img from "https://d1tl44nezj10jx.cloudfront.net/assets/service_img.png";
 import { Fragment, useEffect, useState } from "react";
 import { servicesData } from "@/utils/constant";
 import Footer from "@/components/Footer";
@@ -39,7 +39,7 @@ function Services() {
         <div className="w-52 my-4 mx-auto ">
           <Image
             alt="ORU services"
-            src={service_img}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/service_img.png"}
             width={"208px"}
             height={"100%"}
             objectFit="contain"
@@ -72,8 +72,8 @@ function Services() {
                   <Image
                     src={item?.imgSrc || "/"}
                     alt={`ORU services ${item.title}}`}
-                    width={"25"}
-                    height={"25"}
+                    width={25}
+                    height={25}
                     objectFit="contain"
                   />
                 </div>

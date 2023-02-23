@@ -5,8 +5,8 @@ import dynamic from "next/dynamic";
 
 import Header2 from "@/components/Header/header2";
 import ImageSlider from "@/components/ImageSlider";
-import star from "@/assets/star.svg";
-import edit from "@/assets/edit.svg";
+// import star from "@/assets/star.svg";
+// import edit from "https://d1tl44nezj10jx.cloudfront.net/assets/edit.svg";
 
 import { ProductPriceHeading, ProductNameHeading } from "@/components/elements/Heading/heading";
 import { CardHeading4, CardHeading2 } from "@/components/elements/CardHeading/cardheading";
@@ -79,7 +79,7 @@ function ListingDeatils({ data, id }) {
         <div className="absolute right-4 top-3">
           <Link href={`/sell-old-refurbished-used-mobiles/edit/${id}`}>
             <a>
-              <Image src={edit} alt={data?.marketingName} width={26} height={21} className="opacity-90" />
+              <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/edit.svg"} alt={data?.marketingName} width={26} height={21} className="opacity-90" />
             </a>
           </Link>
         </div>

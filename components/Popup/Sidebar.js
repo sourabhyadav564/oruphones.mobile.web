@@ -9,7 +9,7 @@ import {
   AiOutlineLogin,
 } from "react-icons/ai";
 // import userAvatar from "@/assets/user-avatar.png";
-import userAvatar from "@/assets/icons/avatar.png";
+// import userAvatar from "https://d1tl44nezj10jx.cloudfront.net/assets/icons/avatar.png";
 import { BiUserCircle } from "react-icons/bi";
 import Link from "next/link";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
@@ -17,9 +17,9 @@ import router from "next/router";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import SellNowIconPopup from "@/components/Popup/SellNowIconPopup";
 import BuyNowIconPopup from "./BuyNowIconPopup";
-import Buy from "@/assets/buy.png";
-import Sell from "@/assets/sell.png";
-import Book from "@/assets/Book.png";
+// import Buy from "https://d1tl44nezj10jx.cloudfront.net/assets/buy.png";
+// import Sell from "https://d1tl44nezj10jx.cloudfront.net/assets/sell.png";
+// import Book from "https://d1tl44nezj10jx.cloudfront.net/assets/Book.png";
 import OruGuidePopup from "./OruGuidePopup";
 
 function Sidebar({ open, setOpen }) {
@@ -124,7 +124,7 @@ function Sidebar({ open, setOpen }) {
                     }`}
                   >
                     <Image
-                      src={user?.userdetails?.profilePicPath || userAvatar}
+                      src={user?.userdetails?.profilePicPath || "https://d1tl44nezj10jx.cloudfront.net/assets/icons/avatar.png"}
                       objectFit="contain"
                       alt="ORU user"
                       layout="fill"
@@ -216,7 +216,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                            src={Sell}
+                            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell.png"}
                             alt="Sell"
                             width={20}
                             height={50}
@@ -237,7 +237,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={Buy}
+                          src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy.png"}
                           alt="Buy"
                           width={20}
                           height={50}
@@ -257,7 +257,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={Book}
+                          src={"https://d1tl44nezj10jx.cloudfront.net/assets/Book.png"}
                           alt="OruGuide"
                           width={22}
                           height={52}
@@ -294,7 +294,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                            src={Sell}
+                            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell.png"}
                             alt="Sell"
                             width={20}
                             height={50}
@@ -315,7 +315,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={Buy}
+                          src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy.png"}
                           alt="Buy"
                           width={20}
                           height={50}
@@ -335,7 +335,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={Book}
+                          src={"https://d1tl44nezj10jx.cloudfront.net/assets/Book.png"}
                           alt="OruGuide"
                           width={22}
                           height={52}

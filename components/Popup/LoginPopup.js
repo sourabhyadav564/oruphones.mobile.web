@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 // import Logo from "@/assets/mobiru_logo.svg";
-import Logo from "@/assets/logo_square.svg";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg";
 import OTPVerification from "@/components/Login/OTPVerification";
 import Input2 from "../Form/input2";
 import { generateOTP } from "api-call";
@@ -72,7 +72,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
       <main className="bg-loginBg bg-contain  pt-16 min-h-screen">
         <section className="container px-8 flex flex-col items-center space-y-8 max-w-sm">
           <div className="w-full flex justify-center ">
-            <Image src={Logo} alt={"Logo"} width={80} height={40} />
+            <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"} alt={"Logo"} width={80} height={40} />
           </div>
           {step === 1 ? (
             <form

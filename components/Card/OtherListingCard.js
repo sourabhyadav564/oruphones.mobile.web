@@ -2,14 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
 // import Logo from "@/assets/mobiru_logo.svg";
-import Logo from "@/assets/oru_phones_logo.png";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 // import verified from "@/assets/verified.svg";
 import AddFav from "../AddFav";
 import VerifiedIcon from "../VerifiedIcon";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
-import sold_out from "@/assets/soldout.png";
+// import sold_out from "https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png";
 import { BsCardHeading } from "react-icons/bs";
 
 import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
@@ -85,7 +85,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
           <div className="grid grid-cols-1">
             <div className="absolute px-2 flex z-30 items-center top-0 left-0 right-0 pt-1 justify-between w-full">
               {data?.status === "Sold_Out" ? <Image
-                src={sold_out}
+                src="https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png"
                 width={"50"}
                 height={"20"}
                 objectFit="contain"
@@ -113,8 +113,8 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
-                    src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                    src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                     onError={() => {
                       setImageError(true);
                     }}
@@ -170,8 +170,8 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
-                    src={imageError ? getDefaultImage(data?.marketingName) || Logo : data?.imagePath || getDefaultImage(data?.marketingName) || Logo}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                    src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
                     onError={() => {
                       setImageError(true);
                     }}

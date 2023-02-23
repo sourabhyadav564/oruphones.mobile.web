@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { SwiperSlide } from "swiper/react";
 import CarouselWithPagination from "@/components/Carousel/CarouselWithPagination";
-import buyStep from "@/assets/how_to_buy.png";
-import sellStep from "@/assets/how_to_sell.png";
-import new_buy_sell from "@/assets/new_buy_sell.png";
-import articleImage from "@/assets/banner_article_image.png";
+// import buyStep from "https://d1tl44nezj10jx.cloudfront.net/assets/how_to_buy.png";
+// import sellStep from "https://d1tl44nezj10jx.cloudfront.net/assets/how_to_sell.png";
+// import new_buy_sell from "https://d1tl44nezj10jx.cloudfront.net/assets/new_buy_sell.png";
+// import articleImage from "https://d1tl44nezj10jx.cloudfront.net/assets/banner_article_image.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -14,13 +14,13 @@ import { BannerSellHeading, BannerBuyHeading } from "../elements/Heading/heading
 const slides = [
   // { name: "GIF", src: bannerssss},
   // { name: "GIF", src: "/GIF_Banner.gif" },
-  { name: "GIF", src: new_buy_sell },
-  { name: "how_to_sell", link: "#how_to_sell", src: sellStep },
-  { name: "how_to_buy", link: "#how_to_buy", src: buyStep },
+  { name: "GIF", src: "https://d1tl44nezj10jx.cloudfront.net/assets/new_buy_sell.png" },
+  { name: "how_to_sell", link: "#how_to_sell", src: "https://d1tl44nezj10jx.cloudfront.net/assets/how_to_sell.png" },
+  { name: "how_to_buy", link: "#how_to_buy", src: "https://d1tl44nezj10jx.cloudfront.net/assets/how_to_buy.png" },
   {
     name: "article_image",
     link: "https://www.oruphones.com/blog",
-    src: articleImage,
+    src: "https://d1tl44nezj10jx.cloudfront.net/assets/banner_article_image.png",
   },
 ];
 

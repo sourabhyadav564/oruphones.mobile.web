@@ -1,24 +1,35 @@
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
-import chargingImg from "@/assets/charging-station.png";
-import headphoneImg from "@/assets/headphones-line.png";
-import originalBoxImg from "@/assets/box.png";
-import originalBillImg from "@/assets/original-bill.png";
+// import chargingImg from "https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.png";
+// import headphoneImg from "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.png";
+// import originalBoxImg from "https://d1tl44nezj10jx.cloudfront.net/assets/box.png";
+// import originalBillImg from "https://d1tl44nezj10jx.cloudfront.net/assets/original-bill.png";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
 import Input from "./Input";
-import { getExternalSellSourceData, getGlobalCities, getRecommandedPrice, updateLisiting, uploadImage } from "api-call";
+import {
+  getExternalSellSourceData,
+  getGlobalCities,
+  getRecommandedPrice,
+  updateLisiting,
+  uploadImage,
+} from "api-call";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import ListingAdded from "../Popup/ListingAdded";
 import StorageInfo from "../Popup/StorageInfo";
-import { getCityFromResponse, getDefaultImage, numberFromString, numberWithCommas } from "@/utils/util";
+import {
+  getCityFromResponse,
+  getDefaultImage,
+  numberFromString,
+  numberWithCommas,
+} from "@/utils/util";
 import ConditionInfo from "../Popup/ConditionInfo";
 import { BiChevronDown, BiCurrentLocation } from "react-icons/bi";
 import Geocode from "react-geocode";
 import Cookies from "js-cookie";
 import ConditionPopup from "../Popup/ConditionPopup";
 import PricePopup from "../Popup/PricePopup";
-import Logo from "@/assets/oru_phones_logo.png";
+// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import imageCompression from "browser-image-compression";
 
 const EditListingForm = ({ data, resultsSet }) => {
@@ -50,9 +61,11 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [ConditionResultEdit, setConditionResultEdit] = useState(condition);
   const [ConditionQuestionEdit, setConditionQuestionEdit] = useState("");
   const [warranty, setWarranty] = useState(data?.warranty);
-  const [warranty2, setWarranty2] = useState(deviceWarrantyCheck?.map((item, index) => (
-    data?.warranty == item.label2 && item.value
-  )));
+  const [warranty2, setWarranty2] = useState(
+    deviceWarrantyCheck?.map(
+      (item, index) => data?.warranty == item.label2 && item.value
+    )
+  );
   const [showWarranty, setShowWarranty] = useState(data?.warranty != "None");
   const [locationRequired, setLocationRequired] = useState("");
   // const [openStorageInfo, setOpenStorageInfo] = useState(false);
@@ -97,14 +110,19 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
-    if (warranty == "zero" || warranty == "four" || warranty == "seven" || warranty == "more") {
-      deviceWarrantyCheck?.map((item, index) => (
-        warranty == item.value && setWarranty2(warranty)
-      ));
+    if (
+      warranty == "zero" ||
+      warranty == "four" ||
+      warranty == "seven" ||
+      warranty == "more"
+    ) {
+      deviceWarrantyCheck?.map(
+        (item, index) => warranty == item.value && setWarranty2(warranty)
+      );
     } else {
-      deviceWarrantyCheck?.map((item, index) => (
-        warranty == item.label2 && setWarranty2(item.value)
-      ));
+      deviceWarrantyCheck?.map(
+        (item, index) => warranty == item.label2 && setWarranty2(item.value)
+      );
     }
   }, [warranty]);
 
@@ -115,12 +133,12 @@ const EditListingForm = ({ data, resultsSet }) => {
         : data?.deviceStorage,
       deviceRam: devStorage?.toString().includes("/")
         ? devStorage
-          ?.toString()
-          .split("/")[1]
-          .toString()
-          .replace(/GB/g, " GB")
-          .replace(/RAM/, "")
-          .trim()
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
         : data?.deviceRam,
       make: data?.make,
       marketingName: data?.marketingName,
@@ -145,8 +163,16 @@ const EditListingForm = ({ data, resultsSet }) => {
         setGetExternalSellerData(response?.dataObject);
       });
     }
-  }, [make, marketingName, devStorage, condition, headphone, charging, originalbox, warranty]);
-
+  }, [
+    make,
+    marketingName,
+    devStorage,
+    condition,
+    headphone,
+    charging,
+    originalbox,
+    warranty,
+  ]);
 
   useEffect(() => {
     if (data != undefined && data != null) {
@@ -289,7 +315,10 @@ const EditListingForm = ({ data, resultsSet }) => {
       originalBox: originalbox ? "Y" : "N",
       warrantyPeriod: warranty,
     };
-    if ((condition || data?.deviceCondition) && (charging || headphone || originalbox || warranty || true)) {
+    if (
+      (condition || data?.deviceCondition) &&
+      (charging || headphone || originalbox || warranty || true)
+    ) {
       getRecommandedPrice(reqParams).then(
         ({ dataObject }) => {
           setRecommandedPrice(dataObject);
@@ -360,11 +389,14 @@ const EditListingForm = ({ data, resultsSet }) => {
     setImages(tempImages);
   };
 
-  useEffect((e) => {
-    if (submitting === true) {
-      submit();
-    }
-  }, [submitting]);
+  useEffect(
+    (e) => {
+      if (submitting === true) {
+        submit();
+      }
+    },
+    [submitting]
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -379,10 +411,15 @@ const EditListingForm = ({ data, resultsSet }) => {
       return setSellValueRequired("border-red");
     }
 
-    if ((sellValue < (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7)
-      || sellValue > (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2))
-      && recommandedPrice?.leastSellingprice != "-"
-      && recommandedPrice?.maxsellingprice != "-" && submitting != true) {
+    if (
+      (sellValue <
+        (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7) ||
+        sellValue >
+          (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2)) &&
+      recommandedPrice?.leastSellingprice != "-" &&
+      recommandedPrice?.maxsellingprice != "-" &&
+      submitting != true
+    ) {
       setOpenPricePopup(true);
       console.log("submitting", submitting);
       if (submitting === false) {
@@ -398,12 +435,12 @@ const EditListingForm = ({ data, resultsSet }) => {
         : data?.deviceStorage,
       deviceRam: devStorage?.toString().includes("/")
         ? devStorage
-          ?.toString()
-          .split("/")[1]
-          .toString()
-          .replace(/GB/g, " GB")
-          .replace(/RAM/, "")
-          .trim()
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
         : data?.deviceRam,
       // deviceStorage: devStorage || data?.deviceStorage,
       color: devColor || color,
@@ -434,11 +471,14 @@ const EditListingForm = ({ data, resultsSet }) => {
       },
       (err) => console.error(err)
     );
-  };
+  }
 
   return (
     <Fragment>
-      <form className="grid grid-cols-1 font-SF-Pro space-y-6 mt-4" onSubmit={handleSubmit}>
+      <form
+        className="grid grid-cols-1 font-SF-Pro space-y-6 mt-4"
+        onSubmit={handleSubmit}
+      >
         {/* <Input value={data?.make} disabled>
           Make
         </Input>
@@ -447,9 +487,13 @@ const EditListingForm = ({ data, resultsSet }) => {
         </Input> */}
         {data && (
           <div className="flex bg-white p-5  space-x-4 rounded-md drop-shadow-md">
-
             <Image
-              src={imageError ? Logo : getDefaultImage(data?.marketingName) || Logo}
+              src={
+                imageError
+                  ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"
+                  : getDefaultImage(data?.marketingName) ||
+                    "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"
+              }
               onError={() => {
                 setImageError(true);
               }}
@@ -460,34 +504,41 @@ const EditListingForm = ({ data, resultsSet }) => {
             />
 
             <div className="flex flex-col relative top-6 left-2">
-              <p className="font-Roboto-Semibold text-dx text-[#2C2F45]">{data?.marketingName}</p>
+              <p className="font-Roboto-Semibold text-dx text-[#2C2F45]">
+                {data?.marketingName}
+              </p>
 
               <p className="flex space-x-1">
-                <span className=" font-Roboto-Regular text-jx text-[#2C2F45]">RAM:</span>{" "}
+                <span className=" font-Roboto-Regular text-jx text-[#2C2F45]">
+                  RAM:
+                </span>{" "}
                 <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
-                  {devStorage ? devStorage?.toString()
-                    .split("/")[1]
-                    .toString()
-                    .replace(/GB/g, " GB")
-                    .replace(/RAM/, "")
-                    .trim() : data?.deviceRam
-                      ?.split("/")[1]
-                  ||
-                  data.storage
-                    ?.toString()
-                    .split("/")[1]
-                    .toString()
-                    .replace(/GB/g, " GB")
-                    .replace(/RAM/, "")
-                    .trim()
-                  }
+                  {devStorage
+                    ? devStorage
+                        ?.toString()
+                        .split("/")[1]
+                        .toString()
+                        .replace(/GB/g, " GB")
+                        .replace(/RAM/, "")
+                        .trim()
+                    : data?.deviceRam?.split("/")[1] ||
+                      data.storage
+                        ?.toString()
+                        .split("/")[1]
+                        .toString()
+                        .replace(/GB/g, " GB")
+                        .replace(/RAM/, "")
+                        .trim()}
                 </div>
               </p>
               <p className="flex space-x-1 relative">
-                <span className="font-Roboto-Regular text-jx text-[#2C2F45]">Storage:</span>{" "}
+                <span className="font-Roboto-Regular text-jx text-[#2C2F45]">
+                  Storage:
+                </span>{" "}
                 <div className=" font-Roboto-Bold text-jx text-[#2C2F45]">
-                  {devStorage ? devStorage.split("/")[0] :
-                    data?.deviceStorage?.split("/")[0]}
+                  {devStorage
+                    ? devStorage.split("/")[0]
+                    : data?.deviceStorage?.split("/")[0]}
                 </div>
               </p>
               {/* {condition && (
@@ -515,28 +566,37 @@ const EditListingForm = ({ data, resultsSet }) => {
             <div className="grid grid-cols-2 gap-3">
               {data &&
                 data?.deviceStorage &&
-                deviceStorages?.map((item, index) => (
-                  devStorage ? <div
-                    className={`${devStorage == item
-                      ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] font-Roboto-Medium text-jx opacity-100"
-                      : "bg[#9597A2] border-2 text[#2C2F45] font-Roboto-Medium text-jx opacity-70"
+                deviceStorages?.map((item, index) =>
+                  devStorage ? (
+                    <div
+                      className={`${
+                        devStorage == item
+                          ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] font-Roboto-Medium text-jx opacity-100"
+                          : "bg[#9597A2] border-2 text[#2C2F45] font-Roboto-Medium text-jx opacity-70"
                       }  active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
-                    onClick={() => setDevStorage(item)}
-                    key={index}
-                  >
-                    <span>{item}</span>
-                  </div>
-                    : <div
-                      className={`${(data?.deviceStorage + "/" + data?.deviceRam.replace(" ", "") + " RAM") == item
-                        ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] text-jx font-Roboto-Medium opacity-100"
-                        : "bg[#9597A2] border-2 text[#2C2F45] text-jx font-Roboto-Medium opacity-70"
-                        } active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                       onClick={() => setDevStorage(item)}
                       key={index}
                     >
                       <span>{item}</span>
                     </div>
-                ))}
+                  ) : (
+                    <div
+                      className={`${
+                        data?.deviceStorage +
+                          "/" +
+                          data?.deviceRam.replace(" ", "") +
+                          " RAM" ==
+                        item
+                          ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] text-jx font-Roboto-Medium opacity-100"
+                          : "bg[#9597A2] border-2 text[#2C2F45] text-jx font-Roboto-Medium opacity-70"
+                      } active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                      onClick={() => setDevStorage(item)}
+                      key={index}
+                    >
+                      <span>{item}</span>
+                    </div>
+                  )
+                )}
             </div>
             <p
               className="text-sm whitespace-nowrap font-Roboto-Semibold underline cursor-pointer text-primary hover:text-blue-800"
@@ -548,10 +608,11 @@ const EditListingForm = ({ data, resultsSet }) => {
         )}
         <div>
           <div className="space-y-1 text-jx font-Regular mt-2">
-            <p className="bg-white px-0.5 font-Roboto-Regular text-ex">Location <span className="text-[#F9C414]">*</span></p>
+            <p className="bg-white px-0.5 font-Roboto-Regular text-ex">
+              Location <span className="text-[#F9C414]">*</span>
+            </p>
           </div>
           <div className="flex flex-row w-full justify-center items-center mt-1">
-
             <MySelect
               // labelName="Location*"
               placeholder={selectedCity ? selectedCity : data?.listingLocation}
@@ -571,8 +632,10 @@ const EditListingForm = ({ data, resultsSet }) => {
                   return { label: items.city, value: items.city };
                 })}
             />
-            <div className="h-10 w-16 bg-gray-200 rounded-r-lg  inline-flex justify-center items-center hover:cursor-pointer"
-              onClick={handleNearme}>
+            <div
+              className="h-10 w-16 bg-gray-200 rounded-r-lg  inline-flex justify-center items-center hover:cursor-pointer"
+              onClick={handleNearme}
+            >
               <BiCurrentLocation size={24} />
             </div>
           </div>
@@ -605,18 +668,25 @@ const EditListingForm = ({ data, resultsSet }) => {
           })}
         /> */}
         <div className="text-jx font-Regular mt-1">
-          <p className="bg-white px-0.5   -mb-5 font-Roboto-Regular text-ex">Device Condition<span className="text-[#F9C414]">*</span></p>
+          <p className="bg-white px-0.5   -mb-5 font-Roboto-Regular text-ex">
+            Device Condition<span className="text-[#F9C414]">*</span>
+          </p>
         </div>
-        <div className={`outline px-3 outline-none relative w-full focus:outline-none focus:ring-0 rounded   h-10 flex  text-[#2C2F45] text-ex items-center justify-between bg-[#F3F3F3] `}
-          onClick={() => setopenCondition(true)}>
-          <div className="flex items-center flex-1"
+        <div
+          className={`outline px-3 outline-none relative w-full focus:outline-none focus:ring-0 rounded   h-10 flex  text-[#2C2F45] text-ex items-center justify-between bg-[#F3F3F3] `}
+          onClick={() => setopenCondition(true)}
+        >
+          <div
+            className="flex items-center flex-1"
             // labelName="Device Condition"
             // placeholder={condition ? condition : data?.condition}
-            value={ConditionResultEdit ? ConditionResultEdit : data?.deviceCondition}
-          // onChange={(e) => handleSelectChange(e, condition)}
-          // options={["Like New", "Excellent", "Good"].map((i) => {
-          //   return { label: i, value: i };
-          // })}
+            value={
+              ConditionResultEdit ? ConditionResultEdit : data?.deviceCondition
+            }
+            // onChange={(e) => handleSelectChange(e, condition)}
+            // options={["Like New", "Excellent", "Good"].map((i) => {
+            //   return { label: i, value: i };
+            // })}
           >
             {ConditionResultEdit ? ConditionResultEdit : data?.deviceCondition}
           </div>
@@ -626,9 +696,7 @@ const EditListingForm = ({ data, resultsSet }) => {
           {/* <label
             style={{ color: "rgba(0, 0, 0, 0.6)" }}
       className="absolute top-0 left-0 text-[#2C2F45] bg-white z-1 duration-300 origin-0 font-semibold text-sm">Device Condition*</label> */}
-          <label>
-
-          </label>
+          <label></label>
         </div>
         <>
           {/* <DeviceConditionCard
@@ -649,16 +717,22 @@ const EditListingForm = ({ data, resultsSet }) => {
             What&apos;s this?
           </p> */}
         </>
-        <p className="text-[#000000] font-Roboto-Regular text-ex border-b-2 pb-1 ">Upload Photos</p>
+        <p className="text-[#000000] font-Roboto-Regular text-ex border-b-2 pb-1 ">
+          Upload Photos
+        </p>
         <div className="grid grid-cols-2 relative">
           <div className="flex justify-center font-Roboto-Semibold text-cx text-gray-600">
             Product Image
-          </div><div className="flex justify-center font-Roboto-Semibold text-cx text-gray-600">
+          </div>
+          <div className="flex justify-center font-Roboto-Semibold text-cx text-gray-600">
             Product Image
           </div>
           {images &&
             images.map((item, index) => (
-              <div key={index} className="relative pt-4 even:ml-2 odd:mr-2 mb-2 rounded-md bg-[#E8E8E8]">
+              <div
+                key={index}
+                className="relative pt-4 even:ml-2 odd:mr-2 mb-2 rounded-md bg-[#E8E8E8]"
+              >
                 {/* {index === 0 ? (
                   <span className="absolute bottom-4 left-14 font-Roboto-Light text-cx opacity-50">Front Panel </span>
                 ) : index === 1 ? (
@@ -691,15 +765,12 @@ const EditListingForm = ({ data, resultsSet }) => {
               </div>
             ))}
           {images.length == 0 && (
-            <span
-              className="absolute -bottom-6 text-sm right-0 text-primary cursor-pointer">
-              {
-                setImages((prev) => [
-                  ...prev,
-                  { panel: images.length > 1 && images.length - 0 },
-                  { panel: images.length > 1 && images.length },
-                ])
-              }
+            <span className="absolute -bottom-6 text-sm right-0 text-primary cursor-pointer">
+              {setImages((prev) => [
+                ...prev,
+                { panel: images.length > 1 && images.length - 0 },
+                { panel: images.length > 1 && images.length },
+              ])}
             </span>
           )}
           {images && images.length < 8 && (
@@ -773,25 +844,31 @@ const EditListingForm = ({ data, resultsSet }) => {
           </div> */}
           <div className="grid grid-cols-2 gap-4 ">
             <Checkbox
-              src={chargingImg}
+              src={
+                "https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.png"
+              }
               text="Original Charger"
               onChange={() => setCharging((prev) => !prev)}
               checked={charging}
             />
             <Checkbox
-              src={headphoneImg}
+              src={
+                "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.png"
+              }
               text="Original Earphones"
               onChange={() => setHeadphone((prev) => !prev)}
               checked={headphone}
             />
             <Checkbox
-              src={originalBoxImg}
+              src={"https://d1tl44nezj10jx.cloudfront.net/assets/box.png"}
               text="Original Box"
               onChange={() => setOriginalbox((prev) => !prev)}
               checked={originalbox}
             />
             <Checkbox
-              src={originalBillImg}
+              src={
+                "https://d1tl44nezj10jx.cloudfront.net/assets/original-bill.png"
+              }
               text="Original Bill"
               onChange={() => {
                 setShowWarranty((prev) => !prev);
@@ -810,10 +887,11 @@ const EditListingForm = ({ data, resultsSet }) => {
                 {deviceWarrantyCheck?.map((item, index) => (
                   <div
                     key={index}
-                    className={`${warranty == item?.label2 || warranty == item?.value
-                      ? "bg-gray-400 border border-[#F3F3F3]  text-black textmx"
-                      : " border border-[#9597A2] text-[#2C2F45] textmx opacity-60"
-                      } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
+                    className={`${
+                      warranty == item?.label2 || warranty == item?.value
+                        ? "bg-gray-400 border border-[#F3F3F3]  text-black textmx"
+                        : " border border-[#9597A2] text-[#2C2F45] textmx opacity-60"
+                    } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
                     onClick={() => setWarranty(item.value)}
                   >
                     <span>{item.label}</span>
@@ -824,7 +902,9 @@ const EditListingForm = ({ data, resultsSet }) => {
           )}
         </div>
         <div className="text-jx font-Roboto-Regular mt-2">
-          <p className="bg-white px-0.5 font-Roboto-Regular text-[#2C2F45] -mb-4 text-jx">Name <span className="text-[#F9C414]">*</span></p>
+          <p className="bg-white px-0.5 font-Roboto-Regular text-[#2C2F45] -mb-4 text-jx">
+            Name <span className="text-[#F9C414]">*</span>
+          </p>
         </div>
         <Input
           placeholder={"Enter your name"}
@@ -833,7 +913,9 @@ const EditListingForm = ({ data, resultsSet }) => {
           disabled
         />
         <div className="text-jx font-Roboto-Regular mt-2">
-          <p className="bg-white px-0.5 font-Roboto-Regular text-[#2C2F45] -mb-4 text-jx">Enter your sell price <span className="text-[#F9C414]">*</span></p>
+          <p className="bg-white px-0.5 font-Roboto-Regular text-[#2C2F45] -mb-4 text-jx">
+            Enter your sell price <span className="text-[#F9C414]">*</span>
+          </p>
         </div>
         {/* <div className="grid grid-cols-5 relative">
           
@@ -893,7 +975,9 @@ const EditListingForm = ({ data, resultsSet }) => {
 
           <div className="text-sm bg-[#E8E8E8] col-span-3 px-2  leading-tight rounded-md -ml-1 relative  ">
             <div className="m-auto">
-              <span className="font-Roboto-Semibold text-cx opacity-50 m-auto justify-center text-[#2C2F45]">Recommended Price</span>
+              <span className="font-Roboto-Semibold text-cx opacity-50 m-auto justify-center text-[#2C2F45]">
+                Recommended Price
+              </span>
               <br />
               {(recommandedPrice && recommandedPrice?.leastSellingprice && (
                 <p className="font-Roboto-bold text-[#2C2F45] text-ex m-auto justify-center">
@@ -960,7 +1044,12 @@ const EditListingForm = ({ data, resultsSet }) => {
                   <div className="">
                     <img
                       src={items?.externalSourceImage}
-                      style={{ width: "auto", height: 40, backgroundSize: "auto", backgroundOrigin: "content-box" }}
+                      style={{
+                        width: "auto",
+                        height: 40,
+                        backgroundSize: "auto",
+                        backgroundOrigin: "content-box",
+                      }}
                       alt={items?.externalSourceName}
                     />
                   </div>
@@ -970,15 +1059,11 @@ const EditListingForm = ({ data, resultsSet }) => {
                     )}
                     {numberWithCommas(items?.externalSourcePrice)}
                   </p>
-
                 </div>
               ))}
             </div>
           </div>
         )}
-
-
-
 
         <button className="bg-primary uppercase font-Roboto-Regular rounded py-3 text-white">
           {" "}
@@ -992,27 +1077,35 @@ const EditListingForm = ({ data, resultsSet }) => {
           brand={make}
         />
       )}
-      {
-        openConditionInfo && (
-          <ConditionInfo
-            open={openConditionInfo}
-            setOpen={setOpenConditionInfo}
-          />
-        )
-      }
-      {
-        openStorageInfo && (
-          <StorageInfo
-            open={openStorageInfo}
-            setOpen={setOpenStorageInfo}
-            brand={make}
-          />
-        )
-      }
+      {openConditionInfo && (
+        <ConditionInfo
+          open={openConditionInfo}
+          setOpen={setOpenConditionInfo}
+        />
+      )}
+      {openStorageInfo && (
+        <StorageInfo
+          open={openStorageInfo}
+          setOpen={setOpenStorageInfo}
+          brand={make}
+        />
+      )}
       <ListingAdded open={listingAdded} setOpen={setListingAdded} />
-      <PricePopup open={openPricePopup} setOpen={setOpenPricePopup} price={sellValue} leastPrice={recommandedPrice?.leastSellingprice} maxPrice={recommandedPrice?.maxsellingprice} setSubmitting={setSubmitting} />
-      <ConditionPopup openCondition={openCondition} setopenCondition={setopenCondition} setConditionResultEdit={setConditionResultEdit} setConditionQuestionEdit={setConditionQuestionEdit} />
-    </Fragment >
+      <PricePopup
+        open={openPricePopup}
+        setOpen={setOpenPricePopup}
+        price={sellValue}
+        leastPrice={recommandedPrice?.leastSellingprice}
+        maxPrice={recommandedPrice?.maxsellingprice}
+        setSubmitting={setSubmitting}
+      />
+      <ConditionPopup
+        openCondition={openCondition}
+        setopenCondition={setopenCondition}
+        setConditionResultEdit={setConditionResultEdit}
+        setConditionQuestionEdit={setConditionQuestionEdit}
+      />
+    </Fragment>
   );
 };
 
@@ -1020,7 +1113,9 @@ export default EditListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${checked && "bg-[#E8E8E8] opacity-bg-50 "}`}
+    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${
+      checked && "bg-[#E8E8E8] opacity-bg-50 "
+    }`}
     onClick={onChange}
   >
     <div className="relative w-7 h-7 mx-auto">
@@ -1033,10 +1128,11 @@ const Checkbox = ({ src, text, checked, onChange }) => (
       checked={checked}
       readOnly
     />
-    <span className="text-cx font-Regular mt-2 text-center block text-black-4e">{text}</span>
+    <span className="text-cx font-Regular mt-2 text-center block text-black-4e">
+      {text}
+    </span>
   </div>
 );
-
 
 // const Checkbox = ({ src, text, checked, onChange }) => (
 //   <div

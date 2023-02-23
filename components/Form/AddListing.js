@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
-import chargingImg from "@/assets/charging-station.svg";
-import headphoneImg from "@/assets/headphones-line.svg";
-import originalBoxImg from "@/assets/box.svg";
+// import chargingImg from "https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.svg";
+// import headphoneImg from "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.svg";
+// import originalBoxImg from "https://d1tl44nezj10jx.cloudfront.net/assets/box.svg";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
 import Input from "./Input";
@@ -452,19 +452,19 @@ const AddListingForm = ({ data }) => {
         <p className="text-gray-70 font-semibold capitalize">Add accessories</p>
         <div className="grid grid-cols-3 space-x-2">
           <Checkbox
-            src={chargingImg}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.svg"}
             text="Charger"
             onChange={() => setCharging((prev) => !prev)}
             checked={charging}
           />
           <Checkbox
-            src={headphoneImg}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.svg"}
             text="Earphones"
             onChange={() => setHeadphone((prev) => !prev)}
             checked={headphone}
           />
           <Checkbox
-            src={originalBoxImg}
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/box.svg"}
             text="Original Box"
             onChange={() => setOriginalbox((prev) => !prev)}
             checked={originalbox}

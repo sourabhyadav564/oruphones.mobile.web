@@ -2,7 +2,7 @@ import { SwiperSlide } from "swiper/react";
 import ArticleCard from "../Card/ArticleCard";
 import BasicCarousel from "../Carousel/BasicCarousel";
 // import image from "@/assets/demo_blog.jpg"
-import image from "@/assets/oru_phones_logo.png";
+// import image from "@/assets/oru_phones_logo.png";
 
 const data = [1, 2, 3, 4, 5, 6];
 
