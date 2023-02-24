@@ -43,9 +43,9 @@ function IconLabelValue({
           ) : label.toUpperCase().includes("VERIFIED") ? (
             <Image src="https://d1tl44nezj10jx.cloudfront.net/assets/calendar-1.png"  width="30" height="40" objectFit="contain" />
           ) : label.toUpperCase().includes("LISTED") ? (
-            <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/calendar.svg"} alt={`ORU ${listedon} calendar`} width="30" height="30" objectFit="contain" />
+            <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/calendar.svg"} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("LOCATION") ? (
-            <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/icons/location.svg"} alt={`ORU ${listedon} location`} width="30" height="30" objectFit="contain" className="opacity-60" />
+            <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/icons/location.svg"} width="30" height="30" objectFit="contain" className="opacity-60" />
           ) : (
             ""
           )}

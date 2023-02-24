@@ -165,21 +165,6 @@ function ComparisonTable(data, listingId) {
                     >
                       <div
                         className="flex"
-                        onClick={() => {
-                          if (Cookies.get("userUniqueId") == undefined) {
-                            setOpenLoginPopup(true);
-                            setProductLink(item?.productLink);
-                            setperformAction2(true);
-                          }
-                          else if (thisPhoneListingId == item.listingId && item?.Object?.isOtherVendor == "N") {
-                            setThisPhonePopup(true);
-                          } else if (thisPhoneListingId != item.listingId) {
-                            window.open(item?.productLink, "_blank");
-                          }
-                          else {
-                            window.open(item?.productLink, "_blank");
-                          }
-                        }}
                       >
                         {item?.userName ? (
                           // (item?.externalSourceImage == "" ||
@@ -211,6 +196,25 @@ function ComparisonTable(data, listingId) {
                           // <div></div>
                         )}
                         {/* <FaGreaterThan size={18} className="pt-1.5" /> */}
+                      </div>
+                      <div
+                       onClick={() => {
+                        if (Cookies.get("userUniqueId") == undefined) {
+                          setOpenLoginPopup(true);
+                          setProductLink(item?.productLink);
+                          setperformAction2(true);
+                        }
+                        else if (thisPhoneListingId == item.listingId && item?.Object?.isOtherVendor == "N") {
+                          setThisPhonePopup(true);
+                        } else if (thisPhoneListingId != item.listingId) {
+                          window.open(item?.productLink, "_blank");
+                        }
+                        else {
+                          window.open(item?.productLink, "_blank");
+                        }
+                      }} 
+                      >
+                        <p className="text-[#2196f3ff]">View deal &gt;</p>
                       </div>
                     </th>
                     <td class="mx-4 py-4 border-[1px]">{index + 1}</td>

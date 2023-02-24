@@ -43,7 +43,7 @@ function BuyNowIconPopup({ open, setOpen}) {
               </div>
             </div>
             <div className="text-px text-center font-Roboto-Semibold flex items-center justify-center px-14">
-                <p>Download our App using <br></br> these QR Codes</p>
+                <p>Download our App using <br></br> these QR codes</p>
             </div>
            <div className="px-14 flex justify-between pt-2">
             <Image 
@@ -53,7 +53,7 @@ function BuyNowIconPopup({ open, setOpen}) {
             alt="sell_now_icon"
             />
             <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
-                Browse in Shop By Brand<br></br> for specific brand
+                Browse in shop by brand<br></br> for specific brand
             </p>
            </div>
            <div className="px-14 flex justify-between pb-2 pt-2">
@@ -97,7 +97,7 @@ function BuyNowIconPopup({ open, setOpen}) {
             alt="sell_now_icon"
             />
             <p className="items-center text-center flex pb-6 font-Roboto-Semibold">
-              Choose Brand Name, Storage, Ram, Condition and warranty.
+              Choose Brand name, Storage, Ram, Condition and warranty.
             </p>
            </div>
            <div className="px-14 flex justify-between pt-6">
@@ -119,7 +119,7 @@ function BuyNowIconPopup({ open, setOpen}) {
             alt="sell_now_icon"
             />
             <p className="items-center text-center flex pb-6 font-Roboto-Semibold">
-               Scroll down to view Device details.
+               Scroll down to view device details.
             </p>
            </div>
            <div className="px-14 flex justify-between pb-2 pt-2">
@@ -146,7 +146,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pb-4 pt-6">
             <p className="items-center text-center flex pb-6 font-Roboto-Semibold">
-              Go to Home<br></br> and Click on Three lines <br></br> on top left corner and click on verification for buyer tile.
+              Go to home<br></br> and click on three lines <br></br> on top left corner and click on verification for buyer tile.
             </p>
             <Image 
             src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/10.png"}
@@ -163,12 +163,12 @@ function BuyNowIconPopup({ open, setOpen}) {
             alt="sell_now_icon"
             />
             <p className="items-center text-center flex pt-8 font-Roboto-Semibold">
-              Enter your Mobile Number to get start<br></br> verification in seller's device.
+              Enter your mobile number to get start<br></br> verification in seller's device.
             </p>
            </div>
            <div className="px-14 flex justify-between pb-4 pt-6">
             <p className="items-center text-center flex pb-6 font-Roboto-Semibold">
-              Wait for Diagnostic<br></br> check. Once it <br></br>completes you can contact the seller.
+              Wait for diagnostic<br></br> check. Once it <br></br>completes you can contact the seller.
             </p>
             <Image 
             src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/13.png"}
@@ -179,7 +179,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between text-center pb-4 pt-6">
             <p className="text-px text-primary font-Roboto-Bold">
-                We wish you a happy ORUing with us.
+                We wish you a happy shopping.
             </p>
            </div>
         </Modal1>

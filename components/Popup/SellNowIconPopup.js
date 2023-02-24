@@ -24,7 +24,7 @@ function SellNowIconPopup({ open, setOpen }) {
       <>
          <Modal1 open={open} setOpen={setOpen}>
             <div className="text-px font-Roboto-Semibold flex items-center justify-center py-4">
-               <p>Steps On How to Sell Your Phone</p>
+               <p>Steps on how to sell your phone</p>
             </div>
             <div className="flex space-x-6 py-5 justify-center items-center px-7">
                <div className="flex flex-col justify-center items-center space-y-3">
@@ -41,7 +41,7 @@ function SellNowIconPopup({ open, setOpen }) {
                </div>
             </div>
             <div className="text-px text-center font-Roboto-Semibold flex items-center justify-center px-14">
-                <p>Download our App using <br></br> these QR Codes</p>
+                <p>Download our App using <br></br> these QR codes</p>
             </div>
            <div className="px-14 flex justify-between">
             <Image 
@@ -51,7 +51,7 @@ function SellNowIconPopup({ open, setOpen }) {
             alt="sell_now_icon"
             />
             <p className="items-center text-center flex pb-6 font-Roboto-Semibold">
-                Click on Sell Now Button
+                Click on Sell Now button
             </p>
            </div>
            <div className="px-14 flex justify-between pb-2">
@@ -78,7 +78,7 @@ function SellNowIconPopup({ open, setOpen }) {
            </div>
            <div className="px-14 flex justify-between">
             <p className="items-center text-center flex pb-6 font-Roboto-Semibold">
-               Select Accessories and Mobile Age, click Next
+               Select accessories and mobile age, click next
             </p>
             <Image 
             src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/4.png"}
@@ -95,7 +95,7 @@ function SellNowIconPopup({ open, setOpen }) {
             alt="sell_now_icon"
             />
             <p className="items-center text-center flex pb-6 font-Roboto-Semibold">
-               Select working condition of mobile, click Next
+               Select working condition of mobile, click next
             </p>
            </div>
            <div className="px-14 flex justify-between">
@@ -117,12 +117,12 @@ function SellNowIconPopup({ open, setOpen }) {
             alt="sell_now_icon"
             />
             <p className="items-center text-center flex pb-6 font-Roboto-Semibold">
-               Add location,and click Next
+               Add location,and click next
             </p>
            </div>
            <div className="px-14 flex justify-between pb-2">
             <p className="items-center text-center flex pb-6 font-Roboto-Semibold">
-               Add price, and click on Take me to Verification. 
+               Add price, and click on take me to verification. 
             </p>
             <Image 
             src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/10.png"}
@@ -155,7 +155,7 @@ function SellNowIconPopup({ open, setOpen }) {
            </div>
            <div className="px-14 flex justify-between text-center pb-4">
             <p className="text-px text-primary font-Roboto-Bold">
-                Congrats Your Mobile is Listed on ORUphones.<br></br>Welcome from Team ORUphones..
+                Congrats your mobile is listed on ORUphones.<br></br>Welcome from team ORUphones.
             </p>
            </div>
         </Modal1>

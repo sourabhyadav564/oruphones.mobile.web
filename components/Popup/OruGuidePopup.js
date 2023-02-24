@@ -45,7 +45,7 @@ function OruGuidePopup({ open, setOpen }) {
               </div>
             </div>
               <div className="text-px text-center font-Roboto-Semibold flex items-center justify-center px-14">
-                <p>Download our App using <br></br> these QR Codes</p>
+                <p>Download our App using <br></br> these QR codes</p>
             </div>
         <div className="px-14 font-Roboto-Semibold text-px py-4">
           <p>1. Device Health Check</p>
@@ -66,9 +66,9 @@ function OruGuidePopup({ open, setOpen }) {
           <p>2. Battery Health</p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/3.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/1.png"} height={200} width={110} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
-            You can check your<br></br> Device Battery Health in <br></br> just one click.
+            You can check your<br></br> device battery health in <br></br> just one click.
           </p>
         </div>
         <div className="px-14 flex justify-between pt-2">
@@ -81,14 +81,14 @@ function OruGuidePopup({ open, setOpen }) {
           <p>3. Price Comparison</p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/3.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/1.png"} height={200} width={110} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             Compare price of your<br></br>device with other<br></br> vendors.
           </p>
         </div>
         <div className="px-14 flex justify-between pt-2">
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
-           Fill all the Specification<br></br> of your device<br></br> to get accurate <br></br>price.
+           Fill all the specification<br></br> of your device<br></br> to get accurate <br></br>price.
           </p>
           <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/5.png"} height={200} width={110} alt="sell_now_icon" />
         </div>
@@ -96,7 +96,7 @@ function OruGuidePopup({ open, setOpen }) {
           <p>4. Device Details</p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/3.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/1.png"} height={200} width={110} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             We also provide<br></br> your device details<br></br> in just one click.
           </p>

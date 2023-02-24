@@ -979,7 +979,7 @@ function ProductDeatils({ data }) {
         {data?.compareData && data?.compareData.length > 0 && (
           <div className="py-2 px-5">
             <p className="text-[16px] text-[#2C2F45] font-Roboto-Bold my-3 border-b-2 pb-1 ">
-              Detailed Comparison Between Other Sellers
+              Detailed Comparison Between Other Sellers For
             </p>
 
             {data && (
@@ -1065,7 +1065,7 @@ function ProductDeatils({ data }) {
         {data?.similarListTable && data?.similarListTable.length > 0 && <div className="px-5">
           <div>
             <p className="text-[16px] text-[#2C2F45] font-Roboto-Bold my-3 border-b-2 pb-1 ">
-              Recommended deals comparison for you
+              You may also like these deals
             </p>
           </div>
           <ComparisonTable2
