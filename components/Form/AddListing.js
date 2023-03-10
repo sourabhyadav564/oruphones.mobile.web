@@ -1,8 +1,5 @@
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
-// import chargingImg from "https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.svg";
-// import headphoneImg from "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.svg";
-// import originalBoxImg from "https://d1tl44nezj10jx.cloudfront.net/assets/box.svg";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
 import Input from "./Input";

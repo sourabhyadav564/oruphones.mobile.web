@@ -1,7 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-// import Logo from "@/assets/mobiru_logo.svg";
-// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import BottomNav from "../Navigation/BottomNav";
 import { useRecoilState } from "recoil";
 import { makeState } from "atoms/globalState";
@@ -48,8 +46,8 @@ function BrandCard({ data, className, popup }) {
                 placeholder="blur"
                 priority={false}
                 unoptimized={false}
-                blurDataURL={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
-                src={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                blurDataURL={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : data?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
+                src={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : data?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                 onError={() => setImageerror(true)}
                 alt={(`buy online refurbished ${data?.make}`).toLowerCase()}
                onClick={()=>setMake(data?.make)}
@@ -67,7 +65,7 @@ function BrandCard({ data, className, popup }) {
           >
             <Image
               // src={data?.imagePath || Logo}
-              src={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+              src={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : data?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
               onError={() => setImageerror(true)}
               alt={(`buy online refurbished ${data?.make}`).toLowerCase()}
               height={45}

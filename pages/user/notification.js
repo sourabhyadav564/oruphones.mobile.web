@@ -1,8 +1,6 @@
 import Header5 from "@/components/Header/header5";
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
-// import mob from "@/assets/mobiru_logo.svg";
-// import mob from "https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg";
 import { deleteNotification, getAllNotificationByUserd, markAsRead } from "api-call";
 import Cookies from "js-cookie";
 import router from "next/router";

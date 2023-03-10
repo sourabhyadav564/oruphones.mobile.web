@@ -1,11 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
-// import Logo from "@/assets/mobiru_logo.svg";
-// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 import VerifiedIcon from "../VerifiedIcon";
-// import sold_out from "https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png";
 import { CardHeading3, CardHeading4, CardHeading } from "@/components/elements/CardHeading/cardheading";
 import { useEffect, useState } from "react";
 import { useAuthState } from "providers/AuthProvider";
@@ -13,9 +10,6 @@ import { getUserListings } from "api-call";
 
 function NearByDealCard({ data, setProducts, prodLink, myListing }) {
   const { authenticated, loading, user } = useAuthState();
-  // const [ImageError,setImageError] = useState(false);
-  // const [listings, setListings] = useState([]);
-  // const [listingState, setListingState] = useState(false);
   const [imageError, setImageError] = useState(false);
   var type = ["old phone", "used", "refurbished"]
   const soldout = (`buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition} soldout`).toLowerCase()
@@ -30,33 +24,10 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
     );
   }
 
-  // useEffect(() => {
-  //   if (user && user?.userdetails?.userUniqueId ) {
-  //     getUserListings(user?.userdetails?.userUniqueId).then(
-  //       (res) => {
-  //         setListings(res.dataObject.map((item2) => item2.listingId));
-  //         // console.log("res.dataObject", listings);
-  //         // setListingsLoading(false);
-  //       },
-  //       (err) => console.error(err)
-  //     );
-  //   }
-  // }, []);
-
 
 
   return (
     <div
-    // href={{
-    //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${prodLink ? data?.listingId : ""
-    //     }`,
-    //   query: { isOtherVendor: data?.isOtherVendor },
-    // }}
-    // onClick={() => window.open(
-    //   `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${prodLink ? data?.listingId : ""}?isOtherVendor=${data?.isOtherVendor}`,
-    //   "_blank",
-    // )
-    // }
     >
       <a>
         <div className="grid grid-cols-1 rounded-md py-2 px-3 bg-m-white cardShadow1" data-aos="fade-up">
@@ -64,7 +35,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
             <div className="absolute right-0 flex justify-between items-center w-full z-20">
               <span>
                 {data?.status === "Sold_Out" ? <Image
-                  src="https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png"
+                  src="https://d1tl44nezj10jx.cloudfront.net/web/assets/soldout.svg"
                   width={"50"}
                   height={"20"}
                   objectFit="contain"
@@ -89,8 +60,8 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
-                    src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
+                    src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                     onError={() => {
                       setImageError(true);
                     }}
@@ -147,8 +118,8 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
                     placeholder="blur"
                     priority={false}
                     unoptimized={false}
-                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
-                    src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                    blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
+                    src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                     onError={() => {
                       setImageError(true);
                     }}

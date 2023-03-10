@@ -52,7 +52,7 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
         </div> */}
         {setApplyFilter && (
           <div className="absolute right-4 flex items-center justify-center w-10 h-8" onClick={() => setOpenFilter(true)}>
-            <img src={applyFilter && Object.keys(applyFilter).some((i) => applyFilter[i]) ? "https://d1tl44nezj10jx.cloudfront.net/assets/filter_apply.png" : "https://d1tl44nezj10jx.cloudfront.net/assets/filter.png"} alt="ORU filter and sort icon"></img>
+            <img src={applyFilter && Object.keys(applyFilter).some((i) => applyFilter[i]) ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/filter_apply.svg" : "https://d1tl44nezj10jx.cloudfront.net/web/assets/filter.svg"} alt="ORU filter and sort icon"></img>
           </div>
         )}
       </div>

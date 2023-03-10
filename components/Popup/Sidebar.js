@@ -9,17 +9,12 @@ import QuestionCircle from "@/assets/question.svg";
 import LoginIcon from "@/assets/login.svg";
 
 
-// import userAvatar from "@/assets/user-avatar.png";
-// import userAvatar from "https://d1tl44nezj10jx.cloudfront.net/assets/icons/avatar.png";
 import Link from "next/link";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import router from "next/router";
 import HeartBlack from "@/assets/heart_black.svg";
 import SellNowIconPopup from "@/components/Popup/SellNowIconPopup";
 import BuyNowIconPopup from "./BuyNowIconPopup";
-// import Buy from "https://d1tl44nezj10jx.cloudfront.net/assets/buy.png";
-// import Sell from "https://d1tl44nezj10jx.cloudfront.net/assets/sell.png";
-// import Book from "https://d1tl44nezj10jx.cloudfront.net/assets/Book.png";
 import OruGuidePopup from "./OruGuidePopup";
 
 function Sidebar({ open, setOpen }) {
@@ -127,7 +122,7 @@ function Sidebar({ open, setOpen }) {
                     }`}
                   >
                     <Image
-                      src={user?.userdetails?.profilePicPath || "https://d1tl44nezj10jx.cloudfront.net/assets/icons/avatar.png"}
+                      src={user?.userdetails?.profilePicPath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/icons/avatar.svg"}
                       objectFit="contain"
                       alt="ORU user"
                       layout="fill"
@@ -227,7 +222,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell.png"}
+                            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell.svg"}
                             alt="Sell"
                             width={20}
                             height={50}
@@ -248,7 +243,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy.png"}
+                          src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy.svg"}
                           alt="Buy"
                           width={20}
                           height={50}
@@ -268,7 +263,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={"https://d1tl44nezj10jx.cloudfront.net/assets/Book.png"}
+                          src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Book.svg"}
                           alt="OruGuide"
                           width={22}
                           height={52}
@@ -306,7 +301,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell.png"}
+                            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell.svg"}
                             alt="Sell"
                             width={20}
                             height={50}
@@ -327,7 +322,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy.png"}
+                          src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy.svg"}
                           alt="Buy"
                           width={20}
                           height={50}
@@ -347,7 +342,7 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={"https://d1tl44nezj10jx.cloudfront.net/assets/Book.png"}
+                          src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Book.svg"}
                           alt="OruGuide"
                           width={22}
                           height={52}

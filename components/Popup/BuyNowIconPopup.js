@@ -38,7 +38,7 @@ function BuyNowIconPopup({ open, setOpen}) {
             </div>
            <div className="px-14 flex justify-between pt-2">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/1.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/1.webp"}
             height={200}
             width={120}
             alt="sell_now_icon"
@@ -52,7 +52,7 @@ function BuyNowIconPopup({ open, setOpen}) {
                 You can buy through search, Buy now and scroll for best deals.
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/2.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/2.webp"}
             height={450}
             width={280}
             alt="sell_now_icon"
@@ -60,7 +60,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pt-8">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/3.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/3.webp"}
             height={450}
             width={280}
             alt="sell_now_icon"
@@ -74,7 +74,7 @@ function BuyNowIconPopup({ open, setOpen}) {
               Click on the filter icon <br></br>to add specific filters.
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/4.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/4.webp"}
             height={200}
             width={120}
             alt="sell_now_icon"
@@ -82,7 +82,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pt-8">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/5.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/5.webp"}
             height={480}
             width={290}
             alt="sell_now_icon"
@@ -96,7 +96,7 @@ function BuyNowIconPopup({ open, setOpen}) {
                Now open desired deal from all the available products.
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/6.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/6.webp"}
             height={430}
             width={250}
             alt="sell_now_icon"
@@ -104,7 +104,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pt-4">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/7.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/7.webp"}
             height={280}
             width={160}
             alt="sell_now_icon"
@@ -118,7 +118,7 @@ function BuyNowIconPopup({ open, setOpen}) {
               Click on Contact Seller to request verification.
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/9.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/9.webp"}
             height={400}
             width={240}
             alt="sell_now_icon"
@@ -126,7 +126,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pb-2 pt-6">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/8.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/8.webp"}
             height={350}
             width={210}
             alt="sell_now_icon"
@@ -140,7 +140,7 @@ function BuyNowIconPopup({ open, setOpen}) {
               Go to home<br></br> and click on three lines <br></br> on top left corner and click on verification for buyer tile.
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/10.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/10.webp"}
             height={460}
             width={270}
             alt="sell_now_icon"
@@ -148,7 +148,7 @@ function BuyNowIconPopup({ open, setOpen}) {
            </div>
            <div className="px-14 flex justify-between pb-4 pt-6">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/12.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/12.webp"}
             height={300}
             width={180}
             alt="sell_now_icon"
@@ -162,7 +162,7 @@ function BuyNowIconPopup({ open, setOpen}) {
               Wait for diagnostic<br></br> check. Once it <br></br>completes you can contact the seller.
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/13.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy_icons/13.webp"}
             height={300}
             width={180}
             alt="sell_now_icon"

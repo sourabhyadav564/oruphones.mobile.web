@@ -8,8 +8,6 @@ import Youtube from "@/assets/yt.svg";
 
 
 import LoadingStatePopup from "../components/Popup/LoadingStatePopup";
-// import AppStoreCard from "https://d1tl44nezj10jx.cloudfront.net/assets/app_store.svg";
-// import PlayStoreCard from "https://d1tl44nezj10jx.cloudfront.net/assets/play_store.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -229,7 +227,7 @@ const Footer = () => {
                   <Image src="https://d1tl44nezj10jx.cloudfront.net/assets/app_store.svg" width={70} height={30} alt="app store" />
                 </Link>
                 <Link href="https://play.google.com/store/apps/details?id=com.oruphones.oru&hl=en&gl=US">
-                  <Image src="https://d1tl44nezj10jx.cloudfront.net/assets/play_store.png" width={70} height={25} alt="playstore" />
+                  <Image src="https://d1tl44nezj10jx.cloudfront.net/web/assets/play_store.svg" width={70} height={25} alt="playstore" />
                 </Link>
               </div>
               <div>

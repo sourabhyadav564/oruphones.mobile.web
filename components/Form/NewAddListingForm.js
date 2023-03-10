@@ -1,16 +1,9 @@
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
-// import chargingImg from "@/assets/charging-station.svg";
-// import headphoneImg from "@/assets/headphones-line.svg";
-// import originalBoxImg from "@/assets/box.svg";
+
 import dynamic from "next/dynamic";
-// import chargingImg from "https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.png";
-// import headphoneImg from "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.png";
-// import originalBoxImg from "https://d1tl44nezj10jx.cloudfront.net/assets/box.png";
-// import originalBillImg from "https://d1tl44nezj10jx.cloudfront.net/assets/original-bill.png";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
-// import PhoneImage from "https://d1tl44nezj10jx.cloudfront.net/assets/icons/phone.png";
 import Input from "./Input";
 import {
   getRecommandedPrice,
@@ -54,7 +47,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { deviceConditionQuestion } from "@/utils/constant";
 import ConditionOptionLarge from "../Condition/ConditionOptionLarge";
 import DeviceConditionCard from "../Condition/DeviceConditionCard";
-// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";
 import StorageInfo from "../Popup/StorageInfo";
@@ -67,7 +59,6 @@ import {
   CardHeading3,
   PanelHeading,
 } from "@/components/elements/CardHeading/cardheading.js";
-// import Header2 from "../Header/header2";
 import VerifyListingPopup from "../Popup/VerifyListingPopup";
 import PricePopup from "../Popup/PricePopup";
 import {
@@ -858,7 +849,7 @@ const NewAddListingForm = ({ data }) => {
               /> */}
               <div className="m-auto pl-28 pb-px mb-4 border-b ">
                 <Image
-                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/icons/phone.png"}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/icons/phone.svg"}
                   width={120}
                   height={200}
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
@@ -1028,7 +1019,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
-                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   className=""
                   alt={`sell ${type[Math.floor(Math.random() * type.length)]
                     } ${model} ${storage} like new `.toLowerCase()}
@@ -1076,25 +1067,25 @@ const NewAddListingForm = ({ data }) => {
               </p> */}
               <div className="grid grid-cols-2 gap-4 ">
                 <Checkbox
-                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.png"}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/charging-station.svg"}
                   text="Original Charger"
                   onChange={() => setCharging((prev) => !prev)}
                   checked={charging}
                 />
                 <Checkbox
-                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.png"}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/headphones-line.svg"}
                   text="Original Earphones"
                   onChange={() => setHeadphone((prev) => !prev)}
                   checked={headphone}
                 />
                 <Checkbox
-                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/box.png"}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/box.svg"}
                   text="Original Box"
                   onChange={() => setOriginalbox((prev) => !prev)}
                   checked={originalbox}
                 />
                 <Checkbox
-                  src={"https://d1tl44nezj10jx.cloudfront.net/assets/original-bill.png"}
+                  src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/original-bill.svg"}
                   text="Original Bill"
                   onChange={() => {
                     setShowWarranty((prev) => !prev);
@@ -1134,7 +1125,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
-                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
                     } ${model} ${storage} like new `.toLowerCase()}
@@ -1213,7 +1204,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
-                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
                     } ${model} ${storage} `.toLowerCase()}
@@ -1321,7 +1312,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
-                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
                     } ${model} ${storage} ${condition} `.toLowerCase()}
@@ -1451,7 +1442,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
-                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
                     } ${model} ${storage} ${condition} `.toLowerCase()}

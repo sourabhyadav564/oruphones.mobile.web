@@ -402,8 +402,8 @@ function ProductDeatils({ data }) {
                 {
                   // fullImage: data?.vendorLogo,
                   // thumbImage: data?.vendorLogo,
-                  fullImage: "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png",
-                  thumbImage: "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png",
+                  fullImage: "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg",
+                  thumbImage: "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg",
                 },
               ])
             }
@@ -705,10 +705,10 @@ function ProductDeatils({ data }) {
                           <Image
                             src={
                               index == 0
-                                ? "https://d1tl44nezj10jx.cloudfront.net/assets/first.png"
+                                ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/first.svg"
                                 : index == 1
-                                  ? "https://d1tl44nezj10jx.cloudfront.net/assets/second.png"
-                                  : index == 2 && "https://d1tl44nezj10jx.cloudfront.net/assets/third.png"
+                                  ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/second.svg"
+                                  : index == 2 && "https://d1tl44nezj10jx.cloudfront.net/web/assets/third.svg"
                             }
                             alt="icon"
                             width={50}
@@ -825,7 +825,7 @@ function ProductDeatils({ data }) {
                     }}
                   >
                     <Image
-                      src={"https://d1tl44nezj10jx.cloudfront.net/assets/whatsapp.png"}
+                      src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/whatsapp.svg"}
                       alt="whatsapp"
                       height={30}
                       width={30}
@@ -1010,8 +1010,8 @@ function ProductDeatils({ data }) {
                     <Image
                       src={
                         ImageError
-                          ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"
-                          : getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"
+                          ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"
+                          : getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"
                       }
                       onError={() => setImageError(true)}
                       className=""
@@ -1123,7 +1123,7 @@ function ProductDeatils({ data }) {
             {
               // fullImage: data?.vendorLogo,
               // thumbImage: data?.vendorLogo,
-              fullImage: "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"?.src,
+              fullImage: "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"?.src,
             },
           ])
         }

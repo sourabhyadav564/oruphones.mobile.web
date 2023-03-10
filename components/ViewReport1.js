@@ -1,12 +1,7 @@
 import { Disclosure } from "@headlessui/react";
 import DropDown from "@/assets/arrow-drop-down.svg";
 import Image from "next/image";
-// import passIcon from "@/assets/check2-circle.svg";
-// import failedIcon from "@/assets/testFail.png";
-// import pass from "https://d1tl44nezj10jx.cloudfront.net/assets/pass1.png";
 import { useEffect, useState } from "react";
-// import { deviceConditionQuestion } from "@/utils/constant";
-// import ConditionOptionLarge2 from "./Condition/ConditionOptionLarge2";
 import GCheck from "@/assets/gcheck.svg";
 import Close from "@/assets/close.svg";
 
@@ -124,13 +119,13 @@ const Results = ({ question, result, childQuestions, index }) => {
         {childQuestions && childQuestions?.length > 0 ? (
           childQuestions.map((items, index1) => (
             <div key={index1} className="flex items-start pt-2">
-              <img src="https://d1tl44nezj10jx.cloudfront.net/assets/pass1.png" className="mt-1 mr-2" alt={items}/>
+              <img src="https://d1tl44nezj10jx.cloudfront.net/web/assets/pass1.svg" className="mt-1 mr-2" alt={items}/>
               <p>{items}</p>
             </div>
           ))
         ) : (
           <div className="flex items-start pt-2">
-            <img src="https://d1tl44nezj10jx.cloudfront.net/assets/pass1.png" className="mt-1 mr-2" alt={result} />
+            <img src="https://d1tl44nezj10jx.cloudfront.net/web/assets/pass1.svg" className="mt-1 mr-2" alt={result} />
             <p>{result}</p>
           </div>
         )}

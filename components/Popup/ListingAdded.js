@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-// import patchCheck from "https://d1tl44nezj10jx.cloudfront.net/assets/patch-check.svg";
+
 import Modal2 from "./Modal2";
 import { useEffect } from "react";
 

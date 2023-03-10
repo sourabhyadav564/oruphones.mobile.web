@@ -38,7 +38,7 @@ function OruGuidePopup({ open, setOpen }) {
           <p>1. Device Health Check</p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/1.png"} height={200} width={100} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/1.webp"} height={200} width={100} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             ORUphones provides<br></br> best in industry<br></br> device health check.
           </p>
@@ -47,13 +47,13 @@ function OruGuidePopup({ open, setOpen }) {
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             Wait till you see <br></br> this window.
           </p>
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/2.png"} height={200} width={120} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/2.webp"} height={200} width={120} alt="sell_now_icon" />
         </div>
          <div className="px-14 font-Roboto-Semibold text-px py-4">
           <p>2. Battery Health</p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/1.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/1.webp"} height={200} width={110} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             You can check your<br></br> device battery health in <br></br> just one click.
           </p>
@@ -62,13 +62,13 @@ function OruGuidePopup({ open, setOpen }) {
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             Wait for 2-3 min<br></br> to complete the process.
           </p>
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/4.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/4.webp"} height={200} width={110} alt="sell_now_icon" />
         </div>
          <div className="px-14 font-Roboto-Semibold text-px py-4">
           <p>3. Price Comparison</p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/1.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/1.webp"} height={200} width={110} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             Compare price of your<br></br>device with other<br></br> vendors.
           </p>
@@ -77,13 +77,13 @@ function OruGuidePopup({ open, setOpen }) {
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
            Fill all the specification<br></br> of your device<br></br> to get accurate <br></br>price.
           </p>
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/5.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/5.webp"} height={200} width={110} alt="sell_now_icon" />
         </div>
          <div className="px-14 font-Roboto-Semibold text-px py-4">
           <p>4. Device Details</p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/1.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/1.webp"} height={200} width={110} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             We also provide<br></br> your device details<br></br> in just one click.
           </p>
@@ -94,7 +94,7 @@ function OruGuidePopup({ open, setOpen }) {
         <div className="px-14 flex justify-between pt-6">
           <div className="pt-16 z-50">
             <Image
-              src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/6.png"}
+              src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/6.webp"}
               height={150}
               width={90}
               className=""
@@ -103,7 +103,7 @@ function OruGuidePopup({ open, setOpen }) {
           </div>
           <div className="-ml-6 z-20">
             <Image
-              src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/7.png"}
+              src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/7.webp"}
               height={220}
               width={130}
               className=""
@@ -112,7 +112,7 @@ function OruGuidePopup({ open, setOpen }) {
           </div>
           <div className="pt-10 -ml-10 z-30">
             <Image
-              src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/8.png"}
+              src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/8.webp"}
               height={180}
               width={100}
               className=""
@@ -121,7 +121,7 @@ function OruGuidePopup({ open, setOpen }) {
           </div>
           <div className="-ml-12 pt-3">
             <Image
-              src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/9.png"}
+              src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/9.webp"}
               height={210}
               width={120}
               className=""
@@ -133,7 +133,7 @@ function OruGuidePopup({ open, setOpen }) {
           <p>5. Notification</p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/10.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/10.webp"} height={200} width={110} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             You will receive <br></br> notification for<br></br>verification of your device<br></br> so you don't <br></br>have to check often. 
           </p>
@@ -142,7 +142,7 @@ function OruGuidePopup({ open, setOpen }) {
           <p>6. Profile </p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/11.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/11.webp"} height={200} width={110} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             You can always edit <br></br> your personal details <br></br> in profile section.
           </p>
@@ -151,7 +151,7 @@ function OruGuidePopup({ open, setOpen }) {
           <p>7. Your Listings</p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/12.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/12.webp"} height={200} width={110} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             Once you list your<br></br> device on ORUphones<br></br> you can check your<br></br> listings in <br></br>my listing section.
           </p>
@@ -160,13 +160,13 @@ function OruGuidePopup({ open, setOpen }) {
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
             You can also view<br></br> your favorite deals.
           </p>
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/13.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/13.webp"} height={200} width={110} alt="sell_now_icon" />
         </div>
          <div className="px-14 font-Roboto-Semibold text-px py-4">
           <p>8. More Services</p>
         </div>
         <div className="px-14 flex justify-between pt-2">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/Oru_Guide/14.png"} height={200} width={110} alt="sell_now_icon" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Oru_Guide/14.webp"} height={200} width={110} alt="sell_now_icon" />
           <p className="items-center text-center flex pb-8 font-Roboto-Semibold">
            Our team is working <br></br> on more services <br></br> for our users.
           </p>

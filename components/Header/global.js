@@ -1,10 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-// import logo from "https://d1tl44nezj10jx.cloudfront.net/assets/logo_white.svg";
-// import menu from "https://d1tl44nezj10jx.cloudfront.net/assets/menu-icon.svg";
-// import bellDot from "https://d1tl44nezj10jx.cloudfront.net/assets/bell-dot.svg";
-// import dropdown from "@/assets/drop-down.svg";
-// import location from "https://d1tl44nezj10jx.cloudfront.net/assets/map-marker.svg";
 import LocationPopup from "../Popup/LocationPopup";
 import { useEffect, useState } from "react";
 import { useAuthState } from "providers/AuthProvider";

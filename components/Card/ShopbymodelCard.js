@@ -1,9 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
-// import Link from "next/link";
-// import verifiedIcon from "@/assets/verified.svg";
-// import Logo from "@/assets/mobiru_logo.svg";
-// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 import {
   CardHeading,
@@ -14,11 +10,9 @@ import {
   CardHeading5,
 } from "@/components/elements/CardHeading/cardheading";
 import VerifiedIcon from "@/components/VerifiedIcon";
-// import IStock from "@/assets/icons/phone.png"
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
-// import sold_out from "@/assets/soldout.png";
 import VerificationIcon from "../verificationIcon";
 import { fetchByMarketingName } from "api-call";
 import Cookies from "js-cookie";
@@ -30,9 +24,7 @@ function ShopbymodelCard({
   make,
   src,
   alt,
-  // fallBackSrc = "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png",
 }) {
-  // console.log("data3", data);
 
   const router = useRouter();
   const [imageError, setImageError] = useState(false);
@@ -53,13 +45,12 @@ function ShopbymodelCard({
     );
   };
 
-  // console.log("shop by models make : ", make);
+  
 
   return (
     <>
       <div
         className="flex relative mb-6 flex-col items-center justify-center"
-        // onClick={handleModelClick}
         onClick={() =>
           window.open(
             makeLink
@@ -76,8 +67,8 @@ function ShopbymodelCard({
             placeholder="blur"
             priority={false}
             unoptimized={false}
-            blurDataURL={imageError ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : src || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
-            src={imageError ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : src || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+            blurDataURL={imageError ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : src || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
+            src={imageError ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : src || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
             alt={alt}
             onError={() => setImageError(true)}
             width="34"

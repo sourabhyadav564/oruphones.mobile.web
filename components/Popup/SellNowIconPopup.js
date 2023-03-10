@@ -36,7 +36,7 @@ function SellNowIconPopup({ open, setOpen }) {
             </div>
            <div className="px-14 flex justify-between">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/1.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell_icons/1.webp"}
             height={200}
             width={120}
             alt="sell_now_icon"
@@ -50,7 +50,7 @@ function SellNowIconPopup({ open, setOpen }) {
                 Click on this button to sell other phone than above
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/2.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell_icons/2.webp"}
             height={400}
             width={230}
             alt="sell_now_icon"
@@ -58,7 +58,7 @@ function SellNowIconPopup({ open, setOpen }) {
            </div>
            <div className="px-14 flex justify-between">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/3.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell_icons/3.webp"}
             height={300}
             width={180}
             alt="sell_now_icon"
@@ -72,7 +72,7 @@ function SellNowIconPopup({ open, setOpen }) {
                Select accessories and mobile age, click next
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/4.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell_icons/4.webp"}
             height={450}
             width={270}
             alt="sell_now_icon"
@@ -80,7 +80,7 @@ function SellNowIconPopup({ open, setOpen }) {
            </div>
            <div className="px-14 flex justify-between">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/5.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell_icons/5.webp"}
             height={400}
             width={250}
             alt="sell_now_icon"
@@ -94,7 +94,7 @@ function SellNowIconPopup({ open, setOpen }) {
                Add pictures of mobile, click Next
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/6.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell_icons/6.webp"}
             height={350}
             width={210}
             alt="sell_now_icon"
@@ -102,7 +102,7 @@ function SellNowIconPopup({ open, setOpen }) {
            </div>
            <div className="px-14 flex justify-between">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/7.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell_icons/7.webp"}
             height={350}
             width={210}
             alt="sell_now_icon"
@@ -116,7 +116,7 @@ function SellNowIconPopup({ open, setOpen }) {
                Add price, and click on take me to verification. 
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/10.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell_icons/10.webp"}
             height={400}
             width={240}
             alt="sell_now_icon"
@@ -124,7 +124,7 @@ function SellNowIconPopup({ open, setOpen }) {
            </div>
            <div className="px-14 flex justify-between pb-2">
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/8.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell_icons/8.webp"}
             height={350}
             width={210}
             alt="sell_now_icon"
@@ -138,7 +138,7 @@ function SellNowIconPopup({ open, setOpen }) {
                Click on complete listing
             </p>
             <Image 
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/sell_icons/9.png"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell_icons/9.webp"}
             height={300}
             width={180}
             alt="sell_now_icon"

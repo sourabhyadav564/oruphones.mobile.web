@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { SwiperSlide } from "swiper/react";
 import CarouselWithPagination from "./Carousel/CarouselWithPagination";
-// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
+
 import { useState } from "react";
 
 function ImageSlider({ images, onClick }) {
@@ -17,9 +17,9 @@ function ImageSlider({ images, onClick }) {
               placeholder="blur"
               priority={false}
               unoptimized={false}
-              blurDataURL={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : item?.fullImage || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+              blurDataURL={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : item?.fullImage || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
               // src={item?.fullImage || Logo} 
-              src={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : item?.fullImage|| "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+              src={Imageerror ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : item?.fullImage|| "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
               onError={() => setImageerror(true)}
               width="100" height="80" layout="responsive" objectFit="contain" />
             </div>

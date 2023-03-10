@@ -1,9 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 import DropDown from "@/assets/arrow-drop-down.svg";
 import Image from "next/image";
-// import passIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/check2-circle.svg";
-// import failedIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/testFail.png";
-// import pass from "https://d1tl44nezj10jx.cloudfront.net/assets/pass1.png";
 import { useEffect, useState } from "react";
 import { deviceConditionQuestion } from "@/utils/constant";
 import ConditionOptionLarge2 from "./Condition/ConditionOptionLarge2";
@@ -89,7 +86,7 @@ const TestAndStatus = ({ testName, testStatus }) => (
         width={25}
         height={23}
         objectFit="contain"
-        src={testStatus === "PASS" ? "https://d1tl44nezj10jx.cloudfront.net/assets/check2-circle.svg" : "https://d1tl44nezj10jx.cloudfront.net/assets/testFail.png"}
+        src={testStatus === "PASS" ? "https://d1tl44nezj10jx.cloudfront.net/assets/check2-circle.svg" : "https://d1tl44nezj10jx.cloudfront.net/web/assets/testFail.svg"}
         alt={`${index}.${question}`}
       />
     </p>
@@ -106,13 +103,13 @@ const Results = ({ question, result, childQuestions, index }) => {
         {childQuestions && childQuestions?.length > 0 ? (
           childQuestions.map((items, index1) => (
             <div key={index1} className="flex items-start pt-2">
-              <img src="https://d1tl44nezj10jx.cloudfront.net/assets/pass1.png" className="mt-1 mr-2" />
+              <img src="https://d1tl44nezj10jx.cloudfront.net/web/assets/pass1.svg" className="mt-1 mr-2" />
               <p>{items}</p>
             </div>
           ))
         ) : (
           <div className="flex items-start pt-2">
-            <img src="https://d1tl44nezj10jx.cloudfront.net/assets/pass1.png" className="mt-1 mr-2" />
+            <img src="https://d1tl44nezj10jx.cloudfront.net/web/assets/pass1.svg" className="mt-1 mr-2" />
             <p>{result}</p>
           </div>
         )}

@@ -1,9 +1,3 @@
-import axios from "axios";
-import Image from "next/image";
-// import Logo from "@/assets/mobiru_logo.svg";
-// import Logo from "@/assets/logo_square.svg";
-// import Logo from "@/assets/oru_phones_logo.png";
-// import MapIcon from "@/assets/map-icon.svg";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRef } from "react";
 import { useState } from "react";

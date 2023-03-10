@@ -4,10 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
-// import Services from "https://d1tl44nezj10jx.cloudfront.net/assets/bottom_icon/Outline.png";
-// import Home from "https://d1tl44nezj10jx.cloudfront.net/assets/bottom_icon/home.png";
-// import MyListings from "https://d1tl44nezj10jx.cloudfront.net/assets/bottom_icon/to-do-list.png";
-// import Profile from "https://d1tl44nezj10jx.cloudfront.net/assets/bottom_icon/user.png";
+
 
 
 
@@ -43,7 +40,7 @@ function BottomNav() {
                   } `}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/bottom_icon/home.png"} width={isActive("/") ? 22 : 20} height={isActive("/") ? 22 : 20} alt="ORU home" />
+                <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/bottom_icon/Path66.svg"} width={isActive("/") ? 22 : 20} height={isActive("/") ? 22 : 20} alt="ORU home" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -77,7 +74,7 @@ function BottomNav() {
 
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/bottom_icon/to-do-list.png"} width={isActive("/user/listings") ? 22 : 20} height={isActive("/user/listings") ? 22 : 20} alt="ORU mylistings" />
+                <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/bottom_icon/to-do-list.svg"} width={isActive("/user/listings") ? 22 : 20} height={isActive("/user/listings") ? 22 : 20} alt="ORU mylistings" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -132,7 +129,7 @@ function BottomNav() {
                 <div className="absolute ml-8 bg-red text-right rounded-md px-0.5 text-kx text-white">
                   NEW
                 </div>
-                <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/bottom_icon/Outline.png"} width={isActive("/services") ? 22 : 20} height={isActive("/services") ? 22 : 20} alt="ORU services" />
+                <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/bottom_icon/Outline.svg"} width={isActive("/services") ? 22 : 20} height={isActive("/services") ? 22 : 20} alt="ORU services" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -156,7 +153,7 @@ function BottomNav() {
                   }`}
               // onClick={() => setLoadingState(true)}
               >
-                <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/bottom_icon/user.png"} width={isActive("/user/profile") ? 22 : 20} height={isActive("/user/profile") ? 22 : 20} alt="ORU user profile" />
+                <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/bottom_icon/user.svg"} width={isActive("/user/profile") ? 22 : 20} height={isActive("/user/profile") ? 22 : 20} alt="ORU user profile" />
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"

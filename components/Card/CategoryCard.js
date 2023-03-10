@@ -6,8 +6,7 @@ import WarrantyByPop from "../Popup/WarrantyByPop";
 import { useRouter } from "next/router";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { ShopCategoryHeading } from "../elements/Heading/heading";
-// import price from "https://d1tl44nezj10jx.cloudfront.net/assets/price.png"
-// import warranty from "https://d1tl44nezj10jx.cloudfront.net/assets/warranty.png"
+
 
 const CategoryCards = ({ data, priceRange, warrantycard }) => {
   const router = useRouter();
@@ -32,7 +31,7 @@ const CategoryCards = ({ data, priceRange, warrantycard }) => {
             <div className="h-[41px] flex flex-col items-center justify-center">
               {/* <FaSearchDollar className="text-2xl text-black" /> */}
               <Image
-                src="https://d1tl44nezj10jx.cloudfront.net/assets/price.png"
+                src="https://d1tl44nezj10jx.cloudfront.net/web/assets/price.svg"
                 alt="price"
                 width={50}
                 height={50}
@@ -62,7 +61,7 @@ const CategoryCards = ({ data, priceRange, warrantycard }) => {
             <div className="h-[41px] flex flex-col items-center justify-center">
               {/* <FaSearchDollar className="text-2xl text-black" /> */}
               <Image
-                src="https://d1tl44nezj10jx.cloudfront.net/assets/warranty.png"
+                src="https://d1tl44nezj10jx.cloudfront.net/web/assets/warranty.svg"
                 alt="warranty"
                 objectFit="contain"
                 width={50}

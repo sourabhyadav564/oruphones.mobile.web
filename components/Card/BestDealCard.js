@@ -2,9 +2,6 @@ import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import InfoCircle from "@/assets/infocircle2.svg";
-// import verifiedIcon from "@/assets/verified.svg";
-// import Logo from "@/assets/mobiru_logo.svg";
-// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import AddFav from "../AddFav";
 
 import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
@@ -12,11 +9,8 @@ import VerifiedIcon from "@/components/VerifiedIcon";
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
-// import sold_out from "https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png";
-import VerificationIcon from "../verificationIcon";
 import { getUserListings } from "api-call";
 import { useAuthState } from "providers/AuthProvider";
-import Cookies from "js-cookie";
 
 function BestDealCard({
   openConditionInfo,
@@ -109,7 +103,7 @@ function BestDealCard({
             {data?.isVendor ? (
               <div className="grid">
                 <Image
-                  src={data?.vendorImg || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+                  src={data?.vendorImg || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   width="100%"
                   height="100%"
                   objectFit="contain"
@@ -228,7 +222,7 @@ function BestDealCard({
           {data?.status === "Sold_Out" && (
             <div className="absolute h-8 -top-2 right-0 left-0 flex px-4 pb-1">
               <p className="flex items-center">
-                <Image src="https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png" width={60} height={30} alt={soldout} />
+                <Image src="https://d1tl44nezj10jx.cloudfront.net/web/assets/soldout.svg" width={60} height={30} alt={soldout} />
                 {/* <BsInfoCircle
                   className="ml-2 text-xs mt-0.5 cursor-pointer"
                   onClick={(e) => {
@@ -245,9 +239,9 @@ function BestDealCard({
             placeholder="blur"
             priority={false}
             unoptimized={false}
-            blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+            blurDataURL={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
             alt={(`bestdeals buy ${type[Math.floor((Math.random() * type.length))]} ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition}`).toLowerCase()}
-            src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"}
+            src={imageError ? getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg" : data?.imagePath || getDefaultImage(data?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
             onError={() => {
               setImageError(true);
             }}

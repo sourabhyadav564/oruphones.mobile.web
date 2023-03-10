@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CategoryCards from "../Card/CategoryCard";
-// import bestSelling from "https://d1tl44nezj10jx.cloudfront.net/assets/best-selling-mobiles.png";
-// import likeNew from "https://d1tl44nezj10jx.cloudfront.net/assets/like-new.png";
-// import verified from "../../assets/verified-mobils.png";
-// import warranty from "../../assets/warranty.png";
 import { SwiperSlide } from "swiper/react";
 import BrandCard from "../Card/BrandCard";
 import BasicCarousel from "../Carousel/BasicCarousel";
@@ -16,19 +12,19 @@ const data = [
   {
     id: 1,
     text: "Bestselling Mobiles",
-    imagePath: "https://d1tl44nezj10jx.cloudfront.net/assets/best-selling-mobiles.png",
+    imagePath: "https://d1tl44nezj10jx.cloudfront.net/web/assets/best-selling-mobiles.svg",
     urlPath: "Bestselling",
   },
   {
     id: 3,
     text: "Verified Devices Only",
-    imagePath: "https://d1tl44nezj10jx.cloudfront.net/assets/like-new.png",
+    imagePath: "https://d1tl44nezj10jx.cloudfront.net/web/assets/like-new.svg",
     urlPath: "Verified",
   },
   {
     id: 2,
     text: "Like New Condition",
-    imagePath: "https://d1tl44nezj10jx.cloudfront.net/assets/like-new.png",
+    imagePath: "https://d1tl44nezj10jx.cloudfront.net/web/assets/like-new.svg",
     urlPath: "Like New",
   },
 ];

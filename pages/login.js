@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import Logo from "@/assets/mobiru_logo.svg";
-// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg";
 import OTPVerification from "@/components/Login/OTPVerification";
 import Input from "@/components/Form/input2";
 import { generateOTP } from "api-call";
@@ -10,9 +8,6 @@ import router from "next/router";
 import { useAuthState } from "providers/AuthProvider";
 import Checkbox from "@/components/Form/Checkbox";
 import TermsconditionPopup from "@/components/Popup/TermsconditionPopup";
-// import CloseIcon from "@/assets/close-icon.svg";
-import Spinner from "@/components/Loader/Spinner";
-// import Input2 from "@/components/Form/Input2";
 
 
 function Login() {

@@ -24,7 +24,7 @@ function IconLabelValue({
           ) : label.toUpperCase().includes("CONDITION") ? (
             <Image src="https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/quality.svg"  width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("VERIFIED") ? (
-            <Image src="https://d1tl44nezj10jx.cloudfront.net/assets/calendar-1.png"  width="30" height="40" objectFit="contain" />
+            <Image src="https://d1tl44nezj10jx.cloudfront.net/web/assets/calendar-1.svg"  width="30" height="40" objectFit="contain" />
           ) : label.toUpperCase().includes("LISTED") ? (
             <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/calendar.svg"} width="30" height="30" objectFit="contain" />
           ) : label.toUpperCase().includes("LOCATION") ? (

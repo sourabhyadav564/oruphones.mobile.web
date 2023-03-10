@@ -1,9 +1,5 @@
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
-// import chargingImg from "https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.png";
-// import headphoneImg from "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.png";
-// import originalBoxImg from "https://d1tl44nezj10jx.cloudfront.net/assets/box.png";
-// import originalBillImg from "https://d1tl44nezj10jx.cloudfront.net/assets/original-bill.png";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
 import Input from "./Input";
@@ -33,7 +29,6 @@ import Geocode from "react-geocode";
 import Cookies from "js-cookie";
 import ConditionPopup from "../Popup/ConditionPopup";
 import PricePopup from "../Popup/PricePopup";
-// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 import imageCompression from "browser-image-compression";
 
 const EditListingForm = ({ data, resultsSet }) => {
@@ -494,9 +489,9 @@ const EditListingForm = ({ data, resultsSet }) => {
             <Image
               src={
                 imageError
-                  ? "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"
+                  ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"
                   : getDefaultImage(data?.marketingName) ||
-                    "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png"
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"
               }
               onError={() => {
                 setImageError(true);
@@ -851,7 +846,7 @@ const EditListingForm = ({ data, resultsSet }) => {
           <div className="grid grid-cols-2 gap-4 ">
             <Checkbox
               src={
-                "https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.png"
+                "https://d1tl44nezj10jx.cloudfront.net/web/assets/charging-station.svg"
               }
               text="Original Charger"
               onChange={() => setCharging((prev) => !prev)}
@@ -859,21 +854,21 @@ const EditListingForm = ({ data, resultsSet }) => {
             />
             <Checkbox
               src={
-                "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.png"
+                "https://d1tl44nezj10jx.cloudfront.net/web/assets/headphones-line.svg"
               }
               text="Original Earphones"
               onChange={() => setHeadphone((prev) => !prev)}
               checked={headphone}
             />
             <Checkbox
-              src={"https://d1tl44nezj10jx.cloudfront.net/assets/box.png"}
+              src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/box.svg"}
               text="Original Box"
               onChange={() => setOriginalbox((prev) => !prev)}
               checked={originalbox}
             />
             <Checkbox
               src={
-                "https://d1tl44nezj10jx.cloudfront.net/assets/original-bill.png"
+                "https://d1tl44nezj10jx.cloudfront.net/web/assets/original-bill.svg"
               }
               text="Original Bill"
               onChange={() => {
