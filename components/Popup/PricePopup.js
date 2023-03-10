@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { RiErrorWarningLine } from "react-icons/ri";
+import ErrorwarningAlert from "@/assets/alert.svg";
 import Modal2 from "./Modal2";
+import Image from "next/image";
 
 function PricePopup({ open, setOpen, price, leastPrice, maxPrice, setSubmitting }) {
     // useEffect(() => {
@@ -41,10 +42,11 @@ function PricePopup({ open, setOpen, price, leastPrice, maxPrice, setSubmitting 
     return (
         <Modal2 open={open} setOpen={setOpen}>
             <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e">
-                <RiErrorWarningLine
+                {/* <RiErrorWarningLine
                     size={52}
                     color="#FFC107"
-                />
+                /> */}
+                <Image src={ErrorwarningAlert} width={52} height={52}/>
                 <p className="text-dx font-Roboto-Bold mb-2 mt-3">Your sell price is too {priceDiff} </p>
                 <p className="text-xs my-2 font-Roboto-Regular text-center">
                     Our {priceDiff}est recommended price for your listing is ₹{priceDiff == "Low" ? leastPrice : maxPrice}. Do you want to submit the listing at such a {priceDiff} price of ₹{price}?

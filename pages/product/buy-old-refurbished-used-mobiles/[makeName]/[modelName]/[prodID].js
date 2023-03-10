@@ -3,9 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-// import first from "https://d1tl44nezj10jx.cloudfront.net/assets/first.png";
-// import second from "https://d1tl44nezj10jx.cloudfront.net/assets/second.png";
-// import third from "https://d1tl44nezj10jx.cloudfront.net/assets/third.png";
 
 import Header2 from "@/components/Header/header2";
 import {
@@ -14,10 +11,7 @@ import {
   BannerSellHeading,
 } from "@/components/elements/Heading/heading";
 import ImageSlider from "@/components/ImageSlider";
-import { BiSearch } from "react-icons/bi";
-// import star from "@/assets/star.svg";
-import { FaRupeeSign } from "react-icons/fa";
-// import { BsInfoCircle } from "react-icons/bs";
+import Search from "@/assets/search.svg";
 import { detailWithUserInfo, fetchSellerMobileNumber } from "api-call";
 import IconLabelValue from "@/components/IconLabelValue";
 import {
@@ -37,14 +31,17 @@ import { useAuthState } from "providers/AuthProvider";
 import { useRef } from "react";
 import SellerDetails from "@/components/ProdInfo/SellerDetails";
 import LoginPopup from "@/components/Popup/LoginPopup";
-// import Logo from "@/assets/mobiru_logo.svg";
-// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
-import { BsInfoCircle, BsStar } from "react-icons/bs";
-import { BsStarFill } from "react-icons/bs";
-// import whatsapp from "https://d1tl44nezj10jx.cloudfront.net/assets/whatsapp.png";
+
+import star from "@/assets/star1.svg";
+import InfoCircle from "@/assets/infocircle1.svg";
+import InfoCircle2 from "@/assets/infocircle2.svg";
+
+import start2 from "@/assets/star2.svg";
+import ExclamationIcon from "@/assets/fillexclamation.svg";
+import GreaterThan from "@/assets/greaterthan.svg";
+
 import WarrantyInfo from "@/components/Popup/WarrantyInfo";
 import VerificationIcon from "@/components/verificationIcon";
-import { AiFillExclamationCircle } from "react-icons/ai";
 import {
   CardHeading,
   CardHeading2,
@@ -55,7 +52,6 @@ import {
 import SearchBar from "@/components/Header/SearchBar";
 import { toast } from "react-toastify";
 // import sold_out from "@/assets/soldout.png";
-import { FaGreaterThan } from "react-icons/fa";
 import ThisPhonePopup from "@/components/Popup/ThisPhonePopup";
 import ComparisonTable from "@/components/Tables/ComparisonTable";
 import ComparisonTable2 from "@/components/Tables/ComparisonTable2";
@@ -307,9 +303,11 @@ function ProductDeatils({ data }) {
 
   let iconToShow = (index) => {
     if (index < filled) {
-      return <BsStarFill className="text-yellow-400" />;
+      return <Image src={start2} width={20} height={20}/> 
+      // <BsStarFill className="text-yellow-400" /> ;
     } else {
-      return <BsStar className="text-black-7e" />;
+      return <Image src={star} width={20} height={20}/> 
+      // <BsStar className="text-black-7e" />;
     }
   };
 
@@ -330,7 +328,8 @@ function ProductDeatils({ data }) {
       <Header2 title={data?.marketingName}>
         <div className="absolute right-4 top-3">
           <Link href="/product/buy-old-refurbished-used-mobiles/searchBar">
-            <BiSearch size={22} />
+            {/* <BiSearch size={22} /> */}
+            <Image src={Search} width={20} height={20}/>
           </Link>
         </div>
       </Header2>
@@ -553,16 +552,21 @@ function ProductDeatils({ data }) {
                   className="flex m-auto justify-center text-white px-3 py-0.5 rounded-md "
                   style={{ background: "#4CAF50" }}
                 >
-                  <div className="flex flex-1  ">
+                  <div className="flex flex-1 items-center ">
                     <VerificationIcon className="self-center" />
-                    <p className="font-Roboto-Light Italic text-ex self-center">
+                    <p className="font-Roboto-Light  Italic text-ex self-center">
                       Verified
                     </p>
-                    <BsInfoCircle
+                    {/* <BsInfoCircle
                       size={26}
                       className="ml-1 pt-[13px] hover:cursor-pointer"
                       onClick={() => setOpenVerificationInfo(true)}
-                    />
+                    /> */}
+                    <p className="ml-0.5">
+                    <Image src={InfoCircle} height={12} width={12}
+                    className="ml-1 pt-[13px] hover:cursor-pointer"
+                    onClick={() => setOpenVerificationInfo(true)}/>
+                    </p>
                     <div className="pl-1 pt-2">
                       <div className="bg-gray-100 w-[1px] h-6 "></div>
                     </div>
@@ -586,27 +590,33 @@ function ProductDeatils({ data }) {
                   {data?.isOtherVendor === "N" && (
                     <div className="w-full  py-2 space-x-2 text-center">
                       <div
-                        className="flex py-2 rounded-md"
+                        className="flex py-2 rounded-md "
                         style={{ backgroundColor: "#F9C414" }}
                       >
                         <div className="flex space-x-1 pl-3">
                           {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
                           <div className="flex space-x-2">
-                            <AiFillExclamationCircle
+                            {/* <AiFillExclamationCircle
                               size={20}
                               fill="white"
                               className="self-center text-black"
-                            />
+                            /> */}
+                            
+                            <Image src={ExclamationIcon} width={40} height={40} className="self-center "/>
                             {/* <UnVerifiedIcon /> */}
 
                             <span className="text-lx font-Roboto-Light  self-center text-[#000944] italic uppercase">
                               unverified
                             </span>
-                            <BsInfoCircle
+                            {/* <BsInfoCircle
                               size={18}
                               className="ml-1 pt-1.5 hover:cursor-pointer"
                               onClick={() => setOpenVerificationInfo(true)}
-                            />
+                            /> */}
+                            <div className="ml-0.5">
+                            <Image src={InfoCircle2} width={28} height={28}  className="opactiy-70 ml-1 pt-1.5 hover:cursor-pointer"
+                              onClick={() => setOpenVerificationInfo(true)}/>
+                              </div>
                             <div className="pl-1">
                               <div className="bg-gray-100 w-[0.5px] h-6 "></div>
                             </div>
@@ -753,7 +763,8 @@ function ProductDeatils({ data }) {
                         )}{" "}
                         {numberWithCommas(items?.externalSourcePrice)}
                       </p>
-                      <FaGreaterThan size={18} className="pt-1" />
+                      {/* <FaGreaterThan size={18} className="pt-1" /> */}
+                      <Image src={GreaterThan} width={20} height={20} className="pt-1"/>
                     </div>
                   </div>
                 </>

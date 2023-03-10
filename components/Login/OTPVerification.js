@@ -10,7 +10,8 @@ import Cookies from "js-cookie";
 import router from "next/router";
 import { useAuthDispatch } from "providers/AuthProvider";
 import { useState, useEffect } from "react";
-import { BsArrowLeft } from "react-icons/bs";
+import ArrowLeft from "@/assets/leftarrow.svg";
+import Image from "next/image";
 
 function OTPVerification({
   formData,
@@ -126,11 +127,12 @@ function OTPVerification({
       className="flex flex-col w-full space-y-4"
       onSubmit={handleSubmit}
     >
-      <BsArrowLeft
+      {/* <BsArrowLeft
         onClick={() => setStep(1)}
         className="cursor-pointer fixed top-2 left-2"
         fontSize="22"
-      />
+      /> */}
+      <Image src={ArrowLeft} width={22} height={22}  onClick={() => setStep(1)} className="cursor-pointer fixed top-2 left-2"/>
       <div className="">
         <h1 className=" text-px font-bold py-1" style={{ color: "#2C2F45" }}>
           Verify Mobile No

@@ -6,10 +6,6 @@ import Input from "@/components/Form/Input";
 import Header2 from "@/components/Header/header2";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
-import Footer from "@/components/Footer";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { AiOutlineLogout } from "react-icons/ai";
-// import editImage from "@/assets/icons/edit-image.png";
 import LoadingStatePopup from "../../components/Popup/LoadingStatePopup";
 import imageCompression from "browser-image-compression";
 import {
@@ -20,7 +16,6 @@ import {
 } from "api-call";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import { VscPass } from "react-icons/vsc";
 import DeleteAccPopup from "@/components/Popup/DeleteAccPopup";
 
 function Profile() {

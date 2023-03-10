@@ -1,5 +1,5 @@
 import { Disclosure } from "@headlessui/react";
-import { FiChevronDown } from "react-icons/fi";
+import DropDown from "@/assets/arrow-drop-down.svg";
 import Image from "next/image";
 // import passIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/check2-circle.svg";
 // import failedIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/testFail.png";
@@ -33,10 +33,12 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
               >
                 <h2 className="font-Roboto-Medium text-ex text-[#2C2F45]">Device Cosmetic Report</h2>
 
-                <FiChevronDown
+                {/* <FiChevronDown
                   className={`${open ? "transform rotate-180" : ""
                     } w-5 h-5 text-gray-70`}
-                />
+                /> */}
+                <Image src={DropDown} width={20} height={20}  className={`${open ? "transform rotate-180" : ""
+                    } w-5 h-5 text-gray-70`}/>
               </div>
             </Disclosure.Button>
 

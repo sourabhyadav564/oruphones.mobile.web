@@ -4,10 +4,12 @@ import { addFavotie, getUserListings, removeFavotie } from "api-call";
 import router from "next/router";
 import { Fragment } from "react";
 import { useAuthState } from "providers/AuthProvider";
-import { BsHeart } from "react-icons/bs";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import HeartBlack from "@/assets/heart_black.svg";
+import HeartFill from "@/assets/heartfill.svg";
+import HeartOutline from "@/assets/heartoutline.svg";
 import { toast } from "react-toastify";
 import LoginPopup from "./Popup/LoginPopup";
+import Image from "next/image";
 
 
 function AddFav({ data, setProducts, color, ...rest }) {
@@ -119,7 +121,12 @@ function AddFav({ data, setProducts, color, ...rest }) {
             fill={color || "#C7C7C7"}
           />
         </svg> */}
-        <AiOutlineHeart
+        <Image src={HeartBlack} width={20} height={20} onClick={(e) => {
+            e.preventDefault();
+            redirectToLogin();
+            setPerformAction(true);
+          }}/>
+        {/* <AiOutlineHeart
           className="hover:cursor-pointer"
           size="18px"
           fill={"#000000"}
@@ -128,7 +135,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
             redirectToLogin();
             setPerformAction(true);
           }}
-        />
+        /> */}
         <LoginPopup open={openLoginPopup} setOpen={setOpenLoginPopup} />
       </Fragment>
     );
@@ -157,29 +164,44 @@ function AddFav({ data, setProducts, color, ...rest }) {
       localStorage.getItem("favoriteList") != null &&
         (localStorage.getItem("favoriteList").includes(data?.listingId) ||
           data?.favourite) ? (
-        <AiFillHeart
-          className="hover:cursor-pointer"
-          color="#FF0000"
-          size="18px"
-          onClick={(e) => {
-            e.preventDefault();
-            // !listings.includes(data.listingId) ?
-            handleFavoties(data);
-            //  : toast.error("You can't add your own listing to your favorites");
-          }}
-        />
+            <Image src={HeartFill} width={20} height={20} onClick={(e) => {
+              e.preventDefault();
+              // !listings.includes(data.listingId) ?
+              handleFavoties(data);
+              //  : toast.error("You can't add your own listing to your favorites");
+            }}/>
+        // <AiFillHeart
+        //   className="hover:cursor-pointer"
+        //   color="#FF0000"
+        //   size="18px"
+        //   onClick={(e) => {
+        //     e.preventDefault();
+        //     // !listings.includes(data.listingId) ?
+        //     handleFavoties(data);
+        //     //  : toast.error("You can't add your own listing to your favorites");
+        //   }}
+        // />
       ) : (
-        <AiOutlineHeart
-          className="hover:cursor-pointer"
-          color="#FF0000"
-          size="18px"
-          onClick={(e) => {
-            e.preventDefault();
-            // !listings.includes(data.listingId) ?
-            handleFavoties(data);
-            //  : toast.error("You can't add your own listing to your favorites");
-          }}
-        />
+
+        <Image src={HeartOutline} width={20} height={20} 
+        onClick={(e) => {
+          e.preventDefault();
+          // !listings.includes(data.listingId) ?
+          handleFavoties(data);
+          //  : toast.error("You can't add your own listing to your favorites");
+        }}/>
+
+        // <AiOutlineHeart
+        //   className="hover:cursor-pointer"
+        //   color="#FF0000"
+        //   size="18px"
+        //   onClick={(e) => {
+        //     e.preventDefault();
+        //     // !listings.includes(data.listingId) ?
+        //     handleFavoties(data);
+        //     //  : toast.error("You can't add your own listing to your favorites");
+        //   }}
+        // />
       )
     );
   }

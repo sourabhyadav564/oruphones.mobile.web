@@ -2,8 +2,7 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { BsInfoCircle } from "react-icons/bs";
-import { FaGreaterThan } from "react-icons/fa";
+import InfoCircle from "@/assets/infocircle2.svg";
 import LoginPopup from "../Popup/LoginPopup";
 import ThisPhonePopup from "../Popup/ThisPhonePopup";
 import WarrantyInfo from "@/components/Popup/WarrantyInfo";
@@ -87,7 +86,8 @@ function ComparisonTable(data, listingId) {
                   onClick={() => setOpenWarrantyInfo(true)}
                 >
                   <p className="pr-1">Brand Warranty</p>
-                  <BsInfoCircle size={20} classname="pl-1" />
+                  {/* <BsInfoCircle size={20} classname="pl-1" /> */}
+                  <Image src={InfoCircle} width={20} height={20} classname="pl-1" />
                 </div>
               </th>
               <th
@@ -99,7 +99,8 @@ function ComparisonTable(data, listingId) {
                   onClick={() => setOpenWarrantyInfo(true)}
                 >
                   <p className="pr-1">Seller Warranty</p>
-                  <BsInfoCircle size={20} classname="pl-1" />
+                  {/* <BsInfoCircle size={20} classname="pl-1" /> */}
+                  <Image src={InfoCircle} width={20} height={20} classname="pl-1" />
                 </div>
               </th>
               <th
@@ -123,7 +124,8 @@ function ComparisonTable(data, listingId) {
                   onClick={() => setOpenVerificationInfo(true)}
                 >
                   <p className="pr-1">Oru Verified</p>
-                  <BsInfoCircle size={20} classname="pl-1" />
+                  {/* <BsInfoCircle size={20} classname="pl-1" /> */}
+                  <Image src={InfoCircle} width={20} height={20} classname="pl-1" />
                 </div>
               </th>
               <th

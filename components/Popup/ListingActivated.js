@@ -36,7 +36,7 @@ function ListingActivated({ open, setOpen, reason, setReason }) {
           <button
             className="border border-primary font-Roboto-Medium w-32 px-4 py-2 rounded text-primary"
             onClick={() => {
-              setReason("");
+              // setReason("");
               setOpen(false);
               router.reload();
             }}

@@ -1,5 +1,5 @@
 import { Disclosure } from "@headlessui/react";
-import { FiChevronDown } from "react-icons/fi";
+import DropDown from "@/assets/arrow-drop-down.svg";
 import Image from "next/image";
 // import passIcon from "@/assets/check2-circle.svg";
 // import failedIcon from "@/assets/testFail.png";
@@ -7,8 +7,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 // import { deviceConditionQuestion } from "@/utils/constant";
 // import ConditionOptionLarge2 from "./Condition/ConditionOptionLarge2";
-import { BsCheckCircle } from "react-icons/bs";
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import GCheck from "@/assets/gcheck.svg";
+import Close from "@/assets/close.svg";
+
 
 function ViewReport({ data, defaultOpen, setDefaultOpen }) {
   if (!data?.verified && !data?.cosmetic) {
@@ -35,10 +36,10 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
               >
                 <h2 className="font-Roboto-Medium  text-ex text-[#2C2F45] ">Device Report (ORUPhones)</h2>
 
-                <FiChevronDown
-                  className={`${open ? "transform rotate-180" : ""
-                    } w-5 h-5 text-gray-70`}
-                />
+
+                 <Image src={DropDown} width={20} height={20}  className={`${open ? "transform rotate-180" : ""
+                    } w-5 h-5 text-gray-70`}/>
+
               </div>
             </Disclosure.Button>
 
@@ -107,7 +108,7 @@ const TestAndStatus = ({ testName, testStatus }) => (
         src={testStatus === "PASS" ? <BsCheckCircle/> : failedIcon}
       /> */}
       {
-        testStatus === "PASS" ? <BsCheckCircle size={13} className="text-[#4CAF50]" /> : <AiOutlineCloseCircle className="text-red-500" size={20} />
+        testStatus === "PASS" ?<Image src={GCheck} width={14} height={14}/> :   <Image src={Close} width={14} height={14}/>
       }
     </p>
   </div>

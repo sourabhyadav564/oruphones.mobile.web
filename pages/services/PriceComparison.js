@@ -6,7 +6,6 @@ import Image from "next/image";
 import Input from "@/components/Form/Input";
 import React from "react";
 import { useState } from "react";
-import { BsArrowLeft } from "react-icons/bs";
 import Header4 from "../../components/Header/header4";
 // import PhoneImage from "@/assets/icons/phone.png";
 import { useRecoilState, useRecoilValue } from "recoil";

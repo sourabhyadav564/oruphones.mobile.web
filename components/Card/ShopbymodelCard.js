@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 // import Link from "next/link";
-// import { BsInfoCircle } from "react-icons/bs";
 // import verifiedIcon from "@/assets/verified.svg";
 // import Logo from "@/assets/mobiru_logo.svg";
 // import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
@@ -17,7 +16,6 @@ import {
 import VerifiedIcon from "@/components/VerifiedIcon";
 // import IStock from "@/assets/icons/phone.png"
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
-import { BiChevronRight } from "react-icons/bi";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
 // import sold_out from "@/assets/soldout.png";

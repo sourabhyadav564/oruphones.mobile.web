@@ -2,24 +2,15 @@ import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-// import inactive from "@/assets/inActive.svg";
-import { BsInfoCircle } from "react-icons/bs";
-import { AiFillExclamationCircle } from "react-icons/ai";
-import { VscUnverified } from "react-icons/vsc";
-import { MdVerified } from "react-icons/md";
+import ExclamationIcon from "@/assets/fillexclamation.svg";
+import VerticalDots from "@/assets/verticaldots.svg"
 import VerificationIcon from "@/components/verificationIcon";
-import { BsPlus } from "react-icons/bs";
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
 import { Fragment, useState } from "react";
 import Cookies from "js-cookie";
 import { activateListing } from "api-call";
-// import VerifyFlowPopup from "../Popup/VerifyFlowPopup";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useRouter } from "next/router";
-import UnVerifiedIcon from "../UnVerifiedIcon";
-import VerifiedIcon from "../VerifiedIcon";
 import ShareIcon from "../ShareIcon";
-// import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
 
 const PauseListing = dynamic(() => import("@/components/Popup/PauseListing"));
 const VerifyFlowPopup = dynamic(() => import("@/components/Popup/VerifyFlowPopup"));
@@ -49,6 +40,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
     else {
       activateListing(payLoad).then(
         (res) => {
+         
           // if (res?.reason === "You are not allowed to activate more then 5 unverified listings.") {
           setReason(res?.reason);
           setOpenActivateListing(true);
@@ -143,12 +135,18 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   className="listing-tile dropdown inline-block relative"
                   onClick={(e) => e.preventDefault()}
                 >
-                  <BiDotsVerticalRounded
+                  {/* <BiDotsVerticalRounded
                     size={22}
                     onClick={(e) => {
                       e.preventDefault();
                       setOpenMenu((prev) => (prev !== data?.listingId ? data.listingId : -1));
                     }}
+                  /> */}
+                  <Image src={VerticalDots} width={22} height={22} 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenMenu((prev) => (prev !== data?.listingId ? data.listingId : -1));
+                  }}
                   />
                   <div className={`dropdown-menu absolute ${openMenu === data?.listingId ? "block" : "hidden"} pt-1 right-0`}>
                     <div className="w-32 py-2 menuShadow text-left border rounded bg-white" onClick={(e) => e.preventDefault()}>
@@ -207,7 +205,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   <div className="flex space-x-1 flex-1">
                     {/* <Image src={inactive} width={64} height={29} /> */}
                     <div className="flex space-x-1  flex-1">
-                      <AiFillExclamationCircle size={20} className="self-center text-white" />
+                      <Image src={ExclamationIcon} width={20} height={20} className="self-center"/>
                       <span className=" text-white self-center text-lx  font-light italic uppercase">INActive</span>
                     </div>
                     <button className="self-center text-jx text-white font-Semibold" onClick={handleActivate}>
@@ -296,7 +294,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                       <div className="flex space-x-1 flex-1">
                         {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
                         <div className="flex space-x-2">
-                          <AiFillExclamationCircle size={20} fill="white" className="self-center text-black" />
+                          <Image src={ExclamationIcon} width={20} height={20} className="self-center"/>
                           {/* <UnVerifiedIcon /> */}
 
                           <span className="text-lx font-light self-center text-black italic uppercase">unverified</span>

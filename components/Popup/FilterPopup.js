@@ -3,10 +3,12 @@ import { Fragment, useState } from "react";
 import PriceFilter from "../FilterAndSort/PriceFilter";
 import Modal1 from "./Modal1";
 import { useRouter } from "next/router";
-import { BsInfoCircle } from "react-icons/bs";
+import InfoCircle from "@/assets/infocircle2.svg";
+
 import ConditionInfo from "./ConditionInfo";
 import VerificationInfo from "./VerificationInfo";
 import { useEffect } from "react";
+import Image from "next/image";
 
 function FilterPopup({
   openFilter,
@@ -56,17 +58,23 @@ function FilterPopup({
     if (id === "condition") {
       // console.log("nimit");
       return (
-        <BsInfoCircle
-          className="text-sm cursor-pointer ml-1"
-          onClick={() => setOpenConditionPopup(true)}
-        />
+        // <BsInfoCircle
+        //   className="text-sm cursor-pointer ml-1"
+        //   onClick={() => setOpenConditionPopup(true)}
+        // />
+        <div className="ml-1">
+        <Image src={InfoCircle} width={10} height={10}  className="text-sm cursor-pointer ml-1 " onClick={() => setOpenConditionPopup(true)}/>
+      </div>
       );
     } else if (id === "verification") {
       return (
-        <BsInfoCircle
-          className="text-sm cursor-pointer ml-1"
-          onClick={() => setOpenVerificationPopup(true)}
-        />
+        // <BsInfoCircle
+        //   className="text-sm cursor-pointer ml-1"
+        //   onClick={() => setOpenVerificationPopup(true)}
+        // />
+        <div className="ml-1">
+        <Image src={InfoCircle} width={10} height={10}  className="text-sm cursor-pointer ml-1" onClick={() => setOpenVerificationPopup(true)}/>
+        </div>
       );
     }
   };

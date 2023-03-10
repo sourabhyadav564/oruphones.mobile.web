@@ -1,4 +1,3 @@
-import { FiAlertOctagon } from "react-icons/fi";
 import Modal3 from "../Popup/Modal3";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,36 +7,6 @@ import LoadingStatePopup from "./LoadingStatePopup";
 
 function ShopByPopup({ data, open, setOpen }) {
     const router = useRouter();
-
-    // const [loadingState, setLoadingState] = useState(false);
-
-    // useEffect(() => {
-    //   setLoadingState(false);
-    // }, [router.pathname]);
-    // useEffect(() => {
-    //     if (open) {
-    //         const onBackButtonEvent = (e) => {
-    //             e.preventDefault();
-    //             setOpen(false);
-    //         }
-
-    //         window.history.pushState(null, null, window.location.pathname);
-    //         window.addEventListener('popstate', onBackButtonEvent);
-    //         return () => {
-    //             window.removeEventListener('popstate', onBackButtonEvent);
-    //         };
-        // } else {
-        //     const onBackButtonEvent = (e) => {
-        //         e.preventDefault();
-        //         window.history.back();
-        //     }
-        //     window.history.pushState(null, null, window.location.pathname);
-        //     window.addEventListener('popstate', onBackButtonEvent);
-        //     return () => {
-        //         window.removeEventListener('popstate', onBackButtonEvent);
-        //     };
-    //     }
-    // }, [open]);
 
     const warrantycarddata = [
         {

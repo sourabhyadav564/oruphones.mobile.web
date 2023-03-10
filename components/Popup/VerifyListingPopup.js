@@ -2,9 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 // import patchCheck from "https://d1tl44nezj10jx.cloudfront.net/assets/patch-check.svg";
 import Modal2 from "./Modal2";
-import { useState } from "react";
-import QRCode from "react-qr-code";
-import { useEffect } from "react";
+import AppleStore from "@/assets/apple_store.svg";
+import PlayStore from "@/assets/playstore.svg";
 
 function VerifyListingPopup({ open, setOpen, make }) {
     console.log("make", make);
@@ -46,7 +45,7 @@ function VerifyListingPopup({ open, setOpen, make }) {
                 </p>
                 <div className="mb-2 mt-4">
                     <div className="flex flex-col justify-center items-center space-y-3 pb-4">
-                        <QRCode value={QRValue || ""} size={120} level={"H"} />
+                    <Image src={AppleStore} width={96} height={96} alt=""/>
                         <a href={QRValue}>
                             {make == "Apple" ? <p className="w-32 h-10 bg-appStore bg-no-repeat bg-contain" /> : <p className="w-32 h-10 bg-playStore bg-no-repeat bg-contain" />}
                         </a>

@@ -10,7 +10,8 @@ import VerificationIcon from "@/components/verificationIcon";
 // import UnVerifiedIcon from "../UnVerifiedIcon";
 // import AddFav from "../AddFav";
 // import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
-import { AiFillHeart } from "react-icons/ai";
+import HeartFill from "@/assets/heartfill.svg";
+
 import { useState } from "react";
 
 function FavListingTile({ data, setProducts }) {
@@ -207,13 +208,17 @@ function FavListingTile({ data, setProducts }) {
           )}
         </div> */}
         <div className="flex absolute right-0 pr-10 pt-3">
-          <AiFillHeart
+          {/* <AiFillHeart
             className="text-red"
             onClick={(e) => {
               e.preventDefault();
               handleFavoties(data);
             }}
-          />
+          /> */}
+           <Image src={HeartFill} width={20} height={20} onClick={(e) => {
+              e.preventDefault();
+              handleFavoties(data);
+            }}/>
         </div>
         {/* <div className="flex absolute right-0 pr-10 pt-3">
           <svg

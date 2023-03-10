@@ -1,5 +1,6 @@
 import Select from "react-select";
-import { BiSearch } from "react-icons/bi";
+import Search from "@/assets/search.svg";
+import Image from "next/image";
 
 const customStyles = {
     control: (base) => ({
@@ -31,7 +32,8 @@ function MySelect({ name, labelName, className, ...rest }) {
       </label> */}
             <div className=" ">
                 <div className="absolute right-2 top-0 bg-white w-36 selection: bottom-0 flex items-center">
-                    <BiSearch className="text-primary  absolute right-1  bg-white  " size={24} />
+                    {/* <BiSearch className="text-primary  absolute right-1  bg-white  " size={24} /> */}
+                    <Image src={Search} width={24} height={24}  className="text-primary  absolute right-1  bg-white  "/>
                 </div>
             </div>
         </div>

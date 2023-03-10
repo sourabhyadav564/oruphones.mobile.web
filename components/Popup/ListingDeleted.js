@@ -2,9 +2,10 @@ import { deleteListing } from "api-call";
 import Cookies from "js-cookie";
 import router from "next/router";
 import { useEffect } from "react";
-import { FaRegTrashAlt } from "react-icons/fa";
+import Trash from "@/assets/trash.svg";
 import MySelect from "../Form/Select";
 import Modal2 from "./Modal2";
+import Image from "next/image";
 
 const optionsList = [
   { value: "Sold my mobile", label: "Sold my mobile" },
@@ -61,7 +62,8 @@ function ListingDeleted({ open, setOpen, data, setListings }) {
   return (
     <Modal2 open={open} setOpen={setOpen}>
       <div className="flex flex-col items-center max-w-sm px-6 py-2 space-y-2 text-base text-black-21">
-        <FaRegTrashAlt size={34} color="#f92b2b" />
+        {/* <FaRegTrashAlt size={34} color="#f92b2b" /> */}
+        <Image src={Trash} width={34} height={34}/>
         <p className="text-gx font-Roboto-Bold mb-2"> Delete Listing? </p>
         <p>Do you want to Delete the listing?</p>
         <div className="w-full font-Roboto-Regular space-y-8 py-6">

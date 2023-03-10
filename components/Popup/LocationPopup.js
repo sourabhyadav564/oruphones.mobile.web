@@ -7,7 +7,7 @@ import { getGlobalCities, updateAddress, getUserDetails } from "api-call";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import BasicCarousel from "../Carousel/BasicCarousel";
 import Cookies from "js-cookie";
-import { BiCurrentLocation } from "react-icons/bi";
+import CurrentLocation from "@/assets/currentlocation.svg";
 import LocationPicker from "../Popup/LocationPicker";
 import Geocode from "react-geocode";
 import { getCityFromResponse } from "@/utils/util";
@@ -246,7 +246,8 @@ function LocationPopup({ open, setOpen }) {
                 onClick={handleNearme}
               >
                 <p className="text-m text-gray-4e flex font-bold justify-center">
-                  <BiCurrentLocation className="h-5 w-5" />
+                  {/* <BiCurrentLocation className="h-5 w-5" /> */}
+                  <Image src={CurrentLocation} width={20} height={20}/>
                 </p>
               </span>
             </div>

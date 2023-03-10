@@ -8,7 +8,6 @@ import dynamic from "next/dynamic";
 // import headphoneImg from "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.png";
 // import originalBoxImg from "https://d1tl44nezj10jx.cloudfront.net/assets/box.png";
 // import originalBillImg from "https://d1tl44nezj10jx.cloudfront.net/assets/original-bill.png";
-import { BiCurrentLocation } from "react-icons/bi";
 import MySelect from "./Select";
 import ImageInput from "./ImageInput";
 // import PhoneImage from "https://d1tl44nezj10jx.cloudfront.net/assets/icons/phone.png";
@@ -33,12 +32,17 @@ import Link from "next/link";
 import TermsconditionPopup from "../Popup/TermsconditionPopup";
 import BrandPopup from "../AddListing/BrandPopup";
 import ModelPopup from "../AddListing/ModelPopup";
-import { IoIosArrowForward } from "react-icons/io";
-import { IoIosArrowBack } from "react-icons/io";
+
+import LeftArrow from "@/assets/leftarrow.svg";
+import ArrowBack from "@/assets/chevronleft.svg"
+import ArrowForward from "@/assets/rightarrow.svg"
+
+import CurrentLocation from "@/assets/currentlocation.svg";
+
 const VerifyFlowPopup = dynamic(() =>
   import("@/components/Popup/VerifyFlowPopup")
 );
-import { TiTick } from "react-icons/ti";
+
 import {
   addListingBrandSelector,
   addListingModelSelector,
@@ -54,12 +58,10 @@ import DeviceConditionCard from "../Condition/DeviceConditionCard";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";
 import StorageInfo from "../Popup/StorageInfo";
-import Loader from "../Loader/Loader";
 import Spinner from "../Loader/Spinner";
 import Geocode from "react-geocode";
 import Cookies from "js-cookie";
 import { getCityFromResponse } from "@/utils/util";
-import Header4 from "../Header/header4";
 import {
   CardHeading4,
   CardHeading3,
@@ -68,14 +70,12 @@ import {
 // import Header2 from "../Header/header2";
 import VerifyListingPopup from "../Popup/VerifyListingPopup";
 import PricePopup from "../Popup/PricePopup";
-import { BsArrowLeft } from "react-icons/bs";
 import {
   Heading,
   SellPhoneHeading1,
   ProductPriceHeading,
   AgeHeading,
 } from "../elements/Heading/heading";
-import { IoCloseCircle } from "react-icons/io5";
 import UnverifiedListingPopup from "../Popup/UnverifiedListingPoup";
 import Input2 from "./input2";
 import Input3 from "./input3";
@@ -121,6 +121,7 @@ const NewAddListingForm = ({ data }) => {
   const [sellValueRequired, setSellValueRequired] = useState("");
   const [nameValueRequired, setNameValueRequired] = useState("");
   const [listingAdded, setListingAdded] = useState(false);
+  const [Open,setOpen] = useState(false);
 
   const { user, authenticated, loading, selectedSearchCity } = useAuthState();
 
@@ -772,7 +773,7 @@ const NewAddListingForm = ({ data }) => {
         progress: undefined,
         toastId: "007",
       });
-    if (conditionResults[0].toString() == "No") {
+    if (String(conditionResults[0]) == "No") {
       calculateDeviceCondition();
       setPage(page + 1);
     } else {
@@ -797,17 +798,26 @@ const NewAddListingForm = ({ data }) => {
         className={`flex  p-4 py-3 bg-[#2C2F45] rounded-b-xl text-white text-lg relative`}
       >
         {router.pathname !== "/" && (
-          <BsArrowLeft
+          // <BsArrowLeft
+          //   onClick={() => {
+          //     page == 2 || page == 3
+          //       ? handleBack()
+          //       : page != 0
+          //         ? setPage(page - 1)
+          //         : router.back();
+          //   }}
+          //   className="cursor-pointer"
+          //   fontSize="22"
+          // />
+          <Image src={LeftArrow} width={22} height={22}  
+            className="cursor-pointer"
             onClick={() => {
               page == 2 || page == 3
                 ? handleBack()
                 : page != 0
                   ? setPage(page - 1)
                   : router.back();
-            }}
-            className="cursor-pointer"
-            fontSize="22"
-          />
+            }}/>
         )}
         {
           <h1 className="m-auto flex justify-center font-Roboto-Regular text-dx text-[#FFFFFF]">
@@ -1422,7 +1432,8 @@ const NewAddListingForm = ({ data }) => {
                   className="h-10 w-16 bg-gray-200 rounded-r-lg -ml-1 inline-flex justify-center items-center hover:cursor-pointer"
                   onClick={handleNearme}
                 >
-                  <BiCurrentLocation size={24} />
+                  {/* <BiCurrentLocation size={24} /> */}
+                  <Image src={CurrentLocation} width={24} height={24}/>
                 </div>
               </div>
               {locationRequired && (
@@ -1619,7 +1630,7 @@ const NewAddListingForm = ({ data }) => {
       <div className="bg-white flex items-center justify-between py-3 px-5 z-50 fixed bottom-0 w-full">
         <div
           className={`bg-white px-5 py-2 text-center text-black font-semibold rounded-md
-        border-2 border-gray-200 duration-300 flex items-center justify-center space-x-5`}
+        border-2 border-gray-200 items-center duration-300 flex items-center justify-center space-x-5`}
           onClick={() => {
             if (page == 3 || page == 2) {
               handleBack();
@@ -1628,11 +1639,12 @@ const NewAddListingForm = ({ data }) => {
             }
           }}
         >
-          <IoIosArrowBack className="text-xl" />
+          {/* <IoIosArrowBack className="text-xl" /> */}
+          <Image src={ArrowBack} width={15} height={15}/>
           <span>Back</span>
         </div>
         <div
-          className={`bg-[#2C2F45]  text-center px-5 py-2  text-white font-semibold rounded-md border-2 border-[#2C2F45] duration-300 flex items-center justify-center space-x-5 ${page === 5 ? "hidden" : ""
+          className={`bg-[#2C2F45] items-center  text-center px-5 py-2  text-white font-semibold rounded-md border-2 border-[#2C2F45] duration-300 flex items-center justify-center space-x-5 ${page === 5 ? "hidden" : ""
             }`}
           onClick={() => {
             if (page == 0) {
@@ -1704,8 +1716,9 @@ const NewAddListingForm = ({ data }) => {
             }
           }}
         >
-          <span className="font-Regular text-dx flex-1">Next</span>
-          <IoIosArrowForward className="text-qx font-Regular" />
+          <span className="font-Regular text-dx flex-1 mr-5">Next</span>
+          {/* <IoIosArrowForward className="text-qx font-Regular" /> */}
+          <Image src={ArrowForward} width={15} height={15} className="text-qx font-Regular"/>
         </div>
       </div>
 

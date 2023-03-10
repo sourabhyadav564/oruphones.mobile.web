@@ -1,10 +1,10 @@
 import { sendverification } from "api-call";
 import Cookies from "js-cookie";
 import { useState } from "react";
-import { useEffect } from "react";
-import { FiAlertOctagon } from "react-icons/fi";
+import Alert from "@/assets/alert.svg";
 import Modal2 from "./Modal2";
 import RequestVerificationSuccessPopup from "./RequestVerificationSuccessPopup";
+import Image from "next/image";
 
 function RequestVerificationPopup({ open, setOpen, data, setShowNumber, setOpenRequestVerificationSuccessPopup, openRequestVerificationSuccessPopup }) {
 
@@ -58,7 +58,8 @@ function RequestVerificationPopup({ open, setOpen, data, setShowNumber, setOpenR
   return (
     <Modal2 open={open} setOpen={setOpen}>
       <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e">
-        <FiAlertOctagon size={44} color="#f7e17d" />
+        {/* <FiAlertOctagon size={44} color="#f7e17d" /> */}
+        <Image src={Alert} width={44} height={44}/>
         <p className="font-Roboto-Bold mt-1">Alert</p>
         <div className="text-sm my-2 text-center font-Roboto-Regular">
           <p>

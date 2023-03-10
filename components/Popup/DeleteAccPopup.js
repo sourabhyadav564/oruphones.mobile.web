@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { RiErrorWarningLine } from "react-icons/ri";
+import ErrorWarningAlert from "@/assets/alert.svg";
 import Modal2 from "./Modal2";
+import Image from "next/image";
 
 function DeleteAccPopup({ open, setOpen, setDelete }) {
 
@@ -39,10 +39,11 @@ function DeleteAccPopup({ open, setOpen, setDelete }) {
     return (
         <Modal2 open={open} setOpen={setOpen}>
             <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e">
-                <RiErrorWarningLine
+                {/* <RiErrorWarningLine
                     size={52}
                     color="#FFC107"
-                />
+                /> */}
+                <Image src={ErrorWarningAlert} width={52} height={52}/>
                 <h1 className="font-Roboto-Bold mb-2 mt-3">Do you really want to delete your Account? </h1>
                 <div className="mb-2 mt-4 font-Roboto-Regular">
                     <span

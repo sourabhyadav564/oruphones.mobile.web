@@ -1,7 +1,5 @@
 import Image from "next/image";
 import React, { Fragment } from "react";
-import { HiOutlineUserCircle } from "react-icons/hi";
-// import userIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/icons/user.svg";
 
 function SellerDetails({ data }) {
   let vendor = "";

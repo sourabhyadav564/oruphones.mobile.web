@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BsInfoCircle } from "react-icons/bs";
+import InfoCircle from "@/assets/infocircle2.svg";
 // import verifiedIcon from "@/assets/verified.svg";
 // import Logo from "@/assets/mobiru_logo.svg";
 // import Logo from "https://d1tl44nezj10jx.cloudfront.net/assets/oru_phones_logo.png";
@@ -10,7 +10,6 @@ import AddFav from "../AddFav";
 import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 import VerifiedIcon from "@/components/VerifiedIcon";
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
-import { BiChevronRight } from "react-icons/bi";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
 // import sold_out from "https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png";
@@ -70,13 +69,16 @@ function BestDealCard({
               <CardHeading1 title="Condition" />
               <span className="flex items-center">
                 <CardHeading2 title={data?.deviceCondition || <span>&nbsp;&nbsp;</span>} />
-                <BsInfoCircle
+                {/* <BsInfoCircle
                   className="ml-0.5 text-xs cursor-pointer"
-                  onClick={(e) => {
+                 
+                /> */}
+                <div className="ml-1">
+                 <Image src={InfoCircle} width={10} height={10}  onClick={(e) => {
                     e.preventDefault();
                     openConditionInfo();
-                  }}
-                />
+                  }}/>
+                  </div>
               </span>
             </p>
             <p className="mb-2 leading-none space-y-0.5">
@@ -206,13 +208,19 @@ function BestDealCard({
               <p className="flex items-center">
                 {/* <Image src={verifiedIcon} width={60} height={30} /> */}
                 <VerifiedIcon width={50} />
-                <BsInfoCircle
+                {/* <BsInfoCircle
                   className="ml-1 text-xs cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
                     openVerificationInfo();
                   }}
-                />
+                /> */}
+                <div className="ml-1">
+                <Image src={InfoCircle} width={10} height={10}   onClick={(e) => {
+                    e.preventDefault();
+                    openVerificationInfo();
+                  }}/>
+                  </div>
               </p>
             </div>
           )}

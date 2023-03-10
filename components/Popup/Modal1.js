@@ -1,6 +1,7 @@
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { IoCloseCircleOutline } from "react-icons/io5";
+import CloseCircle from "@/assets/close1.svg";
+import Image from "next/image";
 
 function Modal1({ open, setOpen, children }) {
   const cancelButtonRef = useRef(null);
@@ -35,7 +36,8 @@ function Modal1({ open, setOpen, children }) {
           >
             <div className="flex flex-col items-center">
               <div ref={cancelButtonRef} className="text-white text-4xl z-50 mb-3 cursor-pointer">
-                <IoCloseCircleOutline onClick={() => setOpen(false)} />
+                {/* <IoCloseCircleOutline onClick={() => setOpen(false)} /> */}
+                <Image src={CloseCircle} width={36} height={36} onClick={() => setOpen(false)}/>
               </div>
               <div
                 style={{ maxHeight: "280vh" }}

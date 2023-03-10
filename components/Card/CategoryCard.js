@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaSearchDollar } from "react-icons/fa";
 import ShopByPopup from "../Popup/ShopByPopup";
 import WarrantyByPop from "../Popup/WarrantyByPop";
 import { useRouter } from "next/router";

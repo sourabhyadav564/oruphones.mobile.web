@@ -3,10 +3,8 @@ import Header1 from "@/components/Header/header1";
 import BottomNav from "@/components/Navigation/BottomNav";
 import TopBrand from "@/components/Home/TopBrand";
 import TopCarousel from "@/components/Home/TopCarousel";
-import TopSellingMobiles from "@/components/Home/TopSellingMobiles";
 import TopDealNearBy from "@/components/Home/TopDealNearBy";
-import ShopByPrice from "@/components/Home/ShopByPrice";
-import { toast } from "react-toastify";
+
 
 import {
   fetchBrands,

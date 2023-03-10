@@ -1,22 +1,5 @@
 import Image from "next/image";
-// import ram from "https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/memory.svg";
-// import storage from "https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/micro-sd.svg";
-// import verified from "https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/quality.svg";
-// import color from "https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/color.svg";
-// import accessories from "https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/charger2.svg";
-// import listedon from "https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/calendar.svg";
-// import warranty from "https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/warranty.svg";
-
-
-// import box from "../assets/box.png";
-// import ram from "@/assets/ram.png";
-// import color from "@/assets/color.png";
-// import storage from "@/assets/storage.png";
-// import calendar1 from "https://d1tl44nezj10jx.cloudfront.net/assets/calendar-1.png";
-// import calendar2 from "@/assets/calendar-2.png";
-// import calendar3 from "@/assets/calendar-3.png";
-import { BsInfoCircle } from "react-icons/bs";
-
+import InfoCircle from "@/assets/infocircle2.svg";
 function IconLabelValue({
   label,
   value,
@@ -54,10 +37,13 @@ function IconLabelValue({
           {showInfoPopup ? (
             <span className="text-xs text-black-7e capitalize flex items-center">
               {label}{" "}
-              <BsInfoCircle
+              {/* <BsInfoCircle
                 className="ml-1 cursor-pointer"
-                onClick={showInfoPopup}
-              />
+              
+              /> */}
+              <div className="ml-1 pt-0.5">
+              <Image src={InfoCircle} width={10} height={10}  onClick={showInfoPopup}/>
+              </div>
             </span>
           ) : (
             <span className="text-jx font-Light text-black-7e capitalize">{label}</span>

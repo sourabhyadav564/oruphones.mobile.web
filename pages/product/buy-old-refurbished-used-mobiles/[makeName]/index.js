@@ -1,7 +1,6 @@
 import BestDealSection from "@/components/BestDealSection";
 import ShopByBrandsSection from "@/components/ShopByBrandsSection";
 import OtherListingCard from "@/components/Card/OtherListingCard";
-import { BiSortAlt2, BiFilterAlt } from "react-icons/bi";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { fetchByMakeList, searchFilter, getMakeModelLists } from "api-call";
@@ -15,11 +14,8 @@ import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
-import { FiTablet } from "react-icons/fi";
 import {
   CardHeading2,
-  CardHeading4,
-  CardHeading5,
 } from "@/components/elements/CardHeading/cardheading";
 import { Heading, Heading3 } from "@/components/elements/Heading/heading";
 import BrandCard from "@/components/Card/BrandCard";
@@ -96,6 +92,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
       }
       console.log("local storage", makeName);
       makemodel = JSON.parse(localStorage.getItem("shopByModel"));
+      console.log("makemdoels : ", localStorage.getItem("shopByModel"))
       makemodel.map((item) => {
         if (item.make == makeName) {
           setTitle(item.make);

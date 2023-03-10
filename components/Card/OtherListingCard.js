@@ -10,12 +10,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 // import sold_out from "https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png";
-import { BsCardHeading } from "react-icons/bs";
-
 import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 import { getUserListings } from "api-call";
 import { useAuthState } from "providers/AuthProvider";
-import Cookies from "js-cookie";
 
 
 function OtherListingCard({ data, setProducts, prodLink }) {
@@ -79,11 +76,11 @@ function OtherListingCard({ data, setProducts, prodLink }) {
       // }
       >
         <a
-          className="grid grid-cols-1 h-full shadow-lg shadow-gray-900 rounded-lg relative py-2 px-3 bg-m-white cardShadow1" data-aos="fade-up"
+          className="grid grid-cols-1 h-full shadow-lg shadow-gray-900 rounded-lg relative py-2 px-3 bg-m-white cardShadow1" 
         // onClick={() => setLoadingState(true)}
         >
           <div className="grid grid-cols-1">
-            <div className="absolute px-2 flex z-30 items-center top-0 left-0 right-0 pt-1 justify-between w-full">
+            <div className="absolute px-2  flex z-30 items-center top-0 left-0 right-0 pt-1 justify-between w-full">
               {data?.status === "Sold_Out" ? <Image
                 src="https://d1tl44nezj10jx.cloudfront.net/assets/soldout.png"
                 width={"50"}
@@ -92,7 +89,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 alt={soldout}
               /> : (!(data?.isOtherVendor === "Y") && data?.verified) ? (
                 <VerifiedIcon width={45} height={22} />
-              ) : <svg height={20} />}
+              ) : <div></div>}
               <span>
                 {!(data?.isOtherVendor === "Y") && listings && !listings.includes(data?.listingId) && (
                   <AddFav data={data} setProducts={setProducts} />

@@ -2,14 +2,9 @@ import useFilterOptions from "hooks/useFilterOptions";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
-import { BiSortAlt2, BiFilterAlt } from "react-icons/bi";
 import Footer from "../Footer";
-import Header2 from "../Header/header2";
 import FilterPopup from "../Popup/FilterPopup";
 import SortPopup from "../Popup/SortPopup";
-// import Image from "next/image";
-// import filterIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/filter.png";
-// import filterApplyIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/filter_apply.png";
 import SearchBar from "../Header/SearchBar";
 
 export default function Filter({ children, searchText, setApplyFilter, applyFilter, setSortApplyFilter, setIsFilterApplied }) {

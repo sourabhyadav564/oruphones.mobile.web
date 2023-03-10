@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import BuySellGuide from "@/components/BuySellGuide";
 import Cookies from "js-cookie";
 import Loader from "@/components/Loader/Loader";
-import { BsArrowLeft } from "react-icons/bs";
+import ArrowLeft from "@/assets/leftarrow.svg";
 import { useRouter } from "next/router";
 
 function editListing({ data, resultsSet }) {
@@ -68,11 +68,15 @@ function editListing({ data, resultsSet }) {
     <Fragment>
       {/* <Header5 title={"Edit Listing"} /> */}
       <header className={`w-full z-50 flex p-4 h-[45px] bg-[#2C2F45] rounded-b-[10px] text-white items-center  font-Roboto-Regular text-dx relative`}>
-        <BsArrowLeft
+        {/* <BsArrowLeft
           onClick={() => {
             router.back()
           }}
-          className="cursor-pointer" fontSize="20" />
+          className="cursor-pointer" fontSize="20" /> */}
+          <Image src={ArrowLeft} width={20} height={20}  onClick={() => {
+            router.back()
+          }}
+          className="cursor-pointer" />
         <h1 className="absolute pl-2  left-10 right-10 font-Roboto-Regular text-dx "> Edit Listing</h1>
       </header>
       <main className="container mb-4">

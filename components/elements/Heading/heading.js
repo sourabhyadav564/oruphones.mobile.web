@@ -1,5 +1,4 @@
 import React from 'react'
-import { FaRupeeSign } from "react-icons/fa";
 
 function Heading({ title }) {
   return (
@@ -22,7 +21,7 @@ function ProductPriceHeading({ title }) {
   return (
     <div>
       <div className='font-Roboto-Bold flex text-ox text-[#000944] ' >
-        <FaRupeeSign className="text-rx font-normal mr-0.5 self-center" />{" "}
+        <span className="text-rx font-normal mr-0.5 self-center">₹</span>{" "}
         {title}
       </div>
     </div>

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import {
-  FaFacebookSquare,
-  FaTwitterSquare,
-  FaInstagram,
-  FaPinterestSquare,
-  FaLinkedin,
-  FaYoutube,
-} from "react-icons/fa";
+import FB from "@/assets/fb.svg";
+import Twitter from "@/assets/twitter.svg";
+import Instagram from "@/assets/ig.svg";
+import Pinterest from "@/assets/pinterest.svg";
+import LinkedIn from "@/assets/linkedIn.svg";
+import Youtube from "@/assets/yt.svg";
+
+
 import LoadingStatePopup from "../components/Popup/LoadingStatePopup";
 // import AppStoreCard from "https://d1tl44nezj10jx.cloudfront.net/assets/app_store.svg";
 // import PlayStoreCard from "https://d1tl44nezj10jx.cloudfront.net/assets/play_store.png";
@@ -241,7 +241,9 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaFacebookSquare size={20} />
+                      {/* <FaFacebookSquare size={20} /> */}
+                      <Image src={FB} width={20} height={20}/>
+
                     </a>
 
                     <a
@@ -249,7 +251,8 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaTwitterSquare size={20} />
+                      {/* <FaTwitterSquare size={20} /> */}
+                      <Image src={Twitter} width={20} height={20}/>
                     </a>
 
                     <a
@@ -257,7 +260,8 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaInstagram size={20} />
+                      {/* <FaInstagram size={20} /> */}
+                      <Image src={Instagram} width={20} height={20}/>
                     </a>
 
                     <a
@@ -265,7 +269,8 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaPinterestSquare size={20} />
+                      {/* <FaPinterestSquare size={20} /> */}
+                      <Image src={Pinterest} width={20} height={20}/>
                     </a>
 
                     <a
@@ -273,7 +278,8 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaLinkedin size={20} />
+                      {/* <FaLinkedin size={20} /> */}
+                      <Image src={LinkedIn} width={20} height={20}/>
                     </a>
 
                     <a
@@ -281,7 +287,8 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaYoutube size={20} />
+                      {/* <FaYoutube size={20} /> */}
+                      <Image src={Youtube} width={20} height={20}/>
                     </a>
                   </div>
 

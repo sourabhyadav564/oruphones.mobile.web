@@ -5,12 +5,11 @@ import { bestDealNearByYou, fetchMyFavorites, getUserListings } from "api-call";
 import Cookies from "js-cookie";
 import Loader from "../Loader/Loader";
 import Spinner from "../Loader/Spinner";
-import { FaMapMarkerAlt } from "react-icons/fa";
 import LocationPopup from "../Popup/LocationPopup";
 import { useRouter } from "next/router";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import SortPopup from "../Popup/SortPopup";
-import { BiSortAlt2 } from "react-icons/bi";
+import Sort from "@/assets/sort.svg";
 import { useAuthState } from "providers/AuthProvider";
 
 function TopDealNearBy({ selectedSearchCity, loading }) {
@@ -121,7 +120,9 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
           <span className="">
             {(
               <span className="cursor-pointer flex items-center font-Roboto-Semibold" onClick={() => setOpenSort(true)}>
-                Sort <BiSortAlt2 className="ml-1" />
+                Sort 
+                <Image src={Sort} className="ml-1" width={18} height={18}/>
+                {/* <BiSortAlt2 className="ml-1" /> */}
               </span>
             )}
           </span>

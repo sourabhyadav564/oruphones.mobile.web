@@ -1,10 +1,10 @@
 // import Slider from "react-slick";
 import styles from "../../styles/fullimageview.module.css";
-// import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import { MdClose } from "react-icons/md";
+import Close from "@/assets/cross.svg";
 import CarouselWithPagination from "../Carousel/CarouselWithPagination";
 import { SwiperSlide } from "swiper/react";
 import { useEffect } from "react";
+import Image from "next/image";
 
 // const ArrowLeft = ({ className, currentSlide, slideCount, ...rest }) => (
 //   <BiChevronLeft {...rest} className={`fullimage_prev prev ${className}`} size={32} />
@@ -38,7 +38,8 @@ function FullImageView({ open, close, images }) {
     <section className={styles.imageview_container}>
       <div className="w-full h-16 flex justify-end p-4 text-white">
         <div className="flex justify-center items-center bg-white bg-opacity-10 rounded-full w-10 h-10" onClick={() => close()}>
-          <MdClose className="cursor-pointer" size={25} />
+          {/* <MdClose className="cursor-pointer" size={25} /> */}
+          <Image src={Close} width={25} height={25}  className="cursor-pointer"/>
         </div>
       </div>
       {images && (

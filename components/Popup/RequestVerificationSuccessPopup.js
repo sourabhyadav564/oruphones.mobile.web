@@ -1,10 +1,11 @@
 import { sendverification } from "api-call";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { BsCheck2Circle } from "react-icons/bs";
 import Modal2 from "./Modal2";
-import { FiAlertOctagon } from "react-icons/fi";
+import Check from "@/assets/gcheck.svg";
+import Alert from "@/assets/alert.svg";
 import Loader from "@/components/Loader/Loader";
+import Image from "next/image";
 
 function RequestVerificationSuccessPopup({ open, setOpen, data }) {
   const [resData, setResData] = useState({});
@@ -52,9 +53,11 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
         {resData?.statusCode ? (
           <>
             {resData?.statusCode === 200 ? (
-              <BsCheck2Circle size={42} color="#00A483" />
+              // <BsCheck2Circle size={42} color="#00A483" />
+              <Image src={Check} width={42} height={42}/>
             ) : (
-              <FiAlertOctagon size={44} color="#f7e17d" />
+              // <FiAlertOctagon size={44} color="#f7e17d" />
+              <Image src={Alert} width={44} height={44}/>
             )}
             <p className="font-Roboto-Bold my-2 text-gx">
               {resData?.statusCode === 200

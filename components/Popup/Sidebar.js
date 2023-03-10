@@ -1,20 +1,20 @@
-import { FiChevronLeft } from "react-icons/fi";
+import ChevronLeft from "@/assets/chevronleft.svg"
+import ArrowLeft from "@/assets/leftarrow.svg"
 import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
-import {
-  AiOutlineLogout,
-  AiOutlineInfoCircle,
-  AiOutlineQuestionCircle,
-  AiOutlineLogin,
-} from "react-icons/ai";
+import Logout from "@/assets/logout.svg";
+import OutLineInfoCircle from "@/assets/alert1.svg";
+import QuestionCircle from "@/assets/question.svg";
+import LoginIcon from "@/assets/login.svg";
+
+
 // import userAvatar from "@/assets/user-avatar.png";
 // import userAvatar from "https://d1tl44nezj10jx.cloudfront.net/assets/icons/avatar.png";
-import { BiUserCircle } from "react-icons/bi";
 import Link from "next/link";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import router from "next/router";
-import { MdOutlineFavoriteBorder } from "react-icons/md";
+import HeartBlack from "@/assets/heart_black.svg";
 import SellNowIconPopup from "@/components/Popup/SellNowIconPopup";
 import BuyNowIconPopup from "./BuyNowIconPopup";
 // import Buy from "https://d1tl44nezj10jx.cloudfront.net/assets/buy.png";
@@ -108,11 +108,14 @@ function Sidebar({ open, setOpen }) {
           leaveTo="-translate-x-10"
         >
           <div className="flex flex-col w-full h-full max-h-screen bg-white overflow-hidden shadow-xl transform transition-all">
-            <div className="p-4  bg-green-light text-white rounded-b-2xl">
-              <FiChevronLeft
+              <div className="p-4  bg-green-light text-white rounded-b-2xl">
+              {/* <FiChevronLeft
                 className="ml-auto text-lg item-center "
                 onClick={() => setOpen(false)}
-              />
+              /> */}
+              <div className="flex justify-end">
+              <Image src={ArrowLeft} width={15} height={15} className="ml-auto text-lg item-center flex " onClick={() => setOpen(false)}/>
+              </div>
               <div
                 className="flex items-center px-4 py-2"
                 onClick={handleClick}
@@ -150,12 +153,16 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                  <MdOutlineFavoriteBorder size={20} className="self-center" />
+                  {/* <MdOutlineFavoriteBorder size={20} className="self-center" /> */}
+                  <Image src={HeartBlack} width={20} height={20}  className="self-center"/>
                   <p className="self-center flex-1 font-Roboto-Regular">
                     {" "}
                     My Favorites
                   </p>
-                  <FiChevronLeft className="rotate-180 -mr-2 self-center" />
+                  {/* <FiChevronLeft className="rotate-180 -mr-2 self-center" /> */}
+                  <span className="-mr-2">
+                  <Image src={ChevronLeft} width={15} height={15} className="rotate-180  self-center"  />
+                  </span>
                   <hr />
                 </div>
               </ListItem>
@@ -167,12 +174,14 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                  <AiOutlineInfoCircle size={20} className="self-center" />
+                  {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
+                  <Image src={OutLineInfoCircle} width={20} height={20} className="self-center"/>
                   <p className="self-center flex-1 font-Roboto-Regular">
                     {" "}
                     About us
                   </p>
-                  <FiChevronLeft className="rotate-180 self-center" />
+                  {/* <FiChevronLeft className="rotate-180 self-center" /> */}
+                  <Image src={ChevronLeft} width={15} height={15} className="rotate-180  self-center"  />
                 </div>
               </ListItem>
               <ListItem
@@ -182,12 +191,14 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                  <AiOutlineQuestionCircle size={20} className="self-center" />
-                  <p className="self-center flex-1 font-Roboto-Regular">
+                  {/* <AiOutlineQuestionCircle size={20} className="self-center" /> */}
+                  <Image src={QuestionCircle} width={20} height={20} className="self-center"/>
+                  <p className="self-center flex-1  font-Roboto-Regular">
                     {" "}
                     FAQs
                   </p>
-                  <FiChevronLeft className="rotate-180 self-center" />
+                  {/* <FiChevronLeft className="rotate-180 self-center" /> */}
+                  <Image src={ChevronLeft} width={15} height={15} className="rotate-180 self-center"  />
                 </div>
               </ListItem>
               <div className="mt-auto border-t ml-2 ">
@@ -278,7 +289,8 @@ function Sidebar({ open, setOpen }) {
                       }}
                     >
                       <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
-                        <AiOutlineLogout size={20} className="self-center" />{" "}
+                        {/* <AiOutlineLogout size={20} className="self-center" />{" "} */}
+                        <Image src={Logout} width={20} height={20} className="self-center"/> {" "}
                         <p>Logout</p>
                       </div>
                     </ListItem>
@@ -350,7 +362,9 @@ function Sidebar({ open, setOpen }) {
                     </div>
                     <ListItem href="/login">
                       <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
-                        <AiOutlineLogin size={20} /> <p>Sign In</p>
+                        {/* <AiOutlineLogin size={20} />  */}
+                        <Image src={LoginIcon} width={15} height={15}/>
+                         <p>Sign In</p>
                       </div>
                     </ListItem>
                   </>

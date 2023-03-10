@@ -1,10 +1,11 @@
 import { Dialog } from "@headlessui/react";
 import Modal1 from "../Popup/Modal1";
-import { BiSearch } from "react-icons/bi";
+import Search from "@/assets/search.svg";
 
 import { addListingModelState } from "../../atoms/globalState";
 import { useRecoilState } from "recoil";
 import React, { useEffect } from "react";
+import Image from "next/image";
 
 function ModelPopup({ open, setOpen, mktNameOpt }) {
   const [modelState, setModelState] = useRecoilState(addListingModelState);
@@ -32,7 +33,8 @@ function ModelPopup({ open, setOpen, mktNameOpt }) {
             Select Model
           </Dialog.Title>
           <div className="border-2 border-gray-200 w-full p-2 flex font-Roboto-Semibold items-center justify-start space-x-2 rounded-md">
-            <BiSearch className="text-2xl" />
+            {/* <BiSearch className="text-2xl" /> */}
+            <Image src={Search} width={20} height={20}/>
             <input
               type="text"
               placeholder="Search model here..."

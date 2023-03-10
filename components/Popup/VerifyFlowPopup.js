@@ -2,8 +2,10 @@ import { Dialog } from "@headlessui/react";
 import { getTinyUrl } from "api-call";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import QRCode from "react-qr-code";
+import AppleStore from "@/assets/apple_store.svg";
+import PlayStore from "@/assets/playstore.svg";
 import Modal1 from "./Modal1";
+import Image from "next/image";
 
 function VerifyFlowPopup({ open, setOpen }) {
   const [qrValue1, setQrValue1] = useState(
@@ -85,7 +87,8 @@ function VerifyFlowPopup({ open, setOpen }) {
                   <a href={qrValue2}>
                   <p className="w-32 mt-4 h-10 bg-playStore bg-no-repeat bg-contain" />
                 </a> */}
-                <QRCode value={qrValue1 || ""} size={120} level={"H"} />
+                 <Image src={AppleStore} width={96} height={96} alt=""/>
+                {/* <QRCode value={qrValue1 || ""} size={120} level={"H"} /> */}
                 <a href={qrValue1}>
                   <p className="w-32 h-10 bg-appStore bg-no-repeat bg-contain" />
                 </a>
@@ -97,7 +100,8 @@ function VerifyFlowPopup({ open, setOpen }) {
                   <a href={qrValue2}>
                   <p className="w-32 mt-4 h-10 bg-playStore bg-no-repeat bg-contain" />
                 </a> */}
-                <QRCode value={qrValue2 || ""} size={120} level={"H"} />
+                 <Image src={PlayStore} width={96} height={96} alt=""/>
+                {/* <QRCode value={qrValue2 || ""} size={120} level={"H"} /> */}
                 <a href={qrValue2}>
                   <p className="w-32 h-10 bg-playStore bg-no-repeat bg-contain" />
                 </a>

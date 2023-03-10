@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { useState } from "react";
-import { RiErrorWarningLine } from "react-icons/ri";
+import  ErrorWarningAlert from "@/assets/alert.svg";
 import Modal2 from "./Modal2";
 import VerifyListingPopup from "./VerifyListingPopup";
+import Image from "next/image";
 
 function UnverifiedListingPopup({ open, setOpen, unverifiedListingType, unverifiedListingReason }) {
     const [openVerifyListingPopup, setOpenVerifyListingPopup] = useState(false);
@@ -47,10 +48,11 @@ function UnverifiedListingPopup({ open, setOpen, unverifiedListingType, unverifi
     return (
         <Modal2 open={open} setOpen={setOpen}>
             <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e">
-                <RiErrorWarningLine
+                {/* <RiErrorWarningLine
                     size={52}
                     color="#FFC107"
-                />
+                /> */}
+                <Image src={ErrorWarningAlert} width={52} height={52}/>
                 <p className="text-gx font-Roboto-Bold mb-2 mt-3">{unverifiedListingType}</p>
                 <p className="text-xs my-2 font-Roboto-Regular text-center">
                     {unverifiedListingReason}

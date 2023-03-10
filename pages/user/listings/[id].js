@@ -5,20 +5,21 @@ import dynamic from "next/dynamic";
 
 import Header2 from "@/components/Header/header2";
 import ImageSlider from "@/components/ImageSlider";
-// import star from "@/assets/star.svg";
-// import edit from "https://d1tl44nezj10jx.cloudfront.net/assets/edit.svg";
+
 
 import { ProductPriceHeading, ProductNameHeading } from "@/components/elements/Heading/heading";
-import { CardHeading4, CardHeading2 } from "@/components/elements/CardHeading/cardheading";
-import { BsInfoCircle } from "react-icons/bs";
+import { CardHeading2 } from "@/components/elements/CardHeading/cardheading";
+
 import { activateListing, deleteListing, getListingDetails } from "api-call";
 import IconLabelValue from "@/components/IconLabelValue";
 import { getAccessoriesText, numberWithCommas } from "@/utils/util";
 import Cookies from "js-cookie";
 import VerifyFlowPopup from "@/components/Popup/VerifyFlowPopup";
 import Footer from "@/components/Footer";
-import { BsStar } from "react-icons/bs";
-import { BsStarFill } from "react-icons/bs";
+
+import  Star1 from "@/assets/star1.svg";
+import  Star2 from "@/assets/star2.svg";
+
 import VerifiedIcon from "@/components/VerifiedIcon";
 const PauseListing = dynamic(() => import("@/components/Popup/PauseListing"));
 const ConditionInfo = dynamic(() => import("@/components/Popup/ConditionInfo"));
@@ -44,6 +45,7 @@ function ListingDeatils({ data, id }) {
   const [openDeleteListing, setOpenDeleteListing] = useState(false);
   const [openVerifyListing, setOpenVerifyListing] = useState(false);
   const [openActivateListing, setOpenActivateListing] = useState(false);
+  const [reason,setReason] = useState("");
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -57,7 +59,8 @@ function ListingDeatils({ data, id }) {
       userUniqueId: Cookies.get("userUniqueId"),
     };
     activateListing(payLoad).then(
-      () => {
+      (res) => {
+        setReason(res?.reason)
         setOpenActivateListing(true);
       },
       (err) => console.error(err)
@@ -67,9 +70,11 @@ function ListingDeatils({ data, id }) {
   let filled = data?.deviceCondition?.toLowerCase() == "Like New".toLowerCase() ? 5 : data?.deviceCondition?.toLowerCase() == "Excellent".toLowerCase() ? 4 : data?.deviceCondition?.toLowerCase() == "Good".toLowerCase() ? 3 : data?.deviceCondition?.toLowerCase() == "Fair".toLowerCase() ? 2 : data?.deviceCondition?.toLowerCase() == "Needs Repair".toLowerCase() ? 1 : 5;
   let iconToShow = (index) => {
     if (index < filled) {
-      return <BsStarFill className="text-yellow-400" />;
+      return  <Image src={Star2} width={20} height={20}/> 
+      // <BsStarFill className="text-yellow-400" />;
     } else {
-      return <BsStar className="text-black-7e" />;
+      return <Image src={Star1} width={20} height={20}/> 
+      // <BsStar className="text-black-7e" />;
     }
   };
 
@@ -323,6 +328,8 @@ function ListingDeatils({ data, id }) {
         <ListingActivated
           open={openActivateListing}
           setOpen={setOpenActivateListing}
+          reason={reason}
+          setReason={setReason} 
         />
       )}
       {openDeleteListing && (

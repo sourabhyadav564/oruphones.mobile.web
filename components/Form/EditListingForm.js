@@ -24,7 +24,11 @@ import {
   numberWithCommas,
 } from "@/utils/util";
 import ConditionInfo from "../Popup/ConditionInfo";
-import { BiChevronDown, BiCurrentLocation } from "react-icons/bi";
+
+
+import ArrowDown from "@/assets/arrow-drop-down.svg";
+import CurrentLocation from "@/assets/currentlocation.svg";
+
 import Geocode from "react-geocode";
 import Cookies from "js-cookie";
 import ConditionPopup from "../Popup/ConditionPopup";
@@ -636,7 +640,8 @@ const EditListingForm = ({ data, resultsSet }) => {
               className="h-10 w-16 bg-gray-200 rounded-r-lg  inline-flex justify-center items-center hover:cursor-pointer"
               onClick={handleNearme}
             >
-              <BiCurrentLocation size={24} />
+              {/* <BiCurrentLocation size={24} /> */}
+              <Image src={CurrentLocation} width={24} height={24}/>
             </div>
           </div>
           {/* {locationRequired && (
@@ -691,7 +696,8 @@ const EditListingForm = ({ data, resultsSet }) => {
             {ConditionResultEdit ? ConditionResultEdit : data?.deviceCondition}
           </div>
           <span className="-mr-6">
-            <BiChevronDown size={24} />
+            {/* <BiChevronDown size={24} /> */}
+            <Image src={ArrowDown} width={24} height={24}/>
           </span>
           {/* <label
             style={{ color: "rgba(0, 0, 0, 0.6)" }}

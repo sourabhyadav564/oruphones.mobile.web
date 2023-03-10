@@ -2,8 +2,9 @@ import { Fragment, useState } from "react";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import { useEffect } from "react";
 import SearchBar from "./SearchBar";
-import { CgCloseO } from "react-icons/cg";
+import Close from "@/assets/close.svg";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 
 
@@ -55,9 +56,12 @@ function Header1() {
 
       <div className="justify-between items-center w-full py-1  px-2 text-sm font-medium bg-primary text-white sticky top-12 z-50 rounded-b-xl" data-aos="fade-down">
         {show ?
-          <div className="relative flex   bg-yellow-400 w-full  text-white py-1 my-1 rounded-sm  items-center  px-3" >
+          <div className="relative flex   bg-yellow-400 w-full  text-white py-1 my-1  rounded-sm  items-center  px-3" >
             <a href={AppSrcIs} className="text-mx  text-primary font-Roboto-semibold flex-1 opacity-70 ">Download ORUphones App for better experience</a>
-            <p onClick={handleClose} className="text-mx  "><CgCloseO className="w-4 h-4 text-red opacity-50" /></p>
+            <p onClick={handleClose} className="text-mx pt-1.5">
+              <Image src={Close} width={20} height={20} className=" opacity-50"/>
+              {/* <CgCloseO className="w-4 h-4 text-red opacity-50" /> */}
+              </p>
           </div> : <div></div>
         }
         <SearchBar />

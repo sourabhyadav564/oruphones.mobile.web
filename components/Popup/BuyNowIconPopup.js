@@ -1,19 +1,8 @@
 import Modal1 from "./Modal1";
 import Image from "next/image";
-// import One from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/1.png";
-// import Two from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/2.png";
-// import Three from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/3.png";
-// import Four from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/4.png";
-// import Five from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/5.png";
-// import Six from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/6.png";
-// import Seven from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/7.png";
-// import Eight from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/8.png";
-// import Nine from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/9.png";
-// import Ten from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/10.png";
-// import Eleven from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/13.png"
-// import Twelve from "https://d1tl44nezj10jx.cloudfront.net/assets/buy_icons/12.png"
 import { useState } from "react";
-import QRCode from "react-qr-code";
+import AppleStore from "@/assets/apple_store.svg";
+import PlayStore from "@/assets/playstore.svg";
 
 function BuyNowIconPopup({ open, setOpen}) {
   const [qrValue2, setQrValue2] = useState(
@@ -30,13 +19,15 @@ function BuyNowIconPopup({ open, setOpen}) {
             </div>
             <div className="flex space-x-6 py-5 justify-center items-center px-7">
               <div className="flex flex-col justify-center items-center space-y-3">
-                <QRCode value={qrValue1 || ""} size={120} level={"H"} />
+              <Image src={AppleStore} width={96} height={96} alt=""/>
+                {/* <QRCode value={qrValue1 || ""} size={120} level={"H"} /> */}
                 <a href={qrValue1}>
                   <p className="w-32 h-10 bg-appStore bg-no-repeat bg-contain" />
                 </a>
               </div>
               <div className="flex flex-col justify-center items-center space-y-3">
-                <QRCode value={qrValue2 || ""} size={120} level={"H"} />
+              <Image src={PlayStore } width={96} height={96} alt=""/>
+                {/* <QRCode value={qrValue2 || ""} size={120} level={"H"} /> */}
                 <a href={qrValue2}>
                   <p className="w-32 h-10 bg-playStore bg-no-repeat bg-contain" />
                 </a>

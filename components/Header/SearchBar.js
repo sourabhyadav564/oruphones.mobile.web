@@ -3,10 +3,9 @@ import Link from "next/link";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { Fragment } from "react";
-import { BiSearch } from "react-icons/bi";
-import Loader from "../Loader/Loader";
+import Search from "@/assets/search.svg";
 import Spinner from "../Loader/Spinner";
-import { CgCloseO } from "react-icons/cg";
+import Image from "next/image";
 
 function SearchBar({ className }) {
   const [searchResults, setSearchResults] = useState();
@@ -204,7 +203,8 @@ function SearchBar({ className }) {
         {/* </div> */}
         {!className && (
           <div className="absolute right-2 top-0 bottom-0 flex items-center">
-            <BiSearch className="text-primary " size={20} />
+            {/* <BiSearch className="text-primary " size={20} /> */}
+            <Image src={Search} width={20} height={20}/>
           </div>
         )}
       </div>

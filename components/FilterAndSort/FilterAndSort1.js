@@ -2,17 +2,11 @@ import useFilterOptions from "hooks/useFilterOptions";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
-import { BiSortAlt2, BiFilterAlt } from "react-icons/bi";
-import Footer from "../Footer";
-import Header2 from "../Header/header2";
+import SortIcon from "@/assets/sort.svg";
 import FilterPopup from "../Popup/FilterPopup";
 import SortPopup from "../Popup/SortPopup";
-// import Image from "next/image";
-// import filterIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/filter.png";
-// import filterApplyIcon from "https://d1tl44nezj10jx.cloudfront.net/assets/filter_apply.png";
-import SearchBar from "../Header/SearchBar";
-import { searchFilter } from "api-call";
 import {Heading} from "../elements/Heading/heading";
+import Image from "next/image";
 
 export default function Filter({ children, searchText, setApplyFilter, applyFilter, setSortApplyFilter }) {
   const [openFilter, setOpenFilter] = useState(false);
@@ -66,7 +60,8 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
         <div className="flex  items-center rounded-b-xl p-1 ">
           {setSortApplyFilter && (
             <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
-              <Heading title="Sort"/> <BiSortAlt2 className="font-Roboto-Regular self-center mt-2" size={15} />
+              <Heading title="Sort"/> <Image src={SortIcon} width={15} height={15}/> 
+              {/* <BiSortAlt2 className="font-Roboto-Regular self-center mt-2" size={15} /> */}
             </p>
           )}
         </div>
