@@ -12,7 +12,7 @@ function ShopByBrandsSection({ shopbymodeldata, shopbymakedata, setProducts, ind
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
   var type = ["old phone", "used", "refurbished"]
-  console.log("shop by brand section2", shopbymodeldata)
+  // console.log("shop by brand section2", shopbymodeldata)
 
   return (
     <section className="m-auto items-center">

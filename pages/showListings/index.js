@@ -74,7 +74,7 @@ function index() {
     <div className='flex justify-center h-full'>
       <div className='h-full'>
         <div className='flex justify-center pt-10'>
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"} alt='ORUphones' className='w-px-300 h-px-300 ' />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"} height={40} width={80} alt='ORUphones' className='w-px-300 h-px-300 ' />
         </div>
         <div className=''>
           <div class="">

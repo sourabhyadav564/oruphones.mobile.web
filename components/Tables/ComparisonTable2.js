@@ -58,18 +58,18 @@ function ComparisonTable2(data, listingId) {
           {productData?.map((item, index) => (
             <>
               <th
-                className="border px-2 py-4 bg-primary"
+                className="border px-2 mx-8 py-4 bg-primary"
               >
                 {item?.listingId == thisPhoneListingId
                   ? `This Deal (${item?.marketingName})`
                   : item?.marketingName}
-                  <p className="font-Roboto-Light text-[#2196f3ff]"  onClick={() => {
+                <p className="font-Roboto-Light text-[#2196f3ff]" onClick={() => {
                   if (Cookies.get("userUniqueId") == undefined) {
                     thisPhoneListingId == item?.listingId
                       ? setProductLink("")
                       : setProductLink(
-                          `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`
-                        );
+                        `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`
+                      );
                     setOpenLoginPopup(true);
                     setperformAction1(true);
                   } else if (
@@ -91,7 +91,7 @@ function ComparisonTable2(data, listingId) {
                       "_blank"
                     );
                   }
-                }}>view deal &gt;</p>
+                }}>View Deal &gt;</p>
               </th>
             </>
           ))}
@@ -103,11 +103,10 @@ function ComparisonTable2(data, listingId) {
           {productData?.map((item, index) => (
             // <Link href={item.ven}>
             <th
-              className={`${
-                thisPhoneListingId == item?.listingId
-                  ? "border px-2 py-6 font-Roboto-Light bg-gray-100"
-                  : "border px-2 py-6 font-Roboto-Light"
-              }`}
+              className={`${thisPhoneListingId == item?.listingId
+                ? "border px-2 py-6 font-Roboto-Light bg-gray-100"
+                : "border px-2 py-6 font-Roboto-Light"
+                }`}
             >
               {" "}
               <Image
@@ -131,11 +130,10 @@ function ComparisonTable2(data, listingId) {
           {productData?.map((item, index) => (
             // <Link href={item.ven}>
             <th
-              className={`${
-                thisPhoneListingId == item?.listingId
-                  ? "border px-2 py-6 text-yellow-500 font-Roboto-Light bg-gray-100"
-                  : "border px-2 py-6 text-yellow-500 font-Roboto-Light"
-              }`}
+              className={`${thisPhoneListingId == item?.listingId
+                ? "border px-2 py-6 text-yellow-500 font-Roboto-Light bg-gray-100"
+                : "border px-2 py-6 text-yellow-500 font-Roboto-Light"
+                }`}
             >
               {" "}
               <span className="px-0.2">₹</span> {item?.listingPrice}
@@ -149,11 +147,10 @@ function ComparisonTable2(data, listingId) {
           </th>
           {productData?.map((item, index) => (
             <th
-              className={`${
-                thisPhoneListingId == item?.listingId
-                  ? "border px-4 bg-gray-100 py-4 font-Roboto-Light text-gray"
-                  : "border px-4 py-4 font-Roboto-Light text-gray"
-              }`}
+              className={`${thisPhoneListingId == item?.listingId
+                ? "border px-4 bg-gray-100 py-4 font-Roboto-Light text-gray"
+                : "border px-4 py-4 font-Roboto-Light text-gray"
+                }`}
             >
               {item?.deviceCondition}
             </th>
@@ -165,11 +162,10 @@ function ComparisonTable2(data, listingId) {
           </th>
           {productData?.map((item, index) => (
             <th
-              className={`${
-                thisPhoneListingId == item?.listingId
-                  ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
-                  : "border px-4 py-4 font-Roboto-Light text-gray"
-              }`}
+              className={`${thisPhoneListingId == item?.listingId
+                ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
+                : "border px-4 py-4 font-Roboto-Light text-gray"
+                }`}
             >
               {item?.deviceStorage}
             </th>
@@ -181,11 +177,10 @@ function ComparisonTable2(data, listingId) {
           </th>
           {productData?.map((item, index) => (
             <th
-              className={`${
-                thisPhoneListingId == item?.listingId
-                  ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
-                  : "border px-4 py-4 font-Roboto-Light text-gray"
-              }`}
+              className={`${thisPhoneListingId == item?.listingId
+                ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
+                : "border px-4 py-4 font-Roboto-Light text-gray"
+                }`}
             >
               {item?.isOtherVendor == "Y" ? item?.warranty : "None"}
             </th>
@@ -197,11 +192,10 @@ function ComparisonTable2(data, listingId) {
           </th>
           {productData?.map((item, index) => (
             <th
-              className={`${
-                thisPhoneListingId == item?.listingId
-                  ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
-                  : "border px-4 py-4 font-Roboto-Light text-gray"
-              }`}
+              className={`${thisPhoneListingId == item?.listingId
+                ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
+                : "border px-4 py-4 font-Roboto-Light text-gray"
+                }`}
             >
               {item?.isOtherVendor == "N" ? item?.warranty : "None"}
             </th>
@@ -213,11 +207,10 @@ function ComparisonTable2(data, listingId) {
           </th>
           {productData?.map((item, index) => (
             <th
-              className={`${
-                thisPhoneListingId == item?.listingId
-                  ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
-                  : "border px-4 py-4 font-Roboto-Light text-gray"
-              }`}
+              className={`${thisPhoneListingId == item?.listingId
+                ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
+                : "border px-4 py-4 font-Roboto-Light text-gray"
+                }`}
             >
               {item?.isOtherVendor == "Y"
                 ? item?.charger == "Y"
@@ -226,15 +219,15 @@ function ComparisonTable2(data, listingId) {
                       ? "Phone Charger, Earphone, Phone Box"
                       : "Phone Charger, Earphone"
                     : item?.originalbox == "Y"
-                    ? "Phone Charger, Phone Box"
-                    : "Phone Charger"
+                      ? "Phone Charger, Phone Box"
+                      : "Phone Charger"
                   : item?.earphone == "Y"
-                  ? item?.originalbox == "Y"
-                    ? "Earphone, Phone Box"
-                    : "Earphone"
-                  : item?.originalbox == "Y"
-                  ? "Phone Box"
-                  : "None"
+                    ? item?.originalbox == "Y"
+                      ? "Earphone, Phone Box"
+                      : "Earphone"
+                    : item?.originalbox == "Y"
+                      ? "Phone Box"
+                      : "None"
                 : "None"}
             </th>
           ))}
@@ -245,11 +238,10 @@ function ComparisonTable2(data, listingId) {
           </th>
           {productData?.map((item, index) => (
             <th
-              className={`${
-                thisPhoneListingId == item?.listingId
-                  ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
-                  : "border px-4 py-4 font-Roboto-Light text-gray"
-              }`}
+              className={`${thisPhoneListingId == item?.listingId
+                ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
+                : "border px-4 py-4 font-Roboto-Light text-gray"
+                }`}
             >
               {item?.isOtherVendor == "N"
                 ? item?.charger == "Y"
@@ -258,15 +250,15 @@ function ComparisonTable2(data, listingId) {
                       ? "Charger, Earphone, Original Box"
                       : "Charger, Earphone"
                     : item?.originalbox == "Y"
-                    ? "Charger, Original Box"
-                    : "Charger"
+                      ? "Charger, Original Box"
+                      : "Charger"
                   : item?.earphone == "Y"
-                  ? item?.originalbox == "Y"
-                    ? "Earphone, Original Box"
-                    : "Earphone"
-                  : item?.originalbox == "Y"
-                  ? "Original Box"
-                  : "None"
+                    ? item?.originalbox == "Y"
+                      ? "Earphone, Original Box"
+                      : "Earphone"
+                    : item?.originalbox == "Y"
+                      ? "Original Box"
+                      : "None"
                 : "None"}
             </th>
           ))}
@@ -277,11 +269,10 @@ function ComparisonTable2(data, listingId) {
           </th>
           {productData?.map((item, index) => (
             <th
-              className={`${
-                thisPhoneListingId == item?.listingId
-                  ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
-                  : "border px-4 py-4 font-Roboto-Light text-gray"
-              }`}
+              className={`${thisPhoneListingId == item?.listingId
+                ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
+                : "border px-4 py-4 font-Roboto-Light text-gray"
+                }`}
             >
               {item?.listingLocation}
             </th>
@@ -293,11 +284,10 @@ function ComparisonTable2(data, listingId) {
           </th>
           {productData?.map((item, index) => (
             <th
-              className={`${
-                thisPhoneListingId == item?.listingId
-                  ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
-                  : "border px-4 py-4 font-Roboto-Light text-gray"
-              }`}
+              className={`${thisPhoneListingId == item?.listingId
+                ? "border bg-gray-100 px-4 py-4 font-Roboto-Light text-gray"
+                : "border px-4 py-4 font-Roboto-Light text-gray"
+                }`}
             >
               {!item?.listedBy ? (
                 <Image

@@ -20,7 +20,7 @@ function FavListingTile({ data, setProducts }) {
         data.listingId,
         Cookies.get("userUniqueId") || "Guest"
       ).then((response) => {
-        console.log("removeFav RES", response);
+        // console.log("removeFav RES", response);
       });
       return prevState.filter((i) => i.listingId !== data.listingId);
     });

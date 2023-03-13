@@ -57,7 +57,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
         localStorage.setItem("favoriteList", data?.listingId);
       }
       addFavotie(payLoad).then((response) => {
-        console.log("addFav RES", response);
+        // console.log("addFav RES", response);
       });
     };
     const removeFavorite = () => {
@@ -70,7 +70,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
       }
       removeFavotie(data?.listingId, Cookies.get("userUniqueId")).then(
         (response) => {
-          console.log("removeFav RES", response);
+          // console.log("removeFav RES", response);
         }
       );
     };

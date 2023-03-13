@@ -9,7 +9,7 @@ import Image from "next/image";
 
 function ModelPopup({ open, setOpen, mktNameOpt }) {
   const [modelState, setModelState] = useRecoilState(addListingModelState);
-  const [models, setModels] = React.useState([]);
+  const [models, setModels] = useState([]);
 
   useEffect(() => {
     setModels(mktNameOpt);

@@ -1067,7 +1067,7 @@ function ProductDeatils({ data }) {
               </div>
             )}
             <ComparisonTable
-              data={data?.compareData.length > 0 ? data?.compareData : []}
+              data={data?.compareData?.length > 0 ? data?.compareData : []}
               listingId={data?.listingId !== undefined ? data?.listingId : []}
             />
             {/* {console.log("data?.compareData", data?.listingId)} */}

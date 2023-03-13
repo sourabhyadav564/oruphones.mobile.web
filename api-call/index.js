@@ -76,7 +76,7 @@ export const getAboutUsContent = async () => {
       return res.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -92,7 +92,7 @@ export function getSessionId() {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -113,7 +113,7 @@ export function getSearchResults(q) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -211,14 +211,26 @@ export async function getMakeModelLists(userUniqueId, sessionId, make, isPrimary
   const url = `${URI}/api/v1/master/makemodellist`;
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
-    localStorage.setItem("make_models", JSON.stringify(response.data.dataObject));
+    // localStorage.setItem("make_models", JSON.stringify(response.data.dataObject));
     return response.data;
   });
 }
 
+export async function getModelLists(userUniqueId, sessionId, make, searchModel) {
+  headers = {
+    ...headers,
+    eventName: "GET_MODEL_LIST",
+    userUniqueId: 0,
+    sessionId: sessionId,
+  };
+  const DEFAULT_HEADER = { headers: { ...headers } };
+  const url = `${URI}/api/v1/master/modellist?make=${make}&searchModel=${searchModel}`;
 
-
-
+  return await Axios.get(url, DEFAULT_HEADER).then((response) => {
+    // localStorage.setItem("make_models", JSON.stringify(response.data.dataObject));
+    return response.data;
+  })
+};
 
 export async function uploadImage(data, params) {
   const url = `${URI}/api/v1/device/uploadimage?deviceFace=${params.deviceFace}&deviceStorage=${params.deviceStorage}&make=${params.make}&model=${params.model}&userUniqueId=${params.userUniqueId}`;
@@ -279,7 +291,7 @@ export async function deleteListing(params) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -293,7 +305,7 @@ export async function activateListing(params) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -307,7 +319,7 @@ export async function pauseListing(params) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -338,7 +350,7 @@ export async function getListingDetails(listingid, userUniqueId, sessionId) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -449,15 +461,15 @@ export async function fetchSellerMobileNumber(listingid, userUniqueId) {
     return response.data;
   },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
 
-export async function getGlobalCities() {
+export async function getGlobalCities(searchText) {
   headers = { ...headers, eventName: "FETCH_CITIES", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  const url = `${URI}/api/v1/global/cities`;
+  const url = `${URI}/api/v1/global/cities?limited=true&searchText=` + searchText;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
@@ -513,7 +525,7 @@ export async function bestDealNearByYou(location, userUniqueId, pageNumber, sort
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -527,7 +539,7 @@ export async function addUserSearchLocation(payload) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -541,7 +553,7 @@ export async function addUserProfileLocation(payload) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -555,7 +567,7 @@ export async function updateAddress(payload) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -570,7 +582,7 @@ export async function addFavotie(payload) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -589,7 +601,7 @@ export async function removeFavotie(listingId, userUniqueId) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -609,7 +621,7 @@ export async function bestDealNearYouAll(location, userUniqueId, pageNumber, sor
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -623,7 +635,7 @@ export async function updateUserProfileDetails(payload) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -638,7 +650,7 @@ export async function fetchMyFavorites(userUniqueId) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -655,7 +667,7 @@ export async function fetchSimilarProducts(payLoad, userUniqueId, pageNumber) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -673,7 +685,7 @@ export async function sendverification(listingid, userUniqueId) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -687,7 +699,7 @@ export function getShowSerchFilters() {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -707,7 +719,7 @@ export async function searchFilter(payLoad, userUniqueId, sessionId, pageNumber,
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -721,7 +733,7 @@ export function getTinyUrl() {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -735,7 +747,7 @@ export async function getExternalSellSourceData(payLoad) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -747,7 +759,7 @@ export function fetchWebLinkByShareId(shareId) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -761,7 +773,7 @@ export function infoTemplates() {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -785,7 +797,7 @@ export async function uploadUserProfilePic(userProfilePicData, userUniqueId) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -803,7 +815,7 @@ export function prepareShareLink(listingId, userUniqueId) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -823,7 +835,7 @@ export function getAllNotificationByUserd(userUniqueId, sessionId) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -838,7 +850,7 @@ export function markAsRead(notificationId, userUniqueId) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -853,7 +865,7 @@ export function deleteNotification(notificationId, userUniqueId) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -867,7 +879,7 @@ export function contactUs(payLoad) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -881,7 +893,7 @@ export function fetchTopArticles() {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -904,7 +916,7 @@ export function shopByCategory(location, category, userUniqueId, pageNumber, sor
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }
@@ -936,7 +948,7 @@ export function logEventInfo(eventName) {
       return response.data;
     },
     (err) => {
-      console.log(err);
+      // console.log(err);
     }
   );
 }

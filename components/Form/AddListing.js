@@ -200,11 +200,11 @@ const AddListingForm = ({ data }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     var sellValueTag = document.querySelector("#sellValue");
-    console.log(sellValueTag);
+    // console.log(sellValueTag);
     var sellValue = sellValueTag.value;
 
     var inputNameTag = document.querySelector("#inputName");
-    console.log(inputNameTag);
+    // console.log(inputNameTag);
     var inputName = inputNameTag.value;
 
     if (

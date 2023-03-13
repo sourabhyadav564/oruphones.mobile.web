@@ -18,7 +18,7 @@ export default function ShareIcon({ data, color, ...rest }) {
           text: content[1]?.shareContent,
         })
         .then(() => {
-          console.log("Thanks for sharing!");
+          // console.log("Thanks for sharing!");
         })
         .catch(console.error);
     } else {

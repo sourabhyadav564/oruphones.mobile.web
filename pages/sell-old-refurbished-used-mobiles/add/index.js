@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 // import buyStep from "@/assets/how_to_buy.png";
 // import sellDeviceBanner from "@/assets/how_to_sell.png";
 import AddListingForm from "@/components/Form/AddListing";
-import { getMakeModelLists } from "api-call";
+import { getMakeModelLists, getModelLists } from "api-call";
 import Footer from "@/components/Footer";
 import BuySellGuide from "@/components/BuySellGuide";
 import Loader from "@/components/Loader/Loader";
@@ -35,84 +35,90 @@ const index = ({ data }) => {
   let check = 1;
 
   useEffect(async () => {
-    if (
-      !localStorage.getItem("make_models") ||
-      localStorage.getItem("make_models") == undefined ||
-      localStorage.getItem("make_models").toString() == "undefined"
-    ) {
-      make_models = false;
-    }
+    const models2 = await getModelLists("", "", "");
+    setMakeAndModels(models2?.dataObject);
+    // console.log("models2", models2);
+  }, []);
 
-    if (make_models) {
-      // setBrands(JSON.parse(localStorage.getItem("make_models")));
-      console.log("makeModelLists from local");
-    } else {
-      console.log("makeModelLists from api");
-      const data = await getMakeModelLists(
-        Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") != undefined
-          ? Cookies.get("sessionId")
-          : localStorage.getItem("sessionId") != undefined
-          ? localStorage.getItem("sessionId")
-          : ""
-      );
-      if (data) {
-        makeModelLists = data?.dataObject;
-        localStorage.setItem("make_models", JSON.stringify(makeModelLists));
-        Cookies.set("make_models", true);
-        // if (router.pathname == "/sell-old-refurbished-used-mobiles/add") { window.location.reload(); }
-        //   // setBrands(brandsList);
-      }
-    }
+  useEffect(async () => {
+    // if (
+    //   !localStorage.getItem("make_models") ||
+    //   localStorage.getItem("make_models") == undefined ||
+    //   localStorage.getItem("make_models").toString() == "undefined"
+    // ) {
+    //   make_models = false;
+    // }
 
-    if (
-      localStorage.getItem("make_models") == undefined ||
-      localStorage.getItem("make_models").toString() == "undefined"
-    ) {
-      const data = await getMakeModelLists(
-        Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") != undefined
-          ? Cookies.get("sessionId")
-          : localStorage.getItem("sessionId") != undefined
-          ? localStorage.getItem("sessionId")
-          : ""
-      );
-      makeModelLists = data?.dataObject;
-      localStorage.setItem("make_models", JSON.stringify(makeModelLists));
-      Cookies.set("make_models", true);
-      // window.location.reload();
-    }
+    // if (make_models) {
+    //   // setBrands(JSON.parse(localStorage.getItem("make_models")));
+    //   console.log("makeModelLists from local");
+    // } else {
+    //   console.log("makeModelLists from api");
+    //   const data = await getMakeModelLists(
+    //     Cookies.get("userUniqueId") || "Guest",
+    //     Cookies.get("sessionId") != undefined
+    //       ? Cookies.get("sessionId")
+    //       : localStorage.getItem("sessionId") != undefined
+    //         ? localStorage.getItem("sessionId")
+    //         : ""
+    //   );
+    //   if (data) {
+    //     makeModelLists = data?.dataObject;
+    //     localStorage.setItem("make_models", JSON.stringify(makeModelLists));
+    //     Cookies.set("make_models", true);
+    //     // if (router.pathname == "/sell-old-refurbished-used-mobiles/add") { window.location.reload(); }
+    //     //   // setBrands(brandsList);
+    //   }
+    // }
+
+    // if (
+    //   localStorage.getItem("make_models") == undefined ||
+    //   localStorage.getItem("make_models").toString() == "undefined"
+    // ) {
+    //   const data = await getMakeModelLists(
+    //     Cookies.get("userUniqueId") || "Guest",
+    //     Cookies.get("sessionId") != undefined
+    //       ? Cookies.get("sessionId")
+    //       : localStorage.getItem("sessionId") != undefined
+    //       ? localStorage.getItem("sessionId")
+    //       : ""
+    //   );
+    //   makeModelLists = data?.dataObject;
+    //   localStorage.setItem("make_models", JSON.stringify(makeModelLists));
+    //   Cookies.set("make_models", true);
+    //   // window.location.reload();
+    // }
     // if((localStorage.getItem("make_models") == undefined || localStorage.getItem("make_models").toString() == "undefined") && check == 1){
     //   window.location.reload();
     //   check++;
     // }
 
-    if (data?.length == 0) {
-      setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
-      // window.location.reload();
-    } else {
-      const data = await getMakeModelLists(
-        Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") != undefined
-          ? Cookies.get("sessionId")
-          : localStorage.getItem("sessionId") != undefined
-          ? localStorage.getItem("sessionId")
-          : ""
-      );
-      makeModelLists = data?.dataObject;
-      localStorage.setItem("make_models", JSON.stringify(makeModelLists));
-      Cookies.set("make_models", true);
-      localStorage.setItem("make_models", JSON.stringify(makeModelLists));
-      Cookies.set("make_models", true);
-      setMakeAndModels(makeModelLists);
-      // window.location.reload();
-    }
-    if (
-      localStorage.getItem("make_models") == undefined ||
-      localStorage.getItem("make_models").toString() == "undefined"
-    ) {
-      window.location.reload();
-    }
+    // if (data?.length == 0) {
+    //   setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
+    //   // window.location.reload();
+    // } else {
+    //   const data = await getMakeModelLists(
+    //     Cookies.get("userUniqueId") || "Guest",
+    //     Cookies.get("sessionId") != undefined
+    //       ? Cookies.get("sessionId")
+    //       : localStorage.getItem("sessionId") != undefined
+    //         ? localStorage.getItem("sessionId")
+    //         : ""
+    //   );
+    //   makeModelLists = data?.dataObject;
+    //   localStorage.setItem("make_models", JSON.stringify(makeModelLists));
+    //   Cookies.set("make_models", true);
+    //   localStorage.setItem("make_models", JSON.stringify(makeModelLists));
+    //   Cookies.set("make_models", true);
+    //   setMakeAndModels(makeModelLists);
+    //   // window.location.reload();
+    // }
+    // if (
+    //   localStorage.getItem("make_models") == undefined ||
+    //   localStorage.getItem("make_models").toString() == "undefined"
+    // ) {
+    //   window.location.reload();
+    // }
   }, []);
 
   // console.log("router.pathname", router.pathname);
@@ -152,28 +158,28 @@ const index = ({ data }) => {
 export const getServerSideProps = async ({ req, res, query }) => {
   const { userUniqueId, sessionId, make_models } = req.cookies;
 
-  try {
-    // const result = await getMakeModelLists();
-    // const data = result?.dataObject;
-    let data;
-    if (make_models) {
-      data = [];
-    } else {
-      const result = await getMakeModelLists(
-        userUniqueId || "Guest",
-        sessionId || ""
-      );
-      data = result?.dataObject;
-    }
-    return {
-      props: { data },
-    };
-  } catch {
-    res.statusCode = 404;
-    return {
-      props: {},
-    };
-  }
+  // try {
+  //   // const result = await getMakeModelLists();
+  //   // const data = result?.dataObject;
+  //   let data;
+  //   if (make_models) {
+  //     data = [];
+  //   } else {
+  //     const result = await getMakeModelLists(
+  //       userUniqueId || "Guest",
+  //       sessionId || ""
+  //     );
+  //     data = result?.dataObject;
+  //   }
+  //   return {
+  //     props: { data },
+  //   };
+  // } catch {
+  //   res.statusCode = 404;
+  return {
+    props: {},
+  };
+  // }
 };
 
 export default index;

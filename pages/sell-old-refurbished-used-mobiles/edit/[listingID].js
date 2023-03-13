@@ -16,54 +16,7 @@ function editListing({ data, resultsSet }) {
   const router = useRouter();
   const [makeAndModels, setMakeAndModels] = useState([]);
   let make_models = false;
-  useEffect(async () => {
-    // if (resultsSet.length === 0) {
-    //   console.log("first");
-    //   setMakeAndModels(JSON.parse(localStorage.getItem("make_models")));
-    // } else {
-    //   console.log("second");
-    //   localStorage.setItem("make_models", JSON.stringify(resultsSet));
-    //   Cookies.set("make_models", true);
-    //   setMakeAndModels(resultsSet);
-    // }
-    if (resultsSet.length === 0) {
-      if (
-        (!localStorage.getItem("make_models") ||
-          localStorage.getItem("make_models") == undefined ||
-          localStorage.getItem("make_models").toString() == "undefined")
-      ) {
-        make_models = false;
-      }
 
-      if (make_models) {
-        // setBrands(JSON.parse(localStorage.getItem("make_models")));
-        console.log("makeModelLists from local");
-      } else {
-        console.log("makeModelLists from api");
-        const data = await getMakeModelLists(
-          Cookies.get("userUniqueId") || "Guest",
-          Cookies.get("sessionId") != undefined
-            ? Cookies.get("sessionId")
-            : ""
-        );
-        if (data) {
-          setMakeAndModels(data?.dataObject);
-          localStorage.setItem("make_models", JSON.stringify(data?.dataObject));
-          Cookies.set("make_models", true);
-          // if (router.pathname == "/sell-old-refurbished-used-mobiles/add") { window.location.reload(); }
-          //   // setBrands(brandsList);
-        }
-      }
-    }
-    else {
-      console.log("second");
-      localStorage.setItem("make_models", JSON.stringify(resultsSet));
-      Cookies.set("make_models", true);
-      setMakeAndModels(resultsSet);
-    }
-  }, []);
-
-  // console.log("makeAndModels", makeAndModels);
   return (
     <Fragment>
       {/* <Header5 title={"Edit Listing"} /> */}
@@ -89,8 +42,8 @@ function editListing({ data, resultsSet }) {
           />
         </div> */}
         {/* <EditListingForm data={data} resultsSet={resultsSet} /> */}
-        {makeAndModels?.length ? (
-          <EditListingForm data={data} resultsSet={makeAndModels} />
+        {data ? (
+          <EditListingForm data={data} />
         ) : (
           <Loader />
         )}
@@ -115,29 +68,29 @@ export async function getServerSideProps({ req, res, query }) {
     //   sessionId || ""
     // );
 
-    let result;
-    if (make_models) {
-      console.log("found");
-      result = [];
-    } else {
-      console.log("not found");
-      const data = await getMakeModelLists(
-        userUniqueId || "Guest",
-        sessionId || ""
-      );
-      result = data?.dataObject;
-    }
+    // let result;
+    // if (make_models) {
+    //   console.log("found");
+    //   result = [];
+    // } else {
+    //   console.log("not found");
+    //   const data = await getMakeModelLists(
+    //     userUniqueId || "Guest",
+    //     sessionId || ""
+    //   );
+    //   result = data?.dataObject;
+    // }
 
     // console.log("data", data);
     // console.log("result", result);
 
     return {
       // props: { data: data?.dataObject, resultsSet: result?.dataObject },
-      props: { data: data?.dataObject, resultsSet: result },
+      props: { data: data?.dataObject },
     };
   } catch {
     return {
-      props: { data: [], resultsSet: [] },
+      props: { data: [] },
     };
   }
 }

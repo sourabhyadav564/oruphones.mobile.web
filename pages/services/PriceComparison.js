@@ -23,6 +23,7 @@ import StorageInfo from "@/components/Popup/StorageInfo";
 import { useEffect } from "react";
 import {
   getExternalSellSourceData,
+  getModelLists,
   getRecommandedPrice,
   searchFilter,
 } from "api-call";
@@ -76,11 +77,15 @@ function Index() {
 
   useEffect(() => {
     if (make) {
-      setModel("");
       setStorage();
       setStorageColorOption();
       setCondition();
-      setDefaultModel("");
+      const interval = setInterval(() => {
+        setDefaultModel("");
+        setModel("");
+        // setMktNameOpt([]);
+        clearInterval(interval);
+      }, 1000);
     }
   }, [make]);
 
@@ -155,14 +160,16 @@ function Index() {
     }
   }, [storage, condition]);
 
-  useEffect(() => {
-    setData(JSON.parse(localStorage.getItem("make_models")));
-  }, []);
-  const handleSelectChange = (name) => {
+  // useEffect(() => {
+  //   setData(JSON.parse(localStorage.getItem("make_models")));
+  // }, []);
+  const handleSelectChange = async (name) => {
     if (name === "make") {
       setMake(selectedBrand);
-      let index = data?.findIndex((i) => i.make === selectedBrand);
-      setMktNameOpt(data[index]?.models);
+      // let index = data?.findIndex((i) => i.make === selectedBrand);
+      // setMktNameOpt(data[index]?.models);
+      const models3 = await getModelLists("", "", selectedBrand, "");
+      setMktNameOpt(models3?.dataObject[0]?.models);
     } else if (name === "model") {
       setModel(selectedModel);
       let index = mktNameOpt?.findIndex(
@@ -185,12 +192,12 @@ function Index() {
           : storage,
         deviceRam: storage?.toString().includes("/")
           ? storage
-              ?.toString()
-              .split("/")[1]
-              .toString()
-              .replace(/GB/g, " GB")
-              .replace(/RAM/, "")
-              .trim()
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
           : "",
         make: make,
         marketingName: model,
@@ -214,6 +221,7 @@ function Index() {
       }
     }
   }, [make, model, storage]);
+
   useEffect(() => {
     if (sellSelected) {
       let reqParams = {
@@ -224,12 +232,12 @@ function Index() {
           : storage,
         deviceRam: storage?.toString().includes("/")
           ? storage
-              ?.toString()
-              .split("/")[1]
-              .toString()
-              .replace(/GB/g, " GB")
-              .replace(/RAM/, "")
-              .trim()
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
           : "",
         deviceCondition: "Like New",
         earPhones: "Y",
@@ -252,6 +260,7 @@ function Index() {
       }
     }
   }, [make, model, storage]);
+
   useEffect(() => {
     if (selectedBrand) {
       handleSelectChange("make");
@@ -260,6 +269,7 @@ function Index() {
       handleSelectChange("model");
     }
   }, [selectedBrand, selectedModel]);
+
   return (
     <>
       <Header4 title="Price Comparison" />
@@ -280,11 +290,10 @@ function Index() {
           }}
         >
           <button
-            className={`${
-              sellSelected == true
-                ? "bg-primary py-1 w-32 h-9 border-2 rounded-lg border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
-                : "bg-white py-1 w-32 h-9 border-2 rounded-lg border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
-            }`}
+            className={`${sellSelected == true
+              ? "bg-primary py-1 w-32 h-9 border-2 rounded-lg border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
+              : "bg-white py-1 w-32 h-9 border-2 rounded-lg border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
+              }`}
           >
             Sell
           </button>
@@ -304,11 +313,10 @@ function Index() {
           }}
         >
           <button
-            className={`${
-              sellSelected == false
-                ? " bg-primary py-1 w-32 h-9 border-2 rounded-lg border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
-                : " bg-white py-1 w-32 h-9 border-2 rounded-lg border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
-            }`}
+            className={`${sellSelected == false
+              ? " bg-primary py-1 w-32 h-9 border-2 rounded-lg border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
+              : " bg-white py-1 w-32 h-9 border-2 rounded-lg border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
+              }`}
           >
             Buy
           </button>
@@ -316,21 +324,26 @@ function Index() {
       </div>
       <div>
         <form
-          className="grid grid-cols-1 space-y-4 container my-4 font-SF-Pro"
+          className="grid grid-cols-1 space-y-4 container my-4"
           onSubmit={handleSubmit}
         >
           {page === 0 && (
             <>
               <div
-                onClick={() => {
-                  setOpenBrandPopup(true);
-                  // setModelInfo();
-                }}
+                // onClick={() => {
+                //   setOpenBrandPopup(true);
+                //   // setModelInfo();
+                // }}
                 className="space-y-2"
               >
                 <SellPhoneHeading1 title="Enter your Phone details" />
 
-                <div className="space-y-nx">
+                <div className="space-y-nx"
+                  onClick={() => {
+                    setOpenBrandPopup(true);
+                    // setModelInfo();
+                  }}
+                >
                   <p className="pt-rx flex space-x-0.5">
                     <CardHeading4 title="Brand" />{" "}
                     <span className="text-red-400 -mt-1">*</span>
@@ -381,11 +394,10 @@ function Index() {
                       storageColorOption?.storage &&
                       storageColorOption.storage.map((item, index) => (
                         <div
-                          className={`${
-                            storage == item
-                              ? "bg-[#E8E8E8] font-Roboto-Semibold hover:border-primary text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
-                              : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
-                          }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
+                          className={`${storage == item
+                            ? "bg-[#E8E8E8] font-Roboto-Semibold hover:border-primary text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
+                            : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
+                            }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
                           onClick={() => setStorage(item)}
                           key={index}
                         >
@@ -412,11 +424,10 @@ function Index() {
             {conditionList &&
               conditionList.map((item, index) => (
                 <div
-                  className={`${
-                    condition == item
-                      ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
-                      : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
-                  }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
+                  className={`${condition == item
+                    ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
+                    : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
+                    }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
                   onClick={() => setCondition(item)}
                   key={index}
                 >
@@ -564,7 +575,7 @@ function Index() {
             </section>
           )}
           <div className="-my-28">
-            { !loading && otherListings?.length == 0 && make && model && storage && condition &&
+            {!loading && otherListings?.length == 0 && make && model && storage && condition &&
               <NoMatch />}
           </div>
         </div>

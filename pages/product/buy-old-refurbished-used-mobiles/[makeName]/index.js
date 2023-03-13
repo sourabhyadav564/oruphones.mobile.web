@@ -3,7 +3,7 @@ import ShopByBrandsSection from "@/components/ShopByBrandsSection";
 import OtherListingCard from "@/components/Card/OtherListingCard";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { fetchByMakeList, searchFilter, getMakeModelLists } from "api-call";
+import { fetchByMakeList, searchFilter, getMakeModelLists, fetchTopsellingmodels } from "api-call";
 import Filter from "@/components/FilterAndSort/Filter";
 import Filter1 from "@/components/FilterAndSort/FilterAndSort1";
 import { useState, useEffect } from "react";
@@ -61,23 +61,11 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
   // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
 
   const loadData = async (intialPage) => {
-    const getMakeModel = async () => {
-      brandResult = await getMakeModelLists(
-        Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") != undefined
-          ? Cookies.get("sessionId")
-          : localStorage.getItem("sessionId") != undefined
-          ? localStorage.getItem("sessionId")
-          : ""
-        // makeName2,
-        // "Y"
-      );
-    };
     // let makemodel=JSON.parse(localStorage.getItem("make_models")!=undefined?localStorage.getItem("make_models"):
     // await getMakeModel()
     // );
     let makemodel;
-    if (localStorage.getItem("make_models") != undefined) {
+    if (localStorage.getItem("shopByModel") != undefined) {
       if (makeName === "oneplus") {
         makeName = "OnePlus";
       } else if (makeName === "lg") {
@@ -117,6 +105,11 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         }
       });
     } else {
+      let shopByModel = [];
+      const data = await fetchTopsellingmodels();
+      shopByModel = data?.allModels;
+      localStorage.setItem("shopByModel", JSON.stringify(shopByModel));
+
       if (makeName === "oneplus") {
         makeName = "OnePlus";
       } else {
@@ -242,7 +235,6 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           if (Ram?.length > 0) {
             payLoad.deviceRam = Ram.includes("all") ? [] : Ram;
           }
-
           if (warranty?.length > 0) {
             payLoad.warenty = warranty.includes("all") ? [] : warranty;
           }
@@ -256,8 +248,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             Cookies.get("sessionId") != undefined
               ? Cookies.get("sessionId")
               : localStorage.getItem("sessionId") != undefined
-              ? localStorage.getItem("sessionId")
-              : "",
+                ? localStorage.getItem("sessionId")
+                : "",
             intialPage,
             applySortFilter
           ).then((response) => {
@@ -389,8 +381,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             Cookies.get("sessionId") != undefined
               ? Cookies.get("sessionId")
               : localStorage.getItem("sessionId") != undefined
-              ? localStorage.getItem("sessionId")
-              : "",
+                ? localStorage.getItem("sessionId")
+                : "",
             newPages,
             applySortFilter
           ).then((response) => {
@@ -510,8 +502,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           Cookies.get("sessionId") != undefined
             ? Cookies.get("sessionId")
             : localStorage.getItem("sessionId") != undefined
-            ? localStorage.getItem("sessionId")
-            : "",
+              ? localStorage.getItem("sessionId")
+              : "",
           intialPage,
           applySortFilter
         ).then((response) => {
@@ -741,10 +733,10 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         )}
 
         {(isLoading || isFilterApplied || makeName == undefined) &&
-        (brandResult == [] || brandResult == "") ? (
+          (brandResult == [] || brandResult == "") ? (
           <></>
-        ) : ( 
-          shopbymodel?.length > 0  && <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
+        ) : (
+          shopbymodel?.length > 0 && <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
             <CardHeading2 title="Shop by Model" />
             <ShopByBrandsSection
               shopbymodeldata={shopbymodel}
@@ -771,7 +763,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
             </p> */}
               <Filter1
                 setSortApplyFilter={setSortApplyFilter}
-                // setApplyFilter={setApplyFilter}
+              // setApplyFilter={setApplyFilter}
               ></Filter1>
             </p>
           </div>
@@ -787,10 +779,10 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
                 <div
                   key={item.listingId}
                   className="m-1.5"
-                  // onClick={() => {
-                  //   // setListingId(item.listingId);
-                  //   setProductsData(otherListings);
-                  // }}
+                // onClick={() => {
+                //   // setListingId(item.listingId);
+                //   setProductsData(otherListings);
+                // }}
                 >
                   <OtherListingCard
                     data={item}
@@ -812,9 +804,8 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           isFinished === false &&
           otherListings.length != totalProducts && (
             <span
-              className={`${
-                isLoadingMore ? "w-[150px]" : "w-[150px]"
-              } border border-[#707070] m-auto  rounded-md shadow hover:drop-shadow-lg p-2 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${isLoadingMore ? "w-[150px]" : "w-[150px]"
+                } border border-[#707070] m-auto  rounded-md shadow hover:drop-shadow-lg p-2 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
               <p className="block text-[#585757]  font-Semibold h-[23px]">

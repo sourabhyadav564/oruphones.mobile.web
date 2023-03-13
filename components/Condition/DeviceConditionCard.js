@@ -14,7 +14,7 @@ const DeviceConditionCard = ({ condition, answer }) => {
   useEffect(() => {
     deviceConditionResult.filter((item, index) => {
       if (item.title === condition) {
-        console.log("item", item.subtitle);
+        // console.log("item", item.subtitle);
         setSubtitle(item.subtitle);
         setDescription(item.description);
         setHead(item.head);
@@ -23,7 +23,7 @@ const DeviceConditionCard = ({ condition, answer }) => {
       }
     });
   }, [condition]);
-  console.log("note", note);
+  // console.log("note", note);
 
   return (
     <div className="flex flex-col bg-white p-2 font-Roboto-Regular rounded-md space-x-1 shadow-lg">

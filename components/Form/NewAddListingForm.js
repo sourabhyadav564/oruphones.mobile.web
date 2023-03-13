@@ -12,7 +12,7 @@ import {
   getExternalSellSourceData,
   getGlobalCities,
   marketingNameByModel,
-  getMakeModelLists,
+  getModelLists,
 } from "api-call";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
 import { numberWithCommas, numberFromString } from "@/utils/util";
@@ -161,6 +161,31 @@ const NewAddListingForm = ({ data }) => {
     } ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition
     } soldout`.toLowerCase();
 
+  // useEffect(() => {
+  //   if (selectedModel && defaultModel && defaultBrand && selectedBrand && selectedStorage) {
+  //     const interval = setInterval(() => {
+  //       setMake(selectedBrand);
+  //       // setDefaultModel(selectedModel);
+  //       setStorage(selectedStorage)
+  //       setModel(selectedModel);
+  //       console.log("selectedModel", selectedModel, selectedStorage, selectedBrand);
+  //       if (selectedBrand && defaultBrand) {
+  //         setPage(1);
+  //         setStorage(selectedStorage);
+  //       }
+  //       clearInterval(interval);
+  //     }, 1500);
+  //   } else {
+  //     setDefaultBrand("");
+  //     setDefaultModel("");
+  //     setPage(0);
+  //     setMake("");
+  //     setModel("");
+  //     setStorage("");
+  //     setStorageColorOption();
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (make) {
       setDefaultModel("");
@@ -179,10 +204,10 @@ const NewAddListingForm = ({ data }) => {
     if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
     } else {
-      getGlobalCities().then(
+      getGlobalCities("").then(
         (response) => {
           setGlobalCities(response.dataObject);
-          localStorage.setItem("cities", JSON.stringify(response.dataObject));
+          // localStorage.setItem("cities", JSON.stringify(response.dataObject));
         },
         (err) => console.error(err)
       );
@@ -296,7 +321,7 @@ const NewAddListingForm = ({ data }) => {
 
   useEffect(() => {
     let check = true;
-    const interval = setInterval(() => {
+    const interval = setInterval(async () => {
       if (
         selectedBrand &&
         selectedModel &&
@@ -305,44 +330,58 @@ const NewAddListingForm = ({ data }) => {
         selectedModel != undefined &&
         selectedStorage != undefined
       ) {
-        setModel(selectedModel);
         setMake(selectedBrand);
-        // console.log("make3",selectedStorage);
-        // console.log("madel3",model);
-        let index = data?.findIndex((i) => i.make == selectedBrand);
-        if (
-          data &&
-          data[index]?.models &&
-          data[index]?.models.length > 0 &&
-          data[index]?.models !== undefined
-        ) {
-          // console.log("data[index]?.models",data[index]?.models)
-          setMktNameOpt(data[index]?.models);
-          // check=true;
-          let index2 = data[index]?.models?.findIndex(
-            (i) => i.marketingname == selectedModel
-          );
-          // if (mktNameOpt) {
-          // console.log("mktNeOpt", mktNameOpt);
-          setStorageColorOption(data[index]?.models[index2]);
-          setStorage(selectedStorage);
-          // console.log("storage5", storageColorOption);
-          // }
-          // console.log(check);
-        }
+        setModel(selectedModel);
         if (check) {
           setModel(selectedModel);
         }
+        const models3 = await getModelLists(0, "", selectedBrand, "");
+        setMktNameOpt(models3?.dataObject[0]?.models);
+        // setStorage(selectedStorage);
+        setStorageColorOption(
+          models3?.dataObject[0]?.models?.find((i) => i.marketingname == selectedModel)
+        )
+        // setPage(1);
+        // setStorage(selectedStorage);
+        // setPage(1);
+        // console.log("make3",selectedStorage);
+        // console.log("madel3",model);
+        // let index = data?.findIndex((i) => i.make == selectedBrand);
+        // if (
+        //   data &&
+        //   data[index]?.models &&
+        //   data[index]?.models.length > 0 &&
+        //   data[index]?.models !== undefined
+        // ) {
+        //   // console.log("data[index]?.models",data[index]?.models)
+        //   setMktNameOpt(data[index]?.models);
+        //   // check=true;
+        //   let index2 = data[index]?.models?.findIndex(
+        //     (i) => i.marketingname == selectedModel
+        //   );
+        //   // if (mktNameOpt) {
+        //   // console.log("mktNeOpt", mktNameOpt);
+        //   setStorageColorOption(data[index]?.models[index2]);
+        //   setStorage(selectedStorage);
+        //   // console.log("storage5", storageColorOption);
+        //   // }
+        //   // console.log(check);
+        // }
+        // if (check) {
+        //   setModel(selectedModel);
+        // }
       }
       clearInterval(interval);
     }, 1000);
   }, []);
-  const handleSelectChange = (name) => {
+
+  const handleSelectChange = async (name) => {
     if (name === "make") {
       setMake(selectedBrand);
-      console.log("make", selectedBrand);
-      let index = data.findIndex((i) => i.make === selectedBrand);
-      setMktNameOpt(data[index]?.models);
+      // let index = data.findIndex((i) => i.make === selectedBrand);
+      // setMktNameOpt(data[index]?.models);
+      const models3 = await getModelLists(0, "", selectedBrand, "");
+      setMktNameOpt(models3?.dataObject[0]?.models);
     } else if (name === "model") {
       setModel(selectedModel);
       let index = mktNameOpt?.findIndex(
@@ -473,6 +512,11 @@ const NewAddListingForm = ({ data }) => {
     setImages(tempImages);
   };
 
+  const onLocChange = async (e) => {
+    const citiesResponse = await getGlobalCities(e);
+    setGlobalCities(citiesResponse?.dataObject);
+  };
+
   useEffect(() => {
     if (selectedBrand) {
       handleSelectChange("make");
@@ -598,13 +642,13 @@ const NewAddListingForm = ({ data }) => {
         if (searchLocId) {
           searchID = searchLocId[0]?.locationId;
         }
-        let payLoad = {
-          city: location.city,
-          country: "India",
-          state: "",
-          locationId: searchID,
-          userUniqueId: Cookies.get("userUniqueId"),
-        };
+        // let payLoad = {
+        //   city: location.city,
+        //   country: "India",
+        //   state: "",
+        //   locationId: searchID,
+        //   userUniqueId: Cookies.get("userUniqueId"),
+        // };
         // updateAddress(payLoad).then((res) => {
         //   const mobileNumber = Cookies.get("mobileNumber");
         //   const countryCode = Cookies.get("countryCode");
@@ -826,7 +870,7 @@ const NewAddListingForm = ({ data }) => {
       )} */}
       {/* <Header4 title="Sell your Phone" /> */}
       <form
-        className="grid grid-cols-1 space-y-4 container my-4 font-SF-Pro"
+        className="grid grid-cols-1 space-y-4 container my-4"
         onSubmit={handleSubmit}
       >
         {page === 0 && (
@@ -1034,7 +1078,7 @@ const NewAddListingForm = ({ data }) => {
                     <span>
                       <CardHeading4 title="RAM :" />
                     </span>{" "}
-                    <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
+                    <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
                       {modelInfo?.deviceRam?.split("/")[1] ||
                         storage
                           ?.toString()
@@ -1050,7 +1094,7 @@ const NewAddListingForm = ({ data }) => {
                     <span>
                       <CardHeading4 title="Storage : " />{" "}
                     </span>{" "}
-                    <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
+                    <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
                     </div>
@@ -1140,7 +1184,7 @@ const NewAddListingForm = ({ data }) => {
                     <span>
                       <CardHeading4 title="RAM :" />
                     </span>{" "}
-                    <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
+                    <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
                       {modelInfo?.deviceRam?.split("/")[1] ||
                         storage
                           ?.toString()
@@ -1156,7 +1200,7 @@ const NewAddListingForm = ({ data }) => {
                     <span>
                       <CardHeading4 title="Storage : " />{" "}
                     </span>{" "}
-                    <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
+                    <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
                     </div>
@@ -1219,7 +1263,7 @@ const NewAddListingForm = ({ data }) => {
                     <span>
                       <CardHeading4 title="RAM :" />
                     </span>{" "}
-                    <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
+                    <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
                       {modelInfo?.deviceRam?.split("/")[1] ||
                         storage
                           ?.toString()
@@ -1235,7 +1279,7 @@ const NewAddListingForm = ({ data }) => {
                     <span>
                       <CardHeading4 title="Storage : " />{" "}
                     </span>{" "}
-                    <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
+                    <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
                     </div>
@@ -1327,7 +1371,7 @@ const NewAddListingForm = ({ data }) => {
                     <span>
                       <CardHeading4 title="RAM :" />
                     </span>{" "}
-                    <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
+                    <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
                       {modelInfo?.deviceRam?.split("/")[1] ||
                         storage
                           ?.toString()
@@ -1343,7 +1387,7 @@ const NewAddListingForm = ({ data }) => {
                     <span>
                       <CardHeading4 title="Storage : " />{" "}
                     </span>{" "}
-                    <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
+                    <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
                     </div>
@@ -1408,9 +1452,13 @@ const NewAddListingForm = ({ data }) => {
                   className={`${locationRequired}  text-jx text-Regular`}
                   onFocus={(e) => {
                     setLocationRequired("");
+                    onLocChange("");
                   }}
                   onChange={(e) => {
                     setSelectedCity(e.value);
+                  }}
+                  onInputChange={(e) => {
+                    onLocChange(e);
                   }}
                   options={globalCities
                     ?.sort((a, b) => a.city.localeCompare(b.city))
@@ -1425,6 +1473,14 @@ const NewAddListingForm = ({ data }) => {
                 >
                   {/* <BiCurrentLocation size={24} /> */}
                   <Image src={CurrentLocation} width={24} height={24}/>
+                </div>
+              </div>
+              <div className="flex flex-row pt-3 text-mx w-full font-Roboto-Semibold"
+                onClick={handleNearme}
+              >
+                <BiCurrentLocation size={18} />
+                <div className="pl-1">
+                  Use Your Current Location
                 </div>
               </div>
               {locationRequired && (
@@ -1457,7 +1513,7 @@ const NewAddListingForm = ({ data }) => {
                     <span>
                       <CardHeading4 title="RAM :" />
                     </span>{" "}
-                    <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
+                    <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
                       {modelInfo?.deviceRam?.split("/")[1] ||
                         storage
                           ?.toString()
@@ -1473,7 +1529,7 @@ const NewAddListingForm = ({ data }) => {
                     <span>
                       <CardHeading4 title="Storage : " />{" "}
                     </span>{" "}
-                    <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
+                    <div className="font-Roboto-Bold text-jx text-[#2C2F45] pt-0.5">
                       {modelInfo?.deviceStorage?.split("/")[0] ||
                         storage?.split("/")[0]}
                     </div>

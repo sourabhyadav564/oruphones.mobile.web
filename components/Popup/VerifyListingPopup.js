@@ -5,7 +5,7 @@ import AppleStore from "@/assets/apple_store.svg";
 import PlayStore from "@/assets/playstore.svg";
 
 function VerifyListingPopup({ open, setOpen, make }) {
-    console.log("make", make);
+    // console.log("make4", make);
     const QRValue = make == "Apple"
         ? "https://apps.apple.com/in/app/oruphones/id1629378420"
         : "https://play.google.com/store/apps/details?id=com.oruphones.oru";
@@ -21,16 +21,16 @@ function VerifyListingPopup({ open, setOpen, make }) {
     //         return () => {
     //             window.removeEventListener('popstate', onBackButtonEvent);
     //         };
-        // } else {
-        //     const onBackButtonEvent = (e) => {
-        //         e.preventDefault();
-        //         window.history.back();
-        //     }
-        //     window.history.pushState(null, null, window.location.pathname);
-        //     window.addEventListener('popstate', onBackButtonEvent);
-        //     return () => {
-        //         window.removeEventListener('popstate', onBackButtonEvent);
-        //     };
+    // } else {
+    //     const onBackButtonEvent = (e) => {
+    //         e.preventDefault();
+    //         window.history.back();
+    //     }
+    //     window.history.pushState(null, null, window.location.pathname);
+    //     window.addEventListener('popstate', onBackButtonEvent);
+    //     return () => {
+    //         window.removeEventListener('popstate', onBackButtonEvent);
+    //     };
     //     }
     // }, [open]);
 

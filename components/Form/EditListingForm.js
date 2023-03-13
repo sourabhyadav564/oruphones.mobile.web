@@ -6,6 +6,7 @@ import Input from "./Input";
 import {
   getExternalSellSourceData,
   getGlobalCities,
+  getModelLists,
   getRecommandedPrice,
   updateLisiting,
   uploadImage,
@@ -31,7 +32,7 @@ import ConditionPopup from "../Popup/ConditionPopup";
 import PricePopup from "../Popup/PricePopup";
 import imageCompression from "browser-image-compression";
 
-const EditListingForm = ({ data, resultsSet }) => {
+const EditListingForm = ({ data }) => {
   const [make] = useState(data?.make);
   const [marketingName] = useState(data?.marketingName);
   const [deviceStorage] = useState(data?.deviceStorage);
@@ -60,6 +61,12 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [ConditionResultEdit, setConditionResultEdit] = useState(condition);
   const [ConditionQuestionEdit, setConditionQuestionEdit] = useState("");
   const [warranty, setWarranty] = useState(data?.warranty);
+  const deviceWarrantyCheck = [
+    { value: "zero", label: "0-3 Months Ago", label2: "More than 9 months" },
+    { value: "four", label: "4-6 Months Ago", label2: "More than 6 months" },
+    { value: "seven", label: "7-11 Months Ago", label2: "More than 3 months" },
+    { value: "more", label: "More Than 11 Months Ago", label2: "None" },
+  ];
   const [warranty2, setWarranty2] = useState(
     deviceWarrantyCheck?.map(
       (item, index) => data?.warranty == item.label2 && item.value
@@ -68,12 +75,6 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [showWarranty, setShowWarranty] = useState(data?.warranty != "None");
   const [locationRequired, setLocationRequired] = useState("");
   // const [openStorageInfo, setOpenStorageInfo] = useState(false);
-  const deviceWarrantyCheck = [
-    { value: "zero", label: "0-3 Months Ago", label2: "More than 9 months" },
-    { value: "four", label: "4-6 Months Ago", label2: "More than 6 months" },
-    { value: "seven", label: "7-11 Months Ago", label2: "More than 3 months" },
-    { value: "more", label: "More Than 11 Months Ago", label2: "None" },
-  ];
   const [getExternalSellerData, setGetExternalSellerData] = useState([]);
 
   let initialState;
@@ -96,16 +97,14 @@ const EditListingForm = ({ data, resultsSet }) => {
   const [openPricePopup, setOpenPricePopup] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [verifySubmit, setVerifySubmit] = useState(false);
-  var sellValueTag = document.querySelector("#sellValue") || "";
-  var sellValue = sellValueTag.value || "";
   const [verifyListingAdded, setVerifyListingAdded] = useState(false);
   const [unverifiedListing, setUnverifiedListing] = useState(false);
   const [unverifiedListingType, setUnverifiedListingType] = useState("");
   const [unverifiedListingReason, setUnverifiedListingReason] = useState("");
   const { user } = useAuthState();
   const dispatch = useAuthDispatch();
-  var sellValueTag = document.querySelector("#sellValue") || "";
-  var sellValue = sellValueTag.value || "";
+  var sellValueTag;
+  var sellValue;
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
@@ -132,12 +131,12 @@ const EditListingForm = ({ data, resultsSet }) => {
         : data?.deviceStorage,
       deviceRam: devStorage?.toString().includes("/")
         ? devStorage
-            ?.toString()
-            .split("/")[1]
-            .toString()
-            .replace(/GB/g, " GB")
-            .replace(/RAM/, "")
-            .trim()
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim()
         : data?.deviceRam,
       make: data?.make,
       marketingName: data?.marketingName,
@@ -158,7 +157,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       condition != undefined
     ) {
       getExternalSellSourceData(payload).then((response) => {
-        console.log("response", response);
+        // console.log("response", response);
         setGetExternalSellerData(response?.dataObject);
       });
     }
@@ -173,14 +172,19 @@ const EditListingForm = ({ data, resultsSet }) => {
     warranty,
   ]);
 
-  useEffect(() => {
+  useEffect(async () => {
+    sellValueTag = document.querySelector("#sellValue") || "";
+    sellValue = sellValueTag.value || "";
     if (data != undefined && data != null) {
-      let modelData = resultsSet?.filter((item) => item.make === data?.make);
-      let models = modelData[0]?.models.filter(
+      let models3;
+      await getModelLists("", "", data?.make, "").then((response) => {
+        models3 = response
+      });
+      const models4 = models3?.dataObject[0].models.filter(
         (item) => item.marketingname === data?.marketingName
       );
-      setDeviceColors(models[0]?.color);
-      setDeviceStorages(models[0]?.storage);
+      setDeviceColors(models4[0]?.color);
+      setDeviceStorages(models4[0]?.storage);
     }
   }, [data]);
 
@@ -188,15 +192,20 @@ const EditListingForm = ({ data, resultsSet }) => {
     if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
     } else {
-      getGlobalCities().then(
+      getGlobalCities("").then(
         (response) => {
           setGlobalCities(response.dataObject);
-          localStorage.setItem("cities", JSON.stringify(response.dataObject));
+          // localStorage.setItem("cities", JSON.stringify(response.dataObject));
         },
         (err) => console.error(err)
       );
     }
   }, []);
+
+  const onLocChange = async (e) => {
+    const citiesResponse = await getGlobalCities(e);
+    setGlobalCities(citiesResponse?.dataObject);
+  };
 
   const [location, setLocation] = useState({
     loaded: false,
@@ -302,7 +311,7 @@ const EditListingForm = ({ data, resultsSet }) => {
   }, [location]);
 
   useEffect(() => {
-    console.log("selectedCity", condition);
+    // console.log("selectedCity", condition);
     let reqParams = {
       make,
       marketingName,
@@ -335,7 +344,7 @@ const EditListingForm = ({ data, resultsSet }) => {
     }
   };
 
-  console.log("warranty", warranty);
+  // console.log("warranty", warranty);
 
   useEffect(() => {
     setCondition(ConditionResultEdit);
@@ -414,7 +423,7 @@ const EditListingForm = ({ data, resultsSet }) => {
       (sellValue <
         (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7) ||
         sellValue >
-          (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2)) &&
+        (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2)) &&
       recommandedPrice?.leastSellingprice != "-" &&
       recommandedPrice?.maxsellingprice != "-" &&
       submitting != true
@@ -434,12 +443,12 @@ const EditListingForm = ({ data, resultsSet }) => {
         : data?.deviceStorage,
       deviceRam: devStorage?.toString().includes("/")
         ? devStorage
-            ?.toString()
-            .split("/")[1]
-            .toString()
-            .replace(/GB/g, " GB")
-            .replace(/RAM/, "")
-            .trim()
+          ?.toString()
+          .split("/")[1]
+          .toString()
+          .replace(/GB/g, " GB")
+          .replace(/RAM/, "")
+          .trim()
         : data?.deviceRam,
       // deviceStorage: devStorage || data?.deviceStorage,
       color: devColor || color,
@@ -514,20 +523,20 @@ const EditListingForm = ({ data, resultsSet }) => {
                 <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
                   {devStorage
                     ? devStorage
-                        ?.toString()
-                        .split("/")[1]
-                        .toString()
-                        .replace(/GB/g, " GB")
-                        .replace(/RAM/, "")
-                        .trim()
-                    : data?.deviceRam?.split("/")[1] ||
-                      data.storage
-                        ?.toString()
-                        .split("/")[1]
-                        .toString()
-                        .replace(/GB/g, " GB")
-                        .replace(/RAM/, "")
-                        .trim()}
+                      ?.toString()
+                      .split("/")[1]
+                      .toString()
+                      .replace(/GB/g, " GB")
+                      .replace(/RAM/, "")
+                      .trim()
+                    : data?.deviceRam ||
+                    data.storage
+                      ?.toString()
+                      .split("/")[1]
+                      .toString()
+                      .replace(/GB/g, " GB")
+                      .replace(/RAM/, "")
+                      .trim()}
                 </div>
               </p>
               <p className="flex space-x-1 relative">
@@ -568,11 +577,10 @@ const EditListingForm = ({ data, resultsSet }) => {
                 deviceStorages?.map((item, index) =>
                   devStorage ? (
                     <div
-                      className={`${
-                        devStorage == item
-                          ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] font-Roboto-Medium text-jx opacity-100"
-                          : "bg[#9597A2] border-2 text[#2C2F45] font-Roboto-Medium text-jx opacity-70"
-                      }  active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                      className={`${devStorage == item
+                        ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] font-Roboto-Medium text-jx opacity-100"
+                        : "bg[#9597A2] border-2 text[#2C2F45] font-Roboto-Medium text-jx opacity-70"
+                        }  active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                       onClick={() => setDevStorage(item)}
                       key={index}
                     >
@@ -580,15 +588,14 @@ const EditListingForm = ({ data, resultsSet }) => {
                     </div>
                   ) : (
                     <div
-                      className={`${
-                        data?.deviceStorage +
-                          "/" +
-                          data?.deviceRam.replace(" ", "") +
-                          " RAM" ==
+                      className={`${data?.deviceStorage +
+                        "/" +
+                        data?.deviceRam.replace(" ", "") +
+                        " RAM" ==
                         item
-                          ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] text-jx font-Roboto-Medium opacity-100"
-                          : "bg[#9597A2] border-2 text[#2C2F45] text-jx font-Roboto-Medium opacity-70"
-                      } active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                        ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] text-jx font-Roboto-Medium opacity-100"
+                        : "bg[#9597A2] border-2 text[#2C2F45] text-jx font-Roboto-Medium opacity-70"
+                        } active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                       onClick={() => setDevStorage(item)}
                       key={index}
                     >
@@ -620,9 +627,13 @@ const EditListingForm = ({ data, resultsSet }) => {
               className="text-[#2C2F45] "
               onFocus={(e) => {
                 // setLocationRequired("");
+                onLocChange("");
               }}
               onChange={(e) => {
                 setSelectedCity(e.value);
+              }}
+              onInputChange={(e) => {
+                onLocChange(e);
               }}
               options={globalCities
                 ?.sort((a, b) => a.city.localeCompare(b.city))
@@ -637,6 +648,14 @@ const EditListingForm = ({ data, resultsSet }) => {
             >
               {/* <BiCurrentLocation size={24} /> */}
               <Image src={CurrentLocation} width={24} height={24}/>
+            </div>
+          </div>
+          <div className="flex flex-row pt-3 text-mx w-full font-Roboto-Semibold"
+            onClick={handleNearme}
+          >
+            <BiCurrentLocation size={18} />
+            <div className="pl-1">
+              Use Your Current Location
             </div>
           </div>
           {/* {locationRequired && (
@@ -683,10 +702,10 @@ const EditListingForm = ({ data, resultsSet }) => {
             value={
               ConditionResultEdit ? ConditionResultEdit : data?.deviceCondition
             }
-            // onChange={(e) => handleSelectChange(e, condition)}
-            // options={["Like New", "Excellent", "Good"].map((i) => {
-            //   return { label: i, value: i };
-            // })}
+          // onChange={(e) => handleSelectChange(e, condition)}
+          // options={["Like New", "Excellent", "Good"].map((i) => {
+          //   return { label: i, value: i };
+          // })}
           >
             {ConditionResultEdit ? ConditionResultEdit : data?.deviceCondition}
           </div>
@@ -888,11 +907,10 @@ const EditListingForm = ({ data, resultsSet }) => {
                 {deviceWarrantyCheck?.map((item, index) => (
                   <div
                     key={index}
-                    className={`${
-                      warranty == item?.label2 || warranty == item?.value
-                        ? "bg-gray-400 border border-[#F3F3F3]  text-black textmx"
-                        : " border border-[#9597A2] text-[#2C2F45] textmx opacity-60"
-                    } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
+                    className={`${warranty == item?.label2 || warranty == item?.value
+                      ? "bg-gray-400 border border-[#F3F3F3]  text-black textmx"
+                      : " border border-[#9597A2] text-[#2C2F45] textmx opacity-60"
+                      } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
                     onClick={() => setWarranty(item.value)}
                   >
                     <span>{item.label}</span>
@@ -1114,9 +1132,8 @@ export default EditListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${
-      checked && "bg-[#E8E8E8] opacity-bg-50 "
-    }`}
+    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${checked && "bg-[#E8E8E8] opacity-bg-50 "
+      }`}
     onClick={onChange}
   >
     <div className="relative w-7 h-7 mx-auto">

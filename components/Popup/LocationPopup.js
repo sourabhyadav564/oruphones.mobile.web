@@ -15,6 +15,7 @@ import MySelect from "../Form/Select";
 
 function LocationPopup({ open, setOpen }) {
   const [openLocationPopup, setOpenLocationPopup] = useState(false);
+  const [cityResponse2, setCitiesResponse2] = useState("");
   const [globalCities, setGlobalCities] = useState();
   const selectedCity = useRef();
   const [searchLocationID, setSearchLocationID] = useState();
@@ -70,7 +71,7 @@ function LocationPopup({ open, setOpen }) {
       console.log("cities from api");
       const callApi = () => {
         if (!open) return null;
-        getGlobalCities().then(
+        getGlobalCities("").then(
           (response) => {
             setGlobalCities(response.dataObject);
             // globalCities
@@ -80,7 +81,7 @@ function LocationPopup({ open, setOpen }) {
             //   displayWithImage: "0", city: "India",
             //   ...globalCities
             // })
-            localStorage.setItem("cities", JSON.stringify(response.dataObject));
+            // localStorage.setItem("cities", JSON.stringify(response.dataObject));
           },
           (err) => console.error(err)
         );
@@ -95,13 +96,13 @@ function LocationPopup({ open, setOpen }) {
       let cityInfo = [];
       cityInfo = globalCities.filter((item) => item.city === city);
 
-      let payLoad = {
-        city: city,
-        country: cityInfo[0].country,
-        state: cityInfo[0].state,
-        locationId: searchLocationID,
-        userUniqueId: Cookies.get("userUniqueId"),
-      };
+      // let payLoad = {
+      //   city: city,
+      //   country: cityInfo[0].country,
+      //   state: cityInfo[0].state,
+      //   locationId: searchLocationID,
+      //   userUniqueId: Cookies.get("userUniqueId"),
+      // };
       // updateAddress(payLoad).then((res) => {
       //   getUserDetails(Cookies.get("countryCode"), Cookies.get("mobileNumber")).then((resp) => {
       //     dispatch("LOGIN", resp.dataObject);
@@ -179,6 +180,13 @@ function LocationPopup({ open, setOpen }) {
   //   }
   // }, [])
 
+  const onLocChange = async (e) => {
+    // setSearchText(e);
+    const citiesResponse = await getGlobalCities(e);
+    setCitiesResponse2(citiesResponse?.dataObject);
+    setGlobalCities2(citiesResponse?.dataObject);
+  };
+
   useEffect(() => {
     if (location.loaded && location.city && location.city.length > 0) {
       if (authenticated && user) {
@@ -235,7 +243,10 @@ function LocationPopup({ open, setOpen }) {
                 onChange={(e) => {
                   handleCityChange(e.value);
                 }}
-                options={globalCities
+                onInputChange={(e) => {
+                  onLocChange(e);
+                }}
+                options={globalCities2
                   ?.sort((a, b) => a.city.localeCompare(b.city))
                   ?.map((items, index) => {
                     return { label: items.city, value: items.city };
@@ -251,6 +262,14 @@ function LocationPopup({ open, setOpen }) {
                 </p>
               </span>
             </div>
+            <div className="flex flex-row pt-3 text-mx w-full font-Roboto-Semibold"
+              onClick={handleNearme}
+            >
+              <BiCurrentLocation size={18} />
+              <div className="pl-1">
+                Use Your Current Location
+              </div>
+            </div>
             {/* <span className="block text-base w-full text-center">or</span> */}
             {/* <BasicCarousel
         slidesPerView={4.4}
@@ -258,7 +277,7 @@ function LocationPopup({ open, setOpen }) {
         style={{ padding: "8px"}}
       > */}
             <div
-              className="flex text-center -mx-1 py-4 overflow-x-scroll no-scrollbar"
+              className="text-center -mx-1 py-4 grid grid-cols-3"
             // style={{ minHeight: "40vh" }}
             >
               {globalCities &&
@@ -276,8 +295,8 @@ function LocationPopup({ open, setOpen }) {
                         <Image
                           src={items.imgpath}
                           alt={items.city}
-                          width={47}
-                          height={32}
+                          width={90}
+                          height={60}
                           objectFit="contain"
                         />
                       </div>
@@ -288,7 +307,7 @@ function LocationPopup({ open, setOpen }) {
                   ))}
             </div>
 
-            <div className="">
+            {/* <div className="">
               <p className="uppercase text-ex border-b pb-1.5 border-black-4e font-Roboto-Medium ">
                 all cities
               </p>
@@ -303,7 +322,7 @@ function LocationPopup({ open, setOpen }) {
                     </div>
                   ))}
               </div>
-            </div>
+            </div> */}
             {/* </BasicCarousel> */}
           </form>
         </div>

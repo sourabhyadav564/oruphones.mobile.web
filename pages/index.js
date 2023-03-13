@@ -38,7 +38,7 @@ export default function Home({
   const router = useRouter();
 
   const [loadingState, setLoadingState] = useState(false);
-  const [shopByModel2, setShopByModel2] = useState(shopByModel);
+  const [shopByModel2, setShopByModel2] = useState([]);
 
   useEffect(() => {
     setLoadingState(false);
@@ -49,10 +49,42 @@ export default function Home({
   const [topArticles, setTopArticles] = useState([]);
 
   useEffect(async () => {
-    Cookies.set("sessionId", sessionId);
-    localStorage.setItem("sessionId", sessionId);
     let make_models = true;
     let brandsData = true;
+
+    let sessionID;
+    let data = [];
+    // if (sessionId) {
+    //   sessionID = sessionId;
+    // } else {
+    const session = await getSessionId();
+    sessionID = session?.dataObject?.sessionId;
+    Cookies.set("sessionId", sessionId);
+    localStorage.setItem("sessionId", sessionId);
+    // }
+
+    let brandsList;
+    // if (brands) {
+    //   brandsList = [];
+    // } else {
+    if (localStorage.getItem("brands") != undefined) {
+      brandsList = JSON.parse(localStorage.getItem("brands"));
+    } else {
+      data = await fetchBrands();
+      brandsList = data?.dataObject;
+    }
+    setBrands(brandsList);
+
+    let topsellingmodels;
+    let shopByModel = [];
+    // if (top_models) {
+    //   topsellingmodels = [];
+    // } else {
+    data = await fetchTopsellingmodels();
+    topsellingmodels = data?.dataObject;
+    shopByModel = data?.allModels;
+    // }
+
     if (!localStorage.getItem("make_models") || localStorage.getItem("make_models").toString() == "undefined") {
       make_models = false;
     }
@@ -67,7 +99,7 @@ export default function Home({
 
     if (shopByModel2.length > 0) {
       localStorage.setItem("shopByModel", JSON.stringify(shopByModel2));
-    } 
+    }
 
 
     // if (brandsList.length === 0) {
@@ -78,23 +110,23 @@ export default function Home({
     //   setBrands(brandsList);
     // }
 
-    console.log("make_models", make_models);
-    if (make_models) {
-      // setBrands(JSON.parse(localStorage.getItem("make_models")));
-      console.log("makeModelLists from local");
-    } else {
-      console.log("makeModelLists from api");
-      const data = await getMakeModelLists(
-        Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
-      );
-      if (data) {
-        let makeModelLists = data?.dataObject;
-        localStorage.setItem("make_models", JSON.stringify(makeModelLists));
-        Cookies.set("make_models", true);
-        //   // setBrands(brandsList);
-      }
-    }
+    // console.log("make_models", make_models);
+    // if (make_models) {
+    //   // setBrands(JSON.parse(localStorage.getItem("make_models")));
+    //   console.log("makeModelLists from local");
+    // } else {
+    //   console.log("makeModelLists from api");
+    //   const data = await getMakeModelLists(
+    //     Cookies.get("userUniqueId") || "Guest",
+    //     Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
+    //   );
+    //   if (data) {
+    //     let makeModelLists = data?.dataObject;
+    //     localStorage.setItem("make_models", JSON.stringify(makeModelLists));
+    //     Cookies.set("make_models", true);
+    //     //   // setBrands(brandsList);
+    //   }
+    // }
 
     if (brandsData) {
       setBrands(JSON.parse(localStorage.getItem("brands")));
@@ -113,13 +145,13 @@ export default function Home({
       }
     }
 
-    if (topSellingModels.length === 0) {
-      setTopsellingmodels(JSON.parse(localStorage.getItem("top_models")));
-    } else {
-      localStorage.setItem("top_models", JSON.stringify(topSellingModels));
-      Cookies.set("top_models", true);
-      setTopsellingmodels(topSellingModels);
-    }
+    // if (topSellingModels?.length === 0) {
+    //   setTopsellingmodels(JSON.parse(localStorage.getItem("top_models")));
+    // } else {
+    //   localStorage.setItem("top_models", JSON.stringify(topSellingModels));
+    //   Cookies.set("top_models", true);
+    //   setTopsellingmodels(topSellingModels);
+    // }
 
     // if (fetchTopArticles.length === 0) {
     //   setTopArticles(JSON.parse(localStorage.getItem("top_articles")));
@@ -169,14 +201,14 @@ export default function Home({
 }
 
 export const getServerSideProps = async ({ req, res, query }) => {
-  const {
-    userUniqueId,
-    sessionId,
-    brands,
-    top_models,
-    make_models,
-    top_articles,
-  } = req.cookies;
+  // const {
+  //   userUniqueId,
+  //   sessionId,
+  //   brands,
+  //   top_models,
+  //   make_models,
+  //   top_articles,
+  // } = req.cookies;
 
   // try {
   //   fetchShopByPrice = await shopByPrice();
@@ -186,31 +218,6 @@ export const getServerSideProps = async ({ req, res, query }) => {
   //   console.log("fetchShopByPrice error", err);
   // }
 
-  let sessionID;
-  if (sessionId) {
-    sessionID = sessionId;
-  } else {
-    const session = await getSessionId();
-    sessionID = session?.dataObject?.sessionId;
-  }
-
-  let brandsList;
-  if (brands) {
-    brandsList = [];
-  } else {
-    const data = await fetchBrands();
-    brandsList = data?.dataObject;
-  }
-
-  let topsellingmodels;
-  let shopByModel = [];
-  if (top_models) {
-    topsellingmodels = [];
-  } else {
-    const data = await fetchTopsellingmodels();
-    topsellingmodels = data?.dataObject;
-    shopByModel = data?.allModels;
-  }
 
   // let topArticles;
   // if (top_articles) {
@@ -231,11 +238,11 @@ export const getServerSideProps = async ({ req, res, query }) => {
 
   return {
     props: {
-      brandsList: brandsList || [],
-      topSellingModels: topsellingmodels || [],
-      // fetchShopByPrice: fetchShopByPrice?.dataObject || [],
-      shopByModel: shopByModel || [],
-      sessionId: sessionID,
+      // brandsList: brandsList || [],
+      // topSellingModels: topsellingmodels || [],
+      // // fetchShopByPrice: fetchShopByPrice?.dataObject || [],
+      // shopByModel: shopByModel || [],
+      // sessionId: sessionID,
       // fetchTopArticles: topArticles || [],
     },
   };
