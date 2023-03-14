@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 const API_KEY = "8e97586183249450356ad36a59901f65";
 const MAP_MY_IND_URL = `https://apis.mapmyindia.com/advancedmaps/v1/${API_KEY}/rev_geocode`;
-// rev_geocode?lat=28.569548&lng=77.856954&region=IND&lang=hi
 
 const options = {
   enableHighAccuracy: true,

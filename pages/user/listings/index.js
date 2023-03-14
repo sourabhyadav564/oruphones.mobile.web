@@ -1,6 +1,4 @@
 import ListingTile from "@/components/Card/ListingTile";
-import Footer from "@/components/Footer";
-import Header2 from "@/components/Header/header2";
 import Header3 from "@/components/Header/header3";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { getUserListings, getSessionId } from "api-call";
@@ -38,15 +36,7 @@ function Index({ userInfo }) {
   }, []);
 
   useEffect(async () => {
-    // if (Cookies.get("sessionId") == undefined) {
-    //   await getSessionId().then((res) => {
-    //     console.log("response2", res)
-    //     Cookies.set("sessionId", res.dataObject.sessionId);
-    //   });
-    // }
     if (!loading && Cookies.get("userUniqueId") != undefined) {
-      console.log("user", user);
-      // await getUserListings(Cookies.get("userUniqueId")).then(
       await getUserListings(user?.userdetails?.userUniqueId).then(
         async (res) => {
           setListings(res.dataObject);
@@ -92,7 +82,6 @@ function Index({ userInfo }) {
           </div>
         )}
       </main>
-      {/* <Footer /> */}
       <BottomNav />
     </Fragment>
   );

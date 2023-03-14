@@ -19,22 +19,6 @@ function Notification({ notificationsListObject }) {
     notificationsListObject?.notifications
   );
   const [openVerifyFlow, setOpenVerifyFlow] = useState(false);
- 
-
-
-  // useEffect(() => {
-  //   if (notifications) {
-  //     getAllNotificationByUserd(Cookies.get("userUniqueId")).then(
-  //       (response) => {
-  //         setNotifications(response?.dataObject?.notifications);
-  //         setUnreadNotificationsCount(
-  //           response?.dataObject?.unReadCount
-  //         );
-  //       }
-  //     );
-  //   }
-  // }, [notifications]);
-
   const leadingActions = (id) => (
     <LeadingActions>
       <SwipeAction
@@ -42,10 +26,8 @@ function Notification({ notificationsListObject }) {
         onClick={() =>
           deleteNotification(id, Cookies.get("userUniqueId")).then(
             (response) => {
-              console.log("deleteNotification -> ", response);
             }
             , (error) => {
-              console.log("deleteNotification -> ", error);
             })}
       >
         <div className="flex font-Roboto-Semibold text-ex justify-center w-full px-40 text-white bg-red text-center items-center">
@@ -62,10 +44,8 @@ function Notification({ notificationsListObject }) {
         onClick={() =>
           deleteNotification(id, Cookies.get("userUniqueId")).then(
             (response) => {
-              console.log("deleteNotification -> ", response);
             }
             , (error) => {
-              console.log("deleteNotification -> ", error);
             }
           )}>
         <div className="flex font-Roboto-Semibold text-ex justify-center w-full px-40 text-white bg-red text-center items-center">

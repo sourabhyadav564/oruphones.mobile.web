@@ -1,51 +1,10 @@
-import parse from "html-react-parser";
-import { parse as nodeParser } from "node-html-parser";
-import Error from "next/error";
-import { infoTemplates } from "api-call";
-import fetchStaticHTML from "api-call/fetchStaticHtml";
 import Header5 from "@/components/Header/header5";
 import { Fragment, useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import Head from "next/head";
 import { metaTags } from "@/utils/constant";
-
-// function PrivacyPolicy({ htmlText, error }) {
-//   if (error) {
-//     return <Error statusCode={404} />;
-//   }
 function PrivacyPolicy() {
-  // const [htmlText1, setHtmlText1] = useState("");
-
-  // useEffect(() => {
-  //   callStaticPages();
-  // }, []);
-
-  // async function callStaticPages() {
-  //   // let staticDataPath;
-  //   // try {
-  //   //   const response = await infoTemplates();
-  //   //   staticDataPath = response?.dataObject;
-  //   // } catch (error) {
-  //   //   console.log(error);
-  //   // }
-
-  //   var htmlText;
-  //   try {
-  //     // const { serverUrl, templateUrls } = staticDataPath;
-  //     // const res = await fetchStaticHTML("/privacy_policy.html");
-  //     const res = await fetchStaticHTML("/new_privacy_policy.html");
-  //     // const res = await fetchStaticHTML(serverUrl + templateUrls.VERIFICATION);
-  //     const html = res.data;
-  //     const doc = nodeParser(html);
-  //     const body = doc.querySelector("body");
-  //     htmlText = body.innerHTML;
-  //     setHtmlText1(htmlText);
-  //   } catch (err) {
-  //     console.log("getVerificationConent error", err);
-  //   }
-  // }
-
-  return (
+    return (
     <>
       <Head>
         <title>{metaTags.PRIVACY.title}</title>
@@ -312,9 +271,6 @@ function PrivacyPolicy() {
               <p><span className="font-Roboto-Regular text-mx my-2">As described above, we use your Personal
                 Information to provide you with targeted advertisements or marketing communications we believe may
                 be of interest to you.
-                {/* <!-- For more information about how targeted advertising works, you can visit the
-                    Network Advertising Initiative&rsquo;s (&ldquo;NAI&rdquo;) educational page at
-                    http://www.networkadvertising.org/understanding-online-advertising/how-does-it-work. --> */}
               </span>
               </p>
               <p><span className="font-Roboto-Regular text-mx my-2">You can opt out of targeted advertising
@@ -324,12 +280,8 @@ function PrivacyPolicy() {
               <p><span className="font-Roboto-Regular text-mx my-2">COMMON LINKS INCLUDE:</span></p>
               <p><span className="font-Roboto-Regular text-mx my-2">FACEBOOK&nbsp;-
                 https://www.facebook.com/settings/?tab=ads</span></p>
-              {/* <!-- <p><span className="font-Roboto-Regular text-mx my-2">GOOGLE&nbsp;-
-                    https://www.google.com/settings/ads/anonymous</span></p> --> */}
               <p><span className="font-Roboto-Regular text-mx my-2">BING&nbsp;-
                 https://advertise.bingads.microsoft.com/en-us/resources/policies/personalized-ads</span></p>
-              {/* <!-- <p><span className="font-Roboto-Regular text-mx my-2">PINTEREST&nbsp;-
-                    http://help.pinterest.com/en/articles/personalization-and-data</span></p> --> */}
               <p><span className="font-Roboto-Regular text-mx my-2">Additionally, you can opt out of some of these
                 services by visiting the Digital Advertising Alliance&rsquo;s opt-out portal at:
                 http://optout.aboutads.info/.</span></p>
@@ -381,42 +333,3 @@ function PrivacyPolicy() {
 }
 
 export default PrivacyPolicy;
-
-// export async function getServerSideProps() {
-//   let staticDataPath;
-//   try {
-//     const res = await infoTemplates();
-//     staticDataPath = res?.dataObject;
-//   } catch (error) {
-//     console.log(error);
-//     return {
-//       props: {
-//         error: true,
-//       },
-//     };
-//   }
-
-//   var htmlText;
-//   try {
-//     const { serverUrl, templateUrls } = staticDataPath;
-//     const res = await fetchStaticHTML(serverUrl + templateUrls.PRIVATE_POLICY);
-//     const html = res?.data || "";
-//     const doc = nodeParser(html);
-//     const body = doc.querySelector("body");
-//     htmlText = body?.innerHTML || "";
-//   } catch (err) {
-//     console.log("PRIVATE_POLICY error", err);
-//     return {
-//       props: {
-//         error: true,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: {
-//       htmlText: htmlText,
-//     },
-//     // revalidate: 60*60*24, // In seconds
-//   };
-// }

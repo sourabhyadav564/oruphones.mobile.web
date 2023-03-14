@@ -4,15 +4,12 @@ import Cookies from "js-cookie";
 
 const URI = getServerURL();
 
-// pending from 
 let headers = {
   "Content-Type": "application/json",
   srcFrom: "Mobile Web",
   eventName: "NA",
   userUniqueId:
-    // Cookies.get("userUniqueId")!==undefined
-    // ? Cookies.get("userUniqueId")
-    // :
+    
     0,
   sessionId:
     typeof window !== "undefined"
@@ -27,44 +24,38 @@ const MULTIPART_HEADER = { headers: { "Content-Type": "multipart/form-data" } };
 
 Axios.interceptors.request.use(
   async (request) => {
-    // console.log("request", request);
+    
     return request;
   },
   (err) => {
-    // console.log("err", err);
+  
     return Promise.reject(err);
   }
 );
 
 Axios.interceptors.response.use(
   async (response) => {
-    // console.log("response", response);
-    // console.log("response", response?.data?.status);
+    
     if (response?.data?.status === "SESSION_INVALID") {
       headers = { ...headers, eventName: "NA" };
       const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
       const result = await Axios.get(API_ENDPOINT, { headers: { ...headers } });
-      // console.log("response from session id", result);
-      // console.log(
-      //   "response from session id",
-      //   result?.data?.dataObject?.sessionId
-      // );
+     
       if (typeof window !== "undefined") {
         localStorage.setItem("sessionId", result?.data?.dataObject?.sessionId);
       }
       Cookies.set("sessionId", result?.data?.dataObject?.sessionId);
       window.location.reload();
-      // console.log("response.config", response.config);
+      
     }
     return response;
   },
   async (error) => {
-    // console.log("error", error);
+    
     return Promise.reject(error);
   }
 );
 
-//pending till
 
 
 
@@ -76,7 +67,7 @@ export const getAboutUsContent = async () => {
       return res.data;
     },
     (err) => {
-      // console.log(err);
+    
     }
   );
 }
@@ -92,7 +83,7 @@ export function getSessionId() {
       return response.data;
     },
     (err) => {
-      // console.log(err);
+      
     }
   );
 }
@@ -105,7 +96,6 @@ export function getSearchResults(q) {
   const API_ENDPOINT = URI + "/api/v1/cscglobal/search";
   return Axios.post(
     API_ENDPOINT,
-    // { params: { userInputText: q } },
     { userInputText: q },
     DEFAULT_HEADER
   ).then(
@@ -113,13 +103,9 @@ export function getSearchResults(q) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
-
-
-
 export async function generateOTP(countryCode, mobileNumber) {
   headers = { ...headers, eventName: "SIGNIN_REQUEST", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -129,10 +115,6 @@ export async function generateOTP(countryCode, mobileNumber) {
     return response.data;
   });
 }
-
-
-
-
 export async function resendOTP(countryCode, mobileNumber) {
   headers = { ...headers, eventName: "RESEND_OTP", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -142,9 +124,6 @@ export async function resendOTP(countryCode, mobileNumber) {
     return response.data;
   });
 }
-
-
-
 export async function validateUser(countryCode, mobileNumber, OTP) {
   headers = { ...headers, eventName: "VERIFY_OTP", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -153,10 +132,6 @@ export async function validateUser(countryCode, mobileNumber, OTP) {
     return response.data;
   });
 }
-
-
-
-//mobiruqa.zenro.co.jp:8080 ?countryCode=%2B91&mobileNumber=8968028089
 export async function createUser(countryCode, mobileNumber) {
   headers = { ...headers, eventName: "SIGNUP_REQUEST", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -167,18 +142,12 @@ export async function createUser(countryCode, mobileNumber) {
   };
   return await Axios.post(
     url,
-    // { countryCode, mobileNumber },
     payload,
     DEFAULT_HEADER
   ).then((response) => {
     return response.data;
   });
 }
-
-
-
-
-
 export async function getUserDetails(countryCode, mobileNumber) {
   headers = { ...headers, eventName: "FETCH_USER_DETAILS", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -187,9 +156,6 @@ export async function getUserDetails(countryCode, mobileNumber) {
     return response.data;
   });
 }
-
-
-
 export async function getUserDetailsViaUUID(uuid) {
   headers = { ...headers, eventName: "FETCH_USER_DETAILS_VIA_UUID", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -198,8 +164,6 @@ export async function getUserDetailsViaUUID(uuid) {
     return response.data;
   });
 }
-
-
 export async function getMakeModelLists(userUniqueId, sessionId, make, isPrimary) {
   headers = {
     ...headers,
@@ -211,7 +175,6 @@ export async function getMakeModelLists(userUniqueId, sessionId, make, isPrimary
   const url = `${URI}/api/v1/master/makemodellist`;
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
-    // localStorage.setItem("make_models", JSON.stringify(response.data.dataObject));
     return response.data;
   });
 }
@@ -227,7 +190,6 @@ export async function getModelLists(userUniqueId, sessionId, make, searchModel) 
   const url = `${URI}/api/v1/master/modellist?make=${make}&searchModel=${searchModel}`;
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
-    // localStorage.setItem("make_models", JSON.stringify(response.data.dataObject));
     return response.data;
   })
 };
@@ -247,9 +209,6 @@ export async function uploadImage(data, params) {
   });
 
 }
-
-
-
 export async function getRecommandedPrice(data) {
   headers = { ...headers, eventName: "FETCH_RECOMMENDED_PRICE", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -259,10 +218,6 @@ export async function getRecommandedPrice(data) {
     return response.data;
   });
 }
-
-
-
-
 export async function saveLisiting(payload) {
   headers = { ...headers, eventName: "ADDLISTING_ADD_SUCCESS", userUniqueId: 0 };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -291,7 +246,6 @@ export async function deleteListing(params) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -305,7 +259,6 @@ export async function activateListing(params) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -319,7 +272,6 @@ export async function pauseListing(params) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -350,7 +302,6 @@ export async function getListingDetails(listingid, userUniqueId, sessionId) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -461,7 +412,6 @@ export async function fetchSellerMobileNumber(listingid, userUniqueId) {
     return response.data;
   },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -525,7 +475,6 @@ export async function bestDealNearByYou(location, userUniqueId, pageNumber, sort
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -539,7 +488,6 @@ export async function addUserSearchLocation(payload) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -553,7 +501,6 @@ export async function addUserProfileLocation(payload) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -567,7 +514,6 @@ export async function updateAddress(payload) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -578,11 +524,9 @@ export async function addFavotie(payload) {
   const url = `${URI}/api/v1/favorite/add`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
     (response) => {
-      // localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -597,11 +541,9 @@ export async function removeFavotie(listingId, userUniqueId) {
     userUniqueId;
   return await Axios.post(url, {}, DEFAULT_HEADER).then(
     (response) => {
-      // localStorage.setItem("favoriteList", JSON.stringify(response.data.updateList.fav_listings));
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -621,7 +563,6 @@ export async function bestDealNearYouAll(location, userUniqueId, pageNumber, sor
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -635,7 +576,6 @@ export async function updateUserProfileDetails(payload) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -650,7 +590,6 @@ export async function fetchMyFavorites(userUniqueId) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -667,7 +606,6 @@ export async function fetchSimilarProducts(payLoad, userUniqueId, pageNumber) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -685,7 +623,6 @@ export async function sendverification(listingid, userUniqueId) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -699,7 +636,6 @@ export function getShowSerchFilters() {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -719,7 +655,6 @@ export async function searchFilter(payLoad, userUniqueId, sessionId, pageNumber,
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -733,7 +668,6 @@ export function getTinyUrl() {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -747,7 +681,6 @@ export async function getExternalSellSourceData(payLoad) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -759,7 +692,6 @@ export function fetchWebLinkByShareId(shareId) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -773,7 +705,6 @@ export function infoTemplates() {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -797,7 +728,6 @@ export async function uploadUserProfilePic(userProfilePicData, userUniqueId) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -815,7 +745,6 @@ export function prepareShareLink(listingId, userUniqueId) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -835,7 +764,6 @@ export function getAllNotificationByUserd(userUniqueId, sessionId) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -850,7 +778,6 @@ export function markAsRead(notificationId, userUniqueId) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -865,7 +792,6 @@ export function deleteNotification(notificationId, userUniqueId) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -879,7 +805,6 @@ export function contactUs(payLoad) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -893,7 +818,6 @@ export function fetchTopArticles() {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -916,7 +840,6 @@ export function shopByCategory(location, category, userUniqueId, pageNumber, sor
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
@@ -948,9 +871,6 @@ export function logEventInfo(eventName) {
       return response.data;
     },
     (err) => {
-      // console.log(err);
     }
   );
 }
-
-/********End**************/

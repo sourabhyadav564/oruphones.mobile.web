@@ -22,7 +22,6 @@ import {
 } from "@/utils/util";
 import ConditionInfo from "../Popup/ConditionInfo";
 
-
 import ArrowDown from "@/assets/arrow-drop-down.svg";
 import CurrentLocation from "@/assets/currentlocation.svg";
 
@@ -53,7 +52,7 @@ const EditListingForm = ({ data }) => {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [globalCities, setGlobalCities] = useState();
-  const { authenticated, loading, selectedSearchCity } = useAuthState();
+  const { authenticated, selectedSearchCity } = useAuthState();
   const userSelectedLocation =
     selectedSearchCity === "India" ? "" : selectedSearchCity;
   const [selectedCity, setSelectedCity] = useState(userSelectedLocation);
@@ -73,12 +72,8 @@ const EditListingForm = ({ data }) => {
     )
   );
   const [showWarranty, setShowWarranty] = useState(data?.warranty != "None");
-  const [locationRequired, setLocationRequired] = useState("");
-  // const [openStorageInfo, setOpenStorageInfo] = useState(false);
   const [getExternalSellerData, setGetExternalSellerData] = useState([]);
-
   let initialState;
-  // console.log("data.warranty", data.warranty);
 
   if (data?.images && data.images.length === 1) {
     initialState = [...data?.images, { panel: "back" }];
@@ -96,11 +91,6 @@ const EditListingForm = ({ data }) => {
   const [listingAdded, setListingAdded] = useState(false);
   const [openPricePopup, setOpenPricePopup] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [verifySubmit, setVerifySubmit] = useState(false);
-  const [verifyListingAdded, setVerifyListingAdded] = useState(false);
-  const [unverifiedListing, setUnverifiedListing] = useState(false);
-  const [unverifiedListingType, setUnverifiedListingType] = useState("");
-  const [unverifiedListingReason, setUnverifiedListingReason] = useState("");
   const { user } = useAuthState();
   const dispatch = useAuthDispatch();
   var sellValueTag;
@@ -131,12 +121,12 @@ const EditListingForm = ({ data }) => {
         : data?.deviceStorage,
       deviceRam: devStorage?.toString().includes("/")
         ? devStorage
-          ?.toString()
-          .split("/")[1]
-          .toString()
-          .replace(/GB/g, " GB")
-          .replace(/RAM/, "")
-          .trim()
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
         : data?.deviceRam,
       make: data?.make,
       marketingName: data?.marketingName,
@@ -157,7 +147,6 @@ const EditListingForm = ({ data }) => {
       condition != undefined
     ) {
       getExternalSellSourceData(payload).then((response) => {
-        // console.log("response", response);
         setGetExternalSellerData(response?.dataObject);
       });
     }
@@ -178,7 +167,7 @@ const EditListingForm = ({ data }) => {
     if (data != undefined && data != null) {
       let models3;
       await getModelLists("", "", data?.make, "").then((response) => {
-        models3 = response
+        models3 = response;
       });
       const models4 = models3?.dataObject[0].models.filter(
         (item) => item.marketingname === data?.marketingName
@@ -195,7 +184,6 @@ const EditListingForm = ({ data }) => {
       getGlobalCities("").then(
         (response) => {
           setGlobalCities(response.dataObject);
-          // localStorage.setItem("cities", JSON.stringify(response.dataObject));
         },
         (err) => console.error(err)
       );
@@ -229,10 +217,7 @@ const EditListingForm = ({ data }) => {
     Geocode.setApiKey("AIzaSyAh6-hbxmUdNaznjA9c05kXi65Vw3xBl3w");
 
     Geocode.setLanguage("en");
-    // Geocode.setRegion("es");
-    // Geocode.setLocationType("ROOFTOP");
     Geocode.enableDebug();
-    // Get address from latitude & longitude.
     Geocode.fromLatLng(lat, lng).then(
       (response) => {
         let address = response?.plus_code?.compound_code;
@@ -242,7 +227,6 @@ const EditListingForm = ({ data }) => {
           city: address,
         });
         setSelectedCity(address);
-        // setOpen(false);
       },
       (error) => {
         console.error(error);
@@ -251,13 +235,11 @@ const EditListingForm = ({ data }) => {
           city: "India",
         });
         setSelectedCity("India");
-        // setOpen(false);
       }
     );
   };
 
   const onError = (error) => {
-    // alert(error.message);
     setLocation({
       loaded: true,
       city: "India",
@@ -270,15 +252,6 @@ const EditListingForm = ({ data }) => {
     timeout: 5000,
     maximumAge: 0,
   };
-
-  // useEffect(() => {
-  //   const initialState = localStorage.getItem("usedLocation");
-  //   if (!initialState || initialState == null) {
-  //     setOpen(true);
-  //   } else {
-  //     dispatch("ADDCITY", initialState);
-  //   }
-  // }, [])
 
   useEffect(() => {
     if (location.loaded && location.city && location.city.length > 0) {
@@ -297,13 +270,6 @@ const EditListingForm = ({ data }) => {
           locationId: searchID,
           userUniqueId: Cookies.get("userUniqueId"),
         };
-        // updateAddress(payLoad).then((res) => {
-        //   const mobileNumber = Cookies.get("mobileNumber");
-        //   const countryCode = Cookies.get("countryCode");
-        //   getUserDetails(countryCode, mobileNumber).then((resp) => {
-        //     dispatch("LOGIN", resp.dataObject);
-        //   });
-        // });
       }
       dispatch("ADDCITY", location.city);
       localStorage.setItem("usedLocation", location.city);
@@ -311,7 +277,6 @@ const EditListingForm = ({ data }) => {
   }, [location]);
 
   useEffect(() => {
-    // console.log("selectedCity", condition);
     let reqParams = {
       make,
       marketingName,
@@ -344,8 +309,6 @@ const EditListingForm = ({ data }) => {
     }
   };
 
-  // console.log("warranty", warranty);
-
   useEffect(() => {
     setCondition(ConditionResultEdit);
     setConditionQuestionEdit(ConditionQuestionEdit);
@@ -355,8 +318,6 @@ const EditListingForm = ({ data }) => {
     setIsUploading(true);
     const { name, files } = e.target;
     if (files && files.length) {
-      // let formData = new FormData();
-      // formData.append("image", files[0]);
       const options = {
         maxSizeMB: 1,
         maxWidthOrHeight: 1920,
@@ -423,13 +384,12 @@ const EditListingForm = ({ data }) => {
       (sellValue <
         (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7) ||
         sellValue >
-        (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2)) &&
+          (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2)) &&
       recommandedPrice?.leastSellingprice != "-" &&
       recommandedPrice?.maxsellingprice != "-" &&
       submitting != true
     ) {
       setOpenPricePopup(true);
-      console.log("submitting", submitting);
       if (submitting === false) {
         return;
       }
@@ -443,14 +403,13 @@ const EditListingForm = ({ data }) => {
         : data?.deviceStorage,
       deviceRam: devStorage?.toString().includes("/")
         ? devStorage
-          ?.toString()
-          .split("/")[1]
-          .toString()
-          .replace(/GB/g, " GB")
-          .replace(/RAM/, "")
-          .trim()
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
         : data?.deviceRam,
-      // deviceStorage: devStorage || data?.deviceStorage,
       color: devColor || color,
       deviceCondition: condition || data?.deviceCondition,
       listingPrice: inputSellPrice,
@@ -487,15 +446,10 @@ const EditListingForm = ({ data }) => {
         className="grid grid-cols-1 font-SF-Pro space-y-6 mt-4"
         onSubmit={handleSubmit}
       >
-        {/* <Input value={data?.make} disabled>
-          Make
-        </Input>
-        <Input value={data?.marketingName} disabled>
-          Model
-        </Input> */}
         {data && (
           <div className="flex bg-white p-5  space-x-4 rounded-md drop-shadow-md">
             <Image
+              quality={25}
               src={
                 imageError
                   ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"
@@ -523,20 +477,20 @@ const EditListingForm = ({ data }) => {
                 <div className="font-Roboto-Bold text-jx text-[#2C2F45]">
                   {devStorage
                     ? devStorage
-                      ?.toString()
-                      .split("/")[1]
-                      .toString()
-                      .replace(/GB/g, " GB")
-                      .replace(/RAM/, "")
-                      .trim()
+                        ?.toString()
+                        .split("/")[1]
+                        .toString()
+                        .replace(/GB/g, " GB")
+                        .replace(/RAM/, "")
+                        .trim()
                     : data?.deviceRam ||
-                    data.storage
-                      ?.toString()
-                      .split("/")[1]
-                      .toString()
-                      .replace(/GB/g, " GB")
-                      .replace(/RAM/, "")
-                      .trim()}
+                      data.storage
+                        ?.toString()
+                        .split("/")[1]
+                        .toString()
+                        .replace(/GB/g, " GB")
+                        .replace(/RAM/, "")
+                        .trim()}
                 </div>
               </p>
               <p className="flex space-x-1 relative">
@@ -549,12 +503,6 @@ const EditListingForm = ({ data }) => {
                     : data?.deviceStorage?.split("/")[0]}
                 </div>
               </p>
-              {/* {condition && (
-                <p>
-                  <span className="font-bold">Condition:</span> {condition}
-                </p>
-
-              )} */}
               <p>
                 <span className="font-Roboto-bold"></span>
               </p>
@@ -577,10 +525,11 @@ const EditListingForm = ({ data }) => {
                 deviceStorages?.map((item, index) =>
                   devStorage ? (
                     <div
-                      className={`${devStorage == item
-                        ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] font-Roboto-Medium text-jx opacity-100"
-                        : "bg[#9597A2] border-2 text[#2C2F45] font-Roboto-Medium text-jx opacity-70"
-                        }  active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                      className={`${
+                        devStorage == item
+                          ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] font-Roboto-Medium text-jx opacity-100"
+                          : "bg[#9597A2] border-2 text[#2C2F45] font-Roboto-Medium text-jx opacity-70"
+                      }  active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                       onClick={() => setDevStorage(item)}
                       key={index}
                     >
@@ -588,14 +537,15 @@ const EditListingForm = ({ data }) => {
                     </div>
                   ) : (
                     <div
-                      className={`${data?.deviceStorage +
-                        "/" +
-                        data?.deviceRam.replace(" ", "") +
-                        " RAM" ==
+                      className={`${
+                        data?.deviceStorage +
+                          "/" +
+                          data?.deviceRam.replace(" ", "") +
+                          " RAM" ==
                         item
-                        ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] text-jx font-Roboto-Medium opacity-100"
-                        : "bg[#9597A2] border-2 text[#2C2F45] text-jx font-Roboto-Medium opacity-70"
-                        } active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
+                          ? "bg-[#F3F3F3] border-2 border-[#F3F3F3] text[#2C2F45] text-jx font-Roboto-Medium opacity-100"
+                          : "bg[#9597A2] border-2 text[#2C2F45] text-jx font-Roboto-Medium opacity-70"
+                      } active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
                       onClick={() => setDevStorage(item)}
                       key={index}
                     >
@@ -620,13 +570,10 @@ const EditListingForm = ({ data }) => {
           </div>
           <div className="flex flex-row w-full justify-center items-center mt-1">
             <MySelect
-              // labelName="Location*"
               placeholder={selectedCity ? selectedCity : data?.listingLocation}
               value={selectedCity ? selectedCity : data?.listingLocation}
-              // className={`${locationRequired}`}
               className="text-[#2C2F45] "
               onFocus={(e) => {
-                // setLocationRequired("");
                 onLocChange("");
               }}
               onChange={(e) => {
@@ -637,7 +584,6 @@ const EditListingForm = ({ data }) => {
               }}
               options={globalCities
                 ?.sort((a, b) => a.city.localeCompare(b.city))
-                // ?.filter((item) => item.displayWithImage != "1")
                 .map((items) => {
                   return { label: items.city, value: items.city };
                 })}
@@ -646,46 +592,19 @@ const EditListingForm = ({ data }) => {
               className="h-10 w-16 bg-gray-200 rounded-r-lg  inline-flex justify-center items-center hover:cursor-pointer"
               onClick={handleNearme}
             >
-              {/* <BiCurrentLocation size={24} /> */}
-              <Image src={CurrentLocation} width={24} height={24}/>
+              <Image src={CurrentLocation} width={24} height={24} />
             </div>
           </div>
-          <div className="flex flex-row pt-3 text-mx w-full font-Roboto-Semibold"
+          <div
+            className="flex flex-row pt-3 text-mx w-full font-Roboto-Semibold"
             onClick={handleNearme}
           >
-            <BiCurrentLocation size={18} />
-            <div className="pl-1">
-              Use Your Current Location
-            </div>
+            <Image src={CurrentLocation} width={24} height={24} />
+            <div className="pl-1">Use Your Current Location</div>
           </div>
-          {/* {locationRequired && (
-            <p className="text-sm whitespace-nowrap cursor-pointer text-red">
-              Please select this field
-            </p>
-          )} */}
+          
         </div>
-        {/* {data?.verified ? (
-          <Input value={data?.deviceStorage} disabled>
-            Storage
-          </Input>
-        ) : (
-          <MySelect
-            labelName="Storage"
-            placeholder={data?.deviceStorage}
-            onChange={(e) => setDevStorage(e.value)}
-            options={deviceStorages?.map((item) => {
-              return { label: item, value: item };
-            })}
-          />
-        )} */}
-        {/* <MySelect
-          labelName="Color"
-          placeholder={data?.color}
-          onChange={(e) => setDevColor(e.value)}
-          options={deviceColors?.map((item) => {
-            return { label: item, value: item };
-          })}
-        /> */}
+        
         <div className="text-jx font-Regular mt-1">
           <p className="bg-white px-0.5   -mb-5 font-Roboto-Regular text-ex">
             Device Condition<span className="text-[#F9C414]">*</span>
@@ -697,45 +616,20 @@ const EditListingForm = ({ data }) => {
         >
           <div
             className="flex items-center flex-1"
-            // labelName="Device Condition"
-            // placeholder={condition ? condition : data?.condition}
+            
             value={
               ConditionResultEdit ? ConditionResultEdit : data?.deviceCondition
             }
-          // onChange={(e) => handleSelectChange(e, condition)}
-          // options={["Like New", "Excellent", "Good"].map((i) => {
-          //   return { label: i, value: i };
-          // })}
           >
             {ConditionResultEdit ? ConditionResultEdit : data?.deviceCondition}
           </div>
           <span className="-mr-6">
-            {/* <BiChevronDown size={24} /> */}
-            <Image src={ArrowDown} width={24} height={24}/>
+            <Image src={ArrowDown} width={24} height={24} />
           </span>
-          {/* <label
-            style={{ color: "rgba(0, 0, 0, 0.6)" }}
-      className="absolute top-0 left-0 text-[#2C2F45] bg-white z-1 duration-300 origin-0 font-semibold text-sm">Device Condition*</label> */}
           <label></label>
         </div>
         <>
-          {/* <DeviceConditionCard
-                  condition={condition}
-                  answer={conditionResults}
-                /> */}
-          {/* <div className="flex flex-col bg-white p-5 rounded-md drop-shadow-md">
-            <span className="font-semibold">Your Device is in</span>
-            <p className="font-bold text-xl">
-              {condition}
-              <span> Condition</span>
-            </p>
-          </div>
-          <p
-            className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
-            onClick={() => setOpenConditionInfo(true)}
-          >
-            What&apos;s this?
-          </p> */}
+          
         </>
         <p className="text-[#000000] font-Roboto-Regular text-ex border-b-2 pb-1 ">
           Upload Photos
@@ -753,28 +647,12 @@ const EditListingForm = ({ data }) => {
                 key={index}
                 className="relative pt-4 even:ml-2 odd:mr-2 mb-2 rounded-md bg-[#E8E8E8]"
               >
-                {/* {index === 0 ? (
-                  <span className="absolute bottom-4 left-14 font-Roboto-Light text-cx opacity-50">Front Panel </span>
-                ) : index === 1 ? (
-                  <span className="absolute bottom-4 left-14 font-Roboto-Light text-cx opacity-50"> Back Panel</span>
-                ) : (
-                  ""
-                )} */}
-                {/* <ImageInput
-                  type="file"
-                  preview={item?.fullImage}
-                  name={item?.panel}
-                  onChange={(e) => handleImageChange(e, index)}
-                  clearImage={(e) => clearImage(e, index)}
-                  accept="image/*"
-                /> */}
                 <ImageInput
                   type="file"
                   preview={item?.fullImage}
                   name={item?.panel}
                   onChange={(e) => {
                     handleImageChange(e, index);
-                    // setImageIndex(index);
                   }}
                   clearImage={(e) => clearImage(e, index)}
                   accept="image/*"
@@ -808,60 +686,10 @@ const EditListingForm = ({ data }) => {
             </span>
           )}
         </div>
-        {/* <p className="text-gray-70 font-semibold capitalize">Add accessories</p> */}
-        {/* <div className="grid grid-cols-3 space-x-2">
-          <Checkbox
-            src={chargingImg}
-            text="Charger"
-            onChange={() => setCharging((prev) => !prev)}
-            checked={charging}
-          />
-          <Checkbox
-            src={headphoneImg}
-            text="Earphones"
-            onChange={() => setHeadphone((prev) => !prev)}
-            checked={headphone}
-          />
-          <Checkbox
-            src={originalBoxImg}
-            text="Original Box"
-            onChange={() => setOriginalbox((prev) => !prev)}
-            checked={originalbox}
-          />
-        </div> */}
         <div className="pt-4">
           <p className="font-Roboto-Regular text-gx  text-[#000000]">
             Do you have the followings?
           </p>
-          {/* <div className="grid grid-cols-2 gap-4 mt-5">
-            <Checkbox
-              src={chargingImg}
-              text="Original Charger"
-              onChange={() => setCharging((prev) => !prev)}
-              checked={charging}
-            />
-            <Checkbox
-              src={headphoneImg}
-              text="Original Earphones"
-              onChange={() => setHeadphone((prev) => !prev)}
-              checked={headphone}
-            />
-            <Checkbox
-              src={originalBoxImg}
-              text="Original Box"
-              onChange={() => setOriginalbox((prev) => !prev)}
-              checked={originalbox}
-            />
-            <Checkbox
-              src={originalBillImg}
-              text="Original Bill"
-              onChange={() => {
-                setShowWarranty((prev) => !prev);
-                setWarranty("more");
-              }}
-              checked={showWarranty}
-            />
-          </div> */}
           <div className="grid grid-cols-2 gap-4 ">
             <Checkbox
               src={
@@ -907,10 +735,11 @@ const EditListingForm = ({ data }) => {
                 {deviceWarrantyCheck?.map((item, index) => (
                   <div
                     key={index}
-                    className={`${warranty == item?.label2 || warranty == item?.value
-                      ? "bg-gray-400 border border-[#F3F3F3]  text-black textmx"
-                      : " border border-[#9597A2] text-[#2C2F45] textmx opacity-60"
-                      } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
+                    className={`${
+                      warranty == item?.label2 || warranty == item?.value
+                        ? "bg-gray-400 border border-[#F3F3F3]  text-black textmx"
+                        : " border border-[#9597A2] text-[#2C2F45] textmx opacity-60"
+                    } py-2 px-5 rounded-md hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300 border-2 border-gray-200 flex items-center justify-start text-sm`}
                     onClick={() => setWarranty(item.value)}
                   >
                     <span>{item.label}</span>
@@ -936,39 +765,6 @@ const EditListingForm = ({ data }) => {
             Enter your sell price <span className="text-[#F9C414]">*</span>
           </p>
         </div>
-        {/* <div className="grid grid-cols-5 relative">
-          
-          <Input
-            id="sellValue"
-            prefix={"₹"}
-            value={numberFromString(inputSellPrice)}
-            type="number"
-            inputClass="text-3xl font-bold"
-            className={`h-full col-span-3 text-3xl font-bold rounded-r-none border-r-0`}
-            errorClass={`border ${sellValueRequired}`}
-            onChange={(e) => {
-              setInputSellPrice(e.target.value);
-              setSellValueRequired("");
-            }}
-          />
-           
-          {sellValueRequired && (
-            <span className="text-red text-sm absolute -bottom-6">
-              Enter price more than 1000
-            </span>
-          )}
-          <div className="text-sm bg-gray-c7 text-black-4e col-span-2 px-2 py-1 rounded -ml-1 z-10">
-            <span>Recommended Price</span>
-            <br />
-            {recommandedPrice && (
-              <p>
-                <span className="mr-1">&#x20B9;</span>{" "}
-                {recommandedPrice?.leastSellingprice} -{" "}
-                {recommandedPrice?.maxsellingprice}
-              </p>
-            )}
-          </div>
-        </div> */}
         <div className="grid grid-cols-7 gap-4 relative">
           <Input
             id="sellValue"
@@ -984,7 +780,6 @@ const EditListingForm = ({ data }) => {
               setSellValueRequired("");
             }}
           >
-            {/* Enter your sell price* */}
           </Input>
           {sellValueRequired && (
             <span className="text-red text-sm absolute -bottom-6 ">
@@ -1008,42 +803,6 @@ const EditListingForm = ({ data }) => {
             </div>
           </div>
         </div>
-
-        {/* {getExternalSellerData && getExternalSellerData.length > 0 && (
-          <p
-            className="font-semibold mt-1 pt-3"
-            style={{ color: "#707070" }}
-          >
-            Check prices from other buyers:
-          </p>
-        )} */}
-        {/* {getExternalSellerData && getExternalSellerData.length > 0 && (
-          <div className="border rounded-md mb-3 w-full">
-            {getExternalSellerData.map((items, index) => (
-              <div
-                className="px-4 flex justify-between items-center w-full"
-                key={index}
-              >
-                <p className="text-xl flex items-center">
-                  {items?.externalSourcePrice && (
-                    <span className="font-Regular mr-0.5"> ₹ </span>
-                  )} */}
-        {/* {numberWithCommas( */}
-        {/* {items?.externalSourcePrice} */}
-        {/* )} */}
-        {/* </p>
-                <div>
-                  <img
-                    src={items?.externalSourceImage}
-                    style={{ width: 100, height: "auto" }}
-                    alt={items?.externalSourceName}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        )} */}
-
         {getExternalSellerData && getExternalSellerData.length > 0 && (
           <p
             className="font-Roboto-Light text-dx border-b-2 pb-1"
@@ -1132,8 +891,9 @@ export default EditListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${checked && "bg-[#E8E8E8] opacity-bg-50 "
-      }`}
+    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${
+      checked && "bg-[#E8E8E8] opacity-bg-50 "
+    }`}
     onClick={onChange}
   >
     <div className="relative w-7 h-7 mx-auto">
@@ -1151,25 +911,3 @@ const Checkbox = ({ src, text, checked, onChange }) => (
     </span>
   </div>
 );
-
-// const Checkbox = ({ src, text, checked, onChange }) => (
-//   <div
-//     className={`border rounded-md bg-[#ffffff] py-4 relative h-20 opacity-90 ${checked && "bg-[#e2e1e1]"} `}
-//     onClick={onChange}
-//   >
-//     <div className="relative w-7 h-7 mx-auto">
-//       <Image src={src} layout="fill"/>
-//     </div>
-
-//     <input
-//       type="checkbox"
-//       className="absolute top-2 left-2 rounded accent-pink-500 "
-//       checked={checked}
-//       readOnly
-//     />
-//     <span className="text-xs mt-2 text-center block text-black-4e">
-//       {" "}
-//       {text}{" "}
-//     </span>
-//   </div>
-// );

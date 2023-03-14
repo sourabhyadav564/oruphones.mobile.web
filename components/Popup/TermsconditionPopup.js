@@ -16,32 +16,6 @@ function TermsconditionPopup({ open, setOpen }) {
     };
     apiCall();
   }, []);
-  // useEffect(() => {
-  //   if (open) {
-  //     const onBackButtonEvent = (e) => {
-  //       e.preventDefault();
-  //       setOpen(false);
-  //     }
-
-  //     window.history.pushState(null, null, window.location.pathname);
-  //     window.addEventListener('popstate', onBackButtonEvent);
-  //     return () => {
-  //       window.removeEventListener('popstate', onBackButtonEvent);
-  //     };
-    // } else {
-    //   const onBackButtonEvent = (e) => {
-    //     e.preventDefault();
-    //     window.history.back();
-    //   }
-    //   window.history.pushState(null, null, window.location.pathname);
-    //   window.addEventListener('popstate', onBackButtonEvent);
-    //   return () => {
-    //     window.removeEventListener('popstate', onBackButtonEvent);
-    //   };
-  //   }
-  // }, [open]);
-
-
   const cancelButtonRef = useRef(null);
   return (
     <Transition.Root show={open} as={Fragment} initialFocus={cancelButtonRef}>
@@ -52,7 +26,6 @@ function TermsconditionPopup({ open, setOpen }) {
         onClose={setOpen}
       >
         <div className="min-h-screen">
-          {/* This element is to trick the browser into centering the modal contents. */}
           <span
             className="hidden sm:inline-block sm:align-middle sm:h-screen"
             aria-hidden="true"
@@ -91,7 +64,6 @@ async function callFetchStaticHTML() {
     const res = await infoTemplates();
     staticDataPath = res?.dataObject;
   } catch (error) {
-    console.log(error);
     return {
       htmlText: "<p></p>",
     };
@@ -99,14 +71,12 @@ async function callFetchStaticHTML() {
 
   try {
     const { serverUrl, templateUrls } = staticDataPath;
-    // const res = await fetchStaticHTML(serverUrl + templateUrls.TERMS_CONDITIONS);
     const res = await fetchStaticHTML("/new_terms_conditions.html");
     const html = res.data;
     const doc = nodeParser(html);
     const body = doc.querySelector("body");
     htmlText = body.innerHTML;
   } catch (err) {
-    console.log("getTC error", err);
     return {
       htmlText: "<p></p>",
     };

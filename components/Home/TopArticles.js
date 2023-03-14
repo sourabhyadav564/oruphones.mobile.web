@@ -13,15 +13,6 @@ export default function TopArticles({ articles }) {
         spaceBetween={8}
         style={{ padding: "8px 12px" }}
       >
-        {/* {data.map((item, index) => (
-          <SwiperSlide key={index}>
-            <ArticleCard
-              title="Refurbished iPhone 11 Tips and Tricks for Scoring the Best Deal"
-              // src="https://www.mobiruindia.com/blog/wp-content/uploads/2021/03/1.jpg"
-              src={image}
-            />
-          </SwiperSlide>
-        ))} */}
         {articles?.map((item, index) => (
           <SwiperSlide key={index}>
             <ArticleCard

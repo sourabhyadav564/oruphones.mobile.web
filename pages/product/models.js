@@ -38,7 +38,9 @@ function AllModel() {
 
         {(loading || topsellingmodels?.length > 0) && <h1 className="text-lg font-semibold text-black-4e py-2"> All models </h1>}
         {loading ? (
-          <Loader />
+          <div className="fex justify-center items-center">
+            <Loader />
+          </div>
         ) : (
           <section className="grid grid-cols-2 mb-4 -mx-1.5">
             {getFilteredValues() &&

@@ -18,7 +18,6 @@ function GlobalHeader() {
   const router = useRouter();
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(-1);
   const [loadingState, setLoadingState] = useState(false);
-  // current time in a variable in milliseconds
   const currentTime = new Date().getTime();
   let BetweenTime = currentTime - Cookies.get("CloseClick");
 
@@ -38,9 +37,6 @@ function GlobalHeader() {
 
   useEffect(() => {
      BetweenTime = currentTime - Cookies.get("CloseClick");
-    //  console.log("BetweenTime", BetweenTime);
-    //  console.log("currentTime", currentTime);
-    //  console.log("currentTime2", (BetweenTime > 172800000));
   }, []);
 
   return (
@@ -73,7 +69,6 @@ function GlobalHeader() {
               <Link href="/">
                 <a
                   className="flex items-center"
-                // onClick={() => setLoadingState(true)}
                 >
                   <Image
                     src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_white.svg"}
@@ -100,7 +95,6 @@ function GlobalHeader() {
                   height={12}
                   alt="ORU location"
                 />
-                {/* <img src={dropdown.src} width={12} height={12} /> */}
               </div>
               <div>
                 {(router.pathname === "/" ||

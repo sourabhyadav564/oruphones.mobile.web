@@ -3,7 +3,6 @@ import router, { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Input from "@/components/Form/Input";
-import Header2 from "@/components/Header/header2";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import LoadingStatePopup from "../../components/Popup/LoadingStatePopup";
@@ -33,9 +32,6 @@ function Profile() {
     setLoadingState(false);
   }, [router.pathname]);
 
-  console.log("user", user);
-  console.log("imgPath", imgPath);
-
   const changeImage = async (e) => {
     e.preventDefault();
     const options = {
@@ -47,8 +43,6 @@ function Profile() {
 
     let formData = new FormData();
     formData.append("image", compressedFile);
-    // let data = new FormData();
-    // data.append("image", e.target.files[0]);
     uploadUserProfilePic(formData, Cookies.get("userUniqueId")).then(
       (response) => {
         if (response?.status === "SUCCESS") {
@@ -81,7 +75,6 @@ function Profile() {
 
   const saveUserInfo = () => {
     let payload = {
-      // city: proFileLoc,
       email: email || user?.userdetails.email,
       mobileNumber: user?.userdetails?.mobileNumber,
       userName: userName || user.userdetails.userName,
@@ -242,7 +235,6 @@ function Profile() {
             <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
           </section>
         </main>
-        {/* <Footer /> */}
         <BottomNav />
       </div>
       <DeleteAccPopup
@@ -309,22 +301,6 @@ const UserIcon = ({ onChange, img }) => (
       htmlFor="photo"
       className="absolute right-1 top-4 bg-white rounded-full"
     >
-      {/* <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="34"
-        height="34"
-        viewBox="0 0 34 34"
-      >
-        <circle cx="17" cy="17" r="17" fill="#efefef" />
-        <path
-          id="photo"
-          d="M5.254,3.678A1.57,1.57,0,0,1,3.678,5.254,1.57,1.57,0,0,1,2.1,3.678,1.57,1.57,0,0,1,3.678,2.1,1.57,1.57,0,0,1,5.254,3.678Zm8.407,3.153v3.678H2.1V8.932L4.729,6.305,6.042,7.619l4.2-4.2Zm.788-5.78H1.314a.266.266,0,0,0-.263.263V11.3a.266.266,0,0,0,.263.263H14.449a.266.266,0,0,0,.263-.263V1.314a.266.266,0,0,0-.263-.263Zm1.314.263V11.3a1.317,1.317,0,0,1-1.314,1.314H1.314a1.265,1.265,0,0,1-.928-.386A1.265,1.265,0,0,1,0,11.3V1.314A1.265,1.265,0,0,1,.386.386,1.265,1.265,0,0,1,1.314,0H14.449a1.265,1.265,0,0,1,.928.386,1.265,1.265,0,0,1,.386.928Z"
-          transform="translate(9 11)"
-          fill="#00a483"
-        />
-      </svg> */}
-
-      {/* <img src={editImage} alt="profile-edit"/> */}
       <svg
         id="Layer_3"
         height="30"

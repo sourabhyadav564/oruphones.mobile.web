@@ -10,7 +10,6 @@ import VerificationInfo from "../Popup/VerificationInfo";
 import { numberWithCommas } from "@/utils/util";
 
 function ComparisonTable(data, listingId) {
-  // console.log("data prod", data);
   const [productData, setProductData] = useState([]);
   const [thisPhoneListingId, setThisPhoneListingId] = useState("");
   useEffect(() => {
@@ -18,7 +17,6 @@ function ComparisonTable(data, listingId) {
       const interval = setInterval(() => {
         setProductData(data?.data);
         setThisPhoneListingId(data?.listingId);
-        // console.log("productData", thisPhoneListingId);
         clearInterval(interval);
       }, 1000);
     }
@@ -86,7 +84,6 @@ function ComparisonTable(data, listingId) {
                   onClick={() => setOpenWarrantyInfo(true)}
                 >
                   <p className="pr-1">Brand Warranty</p>
-                  {/* <BsInfoCircle size={20} classname="pl-1" /> */}
                   <Image src={InfoCircle} width={20} height={20} classname="pl-1" />
                 </div>
               </th>
@@ -99,7 +96,6 @@ function ComparisonTable(data, listingId) {
                   onClick={() => setOpenWarrantyInfo(true)}
                 >
                   <p className="pr-1">Seller Warranty</p>
-                  {/* <BsInfoCircle size={20} classname="pl-1" /> */}
                   <Image src={InfoCircle} width={20} height={20} classname="pl-1" />
                 </div>
               </th>
@@ -124,7 +120,6 @@ function ComparisonTable(data, listingId) {
                   onClick={() => setOpenVerificationInfo(true)}
                 >
                   <p className="pr-1">Oru Verified</p>
-                  {/* <BsInfoCircle size={20} classname="pl-1" /> */}
                   <Image src={InfoCircle} width={20} height={20} classname="pl-1" />
                 </div>
               </th>
@@ -163,16 +158,8 @@ function ComparisonTable(data, listingId) {
                         className="flex"
                       >
                         {item?.userName ? (
-                          // (item?.externalSourceImage == "" ||
-                          //   item?.externalSourceImage ==
-                          //     "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/oru_logo.png" ||
-                          //   item.externalSourceImage ==
-                          //     "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png")
                           <div
                             className={`text-ex font-Roboto-Regular ${
-                              // item.externalSourceImage != "" &&
-                              // item.externalSourceImage !=
-                              //   "https://d1tl44nezj10jx.cloudfront.net/devImg/oru/product/mobiledevices/img/txt_phone.png"
                               thisPhoneListingId != item.listingId &&
                               "invert-0 brightness-0"
                               } m-auto object-contain`}
@@ -189,9 +176,7 @@ function ComparisonTable(data, listingId) {
                             height={30}
                             width={70}
                           />
-                          // <div></div>
                         )}
-                        {/* <FaGreaterThan size={18} className="pt-1.5" /> */}
                       </div>
                       <div
                         onClick={() => {
@@ -228,9 +213,6 @@ function ComparisonTable(data, listingId) {
                         : item?.Object?.warranty}
                     </td>
                     <td class="px-6 py-4 border-[1px]">
-                      {/* {item?.Object?.isOtherVendor == "N"
-                        ? "None"
-                        : "Phone Charger, Phone Box"} */}
                       {item?.Object?.isOtherVendor == "Y"
                         ? item?.Object?.charger == "Y"
                           ? item?.Object?.earphone == "Y"
@@ -281,36 +263,6 @@ function ComparisonTable(data, listingId) {
                   </tr>
                 );
               })}
-            {/* <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sticky top-0 left-0 bg-white"
-              >
-                
-              </th>
-              <td class="px-6 py-4">$1999</td>
-              <td class="px-6 py-4">No</td>
-              <td class="px-6 py-4">Yes</td>
-              <td class="px-6 py-4">Yes</td>
-              <td class="px-6 py-4">Yes</td>
-              <td class="px-6 py-4">Yes</td>
-              <td class="px-6 py-4">Alwar</td>
-            </tr>
-            <tr class="bg-white dark:bg-gray-800">
-              <th
-                scope="row"
-                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white left-0 top-0 sticky bg-white"
-              >
-                Magic Mouse 2
-              </th>
-              <td class="px-6 py-4">$99</td>
-              <td class="px-6 py-4">Yes</td>
-              <td class="px-6 py-4">No</td>
-              <td class="px-6 py-4">No</td>
-              <td class="px-6 py-4">No</td>
-              <td class="px-6 py-4">No</td>
-              <td class="px-6 py-4">Delhi</td>
-            </tr> */}
           </tbody>
         </table>
       </div>

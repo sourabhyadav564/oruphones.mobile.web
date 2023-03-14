@@ -18,14 +18,11 @@ export default function ShareIcon({ data, color, ...rest }) {
           text: content[1]?.shareContent,
         })
         .then(() => {
-          // console.log("Thanks for sharing!");
         })
         .catch(console.error);
     } else {
-      // fallback
     }
   }
-  // console.log("data2", data);
 
   return (
     <div className="bg-transparent p-1">

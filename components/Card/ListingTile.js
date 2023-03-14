@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,34 +39,13 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
     else {
       activateListing(payLoad).then(
         (res) => {
-         
-          // if (res?.reason === "You are not allowed to activate more then 5 unverified listings.") {
           setReason(res?.reason);
           setOpenActivateListing(true);
-          // } else {
-          //   setOpenActivateListing(true);
-          // }
         },
         (err) => console.error(err)
       )
     }
   };
-
-  // useEffect(() => {
-  //   const checkIfClickedOutside = (e) => {
-  //     if(divRef.current && !divRef.current.contains(e.target)) {
-  //       setOpenMenu(-1);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", checkIfClickedOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", checkIfClickedOutside);
-  //   };
-  // }, []);
-
-
-
-
   function handlePauseLIsting() {
     setOpenPauseListing(true);
     setOpenMenu(-1);
@@ -81,12 +59,8 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
   return (
     <div className="font-Roboto-Regular">
       <Fragment>
-        {/* <Link href={`/user/listings/${data?.listingId}`}> */}
         <div
           onClick={openMenu === data?.listingId ? () => setOpenMenu(-1) : () => {
-            //   window.open(
-            //     `/user/listings/${data?.listingId}`,
-            //     "_blank",)
           }}
           className={`flex flex-col pt-2 rounded-md ${(data?.status.toUpperCase() !== "ACTIVE" && "bg-gray-ef") || ""}`}
           style={{ boxShadow: "0 1px 20px rgba(0, 0, 0, 0.08)" }}
@@ -125,7 +99,6 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   }
                 >
                   {data.marketingName}
-                  {/* <p className="flex-1 text-sm text-gray-600">{data.marketingName}</p> */}
 
                 </p>
                 <div>
@@ -135,13 +108,6 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   className="listing-tile dropdown inline-block relative"
                   onClick={(e) => e.preventDefault()}
                 >
-                  {/* <BiDotsVerticalRounded
-                    size={22}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setOpenMenu((prev) => (prev !== data?.listingId ? data.listingId : -1));
-                    }}
-                  /> */}
                   <Image src={VerticalDots} width={22} height={22} 
                   onClick={(e) => {
                     e.preventDefault();
@@ -186,10 +152,6 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                     <span>Storage</span>
                     <span className="font-semibold text-sm text-gray-600">{data?.deviceStorage}</span>
                   </p>
-                  {/* <p className="flex flex-col items-start">
-                    <span>Color</span>
-                    <span className="font-bold text-sm"> {data?.color} </span>
-                  </p> */}
                   <p className="flex flex-col items-start">
                     <span>Condition</span>
                     <span className="font-semibold text-sm text-gray-600">{data.deviceCondition}</span>
@@ -203,7 +165,6 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
               <div className="w-full grid grid-cols-4 px-2 py-2 space-x-2 center">
                 <div className="bg-gray-400 flex flex-1 px-2 rounded-md col-span-3" >
                   <div className="flex space-x-1 flex-1">
-                    {/* <Image src={inactive} width={64} height={29} /> */}
                     <div className="flex space-x-1  flex-1">
                       <Image src={ExclamationIcon} width={20} height={20} className="self-center"/>
                       <span className=" text-white self-center text-lx  font-light italic uppercase">INActive</span>
@@ -223,11 +184,8 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
             ) : data?.verified && !data?.deviceImagesAvailable ?
               (
                 <div className="gap-2 grid grid-cols-4 w-full px-2 py-2 text-center m-auto justify-between">
-                  {/* <VerifiedIcon width={60} height={30} /> */}
                   <div className="flex col-span-3 gap-2">
                     <div className="flex py-1 px-2 space-x-1 rounded-md" style={{ backgroundColor: "#4CAF50" }}>
-                      {/* <VscVerified size={20} className="self-center text-white"/> */}
-                      {/*image  */}
                       <VerificationIcon />
                       <span className="text-bx self-center text-white uppercase font-light italic">verified</span>
                     </div>
@@ -241,7 +199,6 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
 
                       style={{ backgroundColor: "#F9C414" }}
                     >
-                      {/* <BsPlus size={20} className="self-center font-semibold"/> */}
                       <p className="self-center font-regular text-jx m-auto justify-center">+ Upload Photos</p>
                     </span>
                   </div>
@@ -251,20 +208,9 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   </div>
                 </div>
               ) : data?.verified ? (
-                // <div className="flex items-center pl-4 w-full">
-                //   <VerificationIcon width={60} height={30} />
-                //   <span className="text-sm text-black-4e ml-3">On: {data?.verifiedDate}​</span>
-                //   <div className="bg-gray-ef text-gray-70 text-sm flex flex-col px-4 py-0.5 ml-auto rounded-tl-md rounded-br-md">
-                //     <span>List Price</span>
-                //     <span className="text-lg font-bold">₹ {numberWithCommas(data.listingPrice)}​</span>
-                //   </div>
-                // </div>
                 <div className="gap-2 grid grid-cols-4 w-full px-2 py-2 text-center m-auto justify-between">
-                  {/* <VerifiedIcon width={60} height={30} /> */}
                   <div className="flex col-span-3 gap-2">
                     <div className="flex py-1 px-2 space-x-1 rounded-md" style={{ backgroundColor: "#4CAF50" }}>
-                      {/* <VscVerified size={20} className="self-center text-white"/> */}
-                      {/*image  */}
                       <VerificationIcon />
                       <span className="text-bx self-center text-white uppercase font-light italic">verified</span>
                     </div>
@@ -278,7 +224,6 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
 
                       style={{ backgroundColor: "#F9C414" }}
                     >
-                      {/* <BsPlus size={20} className="self-center font-semibold"/> */}
                       <p className="self-center font-regular text-jx m-auto justify-center">+ Upload Photos</p>
                     </span>
                   </div>
@@ -292,14 +237,11 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   <div className="grid grid-cols-4 px-2 w-full py-2 space-x-2 text-center" >
                     <div className="flex py-2 px-3 rounded-md space-x-2 col-span-3" style={{ backgroundColor: "#F9C414" }}>
                       <div className="flex space-x-1 flex-1">
-                        {/* <GoUnverified width={80} height={80} className="text-black self-center"/> */}
                         <div className="flex space-x-2">
                           <Image src={ExclamationIcon} width={20} height={20} className="self-center"/>
-                          {/* <UnVerifiedIcon /> */}
 
                           <span className="text-lx font-light self-center text-black italic uppercase">unverified</span>
                         </div>
-                        {/* <span className="text-xs italic self-center uppercase"> unverified</span> */}
                       </div>
                       <span
                         className="text-jx font-Semibold self-center "
@@ -312,13 +254,6 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                         Click to Verify Now
                       </span>
                     </div>
-                    {/* <BsInfoCircle
-                  className="ml-1 text-sm cursor-pointer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenVerifyInfo(true);
-                  }}
-                /> */}
                     <div className=" text-gray-70  flex flex-col m-auto justify-center py-0.5 rounded-md " style={{ backgroundColor: "#2C2F45" }}>
                       <span className="text-bx text-[#FFFFFF] self-center ">List Price</span>
                       <span className="font-Semibold text-gray-100 text-mx">₹ {numberWithCommas(data.listingPrice)}​</span>
@@ -326,8 +261,6 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
                   </div>
                 )}
         </div>
-        {/* </Link> */}
-        {/* </div> */}
         {openVerifyInfo && <VerificationInfo open={openVerifyInfo} setOpen={setOpenVerifyInfo} />}
         {openVerifyFlow && <VerifyFlowPopup open={openVerifyFlow} setOpen={setOpenVerifyFlow} />}
         {openActivateListing && <ListingActivated open={openActivateListing} setOpen={setOpenActivateListing} reason={reason} setReason={setReason} />}

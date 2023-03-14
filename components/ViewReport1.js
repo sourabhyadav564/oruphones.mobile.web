@@ -10,11 +10,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
   if (!data?.verified && !data?.cosmetic) {
     return null;
   }
-
   const [questionIndex, setQuestionIndex] = useState(0);
-
-  // console.log("data", data?.cosmetic);
-
   return (
     <div className="w-full rounded-md  p-4 mb-4 bg-[#F9F9F9] ">
       <Disclosure defaultOpen={defaultOpen || false}>

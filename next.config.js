@@ -13,13 +13,4 @@ module.exports = {
       "d1tl44nezj10jx.cloudfront.net",
     ],
   },
-  // async redirect() {
-  //   return [
-  //     {
-  //       source:'/blog',
-  //       destination:'blog/',
-  //       permanent:false
-  //     },
-  //   ]
-  // }
 };

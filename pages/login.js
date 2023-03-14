@@ -22,7 +22,6 @@ function Login() {
   const [error, setError] = useState({ message: "", is: false });
   const [response, setResponse] = useState();
   const { authenticated, loading } = useAuthState();
-  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     if (!loading && authenticated) {
@@ -62,20 +61,6 @@ function Login() {
 
   return (
     <main className="bg-loginBg bg-contain md:pb-10 pt-16 min-h-screen relative">
-      {/* <div className="absolute text-3xl z-50 p-2 top-3 right-3 cursor-pointer">
-        {showLoader ? (
-          <Spinner />
-          ) : (
-            <img
-              className="w-7 h-7"
-              src={CloseIcon.src}
-              onClick={() => {
-                router.push("/");
-                setShowLoader(true);
-              }}
-            />
-        )}
-      </div> */}
       <section className="container px-8 flex flex-col items-center space-y-8 max-w-sm">
         <div className="mt-14" data-aos="fade-down">
           <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"} alt={"Logo"} width={108} height={53} />
@@ -86,9 +71,6 @@ function Login() {
             onSubmit={sendOtp}
             autoComplete="off"
           >
-            {/* <h1 className="text-primary-dark text-2xl font-extrabold py-2">
-              Sign In
-            </h1> */}
             <div className="w-full my-8 relative ">
               <p className="text-lg font-bold px-1">Welcome</p>
               <h1 className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to continue </h1>
@@ -96,13 +78,11 @@ function Login() {
                 name="mobile"
                 pattern="[0-9]*"
                 type="text"
-                // prefix="+91-"
                 value={formData?.mobile}
                 errorClass={error.is && "border border-red-500 border-[2px]"}
                 onChange={(e) => {
                   handleChange(e);
                 }}
-                // className="bg-white  border-2 p-3 w-full font-regular rounded-md"
                 placeholder={"Mobile Number"}
                 style={{ fontSize: '13px' }}
               />

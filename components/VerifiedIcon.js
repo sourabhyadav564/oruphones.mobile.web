@@ -1,19 +1,10 @@
 
 export default function VerifiedIcon({ ...rest }) {
   return (
-    // <Image
-    //   src={Verified}
-    //   id="Group_21"
-    //   data-name="Group 21"
-    //   alt="Verified"
-    //   {...rest}
-    // />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       id="Group_21"
       data-name="Group 21"
-      //   width="85.653"
-      //   height="41.976"
       viewBox="0 0 85.653 41.976"
       {...rest}
     >

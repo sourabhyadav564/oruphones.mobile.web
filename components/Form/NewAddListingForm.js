@@ -21,8 +21,6 @@ import CB from "../Form/Checkbox";
 import ConditionInfo from "../Popup/ConditionInfo";
 import router, { useRouter } from "next/router";
 import LoginPopup from "../Popup/LoginPopup";
-import Link from "next/link";
-import TermsconditionPopup from "../Popup/TermsconditionPopup";
 import BrandPopup from "../AddListing/BrandPopup";
 import ModelPopup from "../AddListing/ModelPopup";
 
@@ -63,12 +61,9 @@ import VerifyListingPopup from "../Popup/VerifyListingPopup";
 import PricePopup from "../Popup/PricePopup";
 import {
   Heading,
-  SellPhoneHeading1,
-  ProductPriceHeading,
-  AgeHeading,
+  SellPhoneHeading1
 } from "../elements/Heading/heading";
 import UnverifiedListingPopup from "../Popup/UnverifiedListingPoup";
-import Input2 from "./input2";
 import Input3 from "./input3";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
@@ -82,8 +77,6 @@ const NewAddListingForm = ({ data }) => {
   ];
 
   const router = useRouter();
-
-  const [makeModels, setMakeModels] = useState([data]);
   const [defaultBrand, setDefaultBrand] = useRecoilState(addListingBrandState);
   const [defaultModel, setDefaultModel] = useRecoilState(addListingModelState);
   const selectedStorage = useRecoilValue(addListingStorageSelector);
@@ -144,7 +137,6 @@ const NewAddListingForm = ({ data }) => {
   const [modelInfo, setModelInfo] = useState();
   const [page, setPage] = useState(0);
   const [openVerifyFlow, setOpenVerifyFlow] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
   const [openPricePopup, setOpenPricePopup] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [verifySubmit, setVerifySubmit] = useState(false);
@@ -161,31 +153,7 @@ const NewAddListingForm = ({ data }) => {
     } ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition
     } soldout`.toLowerCase();
 
-  // useEffect(() => {
-  //   if (selectedModel && defaultModel && defaultBrand && selectedBrand && selectedStorage) {
-  //     const interval = setInterval(() => {
-  //       setMake(selectedBrand);
-  //       // setDefaultModel(selectedModel);
-  //       setStorage(selectedStorage)
-  //       setModel(selectedModel);
-  //       console.log("selectedModel", selectedModel, selectedStorage, selectedBrand);
-  //       if (selectedBrand && defaultBrand) {
-  //         setPage(1);
-  //         setStorage(selectedStorage);
-  //       }
-  //       clearInterval(interval);
-  //     }, 1500);
-  //   } else {
-  //     setDefaultBrand("");
-  //     setDefaultModel("");
-  //     setPage(0);
-  //     setMake("");
-  //     setModel("");
-  //     setStorage("");
-  //     setStorageColorOption();
-  //   }
-  // }, []);
-
+  
   useEffect(() => {
     if (make) {
       setDefaultModel("");
@@ -207,7 +175,6 @@ const NewAddListingForm = ({ data }) => {
       getGlobalCities("").then(
         (response) => {
           setGlobalCities(response.dataObject);
-          // localStorage.setItem("cities", JSON.stringify(response.dataObject));
         },
         (err) => console.error(err)
       );
@@ -337,39 +304,9 @@ const NewAddListingForm = ({ data }) => {
         }
         const models3 = await getModelLists(0, "", selectedBrand, "");
         setMktNameOpt(models3?.dataObject[0]?.models);
-        // setStorage(selectedStorage);
         setStorageColorOption(
           models3?.dataObject[0]?.models?.find((i) => i.marketingname == selectedModel)
         )
-        // setPage(1);
-        // setStorage(selectedStorage);
-        // setPage(1);
-        // console.log("make3",selectedStorage);
-        // console.log("madel3",model);
-        // let index = data?.findIndex((i) => i.make == selectedBrand);
-        // if (
-        //   data &&
-        //   data[index]?.models &&
-        //   data[index]?.models.length > 0 &&
-        //   data[index]?.models !== undefined
-        // ) {
-        //   // console.log("data[index]?.models",data[index]?.models)
-        //   setMktNameOpt(data[index]?.models);
-        //   // check=true;
-        //   let index2 = data[index]?.models?.findIndex(
-        //     (i) => i.marketingname == selectedModel
-        //   );
-        //   // if (mktNameOpt) {
-        //   // console.log("mktNeOpt", mktNameOpt);
-        //   setStorageColorOption(data[index]?.models[index2]);
-        //   setStorage(selectedStorage);
-        //   // console.log("storage5", storageColorOption);
-        //   // }
-        //   // console.log(check);
-        // }
-        // if (check) {
-        //   setModel(selectedModel);
-        // }
       }
       clearInterval(interval);
     }, 1000);
@@ -378,8 +315,6 @@ const NewAddListingForm = ({ data }) => {
   const handleSelectChange = async (name) => {
     if (name === "make") {
       setMake(selectedBrand);
-      // let index = data.findIndex((i) => i.make === selectedBrand);
-      // setMktNameOpt(data[index]?.models);
       const models3 = await getModelLists(0, "", selectedBrand, "");
       setMktNameOpt(models3?.dataObject[0]?.models);
     } else if (name === "model") {
@@ -412,13 +347,10 @@ const NewAddListingForm = ({ data }) => {
   }, [openLoginPopup]);
 
   const completeListing = () => {
-    console.log("id", Cookies.get("userUniqueId"));
     let payload = {
       make,
       color,
       marketingName: model,
-      // deviceStorage: storage?.split("/")[0],
-      // deviceRam: storage?.split("/")[1].replace("RAM", ""),
       deviceStorage: storage.toString().split("/")[0].toString().trim(),
       deviceRam: storage
         .toString()
@@ -445,17 +377,13 @@ const NewAddListingForm = ({ data }) => {
     };
     saveLisiting(payload).then(
       (res) => {
-        console.log("res", res);
         if (verifySubmit === true) {
           setVerifyListingAdded(true);
         } else {
           if (res.type != null && res.type != "") {
             setUnverifiedListingReason(res.reason);
             setUnverifiedListingType(res.type);
-            console.log("unverifiedListingReason", unverifiedListingReason);
-            console.log("unverifiedListingType", unverifiedListingType);
             setUnverifiedListing(true);
-            // setListingAdded(true);
           } else {
             setListingAdded(true);
           }
@@ -528,7 +456,6 @@ const NewAddListingForm = ({ data }) => {
 
   useEffect(() => {
     if (make && model && storage) {
-      // setModelInfo();
       setIsGettingPrice(true);
       let payload = {
         deviceStorage: storage?.toString().includes("/")
@@ -557,8 +484,6 @@ const NewAddListingForm = ({ data }) => {
     }
   }, [storage]);
 
-  // console.log("deviceCosmeticQuestion", conditionResults);
-
   const [location, setLocation] = useState({
     loaded: false,
     city: "",
@@ -581,10 +506,7 @@ const NewAddListingForm = ({ data }) => {
     Geocode.setApiKey("AIzaSyAh6-hbxmUdNaznjA9c05kXi65Vw3xBl3w");
 
     Geocode.setLanguage("en");
-    // Geocode.setRegion("es");
-    // Geocode.setLocationType("ROOFTOP");
     Geocode.enableDebug();
-    // Get address from latitude & longitude.
     Geocode.fromLatLng(lat, lng).then(
       (response) => {
         let address = response?.plus_code?.compound_code;
@@ -594,7 +516,6 @@ const NewAddListingForm = ({ data }) => {
           city: address,
         });
         setSelectedCity(address);
-        // setOpen(false);
       },
       (error) => {
         console.error(error);
@@ -603,13 +524,11 @@ const NewAddListingForm = ({ data }) => {
           city: "India",
         });
         setSelectedCity("India");
-        // setOpen(false);
       }
     );
   };
 
   const onError = (error) => {
-    // alert(error.message);
     setLocation({
       loaded: true,
       city: "India",
@@ -623,15 +542,6 @@ const NewAddListingForm = ({ data }) => {
     maximumAge: 0,
   };
 
-  // useEffect(() => {
-  //   const initialState = localStorage.getItem("usedLocation");
-  //   if (!initialState || initialState == null) {
-  //     setOpen(true);
-  //   } else {
-  //     dispatch("ADDCITY", initialState);
-  //   }
-  // }, [])
-
   useEffect(() => {
     if (location.loaded && location.city && location.city.length > 0) {
       if (authenticated && user) {
@@ -642,20 +552,6 @@ const NewAddListingForm = ({ data }) => {
         if (searchLocId) {
           searchID = searchLocId[0]?.locationId;
         }
-        // let payLoad = {
-        //   city: location.city,
-        //   country: "India",
-        //   state: "",
-        //   locationId: searchID,
-        //   userUniqueId: Cookies.get("userUniqueId"),
-        // };
-        // updateAddress(payLoad).then((res) => {
-        //   const mobileNumber = Cookies.get("mobileNumber");
-        //   const countryCode = Cookies.get("countryCode");
-        //   getUserDetails(countryCode, mobileNumber).then((resp) => {
-        //     dispatch("LOGIN", resp.dataObject);
-        //   });
-        // });
       }
       dispatch("ADDCITY", location.city);
       localStorage.setItem("usedLocation", location.city);
@@ -685,13 +581,11 @@ const NewAddListingForm = ({ data }) => {
       submitting != true
     ) {
       setOpenPricePopup(true);
-      console.log("submitting", submitting);
       if (submitting === false) {
         return;
       }
     }
     var inputNameTag = document.querySelector("#inputName");
-    // var inputName = inputNameTag.value;
     var inputName = inputUsername || user?.userdetails?.userName;
 
     if (
@@ -825,25 +719,12 @@ const NewAddListingForm = ({ data }) => {
     setDefaultBrand("");
   }, [router.pathname]);
 
-  // console.log("makers", selectedBrand, selectedModel);
-
   return (
     <Fragment>
       <header
         className={`flex  p-4 py-3 bg-[#2C2F45] rounded-b-xl text-white text-lg relative`}
       >
         {router.pathname !== "/" && (
-          // <BsArrowLeft
-          //   onClick={() => {
-          //     page == 2 || page == 3
-          //       ? handleBack()
-          //       : page != 0
-          //         ? setPage(page - 1)
-          //         : router.back();
-          //   }}
-          //   className="cursor-pointer"
-          //   fontSize="22"
-          // />
           <Image src={LeftArrow} width={22} height={22}  
             className="cursor-pointer"
             onClick={() => {
@@ -860,15 +741,6 @@ const NewAddListingForm = ({ data }) => {
           </h1>
         }
       </header>
-      {/* {(makeRequired.length > 0 ||
-        marketingNameRequired.length > 0 ||
-        deviceConditionRequired.length > 0 ||
-        storageRequired.length > 0) && (
-        <h1 className="text-red pt-4">
-          Please fill all the required fields properly
-        </h1>
-      )} */}
-      {/* <Header4 title="Sell your Phone" /> */}
       <form
         className="grid grid-cols-1 space-y-4 container my-4"
         onSubmit={handleSubmit}
@@ -882,17 +754,9 @@ const NewAddListingForm = ({ data }) => {
               }}
               className="space-y-2"
             >
-              {/* <p className="font-semibold text-sm">
-                Brand <span className="text-red-400">*</span>
-              </p>
-              <input
-                type="text"
-                placeholder="Please select brand"
-                className="border-2 border-gray-200 p-2 w-full rounded-md duration-200"
-                value={make}
-              /> */}
               <div className="m-auto pl-28 pb-px mb-4 border-b ">
                 <Image
+                  quality={25}
                   src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/icons/phone.svg"}
                   width={120}
                   height={200}
@@ -915,7 +779,6 @@ const NewAddListingForm = ({ data }) => {
                   type="text"
                   className="font-Regular  text-jx text-[#2C2F45]"
                 >
-                  {/* Make */}
                 </Input>
               </div>
             </div>
@@ -927,15 +790,6 @@ const NewAddListingForm = ({ data }) => {
                 }}
                 className="space-y-2"
               >
-                {/* <p className="font-semibold text-sm">
-                  Model <span className="text-red-400">*</span>
-                </p>
-                <input
-                  type="text"
-                  placeholder="Please select model"
-                  className="border-2 border-gray-200 p-2 w-full rounded-md duration-200"
-                  value={model}
-                /> */}
                 <div className="space-y-nx">
                   <p className="flex space-x-0.5">
                     <CardHeading4 title="Model" />{" "}
@@ -948,22 +802,8 @@ const NewAddListingForm = ({ data }) => {
                     type="text"
                     className="font-Regular  text-jx text-[#2C2F45]"
                   >
-                    {/* Make */}
                   </Input>
                 </div>
-
-                {/* <p className="font-Regular text-[12dp] text-[#2C2F45]">
-                  Model <span className="text-red-400 ">*</span>
-                </p> */}
-                {/* <Input
-                  value={model}
-                  disabled
-                  placeholder="Please select model"
-                  type="text"
-                  className="font-Regular text-jx text-[#2C2F45]"
-                > */}
-                {/* Model */}
-                {/* </Input> */}
               </div>
             )}
             {storageColorOption && storageColorOption?.storage && (
@@ -974,9 +814,6 @@ const NewAddListingForm = ({ data }) => {
                     <span className="text-red-400 -mt-1">*</span>
                   </p>
                 </div>
-                {/* <p className="font-Regular text-[12dp] text-[#2C2F45]">
-                  Storage Variant <span className="text-red-400">*</span>
-                </p> */}
                 <div className="grid grid-cols-2 gap-3 ">
                   {storageColorOption &&
                     storageColorOption?.storage &&
@@ -990,7 +827,6 @@ const NewAddListingForm = ({ data }) => {
                         key={index}
                       >
                         <CardHeading4 title={item} />
-                        {/* <span>{item}</span> */}
                       </div>
                     ))}
                 </div>
@@ -1002,27 +838,6 @@ const NewAddListingForm = ({ data }) => {
                 </p>
               </div>
             )}
-            {/* {storageColorOption && storageColorOption?.color && (
-              <div className="space-y-2">
-                <p className="font-semibold text-sm">Color</p>
-                <div className="grid grid-cols-3 gap-3">
-                  {storageColorOption &&
-                    storageColorOption?.color &&
-                    storageColorOption.color.map((item, index) => (
-                      <div
-                        className={`${color == item
-                          ? "bg-gray-300 border-[1.5px] border-black"
-                          : "bg-white"
-                          } border-2 active:bg-gray-200 duration-300 p-2 flex items-center justify-center rounded-md`}
-                        onClick={() => setColor(item)}
-                        key={index}
-                      >
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            )} */}
             {modelInfo && !isGettingPrice && (
               <div className="border-t-2 border-b-2 py-[24px]">
                 <p className=" flex space-x-2 ">
@@ -1032,12 +847,8 @@ const NewAddListingForm = ({ data }) => {
                   <div className="font-Roboto-Bold text-qx  text-[#4CAF50]">
                     {" "}
                     ₹{modelInfo?.price}
-                    {/* <span className="absolute pl-1 text-[16px] text-[#F9C414]"> *</span> */}
                   </div>
-                  {/* <ProductPriceHeading title={modelInfo?.price} color='#4CAF50'/> */}
                 </p>
-                {/* <div> <h1 className="font-Regular text-bx  text-[#F9C414]  opacity-80 "> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h1> </div> */}
-
                 <div className="font-Roboto-Regular text-mx text-primary-light">
                   <b>
                     <u>Disclaimer</u>
@@ -1063,6 +874,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
+                  quality={25}
                   src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   className=""
                   alt={`sell ${type[Math.floor(Math.random() * type.length)]
@@ -1071,7 +883,6 @@ const NewAddListingForm = ({ data }) => {
                   width="90"
                 />
                 <div className="flex flex-col  absolute bottom-5 left-36">
-                  {/* <p className="font-bold text-dx text-[#2C2F45]">{modelInfo?.marketingName}</p> */}
                   <CardHeading3 title={modelInfo?.marketingName} />
 
                   <p className="flex space-x-1">
@@ -1106,9 +917,6 @@ const NewAddListingForm = ({ data }) => {
               <div className="py-rx">
                 <SellPhoneHeading1 title="Do you have the followings?" />
               </div>
-              {/* <p className="font-Bold text-[#2C2F45] text-px">
-                Do you have the followings?
-              </p> */}
               <div className="grid grid-cols-2 gap-4 ">
                 <Checkbox
                   src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/charging-station.svg"}
@@ -1169,6 +977,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
+                  quality={25}
                   src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
@@ -1177,7 +986,6 @@ const NewAddListingForm = ({ data }) => {
                   width="90"
                 />
                 <div className="flex flex-col  absolute bottom-5 left-36">
-                  {/* <p className="font-bold text-dx text-[#2C2F45]">{modelInfo?.marketingName}</p> */}
                   <CardHeading3 title={modelInfo?.marketingName} />
 
                   <p className="flex space-x-1">
@@ -1213,9 +1021,6 @@ const NewAddListingForm = ({ data }) => {
               <SellPhoneHeading1
                 title={deviceConditionQuestion[questionIndex]?.title}
               />
-              {/* <h3 className="text-left font-Bold  text-[#2C2F45] text-px">
-                {deviceConditionQuestion[questionIndex]?.title}
-              </h3> */}
               {deviceConditionQuestion[questionIndex]?.options?.map(
                 (item, index) => (
                   <div
@@ -1248,6 +1053,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
+                  quality={25}
                   src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
@@ -1256,7 +1062,6 @@ const NewAddListingForm = ({ data }) => {
                   width="90"
                 />
                 <div className="flex flex-col  absolute bottom-5 left-36">
-                  {/* <p className="font-bold text-dx text-[#2C2F45]">{modelInfo?.marketingName}</p> */}
                   <CardHeading3 title={modelInfo?.marketingName} />
 
                   <p className="flex space-x-1">
@@ -1292,16 +1097,8 @@ const NewAddListingForm = ({ data }) => {
                 condition={condition}
                 answer={conditionResults}
               />
-              {/* <p
-                className="text-sm whitespace-nowrap underline cursor-pointer text-[primary] hover:text-primary"
-                onClick={() => setOpenConditionInfo(true)}
-              >
-                What&apos;s this?
-              </p> */}
             </>
-            {/* <p className="font-Bold text-px  text-[#2C2F45]">Upload Photos</p> */}
             <SellPhoneHeading1 title="Upload Photos" />
-            {/* <PanelHeading title="Back Panel" /> */}
             <div className="grid grid-cols-2 relative">
               <div className="flex justify-center font-Roboto-Semibold text-cx text-gray-600">
                 Product Image
@@ -1310,7 +1107,6 @@ const NewAddListingForm = ({ data }) => {
                 Product Image
               </div>
               {images.map((item, index) => (
-                // <div className="">
                 <div
                   key={index}
                   className="relative pt-4 item-center even:ml-2 odd:mr-2 mb-2  rounded-md bg-[#E8E8E8]"
@@ -1330,7 +1126,6 @@ const NewAddListingForm = ({ data }) => {
                     index={index}
                   />
                 </div>
-                // </div>
               ))}
               {images && images.length < 8 && (
                 <span
@@ -1356,6 +1151,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
+                  quality={25}
                   src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
@@ -1364,7 +1160,6 @@ const NewAddListingForm = ({ data }) => {
                   width="90"
                 />
                 <div className="flex flex-col  absolute bottom-5 left-36">
-                  {/* <p className="font-bold text-dx text-[#2C2F45]">{modelInfo?.marketingName}</p> */}
                   <CardHeading3 title={modelInfo?.marketingName} />
 
                   <p className="flex space-x-1">
@@ -1400,13 +1195,6 @@ const NewAddListingForm = ({ data }) => {
                 condition={condition}
                 answer={conditionResults}
               />
-              {/* <p
-                className="text-sm whitespace-nowrap underline cursor-pointer text-blue-600 hover:text-blue-800"
-                onClick={() => setOpenConditionInfo(true)}
-              >
-                What&apos;s this?
-              </p>.
-               */}
             </>
             <div className="relative">
               <div className="space-y-1 text-jx text-[#92949F] font-Regular">
@@ -1428,7 +1216,6 @@ const NewAddListingForm = ({ data }) => {
                   errorClass={`border ${nameValueRequired}`}
                   disabled={user?.userdetails?.userName ? true : false}
                 >
-                  {/* Name* */}
                 </Input>
                 {nameValueRequired && (
                   <span className="text-red text-sm absolute -bottom-6">
@@ -1471,7 +1258,6 @@ const NewAddListingForm = ({ data }) => {
                   className="h-10 w-16 bg-gray-200 rounded-r-lg -ml-1 inline-flex justify-center items-center hover:cursor-pointer"
                   onClick={handleNearme}
                 >
-                  {/* <BiCurrentLocation size={24} /> */}
                   <Image src={CurrentLocation} width={24} height={24}/>
                 </div>
               </div>
@@ -1498,6 +1284,7 @@ const NewAddListingForm = ({ data }) => {
             {modelInfo && (
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
+                  quality={25}
                   src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                   className=""
                   alt={` sell ${type[Math.floor(Math.random() * type.length)]
@@ -1506,7 +1293,6 @@ const NewAddListingForm = ({ data }) => {
                   width="90"
                 />
                 <div className="flex flex-col  absolute bottom-5 left-36">
-                  {/* <p className="font-bold text-dx text-[#2C2F45]">{modelInfo?.marketingName}</p> */}
                   <CardHeading3 title={modelInfo?.marketingName} />
 
                   <p className="flex space-x-1">
@@ -1534,13 +1320,6 @@ const NewAddListingForm = ({ data }) => {
                         storage?.split("/")[0]}
                     </div>
                   </p>
-                  {/* <div className="flex font-Roboto-Bold text-jx text-[#2C2F45] ">
-                    {condition && (
-                      <p className="flex space-x-">
-                        <span><CardHeading4 title="Condition : " /> </span> <span>{"  "} {condition} </span>
-                      </p>
-                    )}
-                  </div> */}
                 </div>
               </div>
             )}
@@ -1551,7 +1330,6 @@ const NewAddListingForm = ({ data }) => {
             />
             <p className="flex space-x-1 pt-4">
               <SellPhoneHeading1 title="Enter your sell price " />
-              {/* Enter your sell price  */}
               <span className="text-red-400">*</span>
             </p>
             <div className="grid grid-cols-7 gap-4 relative">
@@ -1568,7 +1346,6 @@ const NewAddListingForm = ({ data }) => {
                   setSellValueRequired("");
                 }}
               >
-                {/* Enter your sell price* */}
               </Input3>
 
               <div className="text-sm bg-[#E8E8E8] col-span-3 px-2 py-1 rounded-md -ml-1 relative  ">
@@ -1607,12 +1384,6 @@ const NewAddListingForm = ({ data }) => {
             </div>
             {getExternalSellerData && getExternalSellerData.length > 0 && (
               <Heading title="Price from other vendors :" />
-              // <p
-              //   className="font-Light text-dx border-b-2 pb-1"
-              //   style={{ color: "#707070" }}
-              // >
-              //   Price from other vendors :
-              // </p>
             )}
             {getExternalSellerData && getExternalSellerData.length > 0 && (
               <div className="border-b-2 pb-6">
@@ -1664,7 +1435,6 @@ const NewAddListingForm = ({ data }) => {
                 if (authenticated) {
                   setVerifySubmit(true);
                 }
-                // e.preventDefault();
               }}
             >
               TAKE ME TO VERIFICATION
@@ -1686,7 +1456,6 @@ const NewAddListingForm = ({ data }) => {
             }
           }}
         >
-          {/* <IoIosArrowBack className="text-xl" /> */}
           <Image src={ArrowBack} width={15} height={15}/>
           <span>Back</span>
         </div>
@@ -1764,7 +1533,6 @@ const NewAddListingForm = ({ data }) => {
           }}
         >
           <span className="font-Regular text-dx flex-1 mr-5">Next</span>
-          {/* <IoIosArrowForward className="text-qx font-Regular" /> */}
           <Image src={ArrowForward} width={15} height={15} className="text-qx font-Regular"/>
         </div>
       </div>

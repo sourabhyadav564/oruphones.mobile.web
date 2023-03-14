@@ -36,11 +36,8 @@ Axios.interceptors.response.use(
 
 export const getLink = async (id) => {
     if (id !== undefined) {
-        console.log("id", id);
         const API_ENDPOINT = process.env.NEXT_PUBLIC_SERVER_URL + "/api/v1/global/getLink?keyId=" + `${id}`;
         const result = await Axios.get(API_ENDPOINT, { headers: { ...headers } });
-        console.log("response from getLink", result);
-
         if (result.data.status === "SUCCESS") {
             window.open(result.data.dataObject.link, "_self").focus();
         } else {
@@ -55,7 +52,6 @@ export default function handler() {
     useEffect(() => {
         setTimeout(() => {
             const routerId = router.query.id;
-            console.log("router query : ", routerId);
             getLink(router.query?.id);
         }, 3000);
     });

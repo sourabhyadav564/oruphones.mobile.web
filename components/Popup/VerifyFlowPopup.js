@@ -1,6 +1,4 @@
 import { Dialog } from "@headlessui/react";
-import { getTinyUrl } from "api-call";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import AppleStore from "@/assets/apple_store.svg";
 import PlayStore from "@/assets/playstore.svg";
@@ -11,40 +9,10 @@ function VerifyFlowPopup({ open, setOpen }) {
   const [qrValue1, setQrValue1] = useState(
     "https://apps.apple.com/in/app/oruphones/id1629378420"
   );
-  // useEffect(() => {
-  //   if (open) {
-  //     const onBackButtonEvent = (e) => {
-  //       e.preventDefault();
-  //       setOpen(false);
-  //     }
-
-  //     window.history.pushState(null, null, window.location.pathname);
-  //     window.addEventListener('popstate', onBackButtonEvent);
-  //     return () => {
-  //       window.removeEventListener('popstate', onBackButtonEvent);
-  //     };
-    // } else {
-    //   const onBackButtonEvent = (e) => {
-    //     e.preventDefault();
-    //     window.history.back();
-    //   }
-    //   window.history.pushState(null, null, window.location.pathname);
-    //   window.addEventListener('popstate', onBackButtonEvent);
-    //   return () => {
-    //     window.removeEventListener('popstate', onBackButtonEvent);
-    //   };
-  //   }
-  // }, [open]);
-
+ 
   const [qrValue2, setQrValue2] = useState(
     "https://play.google.com/store/apps/details?id=com.oruphones.oru"
   );
-
-  // useEffect(() => {
-  //   getTinyUrl().then((response) => {
-  //     setQrValue(response?.dataObject?.tinyurl);
-  //   });
-  // }, []);
 
   return (
     <Modal1 open={open} setOpen={setOpen}>
@@ -81,27 +49,13 @@ function VerifyFlowPopup({ open, setOpen }) {
             </ul>
             <div className="flex space-x-6 pt-5 justify-center items-center px-7">
               <div className="flex flex-col justify-center items-center space-y-3">
-                {/* <a href={qrValue1}>
-                  <p className="w-32 h-10 bg-appStore bg-no-repeat bg-contain" />
-                  </a>
-                  <a href={qrValue2}>
-                  <p className="w-32 mt-4 h-10 bg-playStore bg-no-repeat bg-contain" />
-                </a> */}
                  <Image src={AppleStore} width={96} height={96} alt=""/>
-                {/* <QRCode value={qrValue1 || ""} size={120} level={"H"} /> */}
                 <a href={qrValue1}>
                   <p className="w-32 h-10 bg-appStore bg-no-repeat bg-contain" />
                 </a>
               </div>
               <div className="flex flex-col justify-center items-center space-y-3">
-                {/* <a href={qrValue1}>
-                  <p className="w-32 h-10 bg-appStore bg-no-repeat bg-contain" />
-                  </a>
-                  <a href={qrValue2}>
-                  <p className="w-32 mt-4 h-10 bg-playStore bg-no-repeat bg-contain" />
-                </a> */}
                  <Image src={PlayStore} width={96} height={96} alt=""/>
-                {/* <QRCode value={qrValue2 || ""} size={120} level={"H"} /> */}
                 <a href={qrValue2}>
                   <p className="w-32 h-10 bg-playStore bg-no-repeat bg-contain" />
                 </a>

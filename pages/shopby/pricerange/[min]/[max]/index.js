@@ -11,7 +11,6 @@ import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
-import { CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 
 function PriceRangePage() {
   const router = useRouter();
@@ -33,7 +32,6 @@ function PriceRangePage() {
   const loadData = (intialPage) => {
     if (min && max && !isFilterApplied && !applyFilter) {
       shopByPriceRange(
-        // max === "above" ? "200000" : max,
         max,
         selectedSearchCity,
         min,
@@ -63,7 +61,6 @@ function PriceRangePage() {
         if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
           let payLoad = {
             listingLocation: selectedSearchCity,
-            // maxsellingPrice: max === "above" ? "200000" : max,
             maxsellingPrice: max,
             minsellingPrice: min,
             reqPage: "SBYP",
@@ -95,7 +92,6 @@ function PriceRangePage() {
           if (verification?.length > 0) {
             payLoad.verified = verification.includes("all") ? "" : "verified";
           }
-          // setLoading(true);
           searchFilter(
             payLoad,
             localStorage.getItem("userUniqueId") || "Guest",
@@ -106,7 +102,6 @@ function PriceRangePage() {
             setShopByPriceOtherListings(response?.dataObject?.otherListings);
             setTotalProducts(response?.dataObject?.totalProducts);
             setShopByPriceBestDeal(response?.dataObject?.bestDeals);
-            // setLoading(false);
           });
         }
       }
@@ -119,7 +114,6 @@ function PriceRangePage() {
     setIsLoadingMore(true);
     if (min && max && !isFilterApplied) {
       shopByPriceRange(
-        // max === "above" ? "200000" : max,
         max,
         selectedSearchCity,
         min,
@@ -142,7 +136,6 @@ function PriceRangePage() {
               (response && response?.dataObject?.totalProducts) || 0
             );
           }
-          // setShopByPriceOtherListings(response?.dataObject?.otherListings);
           setLoading(false);
           setIsLoadingMore(false);
         },
@@ -162,7 +155,6 @@ function PriceRangePage() {
         if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
           let payLoad = {
             listingLocation: selectedSearchCity,
-            // maxsellingPrice: max === "above" ? "200000" : max,
             maxsellingPrice: max,
             minsellingPrice: min,
             reqPage: "SBYP",
@@ -194,7 +186,6 @@ function PriceRangePage() {
           if (verification?.length > 0) {
             payLoad.verified = verification.includes("all") ? "" : "verified";
           }
-          // setLoading(true);
           searchFilter(
             payLoad,
             localStorage.getItem("userUniqueId") || "Guest",
@@ -220,7 +211,6 @@ function PriceRangePage() {
                 ...response?.dataObject?.bestDeals,
               ]);
             }
-            // setLoading(false);
           });
         }
       }
@@ -242,7 +232,6 @@ function PriceRangePage() {
       if (Object.keys(applyFilter).some((i) => applyFilter[i])) {
         let payLoad = {
           listingLocation: selectedSearchCity,
-          // maxsellingPrice: max === "above" ? "200000" : max,
           maxsellingPrice: max,
           minsellingPrice: min,
           reqPage: "SBYP",
@@ -274,7 +263,6 @@ function PriceRangePage() {
         if (verification?.length > 0) {
           payLoad.verified = verification.includes("all") ? "" : "verified";
         }
-        // setLoading(true);
         searchFilter(
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
@@ -285,16 +273,10 @@ function PriceRangePage() {
           setShopByPriceOtherListings(response?.dataObject?.otherListings);
           setTotalProducts(response?.dataObject?.totalProducts);
           setShopByPriceBestDeal(response?.dataObject?.bestDeals);
-          // setLoading(false);
         });
       }
     }
   }, [applyFilter]);
-
-  // const sortingProducts = getSortedProducts(
-  //   applySortFilter,
-  //   shopByPriceOtherListings
-  // );
 
   useEffect(() => {
     intialPage = 0;
@@ -312,26 +294,12 @@ function PriceRangePage() {
         applyFilter={applyFilter}
         setIsFilterApplied={setIsFilterApplied}
       >
-        {/* {(isLoading || shopByPriceBestDeal?.length > 0) && (
-        <h1 className="text-lg font-semibold text-gray-20 py-2.5">
-          {" "}
-          Best Deals{" "}
-        </h1>
-      )} */}
         {isLoading ? (
           <div className="flex items-center justify-center">
             <Loader />
-            {/* <CardHeading4 title={"Please wait, while we are fetching the data for you..."} /> */}
           </div>
         ) : (
           (shopByPriceBestDeal?.length > 0) && (
-            //   <div>
-            //      <h1 className="text-lg font-semibold text-gray-20 py-2.5">
-            //   {" "}
-            //   Best Deals{" "}
-            // </h1>
-            //   <BestDealSection bestDealData={shopByPriceBestDeal} />
-            //   </div>
             <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff]">
               <h1 className="text-lg font-semibold text-white py-2.5">
                 Best Deals
@@ -348,13 +316,11 @@ function PriceRangePage() {
             <div className="">
               <Filter1
                 setSortApplyFilter={setSortApplyFilter}
-              // setApplyFilter={setApplyFilter}
               ></Filter1>
             </div>
           </div>
         )}
         {isLoading ? (
-          // <Loader />
           <></>
         ) : ((shopByPriceOtherListings &&
           shopByPriceOtherListings.length > 0) ?
@@ -370,12 +336,6 @@ function PriceRangePage() {
           </section>
           : <NoMatch />
         )}
-        {/* {shopByPriceBestDeal &&
-        shopByPriceBestDeal.length > 0 &&
-        sortingProducts &&
-        sortingProducts.length > 0 ? null : (
-        <NoMatch />
-      )} */}
 
         {!isLoading &&
           isFinished == false && shopByPriceOtherListings.length != totalProducts && (

@@ -9,11 +9,7 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
   if (!data?.verified && !data?.cosmetic) {
     return null;
   }
-
   const [questionIndex, setQuestionIndex] = useState(0);
-
-  // console.log("data", data?.cosmetic);
-
   return (
     <div className="w-full mx-auto rounded-md  p-4 mb-4 bg-[#F9F9F9]">
       <Disclosure defaultOpen={defaultOpen || false}>
@@ -29,11 +25,6 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
                 }}
               >
                 <h2 className="font-Roboto-Medium text-ex text-[#2C2F45]">Device Cosmetic Report</h2>
-
-                {/* <FiChevronDown
-                  className={`${open ? "transform rotate-180" : ""
-                    } w-5 h-5 text-gray-70`}
-                /> */}
                 <Image src={DropDown} width={20} height={20}  className={`${open ? "transform rotate-180" : ""
                     } w-5 h-5 text-gray-70`}/>
               </div>
@@ -42,11 +33,6 @@ function ViewReport({ data, defaultOpen, setDefaultOpen }) {
 
             <Disclosure.Panel className="px-1 mt-3 text-sm text-gray-70 divide-y">
               <div className="border-t pt-2">
-                {/* {data && data?.cosmetic && (
-                  <h2 className="text-gray-20 font-semibold mb-3">
-                    Device Cosmetic Report
-                  </h2>
-                )} */}
                 {data && data?.cosmetic && (
                   <div>
                     {deviceConditionQuestion.map((item, index) => (

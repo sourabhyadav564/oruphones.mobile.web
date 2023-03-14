@@ -8,30 +8,6 @@ function DeleteAccPopup({ open, setOpen, setDelete }) {
         setOpen(false);
         setDelete(true);
     }
-    // useEffect(() => {
-    //     if (open) {
-    //         const onBackButtonEvent = (e) => {
-    //             e.preventDefault();
-    //             setOpen(false);
-    //         }
-
-    //         window.history.pushState(null, null, window.location.pathname);
-    //         window.addEventListener('popstate', onBackButtonEvent);
-    //         return () => {
-    //             window.removeEventListener('popstate', onBackButtonEvent);
-    //         };
-        // } else {
-        //     const onBackButtonEvent = (e) => {
-        //         e.preventDefault();
-        //         window.history.back();
-        //     }
-        //     window.history.pushState(null, null, window.location.pathname);
-        //     window.addEventListener('popstate', onBackButtonEvent);
-        //     return () => {
-        //         window.removeEventListener('popstate', onBackButtonEvent);
-        //     };
-    //     }
-    // }, [open]);
     const handleCancel = () => {
         setOpen(false);
         setDelete(false);
@@ -39,10 +15,6 @@ function DeleteAccPopup({ open, setOpen, setDelete }) {
     return (
         <Modal2 open={open} setOpen={setOpen}>
             <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e">
-                {/* <RiErrorWarningLine
-                    size={52}
-                    color="#FFC107"
-                /> */}
                 <Image src={ErrorWarningAlert} width={52} height={52}/>
                 <h1 className="font-Roboto-Bold mb-2 mt-3">Do you really want to delete your Account? </h1>
                 <div className="mb-2 mt-4 font-Roboto-Regular">

@@ -1,5 +1,4 @@
 import { getSearchResults } from "api-call";
-import Link from "next/link";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { Fragment } from "react";
@@ -89,7 +88,6 @@ function SearchBar({ className }) {
         />
         {searchResults && (
           <div
-            // className="overflow-y-auto"
             className="absolute z-20 left-0 right-0 rounded-b-lg  bg-white overflow-y-auto text-black"
             style={{
               boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.16)",
@@ -113,8 +111,6 @@ function SearchBar({ className }) {
                   key={item}
                   make={item}
                   makeLink
-                // setPastSearches={setPastSearches}
-                // pastSearches = {pastSearches}
                 />
               ))}
             {searchResults.results && searchResults.results.length > 0 && (
@@ -139,8 +135,6 @@ function SearchBar({ className }) {
                     searchResults.marketingNameAndMakeMap[item]
                   }
                   marketingName={item}
-                // setPastSearches={setPastSearches}
-                // pastSearches={pastSearches}
                 />
               ))}
             {searchResults === "loading" && (
@@ -189,7 +183,6 @@ function SearchBar({ className }) {
                   searchResults.brandList.length < 1)) && (
                 <ListItem
                   clicked={() => {
-                    // setPastSearches(...pastSearches,marketingName)
                     setInput("");
                     setSearchResults();
                     showRecentSearch = true;
@@ -200,10 +193,8 @@ function SearchBar({ className }) {
               )}
           </div>
         )}
-        {/* </div> */}
         {!className && (
           <div className="absolute right-2 top-0 bottom-0 flex items-center">
-            {/* <BiSearch className="text-primary " size={20} /> */}
             <Image src={Search} width={20} height={20}/>
           </div>
         )}
@@ -226,7 +217,6 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
     );
   }
   const pastSearches = () => {
-    // let pastSearch = new Map();
     let pastSearch = [];
     if (localStorage.getItem("pastSearches")) {
       pastSearch = localStorage.getItem("pastSearches");
@@ -238,10 +228,8 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
     }
     pastSearch.push(marketingName || make);
     localStorage.setItem("pastSearches", JSON.stringify(pastSearch));
-    // }
   };
   const handleClick = () => {
-    // setPastSearches(marketingName)
     clicked();
     pastSearches();
     window.open(
@@ -255,11 +243,6 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
   return (
     <div
       onClick={() => handleClick()}
-    // href={
-    //   makeLink
-    //     ? `/product/buy-old-refurbished-used-mobiles/${make}/`
-    //     : `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`
-    // }
     >
       <a
         className="px-6 py-3 block border-b last:border-0 capitalize"

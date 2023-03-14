@@ -1,9 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
-// import patchCheck from "@/assets/patch-check.svg";
 import Modal2 from "./Modal2";
 import Spinner from "../Loader/Spinner";
-import { useEffect } from "react";
 
 function LoadingStatePopup({ open, setOpen }) {
   return (

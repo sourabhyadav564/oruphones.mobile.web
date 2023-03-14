@@ -26,32 +26,7 @@ function Sidebar({ open, setOpen }) {
   const [openbuynowpopup, setOpenbuynowpopup] = useState(false);
   const [openOruGuidePopup, setOpenOruGuidePopup] = useState(false);
 
-  // useEffect(() => {
-  //   if (open) {
-  //     const onBackButtonEvent = (e) => {
-  //       e.preventDefault();
-  //       setOpen(false);
-  //     }
-
-  //     window.history.pushState(null, null, window.location.pathname);
-  //     window.addEventListener('popstate', onBackButtonEvent);
-  //     return () => {
-  //       window.removeEventListener('popstate', onBackButtonEvent);
-  //     };
-  // } else {
-  //   const onBackButtonEvent = (e) => {
-  //     e.preventDefault();
-  //     window.history.back();
-  //   }
-  //   window.history.pushState(null, null, window.location.pathname);
-  //   window.addEventListener('popstate', onBackButtonEvent);
-  //   return () => {
-  //     window.removeEventListener('popstate', onBackButtonEvent);
-  //   };
-  //   }
-  // }, [open]);
-
-  useEffect(() => {
+   useEffect(() => {
     if (authenticated && user != null) {
       setUserName(user.userdetails.userName || "User");
     } else {
@@ -104,10 +79,6 @@ function Sidebar({ open, setOpen }) {
         >
           <div className="flex flex-col w-full h-full max-h-screen bg-white overflow-hidden shadow-xl transform transition-all">
               <div className="p-4  bg-green-light text-white rounded-b-2xl">
-              {/* <FiChevronLeft
-                className="ml-auto text-lg item-center "
-                onClick={() => setOpen(false)}
-              /> */}
               <div className="flex justify-end">
               <Image src={ArrowLeft} width={15} height={15} className="ml-auto text-lg item-center flex " onClick={() => setOpen(false)}/>
               </div>
@@ -148,13 +119,11 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                  {/* <MdOutlineFavoriteBorder size={20} className="self-center" /> */}
                   <Image src={HeartBlack} width={20} height={20}  className="self-center"/>
                   <p className="self-center flex-1 font-Roboto-Regular">
                     {" "}
                     My Favorites
                   </p>
-                  {/* <FiChevronLeft className="rotate-180 -mr-2 self-center" /> */}
                   <span className="-mr-2">
                   <Image src={ChevronLeft} width={15} height={15} className="rotate-180  self-center"  />
                   </span>
@@ -169,13 +138,11 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                  {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
                   <Image src={OutLineInfoCircle} width={20} height={20} className="self-center"/>
                   <p className="self-center flex-1 font-Roboto-Regular">
                     {" "}
                     About us
                   </p>
-                  {/* <FiChevronLeft className="rotate-180 self-center" /> */}
                   <Image src={ChevronLeft} width={15} height={15} className="rotate-180  self-center"  />
                 </div>
               </ListItem>
@@ -186,16 +153,29 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                  {/* <AiOutlineQuestionCircle size={20} className="self-center" /> */}
                   <Image src={QuestionCircle} width={20} height={20} className="self-center"/>
                   <p className="self-center flex-1  font-Roboto-Regular">
                     {" "}
                     FAQs
                   </p>
-                  {/* <FiChevronLeft className="rotate-180 self-center" /> */}
                   <Image src={ChevronLeft} width={15} height={15} className="rotate-180 self-center"  />
                 </div>
               </ListItem>
+              {/* <ListItem
+                href="/reportIssue"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <div className="w-full flex gap-2 border-b pb-3">
+                  <Image src={QuestionCircle} width={20} height={20} className="self-center"/>
+                  <p className="self-center flex-1  font-Roboto-Regular">
+                    {" "}
+                    Report an issue
+                  </p>
+                  <Image src={ChevronLeft} width={15} height={15} className="rotate-180 self-center"  />
+                </div>
+              </ListItem> */}
               <div className="mt-auto border-t ml-2 ">
                 {authenticated ? (
                   <>
@@ -205,13 +185,6 @@ function Sidebar({ open, setOpen }) {
                         setOpensellnowpopup(true);
                       }}
                     >
-                      {/* <div className="w-full flex gap-2 border-b pb-3"> */}
-                        {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
-                        {/* <p className="self-center flex-1 font-Roboto-Regular">
-                          How to sell
-                        </p> */}
-                        {/* <FiChevronLeft className="rotate-180 self-center" /> */}
-                      {/* </div> */}
                     </ListItem>
                     <div className="flex justify-between">
                       <ListItem
@@ -228,11 +201,9 @@ function Sidebar({ open, setOpen }) {
                             height={50}
                             className="self-center"
                            />
-                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             How to sell
                           </p>
-                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
                         </div>
                       </ListItem>
                       <ListItem
@@ -248,11 +219,9 @@ function Sidebar({ open, setOpen }) {
                           width={20}
                           height={50}
                           />
-                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             How to buy
                           </p>
-                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
                         </div>
                       </ListItem>
                       <ListItem
@@ -268,11 +237,9 @@ function Sidebar({ open, setOpen }) {
                           width={22}
                           height={52}
                           />
-                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             Oru Guide
                           </p>
-                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
                         </div>
                       </ListItem>
                     </div>
@@ -284,7 +251,6 @@ function Sidebar({ open, setOpen }) {
                       }}
                     >
                       <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
-                        {/* <AiOutlineLogout size={20} className="self-center" />{" "} */}
                         <Image src={Logout} width={20} height={20} className="self-center"/> {" "}
                         <p>Logout</p>
                       </div>
@@ -307,11 +273,9 @@ function Sidebar({ open, setOpen }) {
                             height={50}
                             className="self-center"
                            />
-                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             How to sell
                           </p>
-                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
                         </div>
                       </ListItem>
                       <ListItem
@@ -327,11 +291,9 @@ function Sidebar({ open, setOpen }) {
                           width={20}
                           height={50}
                           />
-                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             How to buy
                           </p>
-                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
                         </div>
                       </ListItem>
                       <ListItem
@@ -347,17 +309,14 @@ function Sidebar({ open, setOpen }) {
                           width={22}
                           height={52}
                           />
-                          {/* <AiOutlineInfoCircle size={20} className="self-center" /> */}
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             Oru Guide
                           </p>
-                          {/* <FiChevronLeft className="rotate-180 self-center" /> */}
                         </div>
                       </ListItem>
                     </div>
                     <ListItem href="/login">
                       <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
-                        {/* <AiOutlineLogin size={20} />  */}
                         <Image src={LoginIcon} width={15} height={15}/>
                          <p>Sign In</p>
                       </div>

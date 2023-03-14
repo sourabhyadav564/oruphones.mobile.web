@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-// import Image from "next/image";
 import cross from "@/assets/cross.svg";
 import Loader from "../Loader/Loader";
 import Image from "next/image";
@@ -25,10 +24,6 @@ function ImageInput({
           <div className="h-24 mx-auto">
             <img src={preview} alt="ORU image" style={{ width: "auto", height: "100%" }} />
           </div>
-          {/* <GrClose
-            className="absolute -top-2 right-2 text-sm cursor-pointer"
-            onClick={clearImage}
-          /> */}
           <Image src={cross} width={20} height={20} className="absolute -top-2 right-2 text-sm cursor-pointer"
             onClick={clearImage}/>
           

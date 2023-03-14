@@ -5,51 +5,17 @@ import ConditionOptionLarge from "../Condition/ConditionOptionLarge";
 import Modal1 from "./Modal1";
 
 function ConditionPopup({ openCondition, setopenCondition, setConditionResultEdit, setConditionQuestionEdit }) {
-    // console.log("openCondition", setConditionResultEdit());
     const [questionIndex, setQuestionIndex] = useState(0);
     const [conditionResults, setConditionResults] = useState({});
     const [condition, setCondition] = useState("");
 
-    // const [range, setRange] = useState("Featured");
-
     function handleChange(data) {
         setCondition(data);
     }
-    // useEffect(() => {
-    //     if (openCondition) {
-    //         const onBackButtonEvent = (e) => {
-    //             e.preventDefault();
-    //             setopenCondition(false);
-    //         }
-
-    //         window.history.pushState(null, null, window.location.pathname);
-    //         window.addEventListener('popstate', onBackButtonEvent);
-    //         return () => {
-    //             window.removeEventListener('popstate', onBackButtonEvent);
-    //         };
-        // } else {
-        //     const onBackButtonEvent = (e) => {
-        //         e.preventDefault();
-        //         window.history.back();
-        //     }
-        //     window.history.pushState(null, null, window.location.pathname);
-        //     window.addEventListener('popstate', onBackButtonEvent);
-        //     return () => {
-        //         window.removeEventListener('popstate', onBackButtonEvent);
-        //     };
-    //     }
-    // }, [openCondition]);
     useEffect(() => {
         setConditionResultEdit(condition);
         setConditionQuestionEdit(conditionResults);
     }, [condition]);
-
-    // const submit = (e) => {
-    //     e.preventDefault();
-    //     setSortApplyFilter(range);
-    //     setOpenSort(false);
-    // };
-
     useEffect(() => {
         if (questionIndex === 0) {
             setConditionResults({});
@@ -119,12 +85,9 @@ function ConditionPopup({ openCondition, setopenCondition, setConditionResultEdi
             setQuestionIndex(0);
         }
         else {
-            // questionIndex == deviceConditionQuestion.length - 1 &&
-            //     calculateDeviceCondition();
             questionIndex == deviceConditionQuestion.length - 1 && calculateDeviceCondition();
             questionIndex == deviceConditionQuestion.length - 1 && setopenCondition(false);
             questionIndex == deviceConditionQuestion.length - 1 && setQuestionIndex(0);
-            console.log("condition", condition);
         }
     };
 
@@ -132,9 +95,6 @@ function ConditionPopup({ openCondition, setopenCondition, setConditionResultEdi
         <Modal1 open={openCondition} setOpen={setopenCondition}>
             <div className="bg-white p-6 pb-14 sm:p-6 sm:pb-4">
                 <div className="text-left sm:mt-0 sm:ml-4 sm:text-left text-black-4e">
-                    {/* <Dialog.Title as="h1" className="text-lg leading-6 font-semibold ">
-                        Sort by
-                    </Dialog.Title> */}
                     <div>
                         <h3 className="text-center font-Roboto-Semibold text-xl">
                             {deviceConditionQuestion[questionIndex]?.title}
@@ -170,12 +130,3 @@ function ConditionPopup({ openCondition, setopenCondition, setConditionResultEdi
 }
 
 export default ConditionPopup;
-
-// const Button = ({ children, active, ...rest }) => (
-//     <p
-//         className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${active ? "bg-primary-light opacity-50 text-white border-primary" : "border-gray-c7"}`}
-//         {...rest}
-//     >
-//         {children}
-//     </p>
-// );

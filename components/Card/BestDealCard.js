@@ -1,10 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import InfoCircle from "@/assets/infocircle2.svg";
 import AddFav from "../AddFav";
 
-import { CardHeading, CardHeading1, CardHeading2, CardHeading3, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
+import { CardHeading1, CardHeading2, CardHeading3, CardHeading4 } from "@/components/elements/CardHeading/cardheading";
 import VerifiedIcon from "@/components/VerifiedIcon";
 import { getDefaultImage, numberWithCommas } from "@/utils/util";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
@@ -22,7 +21,6 @@ function BestDealCard({
   const [listings, setListings] = useState(localStorage.getItem("listings") || []);
   const { authenticated, user } = useAuthState();
   const [loadingState, setLoadingState] = useState(false);
-  const [listingState, setListingState] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
@@ -34,8 +32,6 @@ function BestDealCard({
       localStorage.getItem("listings") ? localStorage.getItem("listings") : getUserListings(user?.userdetails?.userUniqueId).then(
         (res) => {
           setListings(res.dataObject.map((item2) => item2.listingId));
-          // console.log("res.dataObject", listings);
-          // setListingsLoading(false);
         },
         (err) => console.error(err)
       );
@@ -50,23 +46,13 @@ function BestDealCard({
     <>
 
       <div className="grid font-SF-Pro grid-cols-2 mb-6 rounded-lg border cardShadow1 p-4  max-w-sm relative bg-white"
-      // onClick={() => window.open(
-      //   `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
-      //   "_blank"
-      // )
-      // }
       >
         <div className="cols-span-2">
           <div className="grid grid-cols-2 gap-2">
             <p className="mb-2 leading-none space-y-0.5">
-              {/* <span className=" block">Condition</span> */}
               <CardHeading1 title="Condition" />
               <span className="flex items-center">
                 <CardHeading2 title={data?.deviceCondition || <span>&nbsp;&nbsp;</span>} />
-                {/* <BsInfoCircle
-                  className="ml-0.5 text-xs cursor-pointer"
-                 
-                /> */}
                 <div className="ml-1">
                  <Image src={InfoCircle} width={10} height={10}  onClick={(e) => {
                     e.preventDefault();
@@ -76,29 +62,19 @@ function BestDealCard({
               </span>
             </p>
             <p className="mb-2 leading-none space-y-0.5">
-              {/* <span className="text-bx text-[#878787] font-light block">Listed on</span> */}
               <CardHeading1 title="Listed on" />
               <CardHeading2 title={data?.listingDate || <span>&nbsp;&nbsp;</span>} />
-              {/* <span className="font-semibold pt-0.5 text-[#373737] text-cx block">
-              {data?.listingDate || <span>&nbsp;&nbsp;</span>}
-            </span> */}
             </p>
 
             <p className="mb-2 leading-none space-y-0.5">
               <CardHeading1 title="RAM" />
               <CardHeading2 title={data?.deviceRam || "--"} />
-              {/* <span className="text-bx text-[#878787] font-light block">RAM</span>
-            <span className="font-semibold pt-0.5 text-[#373737] text-cx  block">{data?.deviceRam || "--"}​</span> */}
             </p>
 
 
             <p className="mb-2 leading-none space-y-0.5">
               <CardHeading1 title="Storage" />
               <CardHeading2 title={data?.deviceStorage || <span>&nbsp;&nbsp;</span>} />
-              {/* <span className="text-bx text-[#878787] font-light block">Storage</span>
-            <span className="font-semibold pt-0.5 text-[#373737] text-cx block">
-              {data?.deviceStorage || <span>&nbsp;&nbsp;</span>}
-            </span> */}
             </p>
             {data?.isVendor ? (
               <div className="grid">
@@ -115,15 +91,10 @@ function BestDealCard({
               <Fragment>
                 <p className="mb-2 leading-none space-y-0.5">
                   <CardHeading1 title="Location" />
-                  {/* <span className="text-bx text-[#878787] font-light block">Location</span> */}
                   {data?.listingLocation ? (
                     <CardHeading2 title={data?.listingLocation} />
-                    // <span className="font-semibold pt-0.5 text-[#373737] text-cx block">
-                    //   {data?.listingLocation}
-                    // </span>
                   ) : (
                     <CardHeading2 title="--" />
-                    // <span className="font-semibold pt-0.5 text-[#373737] text-cx block">--</span>
                   )}
                 </p>
               </Fragment>
@@ -131,28 +102,14 @@ function BestDealCard({
           </div>
           <div className="col-span-3 mt-2">
             <p>
-              {/* <span className="text-xs text-gray-70">List Price</span> */}
-              {/* <span
-                className="font-bold text-[#000944] text-dx flex items-center"
-              >
-                {"₹" + numberWithCommas(data?.listingPrice)}
-              </span> */}
               <CardHeading3 title={"₹" + numberWithCommas(data?.listingPrice)} />
             </p>
-            {/* <h2 className="font-medium text-[#000000]" style={{ fontSize: 14 }}>
-            {data?.marketingName}
-          </h2> */}
             <CardHeading4 title={data?.marketingName} />
 
             <div className="flex justify-between items-end mt-2">
               {!listings.includes(data.listingId)
                 ?
                 <div
-                  // href={{
-                  //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}`,
-                  //   query: { isOtherVendor: data?.isOtherVendor },
-                  // }}
-                  // passHref
                   onClick={() => window.open(
                     `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
                     "_blank"
@@ -161,7 +118,6 @@ function BestDealCard({
                 >
                   <a
                     className="flex items-center w-full h-fx font-Roboto-Light text-ex px-5 py-2 bg-primary text-white rounded-[5px]"
-                  // onClick={() => setLoadingState(true)}
                   >
                     <div className=" flex">
                       <div className="pr-0.5">View Deal</div>
@@ -177,7 +133,6 @@ function BestDealCard({
                 >
                   <a
                     className="flex items-center w-full h-fx font-Roboto-Light text-ex px-5 py-2 bg-primary text-white rounded-[5px]"
-                  // onClick={() => setLoadingState(true)}
                   >
                     <div className=" flex">
                       <div className="pr-0.5">View Deal</div>
@@ -190,25 +145,12 @@ function BestDealCard({
           </div>
         </div>
         <div className="relative pt-5">
-          {/* {data?.isOtherVendor === "Y" && (
-          <div className="absolute h-8 -top-1 right-0 left-0 flex justify-center pb-1">
-            {" "}
-            <Image src={data?.vendorLogo} width="100" height="30" objectFit="contain" />{" "}
-          </div>
-        )} */}
 
           {(data?.verified && !(data?.status === "Sold_Out")) && (
             <div className="absolute h-8 -top-1 right-0 -left-6 flex px-4 pb-1 z-50">
               <p className="flex items-center">
-                {/* <Image src={verifiedIcon} width={60} height={30} /> */}
+                
                 <VerifiedIcon width={50} />
-                {/* <BsInfoCircle
-                  className="ml-1 text-xs cursor-pointer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openVerificationInfo();
-                  }}
-                /> */}
                 <div className="ml-1">
                 <Image src={InfoCircle} width={10} height={10}   onClick={(e) => {
                     e.preventDefault();
@@ -223,18 +165,12 @@ function BestDealCard({
             <div className="absolute h-8 -top-2 right-0 left-0 flex px-4 pb-1">
               <p className="flex items-center">
                 <Image src="https://d1tl44nezj10jx.cloudfront.net/web/assets/soldout.svg" width={60} height={30} alt={soldout} />
-                {/* <BsInfoCircle
-                  className="ml-2 text-xs mt-0.5 cursor-pointer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openVerificationInfo();
-                  }}
-                /> */}
               </p>
             </div>
           )}
 
           <Image
+            quality={25}
             loading="lazy"
             placeholder="blur"
             priority={false}

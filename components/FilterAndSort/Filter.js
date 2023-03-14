@@ -116,28 +116,10 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
     );
   }
 
-
-
-  // console.log("router query makename : ", router.query["makeName"]);
-
-  // console.log("tempfilters : ", tempFilters);
-
-  // console.log("filterOptions2", router.query);
-  // console.log("filterOptions2", filterOptions);
-
   return (
     <Fragment>
       <div className="flex p-0 pb-2 justify-between items-center bg-primary text-white sticky top-12 z-50">
         <div className="w-full pl-2 pr-5">
-          {/* <Link href="/search">
-            <a>
-              <input
-                className="w-full self-center rounded-xl p-4 text-black text-sm"
-                placeholder="Search with make and model…"
-              />
-            </a>
-          </Link> */}
-          {/* <SearchBar className="w-full rounded-xl self-center p-4 text-black text-sm"/> */}
           <SearchBar />
         </div>
         {setApplyFilter && (
@@ -147,14 +129,6 @@ export default function Filter({ children, searchText, setApplyFilter, applyFilt
         )}
       </div>
       <main className="text-sm ">
-        {/* <div className="flex justify-between items-center text-gray-20 p-1 border-b text-sm px-4">
-          <p className="font-bold">{searchText}</p>
-          {setSortApplyFilter && (
-            <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
-              Sort <BiSortAlt2 className="ml-1" />
-            </p>
-          )}
-        </div> */}
         <div className="px-4">{children}</div>
       </main>
       <Footer />

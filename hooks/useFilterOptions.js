@@ -12,11 +12,6 @@ const initialState = [
     name: "Condition",
     options: [],
   },
-  // {
-  //   id: "color",
-  //   name: "Color",
-  //   options: [],
-  // },
   {
     id: "storage",
     name: "Storage(GB)",
@@ -38,7 +33,6 @@ const initialState = [
     options: [
       { value: "all", label: "All", checked: false },
       { value: "verified", label: "Verified", checked: false },
-      // { value: "unverified", label: "Unverified", checked: false },
     ],
   },
   {
@@ -57,7 +51,6 @@ const useFilterOptions = () => {
   const fetchApi = () => {
     getShowSerchFilters().then(
       (res) => {
-        console.log("response from getShowSerchFilters : ", res);
         if (res?.status === "SUCCESS") {
           let tempFilters = filterOptions.map((item) => {
             if (item.id === "brand") {
@@ -100,18 +93,7 @@ const useFilterOptions = () => {
                   }),
                 ],
               };
-            } 
-            // else if (item.id === "color") {
-            //   return {
-            //     ...item,
-            //     options: [
-            //       { value: "all", label: "All", checked: false },
-            //       ...res?.dataObject?.Color.map((items) => {
-            //         return { value: items, label: items, checked: false };
-            //       }),
-            //     ],
-            //   };
-            // } 
+            }  
             else if (item.id === "warranty") {
               return {
                 ...item,

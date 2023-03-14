@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { getSessionId, getUserDetailsViaUUID } from "api-call";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
@@ -10,14 +9,12 @@ function index() {
   const router = useRouter()
   const { authenticated, loading } = useAuthState();
   const [userdata, setUserData] = useState(null);
-  const [isLoading, setLoading] = useState(false);
   const [username, setusername] = useState("user");
   const [userMobileNumber, setUserMobileNumber] = useState("");
   const [userUniqueId, setUserUniqueId] = useState(router.query?.routeto);
   const dispatch = useAuthDispatch();
 
   let userUniqueId2 = (router.asPath);
-  // userUniqueId2 = userUniqueId2.replace("/showListings?routeto=", "");
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -45,7 +42,6 @@ function index() {
             Cookies.set('countryCode', response?.dataObject?.userdetails?.countryCode);
             setUserMobileNumber(response?.dataObject?.userdetails?.mobileNumber);
             dispatch("LOGIN", response?.dataObject);
-            console.log("userUniqueId2", response?.dataObject);
             clearInterval(interval);
           },
             (err) => {
@@ -65,7 +61,6 @@ function index() {
           router.push("/user/listings");
           clearInterval(interval1);
         }
-        // clearInterval(interval1);
       }, 3000);
     }
   }, [])

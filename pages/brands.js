@@ -1,7 +1,5 @@
-import Header2 from "@/components/Header/header2";
 import { Fragment, useEffect, useState } from "react";
 import BrandCard from "@/components/Card/BrandCard";
-import { fetchBrands } from "api-call";
 import Footer from "@/components/Footer";
 import Head from "next/head";
 import { metaTags } from "@/utils/constant";
@@ -10,28 +8,6 @@ import BottomNav from "@/components/Navigation/BottomNav";
 import Header1 from "@/components/Header/header1";
 
 function Brands({ brandsList }) {
-  const [brands, setBrands] = useState([]);
-
-  // useEffect(() => {
-  //   if (brandsList.length === 0) {
-  //     setBrands(JSON.parse(localStorage.getItem("brands")));
-  //   } else {
-  //     localStorage.setItem("brands", JSON.stringify(brandsList));
-  //     Cookies.set("brands", true);
-  //     setBrands(brandsList);
-  //   }
-  // }, []);
-
-  // brandsList = brandsList?.sort((list1, list2) => list2.isPopular - list1.isPopular);
-  // brandsList = brandsList?.sort((list1, list2) => parseInt(list1.displayOrder) - parseInt(list2.displayOrder));
-
-  // brandsList = brands.sort((list1, list2) => list2.isPopular - list1.isPopular);
-  // brandsList = brands.sort(
-  //   (list1, list2) =>
-  //     parseInt(list1.displayOrder) - parseInt(list2.displayOrder)
-  // );
-
-
  brandsList = brandsList.sort(
     (list1,list2)=>list2.isPopular = list1.isPopular
  );
@@ -51,7 +27,6 @@ function Brands({ brandsList }) {
       </Head>
       <Fragment>
       <Header1/>
-        {/* <Header2 title="Brands" /> */}
         <main className="text-sm grid grid-cols-3 sm:grid-cols-5">
           {brandsList &&
             brandsList.map((item, index) => (
@@ -79,22 +54,9 @@ export default Brands;
 export const getServerSideProps = async ({ req, res, query }) => {
   const { brands } = req.cookies;
   const brandsList = await Axios.fetchBrands();
-  
-
-  // let brandsList  = await Axios.fetchBrands();
-  // if (brands) {
-  //   brandsList = [];
-  // } else {
-  //   const data = await fetchBrands();
-  //   brandsList = data?.dataObject;
-  // }
-
-  // const brandsList = await fetchBrands(userUniqueId || "Guest",
-  // sessionId || "");
   return {
     props: {
       brandsList: brandsList?.dataObject || [],
-      // brandsList: brandsList || [],
     },
   };
 };

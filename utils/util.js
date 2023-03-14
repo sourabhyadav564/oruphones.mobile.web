@@ -1,18 +1,5 @@
 import moment from "moment";
 import { defaultDeviceImage } from "@/utils/constant";
-
-// export function numberWithCommas(x) {
-//   try {
-//     console.log("TRY")
-//     x = x.toString().toUpperCase().replace("RS.", "");
-//     // return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-//     return x.toString().replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',');
-//   } catch (error) {
-//     console.log("CATCH")
-//     return x;
-//   }
-//   return x;
-// }
 export function numberWithCommas(s) {
   s = s?.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   return s;

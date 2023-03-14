@@ -18,11 +18,6 @@ function CarouselWithPagination({ children, ...rest }) {
       pagination={{ clickable: true }}
       modules={[Pagination,Navigation]}
       className="mySwiper "
-      // onInit={(swiper) => console.log("Swiper initialized!", swiper)}
-      // onSlideChange={(swiper) => {
-      //   console.log("Slide index changed to: ", swiper.activeIndex);
-      // }}
-      // onReachEnd={() => console.log("Swiper end reached")}
       {...rest}
     >
       {children}

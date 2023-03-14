@@ -13,13 +13,6 @@ import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
 import BottomNav from "@/components/Navigation/BottomNav";
-import { CardHeading4 } from "@/components/elements/CardHeading/cardheading";
-
-// import {
-//   otherVendorDataState,
-//   // otherVandorListingIdState,
-// } from "../../../../atoms/globalState";
-// import { useRecoilState } from "recoil";
 
 function CategoryPage() {
   const { selectedSearchCity, loading } = useAuthState();
@@ -40,11 +33,6 @@ function CategoryPage() {
   const [title, setTitle] = useState(metaTags.BRANDS.title);
   const [description, setDescription] = useState(metaTags.BRANDS.description);
 
-  // const [product, setProductsData] = useRecoilState(otherVendorDataState);
-  // const [listingId, setListingId] = useRecoilState(otherVandorListingIdState);
-
-  console.log("isLoading", isLoading);
-
   const loadData = (intialPage) => {
     if (categoryType && !isFilterApplied && !applyFilter) {
       shopByCategory(
@@ -59,15 +47,9 @@ function CategoryPage() {
             setOtherListings(
               (response && response?.dataObject?.otherListings) || []
             );
-            // setProductsData(
-            //   (response && response?.dataObject?.otherListings) || []
-            // );
           }
           if (response.dataObject?.bestDeals.length > -1) {
             setBestDeals((response && response?.dataObject?.bestDeals) || []);
-            // setProductsData(
-            //   (response && response?.dataObject?.bestDeals) || []
-            // );
           }
 
           if (response?.dataObject?.totalProducts > -1) {
@@ -150,7 +132,6 @@ function CategoryPage() {
             applySortFilter
           ).then((response) => {
             setOtherListings(response?.dataObject?.otherListings);
-            // setBestDeals([]);
             setTotalProducts(response?.dataObject?.totalProducts);
             setBestDeals(response?.dataObject?.bestDeals);
           });
@@ -177,16 +158,7 @@ function CategoryPage() {
               ...products,
               ...response?.dataObject?.otherListings,
             ]);
-            // setProductsData(
-            //   (response && response?.dataObject?.otherListings) || []
-            // );
           }
-          // if (response.dataObject?.bestDeals.length > -1) {
-          //   setBestDeals((response && response?.dataObject?.bestDeals) || []);
-          //   // setProductsData(
-          //   //   (response && response?.dataObject?.bestDeals) || []
-          //   // );
-          // }
 
           if (response?.dataObject?.totalProducts > -1) {
             setTotalProducts(
@@ -281,7 +253,6 @@ function CategoryPage() {
                 ...response?.dataObject?.otherListings,
               ]);
             }
-            // setBestDeals([]);
             setTotalProducts(response?.dataObject?.totalProducts);
             if (newPages == 0) {
               setBestDeals(response?.dataObject?.bestDeals);
@@ -371,15 +342,12 @@ function CategoryPage() {
           applySortFilter
         ).then((response) => {
           setOtherListings(response?.dataObject?.otherListings);
-          // setBestDeals([]);
           setTotalProducts(response?.dataObject?.totalProducts);
           setBestDeals(response?.dataObject?.bestDeals);
         });
       }
     }
   }, [applyFilter]);
-
-  // const sortingProducts = getSortedProducts(applySortFilter, otherListings);
 
   useEffect(() => {
     switch (categoryType) {
@@ -451,23 +419,14 @@ function CategoryPage() {
         <meta property="og:description" content={description} />
       </Head>
       <Filter
-        // searchText={makeName}
-        // setSortApplyFilter={setSortApplyFilter}
         setIsFilterApplied={setIsFilterApplied}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
 
-        {/* {(isLoading || (bestDeals.length > 0)) && (
-            <h1 className="text-lg font-semibold text-gray-20 py-2.5">
-              Best Deals
-            </h1>
-          )} */}
-
         {isLoading ? (
           <div className="flex items-center justify-center">
             <Loader />
-            {/* <CardHeading4 title={"Please wait, while we are fetching the data for you..."} /> */}
           </div>
         ) : (
           bestDeals.length > 0 && (
@@ -492,14 +451,12 @@ function CategoryPage() {
             <div className="">
               <Filter1
                 setSortApplyFilter={setSortApplyFilter}
-              // setApplyFilter={setApplyFilter}
               ></Filter1>
             </div>
           </div>
         )}
 
         {isLoading ? (
-          // <Loader />
           <></>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
@@ -508,10 +465,6 @@ function CategoryPage() {
                 <div
                   key={item.listingId}
                   className="m-1.5"
-                // onClick={() => {
-                //   // setListingId(item.listingId);
-                //   setProductsData(otherListings);
-                // }}
                 >
                   <OtherListingCard
                     data={item}

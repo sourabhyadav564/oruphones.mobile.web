@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useEffect } from "react";
 import { useState } from "react";
 import  ErrorWarningAlert from "@/assets/alert.svg";
 import Modal2 from "./Modal2";
@@ -9,49 +8,17 @@ import Image from "next/image";
 function UnverifiedListingPopup({ open, setOpen, unverifiedListingType, unverifiedListingReason }) {
     const [openVerifyListingPopup, setOpenVerifyListingPopup] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
-    // useEffect(() => {
-    //     if (open) {
-    //         const onBackButtonEvent = (e) => {
-    //             e.preventDefault();
-    //             setOpen(false);
-    //         }
-
-    //         window.history.pushState(null, null, window.location.pathname);
-    //         window.addEventListener('popstate', onBackButtonEvent);
-    //         return () => {
-    //             window.removeEventListener('popstate', onBackButtonEvent);
-    //         };
-        // } else {
-        //     const onBackButtonEvent = (e) => {
-        //         e.preventDefault();
-        //         window.history.back();
-        //     }
-        //     window.history.pushState(null, null, window.location.pathname);
-        //     window.addEventListener('popstate', onBackButtonEvent);
-        //     return () => {
-        //         window.removeEventListener('popstate', onBackButtonEvent);
-        //     };
-    //     }
-    // }, [open]);
-
     const handleContinue = () => {
         setOpenVerifyListingPopup(true);
-        // setOpen(false);
     }
 
     const handleCancel = () => {
         setLoading
         setOpen(false);
     }
-
-    // const priceDiff = price < leastPrice ? "Low" : price > maxPrice && "High";
     return (
         <Modal2 open={open} setOpen={setOpen}>
             <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e">
-                {/* <RiErrorWarningLine
-                    size={52}
-                    color="#FFC107"
-                /> */}
                 <Image src={ErrorWarningAlert} width={52} height={52}/>
                 <p className="text-gx font-Roboto-Bold mb-2 mt-3">{unverifiedListingType}</p>
                 <p className="text-xs my-2 font-Roboto-Regular text-center">

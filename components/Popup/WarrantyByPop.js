@@ -33,7 +33,7 @@ function ShopByPopup({ data, open, setOpen }) {
                             >
                                 <p
                                     className=" bg-gray-200 text-center flex flex-col items-center justify center px-5 py-2 rounded-md hover:cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-300"
-                                // onClick={() => setLoadingState(true)}
+                                
                                 >
                                     {item.bracket}{" "}
                                     <span className=" font-Roboto-Semibold">{item.text}</span>
@@ -49,7 +49,7 @@ function ShopByPopup({ data, open, setOpen }) {
                         >
                             <p
                                 className=" bg-gray-200  flex flex-col items-center justify center px-5 py-2 rounded-md hover:cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-300"
-                            // onClick={() => setLoadingState(true)}
+                            
                             >
                                 <span className="font-Roboto-Semibold">Both</span>
                             </p>
@@ -57,7 +57,6 @@ function ShopByPopup({ data, open, setOpen }) {
                     </div>
                 </div>
             </Modal3>
-            {/* <LoadingStatePopup open={loadingState} setOpen={setLoadingState} /> */}
         </>
     );
 }

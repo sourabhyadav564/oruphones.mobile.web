@@ -1,40 +1,7 @@
 import Modal3 from "./Modal3";
 import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/router";
 
 function ShopByPopup({ open, setOpen }) {
-  // useEffect(() => {
-  //   if (open) {
-  //     const onBackButtonEvent = (e) => {
-  //       e.preventDefault();
-  //       setOpen(false);
-  //     }
-
-  //     window.history.pushState(null, null, window.location.pathname);
-  //     window.addEventListener('popstate', onBackButtonEvent);
-  //     return () => {
-  //       window.removeEventListener('popstate', onBackButtonEvent);
-  //     };
-    // } else {
-    //   const onBackButtonEvent = (e) => {
-    //     e.preventDefault();
-    //     window.history.back();
-    //   }
-    //   window.history.pushState(null, null, window.location.pathname);
-    //   window.addEventListener('popstate', onBackButtonEvent);
-    //   return () => {
-    //     window.removeEventListener('popstate', onBackButtonEvent);
-    //   };
-  //   }
-  // }, [open]);
-  const router = useRouter();
-
-  // const [loadingState, setLoadingState] = useState(false);
-
-  // useEffect(() => {
-  //   setLoadingState(false);
-  // }, [router.pathname]);
 
   const priceRangeData = [
     {
@@ -86,7 +53,6 @@ function ShopByPopup({ open, setOpen }) {
             >
               <p
                 className="bg-gray-200 flex flex-col items-center justify font-Roboto-Semibold center px-5 py-2 rounded-md hover:cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-300"
-              // onClick={() => setLoadingState(true)}
               >
                 {item.bracket}{" "}
                 <span className="font-Roboto-Semibold">{item.text}</span>
@@ -95,7 +61,6 @@ function ShopByPopup({ open, setOpen }) {
           ))}
         </div>
       </Modal3>
-      {/* <LoadingStatePopup open={loadingState} setOpen={setLoadingState} /> */}
     </>
   );
 }

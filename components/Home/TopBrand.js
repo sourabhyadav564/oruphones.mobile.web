@@ -8,7 +8,6 @@ import { Heading } from "@/components/elements/Heading/heading"
 
 function TopBrand({ brandsList }) {
   const router = useRouter();
-  // console.log("brandsList2", brandsList)
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
@@ -26,10 +25,6 @@ function TopBrand({ brandsList }) {
 
   return (
     <section>
-      {/* <h1 className="my-2 px-3 text-gray-500 font-medium text-sm">
-        {" "}
-        Shop by Brands{" "}
-      </h1> */}
       <Heading title="Shop by Brands" />
       <BasicCarousel
         slidesPerView={4.4}

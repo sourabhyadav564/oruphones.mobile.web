@@ -4,35 +4,9 @@ import { useState } from "react";
 import Modal1 from "./Modal1";
 
 function SortPopup({ openSort, setOpenSort, setSortApplyFilter }) {
-  // useEffect(() => {
-  //   if (openSort) {
-  //     const onBackButtonEvent = (e) => {
-  //       e.preventDefault();
-  //       setOpenSort(false);
-  //     }
-
-  //     window.history.pushState(null, null, window.location.pathname);
-  //     window.addEventListener('popstate', onBackButtonEvent);
-  //     return () => {
-  //       window.removeEventListener('popstate', onBackButtonEvent);
-  //     };
-    // } else {
-    //   const onBackButtonEvent = (e) => {
-    //     e.preventDefault();
-    //     window.history.back();
-    //   }
-    //   window.history.pushState(null, null, window.location.pathname);
-    //   window.addEventListener('popstate', onBackButtonEvent);
-    //   return () => {
-    //     window.removeEventListener('popstate', onBackButtonEvent);
-    //   };
-  //   }
-  // }, [openSort]);
-
-  const [range, setRange] = useState("Featured");
+   const [range, setRange] = useState("Featured");
 
   function handleChange(data) {
-    console.log(data);
     setRange(data)
   }
 
@@ -50,7 +24,6 @@ function SortPopup({ openSort, setOpenSort, setSortApplyFilter }) {
             Sort by
           </Dialog.Title>
           <div className="mt-3 w-full text-sm flex flex-wrap mb-4 items-center font-Roboto-Regular">
-            {/* <Button active={range === "All"} onClick={()=>handleChange("All")}> All </Button> */}
             <Button active={range === "Price - Low to High"} onClick={() => handleChange("Price - Low to High")}> Price - Low to High </Button>
             <Button active={range === "Price - High to Low"} onClick={() => handleChange("Price - High to Low")}> Price - High to Low </Button>
             <Button active={range === "Newest First"} onClick={() => handleChange("Newest First")}> Newest First </Button>

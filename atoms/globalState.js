@@ -33,7 +33,6 @@ export const otherVandorListingIdSelector = selector({
 export const addListingBrandState = atom({
   key: "addListingBrandState",
   default: "",
-//   effects_UNSTABLE: [persistAtom],
 });
 
 export const makeState = atom({
@@ -53,7 +52,6 @@ export const addListingBrandSelector = selector({
 export const addListingModelState = atom({
     key: "addListingModelState",
     default: "",
-  //   effects_UNSTABLE: [persistAtom],
   });
   
   export const addListingModelSelector = selector({
@@ -67,7 +65,6 @@ export const addListingModelState = atom({
   export const addListingStorageState = atom({
     key: "addListingStorageState",
     default: "",
-  //   effects_UNSTABLE: [persistAtom],
   });
 
   export const addListingStorageSelector = selector({

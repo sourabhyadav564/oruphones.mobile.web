@@ -3,12 +3,6 @@ import OtherListingCard from "./Card/OtherListingCard";
 import { useAuthState } from "providers/AuthProvider";
 import { fetchSimilarProducts } from "api-call";
 import Cookies from "js-cookie";
-import Loader from "@/components/Loader/Loader";
-
-// import {
-//   otherVendorDataState,
-// } from "../atoms/globalState";
-// import { useRecoilState } from "recoil";
 
 function SimilarProduct({ data }) {
   const { selectedSearchCity } = useAuthState();
@@ -70,11 +64,6 @@ function SimilarProduct({ data }) {
       Cookies.get("userUniqueId") || "Guest",
       newPages
     ).then((response) => {
-      // setSimilar_listings(
-      //   response?.dataObject?.otherListings.filter((items) => {
-      //     return items.listingId !== data.listingId;
-      //   })
-      // );
 
       let data = response?.dataObject?.otherListings.filter((items) => {
         return items?.listingId !== data?.listingId;
@@ -95,7 +84,6 @@ function SimilarProduct({ data }) {
     loadData(intialPage);
   }, [data?.make, data?.marketingName]);
 
-  // const [product, setProductsData] = useRecoilState(otherVendorDataState);
 
   similar_listings = similar_listings?.filter((item) => {
     return item.listingId != data?.listingId;
@@ -105,7 +93,6 @@ function SimilarProduct({ data }) {
     <section className="px-4">
       <p className="font-Roboto-Light text-ex text-black border-b-2 pb-2">
         {" "}
-        {/* Similar Products ({similar_listings?.length || 0}){" "} */}
         Similar Products
       </p>
       <div className="grid grid-cols-2 -m-1.5 py-4">
@@ -114,10 +101,6 @@ function SimilarProduct({ data }) {
             <div
               className="m-1.5"
               key={item.listingId}
-            // onClick={() => {
-            //   // setListingId(item.listingId);
-            //   setProductsData(similar_listings || []);
-            // }}
             >
               <OtherListingCard
                 data={item}
@@ -127,18 +110,10 @@ function SimilarProduct({ data }) {
             </div>
           ))
         ) : (
-          // <div className="col-span-4">
-          // <Loader />
-          // </div>
           <div className="text-center pt-2 col-span-4 h-20 font-Roboto-Regular">
             There are no similar products
           </div>
         )}
-        {/* {isLoadingMore && (
-          <div className="flex items-center justify-center my-5 text-lg font-semibold animate-pulse">
-            <span>Fetching more products...</span>
-          </div>
-        )} */}
       </div>
       {similar_listings && similar_listings.length > 0 &&
         isFinished == false && (

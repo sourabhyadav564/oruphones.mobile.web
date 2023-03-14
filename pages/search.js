@@ -11,11 +11,8 @@ function Search() {
   var pastSearches = [];
 
   useEffect(() => {
-    // console.log("searchResults", pastSearches);
     Window.localStorage.setItem("pastSearches", JSON.stringify(pastSearches));
   }, []);
-
-  console.log("serachResults", pastSearches);
 
   useEffect(() => {
     if (inputElement.current) {
@@ -106,10 +103,6 @@ const ListItem = ({ make, marketingName, children, pastSearches }) => {
 
   const handleClick = () => {
     pastSearches.push(marketingName);
-    // window.open(
-    //   `/product/buy-old-refurbished-used-mobiles/${make}/${marketingName}`,
-    //   "_blank"
-    // );
   };
   return (
     <div

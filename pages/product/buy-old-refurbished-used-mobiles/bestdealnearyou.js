@@ -11,12 +11,6 @@ import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { Heading } from "@/components/elements/Heading/heading";
-import { CardHeading4 } from "@/components/elements/CardHeading/cardheading";
-
-// import {
-//   otherVendorDataState,
-// } from "../../../atoms/globalState";
-// import { useRecoilState } from "recoil";
 
 const settings = {
   slidesToShow: 1,
@@ -41,7 +35,6 @@ function Bestdealnearyou() {
   const [isFinished, setIsFinished] = useState(false);
   let intialPage = 0;
   let newPages = 0;
-  // const [product, setProductsData] = useRecoilState(otherVendorDataState);
 
   const loadData = (intialPage) => {
     if (selectedSearchCity && !isFilterApplied && !applyFilter) {
@@ -54,11 +47,6 @@ function Bestdealnearyou() {
         setProducts(response?.dataObject?.otherListings);
         setBestDeal(response?.dataObject?.bestDeals);
         setTotalProducts(response?.dataObject?.totalProducts);
-        // setProductsData([
-        //   ...response?.dataObject?.otherListings,
-        //   ...response?.dataObject?.bestDeals,
-        // ]);
-        // setProductsData(response?.dataObject?.bestDeals);
         setLoading(false);
       });
     } else {
@@ -116,14 +104,11 @@ function Bestdealnearyou() {
           applySortFilter
         ).then((response) => {
           setProducts(response?.dataObject?.otherListings);
-          // setBestDeal([]);
           setTotalProducts(response?.dataObject?.totalProducts);
           setBestDeal(response?.dataObject?.bestDeals);
-          // setLoading(false);
         });
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
   const loadMoreData = () => {
@@ -141,12 +126,6 @@ function Bestdealnearyou() {
           ...products,
           ...response?.dataObject?.otherListings,
         ]);
-        // setBestDeal(response?.dataObject?.bestDeals);
-        // setProductsData([
-        //   ...response?.dataObject?.otherListings,
-        //   ...response?.dataObject?.bestDeals,
-        // ]);
-        // setProductsData(response?.dataObject?.bestDeals);
 
         if (response?.dataObject?.otherListings.length == 0) {
           setIsFinished(true);
@@ -222,7 +201,6 @@ function Bestdealnearyou() {
                 ...response?.dataObject?.otherListings,
               ]);
             }
-            // setBestDeals([]);
             setTotalProducts(response?.dataObject?.totalProducts);
             if (newPages == 0) {
               setBestDeal(response?.dataObject?.bestDeals);
@@ -236,7 +214,6 @@ function Bestdealnearyou() {
         }
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
   useEffect(() => {
@@ -303,39 +280,24 @@ function Bestdealnearyou() {
           applySortFilter
         ).then((response) => {
           setProducts(response?.dataObject?.otherListings);
-          // setBestDeal([]);
           setTotalProducts(response?.dataObject?.totalProducts);
           setBestDeal(response?.dataObject?.bestDeals);
-          // setLoading(false);
         });
       }
     }
   }, [applyFilter]);
 
-  // const sortingProducts = getSortedProducts(applySortFilter, products);
-
   return (
     <>
       <Filter
-        // searchText={`All Listings`}
-        // setSortApplyFilter={setSortApplyFilter}
         setIsFilterApplied={setIsFilterApplied}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
 
-        {/* {(isLoading || bestDeal && bestDeal?.length > 0) && (
-        <div>
-          <h1 className="text-lg font-semibold text-gray-20 py-2.5 ">
-            {" "}
-            Best Deals{" "}
-          </h1>
-        </div>
-      )} */}
         {isLoading ? (
           <div className="flex items-center justify-center">
             <Loader />
-            {/* <CardHeading4 title={"Please wait, while we are fetching the data for you..."} /> */}
           </div>
         ) : (
           bestDeal &&
@@ -356,19 +318,14 @@ function Bestdealnearyou() {
               <Heading title={`Other Listings (${totalProducts})${" "}`} />
             </h2>
             <p className="font-Roboto-Semibold text-[#707070]  text-cx  capitalize underline">
-              {/* <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
-              sort <BiSortAlt2 className="ml-1" />
-            </p> */}
               <Filter1
                 setSortApplyFilter={setSortApplyFilter}
-              // setApplyFilter={setApplyFilter}
               ></Filter1>
             </p>
           </div>
 
         )}
         {isLoading ? (
-          // <Loader />
           <></>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">

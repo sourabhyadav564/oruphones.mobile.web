@@ -9,31 +9,6 @@ import Image from "next/image";
 
 function RequestVerificationSuccessPopup({ open, setOpen, data }) {
   const [resData, setResData] = useState({});
-
-  // useEffect(() => {
-  //   if (open) {
-  //     const onBackButtonEvent = (e) => {
-  //       e.preventDefault();
-  //       setOpen(false);
-  //     }
-
-  //     window.history.pushState(null, null, window.location.pathname);
-  //     window.addEventListener('popstate', onBackButtonEvent);
-  //     return () => {
-  //       window.removeEventListener('popstate', onBackButtonEvent);
-  //     };
-  // } else {
-  //   const onBackButtonEvent = (e) => {
-  //     e.preventDefault();
-  //     window.history.back();
-  //   }
-  //   window.history.pushState(null, null, window.location.pathname);
-  //   window.addEventListener('popstate', onBackButtonEvent);
-  //   return () => {
-  //     window.removeEventListener('popstate', onBackButtonEvent);
-  //   };
-  // }
-  // }, [open]);
   useEffect(() => {
     if (open) {
       sendverification(
@@ -45,18 +20,14 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
     }
   }, [data]);
 
-  console.log("resdata : ", resData);
-
   return (
     <Modal2 open={open} setOpen={setOpen}>
       <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e py-2">
         {resData?.statusCode ? (
           <>
             {resData?.statusCode === 200 ? (
-              // <BsCheck2Circle size={42} color="#00A483" />
               <Image src={Check} width={42} height={42}/>
             ) : (
-              // <FiAlertOctagon size={44} color="#f7e17d" />
               <Image src={Alert} width={44} height={44}/>
             )}
             <p className="font-Roboto-Bold my-2 text-gx">
@@ -76,7 +47,10 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
           </>
         ) : (
           <div className="font-Roboto-Regular">
+            <div className="flex items-center justify-center">
+
             <Loader />
+            </div>
             <p className="text-mx">
               Your verification request will be sent soon...
             </p>

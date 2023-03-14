@@ -29,49 +29,15 @@ function FilterPopup({
   const [openVerificationPopup, setOpenVerificationPopup] = useState(false);
 
   const router = useRouter();
-  // useEffect(() => {
-  //   if (openFilter) {
-  //     const onBackButtonEvent = (e) => {
-  //       e.preventDefault();
-  //       setOpenFilter(false);
-  //     }
-
-  //     window.history.pushState(null, null, window.location.pathname);
-  //     window.addEventListener('popstate', onBackButtonEvent);
-  //     return () => {
-  //       window.removeEventListener('popstate', onBackButtonEvent);
-  //     };
-    // } else {
-    //   const onBackButtonEvent = (e) => {
-    //     e.preventDefault();
-    //     window.history.back();
-    //   }
-    //   window.history.pushState(null, null, window.location.pathname);
-    //   window.addEventListener('popstate', onBackButtonEvent);
-    //   return () => {
-    //     window.removeEventListener('popstate', onBackButtonEvent);
-    //   };
-  //   }
-  // }, [openFilter]);
-
   const openPopup = (id) => {
     if (id === "condition") {
-      // console.log("nimit");
       return (
-        // <BsInfoCircle
-        //   className="text-sm cursor-pointer ml-1"
-        //   onClick={() => setOpenConditionPopup(true)}
-        // />
         <div className="ml-1">
         <Image src={InfoCircle} width={10} height={10}  className="text-sm cursor-pointer ml-1 " onClick={() => setOpenConditionPopup(true)}/>
       </div>
       );
     } else if (id === "verification") {
       return (
-        // <BsInfoCircle
-        //   className="text-sm cursor-pointer ml-1"
-        //   onClick={() => setOpenVerificationPopup(true)}
-        // />
         <div className="ml-1">
         <Image src={InfoCircle} width={10} height={10}  className="text-sm cursor-pointer ml-1" onClick={() => setOpenVerificationPopup(true)}/>
         </div>
@@ -145,7 +111,6 @@ function FilterPopup({
               Clear Filter
             </span>
           </Dialog.Title>
-          {/* {console.log("sourabh",filterOptions)} */}
 
           <div className="mt-3 w-full">
             {filterOptions &&

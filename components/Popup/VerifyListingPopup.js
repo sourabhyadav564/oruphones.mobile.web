@@ -2,38 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Modal2 from "./Modal2";
 import AppleStore from "@/assets/apple_store.svg";
-import PlayStore from "@/assets/playstore.svg";
 
 function VerifyListingPopup({ open, setOpen, make }) {
-    // console.log("make4", make);
     const QRValue = make == "Apple"
         ? "https://apps.apple.com/in/app/oruphones/id1629378420"
         : "https://play.google.com/store/apps/details?id=com.oruphones.oru";
-    // useEffect(() => {
-    //     if (open) {
-    //         const onBackButtonEvent = (e) => {
-    //             e.preventDefault();
-    //             setOpen(false);
-    //         }
-
-    //         window.history.pushState(null, null, window.location.pathname);
-    //         window.addEventListener('popstate', onBackButtonEvent);
-    //         return () => {
-    //             window.removeEventListener('popstate', onBackButtonEvent);
-    //         };
-    // } else {
-    //     const onBackButtonEvent = (e) => {
-    //         e.preventDefault();
-    //         window.history.back();
-    //     }
-    //     window.history.pushState(null, null, window.location.pathname);
-    //     window.addEventListener('popstate', onBackButtonEvent);
-    //     return () => {
-    //         window.removeEventListener('popstate', onBackButtonEvent);
-    //     };
-    //     }
-    // }, [open]);
-
     return (
         <Modal2 open={open} setOpen={setOpen}>
             <div className="flex flex-col items-center max-w-sm px-6 text-base text-black-4e">

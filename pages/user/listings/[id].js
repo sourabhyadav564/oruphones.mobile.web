@@ -70,11 +70,9 @@ function ListingDeatils({ data, id }) {
   let filled = data?.deviceCondition?.toLowerCase() == "Like New".toLowerCase() ? 5 : data?.deviceCondition?.toLowerCase() == "Excellent".toLowerCase() ? 4 : data?.deviceCondition?.toLowerCase() == "Good".toLowerCase() ? 3 : data?.deviceCondition?.toLowerCase() == "Fair".toLowerCase() ? 2 : data?.deviceCondition?.toLowerCase() == "Needs Repair".toLowerCase() ? 1 : 5;
   let iconToShow = (index) => {
     if (index < filled) {
-      return  <Image src={Star2} width={20} height={20}/> 
-      // <BsStarFill className="text-yellow-400" />;
+      return  <Image src={Star2} width={20} height={20}/>
     } else {
       return <Image src={Star1} width={20} height={20}/> 
-      // <BsStar className="text-black-7e" />;
     }
   };
 
@@ -110,10 +108,6 @@ function ListingDeatils({ data, id }) {
             </div>
             <div className="flex justify-between items-center">
               <h1 className='font-Roboto-Regular text-qx text-[#000000]' >{data?.marketingName}</h1>
-              {/* <h1 className="text-gray-20 font-bold text-lg">
-                {data?.marketingName}​
-              </h1> */}
-
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="17"
@@ -132,26 +126,19 @@ function ListingDeatils({ data, id }) {
                 <p className="py-jx flex text-[#000000] space-x-1 font-Roboto-Light text-bx opacity-100">
                   <span className="self-center"> Varient:{" "} </span>
                   <CardHeading2 title={data?.deviceStorage} />
-                  {/* <span className="text-[#000000] font-Roboto-Regular text-jx">
-                  {data?.deviceStorage}
-                </span> */}
+                 
                 </p>
               </div>
               <div className="w-full grid grid-cols-2  rounded-[5px] px-4 h-[40px]  opacity-bg-50" style={{ backgroundColor: "#F3F3F3" }}
                 onClick={() => setOpenConditionInfo(true)}
               >
-                {/* <p className="text-gray-70 text-xs">List Price</p> */}
                 <div className="m-auto justify-center ">
                   <span
                     className="font-Roboto-Light text-bx opacity-100 text-[#000] flex leading-tight items-center"
-                  // onClick={() => setOpenConditionInfo(true)}
                   >
                     Condition{" "}
                   </span>
                   <CardHeading2 title={data?.deviceCondition} />
-                  {/* <p className="text-jx font-Regular text-black flex items-center">
-                  {data?.deviceCondition}
-                </p> */}
                 </div>
                 <div className="flex text-bx space-x-[2.5px] m-auto justify-center ">
                   { }
@@ -162,67 +149,11 @@ function ListingDeatils({ data, id }) {
 
               </div>
             </div>
-            {/* <div className="flex items-center border rounded-md my-3"> */}
-            {/* <div className="bg-gray-ef flex-1 px-4 py-2 "> */}
-            {/* <p className="text-gray-70 text-sm">List Price</p> */}
-            {/* <span className="text-2xl font-bold"> */}
-            {/* ₹ {numberWithCommas(data?.listingPrice)} */}
-            {/* </span> */}
-            {/* </div> */}
-            {/* <div className="w-full grid grid-cols-2 flex-1 rounded-md px-4 py-1"  */}
-            {/* onClick={() => setOpenConditionInfo(true)} */}
-            {/* > */}
-            {/* <p className="text-gray-70 text-xs">List Price</p> */}
-            {/* <div> */}
-            {/* <span className="text-bx font-Light text-black flex items-center"
-                  onClick={() => setOpenConditionInfo(true)}
-                 > */}
-            {/* Condition{" "}
-                </span>
-                <p className="text-jx font-Regular text-black flex items-center">
-                  {data?.deviceCondition}
-                </p>
-              </div>
-              <div className="flex text-bx space-x-1 m-auto justify-center "> */}
-            {/* {}
-                {Array(5)
-                  .fill()
-                  .map((_, index) => iconToShow(index))}
-              </div>
-            </div> */}
-            {/* <div
-                className="flex-1 flex justify-around px-4 py-2"
-                onClick={() => setOpenConditionInfo(true)}
-              >
-                <Image src={star} width={31} height={29} />
-                <div className="ml-1">
-                  <span className="text-xs text-black-7e flex items-center">
-                    Condition{" "}
-                    <BsInfoCircle
-                      className="ml-2 text-sm cursor-pointer"
-                      // onClick={() => setOpenConditionInfo(true)}
-                    />
-                  </span>
-                  <p className="text-sm font-bold text-gray-70 flex items-center">
-                    {data?.deviceCondition}
-                  </p>
-                </div>
-              </div> */}
-            {/* </div> */}
             <h2 className="text-black text-ex border-b-2 pb-1 font-Light my-3 mt-5">Device Info</h2>
             <div className="grid grid-cols-2 gap-4  ">
               <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
               <IconLabelValue label="storage" value={data?.deviceStorage || "--"} />
               <IconLabelValue label="location" value={data?.listingLocation || "--"} />
-              {/* {data?.verified && (
-                <IconLabelValue
-                  label="verified on"
-                  value={data?.verifiedDate}
-                  showInfoPopup={() => setOpenVerificationInfo(true)}
-                />
-              )} */}
-
-              {/* <IconLabelValue label="color" value={data?.color || "--"} /> */}
               <IconLabelValue label="warranty" value={data?.warranty || "--"} />
               <IconLabelValue
                 label="Accessories"

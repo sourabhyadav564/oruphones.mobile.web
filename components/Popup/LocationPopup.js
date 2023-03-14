@@ -1,20 +1,16 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
-import MySelect2 from "../Form/Select2";
 import Modal1 from "./Modal1";
 import { getGlobalCities, updateAddress, getUserDetails } from "api-call";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
-import BasicCarousel from "../Carousel/BasicCarousel";
 import Cookies from "js-cookie";
 import CurrentLocation from "@/assets/currentlocation.svg";
-import LocationPicker from "../Popup/LocationPicker";
 import Geocode from "react-geocode";
 import { getCityFromResponse } from "@/utils/util";
 import MySelect from "../Form/Select";
 
 function LocationPopup({ open, setOpen }) {
-  const [openLocationPopup, setOpenLocationPopup] = useState(false);
   const [cityResponse2, setCitiesResponse2] = useState("");
   const [globalCities, setGlobalCities] = useState();
   const selectedCity = useRef();
@@ -26,62 +22,18 @@ function LocationPopup({ open, setOpen }) {
     loaded: false,
     city: "",
   });
-  // useEffect(() => {
-  //   if (open) {
-  //     const onBackButtonEvent = (e) => {
-  //       e.preventDefault();
-  //       setOpen(false);
-  //     }
-
-  //     window.history.pushState(null, null, window.location.pathname);
-  //     window.addEventListener('popstate', onBackButtonEvent);
-  //     return () => {
-  //       window.removeEventListener('popstate', onBackButtonEvent);
-  //     };
-  // } else {
-  //   const onBackButtonEvent = (e) => {
-  //     e.preventDefault();
-  //     window.history.back();
-  //   }
-  //   window.history.pushState(null, null, window.location.pathname);
-  //   window.addEventListener('popstate', onBackButtonEvent);
-  //   return () => {
-  //     window.removeEventListener('popstate', onBackButtonEvent);
-  //   };
-  //   }
-  // }, [open]);
-
-  // console.log("globalCities2", globalCities2);
   useEffect(() => {
     if (
       localStorage.getItem("cities") != undefined &&
       JSON.parse(localStorage.getItem("cities"))?.length > 0
     ) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
-      // globalCities
-      //   ?.sort((a, b) => a.city.localeCompare(b.city))
-      //   .filter((item) => item.city !== "India");
-
-      // setGlobalCities2({
-      //     displayWithImage: "0", city: "India",
-      //   ...globalCities
-      // })
-      console.log("cities from local");
     } else {
-      console.log("cities from api");
       const callApi = () => {
         if (!open) return null;
         getGlobalCities("").then(
           (response) => {
             setGlobalCities(response.dataObject);
-            // globalCities
-            //   ?.sort((a, b) => a.city.localeCompare(b.city))
-            //   .filter((item) => item.city !== "India");
-            // setGlobalCities2({
-            //   displayWithImage: "0", city: "India",
-            //   ...globalCities
-            // })
-            // localStorage.setItem("cities", JSON.stringify(response.dataObject));
           },
           (err) => console.error(err)
         );
@@ -95,19 +47,6 @@ function LocationPopup({ open, setOpen }) {
     if (user != null) {
       let cityInfo = [];
       cityInfo = globalCities.filter((item) => item.city === city);
-
-      // let payLoad = {
-      //   city: city,
-      //   country: cityInfo[0].country,
-      //   state: cityInfo[0].state,
-      //   locationId: searchLocationID,
-      //   userUniqueId: Cookies.get("userUniqueId"),
-      // };
-      // updateAddress(payLoad).then((res) => {
-      //   getUserDetails(Cookies.get("countryCode"), Cookies.get("mobileNumber")).then((resp) => {
-      //     dispatch("LOGIN", resp.dataObject);
-      //   });
-      // });
     }
     dispatch("ADDCITY", city);
     localStorage.setItem("usedLocation", city);
@@ -131,10 +70,7 @@ function LocationPopup({ open, setOpen }) {
     Geocode.setApiKey("AIzaSyAh6-hbxmUdNaznjA9c05kXi65Vw3xBl3w");
 
     Geocode.setLanguage("en");
-    // Geocode.setRegion("es");
-    // Geocode.setLocationType("ROOFTOP");
     Geocode.enableDebug();
-    // Get address from latitude & longitude.
     Geocode.fromLatLng(lat, lng).then(
       (response) => {
         let address = response?.plus_code?.compound_code;
@@ -157,7 +93,6 @@ function LocationPopup({ open, setOpen }) {
   };
 
   const onError = (error) => {
-    // alert(error.message);
     setLocation({
       loaded: true,
       city: "India",
@@ -171,17 +106,7 @@ function LocationPopup({ open, setOpen }) {
     maximumAge: 0,
   };
 
-  // useEffect(() => {
-  //   const initialState = localStorage.getItem("usedLocation");
-  //   if (!initialState || initialState == null) {
-  //     setOpen(true);
-  //   } else {
-  //     dispatch("ADDCITY", initialState);
-  //   }
-  // }, [])
-
   const onLocChange = async (e) => {
-    // setSearchText(e);
     const citiesResponse = await getGlobalCities(e);
     setCitiesResponse2(citiesResponse?.dataObject);
     setGlobalCities2(citiesResponse?.dataObject);
@@ -204,13 +129,6 @@ function LocationPopup({ open, setOpen }) {
           locationId: searchID,
           userUniqueId: Cookies.get("userUniqueId"),
         };
-        // updateAddress(payLoad).then((res) => {
-        //   const mobileNumber = Cookies.get("mobileNumber");
-        //   const countryCode = Cookies.get("countryCode");
-        //   getUserDetails(countryCode, mobileNumber).then((resp) => {
-        //     dispatch("LOGIN", resp.dataObject);
-        //   });
-        // });
       }
       dispatch("ADDCITY", location.city);
       localStorage.setItem("usedLocation", location.city);
@@ -226,7 +144,6 @@ function LocationPopup({ open, setOpen }) {
       searchID = searchLocId[0]?.locationId;
     }
     setSearchLocationID(searchID);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.address]);
 
   return (
@@ -239,7 +156,6 @@ function LocationPopup({ open, setOpen }) {
           <form className="mb-4 w-full text-sm space-y-2 pt-4">
             <div className="flex flex-rpw">
               <MySelect
-                // labelName="Location"
                 onChange={(e) => {
                   handleCityChange(e.value);
                 }}
@@ -257,7 +173,6 @@ function LocationPopup({ open, setOpen }) {
                 onClick={handleNearme}
               >
                 <p className="text-m text-gray-4e flex font-bold justify-center">
-                  {/* <BiCurrentLocation className="h-5 w-5" /> */}
                   <Image src={CurrentLocation} width={20} height={20}/>
                 </p>
               </span>
@@ -265,25 +180,17 @@ function LocationPopup({ open, setOpen }) {
             <div className="flex flex-row pt-3 text-mx w-full font-Roboto-Semibold"
               onClick={handleNearme}
             >
-              <BiCurrentLocation size={18} />
+                  <Image src={CurrentLocation} width={20} height={20}/>
               <div className="pl-1">
                 Use Your Current Location
               </div>
             </div>
-            {/* <span className="block text-base w-full text-center">or</span> */}
-            {/* <BasicCarousel
-        slidesPerView={4.4}
-        spaceBetween={8}
-        style={{ padding: "8px"}}
-      > */}
             <div
               className="text-center -mx-1 py-4 grid grid-cols-3"
-            // style={{ minHeight: "40vh" }}
             >
               {globalCities &&
                 globalCities
                   .filter((item) => item.displayWithImage === "1")
-                  // .slice(0, 9)
                   .map((items) => (
                     <div
                       className={`border-0 bg-[#F1F1F1] rounded px-4 py-2 m-1  ${selectedCity.current === items.city && "border-primary"
@@ -306,28 +213,9 @@ function LocationPopup({ open, setOpen }) {
                     </div>
                   ))}
             </div>
-
-            {/* <div className="">
-              <p className="uppercase text-ex border-b pb-1.5 border-black-4e font-Roboto-Medium ">
-                all cities
-              </p>
-              <div className="pt-2 h-80 overflow-y-scroll no-scrollbar">
-                {globalCities &&
-                  globalCities.map((items) => (
-                    <div
-                      className="pb-2"
-                      onClick={() => handleCityChange(items.city)}
-                    >
-                      <p className="border-b px-2 pb-2">{items.city}</p>
-                    </div>
-                  ))}
-              </div>
-            </div> */}
-            {/* </BasicCarousel> */}
           </form>
         </div>
       </div>
-      {/* <LocationPicker openLocationPopup={() => setOpenLocationPopup(true)} /> */}
     </Modal1>
   );
 }

@@ -1,7 +1,6 @@
 import { getDefaultImage } from "@/utils/util";
 import Cookies from "js-cookie";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import LoginPopup from "../Popup/LoginPopup";
 import ThisPhonePopup from "../Popup/ThisPhonePopup";
@@ -46,7 +45,6 @@ function ComparisonTable2(data, listingId) {
       }
     }, 1000);
   }, [openLoginPopup]);
-  console.log("productData", data, thisPhoneListingId);
 
   return (
     <div className="overflow-x-scroll relative">
@@ -78,7 +76,6 @@ function ComparisonTable2(data, listingId) {
                   ) {
                     setThisPhonePopup(true);
                   } else if (thisPhoneListingId != item?.listingId) {
-                    // window.open(item.productLink, "_blank");}
                     window.open(
                       `/product/buy-old-refurbished-used-mobiles/${item.make}/${item?.marketingName}/${item?.listingId}?isOtherVendor=${item?.isOtherVendor}`,
                       "_blank"
@@ -101,7 +98,6 @@ function ComparisonTable2(data, listingId) {
             Model
           </th>
           {productData?.map((item, index) => (
-            // <Link href={item.ven}>
             <th
               className={`${thisPhoneListingId == item?.listingId
                 ? "border px-2 py-6 font-Roboto-Light bg-gray-100"
@@ -110,17 +106,14 @@ function ComparisonTable2(data, listingId) {
             >
               {" "}
               <Image
+              quality={25}
                 src={getDefaultImage(item?.marketingName)}
                 onError={() => setImageError(true)}
                 className=""
-                // alt={`${
-                //   type[Math.floor(Math.random() * type.length)]
-                // } ${model} ${storage} like new `.toLowerCase()}
                 height="70"
                 width="50"
               />
             </th>
-            // </Link>
           ))}
         </tr>
         <tr className=" font-Roboto-Regular text-cx">
@@ -128,7 +121,6 @@ function ComparisonTable2(data, listingId) {
             Price
           </th>
           {productData?.map((item, index) => (
-            // <Link href={item.ven}>
             <th
               className={`${thisPhoneListingId == item?.listingId
                 ? "border px-2 py-6 text-yellow-500 font-Roboto-Light bg-gray-100"
@@ -138,7 +130,6 @@ function ComparisonTable2(data, listingId) {
               {" "}
               <span className="px-0.2">₹</span> {item?.listingPrice}
             </th>
-            // </Link>
           ))}
         </tr>
         <tr className="  font-Roboto-Regular text-cx ">

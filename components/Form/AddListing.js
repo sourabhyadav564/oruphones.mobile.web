@@ -200,11 +200,9 @@ const AddListingForm = ({ data }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     var sellValueTag = document.querySelector("#sellValue");
-    // console.log(sellValueTag);
     var sellValue = sellValueTag.value;
 
     var inputNameTag = document.querySelector("#inputName");
-    // console.log(inputNameTag);
     var inputName = inputNameTag.value;
 
     if (
@@ -256,8 +254,6 @@ const AddListingForm = ({ data }) => {
         make,
         color,
         marketingName: model,
-        // deviceStorage: storage?.split("/")[0],
-        // deviceRam: storage?.split("/")[1].replace("RAM", ""),
         deviceStorage: storage.toString().split("/")[0].toString().trim(),
         deviceRam: storage
           .toString()

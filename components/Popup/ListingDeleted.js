@@ -33,36 +33,10 @@ function ListingDeleted({ open, setOpen, data, setListings }) {
     });
   }
 
-  // useEffect(() => {
-  //   if (open) {
-  //     const onBackButtonEvent = (e) => {
-  //       e.preventDefault();
-  //       setOpen(false);
-  //     }
-
-  //     window.history.pushState(null, null, window.location.pathname);
-  //     window.addEventListener('popstate', onBackButtonEvent);
-  //     return () => {
-  //       window.removeEventListener('popstate', onBackButtonEvent);
-  //     };
-    // } else {
-    //   const onBackButtonEvent = (e) => {
-    //     e.preventDefault();
-    //     window.history.back();
-    //   }
-    //   window.history.pushState(null, null, window.location.pathname);
-    //   window.addEventListener('popstate', onBackButtonEvent);
-    //   return () => {
-    //     window.removeEventListener('popstate', onBackButtonEvent);
-    //   };
-  //   }
-  // }, [open]);
-
 
   return (
     <Modal2 open={open} setOpen={setOpen}>
       <div className="flex flex-col items-center max-w-sm px-6 py-2 space-y-2 text-base text-black-21">
-        {/* <FaRegTrashAlt size={34} color="#f92b2b" /> */}
         <Image src={Trash} width={34} height={34}/>
         <p className="text-gx font-Roboto-Bold mb-2"> Delete Listing? </p>
         <p>Do you want to Delete the listing?</p>

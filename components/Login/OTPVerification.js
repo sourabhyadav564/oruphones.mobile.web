@@ -57,39 +57,16 @@ function OTPVerification({
         if (status === "SUCCESS") {
           const countryCode = formData?.countryCode;
           const mobile = formData?.mobile;
-          // createUser(countryCode, mobile).then(
-          //   (response) => {
-          //     if (response.status === "SUCCESS") {
-          //       addUserSearchandProfileLocations(
-          //         response.dataObject.userUniqueId
-          //       );
-          //     }
-          //     Cookies.set("mobileNumber", formData?.mobile);
-          //     Cookies.set("countryCode", formData?.countryCode);
-          //     setLoading(false);
-          //     dispatch("REFRESH");
-          //     if (!fromAddListing) {
-          //       router.push("/");
-          //     } else {
-          //       setOpen(false);
-          //     }
-          //   },
-          //   (err) => console.error(err)
-          // );
           Cookies.set("mobileNumber", formData?.mobile);
           Cookies.set("countryCode", formData?.countryCode);
           setLoading(false);
           dispatch("REFRESH");
-          // if (!fromAddListing) {
-          //   router.push("/");
-          // } else {
             if(login){
               router.push("/");
             }
             else{
               setOpen(false);
             }
-          // }
         } else {
           setError(true);
           setLoading(false);
@@ -99,22 +76,6 @@ function OTPVerification({
     );
   };
 
-  const addUserSearchandProfileLocations = async (data) => {
-    const locationPayload = {
-      city: "Hyderabad",
-      country: "India",
-      locationId: "0",
-      state: "Telangana",
-      userUniqueId: data,
-    };
-
-    const addUserSearchLocationResponse = await addUserSearchLocation(
-      locationPayload
-    );
-    const addUserProfileLocationResponse = await addUserProfileLocation(
-      locationPayload
-    );
-  };
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -127,11 +88,6 @@ function OTPVerification({
       className="flex flex-col w-full space-y-4"
       onSubmit={handleSubmit}
     >
-      {/* <BsArrowLeft
-        onClick={() => setStep(1)}
-        className="cursor-pointer fixed top-2 left-2"
-        fontSize="22"
-      /> */}
       <Image src={ArrowLeft} width={22} height={22}  onClick={() => setStep(1)} className="cursor-pointer fixed top-2 left-2"/>
       <div className="">
         <h1 className=" text-px font-bold py-1" style={{ color: "#2C2F45" }}>

@@ -42,8 +42,6 @@ function Header1() {
 
 
   useEffect(() => {
-    // const x = navigator.userAgent;
-    // console.log("userAgent : ", navigator.platform);
     if (navigator.platform === 'iPhone') {
       setAppSrcIs("https://apps.apple.com/dk/app/oruphones/id1629378420");
     } else {
@@ -60,7 +58,6 @@ function Header1() {
             <a href={AppSrcIs} className="text-mx  text-primary font-Roboto-semibold flex-1 opacity-70 ">Download ORUphones App for better experience</a>
             <p onClick={handleClose} className="text-mx pt-1.5">
               <Image src={Close} width={20} height={20} className=" opacity-50"/>
-              {/* <CgCloseO className="w-4 h-4 text-red opacity-50" /> */}
               </p>
           </div> : <div></div>
         }

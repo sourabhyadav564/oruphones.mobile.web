@@ -4,7 +4,6 @@ import { deviceConditionResult } from "../../utils/constant";
 
 
 const DeviceConditionCard = ({ condition, answer }) => {
-  // console.log("results", answer);
   const [subtitle, setSubtitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [head, setHead] = React.useState("");
@@ -14,7 +13,6 @@ const DeviceConditionCard = ({ condition, answer }) => {
   useEffect(() => {
     deviceConditionResult.filter((item, index) => {
       if (item.title === condition) {
-        // console.log("item", item.subtitle);
         setSubtitle(item.subtitle);
         setDescription(item.description);
         setHead(item.head);
@@ -23,7 +21,6 @@ const DeviceConditionCard = ({ condition, answer }) => {
       }
     });
   }, [condition]);
-  // console.log("note", note);
 
   return (
     <div className="flex flex-col bg-white p-2 font-Roboto-Regular rounded-md space-x-1 shadow-lg">
@@ -63,7 +60,6 @@ export default DeviceConditionCard;
 const CheckPoints = ({ points }) => {
   return (
     <div className="flex items-center space-x-3 space-y-1">
-      {/* <BsInfoCircle className="text-bx" />  */}
       <Image src={InfoCircle} width={14} height={14}  onClick={showInfoPopup}/>
       <p className="text-sm">{points}</p>
     </div>

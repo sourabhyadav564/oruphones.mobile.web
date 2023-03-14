@@ -5,7 +5,6 @@ import { numberWithCommas } from "@/utils/util";
 function ShopByPriceCard({ data }) {
   return (
     <div
-      // href={`/product/buy-old-refurbished-used-mobiles/pricerange/${data?.minPrice}/${data?.maxPrice}`}
       onClick={() => window.open(
         `/product/buy-old-refurbished-used-mobiles/pricerange/${data?.minPrice}/${data?.maxPrice}?isOtherVendor=${data?.isOtherVendor}`,
         "_blank"

@@ -56,6 +56,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
+                    quality={25}
                     loading="lazy"
                     placeholder="blur"
                     priority={false}
@@ -114,6 +115,7 @@ function NearByDealCard({ data, setProducts, prodLink, myListing }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
+                    quality={25}
                     loading="lazy"
                     placeholder="blur"
                     priority={false}

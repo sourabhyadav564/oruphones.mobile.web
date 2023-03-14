@@ -2,12 +2,10 @@ import {
   Heading,
   SellPhoneHeading1,
 } from "@/components/elements/Heading/heading";
-import Image from "next/image";
 import Input from "@/components/Form/Input";
 import React from "react";
 import { useState } from "react";
 import Header4 from "../../components/Header/header4";
-// import PhoneImage from "@/assets/icons/phone.png";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   addListingBrandSelector,
@@ -27,11 +25,8 @@ import {
   getRecommandedPrice,
   searchFilter,
 } from "api-call";
-import NewAddListingForm from "@/components/Form/NewAddListingForm";
 import Link from "next/link";
 import { numberWithCommas } from "@/utils/util";
-import Filter from "@/components/FilterAndSort/Filter";
-import Loader from "@/components/Loader/Loader";
 import useFilterOptions from "@/hooks/useFilterOptions";
 import OtherListingCard from "@/components/Card/OtherListingCard";
 import NoMatch from "@/components/NoMatch";
@@ -58,16 +53,12 @@ function Index() {
   const [storage, setStorage] = useState();
   const [recommandedPrice, setRecommandedPrice] = useState();
   const [condition, setCondition] = useState();
-  const [isGettingPrice, setIsGettingPrice] = useState(false);
   const [openModelPopup, setOpenModelPopup] = useState(false);
   const [openStorageInfo, setOpenStorageInfo] = useState(false);
   const [page, setPage] = useState(0);
   var type = ["old phone", "your"];
-  const [data, setData] = useState([]);
-  // const [applyFilter, setApplyFilter] = useState();
   const [getExternalSellerData, setGetExternalSellerData] = useState([]);
   const conditionList = ["Like New", "Excellent", "Good", "Fair"];
-  var { applyFilter } = useFilterOptions();
   const [loadingState, setLoadingState] = useState(false);
 
   const handleSubmit = (e) => {
@@ -83,7 +74,6 @@ function Index() {
       const interval = setInterval(() => {
         setDefaultModel("");
         setModel("");
-        // setMktNameOpt([]);
         clearInterval(interval);
       }, 1000);
     }
@@ -119,26 +109,6 @@ function Index() {
         warenty: [],
         pageNumber: 0,
       };
-      // if (priceRange && priceRange.min && priceRange.max) {
-      //   payLoad.minsellingPrice = priceRange.min;
-      //   payLoad.maxsellingPrice = priceRange.max;
-      // }
-      // if (condition?.length > 0) {
-      //   payLoad.deviceCondition = condition.includes("all") ? [] : condition;
-      // }
-      // if (storage?.length > 0) {
-      //   payLoad.deviceStorage = storage.includes("all") ? [] : storage;
-      // }
-      // if (color?.length > 0) {
-      //   payLoad.color = color.includes("all") ? [] : color;
-      // }
-      // if (warranty?.length > 0) {
-      //   payLoad.warenty = warranty.includes("all") ? [] : warranty;
-      // }
-      // if (verification?.length > 0) {
-      //   payLoad.verified = verification.includes("all") ? "" : "verified";
-      // }
-      // setLoading(true);
       searchFilter(
         payLoad,
         localStorage.getItem("userUniqueId") || "Guest",
@@ -151,23 +121,13 @@ function Index() {
           ...otherListings,
           ...response?.dataObject?.otherListings,
         ]);
-        // setOtherListings(response?.dataObject?.otherListings);
-        // setBestDeals([]);
-        // setTotalProducts(response?.dataObject?.totalProducts);
-        // setBestDeals(response?.dataObject?.bestDeals);
         setLoading(false);
       });
     }
   }, [storage, condition]);
-
-  // useEffect(() => {
-  //   setData(JSON.parse(localStorage.getItem("make_models")));
-  // }, []);
   const handleSelectChange = async (name) => {
     if (name === "make") {
       setMake(selectedBrand);
-      // let index = data?.findIndex((i) => i.make === selectedBrand);
-      // setMktNameOpt(data[index]?.models);
       const models3 = await getModelLists("", "", selectedBrand, "");
       setMktNameOpt(models3?.dataObject[0]?.models);
     } else if (name === "model") {
@@ -252,7 +212,6 @@ function Index() {
             setDefaultBrand(make);
             setDefaultModel(model);
             setDefaultStorage(storage);
-            // console.log("makerssss",defaultBrand,defaultModel);
             setRecommandedPrice(dataObject);
           },
           (err) => console.error(err)
@@ -330,10 +289,6 @@ function Index() {
           {page === 0 && (
             <>
               <div
-                // onClick={() => {
-                //   setOpenBrandPopup(true);
-                //   // setModelInfo();
-                // }}
                 className="space-y-2"
               >
                 <SellPhoneHeading1 title="Enter your Phone details" />
@@ -341,7 +296,6 @@ function Index() {
                 <div className="space-y-nx"
                   onClick={() => {
                     setOpenBrandPopup(true);
-                    // setModelInfo();
                   }}
                 >
                   <p className="pt-rx flex space-x-0.5">
@@ -499,42 +453,7 @@ function Index() {
         )}
 
       {!sellSelected && otherListings && bestDeals && (
-        <div
-        // searchText={`"${modelName}"`}
-        // setSortApplyFilter={setSortApplyFilter}
-        // setIsFilterApplied={setIsFilterApplied}
-        // setApplyFilter={setApplyFilter}
-        // applyFilter={applyFilter}
-        >
-          {/* {(loading || bestDeals?.length > 0) && (
-          <h1 className="text-lg font-semibold text-gray-20 pl-4 py-2">
-            {" "}
-            Best Deals{" "}
-          </h1>
-        )} */}
-          {/* {loading ? (
-            <div className="flex items-center justify-center">
-              <p>Please Select Above Fields</p>
-            </div>
-          ) : (
-            <div className=" px-4 ">
-              <h1 className="text-lg font-semibold text-primary  py-2.5">
-                {" "}
-                Best Deals{" "}
-              </h1> 
-              {bestDeals?.length > 0 &&
-                bestDeals.map((item, index) => (
-                  <div className="mb-4" key={index}>
-                    <OtherListingCard
-                      item={item}
-                      setProducts={setBestDeals}
-                      products={bestDeals}
-                      index={index}
-                    ></OtherListingCard>
-                  </div>
-                ))}
-            </div>
-          )} */}
+        <div>
           {!loading && storage && (
             <div className="text-lg font-semibold text-primary pt-2.5 px-4">
               <p>Best Deals</p>
@@ -543,14 +462,10 @@ function Index() {
           {(!loading || otherListings?.length > 0) && (
             <div className="flex mt- pb-0">
               <p className="font-Roboto-Semibold text-[#707070]  text-cx  capitalize underline">
-                {/* <p className="cursor-pointer flex items-center " onClick={() => setOpenSort(true)}>
-              sort <BiSortAlt2 className="ml-1" />
-            </p> */}
               </p>
             </div>
           )}
           {loading ? (
-            // <Loader />
             <div></div>
           ) : (
             <section className="grid grid-cols-2 py-3">
@@ -560,8 +475,6 @@ function Index() {
                     key={item.listingId}
                     className="m-1.5"
                     onClick={() => {
-                      // setListingId(item.listingId);
-                      // setProductsData(otherListings);
                       setLoadingState(true);
                     }}
                   >

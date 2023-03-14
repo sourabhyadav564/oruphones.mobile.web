@@ -63,6 +63,7 @@ function ShopbymodelCard({
       >
         <div className="">
           <Image
+          quality={25}
             loading="lazy"
             placeholder="blur"
             priority={false}

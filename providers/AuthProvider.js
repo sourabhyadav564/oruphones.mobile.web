@@ -46,7 +46,6 @@ const reducer = (state, { type, payload }) => {
       sessionStorage.setItem("getUserDetails", JSON.stringify(payload));
       return data;
     case "LOGOUT":
-      // localStorage.removeItem("token");
       Cookies.remove("mobileNumber");
       Cookies.remove("countryCode");
       Cookies.remove("userUniqueId");
@@ -109,8 +108,6 @@ export const AuthProvider = ({ children }) => {
           dispatch("LOGIN", userRes);
         }
       } catch (err) {
-        console.log(err);
-        // localStorage.removeItem("token");
         dispatch("LOGOUT");
       } finally {
         dispatch("STOP_LOADING");
@@ -118,7 +115,6 @@ export const AuthProvider = ({ children }) => {
     };
 
     loadUser();
-    // eslint-disable-next-line
   }, [state.refresh]);
 
   return (

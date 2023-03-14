@@ -1,10 +1,8 @@
-import Image from "next/image";
+
 import { useEffect, useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
-import MySelect from "../Form/Select";
 import Modal1 from "../Popup/Modal1";
 import { fetchBrands } from "api-call";
-import Cookies from "js-cookie";
 import BrandCard from "../Card/BrandCard";
 
 import { addListingBrandState } from "../../atoms/globalState";
@@ -33,7 +31,6 @@ function BrandPopup({ open, setOpen }) {
     }
   }, [open]);
 
-  //   sort brands according to their displayOrder
   brands.sort((list2, list1) => list2.displayOrder - list1.displayOrder);
 
   return (

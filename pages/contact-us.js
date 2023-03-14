@@ -39,7 +39,6 @@ function ContactUS() {
         window.location.reload();
       });
     } else {
-      console.log("error");
       if (name == undefined) {
         setName("");
       }
@@ -138,10 +137,6 @@ function ContactUS() {
           </section>
           <h2 className="text-black  text-tx font-Roboto-Semibold">Connect with us</h2>
           <section>
-            {/* <div>
-            <span className="text-black font-semibold">Give us a call</span>
-            <p className="text-black-20 mb-4"> +91 999 123 1234 </p>
-          </div> */}
             <div>
               <span className="text-black font-Roboto-Semibold">Send us an email</span>
               <p className="text-black-20 mb-4 font-Roboto-Regular">contact@oruphones.com</p>

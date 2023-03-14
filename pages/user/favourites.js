@@ -1,7 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-import Header2 from "@/components/Header/header2";
 import Header3 from "@/components/Header/header3";
-import Footer from "@/components/Footer";
 import BottomNav from "@/components/Navigation/BottomNav";
 import FavListingTile from "@/components/Card/FavListingTile";
 import Cookies from "js-cookie";
@@ -16,7 +14,6 @@ function Favorites() {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(true);
-  console.log("loading", loading);
 
   useEffect(() => {
     if (!loading && !authenticated) {
@@ -74,7 +71,6 @@ function Favorites() {
           </div>
         )}
       </main>
-      {/* <Footer /> */}
       <BottomNav />
     </Fragment>
   );

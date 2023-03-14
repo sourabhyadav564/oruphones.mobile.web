@@ -32,17 +32,8 @@ const data = [
 function ShopBy() {
 
   return (
-    // <section className="container top_brand pt-4">
-    //   <Title text="Shop By" />
-    //   <Carousel {...settings}>
-    //     {data &&
-    //       data.map((item, index) => <CategoryCards key={index} data={item} />)}
-    //     <CategoryCards priceRange />
-    //   </Carousel>
-    // </section>
 
     <section className=" text-gray-70 ">
-      {/* <h1 className="mt-3 mb-2 px-3 pt-2.5 font-Regular text-based text-xs"> Shop by Categories </h1> */}
       <Heading title="Shop by" />
       <BasicCarousel
         slidesPerView={4}

@@ -41,7 +41,6 @@ function OtherListingCard({ data, setProducts, prodLink }) {
         <Link href={`#all-models`}>
           <a
             className="w-full h-full rounded border p-4 bg-white flex justify-center items-center"
-          // onClick={() => setLoadingState(true)}
           >
             <p className="block text-primary">{"Show All"}</p>
           </a>
@@ -59,20 +58,10 @@ function OtherListingCard({ data, setProducts, prodLink }) {
   return (
     <>
       <div
-      // href={{
-      //   pathname: `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${prodLink ? data?.listingId : ""
-      //     }`,
-      //   query: prodLink && { isOtherVendor: data?.isOtherVendor },
-      // }}
-      // onClick={() => window.open(
-      //   `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${prodLink ? data?.listingId : ""}?isOtherVendor=${data?.isOtherVendor}`,
-      //   "_blank"
-      // )
-      // }
       >
         <a
           className="grid grid-cols-1 h-full shadow-lg shadow-gray-900 rounded-lg relative py-2 px-3 bg-m-white cardShadow1" 
-        // onClick={() => setLoadingState(true)}
+        
         >
           <div className="grid grid-cols-1">
             <div className="absolute px-2  flex z-30 items-center top-0 left-0 right-0 pt-1 justify-between w-full">
@@ -91,7 +80,6 @@ function OtherListingCard({ data, setProducts, prodLink }) {
                 )}
               </span>
             </div>
-            {/* {console.log("data", listings)} */}
             {listings.includes(data?.listingId) 
               ?
               <div
@@ -101,6 +89,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
+                    quality={25}
                     loading="lazy"
                     placeholder="blur"
                     priority={false}
@@ -158,6 +147,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               >
                 <div className="flex justify-center p-2">
                   <Image
+                  quality={25}
                     loading="lazy"
                     placeholder="blur"
                     priority={false}

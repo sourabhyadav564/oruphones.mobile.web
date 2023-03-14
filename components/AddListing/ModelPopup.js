@@ -6,6 +6,7 @@ import { addListingModelState } from "../../atoms/globalState";
 import { useRecoilState } from "recoil";
 import React, { useEffect } from "react";
 import Image from "next/image";
+import { useState } from "react";
 
 function ModelPopup({ open, setOpen, mktNameOpt }) {
   const [modelState, setModelState] = useRecoilState(addListingModelState);
