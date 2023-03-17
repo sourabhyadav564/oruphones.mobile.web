@@ -31,12 +31,15 @@ function LocationPopup({ open, setOpen }) {
     } else {
       const callApi = () => {
         if (!open) return null;
-        getGlobalCities("").then(
-          (response) => {
-            setGlobalCities(response.dataObject);
-          },
-          (err) => console.error(err)
-        );
+        getGlobalCities("").then((response) => {
+          let india = response.dataObject.filter(
+            (item) => item.city === "India"
+          );
+          let otherCities = response.dataObject.filter(
+            (item) => item.city !== "India"
+          );
+          setGlobalCities(india.concat(otherCities));
+        });
       };
       callApi();
     }
@@ -82,7 +85,6 @@ function LocationPopup({ open, setOpen }) {
         setOpen(false);
       },
       (error) => {
-        console.error(error);
         setLocation({
           loaded: true,
           city: "India",
@@ -156,45 +158,42 @@ function LocationPopup({ open, setOpen }) {
           <form className="mb-4 w-full text-sm space-y-2 pt-4">
             <div className="flex flex-rpw">
               <MySelect
+                placeholder="Search Location"
                 onChange={(e) => {
                   handleCityChange(e.value);
                 }}
                 onInputChange={(e) => {
                   onLocChange(e);
                 }}
-                options={globalCities2
-                  ?.sort((a, b) => a.city.localeCompare(b.city))
-                  ?.map((items, index) => {
-                    return { label: items.city, value: items.city };
-                  })}
+                options={globalCities2?.map((items, index) => {
+                  return { label: items.city, value: items.city };
+                })}
               />
               <span
                 className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-r-md cursor-pointer"
                 onClick={handleNearme}
               >
                 <p className="text-m text-gray-4e flex font-bold justify-center">
-                  <Image src={CurrentLocation} width={20} height={20}/>
+                  <Image src={CurrentLocation} width={20} height={20} />
                 </p>
               </span>
             </div>
-            <div className="flex flex-row pt-3 text-mx w-full font-Roboto-Semibold"
+            <div
+              className="flex flex-row pt-3 text-mx w-full font-Roboto-Semibold"
               onClick={handleNearme}
             >
-                  <Image src={CurrentLocation} width={20} height={20}/>
-              <div className="pl-1">
-                Use Your Current Location
-              </div>
+              <Image src={CurrentLocation} width={20} height={20} />
+              <div className="pl-1">Use Your Current Location</div>
             </div>
-            <div
-              className="text-center -mx-1 py-4 grid grid-cols-3"
-            >
+            <div className="text-center -mx-1 py-4 grid grid-cols-3">
               {globalCities &&
                 globalCities
                   .filter((item) => item.displayWithImage === "1")
                   .map((items) => (
                     <div
-                      className={`border-0 bg-[#F1F1F1] rounded px-4 py-2 m-1  ${selectedCity.current === items.city && "border-primary"
-                        }`}
+                      className={`border-0 bg-[#F1F1F1] rounded px-4 py-2 m-1  ${
+                        selectedCity.current === items.city && "border-primary"
+                      }`}
                       key={items.city}
                       onClick={() => handleCityChange(items.city)}
                     >
@@ -224,8 +223,9 @@ export default LocationPopup;
 
 const Button = ({ children, active, ...rest }) => (
   <p
-    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"
-      }`}
+    className={`block rounded-md text-xs border mr-3 my-2 px-4 py-1 ${
+      active ? "bg-primary-light text-primary border-primary" : "border-gray-c7"
+    }`}
     {...rest}
   >
     {children}

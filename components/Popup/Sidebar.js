@@ -1,5 +1,5 @@
-import ChevronLeft from "@/assets/chevronleft.svg"
-import ArrowLeft from "@/assets/leftarrow.svg"
+import ChevronLeft from "@/assets/chevronleft.svg";
+import ArrowLeft from "@/assets/leftarrow.svg";
 import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
@@ -7,7 +7,6 @@ import Logout from "@/assets/logout.svg";
 import OutLineInfoCircle from "@/assets/alert1.svg";
 import QuestionCircle from "@/assets/question.svg";
 import LoginIcon from "@/assets/login.svg";
-
 
 import Link from "next/link";
 import { useAuthState, useAuthDispatch } from "providers/AuthProvider";
@@ -26,7 +25,7 @@ function Sidebar({ open, setOpen }) {
   const [openbuynowpopup, setOpenbuynowpopup] = useState(false);
   const [openOruGuidePopup, setOpenOruGuidePopup] = useState(false);
 
-   useEffect(() => {
+  useEffect(() => {
     if (authenticated && user != null) {
       setUserName(user.userdetails.userName || "User");
     } else {
@@ -78,9 +77,15 @@ function Sidebar({ open, setOpen }) {
           leaveTo="-translate-x-10"
         >
           <div className="flex flex-col w-full h-full max-h-screen bg-white overflow-hidden shadow-xl transform transition-all">
-              <div className="p-4  bg-green-light text-white rounded-b-2xl">
+            <div className="p-4  bg-green-light text-white rounded-b-2xl">
               <div className="flex justify-end">
-              <Image src={ArrowLeft} width={15} height={15} className="ml-auto text-lg item-center flex " onClick={() => setOpen(false)}/>
+                <Image
+                  src={ArrowLeft}
+                  width={15}
+                  height={15}
+                  className="ml-auto text-lg item-center flex "
+                  onClick={() => setOpen(false)}
+                />
               </div>
               <div
                 className="flex items-center px-4 py-2"
@@ -93,7 +98,10 @@ function Sidebar({ open, setOpen }) {
                     }`}
                   >
                     <Image
-                      src={user?.userdetails?.profilePicPath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/icons/avatar.svg"}
+                      src={
+                        user?.userdetails?.profilePicPath ||
+                        "https://d1tl44nezj10jx.cloudfront.net/web/assets/icons/avatar.svg"
+                      }
                       objectFit="contain"
                       alt="ORU user"
                       layout="fill"
@@ -119,13 +127,23 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                  <Image src={HeartBlack} width={20} height={20}  className="self-center"/>
+                  <Image
+                    src={HeartBlack}
+                    width={20}
+                    height={20}
+                    className="self-center"
+                  />
                   <p className="self-center flex-1 font-Roboto-Regular">
                     {" "}
                     My Favorites
                   </p>
                   <span className="-mr-2">
-                  <Image src={ChevronLeft} width={15} height={15} className="rotate-180  self-center"  />
+                    <Image
+                      src={ChevronLeft}
+                      width={15}
+                      height={15}
+                      className="rotate-180  self-center"
+                    />
                   </span>
                   <hr />
                 </div>
@@ -138,12 +156,22 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                  <Image src={OutLineInfoCircle} width={20} height={20} className="self-center"/>
+                  <Image
+                    src={OutLineInfoCircle}
+                    width={20}
+                    height={20}
+                    className="self-center"
+                  />
                   <p className="self-center flex-1 font-Roboto-Regular">
                     {" "}
                     About us
                   </p>
-                  <Image src={ChevronLeft} width={15} height={15} className="rotate-180  self-center"  />
+                  <Image
+                    src={ChevronLeft}
+                    width={15}
+                    height={15}
+                    className="rotate-180  self-center"
+                  />
                 </div>
               </ListItem>
               <ListItem
@@ -153,12 +181,22 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                  <Image src={QuestionCircle} width={20} height={20} className="self-center"/>
+                  <Image
+                    src={QuestionCircle}
+                    width={20}
+                    height={20}
+                    className="self-center"
+                  />
                   <p className="self-center flex-1  font-Roboto-Regular">
                     {" "}
                     FAQs
                   </p>
-                  <Image src={ChevronLeft} width={15} height={15} className="rotate-180 self-center"  />
+                  <Image
+                    src={ChevronLeft}
+                    width={15}
+                    height={15}
+                    className="rotate-180 self-center"
+                  />
                 </div>
               </ListItem>
               {/* <ListItem
@@ -176,6 +214,31 @@ function Sidebar({ open, setOpen }) {
                   <Image src={ChevronLeft} width={15} height={15} className="rotate-180 self-center"  />
                 </div>
               </ListItem> */}
+              <ListItem
+                href="/blog"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <div className="w-full flex gap-2 border-b pb-3">
+                  <Image
+                    src={QuestionCircle}
+                    width={20}
+                    height={20}
+                    className="self-center"
+                  />
+                  <p className="self-center flex-1  font-Roboto-Regular">
+                    {" "}
+                    Article
+                  </p>
+                  <Image
+                    src={ChevronLeft}
+                    width={15}
+                    height={15}
+                    className="rotate-180 self-center"
+                  />
+                </div>
+              </ListItem>
               <div className="mt-auto border-t ml-2 ">
                 {authenticated ? (
                   <>
@@ -184,8 +247,7 @@ function Sidebar({ open, setOpen }) {
                       onClick={() => {
                         setOpensellnowpopup(true);
                       }}
-                    >
-                    </ListItem>
+                    ></ListItem>
                     <div className="flex justify-between">
                       <ListItem
                         href=""
@@ -195,12 +257,14 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell.svg"}
+                            src={
+                              "https://d1tl44nezj10jx.cloudfront.net/web/assets/sell.svg"
+                            }
                             alt="Sell"
                             width={20}
                             height={50}
                             className="self-center"
-                           />
+                          />
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             How to sell
                           </p>
@@ -214,10 +278,12 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy.svg"}
-                          alt="Buy"
-                          width={20}
-                          height={50}
+                            src={
+                              "https://d1tl44nezj10jx.cloudfront.net/web/assets/buy.svg"
+                            }
+                            alt="Buy"
+                            width={20}
+                            height={50}
                           />
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             How to buy
@@ -232,10 +298,12 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Book.svg"}
-                          alt="OruGuide"
-                          width={22}
-                          height={52}
+                            src={
+                              "https://d1tl44nezj10jx.cloudfront.net/web/assets/Book.svg"
+                            }
+                            alt="OruGuide"
+                            width={22}
+                            height={52}
                           />
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             Oru Guide
@@ -251,7 +319,12 @@ function Sidebar({ open, setOpen }) {
                       }}
                     >
                       <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
-                        <Image src={Logout} width={20} height={20} className="self-center"/> {" "}
+                        <Image
+                          src={Logout}
+                          width={20}
+                          height={20}
+                          className="self-center"
+                        />{" "}
                         <p>Logout</p>
                       </div>
                     </ListItem>
@@ -267,12 +340,14 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/sell.svg"}
+                            src={
+                              "https://d1tl44nezj10jx.cloudfront.net/web/assets/sell.svg"
+                            }
                             alt="Sell"
                             width={20}
                             height={50}
                             className="self-center"
-                           />
+                          />
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             How to sell
                           </p>
@@ -286,10 +361,12 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/buy.svg"}
-                          alt="Buy"
-                          width={20}
-                          height={50}
+                            src={
+                              "https://d1tl44nezj10jx.cloudfront.net/web/assets/buy.svg"
+                            }
+                            alt="Buy"
+                            width={20}
+                            height={50}
                           />
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             How to buy
@@ -304,10 +381,12 @@ function Sidebar({ open, setOpen }) {
                       >
                         <div className="w-full flex gap-2 pb-3 flex-col">
                           <Image
-                          src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/Book.svg"}
-                          alt="OruGuide"
-                          width={22}
-                          height={52}
+                            src={
+                              "https://d1tl44nezj10jx.cloudfront.net/web/assets/Book.svg"
+                            }
+                            alt="OruGuide"
+                            width={22}
+                            height={52}
                           />
                           <p className="self-center flex-1 font-Roboto-Semibold">
                             Oru Guide
@@ -317,8 +396,8 @@ function Sidebar({ open, setOpen }) {
                     </div>
                     <ListItem href="/login">
                       <div className="flex gap-2 -pl-4 pt-2 font-Roboto-Regular">
-                        <Image src={LoginIcon} width={15} height={15}/>
-                         <p>Sign In</p>
+                        <Image src={LoginIcon} width={15} height={15} />
+                        <p>Sign In</p>
                       </div>
                     </ListItem>
                   </>
@@ -332,7 +411,10 @@ function Sidebar({ open, setOpen }) {
           setOpen={setOpensellnowpopup}
         />
         <BuyNowIconPopup open={openbuynowpopup} setOpen={setOpenbuynowpopup} />
-        <OruGuidePopup open={openOruGuidePopup} setOpen={setOpenOruGuidePopup} />
+        <OruGuidePopup
+          open={openOruGuidePopup}
+          setOpen={setOpenOruGuidePopup}
+        />
       </Dialog>
     </Transition.Root>
   );

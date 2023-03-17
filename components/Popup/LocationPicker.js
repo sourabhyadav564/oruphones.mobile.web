@@ -46,7 +46,6 @@ function LocationPicker({ openLocationPopup }) {
         setOpen(false);
       },
       (error) => {
-        console.error(error);
         setLocation({
           loaded: true,
           city: "India",

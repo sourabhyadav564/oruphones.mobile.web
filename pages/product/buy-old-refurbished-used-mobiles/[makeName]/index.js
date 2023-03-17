@@ -3,7 +3,12 @@ import ShopByBrandsSection from "@/components/ShopByBrandsSection";
 import OtherListingCard from "@/components/Card/OtherListingCard";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { fetchByMakeList, searchFilter, getMakeModelLists, fetchTopsellingmodels } from "api-call";
+import {
+  fetchByMakeList,
+  searchFilter,
+  getMakeModelLists,
+  fetchTopsellingmodels,
+} from "api-call";
 import Filter from "@/components/FilterAndSort/Filter";
 import Filter1 from "@/components/FilterAndSort/FilterAndSort1";
 import { useState, useEffect } from "react";
@@ -14,9 +19,7 @@ import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
-import {
-  CardHeading2,
-} from "@/components/elements/CardHeading/cardheading";
+import { CardHeading2 } from "@/components/elements/CardHeading/cardheading";
 import { Heading, Heading3 } from "@/components/elements/Heading/heading";
 import BrandCard from "@/components/Card/BrandCard";
 import BasicCarousel from "@/components/Carousel/BasicCarousel";
@@ -24,6 +27,7 @@ import BottomNav from "@/components/Navigation/BottomNav";
 import LoadingStatePopup from "@/components/Popup/LoadingStatePopup";
 import { useRecoilValue } from "recoil";
 import { makeState } from "atoms/globalState";
+import ProductSkeletonCard from "@/components/Card/ProductSkeletonCard";
 
 function MakePage({ bestDealData, shopbymodeldata, data }) {
   const [isFilterApplied, setIsFilterApplied] = useState(false);
@@ -72,20 +76,24 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           if (shopbymodel == []) {
             setshopbymodel(JSON.stringify(item.marketingName));
           } else {
-            setshopbymodel((shopbymodel) => [...shopbymodel, JSON.stringify(item.marketingName)]);
+            setshopbymodel((shopbymodel) => [
+              ...shopbymodel,
+              JSON.stringify(item.marketingName),
+            ]);
           }
         }
       });
     } else {
-      let shopByModel = [];
-      const data = await fetchTopsellingmodels();
-      shopByModel = data?.allModels;
-      localStorage.setItem("shopByModel", JSON.stringify(shopByModel));
-
+      await fetchTopsellingmodels().then((response) => {
+        localStorage.setItem(
+          "shopByModel",
+          JSON.stringify(response?.allModels)
+        );
+      });
       if (makeName === "oneplus") {
         makeName = "OnePlus";
       } else {
-        makeName = makeName.charAt(0).toUpperCase() + makeName.slice(1);
+        makeName = String(makeName).charAt(0).toUpperCase() + makeName.slice(1);
       }
       makemodel = JSON.parse(localStorage.getItem("shopByModel"));
       makemodel.map((item) => {
@@ -95,12 +103,17 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         }
       });
     }
-    if (makeName && !isFilterApplied && !applyFilter) {
+    if (
+      makeName &&
+      makeName != "Undefined" &&
+      !isFilterApplied &&
+      !applyFilter
+    ) {
       fetchByMakeList(
         selectedSearchCity,
         makeName,
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") || "",
+        Cookies.get("sessionId"),
         intialPage,
         applySortFilter
       ).then(
@@ -123,7 +136,6 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           setLoading(false);
         },
         (err) => {
-          console.error(err);
           setLoading(false);
         }
       );
@@ -186,11 +198,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           searchFilter(
             payLoad,
             localStorage.getItem("userUniqueId") || "Guest",
-            Cookies.get("sessionId") != undefined
-              ? Cookies.get("sessionId")
-              : localStorage.getItem("sessionId") != undefined
-                ? localStorage.getItem("sessionId")
-                : "",
+            Cookies.get("sessionId"),
             intialPage,
             applySortFilter
           ).then((response) => {
@@ -212,7 +220,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         selectedSearchCity,
         makeName,
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") || "",
+        Cookies.get("sessionId"),
         newPages,
         applySortFilter
       ).then(
@@ -236,7 +244,6 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           setIsLoadingMore(false);
         },
         (err) => {
-          console.error(err);
           setLoading(false);
         }
       );
@@ -298,11 +305,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           searchFilter(
             payLoad,
             localStorage.getItem("userUniqueId") || "Guest",
-            Cookies.get("sessionId") != undefined
-              ? Cookies.get("sessionId")
-              : localStorage.getItem("sessionId") != undefined
-                ? localStorage.getItem("sessionId")
-                : "",
+            Cookies.get("sessionId"),
             newPages,
             applySortFilter
           ).then((response) => {
@@ -330,11 +333,13 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
     }
   };
 
-    useEffect(() => {
-    intialPage = 0;
-    newPages = 0;
-    setPageNumber(intialPage);
-    loadData(intialPage);
+  useEffect(() => {
+    if (makeName && makeName !== "Undefined") {
+      intialPage = 0;
+      newPages = 0;
+      setPageNumber(intialPage);
+      loadData(intialPage);
+    }
   }, [makeName, selectedSearchCity, applySortFilter, applyFilter]);
 
   useEffect(() => {
@@ -393,11 +398,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         searchFilter(
           payLoad,
           localStorage.getItem("userUniqueId") || "Guest",
-          Cookies.get("sessionId") != undefined
-            ? Cookies.get("sessionId")
-            : localStorage.getItem("sessionId") != undefined
-              ? localStorage.getItem("sessionId")
-              : "",
+          Cookies.get("sessionId"),
           intialPage,
           applySortFilter
         ).then((response) => {
@@ -582,10 +583,16 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
-
-        {isLoading ? (
-          <div className="flex items-center justify-center">
-            <Loader />
+        {isLoading || bestDeals.length < 0 ? (
+          <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
+            <div className="flex">
+              <Heading3 title="Best Deals" />
+              <span className="flex-1"></span>
+              <p className="font-Roboto-Bold text-dx text-[#FFFFFF] capitalize py-3.5">
+                {router.query.makeName}
+              </p>
+            </div>
+            <ProductSkeletonCard isBestDeal={true} />
           </div>
         ) : (
           bestDeals &&
@@ -604,24 +611,26 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
                   setProducts={setBestDeals}
                 />
               </div>
-              <div>
-              </div>
+              <div></div>
             </>
           )
         )}
 
         {(isLoading || isFilterApplied || makeName == undefined) &&
-          (brandResult == [] || brandResult == "") ? (
+        (brandResult == [] || brandResult == "") ? (
           <></>
         ) : (
-          shopbymodel?.length > 0 && <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
-            <CardHeading2 title="Shop by Model" />
-            <ShopByBrandsSection
-              shopbymodeldata={shopbymodel}
-              location={selectedSearchCity}
-              shopbymakedata={makeName}
-            />
-          </div>
+          shopbymodel &&
+          shopbymodel?.length > 0 && (
+            <div className="space-y-2 h-[106px] bg-[#EEEEEE] opacity-bg-40 -mx-4 my-2 px-6 pt-1 items-center">
+              <CardHeading2 title="Shop by Model" />
+              <ShopByBrandsSection
+                shopbymodeldata={shopbymodel}
+                location={selectedSearchCity}
+                shopbymakedata={makeName}
+              />
+            </div>
+          )
         )}
         {!isLoading && otherListings && otherListings.length > 0 && (
           <div className="flex mt-3">
@@ -629,23 +638,24 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
               <Heading title={`${makeName} Phones (${totalProducts})`} />
             </h2>
             <p className="font-Roboto-Semibold text-[#707070]  text-cx  -mt-2  capitalize underline">
-              <Filter1
-                setSortApplyFilter={setSortApplyFilter}
-              ></Filter1>
+              <Filter1 setSortApplyFilter={setSortApplyFilter}></Filter1>
             </p>
           </div>
         )}
 
         {isLoading ? (
-          <></>
+          <div className="grid grid-cols-2 mx-3 py-3">
+            {Array(10)
+              .fill()
+              .map((_, i) => (
+                <ProductSkeletonCard isOtherListing={true} />
+              ))}
+          </div>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {otherListings &&
               otherListings?.map((item) => (
-                <div
-                  key={item.listingId}
-                  className="m-1.5"
-                >
+                <div key={item.listingId} className="m-1.5">
                   <OtherListingCard
                     data={item}
                     prodLink
@@ -666,8 +676,9 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
           isFinished === false &&
           otherListings.length != totalProducts && (
             <span
-              className={`${isLoadingMore ? "w-[150px]" : "w-[150px]"
-                } border border-[#707070] m-auto  rounded-md shadow hover:drop-shadow-lg p-2 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${
+                isLoadingMore ? "w-[150px]" : "w-[150px]"
+              } border border-[#707070] m-auto  rounded-md shadow hover:drop-shadow-lg p-2 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
               <p className="block text-[#585757]  font-Semibold h-[23px]">

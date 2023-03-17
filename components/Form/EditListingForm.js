@@ -181,12 +181,9 @@ const EditListingForm = ({ data }) => {
     if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
     } else {
-      getGlobalCities("").then(
-        (response) => {
-          setGlobalCities(response.dataObject);
-        },
-        (err) => console.error(err)
-      );
+      getGlobalCities("").then((response) => {
+        setGlobalCities(response.dataObject);
+      });
     }
   }, []);
 
@@ -229,7 +226,6 @@ const EditListingForm = ({ data }) => {
         setSelectedCity(address);
       },
       (error) => {
-        console.error(error);
         setLocation({
           loaded: true,
           city: "India",
@@ -292,22 +288,11 @@ const EditListingForm = ({ data }) => {
       (condition || data?.deviceCondition) &&
       (charging || headphone || originalbox || warranty || true)
     ) {
-      getRecommandedPrice(reqParams).then(
-        ({ dataObject }) => {
-          setRecommandedPrice(dataObject);
-        },
-        (err) => console.error(err)
-      );
+      getRecommandedPrice(reqParams).then(({ dataObject }) => {
+        setRecommandedPrice(dataObject);
+      });
     }
   }, [condition, charging, headphone, originalbox, warranty]);
-
-  const handleSelectChange = (e, name) => {
-    if (name === "condition") {
-      setCondition(e.value);
-    } else {
-      console.error(e);
-    }
-  };
 
   useEffect(() => {
     setCondition(ConditionResultEdit);
@@ -345,8 +330,7 @@ const EditListingForm = ({ data }) => {
             };
             setImages(tempImages);
           }
-        },
-        (err) => console.error(err)
+        }
       );
     }
   };
@@ -435,8 +419,7 @@ const EditListingForm = ({ data }) => {
       () => {
         setListingAdded(true);
         dispatch("REFRESH");
-      },
-      (err) => console.error(err)
+      }
     );
   }
 
@@ -602,9 +585,8 @@ const EditListingForm = ({ data }) => {
             <Image src={CurrentLocation} width={24} height={24} />
             <div className="pl-1">Use Your Current Location</div>
           </div>
-          
         </div>
-        
+
         <div className="text-jx font-Regular mt-1">
           <p className="bg-white px-0.5   -mb-5 font-Roboto-Regular text-ex">
             Device Condition<span className="text-[#F9C414]">*</span>
@@ -616,7 +598,6 @@ const EditListingForm = ({ data }) => {
         >
           <div
             className="flex items-center flex-1"
-            
             value={
               ConditionResultEdit ? ConditionResultEdit : data?.deviceCondition
             }
@@ -628,9 +609,7 @@ const EditListingForm = ({ data }) => {
           </span>
           <label></label>
         </div>
-        <>
-          
-        </>
+        <></>
         <p className="text-[#000000] font-Roboto-Regular text-ex border-b-2 pb-1 ">
           Upload Photos
         </p>
@@ -779,8 +758,7 @@ const EditListingForm = ({ data }) => {
               setInputSellPrice(e.target.value);
               setSellValueRequired("");
             }}
-          >
-          </Input>
+          ></Input>
           {sellValueRequired && (
             <span className="text-red text-sm absolute -bottom-6 ">
               Enter price more than ₹1000

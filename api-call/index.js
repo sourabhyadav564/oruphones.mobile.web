@@ -8,13 +8,8 @@ let headers = {
   "Content-Type": "application/json",
   srcFrom: "Mobile Web",
   eventName: "NA",
-  userUniqueId:
-    
-    0,
-  sessionId:
-    typeof window !== "undefined"
-      ? localStorage.getItem("sessionId")
-      : Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : "",
+  userUniqueId: 0,
+  sessionId: Cookies.get("sessionId"),
   devicePlatform: "Mobile Web",
   location:
     typeof window !== "undefined" ? localStorage.getItem("usedLocation") : "",
@@ -24,41 +19,36 @@ const MULTIPART_HEADER = { headers: { "Content-Type": "multipart/form-data" } };
 
 Axios.interceptors.request.use(
   async (request) => {
-    
     return request;
   },
   (err) => {
-  
     return Promise.reject(err);
   }
 );
 
 Axios.interceptors.response.use(
   async (response) => {
-    
     if (response?.data?.status === "SESSION_INVALID") {
-      headers = { ...headers, eventName: "NA" };
+      headers = {
+        ...headers,
+        eventName: "NA",
+        sessionId: Cookies.get("sessionId"),
+        userUniqueId: 0,
+      };
       const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
       const result = await Axios.get(API_ENDPOINT, { headers: { ...headers } });
-     
       if (typeof window !== "undefined") {
         localStorage.setItem("sessionId", result?.data?.dataObject?.sessionId);
       }
       Cookies.set("sessionId", result?.data?.dataObject?.sessionId);
       window.location.reload();
-      
     }
     return response;
   },
   async (error) => {
-    
     return Promise.reject(error);
   }
 );
-
-
-
-
 
 export const getAboutUsContent = async () => {
   const url = `${URI}/api/v1/web/aboutus.html`;
@@ -66,48 +56,50 @@ export const getAboutUsContent = async () => {
     (res) => {
       return res.data;
     },
-    (err) => {
-    
-    }
+    (err) => {}
   );
-}
-
-
+};
 
 export function getSessionId() {
-  headers = { ...headers, eventName: "SESSION_CREATED", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "SESSION_CREATED",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-      
-    }
+    (err) => {}
   );
 }
 
-
-
 export function getSearchResults(q) {
-  headers = { ...headers, eventName: "SEARCH_TEXT_SUGGESTIONS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "SEARCH_TEXT_SUGGESTIONS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/cscglobal/search";
-  return Axios.post(
-    API_ENDPOINT,
-    { userInputText: q },
-    DEFAULT_HEADER
-  ).then(
+  return Axios.post(API_ENDPOINT, { userInputText: q }, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 export async function generateOTP(countryCode, mobileNumber) {
-  headers = { ...headers, eventName: "SIGNIN_REQUEST", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "SIGNIN_REQUEST",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/generate?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
 
@@ -116,7 +108,12 @@ export async function generateOTP(countryCode, mobileNumber) {
   });
 }
 export async function resendOTP(countryCode, mobileNumber) {
-  headers = { ...headers, eventName: "RESEND_OTP", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "RESEND_OTP",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/resend?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
 
@@ -125,7 +122,12 @@ export async function resendOTP(countryCode, mobileNumber) {
   });
 }
 export async function validateUser(countryCode, mobileNumber, OTP) {
-  headers = { ...headers, eventName: "VERIFY_OTP", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "VERIFY_OTP",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/validate?countryCode=${countryCode}&mobileNumber=${mobileNumber}&otp=${OTP}`;
   return await Axios.post(url, {}, DEFAULT_HEADER).then((response) => {
@@ -133,23 +135,29 @@ export async function validateUser(countryCode, mobileNumber, OTP) {
   });
 }
 export async function createUser(countryCode, mobileNumber) {
-  headers = { ...headers, eventName: "SIGNUP_REQUEST", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "SIGNUP_REQUEST",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/create`;
   const payload = {
     countryCode: countryCode,
     mobileNumber: mobileNumber,
   };
-  return await Axios.post(
-    url,
-    payload,
-    DEFAULT_HEADER
-  ).then((response) => {
+  return await Axios.post(url, payload, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
 }
 export async function getUserDetails(countryCode, mobileNumber) {
-  headers = { ...headers, eventName: "FETCH_USER_DETAILS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FETCH_USER_DETAILS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/details?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -157,14 +165,24 @@ export async function getUserDetails(countryCode, mobileNumber) {
   });
 }
 export async function getUserDetailsViaUUID(uuid) {
-  headers = { ...headers, eventName: "FETCH_USER_DETAILS_VIA_UUID", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FETCH_USER_DETAILS_VIA_UUID",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/details?userUniqueId=${uuid}`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
 }
-export async function getMakeModelLists(userUniqueId, sessionId, make, isPrimary) {
+export async function getMakeModelLists(
+  userUniqueId,
+  sessionId,
+  make,
+  isPrimary
+) {
   headers = {
     ...headers,
     eventName: "GET_MAKE_MODEL_LIST",
@@ -179,7 +197,12 @@ export async function getMakeModelLists(userUniqueId, sessionId, make, isPrimary
   });
 }
 
-export async function getModelLists(userUniqueId, sessionId, make, searchModel) {
+export async function getModelLists(
+  userUniqueId,
+  sessionId,
+  make,
+  searchModel
+) {
   headers = {
     ...headers,
     eventName: "GET_MODEL_LIST",
@@ -191,8 +214,8 @@ export async function getModelLists(userUniqueId, sessionId, make, searchModel) 
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
-  })
-};
+  });
+}
 
 export async function uploadImage(data, params) {
   const url = `${URI}/api/v1/device/uploadimage?deviceFace=${params.deviceFace}&deviceStorage=${params.deviceStorage}&make=${params.make}&model=${params.model}&userUniqueId=${params.userUniqueId}`;
@@ -200,17 +223,22 @@ export async function uploadImage(data, params) {
     ...headers,
     eventName: "ADDLISTING_UPLOAD_PHOTOS_SUCCESS",
     "Content-Type": "multipart/form-data",
-    userUniqueId: 0
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
   };
   const MULTIPART_HEADER = { headers: { ...header } };
 
   return await Axios.post(url, data, MULTIPART_HEADER).then((response) => {
     return response.data;
   });
-
 }
 export async function getRecommandedPrice(data) {
-  headers = { ...headers, eventName: "FETCH_RECOMMENDED_PRICE", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FETCH_RECOMMENDED_PRICE",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/global/recomanded/price`;
 
@@ -219,7 +247,12 @@ export async function getRecommandedPrice(data) {
   });
 }
 export async function saveLisiting(payload) {
-  headers = { ...headers, eventName: "ADDLISTING_ADD_SUCCESS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "ADDLISTING_ADD_SUCCESS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/save`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then((response) => {
@@ -227,9 +260,13 @@ export async function saveLisiting(payload) {
   });
 }
 
-
 export async function updateLisiting(payload) {
-  headers = { ...headers, eventName: "EDITLISTING_EDIT_SUCCESS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "EDITLISTING_EDIT_SUCCESS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/update`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then((response) => {
@@ -238,51 +275,71 @@ export async function updateLisiting(payload) {
 }
 
 export async function deleteListing(params) {
-  headers = { ...headers, eventName: "MYLISTINGS_DELETE_SELECTED", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "MYLISTINGS_DELETE_SELECTED",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/delete`;
   return await Axios.post(url, params, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function activateListing(params) {
-  headers = { ...headers, eventName: "MYLISTINGS_ACTIVATENOW_SELECTED", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "MYLISTINGS_ACTIVATENOW_SELECTED",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/activate`;
   return await Axios.post(url, JSON.stringify(params), DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function pauseListing(params) {
-  headers = { ...headers, eventName: "MYLISTINGS_PAUSE_SELECTED", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "MYLISTINGS_PAUSE_SELECTED",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/pause`;
   return await Axios.post(url, params, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function getUserListings(userUniqueId) {
-  headers = { ...headers, eventName: "MYLISTINGS_VIEW_LISTING", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "MYLISTINGS_VIEW_LISTING",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listings?userUniqueId=${userUniqueId}`;
 
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
-    localStorage.setItem("listings", response.data.dataObject.map((item) => item.listingId));
+    localStorage.setItem(
+      "listings",
+      response.data.dataObject.map((item) => item.listingId)
+    );
     return response.data;
   });
 }
@@ -301,8 +358,7 @@ export async function getListingDetails(listingid, userUniqueId, sessionId) {
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
@@ -316,7 +372,12 @@ export async function fetchBrands() {
 }
 
 export async function fetchTopsellingmodels() {
-  headers = { ...headers, eventName: `GET_TOP_SELLING_MODELS`, userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: `GET_TOP_SELLING_MODELS`,
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/home/topselling/models`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -330,9 +391,14 @@ export async function fetchByMakeList(
   userUniqueId,
   sessionId,
   pageNumber,
-  sortBy,
+  sortBy
 ) {
-  headers = { ...headers, eventName: `BRAND_SELECTED ${makeName}`, userUniqueId: 0, sessionId: sessionId };
+  headers = {
+    ...headers,
+    eventName: `BRAND_SELECTED ${makeName}`,
+    userUniqueId: 0,
+    sessionId: sessionId,
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/home/listingsbymake?listingLocation=` +
@@ -342,7 +408,9 @@ export async function fetchByMakeList(
     `&userUniqueId=` +
     userUniqueId +
     `&pageNumber=` +
-    pageNumber + `&sortBy=` + sortBy;
+    pageNumber +
+    `&sortBy=` +
+    sortBy;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
@@ -353,12 +421,13 @@ export async function fetchByMarketingName(
   marketingName,
   userUniqueId,
   pageNumber,
-  sortBy,
+  sortBy
 ) {
   headers = {
     ...headers,
     eventName: `HOME_TOP_SELLING_MODEL_SELECTED ${marketingName}`,
-    userUniqueId: 0
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -369,7 +438,9 @@ export async function fetchByMarketingName(
     `&userUniqueId=` +
     userUniqueId +
     "&pageNumber=" +
-    pageNumber + `&sortBy=` + sortBy;
+    pageNumber +
+    `&sortBy=` +
+    sortBy;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
@@ -401,32 +472,48 @@ export async function detailWithUserInfo(
 }
 
 export async function fetchSellerMobileNumber(listingid, userUniqueId) {
-  headers = { ...headers, eventName: "GET_SELLER_CONTACT", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "GET_SELLER_CONTACT",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/device/listing/user/mobilenumber?listingId=` +
     listingid +
     `&userUniqueId=` +
     userUniqueId;
-  return await Axios.get(url, DEFAULT_HEADER).then((response) => {
-    return response.data;
-  },
-    (err) => {
-    }
+  return await Axios.get(url, DEFAULT_HEADER).then(
+    (response) => {
+      return response.data;
+    },
+    (err) => {}
   );
 }
 
 export async function getGlobalCities(searchText) {
-  headers = { ...headers, eventName: "FETCH_CITIES", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FETCH_CITIES",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  const url = `${URI}/api/v1/global/cities?limited=true&searchText=` + searchText;
+  const url =
+    `${URI}/api/v1/global/cities?limited=true&searchText=` + searchText;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
 }
 
 export async function shopByPrice() {
-  headers = { ...headers, eventName: "GET_SHOP_BY_PRICE", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "GET_SHOP_BY_PRICE",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/global/shopbyprice`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -440,7 +527,7 @@ export async function shopByPriceRange(
   minPrice,
   listingid,
   pageNumber,
-  sortBy,
+  sortBy
 ) {
   const url =
     `${URI}/api/v1/home/shopbyprice/listmodel?end=` +
@@ -452,87 +539,126 @@ export async function shopByPriceRange(
     `&userUniqueId=` +
     listingid +
     `&pageNumber=` +
-    pageNumber + `&sortBy=` + sortBy;
-  headers = { ...headers, eventName: "GET_BEST_DEALS", userUniqueId: 0 };
+    pageNumber +
+    `&sortBy=` +
+    sortBy;
+  headers = {
+    ...headers,
+    eventName: "GET_BEST_DEALS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
     return response.data;
   });
 }
 
-export async function bestDealNearByYou(location, userUniqueId, pageNumber, sortBy) {
+export async function bestDealNearByYou(
+  location,
+  userUniqueId,
+  pageNumber,
+  sortBy
+) {
   const url =
     `${URI}/api/v1/home/listings/best/nearme?location=` +
     location +
     `&userUniqueId=` +
     userUniqueId +
     `&pageNumber=` +
-    pageNumber + `&sortBy=` + sortBy;
-  headers = { ...headers, eventName: "GET_BEST_DEALS", userUniqueId: 0 };
+    pageNumber +
+    `&sortBy=` +
+    sortBy;
+  headers = {
+    ...headers,
+    eventName: "GET_BEST_DEALS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function addUserSearchLocation(payload) {
-  headers = { ...headers, eventName: "LOCATION_CHANGED_SUCCESS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "LOCATION_CHANGED_SUCCESS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/addSearchLocation`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function addUserProfileLocation(payload) {
-  headers = { ...headers, eventName: "PROFILE_LOCATION_ADDED", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "PROFILE_LOCATION_ADDED",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/addProfileLocation`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function updateAddress(payload) {
-  headers = { ...headers, eventName: "UPDATE_ADDRESS_SUCCESS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "UPDATE_ADDRESS_SUCCESS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/update`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function addFavotie(payload) {
-  headers = { ...headers, eventName: "FAVORITE_ADD_SUCCESS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FAVORITE_ADD_SUCCESS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/favorite/add`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function removeFavotie(listingId, userUniqueId) {
-  headers = { ...headers, eventName: "FAVORITE_REMOVE_SUCCESS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FAVORITE_REMOVE_SUCCESS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/favorite/deactivate?listingId=` +
@@ -543,13 +669,22 @@ export async function removeFavotie(listingId, userUniqueId) {
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
-export async function bestDealNearYouAll(location, userUniqueId, pageNumber, sortBy) {
-  headers = { ...headers, eventName: "HOME_BESTDEAL_VIEW_ALL", userUniqueId: 0 };
+export async function bestDealNearYouAll(
+  location,
+  userUniqueId,
+  pageNumber,
+  sortBy
+) {
+  headers = {
+    ...headers,
+    eventName: "HOME_BESTDEAL_VIEW_ALL",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/device/listings/best/nearall?userLocation=` +
@@ -557,45 +692,62 @@ export async function bestDealNearYouAll(location, userUniqueId, pageNumber, sor
     `&userUniqueId=` +
     userUniqueId +
     `&pageNumber=` +
-    pageNumber + `&sortBy=` + sortBy;
+    pageNumber +
+    `&sortBy=` +
+    sortBy;
   return await Axios.get(url, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function updateUserProfileDetails(payload) {
-  headers = { ...headers, eventName: "UPDATE_USER_DETAILS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "UPDATE_USER_DETAILS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/update`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function fetchMyFavorites(userUniqueId) {
-  headers = { ...headers, eventName: "FETCH_FAVORITE_LIST", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FETCH_FAVORITE_LIST",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/favorite/fetch?userUniqueId=` + userUniqueId;
   return await Axios.post(url, {}, DEFAULT_HEADER).then(
     (response) => {
-      localStorage.setItem("favoriteList", response.data.dataObject.map((item) => item.listingId));
+      localStorage.setItem(
+        "favoriteList",
+        response.data.dataObject.map((item) => item.listingId)
+      );
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function fetchSimilarProducts(payLoad, userUniqueId, pageNumber) {
-  headers = { ...headers, eventName: "FETCH_SIMILAR_PRODUCTS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FETCH_SIMILAR_PRODUCTS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/home/listings/search?userUniqueId=` +
@@ -605,13 +757,17 @@ export async function fetchSimilarProducts(payLoad, userUniqueId, pageNumber) {
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function sendverification(listingid, userUniqueId) {
-  headers = { ...headers, eventName: "REQUEST_VERIFICATION", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "REQUEST_VERIFICATION",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
     `${URI}/api/v1/device/listing/sendverification?listingId=` +
@@ -622,26 +778,40 @@ export async function sendverification(listingid, userUniqueId) {
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export function getShowSerchFilters() {
-  headers = { ...headers, eventName: "FETCH_SEARCH_FILTERS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FETCH_SEARCH_FILTERS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/master/showserchFilters`;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
-export async function searchFilter(payLoad, userUniqueId, sessionId, pageNumber, sortBy) {
-  headers = { ...headers, eventName: "FETCH_SEARCH_LISTINGS", sessionId: sessionId, userUniqueId: 0 };
+export async function searchFilter(
+  payLoad,
+  userUniqueId,
+  sessionId,
+  pageNumber,
+  sortBy
+) {
+  headers = {
+    ...headers,
+    eventName: "FETCH_SEARCH_LISTINGS",
+    sessionId: sessionId,
+    userUniqueId: 0,
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
     `${URI}/api/v1/home/listings/search?userUniqueId=` +
@@ -654,34 +824,41 @@ export async function searchFilter(payLoad, userUniqueId, sessionId, pageNumber,
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export function getTinyUrl() {
-  headers = { ...headers, eventName: "GET_TINY_URL", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "GET_TINY_URL",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/tinyurl`;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function getExternalSellSourceData(payLoad) {
-  headers = { ...headers, eventName: "GET_EXTERNAL_SELL_SOURCE", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "GET_EXTERNAL_SELL_SOURCE",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/device/price/externalsellsource`;
   return await Axios.post(API_ENDPOINT, payLoad, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
@@ -691,21 +868,24 @@ export function fetchWebLinkByShareId(shareId) {
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export function infoTemplates() {
-  headers = { ...headers, eventName: "FETCH_INFO_LINKS", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FETCH_INFO_LINKS",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/getinfotemplates`;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
@@ -716,7 +896,9 @@ export async function uploadUserProfilePic(userProfilePicData, userUniqueId) {
   var header = {
     ...headers,
     eventName: "UPLOAD_PROFILE_PIC",
-    "Content-Type": "multipart/form-data", userUniqueId: 0
+    "Content-Type": "multipart/form-data",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
   };
   const MULTIPART_HEADER = { headers: { ...header } };
   return await Axios.post(
@@ -727,13 +909,17 @@ export async function uploadUserProfilePic(userProfilePicData, userUniqueId) {
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export function prepareShareLink(listingId, userUniqueId) {
-  headers = { ...headers, eventName: "PRODUCTINFO_SHARE_SELECTED", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "PRODUCTINFO_SHARE_SELECTED",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
     `${URI}/api/v1/global/share/link?listingId=` +
@@ -744,8 +930,7 @@ export function prepareShareLink(listingId, userUniqueId) {
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
@@ -755,7 +940,7 @@ export function getAllNotificationByUserd(userUniqueId, sessionId) {
     eventName: "FETCH_NOTIFICATIONS",
     userUniqueId: userUniqueId,
     sessionId: sessionId,
-    userUniqueId: 0
+    userUniqueId: 0,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/notification/byUserId/` + userUniqueId;
@@ -763,13 +948,17 @@ export function getAllNotificationByUserd(userUniqueId, sessionId) {
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export function markAsRead(notificationId, userUniqueId) {
-  headers = { ...headers, eventName: "NOTIFICATION_SELECTED", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "NOTIFICATION_SELECTED",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
     `${URI}/api/v1/notification/read/` + notificationId + userUniqueId;
@@ -777,52 +966,72 @@ export function markAsRead(notificationId, userUniqueId) {
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export function deleteNotification(notificationId, userUniqueId) {
-  headers = { ...headers, eventName: "NOTIFICATION_REMOVED", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "NOTIFICATION_REMOVED",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
-    `${URI}/api/v1/notification/remove?id=` + notificationId + "&userUniqueId=" + userUniqueId;
+    `${URI}/api/v1/notification/remove?id=` +
+    notificationId +
+    "&userUniqueId=" +
+    userUniqueId;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export function contactUs(payLoad) {
-  headers = { ...headers, eventName: "CONTACT_US", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "CONTACT_US",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/contactus`;
   return Axios.post(API_ENDPOINT, payLoad, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export function fetchTopArticles() {
-  headers = { ...headers, eventName: "FETCH_TOP_ARTICLES", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FETCH_TOP_ARTICLES",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/wordpress/blogs/info`;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
-export function shopByCategory(location, category, userUniqueId, pageNumber, sortBy) {
+export function shopByCategory(
+  location,
+  category,
+  userUniqueId,
+  pageNumber,
+  sortBy
+) {
   const API_ENDPOINT =
     URI +
     `/api/v1/home/listings/category?location=` +
@@ -832,20 +1041,32 @@ export function shopByCategory(location, category, userUniqueId, pageNumber, sor
     `&pageNumber=` +
     pageNumber +
     `&userUniqueId=` +
-    userUniqueId + `&sortBy=` + sortBy;
-  headers = { ...headers, eventName: "FETCH_TOP_ARTICLES", userUniqueId: 0 };
+    userUniqueId +
+    `&sortBy=` +
+    sortBy;
+  headers = {
+    ...headers,
+    eventName: "FETCH_TOP_ARTICLES",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }
 
 export async function marketingNameByModel(payload) {
-  headers = { ...headers, eventName: "FETCH_UPTO_PRICE", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "FETCH_UPTO_PRICE",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
+
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/master/marketingNameByModel`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then((response) => {
@@ -853,8 +1074,28 @@ export async function marketingNameByModel(payload) {
   });
 }
 
+function checkSessionId(response) {
+  if (response?.data?.status === "SESSION_INVALID") {
+    getSessionId().then((sessionId) => {
+      if (sessionId?.status === "SUCCESS") {
+        Cookies.set("sessionId", sessionId.dataObject.sessionId);
+        const previousApi = response.config;
+        previousApi.headers.sessionId = Cookies.get("sessionId");
+        Axios(previousApi).then((response) => {
+          return response.data;
+        });
+      }
+    });
+  }
+}
+
 export async function deleteUserAccount(payload) {
-  headers = { ...headers, eventName: "DELETE_USER", userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: "DELETE_USER",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/delete`;
   return await Axios.post(url, payload, DEFAULT_HEADER).then((response) => {
@@ -863,14 +1104,18 @@ export async function deleteUserAccount(payload) {
 }
 
 export function logEventInfo(eventName) {
-  headers = { ...headers, eventName: eventName, userUniqueId: 0 };
+  headers = {
+    ...headers,
+    eventName: eventName,
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/cscglobal/logeventinfo`;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
       return response.data;
     },
-    (err) => {
-    }
+    (err) => {}
   );
 }

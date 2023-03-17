@@ -30,7 +30,7 @@ function FavListingTile({ data, setProducts }) {
         <div
           onClick={() =>
             window.open(
-              `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
+              `/product/buy-old-refurbished-used-mobiles/${data?.marketingName.split(" ")[0]}/${data?.marketingName}/${data?.listingId}?isOtherVendor=${data?.isOtherVendor}`,
               "_blank"
             )
           }

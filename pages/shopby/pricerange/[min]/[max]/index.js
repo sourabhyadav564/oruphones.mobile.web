@@ -11,6 +11,8 @@ import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
+import ProductSkeletonCard from "@/components/Card/ProductSkeletonCard";
+import { Heading3 } from "@/components/elements/Heading/heading";
 
 function PriceRangePage() {
   const router = useRouter();
@@ -38,15 +40,12 @@ function PriceRangePage() {
         Cookies.get("userUniqueId") || "Guest",
         intialPage,
         applySortFilter
-      ).then(
-        (response) => {
-          setShopByPriceBestDeal(response?.dataObject?.bestDeals);
-          setShopByPriceOtherListings(response?.dataObject?.otherListings);
-          setTotalProducts(response?.dataObject?.totalProducts);
-          setLoading(false);
-        },
-        (err) => console.error(err)
-      );
+      ).then((response) => {
+        setShopByPriceBestDeal(response?.dataObject?.bestDeals);
+        setShopByPriceOtherListings(response?.dataObject?.otherListings);
+        setTotalProducts(response?.dataObject?.totalProducts);
+        setLoading(false);
+      });
     } else {
       if (applyFilter) {
         const {
@@ -78,7 +77,9 @@ function PriceRangePage() {
             payLoad.make = brand.includes("all") ? [] : brand;
           }
           if (condition?.length > 0) {
-            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+            payLoad.deviceCondition = condition.includes("all")
+              ? []
+              : condition;
           }
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
@@ -94,8 +95,8 @@ function PriceRangePage() {
           }
           searchFilter(
             payLoad,
-            localStorage.getItem("userUniqueId") || "Guest",
-            localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+            Cookies.get("userUniqueId") || "Guest",
+            Cookies.get("sessionId"),
             intialPage,
             applySortFilter
           ).then((response) => {
@@ -120,27 +121,24 @@ function PriceRangePage() {
         Cookies.get("userUniqueId") || "Guest",
         newPages,
         applySortFilter
-      ).then(
-        (response) => {
-          setShopByPriceOtherListings((products) => [
-            ...products,
-            ...response?.dataObject?.otherListings,
-          ]);
+      ).then((response) => {
+        setShopByPriceOtherListings((products) => [
+          ...products,
+          ...response?.dataObject?.otherListings,
+        ]);
 
-          if (response?.dataObject?.otherListings.length == 0) {
-            setIsFinished(true);
-          }
+        if (response?.dataObject?.otherListings.length == 0) {
+          setIsFinished(true);
+        }
 
-          if (response?.dataObject?.totalProducts > -1) {
-            setTotalProducts(
-              (response && response?.dataObject?.totalProducts) || 0
-            );
-          }
-          setLoading(false);
-          setIsLoadingMore(false);
-        },
-        (err) => console.error(err)
-      );
+        if (response?.dataObject?.totalProducts > -1) {
+          setTotalProducts(
+            (response && response?.dataObject?.totalProducts) || 0
+          );
+        }
+        setLoading(false);
+        setIsLoadingMore(false);
+      });
     } else {
       if (applyFilter) {
         const {
@@ -172,7 +170,9 @@ function PriceRangePage() {
             payLoad.make = brand.includes("all") ? [] : brand;
           }
           if (condition?.length > 0) {
-            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+            payLoad.deviceCondition = condition.includes("all")
+              ? []
+              : condition;
           }
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
@@ -188,8 +188,8 @@ function PriceRangePage() {
           }
           searchFilter(
             payLoad,
-            localStorage.getItem("userUniqueId") || "Guest",
-            localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+            Cookies.get("userUniqueId") || "Guest",
+            Cookies.get("sessionId"),
             newPages,
             applySortFilter
           ).then((response) => {
@@ -243,7 +243,7 @@ function PriceRangePage() {
           deviceStorage: [],
           verified: "",
           warenty: [],
-          pageNumber: intialPage
+          pageNumber: intialPage,
         };
         if (brand?.length > 0) {
           payLoad.make = brand.includes("all") ? [] : brand;
@@ -265,8 +265,8 @@ function PriceRangePage() {
         }
         searchFilter(
           payLoad,
-          localStorage.getItem("userUniqueId") || "Guest",
-          localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : "",
+          Cookies.get("userUniqueId") || "Guest",
+          Cookies.get("sessionId"),
           intialPage,
           applySortFilter
         ).then((response) => {
@@ -295,13 +295,17 @@ function PriceRangePage() {
         setIsFilterApplied={setIsFilterApplied}
       >
         {isLoading ? (
-          <div className="flex items-center justify-center">
-            <Loader />
+          <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
+            <div className="flex">
+              <Heading3 title="Best Deals" />
+              <span className="flex-1"></span>
+            </div>
+            <ProductSkeletonCard isBestDeal={true} />
           </div>
         ) : (
-          (shopByPriceBestDeal?.length > 0) && (
+          shopByPriceBestDeal?.length > 0 && (
             <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff]">
-              <h1 className="text-lg font-semibold text-white py-2.5">
+              <h1 className="text-lg font-Roboto-Semibold text-white py-2.5">
                 Best Deals
               </h1>
               <BestDealSection bestDealData={shopByPriceBestDeal} />
@@ -309,21 +313,24 @@ function PriceRangePage() {
           )
         )}
         {(!isLoading || shopByPriceOtherListings?.length > 0) && (
-          <div className="flex items-center " >
-            <h2 className=" text-mx font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
+          <div className="flex items-center ">
+            <h2 className=" text-mx font-Roboto-Light text-black-4e p-2 pl-0 mt-3 flex-1">
               Other Listings ({totalProducts})
             </h2>
             <div className="">
-              <Filter1
-                setSortApplyFilter={setSortApplyFilter}
-              ></Filter1>
+              <Filter1 setSortApplyFilter={setSortApplyFilter}></Filter1>
             </div>
           </div>
         )}
         {isLoading ? (
-          <></>
-        ) : ((shopByPriceOtherListings &&
-          shopByPriceOtherListings.length > 0) ?
+          <div className="grid grid-cols-2 mx-3 py-3">
+            {Array(10)
+              .fill()
+              .map((_, i) => (
+                <ProductSkeletonCard isOtherListing={true} />
+              ))}
+          </div>
+        ) : shopByPriceOtherListings && shopByPriceOtherListings.length > 0 ? (
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {shopByPriceOtherListings &&
               shopByPriceOtherListings.length > 0 &&
@@ -331,17 +338,19 @@ function PriceRangePage() {
                 <div key={item.listingId} className="m-1.5">
                   <OtherListingCard data={item} prodLink />
                 </div>
-              ))
-            }
+              ))}
           </section>
-          : <NoMatch />
+        ) : (
+          <NoMatch />
         )}
 
         {!isLoading &&
-          isFinished == false && shopByPriceOtherListings.length != totalProducts && (
+          isFinished == false &&
+          shopByPriceOtherListings.length != totalProducts && (
             <span
-              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${
+                isLoadingMore ? "w-[250px]" : "w-[150px]"
+              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
               <p className="block text-m-green font-semibold">

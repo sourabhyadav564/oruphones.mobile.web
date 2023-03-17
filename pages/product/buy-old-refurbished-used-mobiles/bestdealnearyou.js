@@ -10,7 +10,8 @@ import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
-import { Heading } from "@/components/elements/Heading/heading";
+import { Heading, Heading3 } from "@/components/elements/Heading/heading";
+import ProductSkeletonCard from "@/components/Card/ProductSkeletonCard";
 
 const settings = {
   slidesToShow: 1,
@@ -98,8 +99,8 @@ function Bestdealnearyou() {
         }
         searchFilter(
           payLoad,
-          localStorage.getItem("userUniqueId") || "Guest",
-          localStorage.getItem("sessionId") || "",
+          Cookies.get("userUniqueId") || "Guest",
+          Cookies.get("sessionId"),
           intialPage,
           applySortFilter
         ).then((response) => {
@@ -171,7 +172,9 @@ function Bestdealnearyou() {
             payLoad.maxsellingPrice = priceRange.max;
           }
           if (condition?.length > 0) {
-            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+            payLoad.deviceCondition = condition.includes("all")
+              ? []
+              : condition;
           }
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
@@ -187,8 +190,8 @@ function Bestdealnearyou() {
           }
           searchFilter(
             payLoad,
-            localStorage.getItem("userUniqueId") || "Guest",
-            localStorage.getItem("sessionId") || "",
+            Cookies.get("userUniqueId") || "Guest",
+            Cookies.get("sessionId"),
             newPages,
             applySortFilter
           ).then((response) => {
@@ -248,7 +251,7 @@ function Bestdealnearyou() {
           minsellingPrice: 0,
           verified: "",
           warenty: [],
-          pageNumber: intialPage
+          pageNumber: intialPage,
         };
         if (brand?.length > 0) {
           payLoad.make = brand.includes("all") ? [] : brand;
@@ -274,8 +277,8 @@ function Bestdealnearyou() {
         }
         searchFilter(
           payLoad,
-          localStorage.getItem("userUniqueId") || "Guest",
-          localStorage.getItem("sessionId") || "",
+          Cookies.get("userUniqueId") || "Guest",
+          Cookies.get("sessionId"),
           intialPage,
           applySortFilter
         ).then((response) => {
@@ -294,39 +297,48 @@ function Bestdealnearyou() {
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
-
         {isLoading ? (
-          <div className="flex items-center justify-center">
-            <Loader />
+          <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
+            <div className="flex">
+              <Heading3 title="Best Deals" />
+              <span className="flex-1"></span>
+            </div>
+            <ProductSkeletonCard isBestDeal={true} />
           </div>
         ) : (
           bestDeal &&
           bestDeal?.length > 0 && (
             <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
-              <h1 className="text-lg font-semibold text-white py-2.5 ">
+              <h1 className="text-lg font-Roboto-Semibold text-white py-2.5 ">
                 {" "}
                 Best Deals{" "}
               </h1>
-              <BestDealSection bestDealData={bestDeal} setProducts={setBestDeal} />
+              <BestDealSection
+                bestDealData={bestDeal}
+                setProducts={setBestDeal}
+              />
             </div>
           )
         )}
-        {(!isLoading) && (
+        {!isLoading && (
           <div className="flex mt-3 pb-0">
-            <h2 className="flex text-lg font-semibold text-gray-20 py-2.5 flex-1">
+            <h2 className="flex text-lg font-Roboto-Light text-gray-20 py-2.5 flex-1">
               {" "}
               <Heading title={`Other Listings (${totalProducts})${" "}`} />
             </h2>
             <p className="font-Roboto-Semibold text-[#707070]  text-cx  capitalize underline">
-              <Filter1
-                setSortApplyFilter={setSortApplyFilter}
-              ></Filter1>
+              <Filter1 setSortApplyFilter={setSortApplyFilter}></Filter1>
             </p>
           </div>
-
         )}
         {isLoading ? (
-          <></>
+          <div className="grid grid-cols-2 mx-3 py-3">
+            {Array(10)
+              .fill()
+              .map((_, i) => (
+                <ProductSkeletonCard isOtherListing={true} />
+              ))}
+          </div>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {products &&
@@ -348,10 +360,12 @@ function Bestdealnearyou() {
           !products.length > 0 && <NoMatch />}
 
         {!isLoading &&
-          isFinished == false && products.length != totalProducts && (
+          isFinished == false &&
+          products.length != totalProducts && (
             <span
-              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${
+                isLoadingMore ? "w-[250px]" : "w-[150px]"
+              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
               <p className="block text-m-green font-semibold">
@@ -364,40 +378,6 @@ function Bestdealnearyou() {
       <Filter1 open={applySortFilter} setOpen={setSortApplyFilter} />
     </>
   );
-}
-
-function getSortedProducts(applySort, products) {
-  var sortedProducts = products ? [...products] : [];
-  if (applySort && applySort === "Price - Low to High") {
-    sortedProducts.sort((a, b) => {
-      return (
-        numberFromString(a.listingPrice) - numberFromString(b.listingPrice)
-      );
-    });
-  } else if (applySort && applySort === "Price - High to Low") {
-    sortedProducts.sort((a, b) => {
-      return (
-        numberFromString(b.listingPrice) - numberFromString(a.listingPrice)
-      );
-    });
-  } else if (applySort && applySort === "Newest First") {
-    sortedProducts.sort((a, b) => {
-      return (
-        a.updatedAt &&
-        b.updatedAt &&
-        stringToDate(b.updatedAt) - stringToDate(a.updatedAt)
-      );
-    });
-  } else if (applySort && applySort === "Oldest First") {
-    sortedProducts.sort((a, b) => {
-      return (
-        a.updatedAt &&
-        b.updatedAt &&
-        stringToDate(a.updatedAt) - stringToDate(b.updatedAt)
-      );
-    });
-  }
-  return sortedProducts;
 }
 
 export default Bestdealnearyou;

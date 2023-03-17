@@ -41,8 +41,7 @@ function ListingTile({ data, openMenu, setOpenMenu, setListings }) {
         (res) => {
           setReason(res?.reason);
           setOpenActivateListing(true);
-        },
-        (err) => console.error(err)
+        }
       )
     }
   };

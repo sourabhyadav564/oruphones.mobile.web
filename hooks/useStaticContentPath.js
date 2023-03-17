@@ -8,8 +8,7 @@ const fetchApi = () => {
     (res) => {
       sessionStorage.setItem("staticContentPath", JSON.stringify(res));
       data = res;
-    },
-    (err) => console.error(err)
+    }
   );
   return data;
 };

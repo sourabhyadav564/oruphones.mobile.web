@@ -28,16 +28,11 @@ function SearchBar({ className }) {
     let timeOut = setTimeout(() => {
       if (input.trim().length > 2) {
         showRecentSearch = false;
-        getSearchResults(input).then(
-          (res) => {
-            if (res && res.status === "SUCCESS") {
-              setSearchResults(res.dataObject);
-            }
-          },
-          (err) => {
-            console.error(err);
+        getSearchResults(input).then((res) => {
+          if (res && res.status === "SUCCESS") {
+            setSearchResults(res.dataObject);
           }
-        );
+        });
       }
     }, 300);
     return () => {
@@ -77,13 +72,14 @@ function SearchBar({ className }) {
 
   return (
     <Fragment>
-      <div className="flex-1 relative " ref={ref}>
+      <div className="flex-1 relative font-Roboto-Semibold " ref={ref}>
         <input
-          placeholder="Search on ORUphones"
+          placeholder="Search with make and models..."
           onChange={handleChange}
           value={input}
-          className={`w-full bg-white text-gray-800 focus:outline-none rounded-md ${className || "py-2 pl-2 pr-4 text-xs"
-            } ${searchResults && "rounded-b-none"}`}
+          className={`w-full bg-white text-gray-800 focus:outline-none rounded-md ${
+            className || "py-2 pl-2 pr-4 text-xs"
+          } ${searchResults && "rounded-b-none"}`}
           style={{ boxShadow: "0px 2px 3px #0000000A" }}
         />
         {searchResults && (
@@ -145,12 +141,14 @@ function SearchBar({ className }) {
                   showRecentSearch = true;
                 }}
               >
-                <Spinner />
-                <p className="text-center my-4 text-xs text-gray-500">
-                  {input.trim().length > 2
-                    ? "Please wait, while we are fetching data for you..."
-                    : "enter minimum 3 characters"}
-                </p>
+                <div className="flex items-center justify-center flex-col">
+                  <Spinner />
+                  <p className="text-center my-4 text-xs text-gray-500">
+                    {input.trim().length > 2
+                      ? "Please wait, while we are fetching data for you..."
+                      : "enter minimum 3 characters"}
+                  </p>
+                </div>
               </ListItem>
             )}
             <div>
@@ -188,14 +186,14 @@ function SearchBar({ className }) {
                     showRecentSearch = true;
                   }}
                 >
-                  Not found
+                  <div className="text-jx">Not found</div>
                 </ListItem>
               )}
           </div>
         )}
         {!className && (
           <div className="absolute right-2 top-0 bottom-0 flex items-center">
-            <Image src={Search} width={20} height={20}/>
+            <Image src={Search} width={20} height={20} />
           </div>
         )}
       </div>
@@ -221,7 +219,9 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
     if (localStorage.getItem("pastSearches")) {
       pastSearch = localStorage.getItem("pastSearches");
       pastSearch = JSON.parse(pastSearch);
-      pastSearch = pastSearch.filter((item) => item !== (marketingName || make));
+      pastSearch = pastSearch.filter(
+        (item) => item !== (marketingName || make)
+      );
     }
     if (pastSearch.length >= 5) {
       pastSearch.shift();
@@ -241,11 +241,9 @@ const ListItem = ({ make, makeLink, marketingName, children, clicked }) => {
   };
 
   return (
-    <div
-      onClick={() => handleClick()}
-    >
+    <div onClick={() => handleClick()}>
       <a
-        className="px-6 py-3 block border-b last:border-0 capitalize"
+        className="px-6 py-3 block border-b last:border-0 text-jx font-Roboto-Regular"
         onClick={clicked}
       >
         {marketingName || make}

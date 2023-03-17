@@ -11,6 +11,7 @@ import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import SortPopup from "../Popup/SortPopup";
 import Sort from "@/assets/sort.svg";
 import { useAuthState } from "providers/AuthProvider";
+import ProductSkeletonCard from "../Card/ProductSkeletonCard";
 
 function TopDealNearBy({ selectedSearchCity, loading }) {
   const router = useRouter();
@@ -36,12 +37,9 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
 
   const loadData = async (initialPage) => {
     if (user && user?.userdetails?.userUniqueId && listings.length === 0) {
-      await getUserListings(user?.userdetails?.userUniqueId).then(
-        (res) => {
-          setListings(res.dataObject.map((item2) => item2.listingId));
-        },
-        (err) => console.error(err)
-      );
+      await getUserListings(user?.userdetails?.userUniqueId).then((res) => {
+        setListings(res.dataObject.map((item2) => item2.listingId));
+      });
     }
     if (authenticated && user && user?.userdetails?.userUniqueId) {
       fetchMyFavorites(Cookies.get("userUniqueId")).then((res) => {
@@ -124,33 +122,34 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-2 -mx-1.5 py-3">
-        {(bestDeals?.length > 0 &&
-          bestDeals?.map((item) => (
-            <div className="m-1.5" key={item.listingId}>
-              <NearByDealCard
-                data={item}
-                prodLink
-                setProducts={setBestDeals}
-                myListing={listings}
-              />
-            </div>
-          ))) || (
-          <div className="space-y-3 col-span-2">
-            <div className="flex items-center justify-center">
-              <Spinner />
-            </div>
-            <div className="text-center">
-              Please wait, while we are fetching data for you...{" "}
-            </div>
-          </div>
-        )}
-        {bestDealsLength > 0 && (
-          <div className="h-full m-1.5">
-            <NearByDealCard data={{ make: "Show all" }} />
-          </div>
-        )}
-      </div>
+      {bestDeals && bestDeals.length > 0 ? (
+        <div className="grid grid-cols-2 -mx-1.5 py-3">
+          {bestDeals?.length > 0 &&
+            bestDeals?.map((item) => (
+              <div className="m-1.5" key={item.listingId}>
+                <NearByDealCard
+                  data={item}
+                  prodLink
+                  setProducts={setBestDeals}
+                  myListing={listings}
+                />
+              </div>
+            ))}{" "}
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 mx-3 py-3">
+          {Array(10)
+            .fill()
+            .map((_, i) => (
+              <ProductSkeletonCard isOtherListing={true} />
+            ))}
+        </div>
+      )}
+      {bestDealsLength > 0 && (
+        <div className="h-full m-1.5">
+          <NearByDealCard data={{ make: "Show all" }} />
+        </div>
+      )}
       {!isLoading && isFinished === false && (
         <span
           className={`${

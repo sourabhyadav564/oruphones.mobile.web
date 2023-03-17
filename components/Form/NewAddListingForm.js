@@ -25,8 +25,8 @@ import BrandPopup from "../AddListing/BrandPopup";
 import ModelPopup from "../AddListing/ModelPopup";
 
 import LeftArrow from "@/assets/leftarrow.svg";
-import ArrowBack from "@/assets/chevronleft.svg"
-import ArrowForward from "@/assets/rightarrow.svg"
+import ArrowBack from "@/assets/chevronleft.svg";
+import ArrowForward from "@/assets/rightarrow.svg";
 
 import CurrentLocation from "@/assets/currentlocation.svg";
 
@@ -59,12 +59,10 @@ import {
 } from "@/components/elements/CardHeading/cardheading.js";
 import VerifyListingPopup from "../Popup/VerifyListingPopup";
 import PricePopup from "../Popup/PricePopup";
-import {
-  Heading,
-  SellPhoneHeading1
-} from "../elements/Heading/heading";
+import { Heading, SellPhoneHeading1 } from "../elements/Heading/heading";
 import UnverifiedListingPopup from "../Popup/UnverifiedListingPoup";
 import Input3 from "./input3";
+import TermsconditionPopup from "../Popup/TermsconditionPopup";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -105,7 +103,7 @@ const NewAddListingForm = ({ data }) => {
   const [sellValueRequired, setSellValueRequired] = useState("");
   const [nameValueRequired, setNameValueRequired] = useState("");
   const [listingAdded, setListingAdded] = useState(false);
-  const [Open,setOpen] = useState(false);
+  const [Open, setOpen] = useState(false);
 
   const { user, authenticated, loading, selectedSearchCity } = useAuthState();
 
@@ -149,11 +147,12 @@ const NewAddListingForm = ({ data }) => {
   var sellValue = sellValueTag.value || "";
 
   var type = ["old phone", "your"];
-  const soldout = `bestdeals buy ${type[Math.floor(Math.random() * type.length)]
-    } ${data?.marketingName} ${data?.deviceStorage} ${data?.deviceCondition
-    } soldout`.toLowerCase();
+  const soldout = `bestdeals buy ${
+    type[Math.floor(Math.random() * type.length)]
+  } ${data?.marketingName} ${data?.deviceStorage} ${
+    data?.deviceCondition
+  } soldout`.toLowerCase();
 
-  
   useEffect(() => {
     if (make) {
       setDefaultModel("");
@@ -171,13 +170,12 @@ const NewAddListingForm = ({ data }) => {
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
+      setGlobalCities((prev) => [...prev, { cityName: "India" }]);
     } else {
-      getGlobalCities("").then(
-        (response) => {
-          setGlobalCities(response.dataObject);
-        },
-        (err) => console.error(err)
-      );
+      getGlobalCities("").then((response) => {
+        setGlobalCities(response.dataObject);
+        setGlobalCities((prev) => [...prev, { cityName: "India" }]);
+      });
     }
   }, []);
 
@@ -198,12 +196,12 @@ const NewAddListingForm = ({ data }) => {
         : storage,
       deviceRam: storage?.toString().includes("/")
         ? storage
-          ?.toString()
-          .split("/")[1]
-          .toString()
-          .replace(/GB/g, " GB")
-          .replace(/RAM/, "")
-          .trim()
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
         : "",
       make: make,
       marketingName: model,
@@ -247,12 +245,12 @@ const NewAddListingForm = ({ data }) => {
         : storage,
       deviceRam: storage?.toString().includes("/")
         ? storage
-          ?.toString()
-          .split("/")[1]
-          .toString()
-          .replace(/GB/g, " GB")
-          .replace(/RAM/, "")
-          .trim()
+            ?.toString()
+            .split("/")[1]
+            .toString()
+            .replace(/GB/g, " GB")
+            .replace(/RAM/, "")
+            .trim()
         : "",
       deviceCondition: condition,
       earPhones: headphone ? "Y" : "N",
@@ -268,12 +266,9 @@ const NewAddListingForm = ({ data }) => {
       condition &&
       (charging || headphone || originalbox || warranty || true)
     ) {
-      getRecommandedPrice(reqParams).then(
-        ({ dataObject }) => {
-          setRecommandedPrice(dataObject);
-        },
-        (err) => console.error(err)
-      );
+      getRecommandedPrice(reqParams).then(({ dataObject }) => {
+        setRecommandedPrice(dataObject);
+      });
     }
   }, [
     make,
@@ -305,8 +300,10 @@ const NewAddListingForm = ({ data }) => {
         const models3 = await getModelLists(0, "", selectedBrand, "");
         setMktNameOpt(models3?.dataObject[0]?.models);
         setStorageColorOption(
-          models3?.dataObject[0]?.models?.find((i) => i.marketingname == selectedModel)
-        )
+          models3?.dataObject[0]?.models?.find(
+            (i) => i.marketingname == selectedModel
+          )
+        );
       }
       clearInterval(interval);
     }, 1000);
@@ -327,8 +324,6 @@ const NewAddListingForm = ({ data }) => {
       }
     } else if (name === "condition") {
       setCondition(e.value);
-    } else {
-      console.error(e);
     }
   };
 
@@ -375,23 +370,20 @@ const NewAddListingForm = ({ data }) => {
       cosmetic: conditionResults,
       warranty: warranty,
     };
-    saveLisiting(payload).then(
-      (res) => {
-        if (verifySubmit === true) {
-          setVerifyListingAdded(true);
+    saveLisiting(payload).then((res) => {
+      if (verifySubmit === true) {
+        setVerifyListingAdded(true);
+      } else {
+        if (res.type != null && res.type != "") {
+          setUnverifiedListingReason(res.reason);
+          setUnverifiedListingType(res.type);
+          setUnverifiedListing(true);
         } else {
-          if (res.type != null && res.type != "") {
-            setUnverifiedListingReason(res.reason);
-            setUnverifiedListingType(res.type);
-            setUnverifiedListing(true);
-          } else {
-            setListingAdded(true);
-          }
+          setListingAdded(true);
         }
-        dispatch("REFRESH");
-      },
-      (err) => console.error(err)
-    );
+      }
+      dispatch("REFRESH");
+    });
   };
 
   const handleImageChange = async (e, index) => {
@@ -415,21 +407,18 @@ const NewAddListingForm = ({ data }) => {
         make,
         model,
         userUniqueId: user?.userdetails?.userUniqueId || "Guest",
-      }).then(
-        ({ status, dataObject }) => {
-          if (status === "SUCCESS") {
-            let tempImages = [...images];
-            tempImages[index] = {
-              ...tempImages[index],
-              thumbImage: dataObject?.thumbnailImagePath,
-              fullImage: dataObject?.imagePath,
-            };
-            setImages(tempImages);
-            setIsUploading(false);
-          }
-        },
-        (err) => console.error(err)
-      );
+      }).then(({ status, dataObject }) => {
+        if (status === "SUCCESS") {
+          let tempImages = [...images];
+          tempImages[index] = {
+            ...tempImages[index],
+            thumbImage: dataObject?.thumbnailImagePath,
+            fullImage: dataObject?.imagePath,
+          };
+          setImages(tempImages);
+          setIsUploading(false);
+        }
+      });
     }
   };
 
@@ -466,21 +455,18 @@ const NewAddListingForm = ({ data }) => {
         model: "",
         ram: storage?.toString().includes("/")
           ? storage
-            ?.toString()
-            .split("/")[1]
-            .toString()
-            .replace(/GB/g, " GB")
-            .replace(/RAM/, "")
-            .trim()
+              ?.toString()
+              .split("/")[1]
+              .toString()
+              .replace(/GB/g, " GB")
+              .replace(/RAM/, "")
+              .trim()
           : "",
       };
-      marketingNameByModel(payload).then(
-        ({ dataObject }) => {
-          setModelInfo(dataObject);
-          setIsGettingPrice(false);
-        },
-        (err) => console.error(err)
-      );
+      marketingNameByModel(payload).then(({ dataObject }) => {
+        setModelInfo(dataObject);
+        setIsGettingPrice(false);
+      });
     }
   }, [storage]);
 
@@ -518,7 +504,6 @@ const NewAddListingForm = ({ data }) => {
         setSelectedCity(address);
       },
       (error) => {
-        console.error(error);
         setLocation({
           loaded: true,
           city: "India",
@@ -575,7 +560,7 @@ const NewAddListingForm = ({ data }) => {
       (sellValue <
         (recommandedPrice && recommandedPrice?.leastSellingprice * 0.7) ||
         sellValue >
-        (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2)) &&
+          (recommandedPrice && recommandedPrice?.maxsellingprice * 1.2)) &&
       recommandedPrice?.leastSellingprice != "-" &&
       recommandedPrice?.maxsellingprice != "-" &&
       submitting != true
@@ -688,20 +673,20 @@ const NewAddListingForm = ({ data }) => {
   const handleForward = () => {
     questionIndex in conditionResults
       ? setQuestionIndex(
-        questionIndex < deviceConditionQuestion.length - 1
-          ? questionIndex + 1
-          : deviceConditionQuestion.length - 1
-      )
+          questionIndex < deviceConditionQuestion.length - 1
+            ? questionIndex + 1
+            : deviceConditionQuestion.length - 1
+        )
       : toast.warning("Please select condition", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        toastId: "007",
-      });
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          toastId: "007",
+        });
     if (String(conditionResults[0]) == "No") {
       calculateDeviceCondition();
       setPage(page + 1);
@@ -725,15 +710,19 @@ const NewAddListingForm = ({ data }) => {
         className={`flex  p-4 py-3 bg-[#2C2F45] rounded-b-xl text-white text-lg relative`}
       >
         {router.pathname !== "/" && (
-          <Image src={LeftArrow} width={22} height={22}  
+          <Image
+            src={LeftArrow}
+            width={22}
+            height={22}
             className="cursor-pointer"
             onClick={() => {
               page == 2 || page == 3
                 ? handleBack()
                 : page != 0
-                  ? setPage(page - 1)
-                  : router.back();
-            }}/>
+                ? setPage(page - 1)
+                : router.back();
+            }}
+          />
         )}
         {
           <h1 className="m-auto flex justify-center font-Roboto-Regular text-dx text-[#FFFFFF]">
@@ -757,11 +746,14 @@ const NewAddListingForm = ({ data }) => {
               <div className="m-auto pl-28 pb-px mb-4 border-b ">
                 <Image
                   quality={25}
-                  src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/icons/phone.svg"}
+                  src={
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/icons/phone.svg"
+                  }
                   width={120}
                   height={200}
-                  alt={` sell ${type[Math.floor(Math.random() * type.length)]
-                    } ${model} ${storage} like new`.toLowerCase()}
+                  alt={` sell ${
+                    type[Math.floor(Math.random() * type.length)]
+                  } ${model} ${storage} like new`.toLowerCase()}
                 />
               </div>
 
@@ -778,8 +770,7 @@ const NewAddListingForm = ({ data }) => {
                   placeholder="Please Select Brand "
                   type="text"
                   className="font-Regular  text-jx text-[#2C2F45]"
-                >
-                </Input>
+                ></Input>
               </div>
             </div>
             {mktNameOpt && mktNameOpt.length > 0 && (
@@ -801,8 +792,7 @@ const NewAddListingForm = ({ data }) => {
                     placeholder="Please Select Model "
                     type="text"
                     className="font-Regular  text-jx text-[#2C2F45]"
-                  >
-                  </Input>
+                  ></Input>
                 </div>
               </div>
             )}
@@ -819,10 +809,11 @@ const NewAddListingForm = ({ data }) => {
                     storageColorOption?.storage &&
                     storageColorOption.storage.map((item, index) => (
                       <div
-                        className={`${storage == item
-                          ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
-                          : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
-                          }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
+                        className={`${
+                          storage == item
+                            ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
+                            : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
+                        }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
                         onClick={() => setStorage(item)}
                         key={index}
                       >
@@ -875,10 +866,14 @@ const NewAddListingForm = ({ data }) => {
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   quality={25}
-                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
+                  src={
+                    modelInfo?.imagePath ||
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"
+                  }
                   className=""
-                  alt={`sell ${type[Math.floor(Math.random() * type.length)]
-                    } ${model} ${storage} like new `.toLowerCase()}
+                  alt={`sell ${
+                    type[Math.floor(Math.random() * type.length)]
+                  } ${model} ${storage} like new `.toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -919,25 +914,33 @@ const NewAddListingForm = ({ data }) => {
               </div>
               <div className="grid grid-cols-2 gap-4 ">
                 <Checkbox
-                  src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/charging-station.svg"}
+                  src={
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/charging-station.svg"
+                  }
                   text="Original Charger"
                   onChange={() => setCharging((prev) => !prev)}
                   checked={charging}
                 />
                 <Checkbox
-                  src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/headphones-line.svg"}
+                  src={
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/headphones-line.svg"
+                  }
                   text="Original Earphones"
                   onChange={() => setHeadphone((prev) => !prev)}
                   checked={headphone}
                 />
                 <Checkbox
-                  src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/box.svg"}
+                  src={
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/box.svg"
+                  }
                   text="Original Box"
                   onChange={() => setOriginalbox((prev) => !prev)}
                   checked={originalbox}
                 />
                 <Checkbox
-                  src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/original-bill.svg"}
+                  src={
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/original-bill.svg"
+                  }
                   text="Original Bill"
                   onChange={() => {
                     setShowWarranty((prev) => !prev);
@@ -955,10 +958,11 @@ const NewAddListingForm = ({ data }) => {
                     {deviceWarrantyCheck?.map((item, index) => (
                       <div
                         key={index}
-                        className={`${warranty == item?.value
-                          ? "bg-[#F3F3F3] text-[#2C2F45] border-2 border-[#F3F3F3] font-Roboto-Light text-mx"
-                          : "opacity-60 border-2 border-[#9597A2] font-Roboto-Light text-mx "
-                          } py-3 px-5 rounded-md font-Roboto-Light text-mx hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300  flex items-center justify-start text-sm`}
+                        className={`${
+                          warranty == item?.value
+                            ? "bg-[#F3F3F3] text-[#2C2F45] border-2 border-[#F3F3F3] font-Roboto-Light text-mx"
+                            : "opacity-60 border-2 border-[#9597A2] font-Roboto-Light text-mx "
+                        } py-3 px-5 rounded-md font-Roboto-Light text-mx hover:cursor-pointer hover:bg-gray-200 active:bg-gray-300 duration-300  flex items-center justify-start text-sm`}
                         onClick={() => setWarranty(item.value)}
                       >
                         <span>{item.label}</span>
@@ -978,10 +982,14 @@ const NewAddListingForm = ({ data }) => {
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   quality={25}
-                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
+                  src={
+                    modelInfo?.imagePath ||
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"
+                  }
                   className=""
-                  alt={` sell ${type[Math.floor(Math.random() * type.length)]
-                    } ${model} ${storage} like new `.toLowerCase()}
+                  alt={` sell ${
+                    type[Math.floor(Math.random() * type.length)]
+                  } ${model} ${storage} like new `.toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1054,10 +1062,14 @@ const NewAddListingForm = ({ data }) => {
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   quality={25}
-                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
+                  src={
+                    modelInfo?.imagePath ||
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"
+                  }
                   className=""
-                  alt={` sell ${type[Math.floor(Math.random() * type.length)]
-                    } ${model} ${storage} `.toLowerCase()}
+                  alt={` sell ${
+                    type[Math.floor(Math.random() * type.length)]
+                  } ${model} ${storage} `.toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1152,10 +1164,14 @@ const NewAddListingForm = ({ data }) => {
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   quality={25}
-                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
+                  src={
+                    modelInfo?.imagePath ||
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"
+                  }
                   className=""
-                  alt={` sell ${type[Math.floor(Math.random() * type.length)]
-                    } ${model} ${storage} ${condition} `.toLowerCase()}
+                  alt={` sell ${
+                    type[Math.floor(Math.random() * type.length)]
+                  } ${model} ${storage} ${condition} `.toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1215,8 +1231,7 @@ const NewAddListingForm = ({ data }) => {
                   maxLength="30"
                   errorClass={`border ${nameValueRequired}`}
                   disabled={user?.userdetails?.userName ? true : false}
-                >
-                </Input>
+                ></Input>
                 {nameValueRequired && (
                   <span className="text-red text-sm absolute -bottom-6">
                     Please enter your name first
@@ -1258,16 +1273,15 @@ const NewAddListingForm = ({ data }) => {
                   className="h-10 w-16 bg-gray-200 rounded-r-lg -ml-1 inline-flex justify-center items-center hover:cursor-pointer"
                   onClick={handleNearme}
                 >
-                  <Image src={CurrentLocation} width={24} height={24}/>
+                  <Image src={CurrentLocation} width={24} height={24} />
                 </div>
               </div>
-              <div className="flex flex-row pt-3 text-mx w-full font-Roboto-Semibold"
+              <div
+                className="flex flex-row pt-3 text-mx w-full font-Roboto-Semibold"
                 onClick={handleNearme}
               >
-                <BiCurrentLocation size={18} />
-                <div className="pl-1">
-                  Use Your Current Location
-                </div>
+                <Image src={CurrentLocation} width={20} height={20} />
+                <div className="pl-1 pt-0.5">Use Your Current Location</div>
               </div>
               {locationRequired && (
                 <p className="text-sm whitespace-nowrap cursor-pointer text-red">
@@ -1285,10 +1299,14 @@ const NewAddListingForm = ({ data }) => {
               <div className="relative p-5 flex space-x-4 drop-shadow-2xl border-b-2 ">
                 <Image
                   quality={25}
-                  src={modelInfo?.imagePath || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
+                  src={
+                    modelInfo?.imagePath ||
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"
+                  }
                   className=""
-                  alt={` sell ${type[Math.floor(Math.random() * type.length)]
-                    } ${model} ${storage} ${condition} `.toLowerCase()}
+                  alt={` sell ${
+                    type[Math.floor(Math.random() * type.length)]
+                  } ${model} ${storage} ${condition} `.toLowerCase()}
                   height="120"
                   width="90"
                 />
@@ -1345,8 +1363,7 @@ const NewAddListingForm = ({ data }) => {
                   setInputSellPrice(e.target.value);
                   setSellValueRequired("");
                 }}
-              >
-              </Input3>
+              ></Input3>
 
               <div className="text-sm bg-[#E8E8E8] col-span-3 px-2 py-1 rounded-md -ml-1 relative  ">
                 <div className="m-auto">
@@ -1447,7 +1464,7 @@ const NewAddListingForm = ({ data }) => {
       <div className="bg-white flex items-center justify-between py-3 px-5 z-50 fixed bottom-0 w-full">
         <div
           className={`bg-white px-5 py-2 text-center text-black font-semibold rounded-md
-        border-2 border-gray-200 items-center duration-300 flex items-center justify-center space-x-5`}
+        border-2 border-gray-200 items-center duration-300 flex justify-center space-x-5`}
           onClick={() => {
             if (page == 3 || page == 2) {
               handleBack();
@@ -1456,12 +1473,13 @@ const NewAddListingForm = ({ data }) => {
             }
           }}
         >
-          <Image src={ArrowBack} width={15} height={15}/>
+          <Image src={ArrowBack} width={15} height={15} />
           <span>Back</span>
         </div>
         <div
-          className={`bg-[#2C2F45] items-center  text-center px-5 py-2  text-white font-semibold rounded-md border-2 border-[#2C2F45] duration-300 flex items-center justify-center space-x-5 ${page === 5 ? "hidden" : ""
-            }`}
+          className={`bg-[#2C2F45] items-center  text-center px-5 py-2  text-white font-semibold rounded-md border-2 border-[#2C2F45] duration-300 flex justify-center space-x-5 ${
+            page === 5 ? "hidden" : ""
+          }`}
           onClick={() => {
             if (page == 0) {
               if (
@@ -1475,9 +1493,10 @@ const NewAddListingForm = ({ data }) => {
                 setPage(page + 1);
               } else {
                 toast.warning(
-                  `${make == ""
-                    ? "Please select a brand"
-                    : model == ""
+                  `${
+                    make == ""
+                      ? "Please select a brand"
+                      : model == ""
                       ? "Please select a model"
                       : "Please select a storage variant"
                   }`,
@@ -1508,13 +1527,14 @@ const NewAddListingForm = ({ data }) => {
                 setPage(page + 1);
               } else {
                 toast.warning(
-                  `${selectedCity == "India"
-                    ? "Please select a different city"
-                    : selectedCity == "" || selectedCity == undefined
+                  `${
+                    selectedCity == "India"
+                      ? "Please select a different city"
+                      : selectedCity == "" || selectedCity == undefined
                       ? "Please select a city"
                       : inputName?.value == ""
-                        ? "Please enter your name"
-                        : "Please select a city"
+                      ? "Please enter your name"
+                      : "Please select a city"
                   }`,
                   {
                     position: toast.POSITION.TOP_RIGHT,
@@ -1533,7 +1553,12 @@ const NewAddListingForm = ({ data }) => {
           }}
         >
           <span className="font-Regular text-dx flex-1 mr-5">Next</span>
-          <Image src={ArrowForward} width={15} height={15} className="text-qx font-Regular"/>
+          <Image
+            src={ArrowForward}
+            width={15}
+            height={15}
+            className="text-qx font-Regular"
+          />
         </div>
       </div>
 
@@ -1593,8 +1618,9 @@ export default NewAddListingForm;
 
 const Checkbox = ({ src, text, checked, onChange }) => (
   <div
-    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${checked && "bg-[#E8E8E8] opacity-bg-50 "
-      }`}
+    className={`border-2 opacity-bg-60  rounded-md py-4 relative h-20 ${
+      checked && "bg-[#E8E8E8] opacity-bg-50 "
+    }`}
     onClick={onChange}
   >
     <div className="relative w-7 h-7 mx-auto">

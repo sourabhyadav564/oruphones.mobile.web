@@ -28,8 +28,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
         (res) => {
           setListings(res.dataObject.map((item2) => item2.listingId));
 
-        },
-        (err) => console.error(err)
+        }
       );
     }
   }, []);
@@ -142,7 +141,7 @@ function OtherListingCard({ data, setProducts, prodLink }) {
               :
               <div
                 onClick={() => window.open(
-                  `/product/buy-old-refurbished-used-mobiles/${data.make}/${data?.marketingName}/${prodLink ? data?.listingId : ""}?isOtherVendor=${data?.isOtherVendor}`,
+                  `/product/buy-old-refurbished-used-mobiles/${data?.marketingName.split(" ")[0]}/${data?.marketingName}/${prodLink ? data?.listingId : ""}?isOtherVendor=${data?.isOtherVendor}`,
                   "_blank",)}
               >
                 <div className="flex justify-center p-2">

@@ -78,8 +78,7 @@ const AddListingForm = ({ data }) => {
         (response) => {
           setGlobalCities(response.dataObject);
           localStorage.setItem("cities", JSON.stringify(response.dataObject));
-        },
-        (err) => console.error(err)
+        }
       );
     }
   }, []);
@@ -136,8 +135,7 @@ const AddListingForm = ({ data }) => {
       getRecommandedPrice(reqParams).then(
         ({ dataObject }) => {
           setRecommandedPrice(dataObject);
-        },
-        (err) => console.error(err)
+        }
       );
     }
   }, [make, model, storage, condition, charging, headphone, originalbox]);
@@ -157,8 +155,6 @@ const AddListingForm = ({ data }) => {
       setColor(e.value);
     } else if (name === "condition") {
       setCondition(e.value);
-    } else {
-      console.error(e);
     }
   };
 
@@ -184,8 +180,7 @@ const AddListingForm = ({ data }) => {
             };
             setImages(tempImages);
           }
-        },
-        (err) => console.error(err)
+        }
       );
     }
   };
@@ -280,8 +275,7 @@ const AddListingForm = ({ data }) => {
         () => {
           setListingAdded(true);
           dispatch("REFRESH");
-        },
-        (err) => console.error(err)
+        }
       );
     }
   };

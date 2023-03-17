@@ -43,7 +43,6 @@ function OTPVerification({
     e.preventDefault();
     resendOTP(formData?.countryCode, formData?.mobile).then(
       (res) => setCounter(30),
-      (err) => console.error(err)
     );
     setError(false);
     setOtpInput("");
@@ -71,8 +70,7 @@ function OTPVerification({
           setError(true);
           setLoading(false);
         }
-      },
-      (err) => console.error(err)
+      }
     );
   };
 

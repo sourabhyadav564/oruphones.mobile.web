@@ -18,8 +18,7 @@ function PauseListing({ open, setOpen, listingId }) {
         if (res.status === "SUCCESS") {
           router.reload();
         }
-      },
-      (err) => console.error(err)
+      }
     );
   };
 

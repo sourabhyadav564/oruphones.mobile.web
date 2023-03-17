@@ -57,8 +57,6 @@ const ReportIssue = () => {
       }
     } else if (name === "condition") {
       setCondition(e.value);
-    } else {
-      console.error(e);
     }
   };
 

@@ -120,8 +120,7 @@ const useFilterOptions = () => {
           cache.current["filterOption"] = tempFilters;
           setLoading(false);
         }
-      },
-      (err) => console.error(err)
+      }
     );
   };
 

@@ -17,9 +17,6 @@ export default function ShareIcon({ data, color, ...rest }) {
           url: url,
           text: content[1]?.shareContent,
         })
-        .then(() => {
-        })
-        .catch(console.error);
     } else {
     }
   }

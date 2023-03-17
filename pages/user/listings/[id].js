@@ -62,8 +62,7 @@ function ListingDeatils({ data, id }) {
       (res) => {
         setReason(res?.reason)
         setOpenActivateListing(true);
-      },
-      (err) => console.error(err)
+      }
     );
   };
 
@@ -297,7 +296,6 @@ export async function getServerSideProps({ req, res, query }) {
       };
     },
     (err) => {
-      console.error(err);
       return {
         redirect: {
           destination: "/user/listings",

@@ -11,7 +11,8 @@ import { numberFromString, stringToDate } from "@/utils/util";
 import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
-import { Heading } from "@/components/elements/Heading/heading";
+import { Heading, Heading3 } from "@/components/elements/Heading/heading";
+import ProductSkeletonCard from "@/components/Card/ProductSkeletonCard";
 
 function ModelPage() {
   const router = useRouter();
@@ -37,7 +38,14 @@ function ModelPage() {
   }, [router.pathname]);
 
   const loadData = (intialPage) => {
-    if (modelName && !isFilterApplied && !applyFilter) {
+    if (
+      modelName &&
+      makeName &&
+      modelName != "Undefined" &&
+      makeName != "Undefined" &&
+      !isFilterApplied &&
+      !applyFilter
+    ) {
       fetchByMarketingName(
         selectedSearchCity,
         modelName.replace("+", "%2B"),
@@ -63,7 +71,6 @@ function ModelPage() {
           setLoading(false);
         },
         (err) => {
-          console.error(err);
           setLoading(false);
         }
       );
@@ -104,7 +111,9 @@ function ModelPage() {
             payLoad.maxsellingPrice = priceRange.max;
           }
           if (condition?.length > 0) {
-            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+            payLoad.deviceCondition = condition.includes("all")
+              ? []
+              : condition;
           }
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
@@ -120,8 +129,8 @@ function ModelPage() {
           }
           searchFilter(
             payLoad,
-            localStorage.getItem("userUniqueId") || "Guest",
-            localStorage.getItem("sessionId") || "",
+            Cookies.get("userUniqueId") || "Guest",
+            Cookies.get("sessionId"),
             intialPage,
             applySortFilter
           ).then((response) => {
@@ -166,7 +175,6 @@ function ModelPage() {
           setIsLoadingMore(false);
         },
         (err) => {
-          console.error(err);
           setLoading(false);
         }
       );
@@ -208,7 +216,9 @@ function ModelPage() {
             payLoad.maxsellingPrice = priceRange.max;
           }
           if (condition?.length > 0) {
-            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
+            payLoad.deviceCondition = condition.includes("all")
+              ? []
+              : condition;
           }
           if (storage?.length > 0) {
             payLoad.deviceStorage = storage.includes("all") ? [] : storage;
@@ -224,8 +234,8 @@ function ModelPage() {
           }
           searchFilter(
             payLoad,
-            localStorage.getItem("userUniqueId") || "Guest",
-            localStorage.getItem("sessionId") || "",
+            Cookies.get("userUniqueId") || "Guest",
+            Cookies.get("sessionId"),
             newPages,
             applySortFilter
           ).then((response) => {
@@ -314,8 +324,8 @@ function ModelPage() {
         }
         searchFilter(
           payLoad,
-          localStorage.getItem("userUniqueId") || "Guest",
-          localStorage.getItem("sessionId") || "",
+          Cookies.get("userUniqueId") || "Guest",
+          Cookies.get("sessionId"),
           intialPage,
           applySortFilter
         ).then((response) => {
@@ -333,18 +343,33 @@ function ModelPage() {
         setIsFilterApplied={setIsFilterApplied}
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
-       >
+      >
         {loading ? (
-          <div className="flex items-center justify-center">
-            <Loader />
+          <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
+            <div className="flex">
+              <Heading3 title="Best Deals" />
+              <span className="flex-1"></span>
+              <p className="font-Roboto-Bold text-dx text-[#FFFFFF] py-3.5">
+                {router.query.modelName}
+              </p>
+            </div>
+            <ProductSkeletonCard isBestDeal={true} />
           </div>
         ) : (
-          <div className="-ml-4 -mr-4 px-6 ">
-            <h1 className="text-lg font-semibold text-primary  py-2.5">
-              {" "}
-              All Deals{" "}
-            </h1>
-            <BestDealSection bestDealData={bestDeals} setProducts={setBestDeals} />
+          <div className="">
+            <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
+              <div className="flex">
+                <Heading3 title="Best Deals" />
+                <span className="flex-1"></span>
+                <h1 className="font-Roboto-Bold text-dx text-[#FFFFFF] py-3.5">
+                  {router.query.modelName}
+                </h1>
+              </div>
+              <BestDealSection
+                bestDealData={bestDeals}
+                setProducts={setBestDeals}
+              />
+            </div>
           </div>
         )}
         {(!loading || otherListings?.length > 0) && (
@@ -354,15 +379,18 @@ function ModelPage() {
               <Heading title={`Other Listings (${totalProducts})${" "}`} />
             </h2>
             <p className="font-Roboto-Semibold text-[#707070]  text-cx  capitalize underline">
-              <Filter1
-                setSortApplyFilter={setSortApplyFilter}
-              ></Filter1>
+              <Filter1 setSortApplyFilter={setSortApplyFilter}></Filter1>
             </p>
-
           </div>
         )}
         {loading ? (
-          <div></div>
+          <div className="grid grid-cols-2 mx-3 py-3">
+            {Array(10)
+              .fill()
+              .map((_, i) => (
+                <ProductSkeletonCard isOtherListing={true} />
+              ))}
+          </div>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {otherListings &&
@@ -390,10 +418,12 @@ function ModelPage() {
           !otherListings.length > 0 && <NoMatch />}
 
         {!loading &&
-          isFinished == false && otherListings.length != totalProducts && (
+          isFinished == false &&
+          otherListings.length != totalProducts && (
             <span
-              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${
+                isLoadingMore ? "w-[250px]" : "w-[150px]"
+              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
               <p className="block text-m-green font-semibold">

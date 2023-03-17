@@ -6,16 +6,27 @@ import { metaTags } from "@/utils/constant";
 import * as Axios from "../api-call/index";
 import BottomNav from "@/components/Navigation/BottomNav";
 import Header1 from "@/components/Header/header1";
+import Cookies from "js-cookie";
 
-function Brands({ brandsList }) {
- brandsList = brandsList.sort(
-    (list1,list2)=>list2.isPopular = list1.isPopular
- );
+function Brands() {
+  let brandsList = [];
+  if (!Cookies.get("brands")) {
+    Axios.fetchBrands().then((res) => {
+      brandsList = res?.dataObject;
+      localStorage.setItem("brands", JSON.stringify(brandsList));
+      Cookies.set("brands", true);
+    });
+  } else {
+    brandsList = JSON.parse(localStorage.getItem("brands"));
+  }
+  brandsList = brandsList.sort(
+    (list1, list2) => (list2.isPopular = list1.isPopular)
+  );
 
- brandsList =  brandsList.sort(
-  (list1,list2)=> parseInt(list1.displayOrder) - parseInt(list2.displayOrder)
- );
-
+  brandsList = brandsList.sort(
+    (list1, list2) =>
+      parseInt(list1.displayOrder) - parseInt(list2.displayOrder)
+  );
 
   return (
     <>
@@ -26,7 +37,7 @@ function Brands({ brandsList }) {
         <meta property="og:description" content={metaTags.BRANDS.description} />
       </Head>
       <Fragment>
-      <Header1/>
+        <Header1 />
         <main className="text-sm grid grid-cols-3 sm:grid-cols-5">
           {brandsList &&
             brandsList.map((item, index) => (
@@ -41,7 +52,7 @@ function Brands({ brandsList }) {
               </div>
             ))}
         </main>
-        
+
         <Footer />
         <BottomNav />
       </Fragment>
@@ -50,13 +61,3 @@ function Brands({ brandsList }) {
 }
 
 export default Brands;
-
-export const getServerSideProps = async ({ req, res, query }) => {
-  const { brands } = req.cookies;
-  const brandsList = await Axios.fetchBrands();
-  return {
-    props: {
-      brandsList: brandsList?.dataObject || [],
-    },
-  };
-};

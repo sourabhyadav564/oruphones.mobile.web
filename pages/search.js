@@ -28,9 +28,6 @@ function Search() {
             if (res && res.status === "SUCCESS") {
               setSearchResults(res.dataObject);
             }
-          },
-          (err) => {
-            console.error(err);
           }
         );
       }

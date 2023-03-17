@@ -5,7 +5,6 @@ import TopBrand from "@/components/Home/TopBrand";
 import TopCarousel from "@/components/Home/TopCarousel";
 import TopDealNearBy from "@/components/Home/TopDealNearBy";
 
-
 import {
   fetchBrands,
   fetchTopsellingmodels,
@@ -23,16 +22,7 @@ import { metaTags } from "@/utils/constant";
 import ShopBy from "@/components/Home/ShopBy";
 import { useRouter } from "next/router";
 
-
-
-export default function Home({
-  brandsList,
-  topSellingModels,
-  sessionId,
-  shopByModel,
-  fetchTopArticles,
-}) {
-
+export default function Home() {
   const router = useRouter();
 
   const [loadingState, setLoadingState] = useState(false);
@@ -45,16 +35,18 @@ export default function Home({
   const [brands, setBrands] = useState([]);
 
   useEffect(async () => {
+    if (Cookies.get("sessionId") == undefined) {
+      getSessionId().then((res) => {
+        if (res) {
+          Cookies.set("sessionId", res?.dataObject?.sessionId);
+          localStorage.setItem("sessionId", res?.dataObject?.sessionId);
+        }
+      });
+    }
+
     let make_models = true;
     let brandsData = true;
-
-    let sessionID;
     let data = [];
-    const session = await getSessionId();
-    sessionID = session?.dataObject?.sessionId;
-    Cookies.set("sessionId", sessionId);
-    localStorage.setItem("sessionId", sessionId);
-
     let brandsList;
     if (localStorage.getItem("brands") != undefined) {
       brandsList = JSON.parse(localStorage.getItem("brands"));
@@ -64,33 +56,52 @@ export default function Home({
     }
     setBrands(brandsList);
 
-    let topsellingmodels;
-    let shopByModel = [];
-    data = await fetchTopsellingmodels();
-    topsellingmodels = data?.dataObject;
-    shopByModel = data?.allModels;
+    if (!localStorage.getItem("shopByModel")) {
+      let topsellingmodels;
+      let shopByModel = [];
+      data = await fetchTopsellingmodels();
+      topsellingmodels = data?.dataObject;
+      shopByModel = data?.allModels;
+      if (shopByModel?.length > 0) {
+        localStorage.setItem("shopByModel", JSON.stringify(data?.allModels));
+      }
+      if (topsellingmodels?.length > 0) {
+        localStorage.setItem(
+          "topsellingmodels",
+          JSON.stringify(topsellingmodels)
+        );
+      }
+    }
 
-    if (!localStorage.getItem("make_models") || localStorage.getItem("make_models").toString() == "undefined") {
+    if (
+      !localStorage.getItem("make_models") ||
+      localStorage.getItem("make_models").toString() == "undefined"
+    ) {
       make_models = false;
     }
-    if (!localStorage.getItem("brands") || localStorage.getItem("brands").toString() == "undefined" || localStorage.getItem("brands").toString() == "null" || localStorage.getItem("brands").toString() == "[]") {
+    if (
+      !localStorage.getItem("brands") ||
+      localStorage.getItem("brands").toString() == "undefined" ||
+      localStorage.getItem("brands").toString() == "null" ||
+      localStorage.getItem("brands").toString() == "[]"
+    ) {
       brandsData = false;
     }
 
-    if (!Cookies.get("userUniqueId") || Cookies.get("userUniqueId") == undefined) {
+    if (
+      !Cookies.get("userUniqueId") ||
+      Cookies.get("userUniqueId") == undefined
+    ) {
       localStorage.removeItem("listings");
       localStorage.removeItem("favoriteList");
     }
 
-    if (shopByModel2.length > 0) {
-      localStorage.setItem("shopByModel", JSON.stringify(shopByModel2));
-    }
     if (brandsData) {
       setBrands(JSON.parse(localStorage.getItem("brands")));
     } else {
       const data = await fetchBrands(
         Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId") != undefined ? Cookies.get("sessionId") : localStorage.getItem("sessionId") != undefined ? localStorage.getItem("sessionId") : ""
+        Cookies.get("sessionId")
       );
       if (data) {
         let brandsList = data?.dataObject;
@@ -112,7 +123,6 @@ export default function Home({
       </Head>
 
       <Fragment>
-
         <Header1 />
         <main>
           <TopBrand brandsList={brands} />
@@ -130,10 +140,3 @@ export default function Home({
     </>
   );
 }
-
-export const getServerSideProps = async ({ req, res, query }) => {
-    return {
-    props: {
-    },
-  };
-};

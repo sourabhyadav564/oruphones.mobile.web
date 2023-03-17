@@ -1,7 +1,11 @@
 import Header5 from "@/components/Header/header5";
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
-import { deleteNotification, getAllNotificationByUserd, markAsRead } from "api-call";
+import {
+  deleteNotification,
+  getAllNotificationByUserd,
+  markAsRead,
+} from "api-call";
 import Cookies from "js-cookie";
 import router from "next/router";
 import VerifyFlowPopup from "@/components/Popup/VerifyFlowPopup";
@@ -11,8 +15,8 @@ import {
   SwipeableListItem,
   SwipeAction,
   TrailingActions,
-} from 'react-swipeable-list';
-import 'react-swipeable-list/dist/styles.css';
+} from "react-swipeable-list";
+import "react-swipeable-list/dist/styles.css";
 
 function Notification({ notificationsListObject }) {
   const [notifications, setNotifications] = useState(
@@ -25,10 +29,10 @@ function Notification({ notificationsListObject }) {
         destructive={true}
         onClick={() =>
           deleteNotification(id, Cookies.get("userUniqueId")).then(
-            (response) => {
-            }
-            , (error) => {
-            })}
+            (response) => {},
+            (error) => {}
+          )
+        }
       >
         <div className="flex font-Roboto-Semibold text-ex justify-center w-full px-40 text-white bg-red text-center items-center">
           Delete
@@ -43,11 +47,11 @@ function Notification({ notificationsListObject }) {
         destructive={true}
         onClick={() =>
           deleteNotification(id, Cookies.get("userUniqueId")).then(
-            (response) => {
-            }
-            , (error) => {
-            }
-          )}>
+            (response) => {},
+            (error) => {}
+          )
+        }
+      >
         <div className="flex font-Roboto-Semibold text-ex justify-center w-full px-40 text-white bg-red text-center items-center">
           Delete
         </div>
@@ -66,11 +70,9 @@ function Notification({ notificationsListObject }) {
     makeNotificationAsRead(data);
   }
 
-  function makeNotificationAsRead(data) {
+  async function makeNotificationAsRead(data) {
     if (data.isUnRead === 0) {
-      markAsRead(data.notificationId, Cookies.get("userUniqueId")).then(
-        (response) => console.log("makeNotificationAsRead -> ", response)
-      );
+      await markAsRead(data.notificationId, Cookies.get("userUniqueId"));
     }
   }
 
@@ -81,7 +83,8 @@ function Notification({ notificationsListObject }) {
         {notifications && notifications?.length > 0 ? (
           notifications?.map((items, index) => (
             <SwipeableList>
-              <SwipeableListItem key={index}
+              <SwipeableListItem
+                key={index}
                 leadingActions={leadingActions(items.notificationId)}
                 trailingActions={trailingActions(items.notificationId)}
               >
@@ -110,24 +113,35 @@ export default Notification;
 
 const NotificationsItem = ({ text, timestamp, onClick, isUnRead }) => (
   <div
-    className={`flex border-b-2 border-white py-3 px-4 ${isUnRead == 0 ? "bg-gray-100" : ""
-      }`}
+    className={`flex border-b-2 border-white py-3 px-4 ${
+      isUnRead == 0 ? "bg-gray-100" : ""
+    }`}
     onClick={onClick}
   >
     <div
       className="w-12 h-12 rounded-2xl flex-shrink-0 mr-4 flex justify-center items-center"
       style={{ background: "#EFEFEF" }}
     >
-      <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"} width={30} height={30} alt="ORUPhones" />
+      <Image
+        src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"}
+        width={30}
+        height={30}
+        alt="ORUPhones"
+      />
     </div>
     <div>
       <p
-        className={`text-sm text-m-grey-1 font-Roboto-Semibold ${isUnRead == 0 ? "font-bold" : ""}`}
+        className={`text-sm text-m-grey-1 font-Roboto-Semibold ${
+          isUnRead == 0 ? "font-bold" : ""
+        }`}
       >
         {" "}
         {text}{" "}
       </p>
-      <span className="text-xs font-Roboto-Regular" style={{ color: "#C7C7C7" }}>
+      <span
+        className="text-xs font-Roboto-Regular"
+        style={{ color: "#C7C7C7" }}
+      >
         {timestamp}
       </span>
     </div>

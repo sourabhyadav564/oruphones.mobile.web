@@ -13,6 +13,8 @@ import NoMatch from "@/components/NoMatch";
 import { metaTags } from "@/utils/constant";
 import Head from "next/head";
 import BottomNav from "@/components/Navigation/BottomNav";
+import ProductSkeletonCard from "@/components/Card/ProductSkeletonCard";
+import { Heading3 } from "@/components/elements/Heading/heading";
 
 function CategoryPage() {
   const { selectedSearchCity, loading } = useAuthState();
@@ -61,7 +63,6 @@ function CategoryPage() {
           setLoading(false);
         },
         (err) => {
-          console.error(err);
           setLoading(false);
         }
       );
@@ -100,9 +101,17 @@ function CategoryPage() {
             payLoad.minsellingPrice = priceRange.min;
             payLoad.maxsellingPrice = priceRange.max;
           }
-          if (condition?.length > 0 && router.query.categoryType != "like new") {
-            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
-          } else if (condition?.length > 0 && router.query.categoryType == "like new") {
+          if (
+            condition?.length > 0 &&
+            router.query.categoryType != "like new"
+          ) {
+            payLoad.deviceCondition = condition.includes("all")
+              ? []
+              : condition;
+          } else if (
+            condition?.length > 0 &&
+            router.query.categoryType == "like new"
+          ) {
             payLoad.deviceCondition = "Like New";
           }
           if (storage?.length > 0) {
@@ -111,23 +120,39 @@ function CategoryPage() {
           if (color?.length > 0) {
             payLoad.color = color.includes("all") ? [] : color;
           }
-          if (warranty?.length > 0 && (router.query.categoryType != "brandWarranty" || router.query.categoryType != "sellerWarranty")) {
+          if (
+            warranty?.length > 0 &&
+            (router.query.categoryType != "brandWarranty" ||
+              router.query.categoryType != "sellerWarranty")
+          ) {
             payLoad.warenty = warranty.includes("all") ? [] : warranty;
-          } else if (warranty?.length == 0 && router.query.categoryType == "brandWarranty") {
+          } else if (
+            warranty?.length == 0 &&
+            router.query.categoryType == "brandWarranty"
+          ) {
             payLoad.warenty = "Brand Warranty";
-          } else if (warranty?.length == 0 && router.query.categoryType == "sellerWarranty") {
+          } else if (
+            warranty?.length == 0 &&
+            router.query.categoryType == "sellerWarranty"
+          ) {
             payLoad.warenty = "Seller Warranty";
           }
-          if (verification?.length > 0 && router.query.categoryType != "verified") {
+          if (
+            verification?.length > 0 &&
+            router.query.categoryType != "verified"
+          ) {
             payLoad.verified = verification.includes("all") ? "" : "verified";
-          } else if (verification?.length == 0 && router.query.categoryType == "verified") {
+          } else if (
+            verification?.length == 0 &&
+            router.query.categoryType == "verified"
+          ) {
             payLoad.verified = "verified";
           }
 
           searchFilter(
             payLoad,
-            localStorage.getItem("userUniqueId") || "Guest",
-            localStorage.getItem("sessionId") || "",
+            Cookies.get("userUniqueId") || "Guest",
+            Cookies.get("sessionId"),
             intialPage,
             applySortFilter
           ).then((response) => {
@@ -174,7 +199,6 @@ function CategoryPage() {
           setIsLoadingMore(false);
         },
         (err) => {
-          console.error(err);
           setLoading(false);
         }
       );
@@ -213,9 +237,17 @@ function CategoryPage() {
             payLoad.minsellingPrice = priceRange.min;
             payLoad.maxsellingPrice = priceRange.max;
           }
-          if (condition?.length > 0 && router.query.categoryType != "like new") {
-            payLoad.deviceCondition = condition.includes("all") ? [] : condition;
-          } else if (condition?.length > 0 && router.query.categoryType == "like new") {
+          if (
+            condition?.length > 0 &&
+            router.query.categoryType != "like new"
+          ) {
+            payLoad.deviceCondition = condition.includes("all")
+              ? []
+              : condition;
+          } else if (
+            condition?.length > 0 &&
+            router.query.categoryType == "like new"
+          ) {
             payLoad.deviceCondition = "Like New";
           }
           if (storage?.length > 0) {
@@ -224,23 +256,39 @@ function CategoryPage() {
           if (color?.length > 0) {
             payLoad.color = color.includes("all") ? [] : color;
           }
-          if (warranty?.length > 0 && (router.query.categoryType != "brandWarranty" || router.query.categoryType != "sellerWarranty")) {
+          if (
+            warranty?.length > 0 &&
+            (router.query.categoryType != "brandWarranty" ||
+              router.query.categoryType != "sellerWarranty")
+          ) {
             payLoad.warenty = warranty.includes("all") ? [] : warranty;
-          } else if (warranty?.length == 0 && router.query.categoryType == "brandWarranty") {
+          } else if (
+            warranty?.length == 0 &&
+            router.query.categoryType == "brandWarranty"
+          ) {
             payLoad.warenty = "Brand Warranty";
-          } else if (warranty?.length == 0 && router.query.categoryType == "sellerWarranty") {
+          } else if (
+            warranty?.length == 0 &&
+            router.query.categoryType == "sellerWarranty"
+          ) {
             payLoad.warenty = "Seller Warranty";
           }
-          if (verification?.length > 0 && router.query.categoryType != "verified") {
+          if (
+            verification?.length > 0 &&
+            router.query.categoryType != "verified"
+          ) {
             payLoad.verified = verification.includes("all") ? "" : "verified";
-          } else if (verification?.length == 0 && router.query.categoryType == "verified") {
+          } else if (
+            verification?.length == 0 &&
+            router.query.categoryType == "verified"
+          ) {
             payLoad.verified = "verified";
           }
 
           searchFilter(
             payLoad,
-            localStorage.getItem("userUniqueId") || "Guest",
-            localStorage.getItem("sessionId") || "",
+            Cookies.get("userUniqueId") || "Guest",
+            Cookies.get("sessionId"),
             newPages,
             applySortFilter
           ).then((response) => {
@@ -312,7 +360,10 @@ function CategoryPage() {
         }
         if (condition?.length > 0 && router.query.categoryType != "like new") {
           payLoad.deviceCondition = condition.includes("all") ? [] : condition;
-        } else if (condition?.length > 0 && router.query.categoryType == "like new") {
+        } else if (
+          condition?.length > 0 &&
+          router.query.categoryType == "like new"
+        ) {
           payLoad.deviceCondition = "Like New";
         }
         if (storage?.length > 0) {
@@ -321,23 +372,39 @@ function CategoryPage() {
         if (color?.length > 0) {
           payLoad.color = color.includes("all") ? [] : color;
         }
-        if (warranty?.length > 0 && (router.query.categoryType != "brandWarranty" || router.query.categoryType != "sellerWarranty")) {
+        if (
+          warranty?.length > 0 &&
+          (router.query.categoryType != "brandWarranty" ||
+            router.query.categoryType != "sellerWarranty")
+        ) {
           payLoad.warenty = warranty.includes("all") ? [] : warranty;
-        } else if (warranty?.length == 0 && router.query.categoryType == "brandWarranty") {
+        } else if (
+          warranty?.length == 0 &&
+          router.query.categoryType == "brandWarranty"
+        ) {
           payLoad.warenty = "Brand Warranty";
-        } else if (warranty?.length == 0 && router.query.categoryType == "sellerWarranty") {
+        } else if (
+          warranty?.length == 0 &&
+          router.query.categoryType == "sellerWarranty"
+        ) {
           payLoad.warenty = "Seller Warranty";
         }
-        if (verification?.length > 0 && router.query.categoryType != "verified") {
+        if (
+          verification?.length > 0 &&
+          router.query.categoryType != "verified"
+        ) {
           payLoad.verified = verification.includes("all") ? "" : "verified";
-        } else if (verification?.length == 0 && router.query.categoryType == "verified") {
+        } else if (
+          verification?.length == 0 &&
+          router.query.categoryType == "verified"
+        ) {
           payLoad.verified = "verified";
         }
 
         searchFilter(
           payLoad,
-          localStorage.getItem("userUniqueId") || "Guest",
-          localStorage.getItem("sessionId") || "",
+          Cookies.get("userUniqueId") || "Guest",
+          Cookies.get("sessionId"),
           intialPage,
           applySortFilter
         ).then((response) => {
@@ -423,15 +490,17 @@ function CategoryPage() {
         setApplyFilter={setApplyFilter}
         applyFilter={applyFilter}
       >
-
         {isLoading ? (
-          <div className="flex items-center justify-center">
-            <Loader />
+          <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff] ">
+            <div className="flex">
+              <Heading3 title="Best Deals" />
+            </div>
+            <ProductSkeletonCard isBestDeal={true} />
           </div>
         ) : (
           bestDeals.length > 0 && (
             <div className="-ml-4 -mr-4 px-6 bg-gradient-to-b from-[#2C2F45] to-[#ffffff]">
-              <p className="text-lg font-semibold text-white py-2.5">
+              <p className="text-lg font-Roboto-Semibold text-white py-2.5">
                 Best Deals
               </p>
 
@@ -444,28 +513,29 @@ function CategoryPage() {
         )}
 
         {(!isLoading || (otherListings && otherListings.length > 0)) && (
-          <div className="flex items-center " >
-            <h1 className=" text-mx font-semibold text-black-4e p-2 pl-0 mt-3 flex-1">
+          <div className="flex items-center ">
+            <h1 className=" text-mx font-Roboto-Light text-black-4e p-2 pl-0 mt-3 flex-1">
               Other Listings ({totalProducts})
             </h1>
             <div className="">
-              <Filter1
-                setSortApplyFilter={setSortApplyFilter}
-              ></Filter1>
+              <Filter1 setSortApplyFilter={setSortApplyFilter}></Filter1>
             </div>
           </div>
         )}
 
         {isLoading ? (
-          <></>
+          <div className="grid grid-cols-2 mx-3 py-3">
+            {Array(10)
+              .fill()
+              .map((_, i) => (
+                <ProductSkeletonCard isOtherListing={true} />
+              ))}
+          </div>
         ) : (
           <section className="grid grid-cols-2 py-3 -m-1.5">
             {otherListings &&
               otherListings?.map((item) => (
-                <div
-                  key={item.listingId}
-                  className="m-1.5"
-                >
+                <div key={item.listingId} className="m-1.5">
                   <OtherListingCard
                     data={item}
                     prodLink
@@ -481,10 +551,12 @@ function CategoryPage() {
           otherListings &&
           !otherListings.length > 0 && <NoMatch />}
         {!isLoading &&
-          isFinished === false && otherListings.length != totalProducts && (
+          isFinished === false &&
+          otherListings.length != totalProducts && (
             <span
-              className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-                } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+              className={`${
+                isLoadingMore ? "w-[250px]" : "w-[150px]"
+              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
               onClick={loadMoreData}
             >
               <p className="block text-m-green font-semibold">

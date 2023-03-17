@@ -30,6 +30,7 @@ import { numberWithCommas } from "@/utils/util";
 import useFilterOptions from "@/hooks/useFilterOptions";
 import OtherListingCard from "@/components/Card/OtherListingCard";
 import NoMatch from "@/components/NoMatch";
+import ProductSkeletonCard from "@/components/Card/ProductSkeletonCard";
 
 function Index() {
   const [defaultBrand, setDefaultBrand] = useRecoilState(addListingBrandState);
@@ -111,8 +112,8 @@ function Index() {
       };
       searchFilter(
         payLoad,
-        localStorage.getItem("userUniqueId") || "Guest",
-        localStorage.getItem("sessionId") || "",
+        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId"),
         0,
         "Featured"
       ).then((response) => {
@@ -140,8 +141,6 @@ function Index() {
       }
     } else if (name === "condition") {
       setCondition(e.value);
-    } else {
-      console.error(e);
     }
   };
   useEffect(() => {
@@ -152,12 +151,12 @@ function Index() {
           : storage,
         deviceRam: storage?.toString().includes("/")
           ? storage
-            ?.toString()
-            .split("/")[1]
-            .toString()
-            .replace(/GB/g, " GB")
-            .replace(/RAM/, "")
-            .trim()
+              ?.toString()
+              .split("/")[1]
+              .toString()
+              .replace(/GB/g, " GB")
+              .replace(/RAM/, "")
+              .trim()
           : "",
         make: make,
         marketingName: model,
@@ -192,12 +191,12 @@ function Index() {
           : storage,
         deviceRam: storage?.toString().includes("/")
           ? storage
-            ?.toString()
-            .split("/")[1]
-            .toString()
-            .replace(/GB/g, " GB")
-            .replace(/RAM/, "")
-            .trim()
+              ?.toString()
+              .split("/")[1]
+              .toString()
+              .replace(/GB/g, " GB")
+              .replace(/RAM/, "")
+              .trim()
           : "",
         deviceCondition: "Like New",
         earPhones: "Y",
@@ -207,15 +206,12 @@ function Index() {
         verified: "no",
       };
       if (make && model && storage) {
-        getRecommandedPrice(reqParams).then(
-          ({ dataObject }) => {
-            setDefaultBrand(make);
-            setDefaultModel(model);
-            setDefaultStorage(storage);
-            setRecommandedPrice(dataObject);
-          },
-          (err) => console.error(err)
-        );
+        getRecommandedPrice(reqParams).then(({ dataObject }) => {
+          setDefaultBrand(make);
+          setDefaultModel(model);
+          setDefaultStorage(storage);
+          setRecommandedPrice(dataObject);
+        });
       }
     }
   }, [make, model, storage]);
@@ -249,10 +245,11 @@ function Index() {
           }}
         >
           <button
-            className={`${sellSelected == true
-              ? "bg-primary py-1 w-32 h-9 border-2 rounded-lg border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
-              : "bg-white py-1 w-32 h-9 border-2 rounded-lg border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
-              }`}
+            className={`${
+              sellSelected == true
+                ? "bg-primary py-1 w-32 h-9 border-2 rounded-lg border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
+                : "bg-white py-1 w-32 h-9 border-2 rounded-lg border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
+            }`}
           >
             Sell
           </button>
@@ -272,10 +269,11 @@ function Index() {
           }}
         >
           <button
-            className={`${sellSelected == false
-              ? " bg-primary py-1 w-32 h-9 border-2 rounded-lg border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
-              : " bg-white py-1 w-32 h-9 border-2 rounded-lg border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
-              }`}
+            className={`${
+              sellSelected == false
+                ? " bg-primary py-1 w-32 h-9 border-2 rounded-lg border-primary text-yellow-fb text-smallFontSize self-center items-center font-Roboto-Semibold"
+                : " bg-white py-1 w-32 h-9 border-2 rounded-lg border-primary text-primary text-smallFontSize self-center items-center font-Roboto-Semibold"
+            }`}
           >
             Buy
           </button>
@@ -288,12 +286,11 @@ function Index() {
         >
           {page === 0 && (
             <>
-              <div
-                className="space-y-2"
-              >
+              <div className="space-y-2">
                 <SellPhoneHeading1 title="Enter your Phone details" />
 
-                <div className="space-y-nx"
+                <div
+                  className="space-y-nx"
                   onClick={() => {
                     setOpenBrandPopup(true);
                   }}
@@ -348,10 +345,11 @@ function Index() {
                       storageColorOption?.storage &&
                       storageColorOption.storage.map((item, index) => (
                         <div
-                          className={`${storage == item
-                            ? "bg-[#E8E8E8] font-Roboto-Semibold hover:border-primary text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
-                            : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
-                            }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
+                          className={`${
+                            storage == item
+                              ? "bg-[#E8E8E8] font-Roboto-Semibold hover:border-primary text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
+                              : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
+                          }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
                           onClick={() => setStorage(item)}
                           key={index}
                         >
@@ -378,10 +376,11 @@ function Index() {
             {conditionList &&
               conditionList.map((item, index) => (
                 <div
-                  className={`${condition == item
-                    ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
-                    : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
-                    }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
+                  className={`${
+                    condition == item
+                      ? "bg-[#E8E8E8] font-Roboto-Semibold text-jx opacity-bg-80 border-2 border-white text-[#2C2F45] opacity-100"
+                      : "bg-white opacity-bg-50 opacity-70 border-2 border-[#2C2F45] border-opacity-40 ] "
+                  }  active:bg-[#2C2F45] duration-300 p-2 flex items-center font-Regular rounded-[5px]  justify-center`}
                   onClick={() => setCondition(item)}
                   key={index}
                 >
@@ -461,12 +460,17 @@ function Index() {
           )}
           {(!loading || otherListings?.length > 0) && (
             <div className="flex mt- pb-0">
-              <p className="font-Roboto-Semibold text-[#707070]  text-cx  capitalize underline">
-              </p>
+              <p className="font-Roboto-Semibold text-[#707070]  text-cx  capitalize underline"></p>
             </div>
           )}
           {loading ? (
-            <div></div>
+            <div className="grid grid-cols-2 mx-3 py-3">
+              {Array(10)
+                .fill()
+                .map((_, i) => (
+                  <ProductSkeletonCard isOtherListing={true} />
+                ))}
+            </div>
           ) : (
             <section className="grid grid-cols-2 py-3">
               {otherListings &&
@@ -488,8 +492,12 @@ function Index() {
             </section>
           )}
           <div className="-my-28">
-            {!loading && otherListings?.length == 0 && make && model && storage && condition &&
-              <NoMatch />}
+            {!loading &&
+              otherListings?.length == 0 &&
+              make &&
+              model &&
+              storage &&
+              condition && <NoMatch />}
           </div>
         </div>
       )}

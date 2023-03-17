@@ -1,7 +1,7 @@
 import ListingTile from "@/components/Card/ListingTile";
 import Header3 from "@/components/Header/header3";
 import BottomNav from "@/components/Navigation/BottomNav";
-import { getUserListings, getSessionId } from "api-call";
+import { getUserListings } from "api-call";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
@@ -30,9 +30,7 @@ function Index({ userInfo }) {
       Cookies.set("mobileNumber", mobileNumber);
       Cookies.set("countryCode", countryCode);
       dispatch("LOGIN", tempUserInfo);
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) {}
   }, []);
 
   useEffect(async () => {
@@ -41,11 +39,9 @@ function Index({ userInfo }) {
         async (res) => {
           setListings(res.dataObject);
           setListingsLoading(false);
-        },
-        (err) => console.error(err)
+        }
       );
-    }
-    else if (!loading && !authenticated) {
+    } else if (!loading && !authenticated) {
       router.push("/login");
     }
   }, [authenticated, loading]);

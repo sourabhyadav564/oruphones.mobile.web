@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import Modal1 from "../Popup/Modal1";
@@ -7,11 +6,11 @@ import BrandCard from "../Card/BrandCard";
 
 import { addListingBrandState } from "../../atoms/globalState";
 import { useRecoilState } from "recoil";
+import Cookies from "js-cookie";
 
 function BrandPopup({ open, setOpen }) {
   const [brands, setBrands] = useState([]);
   const [brandState, setBrandState] = useRecoilState(addListingBrandState);
-
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("brands"))?.length > 0) {
@@ -19,13 +18,11 @@ function BrandPopup({ open, setOpen }) {
     } else {
       const callApi = () => {
         if (!open) return null;
-        fetchBrands().then(
-          (response) => {
-            setBrands(response.dataObject);
-            localStorage.setItem("brands", JSON.stringify(response.dataObject));
-          },
-          (err) => console.error(err)
-        );
+        fetchBrands().then((response) => {
+          setBrands(response.dataObject);
+          localStorage.setItem("brands", JSON.stringify(response.dataObject));
+          Cookies.set("brands", true);
+        });
       };
       callApi();
     }
