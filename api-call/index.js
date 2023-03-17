@@ -9,7 +9,7 @@ let headers = {
   srcFrom: "Mobile Web",
   eventName: "NA",
   userUniqueId: 0,
-   
+  sessionId: Cookies.get("sessionId"),
   devicePlatform: "Mobile Web",
   location:
     typeof window !== "undefined" ? localStorage.getItem("usedLocation") : "",
@@ -32,7 +32,7 @@ Axios.interceptors.response.use(
       headers = {
         ...headers,
         eventName: "NA",
-         
+        sessionId: Cookies.get("sessionId"),
         userUniqueId: 0,
       };
       const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
@@ -65,7 +65,7 @@ export function getSessionId() {
     ...headers,
     eventName: "SESSION_CREATED",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
@@ -82,7 +82,7 @@ export function getSearchResults(q) {
     ...headers,
     eventName: "SEARCH_TEXT_SUGGESTIONS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/cscglobal/search";
@@ -98,7 +98,7 @@ export async function generateOTP(countryCode, mobileNumber) {
     ...headers,
     eventName: "SIGNIN_REQUEST",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/generate?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
@@ -112,7 +112,7 @@ export async function resendOTP(countryCode, mobileNumber) {
     ...headers,
     eventName: "RESEND_OTP",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/resend?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
@@ -126,7 +126,7 @@ export async function validateUser(countryCode, mobileNumber, OTP) {
     ...headers,
     eventName: "VERIFY_OTP",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/validate?countryCode=${countryCode}&mobileNumber=${mobileNumber}&otp=${OTP}`;
@@ -139,7 +139,7 @@ export async function createUser(countryCode, mobileNumber) {
     ...headers,
     eventName: "SIGNUP_REQUEST",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/create`;
@@ -156,7 +156,7 @@ export async function getUserDetails(countryCode, mobileNumber) {
     ...headers,
     eventName: "FETCH_USER_DETAILS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/details?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
@@ -169,7 +169,7 @@ export async function getUserDetailsViaUUID(uuid) {
     ...headers,
     eventName: "FETCH_USER_DETAILS_VIA_UUID",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/details?userUniqueId=${uuid}`;
@@ -224,7 +224,7 @@ export async function uploadImage(data, params) {
     eventName: "ADDLISTING_UPLOAD_PHOTOS_SUCCESS",
     "Content-Type": "multipart/form-data",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const MULTIPART_HEADER = { headers: { ...header } };
 
@@ -237,7 +237,7 @@ export async function getRecommandedPrice(data) {
     ...headers,
     eventName: "FETCH_RECOMMENDED_PRICE",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/global/recomanded/price`;
@@ -251,7 +251,7 @@ export async function saveLisiting(payload) {
     ...headers,
     eventName: "ADDLISTING_ADD_SUCCESS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/save`;
@@ -265,7 +265,7 @@ export async function updateLisiting(payload) {
     ...headers,
     eventName: "EDITLISTING_EDIT_SUCCESS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/update`;
@@ -279,7 +279,7 @@ export async function deleteListing(params) {
     ...headers,
     eventName: "MYLISTINGS_DELETE_SELECTED",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/delete`;
@@ -296,7 +296,7 @@ export async function activateListing(params) {
     ...headers,
     eventName: "MYLISTINGS_ACTIVATENOW_SELECTED",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/activate`;
@@ -313,7 +313,7 @@ export async function pauseListing(params) {
     ...headers,
     eventName: "MYLISTINGS_PAUSE_SELECTED",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/pause`;
@@ -330,7 +330,7 @@ export async function getUserListings(userUniqueId) {
     ...headers,
     eventName: "MYLISTINGS_VIEW_LISTING",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listings?userUniqueId=${userUniqueId}`;
@@ -376,7 +376,7 @@ export async function fetchTopsellingmodels() {
     ...headers,
     eventName: `GET_TOP_SELLING_MODELS`,
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/home/topselling/models`;
@@ -427,7 +427,7 @@ export async function fetchByMarketingName(
     ...headers,
     eventName: `HOME_TOP_SELLING_MODEL_SELECTED ${marketingName}`,
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -476,7 +476,7 @@ export async function fetchSellerMobileNumber(listingid, userUniqueId) {
     ...headers,
     eventName: "GET_SELLER_CONTACT",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -497,7 +497,7 @@ export async function getGlobalCities(searchText) {
     ...headers,
     eventName: "FETCH_CITIES",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -512,7 +512,7 @@ export async function shopByPrice() {
     ...headers,
     eventName: "GET_SHOP_BY_PRICE",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/global/shopbyprice`;
@@ -546,7 +546,7 @@ export async function shopByPriceRange(
     ...headers,
     eventName: "GET_BEST_DEALS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -573,7 +573,7 @@ export async function bestDealNearByYou(
     ...headers,
     eventName: "GET_BEST_DEALS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then(
@@ -589,7 +589,7 @@ export async function addUserSearchLocation(payload) {
     ...headers,
     eventName: "LOCATION_CHANGED_SUCCESS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/addSearchLocation`;
@@ -606,7 +606,7 @@ export async function addUserProfileLocation(payload) {
     ...headers,
     eventName: "PROFILE_LOCATION_ADDED",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/addProfileLocation`;
@@ -623,7 +623,7 @@ export async function updateAddress(payload) {
     ...headers,
     eventName: "UPDATE_ADDRESS_SUCCESS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/update`;
@@ -640,7 +640,7 @@ export async function addFavotie(payload) {
     ...headers,
     eventName: "FAVORITE_ADD_SUCCESS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/favorite/add`;
@@ -657,7 +657,7 @@ export async function removeFavotie(listingId, userUniqueId) {
     ...headers,
     eventName: "FAVORITE_REMOVE_SUCCESS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -683,7 +683,7 @@ export async function bestDealNearYouAll(
     ...headers,
     eventName: "HOME_BESTDEAL_VIEW_ALL",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -708,7 +708,7 @@ export async function updateUserProfileDetails(payload) {
     ...headers,
     eventName: "UPDATE_USER_DETAILS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/update`;
@@ -725,7 +725,7 @@ export async function fetchMyFavorites(userUniqueId) {
     ...headers,
     eventName: "FETCH_FAVORITE_LIST",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/favorite/fetch?userUniqueId=` + userUniqueId;
@@ -746,7 +746,7 @@ export async function fetchSimilarProducts(payLoad, userUniqueId, pageNumber) {
     ...headers,
     eventName: "FETCH_SIMILAR_PRODUCTS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -766,7 +766,7 @@ export async function sendverification(listingid, userUniqueId) {
     ...headers,
     eventName: "REQUEST_VERIFICATION",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -787,7 +787,7 @@ export function getShowSerchFilters() {
     ...headers,
     eventName: "FETCH_SEARCH_FILTERS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/master/showserchFilters`;
@@ -833,7 +833,7 @@ export function getTinyUrl() {
     ...headers,
     eventName: "GET_TINY_URL",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/tinyurl`;
@@ -850,7 +850,7 @@ export async function getExternalSellSourceData(payLoad) {
     ...headers,
     eventName: "GET_EXTERNAL_SELL_SOURCE",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/device/price/externalsellsource`;
@@ -877,7 +877,7 @@ export function infoTemplates() {
     ...headers,
     eventName: "FETCH_INFO_LINKS",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/getinfotemplates`;
@@ -898,7 +898,7 @@ export async function uploadUserProfilePic(userProfilePicData, userUniqueId) {
     eventName: "UPLOAD_PROFILE_PIC",
     "Content-Type": "multipart/form-data",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const MULTIPART_HEADER = { headers: { ...header } };
   return await Axios.post(
@@ -918,7 +918,7 @@ export function prepareShareLink(listingId, userUniqueId) {
     ...headers,
     eventName: "PRODUCTINFO_SHARE_SELECTED",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
@@ -957,7 +957,7 @@ export function markAsRead(notificationId, userUniqueId) {
     ...headers,
     eventName: "NOTIFICATION_SELECTED",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
@@ -975,7 +975,7 @@ export function deleteNotification(notificationId, userUniqueId) {
     ...headers,
     eventName: "NOTIFICATION_REMOVED",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
@@ -996,7 +996,7 @@ export function contactUs(payLoad) {
     ...headers,
     eventName: "CONTACT_US",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/contactus`;
@@ -1013,7 +1013,7 @@ export function fetchTopArticles() {
     ...headers,
     eventName: "FETCH_TOP_ARTICLES",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/wordpress/blogs/info`;
@@ -1048,7 +1048,7 @@ export function shopByCategory(
     ...headers,
     eventName: "FETCH_TOP_ARTICLES",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
@@ -1064,7 +1064,7 @@ export async function marketingNameByModel(payload) {
     ...headers,
     eventName: "FETCH_UPTO_PRICE",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
 
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -1094,7 +1094,7 @@ export async function deleteUserAccount(payload) {
     ...headers,
     eventName: "DELETE_USER",
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/delete`;
@@ -1108,7 +1108,7 @@ export function logEventInfo(eventName) {
     ...headers,
     eventName: eventName,
     userUniqueId: 0,
-     
+    sessionId: Cookies.get("sessionId"),
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/cscglobal/logeventinfo`;
