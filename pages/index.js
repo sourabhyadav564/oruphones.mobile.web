@@ -26,7 +26,6 @@ export default function Home() {
   const router = useRouter();
 
   const [loadingState, setLoadingState] = useState(false);
-  const [shopByModel2, setShopByModel2] = useState([]);
 
   useEffect(() => {
     setLoadingState(false);

@@ -1119,3 +1119,28 @@ export function logEventInfo(eventName) {
     (err) => {}
   );
 }
+
+export async function reportIssue(
+  Name,
+  Email,
+  Phone,
+  issue,
+  make,
+  description,
+  storage,
+  ScheduleCall,
+  callTime
+) {
+  headers = {
+    ...headers,
+    eventName: "REPORT_ISSUE",
+    userUniqueId: 0,
+    sessionId: Cookies.get("sessionId"),
+  };
+  const DEFAULT_HEADER = { headers: { ...headers } };
+  const API_ENDPOINT = `${URI}/api/v1/cscglobal/reportIssue?issueType=${issue}&description=${
+    description + "Call scheduled time: " +callTime
+  }&email=${Email}&phone=${Phone}&name=${Name}&modelName=${make}&deviceStorage=${storage}&scheduleCall=${ScheduleCall}`;
+  const response = await Axios.post(API_ENDPOINT, {}, DEFAULT_HEADER);
+  return response.data;
+}

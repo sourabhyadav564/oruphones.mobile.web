@@ -199,7 +199,7 @@ function Sidebar({ open, setOpen }) {
                   />
                 </div>
               </ListItem>
-              {/* <ListItem
+              <ListItem
                 href="/reportIssue"
                 onClick={() => {
                   setOpen(false);
@@ -213,7 +213,7 @@ function Sidebar({ open, setOpen }) {
                   </p>
                   <Image src={ChevronLeft} width={15} height={15} className="rotate-180 self-center"  />
                 </div>
-              </ListItem> */}
+              </ListItem>
               <ListItem
                 href="/blog"
                 onClick={() => {

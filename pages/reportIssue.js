@@ -10,10 +10,14 @@ import {
   addListingModelSelector,
 } from "atoms/globalState";
 import ModelPopup from "@/components/AddListing/ModelPopup";
-import { getModelLists } from "api-call";
+import { getModelLists, reportIssue } from "api-call";
 import MySelect from "@/components/Form/Select";
 import { useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
+import ReportIssuePopup from "@/components/Popup/ReportIssuePopup";
+import { useRouter } from "next/router";
+import Input2 from "@/components/Form/input2";
+import { toast } from "react-toastify";
 
 const ReportIssue = () => {
   const optionsList = [
@@ -24,9 +28,14 @@ const ReportIssue = () => {
     { value: "Other", label: "Other" },
   ];
   const { user } = useAuthState();
-  const [email, setEmail] = useState();
-  const [userName, setUserName] = useState();
+  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [MobileNumber, setMobileNumber] = useState("");
   const [page, setPage] = useState(0);
+  const [issue, setIssue] = useState("");
+  const [description, setDescription] = useState("");
+  const [callTime, setCallTime] = useState("");
+  const [reportData, setReportData] = useState(null);
   const [mktNameOpt, setMktNameOpt] = useState();
   const [storageColorOption, setStorageColorOption] = useState();
   const [model, setModel] = useState();
@@ -35,12 +44,80 @@ const ReportIssue = () => {
   const selectedModel = useRecoilValue(addListingModelSelector);
   const [modelInfo, setModelInfo] = useState();
   const [openModelPopup, setOpenModelPopup] = useState(false);
+  const [check, setCheck] = useState(false);
   const [openBrandPopup, setOpenBrandPopup] = useState(false);
-  const [make, setMake] = useState();
+  const [openReportIssuePopup, setOpenReportIssuePopup] = useState(false);
+  const [make, setMake] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     submit();
   };
+  const router = useRouter();
+  const timeSlots = [
+    "9:00 AM - 12:00 PM",
+    "12:00 PM - 3:00 PM",
+    "3:00 PM - 6:00 PM",
+    "6:00 PM - 9:00 PM",
+  ];
+  const validateEmail = (email) => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      setEmail(email);
+      return true;
+    } else {
+      toast.warning(`Please enter valid email address`, { toastId: "016" });
+      return false;
+    }
+  };
+  const handleSubmitIssue = (e) => {
+    e.preventDefault();
+    if (
+      userName !== "" &&
+      email !== "" &&
+      MobileNumber !== "" &&
+      issue !== "" &&
+      make !== "" &&
+      description !== "" &&
+      storage !== ""
+    ) {
+      if (validateEmail(email)) {
+        reportIssue(
+          userName,
+          email,
+          MobileNumber,
+          issue,
+          make,
+          description,
+          storage,
+          check,
+          callTime
+        ).then((res) => {
+          setReportData(res);
+        });
+        setOpenReportIssuePopup(true);
+      }
+    } else {
+      toast.warning(`Please enter valid details`, { toastId: "017" });
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMake("");
+      setModel("");
+      clearInterval(interval);
+    }, 100);
+  }, [router.pathname]);
+
+  useEffect(() => {
+    if (make) {
+      setStorage();
+      setStorageColorOption();
+      const interval = setInterval(() => {
+        setModel("");
+        clearInterval(interval);
+      }, 100);
+    }
+  }, [make]);
 
   const handleSelectChange = async (name) => {
     if (name === "make") {
@@ -61,16 +138,16 @@ const ReportIssue = () => {
   };
 
   useEffect(() => {
-    if (selectedBrand) {
+    if (selectedBrand && !openBrandPopup) {
       handleSelectChange("make");
     }
-    if (selectedModel) {
+    if (selectedModel && !openModelPopup) {
       handleSelectChange("model");
     }
-  }, [selectedBrand, selectedModel]);
+  }, [openBrandPopup, selectedBrand, openModelPopup, selectedModel]);
   return (
     <>
-      <Header4 title="Price Comparison" />
+      <Header4 title="Report An Issue" />
       <div>
         <form
           className="grid grid-cols-1 space-y-4 container my-4"
@@ -158,8 +235,28 @@ const ReportIssue = () => {
       {storage && (
         <div className="px-4">
           <div className="w-full font-Roboto-Regular space-y-8 py-6">
-            <MySelect labelName="Issue Type" options={optionsList} />
+            <MySelect
+              labelName="Issue Type"
+              options={optionsList}
+              onChange={(e) => setIssue(e.value)}
+            />
           </div>
+          <div className="w-full font-Roboto-Regular space-y-8 py-6">
+            <Input
+              type="text"
+              placeholder="Issue Description"
+              name="username"
+              minLength="30"
+              maxLength="500"
+              labelClass="bg-[#ffffff]"
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+            >
+              Issue Description
+            </Input>
+          </div>
+
           <section className=" flex flex-col space-y-4">
             <p className="font-Roboto-Light text-ex border-b-2 pb-1">
               Basic Information
@@ -185,10 +282,16 @@ const ReportIssue = () => {
               <p className="bg-white px-0.5">
                 Mobile No.<span className="text-red-500">*</span>
               </p>
-              <Input
-                prefix="+91"
+              <Input2
+                pattern="[0-9]*"
+                type="text"
+                required
+                prefix="+91-"
                 inputClass="font-Regular text-black-ef"
-                defaultValue={` |  ${user?.userdetails?.mobileNumber || ""}`}
+                defaultValue={`${user?.userdetails?.mobileNumber || ""}`}
+                onChange={(e) => {
+                  setMobileNumber(e.target.value);
+                }}
               />
             </div>
             <div className="space-y-1 text-jx font-Roboto-Regular">
@@ -196,7 +299,9 @@ const ReportIssue = () => {
                 Email ID <span className="text-red-500">*</span>
               </p>
               <Input
+                pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
                 type="text"
+                required
                 name="email"
                 inputClass="font-Roboto-Regular text-black-ef"
                 defaultValue={user?.userdetails?.email || ""}
@@ -214,7 +319,10 @@ const ReportIssue = () => {
             <input
               id="bordered-checkbox-2"
               type="checkbox"
-              value=""
+              value={check}
+              onChange={(e) => {
+                setCheck(!check);
+              }}
               name="bordered-checkbox"
               class="w-5 h-5"
             />
@@ -227,12 +335,63 @@ const ReportIssue = () => {
           </div>
         </div>
       )}
-      {email && <div className="flex justify-center py-8 px-4">
-        <div className="bg-primary py-2 px-40 text-white rounded-lg font-Roboto-Semibold">
-          Submit
+      <label>
+        <div className="px-4 flex items-center gap-2">
+          <input
+            type="checkbox"
+            className="appearance-none checked:bg-m-green  focus:ring-0 "
+            value={check}
+            onChange={(e) => {
+              setCheck(!check);
+            }}
+          />
         </div>
-      </div>}
+      </label>
+      {console.log(check)}
+      {!check ? (
+        ""
+      ) : (
+        <>
+          {timeSlots.map((item, index) => {
+            return (
+              <div className=" px-4 items-center font-Roboto-Semibold">
+                {" "}
+                <label className="flex">
+                  {" "}
+                  <input
+                    type="radio"
+                    className="checked:bg-m-green  border focus:ring-0 "
+                    value={item}
+                    name="time"
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setCallTime(e.target.value);
+                      }
+                    }}
+                  />
+                  <p className="pl-2">{item}</p>
+                </label>
+              </div>
+            );
+          })}
+        </>
+      )}
+      {email && (
+        <div className="flex justify-center py-8 px-4">
+          <div
+            className="bg-primary py-2 px-40 text-white rounded-lg font-Roboto-Semibold"
+            onClick={handleSubmitIssue}
+          >
+            Submit
+          </div>
+        </div>
+      )}
+
       <BrandPopup open={openBrandPopup} setOpen={setOpenBrandPopup} />
+      <ReportIssuePopup
+        open={openReportIssuePopup}
+        setOpen={setOpenReportIssuePopup}
+      />
       <ModelPopup
         open={openModelPopup}
         setOpen={setOpenModelPopup}
