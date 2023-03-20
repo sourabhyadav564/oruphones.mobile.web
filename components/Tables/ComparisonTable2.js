@@ -59,7 +59,7 @@ function ComparisonTable2(data, listingId) {
                 className="border px-2 mx-8 py-4 bg-primary"
               >
                 {item?.listingId == thisPhoneListingId
-                  ? `This Deal (${item?.marketingName})`
+                  ? `${item?.marketingName} (This Deal)`
                   : item?.marketingName}
                 <p className="font-Roboto-Light text-[#2196f3ff]" onClick={() => {
                   if (Cookies.get("userUniqueId") == undefined) {
@@ -107,7 +107,7 @@ function ComparisonTable2(data, listingId) {
               {" "}
               <Image
               quality={25}
-                src={getDefaultImage(item?.marketingName)}
+                src={getDefaultImage(item?.marketingName) || "https://d1tl44nezj10jx.cloudfront.net/web/assets/oru_phones_logo.svg"}
                 onError={() => setImageError(true)}
                 className=""
                 height="70"

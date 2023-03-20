@@ -170,11 +170,9 @@ const NewAddListingForm = ({ data }) => {
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
-      setGlobalCities((prev) => [...prev, { cityName: "India" }]);
     } else {
       getGlobalCities("").then((response) => {
         setGlobalCities(response.dataObject);
-        setGlobalCities((prev) => [...prev, { cityName: "India" }]);
       });
     }
   }, []);

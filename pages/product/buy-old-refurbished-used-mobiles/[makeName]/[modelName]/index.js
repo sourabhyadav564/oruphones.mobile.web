@@ -7,8 +7,6 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuthState } from "providers/AuthProvider";
-import { numberFromString, stringToDate } from "@/utils/util";
-import Loader from "@/components/Loader/Loader";
 import NoMatch from "@/components/NoMatch";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { Heading, Heading3 } from "@/components/elements/Heading/heading";
