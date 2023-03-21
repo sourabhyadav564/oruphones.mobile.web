@@ -80,7 +80,7 @@ export function getSessionId(sessionID) {
     ...headers,
     eventName: "SESSION_CREATED",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
@@ -97,7 +97,7 @@ export function getSearchResults(q, sessionID) {
     ...headers,
     eventName: "SEARCH_TEXT_SUGGESTIONS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = URI + "/api/v1/cscglobal/search";
@@ -113,7 +113,7 @@ export async function generateOTP(countryCode, mobileNumber, sessionID) {
     ...headers,
     eventName: "SIGNIN_REQUEST",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/generate?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
@@ -127,7 +127,7 @@ export async function resendOTP(countryCode, mobileNumber, sessionID) {
     ...headers,
     eventName: "RESEND_OTP",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/resend?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
@@ -141,7 +141,7 @@ export async function validateUser(countryCode, mobileNumber, OTP, sessionID) {
     ...headers,
     eventName: "VERIFY_OTP",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/otp/validate?countryCode=${countryCode}&mobileNumber=${mobileNumber}&otp=${OTP}`;
@@ -154,7 +154,7 @@ export async function createUser(countryCode, mobileNumber, sessionID) {
     ...headers,
     eventName: "SIGNUP_REQUEST",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/create`;
@@ -171,7 +171,7 @@ export async function getUserDetails(countryCode, mobileNumber, sessionID) {
     ...headers,
     eventName: "FETCH_USER_DETAILS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/details?countryCode=${countryCode}&mobileNumber=${mobileNumber}`;
@@ -184,7 +184,7 @@ export async function getUserDetailsViaUUID(uuid, sessionID) {
     ...headers,
     eventName: "FETCH_USER_DETAILS_VIA_UUID",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/details?userUniqueId=${uuid}`;
@@ -202,7 +202,7 @@ export async function getMakeModelLists(
     ...headers,
     eventName: "GET_MAKE_MODEL_LIST",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/master/makemodellist`;
@@ -222,7 +222,7 @@ export async function getModelLists(
     ...headers,
     eventName: "GET_MODEL_LIST",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/master/modellist?make=${make}&searchModel=${searchModel}`;
@@ -239,7 +239,7 @@ export async function uploadImage(data, params, sessionID) {
     eventName: "ADDLISTING_UPLOAD_PHOTOS_SUCCESS",
     "Content-Type": "multipart/form-data",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const MULTIPART_HEADER = { headers: { ...header } };
 
@@ -252,7 +252,7 @@ export async function getRecommandedPrice(data, sessionID) {
     ...headers,
     eventName: "FETCH_RECOMMENDED_PRICE",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/global/recomanded/price`;
@@ -266,7 +266,7 @@ export async function saveLisiting(payload, sessionID) {
     ...headers,
     eventName: "ADDLISTING_ADD_SUCCESS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/save`;
@@ -280,7 +280,7 @@ export async function updateLisiting(payload, sessionID) {
     ...headers,
     eventName: "EDITLISTING_EDIT_SUCCESS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/update`;
@@ -294,7 +294,7 @@ export async function deleteListing(params, sessionID) {
     ...headers,
     eventName: "MYLISTINGS_DELETE_SELECTED",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/delete`;
@@ -311,7 +311,7 @@ export async function activateListing(params, sessionID) {
     ...headers,
     eventName: "MYLISTINGS_ACTIVATENOW_SELECTED",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/activate`;
@@ -328,7 +328,7 @@ export async function pauseListing(params, sessionID) {
     ...headers,
     eventName: "MYLISTINGS_PAUSE_SELECTED",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/pause`;
@@ -345,7 +345,7 @@ export async function getUserListings(userUniqueId, sessionID) {
     ...headers,
     eventName: "MYLISTINGS_VIEW_LISTING",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listings?userUniqueId=${userUniqueId}`;
@@ -366,7 +366,7 @@ export async function getListingDetails(listingid, userUniqueId, sessionID) {
     ...headers,
     eventName: "FETCH_LISTING_DETAILS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/detail?listingid=${listingid}&userUniqueId=${userUniqueId}`;
@@ -384,7 +384,7 @@ export async function fetchBrands(sessionID) {
     ...headers,
     eventName: `GET_ALL_BRANDS`,
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/master/brands`;
@@ -398,7 +398,7 @@ export async function fetchTopsellingmodels(sessionID) {
     ...headers,
     eventName: `GET_TOP_SELLING_MODELS`,
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/home/topselling/models`;
@@ -419,7 +419,7 @@ export async function fetchByMakeList(
     ...headers,
     eventName: `BRAND_SELECTED ${makeName}`,
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -450,7 +450,7 @@ export async function fetchByMarketingName(
     ...headers,
     eventName: `HOME_TOP_SELLING_MODEL_SELECTED ${marketingName}`,
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -486,7 +486,7 @@ export async function detailWithUserInfo(
     ...headers,
     eventName: "PRODUCT_DETAIL_WITH_SELLER_DETAIL",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.post(url, {}, DEFAULT_HEADER).then((response) => {
@@ -503,7 +503,7 @@ export async function fetchSellerMobileNumber(
     ...headers,
     eventName: "GET_SELLER_CONTACT",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -524,7 +524,7 @@ export async function getGlobalCities(searchText, sessionID) {
     ...headers,
     eventName: "FETCH_CITIES",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -539,7 +539,7 @@ export async function shopByPrice(sessionID) {
     ...headers,
     eventName: "GET_SHOP_BY_PRICE",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/global/shopbyprice`;
@@ -574,7 +574,7 @@ export async function shopByPriceRange(
     ...headers,
     eventName: "GET_BEST_DEALS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -602,7 +602,7 @@ export async function bestDealNearByYou(
     ...headers,
     eventName: "GET_BEST_DEALS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.get(url, DEFAULT_HEADER).then(
@@ -618,7 +618,7 @@ export async function addUserSearchLocation(payload, sessionID) {
     ...headers,
     eventName: "LOCATION_CHANGED_SUCCESS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/addSearchLocation`;
@@ -635,7 +635,7 @@ export async function addUserProfileLocation(payload, sessionID) {
     ...headers,
     eventName: "PROFILE_LOCATION_ADDED",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/addProfileLocation`;
@@ -652,7 +652,7 @@ export async function updateAddress(payload, sessionID) {
     ...headers,
     eventName: "UPDATE_ADDRESS_SUCCESS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/address/update`;
@@ -669,7 +669,7 @@ export async function addFavotie(payload, sessionID) {
     ...headers,
     eventName: "FAVORITE_ADD_SUCCESS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/favorite/add`;
@@ -686,7 +686,7 @@ export async function removeFavotie(listingId, userUniqueId, sessionID) {
     ...headers,
     eventName: "FAVORITE_REMOVE_SUCCESS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -713,7 +713,7 @@ export async function bestDealNearYouAll(
     ...headers,
     eventName: "HOME_BESTDEAL_VIEW_ALL",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   console.log("url", sessionID);
@@ -739,7 +739,7 @@ export async function updateUserProfileDetails(payload, sessionID) {
     ...headers,
     eventName: "UPDATE_USER_DETAILS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/update`;
@@ -756,7 +756,7 @@ export async function fetchMyFavorites(userUniqueId, sessionID) {
     ...headers,
     eventName: "FETCH_FAVORITE_LIST",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/favorite/fetch?userUniqueId=` + userUniqueId;
@@ -782,7 +782,7 @@ export async function fetchSimilarProducts(
     ...headers,
     eventName: "FETCH_SIMILAR_PRODUCTS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -802,7 +802,7 @@ export async function sendverification(listingid, userUniqueId, sessionID) {
     ...headers,
     eventName: "REQUEST_VERIFICATION",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -823,7 +823,7 @@ export function getShowSerchFilters(sessionID) {
     ...headers,
     eventName: "FETCH_SEARCH_FILTERS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/master/showserchFilters`;
@@ -845,7 +845,7 @@ export async function searchFilter(
   headers = {
     ...headers,
     eventName: "FETCH_SEARCH_LISTINGS",
-    sessionId: sessionID,
+    sessionId: sessionID || "",
     userUniqueId: 0,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -869,7 +869,7 @@ export function getTinyUrl(sessionID) {
     ...headers,
     eventName: "GET_TINY_URL",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/tinyurl`;
@@ -886,7 +886,7 @@ export async function getExternalSellSourceData(payLoad, sessionID) {
     ...headers,
     eventName: "GET_EXTERNAL_SELL_SOURCE",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/device/price/externalsellsource`;
@@ -913,7 +913,7 @@ export function infoTemplates(sessionID) {
     ...headers,
     eventName: "FETCH_INFO_LINKS",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/getinfotemplates`;
@@ -938,7 +938,7 @@ export async function uploadUserProfilePic(
     eventName: "UPLOAD_PROFILE_PIC",
     "Content-Type": "multipart/form-data",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const MULTIPART_HEADER = { headers: { ...header } };
   return await Axios.post(
@@ -958,7 +958,7 @@ export function prepareShareLink(listingId, userUniqueId, sessionID) {
     ...headers,
     eventName: "PRODUCTINFO_SHARE_SELECTED",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
@@ -979,7 +979,7 @@ export function getAllNotificationByUserd(userUniqueId, sessionID) {
     ...headers,
     eventName: "FETCH_NOTIFICATIONS",
     userUniqueId: userUniqueId,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
     userUniqueId: 0,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -997,7 +997,7 @@ export function markAsRead(notificationId, userUniqueId, sessionID) {
     ...headers,
     eventName: "NOTIFICATION_SELECTED",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
@@ -1015,7 +1015,7 @@ export function deleteNotification(notificationId, userUniqueId, sessionID) {
     ...headers,
     eventName: "NOTIFICATION_REMOVED",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT =
@@ -1036,7 +1036,7 @@ export function contactUs(payLoad, sessionID) {
     ...headers,
     eventName: "CONTACT_US",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/global/contactus`;
@@ -1053,7 +1053,7 @@ export function fetchTopArticles(sessionID) {
     ...headers,
     eventName: "FETCH_TOP_ARTICLES",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/wordpress/blogs/info`;
@@ -1089,7 +1089,7 @@ export function shopByCategory(
     ...headers,
     eventName: "FETCH_TOP_ARTICLES",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
@@ -1105,7 +1105,7 @@ export async function marketingNameByModel(payload, sessionID) {
     ...headers,
     eventName: "FETCH_UPTO_PRICE",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
 
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -1120,7 +1120,7 @@ export async function deleteUserAccount(payload, sessionID) {
     ...headers,
     eventName: "DELETE_USER",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/login/user/delete`;
@@ -1134,7 +1134,7 @@ export function logEventInfo(eventName, sessionID) {
     ...headers,
     eventName: eventName,
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/cscglobal/logeventinfo`;
@@ -1162,7 +1162,7 @@ export async function reportIssue(
     ...headers,
     eventName: "REPORT_ISSUE",
     userUniqueId: 0,
-    sessionId: sessionID,
+    sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const API_ENDPOINT = `${URI}/api/v1/cscglobal/reportIssue?issueType=${issue}&description=${
