@@ -28,9 +28,11 @@ const ReportIssue = () => {
     { value: "Other", label: "Other" },
   ];
   const { user } = useAuthState();
-  const [email, setEmail] = useState("");
-  const [userName, setUserName] = useState("");
-  const [MobileNumber, setMobileNumber] = useState("");
+  const [email, setEmail] = useState(user?.userdetails?.email || "");
+  const [userName, setUserName] = useState(user?.userdetails?.userName || "");
+  const [MobileNumber, setMobileNumber] = useState(
+    user?.userdetails?.mobileNumber || ""
+  );
   const [page, setPage] = useState(0);
   const [issue, setIssue] = useState("");
   const [description, setDescription] = useState("");
@@ -70,6 +72,18 @@ const ReportIssue = () => {
   };
   const handleSubmitIssue = (e) => {
     e.preventDefault();
+    console.log(
+      "submit",
+      userName,
+      email,
+      MobileNumber,
+      issue,
+      make,
+      model,
+      storage,
+      description,
+      callTime
+    );
     if (
       userName !== "" &&
       email !== "" &&
@@ -319,7 +333,7 @@ const ReportIssue = () => {
           </section>
         </div>
       )}
-      {email && (
+      {make && model && storage && (
         <div className="flex px-4 ">
           <div class="flex items-center">
             <input
@@ -330,7 +344,7 @@ const ReportIssue = () => {
                 setCheck(!check);
               }}
               name="bordered-checkbox"
-              class="w-5 h-5"
+              class="w-5 h-5 "
             />
             <label
               for="bordered-checkbox-2"
@@ -341,18 +355,6 @@ const ReportIssue = () => {
           </div>
         </div>
       )}
-      <label>
-        <div className="px-4 flex items-center gap-2">
-          <input
-            type="checkbox"
-            className="appearance-none checked:bg-m-green  focus:ring-0 "
-            value={check}
-            onChange={(e) => {
-              setCheck(!check);
-            }}
-          />
-        </div>
-      </label>
       {!check ? (
         ""
       ) : (
@@ -381,7 +383,7 @@ const ReportIssue = () => {
           })}
         </>
       )}
-      {email && (
+      {make && model && storage && (
         <div className="flex justify-center py-8 px-4">
           <div
             className="bg-primary py-2 px-40 text-white rounded-lg font-Roboto-Semibold"

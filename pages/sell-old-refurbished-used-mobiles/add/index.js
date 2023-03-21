@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { getMakeModelLists, getModelLists } from "api-call";
 import Loader from "@/components/Loader/Loader";
 import NewAddListingForm from "@/components/Form/NewAddListingForm";
+import Cookies from "js-cookie";
 
 const index = ({ data }) => {
   const [makeAndModels, setMakeAndModels] = useState([]);
