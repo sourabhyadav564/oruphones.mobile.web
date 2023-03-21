@@ -1115,21 +1115,6 @@ export async function marketingNameByModel(payload, sessionID) {
   });
 }
 
-function checkSessionId(response) {
-  if (response?.data?.status === "SESSION_INVALID") {
-    getSessionId().then((sessionId) => {
-      if (sessionId?.status === "SUCCESS") {
-        Cookies.set("sessionId", sessionId.dataObject.sessionId);
-        const previousApi = response.config;
-        previousApi.headers.sessionId = sessionID;
-        Axios(previousApi).then((response) => {
-          return response.data;
-        });
-      }
-    });
-  }
-}
-
 export async function deleteUserAccount(payload, sessionID) {
   headers = {
     ...headers,
