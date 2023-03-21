@@ -5,15 +5,15 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { BannerSellHeading, BannerBuyHeading } from "../elements/Heading/heading";
+import { SwiperSlide } from "swiper/react";
 
 const slides = [
-  { name: "GIF", src: "https://d1tl44nezj10jx.cloudfront.net/web/assets/new_buy_sell.svg" },
-  { name: "how_to_sell", link: "#how_to_sell", src: "https://d1tl44nezj10jx.cloudfront.net/web/assets/how_to_sell.webp" },
-  { name: "how_to_buy", link: "#how_to_buy", src: "https://d1tl44nezj10jx.cloudfront.net/web/assets/how_to_buy.webp" },
+  { name: "GIF", link: "#jaja", src: "https://d1tl44nezj10jx.cloudfront.net/web/assets/new_buy_sell.svg", id: 1 },
   {
     name: "article_image",
     link: "https://www.oruphones.com/blog",
-    src: "https://d1tl44nezj10jx.cloudfront.net/web/assets/banner_article_image.webp",
+    src: "https://d1tl44nezj10jx.cloudfront.net/web/assets/blog_banner.webp",
+
   },
 ];
 
@@ -26,68 +26,136 @@ const TopCarousel = () => {
     setLoadingState(false);
   }, [router.pathname]);
   return (
+    // <section>
+    //   <CarouselWithPagination slidesPerView={1}>
+    //     {slides.map((item) => (
+    //       <div key={item.name}>
+    //         {item.link ?
+    //           (
+    //             <div></div>
+    //           ) :
+    //           (
+    //             <div className="flex justify-center relative">
+    //               <div style={{ margin: "4px 0px 28px 0px" }} className="">
+    //                 <Image
+    //                   src={item.src}
+    //                   alt={item.name}
+    //                   width={"420px"}
+    //                   height={'179px'}
+    //                   className="bannerShadow" data-aos="fade-down"
+    //                 />
+    //               </div>
+    //               <div
+    //                 className="w-full h-[91px] mb-1 absolute left-0 right-0 md:bottom-16 bottom-0  px-5   justify-center grid grid-cols-2 gap-2 "
+    //                 style={{ fontSize: 10 }}
+    //               >
+    //                 <div className="w-full flex rounded-[5px] m-auto justify-center bg-gradient-to-r from-[#141929] via-[#313648] to-[#43495C]" data-aos="zoom-out-up">
+    //                   <Link href="/sell-old-refurbished-used-mobiles/add">
+    //                     <div className="px-4 py-2  rounded-[5px] grid grid-rows-2 h-[91px]" >
+    //                       <p className="w-full text-white  leading-tight">
+    //                         <BannerSellHeading title="Sell your phone in few steps" />
+    //                       </p>
+    //                       <a className="grid h-[27px] py-1 rounded-[5px] border border-none text-center self-center bg-gradient-to-r from-[#F9C414] to-[#FFD95B]" onClick={() => setLoadingState(true)}>
+
+    //                         <BannerSellHeading title="Sell Now +" />
+    //                       </a>
+    //                     </div>
+    //                   </Link>
+    //                 </div>
+
+    //                 <div className="w-full flex rounded-[5px] shadow-sm shadow-gray-300 my-0.5 bg-gradient-to-r from-[#cbcfdc] via-[#e2e3ea] to-[#fff]" data-aos="zoom-out-up">
+    //                   <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
+    //                     <div className="p-4 grid grid-rows-2 h-[91px] m-auto  justify-center py-2 ">
+    //                       <p className="w-full text-black text-ex font-Medium leading-tight">
+    //                         <BannerSellHeading title=" Buy your dream phone in few steps " />
+    //                       </p>
+    //                       <a
+    //                         className="grid rounded-[5px] text-center py-1 self-center "
+    //                         onClick={() => setLoadingState(true)}
+    //                       >
+    //                         <span className="grid h-[27px] rounded-md bg-primary  text-white   border border-none pb-6 text-center py-1 self-center">
+    //                           <BannerBuyHeading title="Buy Now &gt;" />
+    //                         </span>
+    //                       </a>
+    //                     </div>
+    //                   </Link>
+
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           )}
+    //       </div>
+    //     ))}
+    //   </CarouselWithPagination>
+    //   <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
+    // </section>
+
     <section>
       <CarouselWithPagination slidesPerView={1}>
         {slides.map((item) => (
-          <div key={item.name}>
-            {item.link ?
-              (
-                <div></div>
-              ) :
-              (
-                <div className="flex justify-center relative">
-                  <div style={{ margin: "4px 0px 28px 0px" }} className="">
-                    <Image
-                      src={item.src}
-                      alt={item.name}
-                      width={"420px"}
-                      height={'179px'}
-                      className="bannerShadow" data-aos="fade-down"
-                    />
+          <SwiperSlide key={item.name}>
+            {item.link && item.id ? (
+              <div className="flex justify-center relative mb-3">
+                <div style={{ margin: "4px 0px 28px 0px" }} className="">
+                  <Image
+                    src={item.src}
+                    alt={item.name}
+                    width={"420px"}
+                    height={'179px'}
+                    className="bannerShadow" data-aos="fade-down"
+                  />
+                </div>
+                <div
+                  className="w-full h-[91px] mb-1 absolute left-0 right-0 md:bottom-16 bottom-0  px-5   justify-center grid grid-cols-2 gap-2 "
+                  style={{ fontSize: 10 }}
+                >
+                  <div className="w-full flex rounded-[5px] m-auto justify-center bg-gradient-to-r from-[#141929] via-[#313648] to-[#43495C]" data-aos="zoom-out-up">
+                    <Link href="/sell-old-refurbished-used-mobiles/add">
+                      <div className="px-4 py-2  rounded-[5px] grid grid-rows-2 h-[91px]" >
+                        <p className="w-full text-white  leading-tight">
+                          <BannerSellHeading title="Sell your phone in few steps" />
+                        </p>
+                        <a className="grid h-[27px] py-1 rounded-[5px] border border-none text-center self-center bg-gradient-to-r from-[#F9C414] to-[#FFD95B]" onClick={() => setLoadingState(true)}>
+
+                          <BannerSellHeading title="Sell Now +" />
+                        </a>
+                      </div>
+                    </Link>
                   </div>
-                  <div
-                    className="w-full h-[91px] mb-1 absolute left-0 right-0 md:bottom-16 bottom-0  px-5   justify-center grid grid-cols-2 gap-2 "
-                    style={{ fontSize: 10 }}
-                  >
-                    <div className="w-full flex rounded-[5px] m-auto justify-center bg-gradient-to-r from-[#141929] via-[#313648] to-[#43495C]" data-aos="zoom-out-up">
-                      <Link href="/sell-old-refurbished-used-mobiles/add">
-                        <div className="px-4 py-2  rounded-[5px] grid grid-rows-2 h-[91px]" >
-                          <p className="w-full text-white  leading-tight">
-                            <BannerSellHeading title="Sell your phone in few steps" />
-                          </p>
-                          <a className="grid h-[27px] py-1 rounded-[5px] border border-none text-center self-center bg-gradient-to-r from-[#F9C414] to-[#FFD95B]" onClick={() => setLoadingState(true)}>
-                            
-                            <BannerSellHeading title="Sell Now +" />
-                          </a>
-                        </div>
-                      </Link>
-                    </div>
 
-                    <div className="w-full flex rounded-[5px] shadow-sm shadow-gray-300 my-0.5 bg-gradient-to-r from-[#cbcfdc] via-[#e2e3ea] to-[#fff]" data-aos="zoom-out-up">
-                      <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
-                        <div className="p-4 grid grid-rows-2 h-[91px] m-auto  justify-center py-2 ">
-                          <p className="w-full text-black text-ex font-Medium leading-tight">
-                            <BannerSellHeading title=" Buy your dream phone in few steps " />
-                          </p>
-                          <a
-                            className="grid rounded-[5px] text-center py-1 self-center "
-                            onClick={() => setLoadingState(true)}
-                          >
-                            <span className="grid h-[27px] rounded-md bg-primary  text-white   border border-none pb-6 text-center py-1 self-center">
-                              <BannerBuyHeading title="Buy Now &gt;" />
-                            </span>
-                          </a>
-                        </div>
-                      </Link>
+                  <div className="w-full flex rounded-[5px] shadow-sm shadow-gray-300 my-0.5 bg-gradient-to-r from-[#cbcfdc] via-[#e2e3ea] to-[#fff]" data-aos="zoom-out-up">
+                    <Link href="/product/buy-old-refurbished-used-mobiles/bestdealnearyou">
+                      <div className="p-4 grid grid-rows-2 h-[91px] m-auto  justify-center py-2 ">
+                        <p className="w-full text-black text-ex font-Medium leading-tight">
+                          <BannerSellHeading title=" Buy your dream phone in few steps " />
+                        </p>
+                        <a
+                          className="grid rounded-[5px] text-center py-1 self-center "
+                          onClick={() => setLoadingState(true)}
+                        >
+                          <span className="grid h-[27px] rounded-md bg-primary  text-white   border border-none pb-6 text-center py-1 self-center">
+                            <BannerBuyHeading title="Buy Now &gt;" />
+                          </span>
+                        </a>
+                      </div>
+                    </Link>
 
-                    </div>
                   </div>
                 </div>
-              )}
-          </div>
+              </div>
+            ) : (
+              <Link href={item.link}>
+                <a className="flex justify-center py-2 relative mix-blend-overlay">
+                  <img src={item.src} alt={item.name} width={617} height={309} className="absolute" >
+                  </img>
+                  <div className="bg-gradient-to-t from-white to-transparent -z-10 absolute">
+                  </div>
+                </a>
+              </Link>
+            )}
+          </SwiperSlide>
         ))}
       </CarouselWithPagination>
-      <LoadingStatePopup open={loadingState} setOpen={setLoadingState} />
     </section>
   );
 };

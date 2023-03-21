@@ -4,6 +4,7 @@ import "../../node_modules/swiper/swiper-bundle.css";
 function BasicCarousel({ children, ...rest }) {
   return (
     <Swiper
+    
       id="main"
       tag="div"
       wrapperTag="ul"
