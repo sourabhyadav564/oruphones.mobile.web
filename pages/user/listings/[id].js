@@ -6,19 +6,21 @@ import dynamic from "next/dynamic";
 import Header2 from "@/components/Header/header2";
 import ImageSlider from "@/components/ImageSlider";
 
-
-import { ProductPriceHeading, ProductNameHeading } from "@/components/elements/Heading/heading";
+import {
+  ProductPriceHeading,
+  ProductNameHeading,
+} from "@/components/elements/Heading/heading";
 import { CardHeading2 } from "@/components/elements/CardHeading/cardheading";
 
-import { activateListing, deleteListing, getListingDetails } from "api-call";
+import { activateListing, getListingDetails } from "api-call";
 import IconLabelValue from "@/components/IconLabelValue";
 import { getAccessoriesText, numberWithCommas } from "@/utils/util";
 import Cookies from "js-cookie";
 import VerifyFlowPopup from "@/components/Popup/VerifyFlowPopup";
 import Footer from "@/components/Footer";
 
-import  Star1 from "@/assets/star1.svg";
-import  Star2 from "@/assets/star2.svg";
+import Star1 from "@/assets/star1.svg";
+import Star2 from "@/assets/star2.svg";
 
 import VerifiedIcon from "@/components/VerifiedIcon";
 const PauseListing = dynamic(() => import("@/components/Popup/PauseListing"));
@@ -35,9 +37,6 @@ const ListingActivated = dynamic(() =>
 const ViewReport = dynamic(() => import("@/components/ViewReport"));
 const ViewReport1 = dynamic(() => import("@/components/ViewReport1"));
 
-
-
-
 function ListingDeatils({ data, id }) {
   const [openConditionInfo, setOpenConditionInfo] = useState(false);
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
@@ -45,7 +44,7 @@ function ListingDeatils({ data, id }) {
   const [openDeleteListing, setOpenDeleteListing] = useState(false);
   const [openVerifyListing, setOpenVerifyListing] = useState(false);
   const [openActivateListing, setOpenActivateListing] = useState(false);
-  const [reason,setReason] = useState("");
+  const [reason, setReason] = useState("");
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -58,20 +57,29 @@ function ListingDeatils({ data, id }) {
       listingId: id,
       userUniqueId: Cookies.get("userUniqueId"),
     };
-    activateListing(payLoad).then(
-      (res) => {
-        setReason(res?.reason)
-        setOpenActivateListing(true);
-      }
-    );
+    activateListing(payLoad, Cookies.get("sessionId")).then((res) => {
+      setReason(res?.reason);
+      setOpenActivateListing(true);
+    });
   };
 
-  let filled = data?.deviceCondition?.toLowerCase() == "Like New".toLowerCase() ? 5 : data?.deviceCondition?.toLowerCase() == "Excellent".toLowerCase() ? 4 : data?.deviceCondition?.toLowerCase() == "Good".toLowerCase() ? 3 : data?.deviceCondition?.toLowerCase() == "Fair".toLowerCase() ? 2 : data?.deviceCondition?.toLowerCase() == "Needs Repair".toLowerCase() ? 1 : 5;
+  let filled =
+    data?.deviceCondition?.toLowerCase() == "Like New".toLowerCase()
+      ? 5
+      : data?.deviceCondition?.toLowerCase() == "Excellent".toLowerCase()
+      ? 4
+      : data?.deviceCondition?.toLowerCase() == "Good".toLowerCase()
+      ? 3
+      : data?.deviceCondition?.toLowerCase() == "Fair".toLowerCase()
+      ? 2
+      : data?.deviceCondition?.toLowerCase() == "Needs Repair".toLowerCase()
+      ? 1
+      : 5;
   let iconToShow = (index) => {
     if (index < filled) {
-      return  <Image src={Star2} width={20} height={20}/>
+      return <Image src={Star2} width={20} height={20} />;
     } else {
-      return <Image src={Star1} width={20} height={20}/> 
+      return <Image src={Star1} width={20} height={20} />;
     }
   };
 
@@ -81,15 +89,23 @@ function ListingDeatils({ data, id }) {
         <div className="absolute right-4 top-3">
           <Link href={`/sell-old-refurbished-used-mobiles/edit/${id}`}>
             <a>
-              <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/edit.svg"} alt={data?.marketingName} width={26} height={21} className="opacity-90" />
+              <Image
+                src={"https://d1tl44nezj10jx.cloudfront.net/assets/edit.svg"}
+                alt={data?.marketingName}
+                width={26}
+                height={21}
+                className="opacity-90"
+              />
             </a>
           </Link>
         </div>
       </Header2>
       <main className="mb-4 mt-16">
-        {data?.verified && <div className="px-4 absolute z-10">
-          <VerifiedIcon width={70} />
-        </div>}
+        {data?.verified && (
+          <div className="px-4 absolute z-10">
+            <VerifiedIcon width={70} />
+          </div>
+        )}
         <div className="px-4">
           <ImageSlider
             images={
@@ -106,7 +122,9 @@ function ListingDeatils({ data, id }) {
               <ProductPriceHeading title={data?.listingPrice} />
             </div>
             <div className="flex justify-between items-center">
-              <h1 className='font-Roboto-Regular text-qx text-[#000000]' >{data?.marketingName}</h1>
+              <h1 className="font-Roboto-Regular text-qx text-[#000000]">
+                {data?.marketingName}
+              </h1>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="17"
@@ -121,38 +139,47 @@ function ListingDeatils({ data, id }) {
               </svg>
             </div>
             <div className="w-full flex items-center mt-4 mb-jx gap-2">
-              <div className="w-11/12 h-[40px]  flex items-center m-auto rounded-[5px] justify-center opacity-bg-50" style={{ backgroundColor: "#F3F3F3" }}>
+              <div
+                className="w-11/12 h-[40px]  flex items-center m-auto rounded-[5px] justify-center opacity-bg-50"
+                style={{ backgroundColor: "#F3F3F3" }}
+              >
                 <p className="py-jx flex text-[#000000] space-x-1 font-Roboto-Light text-bx opacity-100">
-                  <span className="self-center"> Varient:{" "} </span>
+                  <span className="self-center"> Varient: </span>
                   <CardHeading2 title={data?.deviceStorage} />
-                 
                 </p>
               </div>
-              <div className="w-full grid grid-cols-2  rounded-[5px] px-4 h-[40px]  opacity-bg-50" style={{ backgroundColor: "#F3F3F3" }}
+              <div
+                className="w-full grid grid-cols-2  rounded-[5px] px-4 h-[40px]  opacity-bg-50"
+                style={{ backgroundColor: "#F3F3F3" }}
                 onClick={() => setOpenConditionInfo(true)}
               >
                 <div className="m-auto justify-center ">
-                  <span
-                    className="font-Roboto-Light text-bx opacity-100 text-[#000] flex leading-tight items-center"
-                  >
+                  <span className="font-Roboto-Light text-bx opacity-100 text-[#000] flex leading-tight items-center">
                     Condition{" "}
                   </span>
                   <CardHeading2 title={data?.deviceCondition} />
                 </div>
                 <div className="flex text-bx space-x-[2.5px] m-auto justify-center ">
-                  { }
+                  {}
                   {Array(5)
                     .fill()
                     .map((_, index) => iconToShow(index))}
                 </div>
-
               </div>
             </div>
-            <h2 className="text-black text-ex border-b-2 pb-1 font-Light my-3 mt-5">Device Info</h2>
+            <h2 className="text-black text-ex border-b-2 pb-1 font-Light my-3 mt-5">
+              Device Info
+            </h2>
             <div className="grid grid-cols-2 gap-4  ">
               <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
-              <IconLabelValue label="storage" value={data?.deviceStorage || "--"} />
-              <IconLabelValue label="location" value={data?.listingLocation || "--"} />
+              <IconLabelValue
+                label="storage"
+                value={data?.deviceStorage || "--"}
+              />
+              <IconLabelValue
+                label="location"
+                value={data?.listingLocation || "--"}
+              />
               <IconLabelValue label="warranty" value={data?.warranty || "--"} />
               <IconLabelValue
                 label="Accessories"
@@ -164,9 +191,11 @@ function ListingDeatils({ data, id }) {
           <div className="mt-4 px-4 w-full">
             <ViewReport data={data} defaultOpen={false} />
           </div>
-          {data?.verified && <div className="mt-4 px-4 w-full">
-            <ViewReport1 data={data} defaultOpen={false} />
-          </div>}
+          {data?.verified && (
+            <div className="mt-4 px-4 w-full">
+              <ViewReport1 data={data} defaultOpen={false} />
+            </div>
+          )}
           <Fragment>
             {data?.status.toUpperCase() === "ACTIVE" ? (
               data?.verified ? (
@@ -259,7 +288,7 @@ function ListingDeatils({ data, id }) {
           open={openActivateListing}
           setOpen={setOpenActivateListing}
           reason={reason}
-          setReason={setReason} 
+          setReason={setReason}
         />
       )}
       {openDeleteListing && (
@@ -308,8 +337,9 @@ export async function getServerSideProps({ req, res, query }) {
 
 const YellowButton = ({ className, children, ...rest }) => (
   <button
-    className={`p-2 mb-4 text-yellow-fb border border-yellow-fb w-full rounded uppercase ${className || ""
-      }`}
+    className={`p-2 mb-4 text-yellow-fb border border-yellow-fb w-full rounded uppercase ${
+      className || ""
+    }`}
     {...rest}
   >
     {children}
@@ -318,8 +348,9 @@ const YellowButton = ({ className, children, ...rest }) => (
 
 const RedButton = ({ className, children, ...rest }) => (
   <button
-    className={`p-2 mb-4 text-red border border-red w-full rounded uppercase ${className || ""
-      }`}
+    className={`p-2 mb-4 text-red border border-red w-full rounded uppercase ${
+      className || ""
+    }`}
     {...rest}
   >
     {children}
@@ -328,8 +359,9 @@ const RedButton = ({ className, children, ...rest }) => (
 
 const PrimayButton = ({ className, children, ...rest }) => (
   <button
-    className={`p-2 mb-4 text-primary border border-primary w-full rounded uppercase ${className || ""
-      }`}
+    className={`p-2 mb-4 text-primary border border-primary w-full rounded uppercase ${
+      className || ""
+    }`}
     {...rest}
   >
     {children}

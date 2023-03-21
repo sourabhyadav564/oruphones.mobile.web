@@ -8,7 +8,7 @@ import router from "next/router";
 import { useAuthState } from "providers/AuthProvider";
 import Checkbox from "@/components/Form/Checkbox";
 import TermsconditionPopup from "@/components/Popup/TermsconditionPopup";
-
+import Cookies from "js-cookie";
 
 function Login() {
   const login = true;
@@ -41,8 +41,12 @@ function Login() {
     e.preventDefault();
     if (!formData.mobile || formData?.mobile?.length !== 10) {
       setError({ is: true, message: "Please enter valid mobile number" });
-    } else if(formData?.mobile?.length == 10){
-      const res = await generateOTP(formData?.countryCode, formData.mobile);
+    } else if (formData?.mobile?.length == 10) {
+      const res = await generateOTP(
+        formData?.countryCode,
+        formData.mobile,
+        Cookies.get("sessionId")
+      );
       setResponse(res);
       setStep(2);
     }
@@ -63,7 +67,12 @@ function Login() {
     <main className="bg-loginBg bg-contain md:pb-10 pt-16 min-h-screen relative">
       <section className="container px-8 flex flex-col items-center space-y-8 max-w-sm">
         <div className="mt-14" data-aos="fade-down">
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"} alt={"Logo"} width={108} height={53} />
+          <Image
+            src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"}
+            alt={"Logo"}
+            width={108}
+            height={53}
+          />
         </div>
         {step === 1 ? (
           <form
@@ -73,7 +82,9 @@ function Login() {
           >
             <div className="w-full my-8 relative ">
               <p className="text-lg font-bold px-1">Welcome</p>
-              <h1 className="text-xs text-gray-400 font-medium pb-3 px-1 ">Sign in to continue </h1>
+              <h1 className="text-xs text-gray-400 font-medium pb-3 px-1 ">
+                Sign in to continue{" "}
+              </h1>
               <Input
                 name="mobile"
                 pattern="[0-9]*"
@@ -84,7 +95,7 @@ function Login() {
                   handleChange(e);
                 }}
                 placeholder={"Mobile Number"}
-                style={{ fontSize: '13px' }}
+                style={{ fontSize: "13px" }}
               />
               {error?.is && (
                 <div>
@@ -98,7 +109,8 @@ function Login() {
             <div className="w-full space-y-4">
               <div className="w-full grid gap-2">
                 <button
-                  className="bg-primary rounded py-3 text-white text-sm w-full disabled:opacity-60" data-aos="fade-down"
+                  className="bg-primary rounded py-3 text-white text-sm w-full disabled:opacity-60"
+                  data-aos="fade-down"
                   disabled={!formData?.termsAndCondition}
                 >
                   Sign In

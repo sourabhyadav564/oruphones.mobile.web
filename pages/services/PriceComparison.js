@@ -31,6 +31,7 @@ import useFilterOptions from "@/hooks/useFilterOptions";
 import OtherListingCard from "@/components/Card/OtherListingCard";
 import NoMatch from "@/components/NoMatch";
 import ProductSkeletonCard from "@/components/Card/ProductSkeletonCard";
+import Cookies from "js-cookie";
 
 function Index() {
   const [defaultBrand, setDefaultBrand] = useRecoilState(addListingBrandState);
@@ -129,7 +130,12 @@ function Index() {
   const handleSelectChange = async (name) => {
     if (name === "make") {
       setMake(selectedBrand);
-      const models3 = await getModelLists("", "", selectedBrand, "");
+      const models3 = await getModelLists(
+        Cookies.get("userUniqueId") || 0,
+        Cookies.get("sessionId"),
+        selectedBrand,
+        ""
+      );
       setMktNameOpt(models3?.dataObject[0]?.models);
     } else if (name === "model") {
       setModel(selectedModel);
@@ -174,9 +180,11 @@ function Index() {
         model != undefined &&
         storage != undefined
       ) {
-        getExternalSellSourceData(payload).then((response) => {
-          setGetExternalSellerData(response?.dataObject);
-        });
+        getExternalSellSourceData(payload, Cookies.get("sessionId")).then(
+          (response) => {
+            setGetExternalSellerData(response?.dataObject);
+          }
+        );
       }
     }
   }, [make, model, storage]);
@@ -206,12 +214,14 @@ function Index() {
         verified: "no",
       };
       if (make && model && storage) {
-        getRecommandedPrice(reqParams).then(({ dataObject }) => {
-          setDefaultBrand(make);
-          setDefaultModel(model);
-          setDefaultStorage(storage);
-          setRecommandedPrice(dataObject);
-        });
+        getRecommandedPrice(reqParams, Cookies.get("sessionId")).then(
+          ({ dataObject }) => {
+            setDefaultBrand(make);
+            setDefaultModel(model);
+            setDefaultStorage(storage);
+            setRecommandedPrice(dataObject);
+          }
+        );
       }
     }
   }, [make, model, storage]);

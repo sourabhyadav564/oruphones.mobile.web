@@ -15,6 +15,7 @@ import LoadingStatePopup from "../Popup/LoadingStatePopup";
 import { useRouter } from "next/router";
 import { getUserListings } from "api-call";
 import { useAuthState } from "providers/AuthProvider";
+import Cookies from "js-cookie";
 
 function BestDealCard({
   openConditionInfo,
@@ -38,11 +39,12 @@ function BestDealCard({
     if (user && user?.userdetails?.userUniqueId && listings.length === 0) {
       localStorage.getItem("listings")
         ? localStorage.getItem("listings")
-        : getUserListings(user?.userdetails?.userUniqueId).then(
-            (res) => {
-              setListings(res.dataObject.map((item2) => item2.listingId));
-            }
-          );
+        : getUserListings(
+            user?.userdetails?.userUniqueId,
+            Cookies.get("sessionId")
+          ).then((res) => {
+            setListings(res.dataObject.map((item2) => item2.listingId));
+          });
     }
   }, []);
 

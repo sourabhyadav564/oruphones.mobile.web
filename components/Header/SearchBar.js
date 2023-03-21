@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import Search from "@/assets/search.svg";
 import Spinner from "../Loader/Spinner";
 import Image from "next/image";
+import Cookies from "js-cookie";
 
 function SearchBar({ className }) {
   const [searchResults, setSearchResults] = useState();
@@ -28,7 +29,7 @@ function SearchBar({ className }) {
     let timeOut = setTimeout(() => {
       if (input.trim().length > 2) {
         showRecentSearch = false;
-        getSearchResults(input).then((res) => {
+        getSearchResults(input, Cookies.get("sessionId")).then((res) => {
           if (res && res.status === "SUCCESS") {
             setSearchResults(res.dataObject);
           }

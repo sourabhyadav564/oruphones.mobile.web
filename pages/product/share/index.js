@@ -1,15 +1,19 @@
 import { fetchWebLinkByShareId } from "api-call";
+import Cookies from "js-cookie";
 
-function Share(){
-     return(<></>);
+function Share() {
+  return <></>;
 }
 
 export default Share;
 
-
-export async function getServerSideProps({query }) {
-  try{
-    const listingInfo = await fetchWebLinkByShareId(query.lid);
+export async function getServerSideProps({ query }) {
+  const { cookies } = req.cookies;
+  try {
+    const listingInfo = await fetchWebLinkByShareId(
+      query.lid,
+      cookies.sessionId
+    );
     return {
       redirect: {
         destination: `/product/buy-old-refurbished-used-mobiles/${listingInfo?.dataObject.make}/${listingInfo?.dataObject.marketingName}/${listingInfo?.dataObject.listingId}?isOtherVendor=N`,
@@ -17,7 +21,7 @@ export async function getServerSideProps({query }) {
       },
       props: {},
     };
-  }catch(error){
+  } catch (error) {
     return {
       redirect: {
         destination: `/`,
@@ -25,6 +29,4 @@ export async function getServerSideProps({query }) {
       },
     };
   }
-    
-  }
-  
+}

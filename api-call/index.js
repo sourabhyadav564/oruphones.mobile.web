@@ -3,13 +3,13 @@ import getServerURL from "@/utils/getServerURL";
 import Cookies from "js-cookie";
 
 const URI = getServerURL();
-let sessionID = Cookies.get("sessionId");
+
 let headers = {
   "Content-Type": "application/json",
   srcFrom: "Mobile Web",
   eventName: "NA",
   userUniqueId: 0,
-  sessionId: sessionID,
+  sessionId: Cookies.get("sessionId"),
   devicePlatform: "Mobile Web",
   location:
     typeof window !== "undefined" ? localStorage.getItem("usedLocation") : "",
@@ -32,11 +32,12 @@ Axios.interceptors.response.use(
       headers = {
         ...headers,
         eventName: "NA",
-        sessionId: sessionID,
+        sessionId: Cookies.get("sessionId"),
         userUniqueId: 0,
       };
       const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
       const result = await Axios.get(API_ENDPOINT, { headers: { ...headers } });
+      console.log("result", result?.data?.reason);
       if (result?.data?.reason != "Session already exist") {
         if (typeof window !== "undefined") {
           localStorage.setItem(
@@ -50,6 +51,11 @@ Axios.interceptors.response.use(
           clearInterval(interval);
         }, 1000);
         // window.location.reload();
+      } else {
+        // const interval = setInterval(() => {
+        // window.location.reload();
+        // clearInterval(interval);
+        // }, 1000);
       }
     }
     return response;
@@ -69,7 +75,7 @@ export const getAboutUsContent = async () => {
   );
 };
 
-export function getSessionId() {
+export function getSessionId(sessionID) {
   headers = {
     ...headers,
     eventName: "SESSION_CREATED",
@@ -86,7 +92,7 @@ export function getSessionId() {
   );
 }
 
-export function getSearchResults(q) {
+export function getSearchResults(q, sessionID) {
   headers = {
     ...headers,
     eventName: "SEARCH_TEXT_SUGGESTIONS",
@@ -102,7 +108,7 @@ export function getSearchResults(q) {
     (err) => {}
   );
 }
-export async function generateOTP(countryCode, mobileNumber) {
+export async function generateOTP(countryCode, mobileNumber, sessionID) {
   headers = {
     ...headers,
     eventName: "SIGNIN_REQUEST",
@@ -116,7 +122,7 @@ export async function generateOTP(countryCode, mobileNumber) {
     return response.data;
   });
 }
-export async function resendOTP(countryCode, mobileNumber) {
+export async function resendOTP(countryCode, mobileNumber, sessionID) {
   headers = {
     ...headers,
     eventName: "RESEND_OTP",
@@ -130,7 +136,7 @@ export async function resendOTP(countryCode, mobileNumber) {
     return response.data;
   });
 }
-export async function validateUser(countryCode, mobileNumber, OTP) {
+export async function validateUser(countryCode, mobileNumber, OTP, sessionID) {
   headers = {
     ...headers,
     eventName: "VERIFY_OTP",
@@ -143,7 +149,7 @@ export async function validateUser(countryCode, mobileNumber, OTP) {
     return response.data;
   });
 }
-export async function createUser(countryCode, mobileNumber) {
+export async function createUser(countryCode, mobileNumber, sessionID) {
   headers = {
     ...headers,
     eventName: "SIGNUP_REQUEST",
@@ -160,7 +166,7 @@ export async function createUser(countryCode, mobileNumber) {
     return response.data;
   });
 }
-export async function getUserDetails(countryCode, mobileNumber) {
+export async function getUserDetails(countryCode, mobileNumber, sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_USER_DETAILS",
@@ -173,7 +179,7 @@ export async function getUserDetails(countryCode, mobileNumber) {
     return response.data;
   });
 }
-export async function getUserDetailsViaUUID(uuid) {
+export async function getUserDetailsViaUUID(uuid, sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_USER_DETAILS_VIA_UUID",
@@ -226,7 +232,7 @@ export async function getModelLists(
   });
 }
 
-export async function uploadImage(data, params) {
+export async function uploadImage(data, params, sessionID) {
   const url = `${URI}/api/v1/device/uploadimage?deviceFace=${params.deviceFace}&deviceStorage=${params.deviceStorage}&make=${params.make}&model=${params.model}&userUniqueId=${params.userUniqueId}`;
   var header = {
     ...headers,
@@ -241,7 +247,7 @@ export async function uploadImage(data, params) {
     return response.data;
   });
 }
-export async function getRecommandedPrice(data) {
+export async function getRecommandedPrice(data, sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_RECOMMENDED_PRICE",
@@ -255,7 +261,7 @@ export async function getRecommandedPrice(data) {
     return response.data;
   });
 }
-export async function saveLisiting(payload) {
+export async function saveLisiting(payload, sessionID) {
   headers = {
     ...headers,
     eventName: "ADDLISTING_ADD_SUCCESS",
@@ -269,7 +275,7 @@ export async function saveLisiting(payload) {
   });
 }
 
-export async function updateLisiting(payload) {
+export async function updateLisiting(payload, sessionID) {
   headers = {
     ...headers,
     eventName: "EDITLISTING_EDIT_SUCCESS",
@@ -283,7 +289,7 @@ export async function updateLisiting(payload) {
   });
 }
 
-export async function deleteListing(params) {
+export async function deleteListing(params, sessionID) {
   headers = {
     ...headers,
     eventName: "MYLISTINGS_DELETE_SELECTED",
@@ -300,7 +306,7 @@ export async function deleteListing(params) {
   );
 }
 
-export async function activateListing(params) {
+export async function activateListing(params, sessionID) {
   headers = {
     ...headers,
     eventName: "MYLISTINGS_ACTIVATENOW_SELECTED",
@@ -317,7 +323,7 @@ export async function activateListing(params) {
   );
 }
 
-export async function pauseListing(params) {
+export async function pauseListing(params, sessionID) {
   headers = {
     ...headers,
     eventName: "MYLISTINGS_PAUSE_SELECTED",
@@ -334,7 +340,7 @@ export async function pauseListing(params) {
   );
 }
 
-export async function getUserListings(userUniqueId) {
+export async function getUserListings(userUniqueId, sessionID) {
   headers = {
     ...headers,
     eventName: "MYLISTINGS_VIEW_LISTING",
@@ -373,8 +379,13 @@ export async function getListingDetails(listingid, userUniqueId, sessionId) {
   );
 }
 
-export async function fetchBrands() {
-  headers = { ...headers, eventName: `GET_ALL_BRANDS`, userUniqueId: 0 };
+export async function fetchBrands(sessionID) {
+  headers = {
+    ...headers,
+    eventName: `GET_ALL_BRANDS`,
+    userUniqueId: 0,
+    sessionId: sessionID,
+  };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/master/brands`;
   return await Axios.get(url, DEFAULT_HEADER).then((response) => {
@@ -382,7 +393,7 @@ export async function fetchBrands() {
   });
 }
 
-export async function fetchTopsellingmodels() {
+export async function fetchTopsellingmodels(sessionID) {
   headers = {
     ...headers,
     eventName: `GET_TOP_SELLING_MODELS`,
@@ -432,7 +443,8 @@ export async function fetchByMarketingName(
   marketingName,
   userUniqueId,
   pageNumber,
-  sortBy
+  sortBy,
+  sessionID
 ) {
   headers = {
     ...headers,
@@ -482,7 +494,11 @@ export async function detailWithUserInfo(
   });
 }
 
-export async function fetchSellerMobileNumber(listingid, userUniqueId) {
+export async function fetchSellerMobileNumber(
+  listingid,
+  userUniqueId,
+  sessionID
+) {
   headers = {
     ...headers,
     eventName: "GET_SELLER_CONTACT",
@@ -503,7 +519,7 @@ export async function fetchSellerMobileNumber(listingid, userUniqueId) {
   );
 }
 
-export async function getGlobalCities(searchText) {
+export async function getGlobalCities(searchText, sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_CITIES",
@@ -518,7 +534,7 @@ export async function getGlobalCities(searchText) {
   });
 }
 
-export async function shopByPrice() {
+export async function shopByPrice(sessionID) {
   headers = {
     ...headers,
     eventName: "GET_SHOP_BY_PRICE",
@@ -538,7 +554,8 @@ export async function shopByPriceRange(
   minPrice,
   listingid,
   pageNumber,
-  sortBy
+  sortBy,
+  sessionID
 ) {
   const url =
     `${URI}/api/v1/home/shopbyprice/listmodel?end=` +
@@ -569,7 +586,8 @@ export async function bestDealNearByYou(
   location,
   userUniqueId,
   pageNumber,
-  sortBy
+  sortBy,
+  sessionID
 ) {
   const url =
     `${URI}/api/v1/home/listings/best/nearme?location=` +
@@ -595,7 +613,7 @@ export async function bestDealNearByYou(
   );
 }
 
-export async function addUserSearchLocation(payload) {
+export async function addUserSearchLocation(payload, sessionID) {
   headers = {
     ...headers,
     eventName: "LOCATION_CHANGED_SUCCESS",
@@ -612,7 +630,7 @@ export async function addUserSearchLocation(payload) {
   );
 }
 
-export async function addUserProfileLocation(payload) {
+export async function addUserProfileLocation(payload, sessionID) {
   headers = {
     ...headers,
     eventName: "PROFILE_LOCATION_ADDED",
@@ -629,7 +647,7 @@ export async function addUserProfileLocation(payload) {
   );
 }
 
-export async function updateAddress(payload) {
+export async function updateAddress(payload, sessionID) {
   headers = {
     ...headers,
     eventName: "UPDATE_ADDRESS_SUCCESS",
@@ -646,7 +664,7 @@ export async function updateAddress(payload) {
   );
 }
 
-export async function addFavotie(payload) {
+export async function addFavotie(payload, sessionID) {
   headers = {
     ...headers,
     eventName: "FAVORITE_ADD_SUCCESS",
@@ -663,7 +681,7 @@ export async function addFavotie(payload) {
   );
 }
 
-export async function removeFavotie(listingId, userUniqueId) {
+export async function removeFavotie(listingId, userUniqueId, sessionID) {
   headers = {
     ...headers,
     eventName: "FAVORITE_REMOVE_SUCCESS",
@@ -688,7 +706,8 @@ export async function bestDealNearYouAll(
   location,
   userUniqueId,
   pageNumber,
-  sortBy
+  sortBy,
+  sessionID
 ) {
   headers = {
     ...headers,
@@ -697,6 +716,7 @@ export async function bestDealNearYouAll(
     sessionId: sessionID,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
+  console.log("url", sessionID);
   const url =
     `${URI}/api/v1/device/listings/best/nearall?userLocation=` +
     location +
@@ -714,7 +734,7 @@ export async function bestDealNearYouAll(
   );
 }
 
-export async function updateUserProfileDetails(payload) {
+export async function updateUserProfileDetails(payload, sessionID) {
   headers = {
     ...headers,
     eventName: "UPDATE_USER_DETAILS",
@@ -731,7 +751,7 @@ export async function updateUserProfileDetails(payload) {
   );
 }
 
-export async function fetchMyFavorites(userUniqueId) {
+export async function fetchMyFavorites(userUniqueId, sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_FAVORITE_LIST",
@@ -752,7 +772,12 @@ export async function fetchMyFavorites(userUniqueId) {
   );
 }
 
-export async function fetchSimilarProducts(payLoad, userUniqueId, pageNumber) {
+export async function fetchSimilarProducts(
+  payLoad,
+  userUniqueId,
+  pageNumber,
+  sessionID
+) {
   headers = {
     ...headers,
     eventName: "FETCH_SIMILAR_PRODUCTS",
@@ -772,7 +797,7 @@ export async function fetchSimilarProducts(payLoad, userUniqueId, pageNumber) {
   );
 }
 
-export async function sendverification(listingid, userUniqueId) {
+export async function sendverification(listingid, userUniqueId, sessionID) {
   headers = {
     ...headers,
     eventName: "REQUEST_VERIFICATION",
@@ -793,7 +818,7 @@ export async function sendverification(listingid, userUniqueId) {
   );
 }
 
-export function getShowSerchFilters() {
+export function getShowSerchFilters(sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_SEARCH_FILTERS",
@@ -839,7 +864,7 @@ export async function searchFilter(
   );
 }
 
-export function getTinyUrl() {
+export function getTinyUrl(sessionID) {
   headers = {
     ...headers,
     eventName: "GET_TINY_URL",
@@ -856,7 +881,7 @@ export function getTinyUrl() {
   );
 }
 
-export async function getExternalSellSourceData(payLoad) {
+export async function getExternalSellSourceData(payLoad, sessionID) {
   headers = {
     ...headers,
     eventName: "GET_EXTERNAL_SELL_SOURCE",
@@ -873,7 +898,7 @@ export async function getExternalSellSourceData(payLoad) {
   );
 }
 
-export function fetchWebLinkByShareId(shareId) {
+export function fetchWebLinkByShareId(shareId, sessionID) {
   const API_ENDPOINT = `${URI}/api/v1/global/share/weblink?shareId=` + shareId;
   return Axios.get(API_ENDPOINT, DEFAULT_HEADER).then(
     (response) => {
@@ -883,7 +908,7 @@ export function fetchWebLinkByShareId(shareId) {
   );
 }
 
-export function infoTemplates() {
+export function infoTemplates(sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_INFO_LINKS",
@@ -900,7 +925,11 @@ export function infoTemplates() {
   );
 }
 
-export async function uploadUserProfilePic(userProfilePicData, userUniqueId) {
+export async function uploadUserProfilePic(
+  userProfilePicData,
+  userUniqueId,
+  sessionID
+) {
   const API_ENDPOINT =
     `${URI}/api/v1/device/uploadimage?deviceFace=profilePic&userUniqueId=` +
     userUniqueId;
@@ -924,7 +953,7 @@ export async function uploadUserProfilePic(userProfilePicData, userUniqueId) {
   );
 }
 
-export function prepareShareLink(listingId, userUniqueId) {
+export function prepareShareLink(listingId, userUniqueId, sessionID) {
   headers = {
     ...headers,
     eventName: "PRODUCTINFO_SHARE_SELECTED",
@@ -963,7 +992,7 @@ export function getAllNotificationByUserd(userUniqueId, sessionId) {
   );
 }
 
-export function markAsRead(notificationId, userUniqueId) {
+export function markAsRead(notificationId, userUniqueId, sessionID) {
   headers = {
     ...headers,
     eventName: "NOTIFICATION_SELECTED",
@@ -981,7 +1010,7 @@ export function markAsRead(notificationId, userUniqueId) {
   );
 }
 
-export function deleteNotification(notificationId, userUniqueId) {
+export function deleteNotification(notificationId, userUniqueId, sessionID) {
   headers = {
     ...headers,
     eventName: "NOTIFICATION_REMOVED",
@@ -1002,7 +1031,7 @@ export function deleteNotification(notificationId, userUniqueId) {
   );
 }
 
-export function contactUs(payLoad) {
+export function contactUs(payLoad, sessionID) {
   headers = {
     ...headers,
     eventName: "CONTACT_US",
@@ -1019,7 +1048,7 @@ export function contactUs(payLoad) {
   );
 }
 
-export function fetchTopArticles() {
+export function fetchTopArticles(sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_TOP_ARTICLES",
@@ -1041,7 +1070,8 @@ export function shopByCategory(
   category,
   userUniqueId,
   pageNumber,
-  sortBy
+  sortBy,
+  sessionID
 ) {
   const API_ENDPOINT =
     URI +
@@ -1070,7 +1100,7 @@ export function shopByCategory(
   );
 }
 
-export async function marketingNameByModel(payload) {
+export async function marketingNameByModel(payload, sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_UPTO_PRICE",
@@ -1100,7 +1130,7 @@ function checkSessionId(response) {
   }
 }
 
-export async function deleteUserAccount(payload) {
+export async function deleteUserAccount(payload, sessionID) {
   headers = {
     ...headers,
     eventName: "DELETE_USER",
@@ -1114,7 +1144,7 @@ export async function deleteUserAccount(payload) {
   });
 }
 
-export function logEventInfo(eventName) {
+export function logEventInfo(eventName, sessionID) {
   headers = {
     ...headers,
     eventName: eventName,
@@ -1140,7 +1170,8 @@ export async function reportIssue(
   description,
   storage,
   ScheduleCall,
-  callTime
+  callTime,
+  sessionID
 ) {
   headers = {
     ...headers,

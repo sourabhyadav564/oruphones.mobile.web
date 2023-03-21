@@ -84,7 +84,7 @@ function MakePage({ bestDealData, shopbymodeldata, data }) {
         }
       });
     } else {
-      await fetchTopsellingmodels().then((response) => {
+      await fetchTopsellingmodels(Cookies.get("sessionId")).then((response) => {
         localStorage.setItem(
           "shopByModel",
           JSON.stringify(response?.allModels)

@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }) => {
           if (mobileNumber === null || mobileNumber === undefined) {
             return;
           }
-          const res = await getUserDetails(countryCode, mobileNumber);
+          const res = await getUserDetails(countryCode, mobileNumber, Cookies.get("sessionId"));
           dispatch("LOGIN", res.dataObject);
         } else {
           dispatch("LOGIN", userRes);

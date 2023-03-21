@@ -40,7 +40,7 @@ function index() {
         ) {
           userUniqueId2 = userUniqueId2.replace("/showListings?routeto=", "");
           setUserUniqueId(userUniqueId2);
-          await getUserDetailsViaUUID(userUniqueId2).then(
+          await getUserDetailsViaUUID(userUniqueId2, Cookies.get("sessionId")).then(
             (response) => {
               window.localStorage.clear();
               sessionStorage.removeItem("getUserDetails");

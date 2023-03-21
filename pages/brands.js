@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 function Brands() {
   let brandsList = [];
   if (!Cookies.get("brands")) {
-    Axios.fetchBrands().then((res) => {
+    Axios.fetchBrands(Cookies.get("sessionId")).then((res) => {
       brandsList = res?.dataObject;
       localStorage.setItem("brands", JSON.stringify(brandsList));
       Cookies.set("brands", true);

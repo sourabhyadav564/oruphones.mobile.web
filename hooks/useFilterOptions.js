@@ -1,4 +1,5 @@
 import { getShowSerchFilters } from "api-call";
+import Cookies from "js-cookie";
 import { useEffect, useRef, useState } from "react";
 
 const initialState = [
@@ -49,7 +50,7 @@ const useFilterOptions = () => {
   const [filterOptions, setFilterOptions] = useState(initialState);
 
   const fetchApi = () => {
-    getShowSerchFilters().then(
+    getShowSerchFilters(Cookies.get("sessionId")).then(
       (res) => {
         if (res?.status === "SUCCESS") {
           let tempFilters = filterOptions.map((item) => {

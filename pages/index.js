@@ -8,10 +8,7 @@ import TopDealNearBy from "@/components/Home/TopDealNearBy";
 import {
   fetchBrands,
   fetchTopsellingmodels,
-  getMakeModelLists,
   getSessionId,
-  shopByPrice,
-  fetchTopArticles,
 } from "api-call";
 import HomeContent from "@/components/Home/HomeContent";
 import Footer from "@/components/Footer";
@@ -35,7 +32,7 @@ export default function Home() {
 
   useEffect(async () => {
     if (Cookies.get("sessionId") == undefined) {
-      getSessionId().then((res) => {
+      getSessionId(Cookies.get("sessionId")).then((res) => {
         if (res) {
           Cookies.set("sessionId", res?.dataObject?.sessionId);
           localStorage.setItem("sessionId", res?.dataObject?.sessionId);
@@ -50,7 +47,7 @@ export default function Home() {
     if (localStorage.getItem("brands") != undefined) {
       brandsList = JSON.parse(localStorage.getItem("brands"));
     } else {
-      data = await fetchBrands();
+      data = await fetchBrands(Cookies.get("sessionId"));
       brandsList = data?.dataObject;
     }
     setBrands(brandsList);
@@ -58,7 +55,7 @@ export default function Home() {
     if (!localStorage.getItem("shopByModel")) {
       let topsellingmodels;
       let shopByModel = [];
-      data = await fetchTopsellingmodels();
+      data = await fetchTopsellingmodels(Cookies.get("sessionId"));
       topsellingmodels = data?.dataObject;
       shopByModel = data?.allModels;
       if (shopByModel?.length > 0) {
@@ -98,10 +95,7 @@ export default function Home() {
     if (brandsData) {
       setBrands(JSON.parse(localStorage.getItem("brands")));
     } else {
-      const data = await fetchBrands(
-        Cookies.get("userUniqueId") || "Guest",
-        Cookies.get("sessionId")
-      );
+      const data = await fetchBrands(Cookies.get("sessionId"));
       if (data) {
         let brandsList = data?.dataObject;
         setBrands(brandsList);

@@ -146,9 +146,11 @@ const EditListingForm = ({ data }) => {
       deviceStorage != undefined &&
       condition != undefined
     ) {
-      getExternalSellSourceData(payload).then((response) => {
-        setGetExternalSellerData(response?.dataObject);
-      });
+      getExternalSellSourceData(payload, Cookies.get("sessionId")).then(
+        (response) => {
+          setGetExternalSellerData(response?.dataObject);
+        }
+      );
     }
   }, [
     make,
@@ -166,9 +168,11 @@ const EditListingForm = ({ data }) => {
     sellValue = sellValueTag.value || "";
     if (data != undefined && data != null) {
       let models3;
-      await getModelLists("", "", data?.make, "").then((response) => {
-        models3 = response;
-      });
+      await getModelLists(Cookies.get("userUniqueId") || 0, Cookies.get("sessionId"), data?.make, "").then(
+        (response) => {
+          models3 = response;
+        }
+      );
       const models4 = models3?.dataObject[0].models.filter(
         (item) => item.marketingname === data?.marketingName
       );
@@ -181,14 +185,14 @@ const EditListingForm = ({ data }) => {
     if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
     } else {
-      getGlobalCities("").then((response) => {
+      getGlobalCities("", Cookies.get("sessionId")).then((response) => {
         setGlobalCities(response.dataObject);
       });
     }
   }, []);
 
   const onLocChange = async (e) => {
-    const citiesResponse = await getGlobalCities(e);
+    const citiesResponse = await getGlobalCities(e, Cookies.get("sessionId"));
     setGlobalCities(citiesResponse?.dataObject);
   };
 
@@ -288,9 +292,11 @@ const EditListingForm = ({ data }) => {
       (condition || data?.deviceCondition) &&
       (charging || headphone || originalbox || warranty || true)
     ) {
-      getRecommandedPrice(reqParams).then(({ dataObject }) => {
-        setRecommandedPrice(dataObject);
-      });
+      getRecommandedPrice(reqParams, Cookies.get("sessionId")).then(
+        ({ dataObject }) => {
+          setRecommandedPrice(dataObject);
+        }
+      );
     }
   }, [condition, charging, headphone, originalbox, warranty]);
 
@@ -312,26 +318,28 @@ const EditListingForm = ({ data }) => {
 
       let formData = new FormData();
       formData.append("image", compressedFile);
-      uploadImage(formData, {
-        deviceFace: name,
-        deviceStorage,
-        make,
-        model: marketingName,
-        userUniqueId: user?.userdetails?.userUniqueId,
-      }).then(
-        ({ status, dataObject }) => {
-          if (status === "SUCCESS") {
-            setIsUploading(false);
-            let tempImages = [...images];
-            tempImages[index] = {
-              ...tempImages[index],
-              thumbImage: dataObject?.thumbnailImagePath,
-              fullImage: dataObject?.imagePath,
-            };
-            setImages(tempImages);
-          }
+      uploadImage(
+        formData,
+        {
+          deviceFace: name,
+          deviceStorage,
+          make,
+          model: marketingName,
+          userUniqueId: user?.userdetails?.userUniqueId,
+        },
+        Cookies.get("sessionId")
+      ).then(({ status, dataObject }) => {
+        if (status === "SUCCESS") {
+          setIsUploading(false);
+          let tempImages = [...images];
+          tempImages[index] = {
+            ...tempImages[index],
+            thumbImage: dataObject?.thumbnailImagePath,
+            fullImage: dataObject?.imagePath,
+          };
+          setImages(tempImages);
         }
-      );
+      });
     }
   };
 
@@ -415,12 +423,10 @@ const EditListingForm = ({ data }) => {
       listingLocation: selectedCity || data?.listingLocation,
       cosmetic: ConditionQuestionEdit || data?.cosmetic,
     };
-    updateLisiting(payload).then(
-      () => {
-        setListingAdded(true);
-        dispatch("REFRESH");
-      }
-    );
+    updateLisiting(payload, Cookies.get("sessionId")).then(() => {
+      setListingAdded(true);
+      dispatch("REFRESH");
+    });
   }
 
   return (

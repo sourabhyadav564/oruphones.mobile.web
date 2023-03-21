@@ -4,19 +4,22 @@ import { toast } from "react-toastify";
 
 export default function ShareIcon({ data, color, ...rest }) {
   function shareListingInfo(data) {
-    prepareShareLink(data.listingId, Cookies.get("userUniqueId") || "Guest").then((response) => {
+    prepareShareLink(
+      data.listingId,
+      Cookies.get("userUniqueId") || "Guest",
+      Cookies.get("sessionId")
+    ).then((response) => {
       sharePopupInfo(response?.dataObject.url, response?.dataObject.content);
     });
   }
 
   function sharePopupInfo(url, content) {
     if (navigator.share) {
-      navigator
-        .share({
-          title: "Share link",
-          url: url,
-          text: content[1]?.shareContent,
-        })
+      navigator.share({
+        title: "Share link",
+        url: url,
+        text: content[1]?.shareContent,
+      });
     } else {
     }
   }
@@ -29,7 +32,13 @@ export default function ShareIcon({ data, color, ...rest }) {
         {...rest}
         onClick={(e) => {
           e.preventDefault();
-          data?.status == "Active" ? shareListingInfo(data) : data.status == "Paused" ? toast.warning(`Please Activate the listing to share it.`,{toastId:"005"}) : toast.warning(`This device is sold out`,{toastId:"006"});
+          data?.status == "Active"
+            ? shareListingInfo(data)
+            : data.status == "Paused"
+            ? toast.warning(`Please Activate the listing to share it.`, {
+                toastId: "005",
+              })
+            : toast.warning(`This device is sold out`, { toastId: "006" });
         }}
         className="hover:cursor-pointer"
       >

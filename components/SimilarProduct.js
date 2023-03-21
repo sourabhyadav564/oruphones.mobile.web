@@ -30,7 +30,8 @@ function SimilarProduct({ data }) {
     fetchSimilarProducts(
       payLoad,
       Cookies.get("userUniqueId") || "Guest",
-      intialPage
+      intialPage,
+      Cookies.get("sessionId")
     ).then((response) => {
       setSimilar_listings(
         response?.dataObject?.otherListings.filter((items) => {
@@ -62,9 +63,9 @@ function SimilarProduct({ data }) {
     fetchSimilarProducts(
       payLoad,
       Cookies.get("userUniqueId") || "Guest",
-      newPages
+      newPages,
+      Cookies.get("sessionId")
     ).then((response) => {
-
       let data = response?.dataObject?.otherListings.filter((items) => {
         return items?.listingId !== data?.listingId;
       });
@@ -84,7 +85,6 @@ function SimilarProduct({ data }) {
     loadData(intialPage);
   }, [data?.make, data?.marketingName]);
 
-
   similar_listings = similar_listings?.filter((item) => {
     return item.listingId != data?.listingId;
   });
@@ -98,10 +98,7 @@ function SimilarProduct({ data }) {
       <div className="grid grid-cols-2 -m-1.5 py-4">
         {similar_listings && similar_listings.length > 0 ? (
           similar_listings.map((item) => (
-            <div
-              className="m-1.5"
-              key={item.listingId}
-            >
+            <div className="m-1.5" key={item.listingId}>
               <OtherListingCard
                 data={item}
                 setProducts={setSimilar_listings}
@@ -115,11 +112,13 @@ function SimilarProduct({ data }) {
           </div>
         )}
       </div>
-      {similar_listings && similar_listings.length > 0 &&
+      {similar_listings &&
+        similar_listings.length > 0 &&
         isFinished == false && (
           <span
-            className={`${isLoadingMore ? "w-[250px]" : "w-[150px]"
-              } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
+            className={`${
+              isLoadingMore ? "w-[250px]" : "w-[150px]"
+            } rounded-md shadow hover:drop-shadow-lg p-4 bg-m-white flex justify-center items-center hover:cursor-pointer my-5`}
             onClick={loadMoreData}
           >
             <p className="block text-m-green font-semibold">

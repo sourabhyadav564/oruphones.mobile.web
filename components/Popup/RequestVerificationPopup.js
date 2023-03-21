@@ -17,7 +17,8 @@ function RequestVerificationPopup({ open, setOpen, data, setShowNumber, setOpenR
     setListingid(data?.listingId);
     await sendverification(
       listingid,
-      Cookies.get("userUniqueId") || "Guest"
+      Cookies.get("userUniqueId") || "Guest",
+      Cookies.get("sessionId")
     ).then((response) => {
       setResData(response);
       setOpen(false);

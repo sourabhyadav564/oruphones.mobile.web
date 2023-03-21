@@ -28,7 +28,11 @@ function Notification({ notificationsListObject }) {
       <SwipeAction
         destructive={true}
         onClick={() =>
-          deleteNotification(id, Cookies.get("userUniqueId")).then(
+          deleteNotification(
+            id,
+            Cookies.get("userUniqueId"),
+            Cookies.get("sessionId")
+          ).then(
             (response) => {},
             (error) => {}
           )
@@ -46,7 +50,11 @@ function Notification({ notificationsListObject }) {
       <SwipeAction
         destructive={true}
         onClick={() =>
-          deleteNotification(id, Cookies.get("userUniqueId")).then(
+          deleteNotification(
+            id,
+            Cookies.get("userUniqueId"),
+            Cookies.get("sessionId")
+          ).then(
             (response) => {},
             (error) => {}
           )
@@ -72,7 +80,11 @@ function Notification({ notificationsListObject }) {
 
   async function makeNotificationAsRead(data) {
     if (data.isUnRead === 0) {
-      await markAsRead(data.notificationId, Cookies.get("userUniqueId"));
+      await markAsRead(
+        data.notificationId,
+        Cookies.get("userUniqueId"),
+        Cookies.get("sessionId")
+      );
     }
   }
 

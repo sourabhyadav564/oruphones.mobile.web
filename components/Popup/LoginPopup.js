@@ -7,6 +7,7 @@ import Checkbox from "@/components/Form/Checkbox";
 import Modal1 from "./Modal1";
 import TermsconditionPopup from "./TermsconditionPopup";
 import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 function LoginPopup({ open, setOpen, fromAddListing }) {
   const login = false;
@@ -25,7 +26,11 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
     if (!formData.mobile || formData?.mobile?.length < 10) {
       setError({ is: true, message: "10 digits number is required" });
     } else if (formData?.mobile?.length == 10) {
-      const res = await generateOTP(formData?.countryCode, formData.mobile);
+      const res = await generateOTP(
+        formData?.countryCode,
+        formData.mobile,
+        Cookies.get("sessionId")
+      );
       setResponse(res);
       setStep(2);
     }
@@ -46,7 +51,14 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
       <main className="bg-loginBg bg-contain  pt-16 min-h-screen">
         <section className="container px-8 flex flex-col items-center space-y-8 max-w-sm">
           <div className="w-full flex justify-center ">
-            <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"} alt={"Logo"} width={80} height={40} />
+            <Image
+              src={
+                "https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"
+              }
+              alt={"Logo"}
+              width={80}
+              height={40}
+            />
           </div>
           {step === 1 ? (
             <form

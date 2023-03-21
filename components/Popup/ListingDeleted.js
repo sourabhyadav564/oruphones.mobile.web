@@ -19,7 +19,7 @@ function ListingDeleted({ open, setOpen, data, setListings }) {
       userUniqueId: Cookies.get("userUniqueId"),
     };
 
-    deleteListing(payload).then((response) => {
+    deleteListing(payload, Cookies.get("sessionId")).then((response) => {
       if (response.status === "SUCCESS") {
         if (setListings) {
           setListings((prev) => {

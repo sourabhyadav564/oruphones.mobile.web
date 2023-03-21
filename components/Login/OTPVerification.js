@@ -1,10 +1,4 @@
-import {
-  createUser,
-  resendOTP,
-  validateUser,
-  addUserSearchLocation,
-  addUserProfileLocation,
-} from "api-call";
+import { resendOTP, validateUser } from "api-call";
 
 import Cookies from "js-cookie";
 import router from "next/router";
@@ -41,9 +35,11 @@ function OTPVerification({
   const reSendOtp = (e) => {
     setLoading(false);
     e.preventDefault();
-    resendOTP(formData?.countryCode, formData?.mobile).then(
-      (res) => setCounter(30),
-    );
+    resendOTP(
+      formData?.countryCode,
+      formData?.mobile,
+      Cookies.get("sessionId")
+    ).then((res) => setCounter(30));
     setError(false);
     setOtpInput("");
   };
@@ -51,29 +47,30 @@ function OTPVerification({
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
-    validateUser(formData?.countryCode, formData?.mobile, otpInput).then(
-      ({ status }) => {
-        if (status === "SUCCESS") {
-          const countryCode = formData?.countryCode;
-          const mobile = formData?.mobile;
-          Cookies.set("mobileNumber", formData?.mobile);
-          Cookies.set("countryCode", formData?.countryCode);
-          setLoading(false);
-          dispatch("REFRESH");
-            if(login){
-              router.push("/");
-            }
-            else{
-              setOpen(false);
-            }
+    validateUser(
+      formData?.countryCode,
+      formData?.mobile,
+      otpInput,
+      Cookies.get("sessionId")
+    ).then(({ status }) => {
+      if (status === "SUCCESS") {
+        const countryCode = formData?.countryCode;
+        const mobile = formData?.mobile;
+        Cookies.set("mobileNumber", formData?.mobile);
+        Cookies.set("countryCode", formData?.countryCode);
+        setLoading(false);
+        dispatch("REFRESH");
+        if (login) {
+          router.push("/");
         } else {
-          setError(true);
-          setLoading(false);
+          setOpen(false);
         }
+      } else {
+        setError(true);
+        setLoading(false);
       }
-    );
+    });
   };
-
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -82,17 +79,23 @@ function OTPVerification({
   };
 
   return (
-    <form
-      className="flex flex-col w-full space-y-4"
-      onSubmit={handleSubmit}
-    >
-      <Image src={ArrowLeft} width={22} height={22}  onClick={() => setStep(1)} className="cursor-pointer fixed top-2 left-2"/>
+    <form className="flex flex-col w-full space-y-4" onSubmit={handleSubmit}>
+      <Image
+        src={ArrowLeft}
+        width={22}
+        height={22}
+        onClick={() => setStep(1)}
+        className="cursor-pointer fixed top-2 left-2"
+      />
       <div className="">
         <h1 className=" text-px font-bold py-1" style={{ color: "#2C2F45" }}>
           Verify Mobile No
         </h1>
 
-        <p className="text-left text-cx font-regular pb-2" style={{ color: "#2C2F45" }}>
+        <p
+          className="text-left text-cx font-regular pb-2"
+          style={{ color: "#2C2F45" }}
+        >
           Please enter the 4 digit verification code sent to your mobile number{" "}
           <span className="whitespace-nowrap">
             {" "}
@@ -103,23 +106,21 @@ function OTPVerification({
       </div>
 
       <div className="outline relative w-full focus:outline-none">
-
         <input
           type="number"
           name="OTP"
           required
-          className={` block p-4 w-full text-center rounded appearance-none border-1  bg-transparent  ${error
-            ? "ring-2 ring-red-600 focus:ring-2 focus:ring-red-600"
-            : "ring-0 focus:ring-0"
-            }`}
-
+          className={` block p-4 w-full text-center rounded appearance-none border-1  bg-transparent  ${
+            error
+              ? "ring-2 ring-red-600 focus:ring-2 focus:ring-red-600"
+              : "ring-0 focus:ring-0"
+          }`}
           style={{
             border: "1px solid rgba(0, 0, 0, 0.12)",
             color: "rgba(0, 0, 0, 0.6)",
           }}
           value={otpInput}
           onChange={handleChange}
-
         />
         <label
           htmlFor="mobile"
@@ -140,7 +141,6 @@ function OTPVerification({
       </button>
       <div className="w-full text-right underline" style={{ color: "#2C2F45" }}>
         {counter < 1 ? (
-
           <span
             className="text-primary  mb-4 ml-auto text-Light text-mx"
             onClick={reSendOtp}

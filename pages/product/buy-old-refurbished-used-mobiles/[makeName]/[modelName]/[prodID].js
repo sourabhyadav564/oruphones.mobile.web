@@ -94,13 +94,11 @@ function ProductDeatils() {
 
   useEffect(async () => {
     if (router.query.prodID && router.query.isOtherVendor) {
-      const userUniqueId = Cookies.get("userUniqueId");
-      const sessionId = Cookies.get("sessionId");
       const listingInfo = await detailWithUserInfo(
         router.query.isOtherVendor,
         router.query.prodID,
-        userUniqueId || "Guest",
-        sessionId
+        Cookies.get("userUniqueId") || 0,
+        Cookies.get("sessionId")
       );
       setDeviceListingInfo(listingInfo?.dataObject);
       setData(listingInfo?.dataObject);
@@ -185,7 +183,8 @@ function ProductDeatils() {
     ) {
       fetchSellerMobileNumber(
         data?.listingId,
-        Cookies.get("userUniqueId")
+        Cookies.get("userUniqueId"),
+        Cookies.get("sessionId")
       ).then((response) => {
         setContactSellerMobileNumber(response?.dataObject?.mobileNumber);
       });
@@ -596,7 +595,8 @@ function ProductDeatils() {
                               Cookies.get("userUniqueId") !== undefined &&
                               fetchSellerMobileNumber(
                                 data.listingId,
-                                Cookies.get("userUniqueId")
+                                Cookies.get("userUniqueId"),
+                                Cookies.get("sessionId")
                               ).then((response) => {
                                 setContactSellerMobileNumber(
                                   response?.dataObject?.mobileNumber

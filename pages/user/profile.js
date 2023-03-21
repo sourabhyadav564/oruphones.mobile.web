@@ -43,17 +43,21 @@ function Profile() {
 
     let formData = new FormData();
     formData.append("image", compressedFile);
-    uploadUserProfilePic(formData, Cookies.get("userUniqueId")).then(
-      (response) => {
-        if (response?.status === "SUCCESS") {
-          let payload = {
-            profilePicPath: response?.dataObject?.imagePath,
-            profileThumbnailPath: response?.dataObject?.thumbnailImagePath,
-            mobileNumber: Cookies.get("mobileNumber"),
-            userUniqueId: Cookies.get("userUniqueId"),
-          };
+    uploadUserProfilePic(
+      formData,
+      Cookies.get("userUniqueId"),
+      Cookies.get("sessionId")
+    ).then((response) => {
+      if (response?.status === "SUCCESS") {
+        let payload = {
+          profilePicPath: response?.dataObject?.imagePath,
+          profileThumbnailPath: response?.dataObject?.thumbnailImagePath,
+          mobileNumber: Cookies.get("mobileNumber"),
+          userUniqueId: Cookies.get("userUniqueId"),
+        };
 
-          updateUserProfileDetails(payload).then((res) => {
+        updateUserProfileDetails(payload, Cookies.get("sessionId")).then(
+          (res) => {
             if (res?.status === "SUCCESS") {
               user.userdetails = {
                 ...user.userdetails,
@@ -61,10 +65,10 @@ function Profile() {
               };
               setImagePath(res?.dataObject?.userdetails.profilePicPath);
             }
-          });
-        }
+          }
+        );
       }
-    );
+    });
   };
 
   useEffect(() => {
@@ -81,16 +85,18 @@ function Profile() {
       userUniqueId: Cookies.get("userUniqueId"),
     };
 
-    updateUserProfileDetails(payload).then((res) => {
+    updateUserProfileDetails(payload, Cookies.get("sessionId")).then((res) => {
       const mobileNumber = Cookies.get("mobileNumber");
       const countryCode = Cookies.get("countryCode");
-      getUserDetails(countryCode, mobileNumber).then((resp) => {
-        dispatch("LOGIN", resp.dataObject);
-        toast.info("Profile information saved successfully", {
-          position: toast.POSITION.TOP_CENTER,
-          toastId: "014",
-        });
-      });
+      getUserDetails(countryCode, mobileNumber, Cookies.get("sessionId")).then(
+        (resp) => {
+          dispatch("LOGIN", resp.dataObject);
+          toast.info("Profile information saved successfully", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: "014",
+          });
+        }
+      );
     });
   };
 
@@ -98,7 +104,7 @@ function Profile() {
     let payload = {
       userUniqueId: Cookies.get("userUniqueId"),
     };
-    deleteUserAccount(payload).then((res) => {
+    deleteUserAccount(payload, Cookies.get("sessionId")).then((res) => {
       dispatch("LOGOUT");
       toast.success("User Account Deleted Successfully", {
         position: toast.POSITION.TOP_RIGHT,

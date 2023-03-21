@@ -39,7 +39,8 @@ function PriceRangePage() {
         min,
         Cookies.get("userUniqueId") || "Guest",
         intialPage,
-        applySortFilter
+        applySortFilter,
+        Cookies.get("sessionId")
       ).then((response) => {
         setShopByPriceBestDeal(response?.dataObject?.bestDeals);
         setShopByPriceOtherListings(response?.dataObject?.otherListings);
@@ -120,7 +121,8 @@ function PriceRangePage() {
         min,
         Cookies.get("userUniqueId") || "Guest",
         newPages,
-        applySortFilter
+        applySortFilter,
+        Cookies.get("sessionId")
       ).then((response) => {
         setShopByPriceOtherListings((products) => [
           ...products,

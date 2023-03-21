@@ -1,5 +1,6 @@
 import Header2 from "@/components/Header/header2";
 import { getSearchResults } from "api-call";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Fragment } from "react";
@@ -23,13 +24,11 @@ function Search() {
   useEffect(() => {
     let timeOut = setTimeout(() => {
       if (input.trim().length > 2) {
-        getSearchResults(input).then(
-          (res) => {
-            if (res && res.status === "SUCCESS") {
-              setSearchResults(res.dataObject);
-            }
+        getSearchResults(input, Cookies.get("sessionId")).then((res) => {
+          if (res && res.status === "SUCCESS") {
+            setSearchResults(res.dataObject);
           }
-        );
+        });
       }
     }, 300);
     return () => {

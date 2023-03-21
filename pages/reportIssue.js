@@ -89,7 +89,8 @@ const ReportIssue = () => {
           description,
           storage,
           check,
-          callTime
+          callTime,
+          Cookies.get("sessionId")
         ).then((res) => {
           setReportData(res);
         });
@@ -122,7 +123,12 @@ const ReportIssue = () => {
   const handleSelectChange = async (name) => {
     if (name === "make") {
       setMake(selectedBrand);
-      const models3 = await getModelLists("", "", selectedBrand, "");
+      const models3 = await getModelLists(
+        Cookies.get("userUniqueId") || 0,
+        Cookies.get("sessionId"),
+        selectedBrand,
+        ""
+      );
       setMktNameOpt(models3?.dataObject[0]?.models);
     } else if (name === "model") {
       setModel(selectedModel);
@@ -347,7 +353,6 @@ const ReportIssue = () => {
           />
         </div>
       </label>
-      {console.log(check)}
       {!check ? (
         ""
       ) : (

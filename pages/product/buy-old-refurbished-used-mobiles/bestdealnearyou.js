@@ -43,7 +43,8 @@ function Bestdealnearyou() {
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
         intialPage,
-        applySortFilter
+        applySortFilter,
+        Cookies.get("sessionId")
       ).then((response) => {
         setProducts(response?.dataObject?.otherListings);
         setBestDeal(response?.dataObject?.bestDeals);
@@ -121,7 +122,8 @@ function Bestdealnearyou() {
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
         newPages,
-        applySortFilter
+        applySortFilter,
+        Cookies.get("sessionId")
       ).then((response) => {
         setProducts((products) => [
           ...products,
@@ -361,7 +363,7 @@ function Bestdealnearyou() {
 
         {!isLoading &&
           isFinished == false &&
-          products.length != totalProducts && (
+          products?.length != totalProducts && (
             <span
               className={`${
                 isLoadingMore ? "w-[250px]" : "w-[150px]"

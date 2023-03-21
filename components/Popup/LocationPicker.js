@@ -6,7 +6,6 @@ import { getCityFromResponse } from "@/utils/util";
 import { useEffect } from "react";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
-import { getUserDetails, updateAddress } from "api-call";
 import { useRouter } from "next/router";
 
 const options = {

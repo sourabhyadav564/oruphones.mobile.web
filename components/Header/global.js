@@ -23,19 +23,18 @@ function GlobalHeader() {
 
   useEffect(async () => {
     if (unreadNotificationsCount == -1 && Cookies.get("userUniqueId"))
-      await getAllNotificationByUserd(Cookies.get("userUniqueId")).then(
-        (response) => {
-          setNotifications(response?.dataObject?.notifications);
-          setUnreadNotificationsCount(response?.dataObject?.unReadCount);
-        }
-      );
+      await getAllNotificationByUserd(
+        Cookies.get("userUniqueId"),
+        Cookies.get("sessionId")
+      ).then((response) => {
+        setNotifications(response?.dataObject?.notifications);
+        setUnreadNotificationsCount(response?.dataObject?.unReadCount);
+      });
   });
 
   useEffect(() => {
-    if (
-      Cookies.get("sessionId") == undefined
-    ) {
-      getSessionId().then((response) => {
+    if (Cookies.get("sessionId") == undefined) {
+      getSessionId(Cookies.get("sessionId")).then((response) => {
         Cookies.set("sessionId", response?.dataObject?.sessionId);
         localStorage.setItem("sessionId", response?.dataObject?.sessionId);
       });

@@ -13,7 +13,8 @@ function RequestVerificationSuccessPopup({ open, setOpen, data }) {
     if (open) {
       sendverification(
         data.listingId,
-        Cookies.get("userUniqueId") || "Guest"
+        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId")
       ).then((response) => {
         setResData(response);
       });

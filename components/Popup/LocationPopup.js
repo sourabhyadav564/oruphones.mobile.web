@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import Modal1 from "./Modal1";
-import { getGlobalCities, updateAddress, getUserDetails } from "api-call";
+import { getGlobalCities } from "api-call";
 import { useAuthDispatch, useAuthState } from "providers/AuthProvider";
 import Cookies from "js-cookie";
 import CurrentLocation from "@/assets/currentlocation.svg";
@@ -31,7 +31,7 @@ function LocationPopup({ open, setOpen }) {
     } else {
       const callApi = () => {
         if (!open) return null;
-        getGlobalCities("").then((response) => {
+        getGlobalCities("", Cookies.get("sessionId")).then((response) => {
           let india = response.dataObject.filter(
             (item) => item.city === "India"
           );
@@ -109,7 +109,7 @@ function LocationPopup({ open, setOpen }) {
   };
 
   const onLocChange = async (e) => {
-    const citiesResponse = await getGlobalCities(e);
+    const citiesResponse = await getGlobalCities(e, Cookies.get("sessionId"));
     setCitiesResponse2(citiesResponse?.dataObject);
     setGlobalCities2(citiesResponse?.dataObject);
   };

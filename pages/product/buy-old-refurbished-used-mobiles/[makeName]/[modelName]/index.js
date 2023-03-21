@@ -49,7 +49,8 @@ function ModelPage() {
         modelName.replace("+", "%2B"),
         Cookies.get("userUniqueId") || "Guest",
         intialPage,
-        applySortFilter
+        applySortFilter,
+        Cookies.get("sessionId")
       ).then(
         (response) => {
           if (response.dataObject?.otherListings.length > -1) {
@@ -151,7 +152,8 @@ function ModelPage() {
         modelName.replace("+", "%2B"),
         Cookies.get("userUniqueId") || "Guest",
         newPages,
-        applySortFilter
+        applySortFilter,
+        Cookies.get("sessionId")
       ).then(
         (response) => {
           if (response.dataObject?.otherListings.length > -1) {

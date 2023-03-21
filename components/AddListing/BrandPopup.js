@@ -18,7 +18,7 @@ function BrandPopup({ open, setOpen }) {
     } else {
       const callApi = () => {
         if (!open) return null;
-        fetchBrands().then((response) => {
+        fetchBrands(Cookies.get("sessionId")).then((response) => {
           setBrands(response.dataObject);
           localStorage.setItem("brands", JSON.stringify(response.dataObject));
           Cookies.set("brands", true);

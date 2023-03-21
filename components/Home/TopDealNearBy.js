@@ -37,12 +37,18 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
 
   const loadData = async (initialPage) => {
     if (user && user?.userdetails?.userUniqueId && listings.length === 0) {
-      await getUserListings(user?.userdetails?.userUniqueId).then((res) => {
+      await getUserListings(
+        user?.userdetails?.userUniqueId,
+        Cookies.get("sessionId")
+      ).then((res) => {
         setListings(res.dataObject.map((item2) => item2.listingId));
       });
     }
     if (authenticated && user && user?.userdetails?.userUniqueId) {
-      fetchMyFavorites(Cookies.get("userUniqueId")).then((res) => {
+      fetchMyFavorites(
+        Cookies.get("userUniqueId"),
+        Cookies.get("sessionId")
+      ).then((res) => {
         setMyFavListings(res.dataObject.map((item2) => item2.listingId));
       });
     }
@@ -52,7 +58,8 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
         initialPage,
-        applySortFilter
+        applySortFilter,
+        Cookies.get("sessionId")
       ).then((response) => {
         setBestDeals([
           ...response?.dataObject?.bestDeals,
@@ -72,7 +79,8 @@ function TopDealNearBy({ selectedSearchCity, loading }) {
         selectedSearchCity,
         Cookies.get("userUniqueId") || "Guest",
         newPages,
-        applySortFilter
+        applySortFilter,
+        Cookies.get("sessionId")
       ).then((response) => {
         setBestDeals((products) => [
           ...products,

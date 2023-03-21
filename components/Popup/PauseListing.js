@@ -13,13 +13,11 @@ function PauseListing({ open, setOpen, listingId }) {
       listingId,
       userUniqueId: Cookies.get("userUniqueId"),
     };
-    pauseListing(payLoad).then(
-      (res) => {
-        if (res.status === "SUCCESS") {
-          router.reload();
-        }
+    pauseListing(payLoad, Cookies.get("sessionId")).then((res) => {
+      if (res.status === "SUCCESS") {
+        router.reload();
       }
-    );
+    });
   };
 
   return (
@@ -28,7 +26,9 @@ function PauseListing({ open, setOpen, listingId }) {
         <div className="px-6 flex flex-col items-center space-y-2">
           <Image src={PauseCircle} width={44} height={44} />
           <h1 className="font-Roboto-Bold mb-2 text-center">Pause Listing? </h1>
-          <p className="text-center font-Roboto-Regular py-4">Do you want to pause the listing?</p>
+          <p className="text-center font-Roboto-Regular py-4">
+            Do you want to pause the listing?
+          </p>
           <div className="flex space-x-6 justify-center text-white items-center text-sm">
             <span
               className="font-Roboto-Medium px-6 py-2 text-black-21 rounded uppercase cursor-pointer border border-primary"
@@ -36,7 +36,10 @@ function PauseListing({ open, setOpen, listingId }) {
             >
               NO
             </span>
-            <span className="font-Roboto-Medium px-6 py-2 bg-primary rounded uppercase cursor-pointer" onClick={handleClick}>
+            <span
+              className="font-Roboto-Medium px-6 py-2 bg-primary rounded uppercase cursor-pointer"
+              onClick={handleClick}
+            >
               YES
             </span>
           </div>

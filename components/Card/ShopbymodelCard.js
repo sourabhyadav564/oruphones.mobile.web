@@ -41,7 +41,8 @@ function ShopbymodelCard({
       data,
       Cookies.get("userUniqueId") || "Guest",
       0,
-      "Featured"
+      "Featured",
+      Cookies.get("sessionId")
     );
   };
 

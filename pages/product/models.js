@@ -4,6 +4,7 @@ import Filter from "@/components/FilterAndSort/Filter";
 import Loader from "@/components/Loader/Loader";
 import BottomNav from "@/components/Navigation/BottomNav";
 import { fetchTopsellingmodels } from "api-call";
+import Cookies from "js-cookie";
 import { useState, useEffect, Fragment } from "react";
 
 function AllModel() {
@@ -13,7 +14,7 @@ function AllModel() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchTopsellingmodels();
+      const data = await fetchTopsellingmodels(Cookies.get("sessionId"));
       setTopsellingmodels(data.dataObject);
       localStorage.setItem("topsellingmodels", JSON.stringify(data.dataObject));
       setLoading(false);

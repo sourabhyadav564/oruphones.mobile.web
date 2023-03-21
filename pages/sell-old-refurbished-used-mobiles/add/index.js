@@ -6,12 +6,14 @@ import NewAddListingForm from "@/components/Form/NewAddListingForm";
 const index = ({ data }) => {
   const [makeAndModels, setMakeAndModels] = useState([]);
 
-
   useEffect(async () => {
-    const models2 = await getModelLists("", "", "");
+    const models2 = await getModelLists(
+      Cookies.get("userUniqueId") || 0,
+      Cookies.get("sessionId"),
+      ""
+    );
     setMakeAndModels(models2?.dataObject);
   }, []);
-
 
   return (
     <Fragment>
@@ -21,7 +23,6 @@ const index = ({ data }) => {
         ) : (
           <div className="flex items-center justify-center">
             <Loader />
-
           </div>
         )}
       </main>

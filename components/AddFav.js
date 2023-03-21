@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import LoginPopup from "./Popup/LoginPopup";
 import Image from "next/image";
 
-
 function AddFav({ data, setProducts, color, ...rest }) {
   const { authenticated, loading, user } = useAuthState();
   const [listings, setListings] = useState([]);
@@ -22,9 +21,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
     setProducts((prevState) => {
       let tempVal;
       if (Array.isArray(prevState)) {
-        let index = prevState.findIndex(
-          (i) => i.listingId === data?.listingId
-        );
+        let index = prevState.findIndex((i) => i.listingId === data?.listingId);
         tempVal = [...prevState];
         tempVal[index] = { ...tempVal[index], favourite: !data?.favourite };
       } else {
@@ -45,9 +42,7 @@ function AddFav({ data, setProducts, color, ...rest }) {
       } else {
         localStorage.setItem("favoriteList", data?.listingId);
       }
-      addFavotie(payLoad).then((response) => {
-        
-      });
+      addFavotie(payLoad, Cookies.get("sessionId")).then((response) => {});
     };
     const removeFavorite = () => {
       let favList = localStorage.getItem("favoriteList");
@@ -56,22 +51,24 @@ function AddFav({ data, setProducts, color, ...rest }) {
         favList = favList.filter((item) => item !== data?.listingId);
         localStorage.setItem("favoriteList", favList);
       }
-      removeFavotie(data?.listingId, Cookies.get("userUniqueId")).then(
-        (response) => {
-        }
-      );
+      removeFavotie(
+        data?.listingId,
+        Cookies.get("userUniqueId"),
+        Cookies.get("sessionId")
+      ).then((response) => {});
     };
     if (
       data?.favourite ||
-      (localStorage.getItem("favoriteList") && localStorage.getItem("favoriteList").includes(data?.listingId))
+      (localStorage.getItem("favoriteList") &&
+        localStorage.getItem("favoriteList").includes(data?.listingId))
     ) {
       data?.status == "Active"
         ? removeFavorite()
-        : toast.warning(`This device is sold out`, {toastId: "004"});
+        : toast.warning(`This device is sold out`, { toastId: "004" });
     } else {
       data?.status == "Active"
         ? addFavorite()
-        : toast.warning(`This device is sold out`,{toastId: "003"});
+        : toast.warning(`This device is sold out`, { toastId: "003" });
     }
   }
   useEffect(() => {
@@ -87,32 +84,43 @@ function AddFav({ data, setProducts, color, ...rest }) {
   if (!authenticated) {
     return (
       <Fragment>
-        <Image src={HeartBlack} width={20} height={20} onClick={(e) => {
+        <Image
+          src={HeartBlack}
+          width={20}
+          height={20}
+          onClick={(e) => {
             e.preventDefault();
             redirectToLogin();
             setPerformAction(true);
-          }}/>
+          }}
+        />
         <LoginPopup open={openLoginPopup} setOpen={setOpenLoginPopup} />
       </Fragment>
     );
   }
   if (authenticated) {
-    return (
-      localStorage.getItem("favoriteList") != null &&
-        (localStorage.getItem("favoriteList").includes(data?.listingId) ||
-          data?.favourite) ? (
-            <Image src={HeartFill} width={20} height={20} onClick={(e) => {
-              e.preventDefault();
-              handleFavoties(data);
-            }}/>
-      ) : (
-
-        <Image src={HeartOutline} width={20} height={20} 
+    return localStorage.getItem("favoriteList") != null &&
+      (localStorage.getItem("favoriteList").includes(data?.listingId) ||
+        data?.favourite) ? (
+      <Image
+        src={HeartFill}
+        width={20}
+        height={20}
         onClick={(e) => {
           e.preventDefault();
           handleFavoties(data);
-        }}/>
-      )
+        }}
+      />
+    ) : (
+      <Image
+        src={HeartOutline}
+        width={20}
+        height={20}
+        onClick={(e) => {
+          e.preventDefault();
+          handleFavoties(data);
+        }}
+      />
     );
   }
 }

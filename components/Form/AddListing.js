@@ -19,6 +19,7 @@ import router from "next/router";
 import LoginPopup from "../Popup/LoginPopup";
 import Link from "next/link";
 import TermsconditionPopup from "../Popup/TermsconditionPopup";
+import Cookies from "js-cookie";
 
 const initialState = [{ panel: "front" }, { panel: "back" }];
 
@@ -74,12 +75,10 @@ const AddListingForm = ({ data }) => {
     if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
     } else {
-      getGlobalCities().then(
-        (response) => {
-          setGlobalCities(response.dataObject);
-          localStorage.setItem("cities", JSON.stringify(response.dataObject));
-        }
-      );
+      getGlobalCities().then((response) => {
+        setGlobalCities(response.dataObject);
+        localStorage.setItem("cities", JSON.stringify(response.dataObject));
+      });
     }
   }, []);
 
@@ -132,7 +131,7 @@ const AddListingForm = ({ data }) => {
       condition &&
       (charging || headphone || originalbox || true)
     ) {
-      getRecommandedPrice(reqParams).then(
+      getRecommandedPrice(reqParams, Cookies.get("sessionId")).then(
         ({ dataObject }) => {
           setRecommandedPrice(dataObject);
         }
@@ -163,25 +162,27 @@ const AddListingForm = ({ data }) => {
     if (files && files.length) {
       let formData = new FormData();
       formData.append("image", files[0]);
-      uploadImage(formData, {
-        deviceFace: name,
-        deviceStorage: storage,
-        make,
-        model,
-        userUniqueId: user?.userdetails?.userUniqueId,
-      }).then(
-        ({ status, dataObject }) => {
-          if (status === "SUCCESS") {
-            let tempImages = [...images];
-            tempImages[index] = {
-              ...tempImages[index],
-              thumbImage: dataObject?.thumbnailImagePath,
-              fullImage: dataObject?.imagePath,
-            };
-            setImages(tempImages);
-          }
+      uploadImage(
+        formData,
+        {
+          deviceFace: name,
+          deviceStorage: storage,
+          make,
+          model,
+          userUniqueId: user?.userdetails?.userUniqueId,
+        },
+        Cookies.get("sessionId")
+      ).then(({ status, dataObject }) => {
+        if (status === "SUCCESS") {
+          let tempImages = [...images];
+          tempImages[index] = {
+            ...tempImages[index],
+            thumbImage: dataObject?.thumbnailImagePath,
+            fullImage: dataObject?.imagePath,
+          };
+          setImages(tempImages);
         }
-      );
+      });
     }
   };
 
@@ -271,12 +272,10 @@ const AddListingForm = ({ data }) => {
         ),
         model: model,
       };
-      saveLisiting(payload).then(
-        () => {
-          setListingAdded(true);
-          dispatch("REFRESH");
-        }
-      );
+      saveLisiting(payload, Cookies.get("sessionId")).then(() => {
+        setListingAdded(true);
+        dispatch("REFRESH");
+      });
     }
   };
 
@@ -439,13 +438,17 @@ const AddListingForm = ({ data }) => {
         <p className="text-gray-70 font-semibold capitalize">Add accessories</p>
         <div className="grid grid-cols-3 space-x-2">
           <Checkbox
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.svg"}
+            src={
+              "https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.svg"
+            }
             text="Charger"
             onChange={() => setCharging((prev) => !prev)}
             checked={charging}
           />
           <Checkbox
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.svg"}
+            src={
+              "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.svg"
+            }
             text="Earphones"
             onChange={() => setHeadphone((prev) => !prev)}
             checked={headphone}
@@ -610,7 +613,7 @@ const Checkbox = ({ src, text, checked, onChange }) => (
     onClick={onChange}
   >
     <div className="relative w-12 h-12 mx-auto">
-      <Image src={src} layout="fill" alt="ORU listings"/>
+      <Image src={src} layout="fill" alt="ORU listings" />
     </div>
     <input
       type="checkbox"

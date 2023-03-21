@@ -23,7 +23,10 @@ function Favorites() {
 
   useEffect(() => {
     if (authenticated && user && user?.userdetails?.userUniqueId) {
-      fetchMyFavorites(Cookies.get("userUniqueId")).then((response) => {
+      fetchMyFavorites(
+        Cookies.get("userUniqueId"),
+        Cookies.get("sessionId")
+      ).then((response) => {
         setMyFavList(response?.dataObject);
         setIsLoading(false);
       });
@@ -46,15 +49,15 @@ function Favorites() {
     <Fragment>
       <Header3 title1={"MyListing"} title2={"My Favorites"} />
       <main className="px-4 py-4 mt-1 pb-16 flex flex-col space-y-6 min-h-screen relative bg-white">
-        {myFavList && myFavList.length > 0 && (
+        {myFavList &&
+          myFavList.length > 0 &&
           myFavList?.map((item, index) => (
             <FavListingTile
               data={{ ...item, favourite: true }}
               key={index}
               setProducts={setMyFavList}
             />
-          ))
-        )}
+          ))}
 
         {(!myFavList || myFavList.length == 0) && !isLoading && (
           <div className="text-center h-60 flex items-center justify-center">
@@ -77,4 +80,3 @@ function Favorites() {
 }
 
 export default Favorites;
-

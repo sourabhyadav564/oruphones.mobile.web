@@ -1,10 +1,11 @@
 import { infoTemplates } from "api-call";
+import Cookies from "js-cookie";
 import { useState } from "react";
 
 
 const fetchApi = () => {
   let data;
-  infoTemplates().then(
+  infoTemplates(Cookies.get("sessionId")).then(
     (res) => {
       sessionStorage.setItem("staticContentPath", JSON.stringify(res));
       data = res;

@@ -17,7 +17,8 @@ function FavListingTile({ data, setProducts }) {
     setProducts((prevState) => {
       removeFavotie(
         data.listingId,
-        Cookies.get("userUniqueId") || "Guest"
+        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId")
       ).then((response) => {
       });
       return prevState.filter((i) => i.listingId !== data.listingId);

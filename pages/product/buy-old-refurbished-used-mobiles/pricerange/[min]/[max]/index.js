@@ -83,7 +83,8 @@ function PriceRangePage() {
         max === "above" ? "200000" : max,
         selectedSearchCity,
         min,
-        Cookies.get("userUniqueId") || "Guest"
+        Cookies.get("userUniqueId") || "Guest",
+        Cookies.get("sessionId")
       ).then((response) => {
         setShopByPriceBestDeal(response?.dataObject?.bestDeals);
         setShopByPriceOtherListings(response?.dataObject?.otherListings);

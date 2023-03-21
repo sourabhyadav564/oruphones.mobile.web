@@ -4,6 +4,7 @@ import TextArea from "@/components/Form/TextArea";
 import Header5 from "@/components/Header/header5";
 import { metaTags } from "@/utils/constant";
 import { contactUs } from "api-call";
+import Cookies from "js-cookie";
 import Head from "next/head";
 import { Fragment, useState } from "react";
 import { toast } from "react-toastify";
@@ -32,7 +33,7 @@ function ContactUS() {
       mobile != "" &&
       mobile != undefined
     ) {
-      contactUs(payload).then((response) => {
+      contactUs(payload,Cookies.get("sessionId")).then((response) => {
         toast.info(response?.reason, {
           position: toast.POSITION.TOP_CENTER,
         });

@@ -6,6 +6,7 @@ import { infoTemplates } from "api-call";
 import { parse as nodeParser } from "node-html-parser";
 import fetchStaticHTML from "api-call/fetchStaticHtml";
 import { Dialog, Transition } from "@headlessui/react";
+import Cookies from "js-cookie";
 
 function TermsconditionPopup({ open, setOpen }) {
   const [htmlContent, setHtmlContent] = useState("<span></span>");
@@ -61,7 +62,7 @@ async function callFetchStaticHTML() {
   let staticDataPath;
   var htmlText;
   try {
-    const res = await infoTemplates();
+    const res = await infoTemplates(Cookies.get("sessionId"));
     staticDataPath = res?.dataObject;
   } catch (error) {
     return {

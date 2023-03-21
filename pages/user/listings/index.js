@@ -35,12 +35,13 @@ function Index({ userInfo }) {
 
   useEffect(async () => {
     if (!loading && Cookies.get("userUniqueId") != undefined) {
-      await getUserListings(user?.userdetails?.userUniqueId).then(
-        async (res) => {
-          setListings(res.dataObject);
-          setListingsLoading(false);
-        }
-      );
+      await getUserListings(
+        user?.userdetails?.userUniqueId,
+        Cookies.get("sessionId")
+      ).then(async (res) => {
+        setListings(res.dataObject);
+        setListingsLoading(false);
+      });
     } else if (!loading && !authenticated) {
       router.push("/login");
     }

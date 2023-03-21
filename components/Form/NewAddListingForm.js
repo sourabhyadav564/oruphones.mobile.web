@@ -171,7 +171,7 @@ const NewAddListingForm = ({ data }) => {
     if (JSON.parse(localStorage.getItem("cities"))?.length > 0) {
       setGlobalCities(JSON.parse(localStorage.getItem("cities")));
     } else {
-      getGlobalCities("").then((response) => {
+      getGlobalCities("", Cookies.get("sessionId")).then((response) => {
         setGlobalCities(response.dataObject);
       });
     }
@@ -219,9 +219,11 @@ const NewAddListingForm = ({ data }) => {
       storage != undefined &&
       condition != undefined
     ) {
-      getExternalSellSourceData(payload).then((response) => {
-        setGetExternalSellerData(response?.dataObject);
-      });
+      getExternalSellSourceData(payload, Cookies.get("sessionId")).then(
+        (response) => {
+          setGetExternalSellerData(response?.dataObject);
+        }
+      );
     }
   }, [
     make,
@@ -264,9 +266,11 @@ const NewAddListingForm = ({ data }) => {
       condition &&
       (charging || headphone || originalbox || warranty || true)
     ) {
-      getRecommandedPrice(reqParams).then(({ dataObject }) => {
-        setRecommandedPrice(dataObject);
-      });
+      getRecommandedPrice(reqParams, Cookies.get("sessionId")).then(
+        ({ dataObject }) => {
+          setRecommandedPrice(dataObject);
+        }
+      );
     }
   }, [
     make,
@@ -295,7 +299,12 @@ const NewAddListingForm = ({ data }) => {
         if (check) {
           setModel(selectedModel);
         }
-        const models3 = await getModelLists(0, "", selectedBrand, "");
+        const models3 = await getModelLists(
+          Cookies.get("userUniqueId") || 0,
+          Cookies.get("sessionId"),
+          selectedBrand,
+          ""
+        );
         setMktNameOpt(models3?.dataObject[0]?.models);
         setStorageColorOption(
           models3?.dataObject[0]?.models?.find(
@@ -310,7 +319,12 @@ const NewAddListingForm = ({ data }) => {
   const handleSelectChange = async (name) => {
     if (name === "make") {
       setMake(selectedBrand);
-      const models3 = await getModelLists(0, "", selectedBrand, "");
+      const models3 = await getModelLists(
+        Cookies.get("userUniqueId") || 0,
+        Cookies.get("sessionId"),
+        selectedBrand,
+        ""
+      );
       setMktNameOpt(models3?.dataObject[0]?.models);
     } else if (name === "model") {
       setModel(selectedModel);
@@ -368,7 +382,7 @@ const NewAddListingForm = ({ data }) => {
       cosmetic: conditionResults,
       warranty: warranty,
     };
-    saveLisiting(payload).then((res) => {
+    saveLisiting(payload, Cookies.get("sessionId")).then((res) => {
       if (verifySubmit === true) {
         setVerifyListingAdded(true);
       } else {
@@ -397,15 +411,19 @@ const NewAddListingForm = ({ data }) => {
 
       let formData = new FormData();
       formData.append("image", compressedFile);
-      uploadImage(formData, {
-        deviceFace: name,
-        deviceStorage: storage?.toString().includes("/")
-          ? storage?.split("/")[0]
-          : storage,
-        make,
-        model,
-        userUniqueId: user?.userdetails?.userUniqueId || "Guest",
-      }).then(({ status, dataObject }) => {
+      uploadImage(
+        formData,
+        {
+          deviceFace: name,
+          deviceStorage: storage?.toString().includes("/")
+            ? storage?.split("/")[0]
+            : storage,
+          make,
+          model,
+          userUniqueId: user?.userdetails?.userUniqueId || "Guest",
+        },
+        Cookies.get("sessionId")
+      ).then(({ status, dataObject }) => {
         if (status === "SUCCESS") {
           let tempImages = [...images];
           tempImages[index] = {
@@ -428,7 +446,7 @@ const NewAddListingForm = ({ data }) => {
   };
 
   const onLocChange = async (e) => {
-    const citiesResponse = await getGlobalCities(e);
+    const citiesResponse = await getGlobalCities(e, Cookies.get("sessionId"));
     setGlobalCities(citiesResponse?.dataObject);
   };
 
@@ -461,10 +479,12 @@ const NewAddListingForm = ({ data }) => {
               .trim()
           : "",
       };
-      marketingNameByModel(payload).then(({ dataObject }) => {
-        setModelInfo(dataObject);
-        setIsGettingPrice(false);
-      });
+      marketingNameByModel(payload, Cookies.get("sessionId")).then(
+        ({ dataObject }) => {
+          setModelInfo(dataObject);
+          setIsGettingPrice(false);
+        }
+      );
     }
   }, [storage]);
 
