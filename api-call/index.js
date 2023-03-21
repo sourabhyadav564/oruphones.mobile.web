@@ -9,7 +9,7 @@ let headers = {
   srcFrom: "Mobile Web",
   eventName: "NA",
   userUniqueId: 0,
-  sessionId: Cookies.get("sessionId"),
+  sessionId: Cookies.get("sessionId") || "",
   devicePlatform: "Mobile Web",
   location:
     typeof window !== "undefined" ? localStorage.getItem("usedLocation") : "",
@@ -32,7 +32,7 @@ Axios.interceptors.response.use(
       headers = {
         ...headers,
         eventName: "NA",
-        sessionId: Cookies.get("sessionId"),
+        sessionId: Cookies.get("sessionId") || "",
         userUniqueId: 0,
       };
       const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
@@ -194,7 +194,7 @@ export async function getUserDetailsViaUUID(uuid, sessionID) {
 }
 export async function getMakeModelLists(
   userUniqueId,
-  sessionId,
+  sessionID,
   make,
   isPrimary
 ) {
@@ -202,7 +202,7 @@ export async function getMakeModelLists(
     ...headers,
     eventName: "GET_MAKE_MODEL_LIST",
     userUniqueId: 0,
-    sessionId: sessionId,
+    sessionId: sessionID,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/master/makemodellist`;
@@ -214,7 +214,7 @@ export async function getMakeModelLists(
 
 export async function getModelLists(
   userUniqueId,
-  sessionId,
+  sessionID,
   make,
   searchModel
 ) {
@@ -222,7 +222,7 @@ export async function getModelLists(
     ...headers,
     eventName: "GET_MODEL_LIST",
     userUniqueId: 0,
-    sessionId: sessionId,
+    sessionId: sessionID,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/master/modellist?make=${make}&searchModel=${searchModel}`;
@@ -361,12 +361,12 @@ export async function getUserListings(userUniqueId, sessionID) {
   });
 }
 
-export async function getListingDetails(listingid, userUniqueId, sessionId) {
+export async function getListingDetails(listingid, userUniqueId, sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_LISTING_DETAILS",
     userUniqueId: 0,
-    sessionId: sessionId,
+    sessionId: sessionID,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url = `${URI}/api/v1/device/listing/detail?listingid=${listingid}&userUniqueId=${userUniqueId}`;
@@ -411,7 +411,7 @@ export async function fetchByMakeList(
   location,
   makeName,
   userUniqueId,
-  sessionId,
+  sessionID,
   pageNumber,
   sortBy
 ) {
@@ -419,7 +419,7 @@ export async function fetchByMakeList(
     ...headers,
     eventName: `BRAND_SELECTED ${makeName}`,
     userUniqueId: 0,
-    sessionId: sessionId,
+    sessionId: sessionID,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   const url =
@@ -473,7 +473,7 @@ export async function detailWithUserInfo(
   isOtherVendor,
   listingid,
   userUniqueId,
-  sessionId
+  sessionID
 ) {
   const url =
     `${URI}/api/v1/device/listing/detailwithuserinfo?isOtherVendor=` +
@@ -486,7 +486,7 @@ export async function detailWithUserInfo(
     ...headers,
     eventName: "PRODUCT_DETAIL_WITH_SELLER_DETAIL",
     userUniqueId: 0,
-    sessionId: sessionId,
+    sessionId: sessionID,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
   return await Axios.post(url, {}, DEFAULT_HEADER).then((response) => {
@@ -838,14 +838,14 @@ export function getShowSerchFilters(sessionID) {
 export async function searchFilter(
   payLoad,
   userUniqueId,
-  sessionId,
+  sessionID,
   pageNumber,
   sortBy
 ) {
   headers = {
     ...headers,
     eventName: "FETCH_SEARCH_LISTINGS",
-    sessionId: sessionId,
+    sessionId: sessionID,
     userUniqueId: 0,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
@@ -974,12 +974,12 @@ export function prepareShareLink(listingId, userUniqueId, sessionID) {
   );
 }
 
-export function getAllNotificationByUserd(userUniqueId, sessionId) {
+export function getAllNotificationByUserd(userUniqueId, sessionID) {
   headers = {
     ...headers,
     eventName: "FETCH_NOTIFICATIONS",
     userUniqueId: userUniqueId,
-    sessionId: sessionId,
+    sessionId: sessionID,
     userUniqueId: 0,
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
