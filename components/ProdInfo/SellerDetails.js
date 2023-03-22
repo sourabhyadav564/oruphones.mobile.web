@@ -32,7 +32,7 @@ function SellerDetails({ data }) {
             </g>
           </svg> */}
           {/* <HiOutlineUserCircle size={40} color={'#878787'} /> */}
-          <Image src={"https://d1tl44nezj10jx.cloudfront.net/assets/icons/user.svg"} width={40} height={40} objectFit="contain" />
+          <Image src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/icons/user.svg"} width={40} height={40} objectFit="contain" />
         </span>
         {(data?.isOtherVendor === "Y") && (
           <div className="ml-2 self-center">

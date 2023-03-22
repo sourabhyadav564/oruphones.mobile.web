@@ -96,7 +96,7 @@ function index() {
       <div className="h-full">
         <div className="flex justify-center pt-10">
           <Image
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/logo_square.svg"}
             height={40}
             width={80}
             alt="ORUphones"

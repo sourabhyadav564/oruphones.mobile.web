@@ -426,10 +426,11 @@ input:checked + div svg {
 }
 
 .banner_gradient{
-  background-image:linear-gradient(to bottom,rgba(255, 255, 255, 0.256),rgb(34, 34, 34)),url('https://d1tl44nezj10jx.cloudfront.net/web/assets/blog_banner.webp');
-  /* width: full; */
-  /* height: 400px; */
-  /* background-position:center;
-  background-repeat: no-repeat;
-  background-size: cover; */
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 150px;
+  bottom: 0px;
+  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
 }

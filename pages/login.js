@@ -68,7 +68,7 @@ function Login() {
       <section className="container px-8 flex flex-col items-center space-y-8 max-w-sm">
         <div className="mt-14" data-aos="fade-down">
           <Image
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/logo_square.svg"}
             alt={"Logo"}
             width={108}
             height={53}

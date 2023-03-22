@@ -53,7 +53,7 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
           <div className="w-full flex justify-center ">
             <Image
               src={
-                "https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"
+                "https://d1tl44nezj10jx.cloudfront.net/web/assets/logo_square.svg"
               }
               alt={"Logo"}
               width={80}

@@ -13,42 +13,42 @@ function IconLabelValue({
         <div>
           {label.toUpperCase().includes("RAM") ? (
             <Image
-              src="https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/memory.svg"
+              src="https://d1tl44nezj10jx.cloudfront.net/web/assets/svgicons/memory.svg"
               width="30"
               height="30"
               objectFit="contain"
             />
           ) : label.toUpperCase().includes("COLOR") ? (
             <Image
-              src="https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/color.svg"
+              src="https://d1tl44nezj10jx.cloudfront.net/web/assets/svgicons/color.svg"
               width="30"
               height="30"
               objectFit="contain"
             />
           ) : label.toUpperCase().includes("STORAGE") ? (
             <Image
-              src="https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/micro-sd.svg"
+              src="https://d1tl44nezj10jx.cloudfront.net/web/assets/svgicons/micro-sd.svg"
               width="30"
               height="30"
               objectFit="contain"
             />
           ) : label.toUpperCase().includes("ACCESSORIES") ? (
             <Image
-              src="https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/charger2.svg"
+              src="https://d1tl44nezj10jx.cloudfront.net/web/assets/svgicons/charger2.svg"
               width="30"
               height="30"
               objectFit="contain"
             />
           ) : label.toUpperCase().includes("WARRANTY") ? (
             <Image
-              src="https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/warranty.svg"
+              src="https://d1tl44nezj10jx.cloudfront.net/web/assets/svgicons/warranty.svg"
               width="30"
               height="30"
               objectFit="contain"
             />
           ) : label.toUpperCase().includes("CONDITION") ? (
             <Image
-              src="https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/quality.svg"
+              src="https://d1tl44nezj10jx.cloudfront.net/web/assets/svgicons/quality.svg"
               width="30"
               height="30"
               objectFit="contain"
@@ -63,7 +63,7 @@ function IconLabelValue({
           ) : label.toUpperCase().includes("LISTED") ? (
             <Image
               src={
-                "https://d1tl44nezj10jx.cloudfront.net/assets/svgicons/calendar.svg"
+                "https://d1tl44nezj10jx.cloudfront.net/web/assets/svgicons/calendar.svg"
               }
               width="30"
               height="30"
@@ -72,7 +72,7 @@ function IconLabelValue({
           ) : label.toUpperCase().includes("LOCATION") ? (
             <Image
               src={
-                "https://d1tl44nezj10jx.cloudfront.net/assets/icons/location.svg"
+                "https://d1tl44nezj10jx.cloudfront.net/web/assets/icons/location.svg"
               }
               width="30"
               height="30"

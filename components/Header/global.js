@@ -67,7 +67,7 @@ function GlobalHeader() {
           <div className="w-44 space-x-6 flex items-center">
             <Image
               onClick={() => setOpenSidebar(true)}
-              src={"https://d1tl44nezj10jx.cloudfront.net/assets/menu-icon.svg"}
+              src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/menu-icon.svg"}
               width={26}
               height={19}
               className="cursor-pointer"
@@ -78,7 +78,7 @@ function GlobalHeader() {
               <a className="flex items-center">
                 <Image
                   src={
-                    "https://d1tl44nezj10jx.cloudfront.net/assets/logo_white.svg"
+                    "https://d1tl44nezj10jx.cloudfront.net/web/assets/logo_white.svg"
                   }
                   width={73}
                   height={33}
@@ -99,7 +99,7 @@ function GlobalHeader() {
               </span>
               <img
                 src={
-                  "https://d1tl44nezj10jx.cloudfront.net/assets/map-marker.svg"
+                  "https://d1tl44nezj10jx.cloudfront.net/web/assets/map-marker.svg"
                 }
                 width={12}
                 height={12}
@@ -129,7 +129,7 @@ function GlobalHeader() {
                     >
                       <Image
                         src={
-                          "https://d1tl44nezj10jx.cloudfront.net/assets/bell-dot.svg"
+                          "https://d1tl44nezj10jx.cloudfront.net/web/assets/bell-dot.svg"
                         }
                         width={18}
                         height={18}

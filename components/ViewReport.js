@@ -72,7 +72,7 @@ const TestAndStatus = ({ testName, testStatus }) => (
         width={25}
         height={23}
         objectFit="contain"
-        src={testStatus === "PASS" ? "https://d1tl44nezj10jx.cloudfront.net/assets/check2-circle.svg" : "https://d1tl44nezj10jx.cloudfront.net/web/assets/testFail.svg"}
+        src={testStatus === "PASS" ? "https://d1tl44nezj10jx.cloudfront.net/web/assets/check2-circle.svg" : "https://d1tl44nezj10jx.cloudfront.net/web/assets/testFail.svg"}
         alt={`${index}.${question}`}
       />
     </p>

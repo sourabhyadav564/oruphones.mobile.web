@@ -90,7 +90,7 @@ function ListingDeatils({ data, id }) {
           <Link href={`/sell-old-refurbished-used-mobiles/edit/${id}`}>
             <a>
               <Image
-                src={"https://d1tl44nezj10jx.cloudfront.net/assets/edit.svg"}
+                src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/edit.svg"}
                 alt={data?.marketingName}
                 width={26}
                 height={21}

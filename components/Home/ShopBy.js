@@ -18,7 +18,7 @@ const data = [
   {
     id: 3,
     text: "Verified Devices Only",
-    imagePath: "https://d1tl44nezj10jx.cloudfront.net/web/assets/like-new.svg",
+    imagePath: "https://d1tl44nezj10jx.cloudfront.net/web/assets/verified-mobils.svg",
     urlPath: "Verified",
   },
   {

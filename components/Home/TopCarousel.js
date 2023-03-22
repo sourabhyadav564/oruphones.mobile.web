@@ -15,6 +15,12 @@ const slides = [
     src: "https://d1tl44nezj10jx.cloudfront.net/web/assets/blog_banner.webp",
 
   },
+  {
+    name: "prc_comp_bnr",
+    link: "https://www.oruphones.com/services/PriceComparison",
+    src: "https://d1tl44nezj10jx.cloudfront.net/web/assets/prc_comp_bnr.webp",
+
+  },
 ];
 
 
@@ -146,9 +152,9 @@ const TopCarousel = () => {
             ) : (
               <Link href={item.link}>
                 <a className="flex justify-center py-2 relative mix-blend-overlay">
-                  <img src={item.src} alt={item.name} width={617} height={309} className="absolute" >
+                  <img src={item.src} alt={item.name} width={617} height={309} className="" >
                   </img>
-                  <div className="bg-gradient-to-t from-white to-transparent -z-10 absolute">
+                  <div className="banner_gradient">
                   </div>
                 </a>
               </Link>

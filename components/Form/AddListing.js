@@ -439,7 +439,7 @@ const AddListingForm = ({ data }) => {
         <div className="grid grid-cols-3 space-x-2">
           <Checkbox
             src={
-              "https://d1tl44nezj10jx.cloudfront.net/assets/charging-station.svg"
+              "https://d1tl44nezj10jx.cloudfront.net/web/assets/charging-station.svg"
             }
             text="Charger"
             onChange={() => setCharging((prev) => !prev)}
@@ -447,14 +447,14 @@ const AddListingForm = ({ data }) => {
           />
           <Checkbox
             src={
-              "https://d1tl44nezj10jx.cloudfront.net/assets/headphones-line.svg"
+              "https://d1tl44nezj10jx.cloudfront.net/web/assets/headphones-line.svg"
             }
             text="Earphones"
             onChange={() => setHeadphone((prev) => !prev)}
             checked={headphone}
           />
           <Checkbox
-            src={"https://d1tl44nezj10jx.cloudfront.net/assets/box.svg"}
+            src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/box.svg"}
             text="Original Box"
             onChange={() => setOriginalbox((prev) => !prev)}
             checked={originalbox}

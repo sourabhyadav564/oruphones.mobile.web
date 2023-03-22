@@ -160,7 +160,7 @@ const NotificationsItem = ({ text, timestamp, onClick, isUnRead }) => (
       style={{ background: "#EFEFEF" }}
     >
       <Image
-        src={"https://d1tl44nezj10jx.cloudfront.net/assets/logo_square.svg"}
+        src={"https://d1tl44nezj10jx.cloudfront.net/web/assets/logo_square.svg"}
         width={30}
         height={30}
         alt="ORUPhones"

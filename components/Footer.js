@@ -108,7 +108,7 @@ const Footer = () => {
               <p className=" font-Roboto-Semobold text-mx">DOWNLOAD ORUphones App</p>
               <div className="grid grid-cols-2 items-center gap-4 my-4">
                 <Link href="https://apps.apple.com/dk/app/oruphones/id1629378420">
-                  <Image src="https://d1tl44nezj10jx.cloudfront.net/assets/app_store.svg" width={70} height={30} alt="app store" />
+                  <Image src="https://d1tl44nezj10jx.cloudfront.net/web/assets/app_store.svg" width={70} height={30} alt="app store" />
                 </Link>
                 <Link href="https://play.google.com/store/apps/details?id=com.oruphones.oru&hl=en&gl=US">
                   <Image src="https://d1tl44nezj10jx.cloudfront.net/web/assets/play_store.svg" width={70} height={25} alt="playstore" />
