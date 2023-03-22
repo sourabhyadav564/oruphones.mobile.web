@@ -22,21 +22,13 @@ const index = ({ data }) => {
         {makeAndModels?.length ? (
           <NewAddListingForm data={makeAndModels} />
         ) : (
-          <div className="flex items-center justify-center">
+          <div className="flex justify-center p-6">
             <Loader />
           </div>
         )}
       </main>
     </Fragment>
   );
-};
-
-export const getServerSideProps = async ({ req, res, query }) => {
-  const { userUniqueId, sessionId, make_models } = req.cookies;
-
-  return {
-    props: {},
-  };
 };
 
 export default index;

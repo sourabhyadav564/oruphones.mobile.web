@@ -229,9 +229,9 @@ function ProductDeatils() {
 
   let iconToShow = (index) => {
     if (index < filled) {
-      return <Image src={start2} width={20} height={20} />;
+      return <div className="text-yellow-400 text-mx truncate">★</div>;
     } else {
-      return <Image src={star} width={20} height={20} />;
+      return <div className="text-gray-400 text-mx truncate">★</div>;
     }
   };
 
@@ -437,7 +437,7 @@ function ProductDeatils() {
                                 });
                             }}
                           >
-                            <span className="underline font-Light text-jx">
+                            <span className="underline font-Roboto-Medium text-jx">
                               Click here to Request Verification
                             </span>
                           </p>
@@ -636,7 +636,14 @@ function ProductDeatils() {
                     label="Listed on"
                     value={data?.listingDate || "--"}
                   />
-                  <IconLabelValue label="Color" value={data?.color || "--"} />
+                  <IconLabelValue
+                    label="Color"
+                    value={
+                      data?.color != "" && data?.color != " "
+                        ? data?.color
+                        : "--"
+                    }
+                  />
                   <IconLabelValue label="RAM" value={data?.deviceRam || "--"} />
                   {data?.isOtherVendor === "Y" && (
                     <>
@@ -664,16 +671,37 @@ function ProductDeatils() {
                   <IconLabelValue label="storage" value={data?.deviceStorage} />
                   <IconLabelValue
                     label="verified on"
-                    value={data?.verifiedDate || "Request Verification"}
+                    value={
+                      data?.verifiedDate != "" &&
+                      data?.verifiedDate != " " &&
+                      data?.verifiedDate &&
+                      data?.verified
+                        ? data?.verifiedDate
+                        : "Request Verification"
+                    }
                     showInfoPopup={() => setOpenVerificationInfo(true)}
                     showRequestVerificarionSuccessPopup={() =>
                       !authenticated
                         ? setOpenLoginPopup(true)
                         : setOpenRequestVerificationSuccessPopup(true)
                     }
-                    textAsLink={data?.verifiedDate != null ? false : true}
+                    textAsLink={
+                      !data?.verifiedDate ||
+                      data?.verified == false ||
+                      data?.verifiedDate == null ||
+                      data?.verifiedDate == " "
+                        ? true
+                        : false
+                    }
                   />
-                  <IconLabelValue label="color" value={data?.color || ""} />
+                  <IconLabelValue
+                    label="color"
+                    value={
+                      data?.color != "" && data?.color != " "
+                        ? data?.color
+                        : "--"
+                    }
+                  />
                   {data?.isOtherVendor === "N" && (
                     <>
                       <IconLabelValue

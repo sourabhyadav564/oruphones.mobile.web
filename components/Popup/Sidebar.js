@@ -206,16 +206,26 @@ function Sidebar({ open, setOpen }) {
                 }}
               >
                 <div className="w-full flex gap-2 border-b pb-3">
-                  <Image src={QuestionCircle} width={20} height={20} className="self-center"/>
+                  <Image
+                    src={QuestionCircle}
+                    width={20}
+                    height={20}
+                    className="self-center"
+                  />
                   <p className="self-center flex-1  font-Roboto-Regular">
                     {" "}
                     Report an issue
                   </p>
-                  <Image src={ChevronLeft} width={15} height={15} className="rotate-180 self-center"  />
+                  <Image
+                    src={ChevronLeft}
+                    width={15}
+                    height={15}
+                    className="rotate-180 self-center"
+                  />
                 </div>
               </ListItem>
               <ListItem
-                href="/blog"
+                href={"https://www.oruphones.com/blog/"}
                 onClick={() => {
                   setOpen(false);
                 }}

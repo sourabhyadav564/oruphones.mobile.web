@@ -2,13 +2,21 @@ import styles from "../../styles/page.module.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Axios from "axios";
+import Cookies from "js-cookie";
+import { getSessionId } from "api-call";
+
+let sessionId = Cookies.get("sessionId");
+getSessionId("").then((res) => {
+  Cookies.set("sessionId", res?.dataObject?.sessionId);
+  sessionId = res?.dataObject?.sessionId;
+});
 
 let headers = {
   "Content-Type": "application/json",
   srcFrom: "Mobile Web",
   eventName: "NA",
   userUniqueId: 0,
-  sessionId: "",
+  sessionId: sessionId,
   devicePlatform: "Mobile Web",
   location: "",
 };
@@ -34,14 +42,14 @@ Axios.interceptors.response.use(
 );
 
 export const getLink = async (id) => {
-  if (id == "blog") {
-    window.open("https://www.oruphones.com/blog", "_self").focus();
-  } else if (id !== undefined) {
+  if (id !== undefined) {
     const API_ENDPOINT =
       process.env.NEXT_PUBLIC_SERVER_URL +
       "/api/v1/global/getLink?keyId=" +
       `${id}`;
-    const result = await Axios.get(API_ENDPOINT, { headers: { ...headers } });
+    const result = await Axios.get(API_ENDPOINT, {
+      headers: { ...headers, sessionId: Cookies.get("sessionId") },
+    });
     if (result.data.status === "SUCCESS") {
       window.open(result.data.dataObject.link, "_self").focus();
     } else {

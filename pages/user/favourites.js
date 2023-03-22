@@ -67,8 +67,10 @@ function Favorites() {
 
         {isLoading && !myFavList?.length > 0 && (
           <div className="space-y-3">
-            <Spinner />
-            <div className="text-center">
+            <div className="flex justify-center">
+              <Spinner />
+            </div>
+            <div className="text-center font-Roboto-Regular">
               Please wait, while we are fetching data for you...{" "}
             </div>
           </div>

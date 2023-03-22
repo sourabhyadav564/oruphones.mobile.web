@@ -12,7 +12,6 @@ import Cookies from "js-cookie";
 
 function GlobalHeader() {
   const [openLocationPopup, setOpenLocationPopup] = useState(false);
-  const [notification, setNotifications] = useState();
   const [openSidebar, setOpenSidebar] = useState(false);
   const { selectedSearchCity, authenticated } = useAuthState();
   const router = useRouter();
@@ -27,7 +26,6 @@ function GlobalHeader() {
         Cookies.get("userUniqueId"),
         Cookies.get("sessionId")
       ).then((response) => {
-        setNotifications(response?.dataObject?.notifications);
         setUnreadNotificationsCount(response?.dataObject?.unReadCount);
       });
   });
@@ -124,27 +122,29 @@ function GlobalHeader() {
                   "/product/buy-old-refurbished-used-mobiles/bestdealnearyou" ||
                 router.pathname === "/product/models") && (
                 <Link href="/user/notification">
-                  <a
-                    className="flex ml-4"
-                    onClick={() => setLoadingState(true)}
-                  >
-                    <Image
-                      src={
-                        "https://d1tl44nezj10jx.cloudfront.net/assets/bell-dot.svg"
-                      }
-                      width={18}
-                      height={18}
-                      priority
-                      objectFit="contain"
-                      alt="ORU notification icon"
-                    />
-                  </a>
+                  <div>
+                    <a
+                      className="flex ml-4"
+                      onClick={() => setLoadingState(true)}
+                    >
+                      <Image
+                        src={
+                          "https://d1tl44nezj10jx.cloudfront.net/assets/bell-dot.svg"
+                        }
+                        width={18}
+                        height={18}
+                        priority
+                        objectFit="contain"
+                        alt="ORU notification icon"
+                      />
+                    </a>
+                    {unreadNotificationsCount > 0 && (
+                      <span className="absolute top-3 bg-yellow-fb w-6 text-lx right-1 text-primary font-Roboto-Bold rounded-full flex items-center justify-center">
+                        {unreadNotificationsCount}
+                      </span>
+                    )}
+                  </div>
                 </Link>
-              )}
-              {unreadNotificationsCount > 0 && (
-                <span className="absolute top-3 bg-yellow-fb w-6 text-lx right-1 text-primary font-Roboto-Bold rounded-full flex items-center justify-center">
-                  {unreadNotificationsCount}
-                </span>
               )}
             </div>
           </div>

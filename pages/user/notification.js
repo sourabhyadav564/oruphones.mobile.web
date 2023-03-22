@@ -17,12 +17,29 @@ import {
   TrailingActions,
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
+import Loader from "@/components/Loader/Loader";
 
-function Notification({ notificationsListObject }) {
-  const [notifications, setNotifications] = useState(
-    notificationsListObject?.notifications
-  );
+function Notification() {
+  const [notificationsListObject, setNotificationsListObject] = useState(null);
   const [openVerifyFlow, setOpenVerifyFlow] = useState(false);
+  let notificationCalled = false;
+
+  useEffect(async () => {
+    if (notificationsListObject === null && !notificationCalled) {
+      notificationCalled = true;
+      await getAllNotificationByUserd(
+        Cookies.get("userUniqueId") || 0,
+        Cookies.get("sessionId")
+      ).then((response) => {
+        if (response?.dataObject?.length != 0) {
+          setNotificationsListObject(response?.dataObject);
+        } else {
+          notificationCalled = false;
+        }
+      });
+    }
+  }, []);
+
   const leadingActions = (id) => (
     <LeadingActions>
       <SwipeAction
@@ -92,8 +109,16 @@ function Notification({ notificationsListObject }) {
     <Fragment>
       <Header5 title="Notification" />
       <main className="overflow-hidden overflow-y-auto">
-        {notifications && notifications?.length > 0 ? (
-          notifications?.map((items, index) => (
+        {notificationsListObject == null ? (
+          <div className="flex justify-center items-center h-52 flex-col">
+            <Loader />
+            <div className="text-center font-Roboto-Regular">
+              Please wait, while we are fetching data for you...{" "}
+            </div>
+          </div>
+        ) : notificationsListObject?.notifications &&
+          notificationsListObject?.notifications?.length > 0 ? (
+          notificationsListObject?.notifications?.map((items, index) => (
             <SwipeableList>
               <SwipeableListItem
                 key={index}
@@ -160,15 +185,15 @@ const NotificationsItem = ({ text, timestamp, onClick, isUnRead }) => (
   </div>
 );
 
-export const getServerSideProps = async ({ req }) => {
-  const { userUniqueId, sessionId } = req.cookies;
-  const notificationsList = await getAllNotificationByUserd(
-    userUniqueId,
-    sessionId
-  );
-  return {
-    props: {
-      notificationsListObject: notificationsList?.dataObject || [],
-    },
-  };
-};
+// export const getServerSideProps = async ({ req }) => {
+//   const { userUniqueId, sessionId } = req.cookies;
+//   const notificationsList = await getAllNotificationByUserd(
+//     userUniqueId,
+//     sessionId
+//   );
+//   return {
+//     props: {
+//       notificationsListObject: notificationsList?.dataObject || [],
+//     },
+//   };
+// };

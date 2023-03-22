@@ -870,7 +870,7 @@ const NewAddListingForm = ({ data }) => {
             )}
 
             {isGettingPrice && (
-              <div className="py-5">
+              <div className="py-5 flex justify-center">
                 <Spinner />
               </div>
             )}

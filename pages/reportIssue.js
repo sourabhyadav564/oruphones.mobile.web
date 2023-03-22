@@ -72,18 +72,6 @@ const ReportIssue = () => {
   };
   const handleSubmitIssue = (e) => {
     e.preventDefault();
-    console.log(
-      "submit",
-      userName,
-      email,
-      MobileNumber,
-      issue,
-      make,
-      model,
-      storage,
-      description,
-      callTime
-    );
     if (
       userName !== "" &&
       email !== "" &&

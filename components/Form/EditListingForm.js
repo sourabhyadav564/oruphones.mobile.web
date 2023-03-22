@@ -168,11 +168,14 @@ const EditListingForm = ({ data }) => {
     sellValue = sellValueTag.value || "";
     if (data != undefined && data != null) {
       let models3;
-      await getModelLists(Cookies.get("userUniqueId") || 0, Cookies.get("sessionId"), data?.make, "").then(
-        (response) => {
-          models3 = response;
-        }
-      );
+      await getModelLists(
+        Cookies.get("userUniqueId") || 0,
+        Cookies.get("sessionId"),
+        data?.make,
+        data?.marketingName || ""
+      ).then((response) => {
+        models3 = response;
+      });
       const models4 = models3?.dataObject[0].models.filter(
         (item) => item.marketingname === data?.marketingName
       );

@@ -37,7 +37,6 @@ Axios.interceptors.response.use(
       };
       const API_ENDPOINT = URI + "/api/v1/api/auth/sessionid";
       const result = await Axios.get(API_ENDPOINT, { headers: { ...headers } });
-      console.log("result", result?.data?.reason);
       if (result?.data?.reason != "Session already exist") {
         if (typeof window !== "undefined") {
           localStorage.setItem(
@@ -716,7 +715,6 @@ export async function bestDealNearYouAll(
     sessionId: sessionID || "",
   };
   const DEFAULT_HEADER = { headers: { ...headers } };
-  console.log("url", sessionID);
   const url =
     `${URI}/api/v1/device/listings/best/nearall?userLocation=` +
     location +

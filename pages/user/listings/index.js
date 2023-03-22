@@ -85,19 +85,3 @@ function Index({ userInfo }) {
 }
 
 export default Index;
-
-export const getServerSideProps = async ({ query }) => {
-  try {
-    return {
-      props: {
-        userInfo: query?.userInfo || null,
-      },
-    };
-  } catch (e) {
-    return {
-      props: {
-        userInfo: null,
-      },
-    };
-  }
-};
