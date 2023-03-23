@@ -30,22 +30,22 @@ export function numberFromString(x) {
 
 export const ENV = {
   PRODUCTION: {
-    KEY: 'production',
-    URL: 'https://api.oruphones.com',
+    KEY: "production",
+    URL: "https://api.oruphones.com",
   },
   DEVELOPMENT: {
-    KEY: 'development',
-    URL: 'https://api.oruphones.com',
+    KEY: "development",
+    URL: "https://api.oruphones.com",
   },
   LOCAL: {
-    KEY: 'local',
-    URL: 'https://new-test-application-001.herokuapp.com',
+    KEY: "local",
+    URL: "https://new-test-application-001.herokuapp.com",
   },
-  MENULISTSECRETKEY: 'DSJDGJLGFJLGADUEJMBNBDSHULFBFNBHJGXY',
+  MENULISTSECRETKEY: "DSJDGJLGFJLGADUEJMBNBDSHULFBFNBHJGXY",
 };
 
 export const stringToDate = (dateString) => {
-  let new_data_string = moment(dateString).format('L');
+  let new_data_string = moment(dateString).format("L");
   const [day, month, year] = new_data_string.split("/");
   return new Date([month, day, year].join("/"));
 };

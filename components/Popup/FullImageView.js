@@ -17,9 +17,12 @@ function FullImageView({ open, close, images }) {
   return (
     <section className={styles.imageview_container}>
       <div className="w-full h-16 flex justify-end p-4 text-white">
-        <div className="flex justify-center items-center bg-white bg-opacity-10 rounded-full w-10 h-10" onClick={() => close()}>
-          
-          <Image src={Close} width={25} height={25}  className="cursor-pointer"/>
+        <div
+          className="flex justify-center items-center bg-white bg-opacity-10 rounded-full w-10 h-10"
+          onClick={() => close()}
+        >
+          <div className="text-white">&#x2716;</div>
+          {/* <Image src={Close} width={25} height={25}  className="cursor-pointer"/> */}
         </div>
       </div>
       {images && (
@@ -27,12 +30,18 @@ function FullImageView({ open, close, images }) {
           pagination={{
             type: "fraction",
           }}
+          navigation={true}
+          loop={true}
         >
           {images
             .filter((i) => i.fullImage)
             .map((img, index) => (
               <SwiperSlide key={index} className={styles.image_wrapper}>
-                <img src={img?.fullImage} alt={index} style={{ maxWidth: "85%", maxHeight: "75vh" }} />
+                <img
+                  src={img?.fullImage}
+                  alt={index}
+                  style={{ maxWidth: "85%", maxHeight: "75vh" }}
+                />
               </SwiperSlide>
             ))}
         </CarouselWithPagination>

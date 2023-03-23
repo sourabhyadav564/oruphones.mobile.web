@@ -91,7 +91,6 @@ const NewAddListingForm = ({ data }) => {
   const [recommandedPrice, setRecommandedPrice] = useState();
   const [inputUsername, setInputUsername] = useState("");
   const [inputSellPrice, setInputSellPrice] = useState("");
-  const [disableSubmitButton, setDisableSubmitButton] = useState(true);
   const [mktNameOpt, setMktNameOpt] = useState();
   const [termsAndCondition, setTermsAndCondition] = useState(true);
   const [images, setImages] = useState(initialState);
@@ -311,6 +310,8 @@ const NewAddListingForm = ({ data }) => {
             (i) => i.marketingname == selectedModel
           )
         );
+        setStorage(selectedStorage);
+        setPage(1);
       }
       clearInterval(interval);
     }, 1000);

@@ -4,8 +4,6 @@ import { servicesData } from "@/utils/constant";
 import Footer from "@/components/Footer";
 import VerifyFlowPopup from "@/components/Popup/VerifyFlowPopup";
 import BottomNav from "@/components/Navigation/BottomNav";
-import priceComparison from "./services/PriceComparison";
-import PriceComparison from "./services/PriceComparison";
 import Link from "next/link";
 import LoginPopup from "@/components/Popup/LoginPopup";
 import { useAuthState } from "providers/AuthProvider";
@@ -22,7 +20,7 @@ function Services() {
     const interval = setInterval(() => {
     if (openLoginPopup == false && performAction == true && Cookies.get("userUniqueId") != undefined) {
       clearInterval(interval);
-      router.push("/services/PriceComparison");
+      router.push("/services/price-comparison");
     }
   }, 1000);
   }, [openLoginPopup]);
