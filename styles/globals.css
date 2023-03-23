@@ -430,7 +430,8 @@ input:checked + div svg {
   position: absolute;
   left: 0;
   right: 0;
-  top: 150px;
+  top: 160px;
   bottom: 0px;
-  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%, rgba(255, 255, 255, 1) 30%);
 }
+
