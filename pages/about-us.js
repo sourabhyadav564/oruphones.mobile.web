@@ -202,7 +202,7 @@ function Aboutus() {
             <p className="font-Roboto-Medium mt-2 text-gx px-2 pb-4">
               Registered Office: Mobilicis India Private Limited, A-66, Scheme
               No. 10, Near Jain Temple, Alwar - 301001, Rajasthan, India,
-              Support-9660398594 | CIN: U72900RJ2022PTC079442 . Date of
+              Support: +91-9660398594 | CIN: U72900RJ2022PTC079442 . Date of
               incorporation: 02-FEB-2022. Person who may be contacted in case of
               any compliance related queries or grievances : <br></br>
               <b>Manuj purwar</b>
@@ -221,7 +221,8 @@ function Aboutus() {
               >
                 agarwal.anish@oruphones.com
               </a>
-              <br></br> All product names, logos, and brands are property of
+              <br></br>
+              <br></br> **All product names, logos, and brands are property of
               their respective owners. All company, product and service names
               used in this website are for identification purposes only. Use of
               these names, logos, and brands does not imply endorsement.
