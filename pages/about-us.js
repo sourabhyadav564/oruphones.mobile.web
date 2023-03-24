@@ -57,8 +57,8 @@ function Aboutus() {
       </Head>
       <Fragment>
         <Header5 title={"About Us"} />
-        <main>
-          <section className=" px-4 mx-2 ">
+        <main className="bg-loginBg px-0">
+          <section className=" px-4 mx-2 justify-evenly">
             <div className="pt-2">
               <h1 className="text-4xl font-Roboto-Bold text-primary pt-2">
                 {" "}
@@ -69,11 +69,11 @@ function Aboutus() {
               </span>
             </div>
           </section>
-          <div className="content mt-6">
-            <span className="font-Roboto-Bold text-m-green underline mt-6 text-xl2FontSize ">
+          <div className="content mt-6 shadow-xl border-2 mx-2">
+            <span className="font-Roboto-Bold text-m-green underline mt-6 text-xl2FontSize text-primary">
               ORUphones
             </span>
-            <span className="font-Roboto-light mt-6 text-xlFontSize ">
+            <span className="font-Roboto-Light mt-6 text-xlFontSize text-justify">
               {" "}
               - A tech start-up, India's first-ever online C2C marketplace
               dedicated to buying and selling Old, Refurbished & Used phones. In
@@ -89,8 +89,8 @@ function Aboutus() {
               and a dedicated team of professionals.
             </span>
           </div>
-          <div className="container text-center ">
-            <p className="text-[36px] font-Roboto-Bold text-primary opacity-0.6">
+          <div className=" px-2 text-center ">
+            <p className="text-[36px] font-Roboto-Bold text-primary opacity-0.6 pt-2">
               ORU Team
             </p>
             <div className=" lg:grid-cols-4 md:grid-cols-3 grid-cols-2 my-1 justify-center">
@@ -108,20 +108,18 @@ function Aboutus() {
               ))}
             </div>
           </div>
-          <div className="container mt-4">
+          <div className="mt-4 shadow-xl border-2 rounded-lg mx-2 px-2">
             <p className="font-Roboto-Bold text-px text-primary underline px-2">
               ORU Vision
             </p>
             <p className="font-Roboto-Medium mt-2 text-gx px-2">
               Our vision is to be a trusted, global marketplace for any user to
               buy and sell their phone with confidence, ease, and for the best
-              price possible. <br></br>This is achievable with a strong technology stack
-              and a dedicated team of professionals who are seasoned and
-              understand the needs of the global market.
+              price possible. <br></br>This is achievable with a strong
+              technology stack and a dedicated team of professionals who are
+              seasoned and understand the needs of the global market.
             </p>
-          </div>
-          <div className="content mt-2">
-            <p className="font-Roboto-Medium mt-4 text-gx ">
+            <p className="font-Roboto-Medium mt-4 text-gx px-2">
               ORUphones is India’s first ever online marketplace exclusively
               built for buying and selling Certified Old, Refurbished & Used
               phones. Our vision is to be a trusted marketplace for every user
@@ -130,10 +128,14 @@ function Aboutus() {
               technology and a dedicated team of professionals who are
               well-seasoned and understand the needs of the market.
             </p>
-            <p className="text-gx font-Roboto-Semibold">WHY ORUphones?</p>
+            <br />
+            <p className="text-gx font-Roboto-Semibold px-2">WHY ORUphones?</p>
             <div>
-              <h2 className="font-Roboto-Semibold text-tx"> 01. Best Prices</h2>
-              <p className="font-Roboto-Light text-gx">
+              <h2 className="font-Roboto-Semibold text-tx px-2">
+                {" "}
+                01. Best Prices
+              </h2>
+              <p className="font-Roboto-Light text-gx px-2">
                 The prices of used phones hike as they reach the end-user
                 through multiple people. A few online shops and stores justify
                 these highly inflated prices by tagging the phones as
@@ -144,12 +146,15 @@ function Aboutus() {
                 No commission is involved, no fees and no hidden charges, as
                 transactions take place directly between the seller and buyer.
                 ORUphones’ AI-driven pricing engine curates and presents the
-                most profitable deals to both buyers and sellers
+                most profitable deals to both buyers and sellers.
               </p>
             </div>
             <div>
-              <p className="font-Roboto-Semibold text-tx"> 02. Safe & Secure</p>
-              <p className="font-Roboto-Light text-gx">
+              <p className="font-Roboto-Semibold text-tx px-2">
+                {" "}
+                02. Safe & Secure
+              </p>
+              <p className="font-Roboto-Light text-gx px-2">
                 Fake or counterfeit smartphones are common in the used &
                 second-hand phone markets in India. Online markets have a higher
                 risk as you cannot personally check out the condition of the
@@ -166,8 +171,11 @@ function Aboutus() {
               </p>
             </div>
             <div>
-              <p className="font-Roboto-Semibold text-tx"> 03. Convenient</p>
-              <p className="font-Roboto-Light text-gx">
+              <p className="font-Roboto-Semibold text-tx px-2">
+                {" "}
+                03. Convenient
+              </p>
+              <p className="font-Roboto-Light text-gx px-2">
                 ORUphones is a website that makes selling and buying old phones
                 easier. With the provision of the Best Deals section and added
                 free services, ORUphones does all the tedious work and puts
@@ -176,8 +184,8 @@ function Aboutus() {
                 ease.
               </p>
             </div>
-            <div className="my-2">
-              <p className="font-Roboto-light text-gx">
+            <div className="my-2 px-2">
+              <p className="font-Roboto-Light text-gx">
                 That apart, our proprietary algorithm curates <br />
                 <span className="underline"> Best Deal for Buyers: </span>Save
                 up to 30% on curated offers that provide the best quality-price
@@ -185,13 +193,13 @@ function Aboutus() {
                 <br />
                 <span className="underline">Best Deal for Sellers: </span> Get
                 the maximum cash for your old Phone with our "Recommended price"
-                algorithm
+                algorithm.
               </p>
             </div>
           </div>
           <div className="container mt-2">
             <p className="font-Roboto-Bold text-px text-primary pt-2 underline mb-3 px-2">
-              ORU Office
+              Office
             </p>
             <img
               className="px-2"
@@ -200,11 +208,15 @@ function Aboutus() {
               }
             ></img>
             <p className="font-Roboto-Medium mt-2 text-gx px-2 pb-4">
-              Registered Office: Mobilicis India Private Limited, A-66, Scheme
-              No. 10, Near Jain Temple, Alwar - 301001, Rajasthan, India,
-              Support: +91-9660398594 | CIN: U72900RJ2022PTC079442 . Date of
-              incorporation: 02-FEB-2022. Person who may be contacted in case of
-              any compliance related queries or grievances : <br></br>
+              Registered Office:
+              <span className="font-Roboto-Bold text-tx">
+                Mobilicis India Private Limited
+              </span>
+              , A-66, Scheme No. 10, Near Jain Temple, Alwar - 301001,
+              Rajasthan, India, Support: +91-9660398594 | CIN:
+              U72900RJ2022PTC079442 . Date of incorporation: 02-FEB-2022. Person
+              who may be contacted in case of any compliance related queries or
+              grievances : <br></br>
               <b>Manuj purwar</b>
               <br></br>{" "}
               <a

@@ -13,7 +13,12 @@ function BestDealSection({ bestDealData, setProducts }) {
   const [openVerificationInfo, setOpenVerificationInfo] = useState(false);
   return (
     <section className="-mx-3 -mt-3">
-      <CarouselWithPagination>
+      <CarouselWithPagination 
+      autoplay={{
+        delay: 4000,
+        disableOnInteraction: false,
+      }}
+      >
         {bestDealData?.map((item) => (
           <SwiperSlide key={item?.listingId} style={{ padding: "0px 12px", paddingTop: "12px" }}>
             <BestDealCard

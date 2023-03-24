@@ -39,25 +39,25 @@ const TopCarousel = () => {
   const [openLoginPopup, setOpenLoginPopup] = useState(false);
   const [performAction, setPerformAction] = useState(false);
 
-  
   useEffect(() => {
     setLoadingState(false);
   }, [router.pathname]);
-  
+
   const handleClick = () => {
-    if(Cookies.get("userUniqueId") == undefined)
-    {
+    if (Cookies.get("userUniqueId") == undefined) {
       setOpenLoginPopup(true);
       setPerformAction(true);
-    }
-    else
-    {
+    } else {
       router.push("/services/price-comparison");
     }
   };
   useEffect(() => {
     const interval = setInterval(() => {
-      if (openLoginPopup == false && performAction == true && Cookies.get("userUniqueId") != undefined) {
+      if (
+        openLoginPopup == false &&
+        performAction == true &&
+        Cookies.get("userUniqueId") != undefined
+      ) {
         clearInterval(interval);
         router.push("/services/price-comparison");
       }
@@ -129,10 +129,16 @@ const TopCarousel = () => {
     // </section>
 
     <section>
-      <CarouselWithPagination slidesPerView={1}>
+      <CarouselWithPagination
+        slidesPerView={1}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
+      >
         {slides.map((item) => (
           <SwiperSlide key={item.name}>
-            {item.link && item.id==1 ? (
+            {item.link && item.id == 1 ? (
               <div className="flex justify-center relative mb-3">
                 <div style={{ margin: "4px 0px 28px 0px" }} className="">
                   <Image
@@ -191,16 +197,17 @@ const TopCarousel = () => {
               </div>
             ) : (
               // <Link href={item.link}>
-                <a className="flex justify-center py-2 relative mix-blend-overlay">
-                  <img
-                    src={item.src}
-                    alt={item.name}
-                    width={617}
-                    height={309}
-                    className=""
-                  ></img>
-                  <div className="banner_gradient"></div>
-                  {item.id==2 && <div
+              <a className="flex justify-center py-2 relative mix-blend-overlay">
+                <img
+                  src={item.src}
+                  alt={item.name}
+                  width={617}
+                  height={309}
+                  className=""
+                ></img>
+                <div className="banner_gradient"></div>
+                {item.id == 2 && (
+                  <div
                     className="w-full absolute left-0 right-0 md:bottom-16 -bottom-2 px-5 flex items-center justify-center"
                     style={{ fontSize: 10 }}
                   >
@@ -214,13 +221,15 @@ const TopCarousel = () => {
                             className="flex h-7 text-ex font-Roboto-Semibold justify-center py-5 items-center px-12 rounded-[5px] bg-gradient-to-t from-[#d3a97d] to-[#ffffff]"
                             onClick={() => setLoadingState(true)}
                           >
-                            {item.id==2 && <p>VISIT</p>}
+                            {item.id == 2 && <p>VISIT</p>}
                           </a>
                         </div>
                       </Link>
                     </div>
-                  </div>}
-                  {item.id==3 && <div
+                  </div>
+                )}
+                {item.id == 3 && (
+                  <div
                     className="w-full absolute left-0 right-0 md:bottom-16 -bottom-2 px-5 flex items-center justify-center"
                     style={{ fontSize: 10 }}
                   >
@@ -234,22 +243,21 @@ const TopCarousel = () => {
                             className="flex h-7 text-ex font-Roboto-Semibold justify-center py-5 items-center px-12 rounded-[5px] bg-gradient-to-b from-[#FFDe59] to-[#FFDE59]"
                             onClick={() => handleClick()}
                           >
-                            {item.id==3 && <p>COMPARE PRICE</p>}
+                            {item.id == 3 && <p>COMPARE PRICE</p>}
                           </a>
                         </div>
                       </div>
                     </div>
-                  </div>}
-                </a>
+                  </div>
+                )}
+              </a>
               // </Link>
             )}
           </SwiperSlide>
         ))}
-      </CarouselWithPagination>  
-      <LoginPopup
-       open={openLoginPopup} setOpen={setOpenLoginPopup} />
+      </CarouselWithPagination>
+      <LoginPopup open={openLoginPopup} setOpen={setOpenLoginPopup} />
     </section>
-    
   );
 };
 

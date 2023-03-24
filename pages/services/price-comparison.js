@@ -47,7 +47,7 @@ function Index() {
   const selectedModel = useRecoilValue(addListingModelSelector);
   const [model, setModel] = useState();
   const [bestDeals, setBestDeals] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [otherListings, setOtherListings] = useState([]);
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [modelInfo, setModelInfo] = useState();
@@ -73,6 +73,7 @@ function Index() {
       setStorage();
       setStorageColorOption();
       setCondition();
+      setOtherListings([]);
       const interval = setInterval(() => {
         setDefaultModel("");
         setModel("");
@@ -85,12 +86,14 @@ function Index() {
     if (model) {
       setStorage();
       setCondition();
+      setOtherListings([]);
     }
   }, [model]);
 
   useEffect(() => {
-    setIsFilterApplied(true);
     if (make && model && storage && condition) {
+      setIsFilterApplied(true);
+      setLoading(true);
       if (make === "oneplus") {
         setMake("OnePlus");
       } else {
@@ -463,17 +466,12 @@ function Index() {
 
       {!sellSelected && otherListings && bestDeals && (
         <div>
-          {!loading && storage && (
-            <div className="text-lg font-semibold text-primary pt-2.5 px-4">
+          {storage && condition && (
+            <div className="text-lg font-Roboto-Semibold text-primary pt-2.5 px-4">
               <p>Best Deals</p>
             </div>
           )}
-          {(!loading || otherListings?.length > 0) && (
-            <div className="flex mt- pb-0">
-              <p className="font-Roboto-Semibold text-[#707070]  text-cx  capitalize underline"></p>
-            </div>
-          )}
-          {loading ? (
+          {loading && !otherListings?.length > 0 ? (
             <div className="grid grid-cols-2 mx-3 py-3">
               {Array(10)
                 .fill()

@@ -1,6 +1,19 @@
-function Input({ name, className, inputClass, prefix, children, errorClass,labelClass, ...rest }) {
+function Input({
+  name,
+  className,
+  inputClass,
+  prefix,
+  children,
+  errorClass,
+  labelClass,
+  ...rest
+}) {
   return (
-    <div className={`outline outline-none relative w-full focus:outline-none ${className || ""}`}>
+    <div
+      className={`outline outline-none relative w-full focus:outline-none ${
+        className || ""
+      }`}
+    >
       <div
         className={`flex items-center px-4 rounded ${errorClass}`}
         style={{
@@ -8,12 +21,20 @@ function Input({ name, className, inputClass, prefix, children, errorClass,label
           color: "rgba(0, 0, 0, 0.6)",
         }}
       >
-        <span className="block mr-0.5 self-center font-Roboto-Regular text-[#2C2F45] mt-0.5 text-mx">{prefix}</span>
-        <input name={name}  className={`py-3 block h-full w-full text-mx font-Roboto-Semibold appearance-none ring-0 focus:ring-0 bg-transparent text-black  ${inputClass || ""}`} {...rest}   />
+        <span className="block mr-0.5 self-center font-Roboto-Regular text-[#2C2F45] mt-0.5 text-mx">
+          {prefix}
+        </span>
+        <input
+          name={name}
+          className={`py-3 block h-full w-full text-mx font-Roboto-Semibold appearance-none ring-0 focus:ring-0 bg-transparent text-black  ${
+            inputClass || ""
+          }`}
+          {...rest}
+        />
       </div>
       <label
         htmlFor={name}
-        className={`absolute top-0 font-normal left-0 text-sm p-1 z-1 duration-300 origin-0 bg-primary ${labelClass}`}
+        className={`absolute top-0 font-normal left-0 text-sm p-1 z-1 duration-300 origin-0 ${labelClass}`}
         style={{ color: "rgba(0, 0, 0, 0.6)" }}
       >
         {children}

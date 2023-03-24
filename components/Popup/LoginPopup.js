@@ -17,6 +17,18 @@ function LoginPopup({ open, setOpen, fromAddListing }) {
     mobile: "",
     termsAndCondition: true,
   });
+
+  useEffect(() => {
+    if (open) {
+      setStep(1);
+      setFormData({
+        countryCode: "91",
+        mobile: "",
+        termsAndCondition: true,
+      });
+    }
+  }, [open]);
+
   const [error, setError] = useState({ message: "", is: false });
   const [response, setResponse] = useState();
   const [showTCPopUp, setShowTCPopup] = useState(false);

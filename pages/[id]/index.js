@@ -42,7 +42,9 @@ Axios.interceptors.response.use(
 );
 
 export const getLink = async (id) => {
-  if (id !== undefined) {
+  if (id == "blog") {
+    window.open("https://www.oruphones.com/blog/", "_self").focus();
+  } else if (id !== undefined) {
     const API_ENDPOINT =
       process.env.NEXT_PUBLIC_SERVER_URL +
       "/api/v1/global/getLink?keyId=" +

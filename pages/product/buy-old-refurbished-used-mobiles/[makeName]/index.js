@@ -3,12 +3,7 @@ import ShopByBrandsSection from "@/components/ShopByBrandsSection";
 import OtherListingCard from "@/components/Card/OtherListingCard";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import {
-  fetchByMakeList,
-  searchFilter,
-  getMakeModelLists,
-  fetchTopsellingmodels,
-} from "api-call";
+import { fetchByMakeList, searchFilter, getMakeModelLists, fetchTopsellingmodels } from "api-call";
 import Filter from "@/components/FilterAndSort/Filter";
 import Filter1 from "@/components/FilterAndSort/FilterAndSort1";
 import { useState, useEffect } from "react";
