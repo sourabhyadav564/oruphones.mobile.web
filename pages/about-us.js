@@ -26,7 +26,7 @@ function Aboutus() {
     {
       imgsrc: "https://d1tl44nezj10jx.cloudfront.net/team/manuj.webp",
       name: "Manuj Purwar",
-      position: "COO",
+      position: "Co-Founder & COO",
       description:
         "13 years of experience across technology, strategy consulting and supply chain management. Responsible for setting up and scaling up operations for UP Medical Supplies Corporation",
       twittersrc: "",
@@ -60,7 +60,7 @@ function Aboutus() {
         <main>
           <section className=" px-4 mx-2 ">
             <div className="pt-2">
-              <h1 className="text-4xl font-Roboto-Bold text-primary">
+              <h1 className="text-4xl font-Roboto-Bold text-primary pt-2">
                 {" "}
                 ORUphones{" "}
               </h1>
@@ -69,11 +69,11 @@ function Aboutus() {
               </span>
             </div>
           </section>
-          <div className="content mt-8">
+          <div className="content mt-6">
             <span className="font-Roboto-Bold text-m-green underline mt-6 text-xl2FontSize ">
               ORUphones
             </span>
-            <span className="font-Roboto-Medium mt-6 text-xlFontSize ">
+            <span className="font-Roboto-light mt-6 text-xlFontSize ">
               {" "}
               - A tech start-up, India's first-ever online C2C marketplace
               dedicated to buying and selling Old, Refurbished & Used phones. In
@@ -115,7 +115,7 @@ function Aboutus() {
             <p className="font-Roboto-Medium mt-2 text-gx px-2">
               Our vision is to be a trusted, global marketplace for any user to
               buy and sell their phone with confidence, ease, and for the best
-              price possible. This is achievable with a strong technology stack
+              price possible. <br></br>This is achievable with a strong technology stack
               and a dedicated team of professionals who are seasoned and
               understand the needs of the global market.
             </p>
@@ -177,7 +177,7 @@ function Aboutus() {
               </p>
             </div>
             <div className="my-2">
-              <p className="font-Roboto-Medium text-gx">
+              <p className="font-Roboto-light text-gx">
                 That apart, our proprietary algorithm curates <br />
                 <span className="underline"> Best Deal for Buyers: </span>Save
                 up to 30% on curated offers that provide the best quality-price
@@ -221,7 +221,7 @@ function Aboutus() {
               >
                 agarwal.anish@oruphones.com
               </a>
-              <br></br>** All product names, logos, and brands are property of
+              <br></br> All product names, logos, and brands are property of
               their respective owners. All company, product and service names
               used in this website are for identification purposes only. Use of
               these names, logos, and brands does not imply endorsement.

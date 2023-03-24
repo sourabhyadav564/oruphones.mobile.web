@@ -73,6 +73,7 @@ function ContactUS() {
               <Input
                 className={"mb-6 font-Roboto-Regular"}
                 type="text"
+                labelClass="bg-[#ffffff]"
                 onChange={(e) => setName(e.target.value)}
               >
                 {" "}
@@ -88,6 +89,7 @@ function ContactUS() {
               <Input
                 className={"mb-6 font-Roboto-Regular"}
                 type="email"
+                labelClass="bg-[#ffffff]"
                 onChange={(e) => setEmail(e.target.value)}
               >
                 {" "}
@@ -102,6 +104,7 @@ function ContactUS() {
             <div className="font-Roboto-Regular">
               <Input
                 className={"mb-6 font-Roboto-Regular"}
+                labelClass="bg-[#ffffff]"
                 type="number"
                 onChange={(e) => setMobile(e.target.value)}
               >
