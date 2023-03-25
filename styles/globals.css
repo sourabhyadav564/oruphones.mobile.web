@@ -437,6 +437,6 @@ input:checked + div svg {
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { 
   ::i-block-chrome,.text-color {
-    color: #000;
+    background-color: #ff0000;
   }
 }
