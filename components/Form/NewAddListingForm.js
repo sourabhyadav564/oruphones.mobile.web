@@ -788,7 +788,7 @@ const NewAddListingForm = ({ data }) => {
                   disabled
                   placeholder="Please Select Brand "
                   type="text"
-                  className="font-Regular  text-jx text-[#2C2F45]"
+                  className="font-Regular text-jx text-color text-[#2C2F45]"
                 ></Input>
               </div>
             </div>
@@ -810,7 +810,7 @@ const NewAddListingForm = ({ data }) => {
                     disabled
                     placeholder="Please Select Model "
                     type="text"
-                    className="font-Regular  text-jx text-[#2C2F45]"
+                    className="font-Regular text-color text-jx text-[#2C2F45]"
                   ></Input>
                 </div>
               </div>
